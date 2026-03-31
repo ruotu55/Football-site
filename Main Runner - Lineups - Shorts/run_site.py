@@ -202,11 +202,24 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         return io.BytesIO(body)
 
 
-def _try_bind_httpd(start_port: int, *, max_attempts: int) -> tuple[RunnerHTTPServer, int]:
+def _primary_lan_ipv4() -> str | None:
+    """Guess this PC's LAN IPv4 for display when listening on 0.0.0.0."""
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
+            probe.connect(("8.8.8.8", 80))
+            addr = probe.getsockname()[0]
+    except OSError:
+        return None
+    if addr.startswith("127."):
+        return None
+    return addr
+
+
+def _try_bind_httpd(host: str, start_port: int, *, max_attempts: int) -> tuple[RunnerHTTPServer, int]:
     last_err: OSError | None = None
     for port in range(start_port, start_port + max_attempts):
         try:
-            httpd = RunnerHTTPServer(("127.0.0.1", port), RunnerRequestHandler)
+            httpd = RunnerHTTPServer((host, port), RunnerRequestHandler)
             return httpd, port
         except OSError as e:
             last_err = e
@@ -229,13 +242,19 @@ def main() -> None:
         help="Fail if the given port is busy instead of trying the next free port.",
     )
     parser.add_argument("--no-browser", action="store_true", help="Do not open a browser tab")
+    parser.add_argument(
+        "--host",
+        default="127.0.0.1",
+        metavar="ADDR",
+        help="Listen address. Use 0.0.0.0 so other devices on your LAN can open the site (default: %(default)s).",
+    )
     args = parser.parse_args()
 
     os.chdir(PROJECT_ROOT)
 
     if args.strict_port:
         try:
-            httpd = RunnerHTTPServer(("127.0.0.1", args.port), RunnerRequestHandler)
+            httpd = RunnerHTTPServer((args.host, args.port), RunnerRequestHandler)
         except OSError as e:
             if e.errno == errno.EADDRINUSE:
                 inspect_cmd = (
@@ -252,13 +271,22 @@ def main() -> None:
             raise
         chosen = args.port
     else:
-        httpd, chosen = _try_bind_httpd(args.port, max_attempts=30)
+        httpd, chosen = _try_bind_httpd(args.host, args.port, max_attempts=30)
         if chosen != args.port:
             print(f"Note: port {args.port} was busy; using {chosen} instead.\n")
 
     url = f"http://127.0.0.1:{chosen}/index.html"
     print(f"Serving: {PROJECT_ROOT}")
     print(f"Open:    {url}")
+    if args.host == "0.0.0.0":
+        lan_ip = _primary_lan_ipv4()
+        if lan_ip:
+            print(f"LAN:     http://{lan_ip}:{chosen}/index.html  (same Wi‑Fi/Ethernet as this PC)")
+        else:
+            print(
+                "LAN:     Use http://<this-PC-IPv4>:" + str(chosen) + "/index.html on other devices.",
+            )
+            print("         Find the address with:  ipconfig  (IPv4 Address of your active adapter).")
 
     with httpd:
         stop_event = threading.Event()
