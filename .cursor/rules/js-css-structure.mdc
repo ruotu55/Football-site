@@ -1,0 +1,12 @@
+---
+description: Consistent JS and CSS structure across both runners
+alwaysApply: true
+---
+
+# JS and CSS Structure Rule
+
+- Keep `index.html` as loader shell, `js/app.js` as orchestrator, and move non-trivial helpers into focused modules.
+- Keep all DOM ID binding in `js/dom-bindings.js` per site.
+- Keep panel/tab boilerplate in `js/ui-panels.js` per site.
+- Keep non-shorts timer overrides in `css/components/timer-overrides.css` per site.
+- Import order in `css/styles.css` should remain base -> components -> mode overrides.

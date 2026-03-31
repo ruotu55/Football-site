@@ -1,0 +1,81 @@
+/* DECORATIVE ELEMENTS */
+.side-text {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 4px;
+  pointer-events: none;
+  z-index: 100;
+}
+.side-text[hidden] { display: none !important; }
+.side-text.left { left: 1rem; transform: translateY(-50%) rotate(180deg); }
+.side-text.right { right: 1rem; transform: translateY(-50%); }
+
+.top-badge {
+  position: absolute;
+  top: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 100;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* Floating Background Emojis */
+.floating-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Let clicks pass through to the app */
+  z-index: 0; /* Placed behind all text and pitch elements */
+  overflow: hidden;
+  
+  /* Pure continuous fade from edge to center to edge, starting at 50% visibility */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0%,   
+    rgba(0, 0, 0, 0.03) 50%,   
+    rgba(0, 0, 0, 0.3) 100%     
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.floating-emoji {
+  position: absolute;
+  opacity: 1; /* Bumped slightly from 0.1 so you can see it */
+  /* CHANGED: Make all images black and white */
+  filter: grayscale(100%);
+  /* Start slightly off-screen to the right */
+  right: -250px;
+  animation: floatLeft linear infinite;
+}
+
+@keyframes floatLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Move all the way across the screen to the left, plus padding to fully exit */
+    transform: translateX(calc(-100vw - 500px));
+  }
+}

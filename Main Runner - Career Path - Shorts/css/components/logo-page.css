@@ -1,0 +1,87 @@
+/* NEW LOGO PAGE STYLES */
+.logo-page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none; /* Allows clicks to pass through if it stays as a watermark */
+}
+.logo-page[hidden] {
+  display: none;
+}
+
+.shared-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+}
+.shared-bg-layer[hidden] {
+  display: none;
+}
+
+.shared-bg-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10; 
+  /* Removed the dark gradient overlay so it matches the raw pitch.png 100% */
+  background: transparent;
+}
+
+.endless-pitch {
+  display: none; /* Hidden to allow the global pitch.png background to show through */
+  position: absolute;
+  top: -30%;
+  left: -50%;
+  width: 200%;
+  height: 200%; 
+  background-image: 
+    repeating-linear-gradient(
+      to right,
+      rgba(255,255,255,0.06) 0,
+      rgba(255,255,255,0.01) 58px,
+      rgba(0,0,0,0.3) 60px,      
+      rgba(0,0,0,0.05) 62px,
+      rgba(0,0,0,0.01) 118px,
+      rgba(0,0,0,0.35) 120px     
+    ),
+    linear-gradient(to bottom, #2d8f45 0%, #154f26 100%);
+  background-size: 120px 100%, 100% 100%;
+  transform-origin: top center; 
+  transform: perspective(1000px) rotateX(45deg);
+  animation: endless-grass 1.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes endless-grass {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: -120px 0, 0 0; }
+}
+
+.logo-img-anim {
+  position: relative;
+  z-index: 10;
+  width: 500px;
+  max-width: 80vw;
+  object-fit: contain;
+  /* HIDDEN INITIALLY */
+  opacity: 0;
+  transform: scale(0.1) translateY(-200px);
+}
+
+/* CHAINED ANIMATION TRIGGERED ON PLAY */
+.logo-img-anim.reveal {
+  /* FIXED: Changed timing to cubic-bezier(0.25, 1, 0.5, 1) to remove bounce */
+  animation: logo-epic-drop 1s cubic-bezier(0.25, 1, 0.5, 1) forwards, float-up-down 3.2s ease-in-out 1s infinite;
+}
+
+@keyframes logo-epic-drop {
+  0% { opacity: 0; transform: scale(1.5) translateY(-400px) rotateX(-10deg); filter: blur(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0) rotateX(0deg); filter: blur(0px); }
+}

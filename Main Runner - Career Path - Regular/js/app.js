@@ -1,0 +1,946 @@
+import {
+    appState,
+    DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
+    DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+    DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+    getDefaultPlayerPictureValues,
+    getState,
+    initLevels,
+} from "./state.js";
+import { migratePlayerImages, projectAssetUrl } from "./paths.js";
+import { switchLevel } from "./levels.js";
+import {
+    renderHeader,
+    renderCareer,
+    cleanCareerHistory,
+    syncCareerSlotControlsVisibility,
+    applyCareerPictureModeToActiveState,
+    persistCareerPictureModeFromActiveState,
+} from "./pitch-render.js";
+import { loadSquadJson } from "./teams.js";
+import { startVideoFlow, stopVideoFlow } from "./video.js";
+import { initFloatingEmojis } from "./emojis.js";
+import { applyCustomSelects } from "./custom-selects.js";
+import { initLevelControls } from "./level-control.js";
+import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
+import { bindDomElements } from "./dom-bindings.js";
+import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
+import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
+import {
+    clearCareerPictureFavorite,
+    hasCareerPictureFavorite,
+    loadCareerPictureFavoritesFromFile,
+    saveCareerPictureFavorite,
+} from "./career-size-favorites.js";
+import {
+    applyDevLiveReloadControls,
+    captureDevLiveReloadSnapshot,
+    consumeDevLiveReloadSnapshot,
+    getInitialLevelCountFromSnapshot,
+    restoreDevLiveReloadState,
+} from "./dev-live-reload-state.js";
+
+// ==========================================
+// SHARED UI HELPERS (Exported for Sub-Modules)
+// ==========================================
+
+export function updateSetupUI() {
+    const { els } = appState;
+    if (els.setupPitchControls) els.setupPitchControls.style.display = "none";
+    if (els.setupCareerControls) els.setupCareerControls.style.display = "flex";
+    if (els.setupCareerClubsField) els.setupCareerClubsField.style.display = "flex";
+    if (els.setupCareerSilhouetteField) els.setupCareerSilhouetteField.style.display = "none";
+    if (els.btnPictureControls) els.btnPictureControls.style.display = "block";
+    if (els.btnRevealPhoto) els.btnRevealPhoto.style.display = "block";
+}
+
+export function populateSubTypes() {
+    const { els } = appState;
+    els.inQuizType.innerHTML = `
+      <option value="player-by-career">Guess the football player by career path</option>
+    `;
+
+    if (els.inQuizType.options.length > 0) {
+        els.inQuizType.selectedIndex = 0;
+    }
+
+    updateSetupUI();
+    applyCustomSelects();
+}
+
+export function updateLanding() {
+    const { els } = appState;
+    const title = document.getElementById("landing-title");
+    const isShorts = document.body.classList.contains("shorts-mode");
+
+    title.innerHTML = isShorts ? "GUESS THE<br>FOOTBALL PLAYER<br>BY CAREER PATH" : "GUESS THE FOOTBALL PLAYER<br>BY CAREER PATH";
+
+    document.getElementById("landing-q-count").textContent = appState.totalLevelsCount - 3;
+    document.getElementById("val-easy").textContent = els.inEasy.value;
+    document.getElementById("val-medium").textContent = els.inMedium.value;
+    document.getElementById("val-hard").textContent = els.inHard.value;
+    document.getElementById("val-impossible").textContent = els.inImpossible.value;
+
+    const showSpecial = document.getElementById("in-specific-title-toggle").checked;
+    document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
+    document.getElementById("landing-special-badge").hidden = !showSpecial;
+    document.getElementById("landing-special-text").textContent = els.inSpecificTitleText.value;
+
+    const iconVal = els.inSpecificTitleIcon.value;
+    const iconImg = document.getElementById("landing-special-icon-img");
+    const iconSpan = document.getElementById("landing-special-icon");
+    if (iconVal.startsWith("icons/")) {
+        iconImg.src = projectAssetUrl(iconVal);
+        iconImg.hidden = false;
+        iconSpan.hidden = true;
+    } else {
+        iconSpan.textContent = iconVal;
+        iconSpan.hidden = false;
+        iconImg.hidden = true;
+    }
+}
+
+export function syncShortsCirclePreviewPanel() {
+    const { els } = appState;
+    const shortsOn = document.body.classList.contains("shorts-mode");
+    if (els.setupShortsCirclePreviewField) {
+        els.setupShortsCirclePreviewField.style.display = shortsOn ? "flex" : "none";
+    }
+    if (els.shortsCirclePreviewToggle) {
+        els.shortsCirclePreviewToggle.disabled = !shortsOn;
+    }
+    if (els.shortsCirclePreviewCount) {
+        const prevOn = shortsOn && els.shortsCirclePreviewToggle && els.shortsCirclePreviewToggle.checked;
+        els.shortsCirclePreviewCount.disabled = !prevOn;
+    }
+}
+
+export function applyShortsCirclePreviewFromControls() {
+    const { els } = appState;
+    if (!els.shortsCirclePreviewToggle || !els.shortsCirclePreviewCount) return;
+    const shortsOn = document.body.classList.contains("shorts-mode");
+    let count = parseInt(els.shortsCirclePreviewCount.value, 10);
+    if (!Number.isFinite(count) || count < 1) count = 1;
+    if (count > 24) count = 24;
+    els.shortsCirclePreviewCount.value = String(count);
+    const enabled = shortsOn && els.shortsCirclePreviewToggle.checked;
+    appState.careerShortsCirclePreview = { enabled, count };
+    renderCareer();
+    renderHeader();
+}
+
+// ==========================================
+// CORE SYSTEM INIT
+// ==========================================
+
+const FIXED_SHORTS_MODE = false;
+
+function applyFixedShortsMode(els) {
+    if (els.shortsModeToggle) {
+        els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
+        els.shortsModeToggle.disabled = true;
+    }
+    document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
+}
+
+async function init() {
+    initOptionalBootstrapUtilities();
+    const { els } = appState;
+    const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
+
+    bindDomElements();
+    function syncShortsModeFab() {
+        if (!els.shortsModeBtn || !els.shortsModeToggle) return;
+        els.shortsModeBtn.setAttribute("aria-pressed", els.shortsModeToggle.checked ? "true" : "false");
+    }
+    applyDevLiveReloadControls(els, devLiveReloadSnapshot);
+    applyFixedShortsMode(els);
+    syncShortsModeFab();
+    await loadCareerPictureFavoritesFromFile();
+    window.__captureRunnerState = () => {
+        captureDevLiveReloadSnapshot(appState, appState.els);
+    };
+    window.addEventListener("beforeunload", window.__captureRunnerState);
+
+    // Call initialized modules
+    initFloatingEmojis();
+    initLevelControls();
+    initSavedScripts({
+        populateSubTypes,
+        updateSetupUI,
+        updateLanding,
+        syncShortsCirclePreviewPanel,
+    });
+
+    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 20);
+    initLevels(initialLevelCount);
+    const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
+    const initialLevelIndex = didRestoreState
+        ? Math.min(
+            Math.max(0, appState.currentLevelIndex),
+            Math.max(0, appState.levelsData.length - 1),
+        )
+        : 2;
+    switchLevel(initialLevelIndex);
+    syncShortsCirclePreviewPanel();
+    syncShortsModeFab();
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && appState.isVideoPlaying) {
+            stopVideoFlow();
+        }
+    });
+
+    wireMainTabs(els);
+
+    // Listeners
+    els.inQuizType.onchange = () => {
+        updateSetupUI();
+        updateLanding();
+        renderSavedScripts();
+    };
+
+    if (els.btnRevealPhoto) {
+        els.btnRevealPhoto.onclick = () => {
+            const silhouette = document.querySelector(".career-silhouette");
+            if (silhouette) {
+                silhouette.classList.toggle("revealed");
+            }
+        };
+    }
+
+    if (els.btnPictureControls) {
+        els.btnPictureControls.onclick = () => {
+            els.rightPanel.hidden = false;
+            renderPictureControls();
+        };
+    }
+
+    els.inEasy.oninput = updateLanding;
+    els.inMedium.oninput = updateLanding;
+    els.inHard.oninput = updateLanding;
+    els.inImpossible.oninput = updateLanding;
+    els.inSpecificTitleToggle.onchange = updateLanding;
+    els.inSpecificTitleText.oninput = updateLanding;
+    els.inSpecificTitleIcon.onchange = updateLanding;
+
+    els.updateLevelsBtn.onclick = () => {
+        let levels = parseInt(els.quizLevelsInput.value, 10);
+        if (isNaN(levels) || levels < 1) levels = 20;
+        initLevels(levels);
+        updateLanding();
+        switchLevel(appState.currentLevelIndex);
+    };
+
+    if (els.shortsCirclePreviewToggle) {
+        els.shortsCirclePreviewToggle.onchange = () => {
+            applyShortsCirclePreviewFromControls();
+            syncShortsCirclePreviewPanel();
+        };
+    }
+    if (els.shortsCirclePreviewCount) {
+        els.shortsCirclePreviewCount.addEventListener("input", applyShortsCirclePreviewFromControls);
+        els.shortsCirclePreviewCount.addEventListener("change", applyShortsCirclePreviewFromControls);
+    }
+
+    els.shortsModeToggle.onchange = (e) => {
+        const state = getState();
+        const wasShorts = document.body.classList.contains("shorts-mode");
+        persistCareerPictureModeFromActiveState(state, wasShorts);
+        if (e.target.checked) document.body.classList.add("shorts-mode");
+        else document.body.classList.remove("shorts-mode");
+        applyCareerPictureModeToActiveState(state, e.target.checked);
+        updateLanding();
+        syncShortsCirclePreviewPanel();
+        applyShortsCirclePreviewFromControls();
+        switchLevel(appState.currentLevelIndex);
+        syncShortsModeFab();
+    };
+
+    if (els.shortsModeBtn && els.shortsModeToggle) {
+        els.shortsModeBtn.onclick = () => {
+            els.shortsModeToggle.checked = !els.shortsModeToggle.checked;
+            els.shortsModeToggle.dispatchEvent(new Event("change"));
+        };
+    }
+
+    function syncVideoModeButton(isEnabled) {
+        if (!els.videoModeBtn) return;
+        const pressed = !!isEnabled;
+        els.videoModeBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
+    }
+
+    function clearVideoModePreviewFx() {
+        const wrap = appState.els.careerWrap;
+        if (!wrap) return;
+        const overlay = document.getElementById("career-reveal-overlay");
+        const revealName = document.getElementById("career-reveal-name");
+        const silhouette = wrap.querySelector(".career-silhouette");
+        document.body.classList.remove("career-cinematic-reveal");
+        document.body.classList.remove("career-reveal-sync-drop");
+        wrap.classList.remove("cinematic-reveal-active");
+        if (overlay) overlay.classList.remove("show");
+        if (revealName) revealName.classList.remove("show");
+        if (silhouette) {
+            silhouette.classList.remove("drop-away");
+            silhouette.classList.remove("revealed");
+        }
+    }
+
+    els.videoModeToggle.onchange = (e) => {
+        const state = getState();
+        state.videoMode = e.target.checked;
+        if (appState.currentLevelIndex === 0) {
+            const logoImg = appState.els?.logoPage?.querySelector(".logo-img-anim");
+            if (logoImg) {
+                if (state.videoMode && !appState.isVideoPlaying) {
+                    // Keep intro logo hidden while waiting for Play Video.
+                    logoImg.classList.remove("reveal");
+                } else if (!state.videoMode && !appState.isVideoPlaying) {
+                    logoImg.classList.remove("reveal");
+                    void logoImg.offsetWidth;
+                    logoImg.classList.add("reveal");
+                }
+            }
+        }
+        syncVideoModeButton(state.videoMode);
+        syncCareerSlotControlsVisibility();
+        clearTimeout(appState.videoModeToggleFxTimeout);
+        appState.videoModeToggleFxTimeout = null;
+        if (!state.videoMode) {
+            clearVideoModePreviewFx();
+        }
+        if (!e.target.checked && appState.isVideoPlaying) {
+            stopVideoFlow();
+        }
+        const isQuestionLevel =
+            appState.currentLevelIndex > 1 &&
+            appState.currentLevelIndex < appState.totalLevelsCount;
+        if (isQuestionLevel) {
+            renderCareer();
+        }
+        renderHeader();
+    };
+
+    if (els.videoModeBtn && els.videoModeToggle) {
+        els.videoModeBtn.onclick = () => {
+            els.videoModeToggle.checked = !els.videoModeToggle.checked;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        };
+    }
+
+    els.applyVideoAllBtn.onclick = () => {
+        const isVideoOn = els.videoModeToggle.checked;
+        appState.levelsData.forEach((lvl) => {
+            lvl.videoMode = isVideoOn;
+        });
+    };
+
+    els.playVideoBtn.onclick = () => startVideoFlow();
+
+    // --- CAREER EDIT MODAL EVENT HANDLERS ---
+    
+    // Core function to search our dataset 
+    function renderCareerTeamSearch(query) {
+        if (!els.careerEditSearchResults) return;
+        els.careerEditSearchResults.innerHTML = "";
+
+        const allTeams = [
+            ...(appState.teamsIndex.clubs || []),
+            ...(appState.teamsIndex.nationalities || [])
+        ];
+
+        const filtered = allTeams.filter(t => t.name.toLowerCase().includes(query)).slice(0, 50);
+
+        filtered.forEach(team => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.style.padding = "0.6rem";
+            btn.style.background = "rgba(255,255,255,0.05)";
+            btn.style.border = "1px solid rgba(255,255,255,0.1)";
+            btn.style.color = "#fff";
+            btn.style.textAlign = "left";
+            btn.style.cursor = "pointer";
+            btn.style.borderRadius = "4px";
+            btn.textContent = team.name;
+
+            btn.onmouseover = () => btn.style.background = "rgba(255,202,40,0.2)";
+            btn.onmouseout = () => btn.style.background = "rgba(255,255,255,0.05)";
+
+            btn.onclick = () => {
+                const state = getState();
+                if (!state.careerHistory) state.careerHistory = [];
+                while (state.careerHistory.length <= appState.careerActiveSlotIndex) {
+                    state.careerHistory.push({ club: "Unknown", year: "YYYY" });
+                }
+
+                // Generate Absolute URL link 
+                let logoPath = "";
+                if (team.country && team.league) {
+                    logoPath = `Teams Images/${team.country}/${team.league}/${team.name}.png`;
+                } else if (team.region) {
+                    logoPath = `Nationality images/${team.region}/${team.name}.png`;
+                }
+
+                // Set this manually found URL as customImage, rendering function will display it naturally. 
+                state.careerHistory[appState.careerActiveSlotIndex].customImage = projectAssetUrl(logoPath);
+                
+                els.careerEditModal.hidden = true;
+                renderCareer();
+            };
+            
+            els.careerEditSearchResults.appendChild(btn);
+        });
+    }
+
+    if (els.careerEditClose) {
+        els.careerEditClose.onclick = () => els.careerEditModal.hidden = true;
+    }
+
+    if (els.careerEditImgBtn) {
+        els.careerEditImgBtn.onclick = () => {
+            els.careerEditOptions.style.display = "none";
+            els.careerEditSearchContainer.style.display = "flex";
+            els.careerEditSearchInput.value = "";
+            renderCareerTeamSearch("");
+            els.careerEditSearchInput.focus();
+        };
+    }
+
+    if (els.careerEditBackBtn) {
+        els.careerEditBackBtn.onclick = () => {
+            els.careerEditSearchContainer.style.display = "none";
+            els.careerEditOptions.style.display = "flex";
+        };
+    }
+
+    if (els.careerEditSearchInput) {
+        els.careerEditSearchInput.oninput = (e) => {
+            renderCareerTeamSearch(e.target.value.toLowerCase());
+        };
+    }
+
+    if (els.careerEditTeamBtn) {
+        els.careerEditTeamBtn.onclick = () => {
+            const state = getState();
+            if (!state.careerHistory) state.careerHistory = [];
+            while (state.careerHistory.length <= appState.careerActiveSlotIndex) {
+                state.careerHistory.push({ club: "", year: "YYYY" });
+            }
+            const item = state.careerHistory[appState.careerActiveSlotIndex];
+            const newName = prompt("Enter new team name:", item.club);
+            
+            if (newName !== null) {
+                item.club = newName.trim();
+                item.customImage = null; // Clear manual image so app attempts to find the logo via text
+                els.careerEditModal.hidden = true;
+                renderCareer();
+            }
+        };
+    }
+
+    if (els.careerEditYearBtn) {
+        els.careerEditYearBtn.onclick = () => {
+            const state = getState();
+            if (!state.careerHistory) state.careerHistory = [];
+            while (state.careerHistory.length <= appState.careerActiveSlotIndex) {
+                state.careerHistory.push({ club: "Unknown", year: "YYYY" });
+            }
+            const item = state.careerHistory[appState.careerActiveSlotIndex];
+            const newYear = prompt("Enter new year:", item.year);
+            if (newYear !== null) {
+                item.year = newYear.trim();
+                els.careerEditModal.hidden = true;
+                renderCareer();
+            }
+        };
+    }
+
+    // Load indexes
+    const fetchJsonNoCache = (path) => fetch(new URL(path, window.location.href), { cache: "no-store" }).then((r) => r.json());
+    const [idx, photos, flags] = await Promise.all([
+        fetchJsonNoCache("./data/teams-index.json"),
+        fetchJsonNoCache("./data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
+        fetchJsonNoCache("./data/country-to-flagcode.json").catch(() => ({ codes: {} })),
+    ]);
+    appState.teamsIndex = idx;
+    appState.playerImages = migratePlayerImages(photos);
+    appState.flagcodes = flags.codes || {};
+
+    // --- Career Hierarchical Browser Logic ---
+    let browseState = { mode: 'team', step: 'country', country: null, team: null, list: [], allPlayers: [] };
+    let allGlobalPlayersLoadPromise = null;
+
+    function removeAccents(str) {
+        if (!str) return "";
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function shouldShowGlobalPlayersLoadProgress() {
+        return (
+            els.careerBrowseContainer &&
+            els.careerBrowseContainer.style.display !== "none" &&
+            browseState.mode === "name"
+        );
+    }
+
+    async function loadAllGlobalPlayers() {
+        if (appState.allGlobalPlayers) return appState.allGlobalPlayers;
+        if (allGlobalPlayersLoadPromise) return allGlobalPlayersLoadPromise;
+
+        allGlobalPlayersLoadPromise = (async () => {
+            const allPlayers = [];
+            const clubs = appState.teamsIndex.clubs || [];
+            const batchSize = 10;
+
+            for (let i = 0; i < clubs.length; i += batchSize) {
+                const percentage = clubs.length ? Math.round((i / clubs.length) * 100) : 0;
+                if (shouldShowGlobalPlayersLoadProgress() && els.careerBrowseList) {
+                    els.careerBrowseList.innerHTML = `<div style='color:#ffca28; padding:0.5rem; font-size:0.85rem; font-weight:bold;'>Loading databases... ${percentage}%</div>`;
+                }
+
+                const batch = clubs.slice(i, i + batchSize);
+                const promises = batch.map(async (clubItem) => {
+                    try {
+                        const squad = await loadSquadJson(clubItem);
+                        const players = [
+                            ...(squad.goalkeepers || []),
+                            ...(squad.defenders || []),
+                            ...(squad.midfielders || []),
+                            ...(squad.attackers || [])
+                        ];
+                        players.forEach(p => {
+                            if (p && p.name) {
+                                allPlayers.push({ ...p, _clubItem: clubItem });
+                            }
+                        });
+                    } catch (e) {
+                        console.warn("Failed to load club:", clubItem?.name);
+                    }
+                });
+                await Promise.all(promises);
+            }
+
+            if (shouldShowGlobalPlayersLoadProgress() && els.careerBrowseList) {
+                els.careerBrowseList.innerHTML = `<div style='color:#fff; padding:0.5rem; font-size:0.85rem;'>Finalizing list...</div>`;
+            }
+
+            const uniqueMap = new Map();
+            allPlayers.forEach(p => {
+                if (!uniqueMap.has(p.name)) {
+                    uniqueMap.set(p.name, p);
+                }
+            });
+            const uniquePlayers = Array.from(uniqueMap.values());
+            uniquePlayers.sort((a, b) => a.name.localeCompare(b.name));
+
+            appState.allGlobalPlayers = uniquePlayers;
+            return uniquePlayers;
+        })().finally(() => {
+            allGlobalPlayersLoadPromise = null;
+        });
+
+        return allGlobalPlayersLoadPromise;
+    }
+
+    void loadAllGlobalPlayers();
+
+    function applyCareerPlayerSelection(pData, teamLabel) {
+        if (!pData) return;
+        const state = getState();
+
+        state.careerPlayer = pData;
+        state.careerHistory = cleanCareerHistory(pData.transfer_history || []);
+
+        const historyLen = state.careerHistory.length;
+        const finalCount = Math.max(2, historyLen);
+        state.careerClubsCount = finalCount;
+        if (els.inCareerClubs) {
+            els.inCareerClubs.value = finalCount;
+        }
+
+        const sourceClub = (pData._clubItem && pData._clubItem.name) ? pData._clubItem.name : "";
+        const context = teamLabel || sourceClub || "";
+        if (els.careerSelectedInfo) {
+            els.careerSelectedInfo.innerHTML = context
+                ? `Selected: <span style="color:#fff;">${pData.name}</span> (${context})`
+                : `Selected: <span style="color:#fff;">${pData.name}</span>`;
+        }
+        if (els.careerBrowseContainer) {
+            els.careerBrowseContainer.style.display = 'none';
+        }
+
+        const shouldEnableVideoMode = !state.videoMode && !!els.videoModeToggle;
+        if (shouldEnableVideoMode) {
+            // Reuse existing video mode change handler so all related UI/state stays in sync.
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+            return;
+        }
+
+        renderCareer();
+        renderHeader();
+    }
+
+    async function renderInlineCareerPlayerSearch(queryText = "") {
+        try {
+            const inlineList = document.getElementById("career-inline-player-results");
+            if (!inlineList) return;
+
+            const rawQ = String(queryText || "").toLowerCase();
+            const q = removeAccents(rawQ.trim());
+
+            if (!q) {
+                inlineList.innerHTML = "<div class='career-inline-player-hint'>Type player name to search.</div>";
+                return;
+            }
+
+            inlineList.innerHTML = "<div class='career-inline-player-hint'>Loading players...</div>";
+            const players = await loadAllGlobalPlayers();
+
+            const activeInlineList = document.getElementById("career-inline-player-results");
+            if (!activeInlineList) return;
+
+            const filtered = players.filter((p) => {
+                if (!p || !p.name) return false;
+                return removeAccents(p.name.toLowerCase()).includes(q);
+            }).slice(0, 25);
+
+            activeInlineList.innerHTML = "";
+            if (filtered.length === 0) {
+                activeInlineList.innerHTML = "<div class='career-inline-player-hint'>No players found.</div>";
+                return;
+            }
+
+            filtered.forEach((p) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "career-inline-player-result";
+                btn.dataset.playerName = p.name;
+                const clubName = (p._clubItem && p._clubItem.name) ? p._clubItem.name : "";
+                btn.innerHTML = `
+                    <span>${p.name}</span>
+                    <small>${clubName}</small>
+                `;
+                btn.onclick = () => applyCareerPlayerSelection(p, clubName);
+                activeInlineList.appendChild(btn);
+            });
+        } catch (err) {
+            const inlineList = document.getElementById("career-inline-player-results");
+            if (inlineList) {
+                inlineList.innerHTML = "<div class='career-inline-player-hint'>Could not load players.</div>";
+            }
+            console.error("Inline career picker failed:", err);
+        }
+    }
+
+    async function renderCareerBrowser() {
+        if (!els.careerBrowseContainer) return;
+
+        if (browseState.mode === 'team') {
+            els.btnBrowseModeTeam.style.background = "var(--accent)";
+            els.btnBrowseModeTeam.style.color = "#000";
+            els.btnBrowseModeName.style.background = "rgba(255,255,255,0.1)";
+            els.btnBrowseModeName.style.color = "#fff";
+        } else {
+            els.btnBrowseModeName.style.background = "var(--accent)";
+            els.btnBrowseModeName.style.color = "#000";
+            els.btnBrowseModeTeam.style.background = "rgba(255,255,255,0.1)";
+            els.btnBrowseModeTeam.style.color = "#fff";
+        }
+
+        const rawQ = els.careerBrowseSearch.value.toLowerCase();
+        const q = removeAccents(rawQ);
+        let itemsToRender = [];
+
+        if (browseState.mode === 'name') {
+            els.btnCareerBrowseBack.style.display = 'none';
+            
+            if (els.careerBrowseSearch.disabled) return; 
+
+            const players = await loadAllGlobalPlayers();
+            
+            els.careerBrowseList.innerHTML = "";
+            const filtered = players.filter(p => {
+                if (!p || !p.name) return false;
+                return removeAccents(p.name.toLowerCase()).includes(q);
+            });
+            
+            itemsToRender = filtered.slice(0, 100).map(p => ({ 
+                label: `${p.name} <span style="font-size:0.75em; color:#aaa;">(${p._clubItem.name})</span>`, 
+                value: p, 
+                isGlobalPlayer: true 
+            }));
+            
+            if (itemsToRender.length === 0 && rawQ.length > 0) {
+                 els.careerBrowseList.innerHTML = "<div style='color:#aaa; padding:0.5rem; font-size:0.85rem;'>No players found.</div>";
+            }
+        } else {
+            els.careerBrowseList.innerHTML = "";
+
+            if (browseState.step === 'country') {
+                els.btnCareerBrowseBack.style.display = 'none';
+                els.careerBrowseSearch.placeholder = "Search country...";
+                
+                const countries = new Set();
+                appState.teamsIndex.clubs.forEach(c => {
+                    if (c.country) countries.add(c.country);
+                });
+                itemsToRender = Array.from(countries).sort()
+                    .filter(c => removeAccents(c.toLowerCase()).includes(q))
+                    .map(c => ({ label: c, value: c }));
+                
+            } else if (browseState.step === 'team') {
+                els.btnCareerBrowseBack.style.display = 'block';
+                els.careerBrowseSearch.placeholder = `Search teams in ${browseState.country}...`;
+
+                const teams = appState.teamsIndex.clubs.filter(c => c.country === browseState.country);
+                teams.sort((a, b) => a.name.localeCompare(b.name));
+                itemsToRender = teams.filter(t => removeAccents(t.name.toLowerCase()).includes(q))
+                    .map(t => ({ label: t.name, value: t, isTeam: true }));
+                
+            } else if (browseState.step === 'player') {
+                els.btnCareerBrowseBack.style.display = 'block';
+                els.careerBrowseSearch.placeholder = `Search players in ${browseState.team.name}...`;
+
+                itemsToRender = browseState.allPlayers
+                    .filter(p => p && p.name && removeAccents(p.name.toLowerCase()).includes(q))
+                    .map(p => ({ label: p.name, value: p, isPlayer: true }));
+            }
+            
+            if (itemsToRender.length === 0 && rawQ.length > 0) {
+                 els.careerBrowseList.innerHTML = "<div style='color:#aaa; padding:0.5rem; font-size:0.85rem;'>No results found.</div>";
+            }
+        }
+
+        browseState.list = itemsToRender;
+
+        itemsToRender.forEach(item => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.style.padding = "0.5rem";
+            btn.style.background = "rgba(255,255,255,0.05)";
+            btn.style.border = "1px solid rgba(255,255,255,0.1)";
+            btn.style.color = "#fff";
+            btn.style.textAlign = "left";
+            btn.style.cursor = "pointer";
+            btn.style.borderRadius = "4px";
+            btn.innerHTML = item.label;
+
+            btn.onmouseover = () => btn.style.background = "rgba(255,202,40,0.2)";
+            btn.onmouseout = () => btn.style.background = "rgba(255,255,255,0.05)";
+
+            btn.onclick = async () => {
+                if (item.isGlobalPlayer) {
+                    const pData = item.value;
+                    const clubName = (pData && pData._clubItem && pData._clubItem.name) ? pData._clubItem.name : "";
+                    applyCareerPlayerSelection(pData, clubName);
+                } else if (browseState.mode === 'team') {
+                    if (browseState.step === 'country') {
+                        browseState.country = item.value;
+                        browseState.step = 'team';
+                        els.careerBrowseSearch.value = "";
+                        renderCareerBrowser();
+                        
+                    } else if (browseState.step === 'team') {
+                        try {
+                            btn.textContent = "Loading...";
+                            const squad = await loadSquadJson(item.value);
+                            browseState.team = item.value;
+                            browseState.step = 'player';
+                            
+                            const allPlayers = [
+                                ...(squad.goalkeepers || []),
+                                ...(squad.defenders || []),
+                                ...(squad.midfielders || []),
+                                ...(squad.attackers || [])
+                            ];
+                            allPlayers.sort((a, b) => a.name.localeCompare(b.name));
+                            browseState.allPlayers = allPlayers;
+                            
+                            els.careerBrowseSearch.value = "";
+                            renderCareerBrowser();
+                        } catch (e) {
+                            console.error(e);
+                            btn.textContent = "Error loading team";
+                        }
+                        
+                    } else if (browseState.step === 'player') {
+                        const pData = item.value;
+                        applyCareerPlayerSelection(pData, browseState.team.name);
+                    }
+                }
+            };
+            els.careerBrowseList.appendChild(btn);
+        });
+    }
+
+    if (els.btnBrowseModeTeam) {
+        els.btnBrowseModeTeam.onclick = () => {
+            if (browseState.mode !== 'team') {
+                browseState.mode = 'team';
+                els.careerBrowseSearch.value = "";
+                els.careerBrowseSearch.disabled = false;
+                els.careerBrowseSearch.placeholder = "Filter...";
+                renderCareerBrowser();
+            }
+        };
+    }
+
+    if (els.btnBrowseModeName) {
+        els.btnBrowseModeName.onclick = async () => {
+            if (browseState.mode !== 'name') {
+                browseState.mode = 'name';
+                els.careerBrowseSearch.value = "";
+                
+                if (!appState.allGlobalPlayers) {
+                    els.careerBrowseSearch.placeholder = "Fetching databases... please wait.";
+                    els.careerBrowseSearch.disabled = true; 
+                    await loadAllGlobalPlayers();
+                    els.careerBrowseSearch.disabled = false; 
+                }
+                
+                els.careerBrowseSearch.placeholder = "Search player name...";
+                els.careerBrowseSearch.focus();
+                renderCareerBrowser();
+            }
+        };
+    }
+
+    if (els.btnCareerBrowse) {
+        els.btnCareerBrowse.onclick = () => {
+            const isHidden = els.careerBrowseContainer.style.display === "none";
+            els.careerBrowseContainer.style.display = isHidden ? "flex" : "none";
+            if (isHidden) {
+                if (browseState.mode === 'team' && !browseState.country) {
+                    browseState.step = 'country';
+                }
+                els.careerBrowseSearch.value = "";
+                renderCareerBrowser();
+            }
+        };
+    }
+
+    if (els.btnCareerBrowseBack) {
+        els.btnCareerBrowseBack.onclick = () => {
+            if (browseState.step === 'player') {
+                browseState.step = 'team';
+            } else if (browseState.step === 'team') {
+                browseState.step = 'country';
+            }
+            els.careerBrowseSearch.value = "";
+            renderCareerBrowser();
+        };
+    }
+
+    if (els.careerBrowseSearch) {
+        els.careerBrowseSearch.oninput = () => {
+            renderCareerBrowser();
+        };
+    }
+
+    document.addEventListener("input", (e) => {
+        if (e.target && e.target.id === "career-inline-player-search") {
+            renderInlineCareerPlayerSearch(e.target.value || "");
+        }
+    });
+
+    // ---------------------------------------------
+
+    wireControlPanelToggle(els);
+
+    populateSubTypes();
+    updateLanding();
+    applyCustomSelects();
+    syncVideoModeButton(!!getState()?.videoMode);
+}
+
+function renderPictureControls() {
+    const { els } = appState;
+    if (!els.rightPanel) return;
+
+    const state = getState();
+
+    els.rightPanel.innerHTML = `
+    <div class="panel-header">
+      <h1>Adjust Picture</h1>
+      <button type="button" class="panel-toggle" id="btn-close-right-panel">Hide</button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+      <label class="field">
+        <span class="label">Up / Down (Y-Offset)</span>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button type="button" id="pic-up" class="panel-toggle" style="flex:1;">▲</button>
+          <span id="val-y" style="width: 2rem; text-align:center;">${state.silhouetteYOffset || 0}</span>
+          <button type="button" id="pic-down" class="panel-toggle" style="flex:1;">▼</button>
+          <button type="button" id="pic-favorite" class="panel-toggle${hasCareerPictureFavorite(state) ? " is-active" : ""}" style="flex:1;">${hasCareerPictureFavorite(state) ? "&#9829;" : "&#9825;"}</button>
+        </div>
+      </label>
+      <label class="field">
+        <span class="label">Width (Thinner / Wider)</span>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button type="button" id="pic-narrow" class="panel-toggle" style="flex:1;">-</button>
+          <span id="val-x" style="width: 2rem; text-align:center;">${(state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2)}</span>
+          <button type="button" id="pic-wide" class="panel-toggle" style="flex:1;">+</button>
+        </div>
+      </label>
+      <label class="field">
+        <span class="label">Height (Shorter / Longer)</span>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button type="button" id="pic-short" class="panel-toggle" style="flex:1;">-</button>
+          <span id="val-y-scale" style="width: 2rem; text-align:center;">${(state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2)}</span>
+          <button type="button" id="pic-tall" class="panel-toggle" style="flex:1;">+</button>
+        </div>
+      </label>
+      <button type="button" id="pic-reset" class="panel-toggle" style="margin-top: 1rem; background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid rgba(239,68,68,0.5);">Reset to Default</button>
+    </div>
+  `;
+
+    document.getElementById("btn-close-right-panel").onclick = () => {
+        els.rightPanel.hidden = true;
+    };
+
+    const updateVal = () => {
+        const s = getState();
+        const isShorts = document.body.classList.contains("shorts-mode");
+        persistCareerPictureModeFromActiveState(s, isShorts);
+        document.getElementById("val-y").textContent = s.silhouetteYOffset || 0;
+        document.getElementById("val-x").textContent = (s.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
+        document.getElementById("val-y-scale").textContent = (s.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
+        const favoriteBtn = document.getElementById("pic-favorite");
+        if (favoriteBtn) {
+            const isFavorite = hasCareerPictureFavorite(s);
+            favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
+            favoriteBtn.classList.toggle("is-active", isFavorite);
+        }
+        renderCareer();
+    };
+
+    document.getElementById("pic-up").onclick = () => { getState().silhouetteYOffset = (getState().silhouetteYOffset || 0) - 1; updateVal(); };
+    document.getElementById("pic-down").onclick = () => { getState().silhouetteYOffset = (getState().silhouetteYOffset || 0) + 1; updateVal(); };
+
+    document.getElementById("pic-narrow").onclick = () => { getState().silhouetteScaleX = Math.max(0.1, (getState().silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) - 0.05); updateVal(); };
+    document.getElementById("pic-wide").onclick = () => { getState().silhouetteScaleX = (getState().silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + 0.05; updateVal(); };
+
+    document.getElementById("pic-short").onclick = () => { getState().silhouetteScaleY = Math.max(0.1, (getState().silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) - 0.05); updateVal(); };
+    document.getElementById("pic-tall").onclick = () => { getState().silhouetteScaleY = (getState().silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + 0.05; updateVal(); };
+    document.getElementById("pic-favorite").onclick = () => {
+        const s = getState();
+        if (hasCareerPictureFavorite(s)) clearCareerPictureFavorite(s);
+        else saveCareerPictureFavorite(s);
+        updateVal();
+    };
+
+    document.getElementById("pic-reset").onclick = () => {
+        const pictureDefaults = getDefaultPlayerPictureValues(document.body.classList.contains("shorts-mode"));
+        getState().silhouetteYOffset = pictureDefaults.silhouetteYOffset;
+        getState().silhouetteScaleX = pictureDefaults.silhouetteScaleX;
+        getState().silhouetteScaleY = pictureDefaults.silhouetteScaleY;
+        getState().careerSlotBadgeScales = [];
+        getState().careerSlotYearNudges = [];
+        updateVal();
+    };
+}
+
+// START
+init();

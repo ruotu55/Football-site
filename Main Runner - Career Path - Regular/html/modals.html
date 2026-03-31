@@ -1,0 +1,56 @@
+<div id="save-script-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem;">
+    <h3 style="margin-top: 0;">Save Script</h3>
+    <input type="text" id="save-script-name" placeholder="Enter name..." style="width: 100%; padding: 0.6rem; margin: 1rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px;" autocomplete="off" />
+    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+      <button id="save-script-cancel" class="panel-toggle">Cancel</button>
+      <button id="save-script-confirm" class="panel-toggle" style="background: var(--accent); color: #000;">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="create-folder-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem;">
+    <h3 style="margin-top: 0;">Create Folder</h3>
+    <input type="text" id="create-folder-name" placeholder="Folder name..." style="width: 100%; padding: 0.6rem; margin: 1rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px;" autocomplete="off" />
+    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+      <button id="create-folder-cancel" class="panel-toggle">Cancel</button>
+      <button id="create-folder-confirm" class="panel-toggle" style="background: var(--accent); color: #000;">Create</button>
+    </div>
+  </div>
+</div>
+
+<div id="delete-script-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem;">
+    <h3 style="margin-top: 0;">Delete Script</h3>
+    <p>Are you sure you want to remove this saved script?</p>
+    <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+      <button id="delete-script-no" class="panel-toggle">No</button>
+      <button id="delete-script-yes" class="panel-toggle" style="background: #ef4444; color: #fff;">Yes</button>
+    </div>
+  </div>
+</div>
+
+<div id="career-edit-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem; display: flex; flex-direction: column; max-height: 80vh;">
+    <div class="swap-modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 0 1rem 0; margin-bottom: 1rem;">
+      <h3 style="margin: 0;">Edit Box</h3>
+      <button id="career-edit-close" aria-label="Close" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.5rem;">&times;</button>
+    </div>
+    
+    <div id="career-edit-options" style="display: flex; flex-direction: column; gap: 0.8rem;">
+      <button id="career-edit-image-btn" class="panel-toggle" style="background: var(--accent); color: #000; padding: 0.8rem; font-weight: bold; font-size: 1rem;">1) Change Image</button>
+      
+      <button id="career-edit-team-btn" class="panel-toggle" style="background: rgba(255,255,255,0.1); color: #fff; padding: 0.8rem; font-weight: bold; font-size: 1rem;">2) Change Team Name</button>
+      
+      <button id="career-edit-year-btn" class="panel-toggle" style="background: rgba(255,255,255,0.1); color: #fff; padding: 0.8rem; font-weight: bold; font-size: 1rem;">3) Change Year</button>
+    </div>
+
+    <div id="career-edit-search-container" style="display: none; flex-direction: column; flex: 1; overflow: hidden;">
+       <button id="career-edit-back-btn" class="panel-toggle" style="margin-bottom: 0.5rem; background: rgba(255,255,255,0.1); color: #fff; text-align: left;">&larr; Back</button>
+       <input type="text" id="career-edit-search-input" placeholder="Search team for image..." style="width: 100%; padding: 0.6rem; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px; margin-bottom: 0.5rem;" autocomplete="off" />
+       <div id="career-edit-search-results" style="display: flex; flex-direction: column; gap: 0.3rem; overflow-y: auto; flex: 1;"></div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div id="swap-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content">
+    <div class="swap-modal-header">
+      <h3>Swap Player</h3>
+      <button id="swap-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="swap-modal-search">
+      <input type="text" id="swap-search" placeholder="Search bench players..." autocomplete="off" />
+    </div>
+    <div id="swap-player-list" class="swap-player-list"></div>
+  </div>
+</div>
+
+<div id="save-script-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem;">
+    <h3 style="margin-top: 0;">Save Script</h3>
+    <input type="text" id="save-script-name" placeholder="Enter name..." style="width: 100%; padding: 0.6rem; margin: 1rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px;" autocomplete="off" />
+    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+      <button id="save-script-cancel" class="panel-toggle">Cancel</button>
+      <button id="save-script-confirm" class="panel-toggle" style="background: var(--accent); color: #000;">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="create-folder-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem;">
+    <h3 style="margin-top: 0;">Create Folder</h3>
+    <input type="text" id="create-folder-name" placeholder="Folder name..." style="width: 100%; padding: 0.6rem; margin: 1rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px;" autocomplete="off" />
+    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+      <button id="create-folder-cancel" class="panel-toggle">Cancel</button>
+      <button id="create-folder-confirm" class="panel-toggle" style="background: var(--accent); color: #000;">Create</button>
+    </div>
+  </div>
+</div>
+
+<div id="delete-script-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem;">
+    <h3 style="margin-top: 0;">Delete Script</h3>
+    <p>Are you sure you want to remove this saved script?</p>
+    <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+      <button id="delete-script-no" class="panel-toggle">No</button>
+      <button id="delete-script-yes" class="panel-toggle" style="background: #ef4444; color: #fff;">Yes</button>
+    </div>
+  </div>
+</div>
