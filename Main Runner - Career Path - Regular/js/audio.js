@@ -158,8 +158,8 @@ export function stopTicking() {
 }
 
 export function playWelcome() {
-  // Welcome starts immediately; BGM ducks on a short fade (see playVoice / fadeBgm).
-  playVoice(paths.welcome, 0);
+  // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
+  playVoice(paths.welcome, 500);
 }
 
 export function playRules(quizType) {

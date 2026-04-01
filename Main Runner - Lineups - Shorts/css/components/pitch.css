@@ -11,7 +11,8 @@
   flex-shrink: 0;
   position: relative;
   margin: 0; 
-  transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: height var(--pitch-wrap-height-duration, 0.6s) cubic-bezier(0.25, 1, 0.5, 1),
+    transform var(--pitch-wrap-height-duration, 0.6s) cubic-bezier(0.25, 1, 0.5, 1);
 }
 .pitch-wrap[hidden] { display: none; }
 
@@ -210,6 +211,31 @@ body.play-video-active .slot-badge-controls {
 }
 .slot-back {
   transform: rotateY(180deg);
+}
+
+/* National XI flip-card front only: club crests on the pitch — no white disc / circle clip.
+   Club XI (guess by nationality): flags keep circular badge + ring. */
+.slot-front--national-crest .slot-avatar {
+  background-color: transparent;
+  padding: 0;
+  box-shadow: none;
+  overflow: visible;
+  border-radius: 0;
+}
+
+.slot-front--national-crest .slot-badge-scale-wrap {
+  border-radius: 0;
+  overflow: visible;
+}
+
+.slot-front--national-crest .slot-avatar > * {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.player-slot.has-player .slot-front--national-crest .slot-avatar::before {
+  display: none;
 }
 
 .slot-avatar {

@@ -2,7 +2,17 @@ import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
 import { startBgMusic, stopAllAudio, playWelcome, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderPitch } from "./pitch-render.js";
+import {
+  applyVideoQuestionPostTimerFlip,
+  clearPitchWrapTransitionOverride,
+  renderHeader,
+  renderPitch,
+  shouldUseVideoQuestionLayout,
+  syncPitchWrapTransitionToVideoReveal,
+} from "./pitch-render.js";
+
+/** After Play Video on the logo page: pause before BGM, welcome, and logo reveal. */
+const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
@@ -12,6 +22,33 @@ function refreshCurrentQuestionPreview() {
   if (appState.currentLevelIndex <= 1 || appState.currentLevelIndex >= appState.totalLevelsCount) {
     return;
   }
+  const state = getState();
+  const useVideoQ = shouldUseVideoQuestionLayout(state);
+  const postReveal = appState.videoRevealPostTimerActive;
+
+  if (postReveal && useVideoQ) {
+    const pitchSlots = appState.els.pitchSlots;
+    const occupied = pitchSlots?.querySelectorAll(".player-slot.has-player") ?? [];
+    const flipReady =
+      occupied.length > 0 &&
+      [...occupied].every((el) => el.querySelector(".slot-inner"));
+
+    if (!flipReady) {
+      renderPitch();
+      const filled = pitchSlots?.querySelectorAll(".player-slot.has-player");
+      const n = filled?.length ?? 0;
+      syncPitchWrapTransitionToVideoReveal(n);
+      renderHeader();
+      applyVideoQuestionPostTimerFlip();
+      return;
+    }
+    syncPitchWrapTransitionToVideoReveal(occupied.length);
+    renderHeader();
+    applyVideoQuestionPostTimerFlip();
+    return;
+  }
+
+  clearPitchWrapTransitionOverride();
   renderPitch();
   renderHeader();
 }
@@ -23,6 +60,7 @@ function clearShortsQuestionCountdown() {
 export function stopVideoFlow() {
   appState.isVideoPlaying = false;
   setVideoRevealPostTimerActive(false);
+  clearPitchWrapTransitionOverride();
   document.body.classList.remove("play-video-active");
   clearShortsQuestionCountdown();
   clearInterval(appState.videoInterval);
@@ -91,25 +129,34 @@ export function startVideoFlow() {
   if (els.sideTextRight) {
     els.sideTextRight.hidden = !(isLogo || isLanding || isOutro);
   }
+
   startBgMusic();
+
+  if (appState.currentLevelIndex === 0) {
+    if (isShorts) {
+      appState.videoTimeout = setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
+        switchLevel(1);
+        runVideoStep();
+      }, LOGO_PAGE_PLAY_VIDEO_DELAY_MS);
+      return;
+    }
+    appState.videoTimeout = setTimeout(() => {
+      if (!appState.isVideoPlaying) return;
+      playWelcome();
+      const logoImg = els.logoPage.querySelector(".logo-img-anim");
+      if (logoImg && !logoImg.classList.contains("reveal")) {
+        logoImg.classList.add("reveal");
+      }
+      appState.videoTimeout = setTimeout(() => {
+        if (appState.isVideoPlaying) runVideoStep();
+      }, 1200);
+    }, LOGO_PAGE_PLAY_VIDEO_DELAY_MS);
+    return;
+  }
+
   if (!isShorts) {
     playWelcome();
-  }
-  if (appState.currentLevelIndex === 0) {
-    if (isShorts) { 
-      switchLevel(1); 
-      runVideoStep(); 
-      return; 
-    } else {
-      const logoImg = els.logoPage.querySelector('.logo-img-anim');
-      if (logoImg && !logoImg.classList.contains('reveal')) {
-        logoImg.classList.add('reveal');
-        appState.videoTimeout = setTimeout(() => { 
-          if (appState.isVideoPlaying) runVideoStep(); 
-        }, 1200); 
-        return;
-      }
-    }
   }
   runVideoStep();
 }
@@ -125,6 +172,7 @@ function runVideoStep() {
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
   if (isQuestionLevel && els.teamHeader) {
+    clearPitchWrapTransitionOverride();
     els.teamHeader.classList.remove("video-revealed");
     els.teamHeader.classList.add("video-hidden");
   }

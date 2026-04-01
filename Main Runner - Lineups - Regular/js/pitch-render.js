@@ -380,15 +380,35 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     labelContainer.className = "slot-label-container";
     const label = document.createElement("span");
     label.className = "slot-name";
-    label.contentEditable = "false";
+    label.contentEditable = "true";
     label.spellcheck = false;
     label.textContent = pitchSlotDisplayLabel(state, player);
 
-    labelContainer.appendChild(label);
+    label.onblur = () => {
+      state.customNames[player.name] = label.textContent.trim();
+    };
+    label.onkeydown = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        label.blur();
+      }
+    };
+
+    const swapBtn = document.createElement("button");
+    swapBtn.className = "slot-swap-btn";
+    swapBtn.innerHTML = "⇄";
+    swapBtn.title = "Swap player";
+    swapBtn.onclick = (e) => {
+      e.stopPropagation();
+      openSwapModal(slotIndex);
+    };
+
+    labelContainer.append(label, swapBtn);
     back.append(backAvatar, labelContainer);
 
     inner.append(front, back);
     slotEl.appendChild(inner);
+    slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
     /* If we add "flipped" in the same frame as insert, the 0.6s rotateY transition is skipped.
        Defer + per-slot transition-delay so slots flip in a cascade (not all at once). */
     if (shouldFlipToPlayers) {

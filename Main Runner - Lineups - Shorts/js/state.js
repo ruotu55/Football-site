@@ -139,6 +139,15 @@ export function ensureSlotFrontFaceScales(state) {
       );
     }
   }
+
+  const teamScales = state.slotTeamLogoScales;
+  const uniform = (v) =>
+    teamScales.slice(0, SLOT_BADGE_SLOT_COUNT).every(
+      (s) => sanitizeSlotBadgeScale(s) === v
+    );
+  if (uniform(1) || uniform(1.05) || uniform(1.25) || uniform(1.5)) {
+    state.slotTeamLogoScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE);
+  }
 }
 
 export function initLevels(count) {

@@ -11,6 +11,9 @@ import {
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
 
+/** After Play Video on the logo page: pause before BGM, welcome, and logo reveal. */
+const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
+
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
 }
@@ -121,25 +124,34 @@ export function startVideoFlow() {
   if (els.sideTextRight) {
     els.sideTextRight.hidden = !(isLogo || isLanding || isOutro);
   }
+
   startBgMusic();
+
+  if (appState.currentLevelIndex === 0) {
+    if (isShorts) {
+      appState.videoTimeout = setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
+        switchLevel(1);
+        runVideoStep();
+      }, LOGO_PAGE_PLAY_VIDEO_DELAY_MS);
+      return;
+    }
+    appState.videoTimeout = setTimeout(() => {
+      if (!appState.isVideoPlaying) return;
+      playWelcome();
+      const logoImg = els.logoPage.querySelector(".logo-img-anim");
+      if (logoImg && !logoImg.classList.contains("reveal")) {
+        logoImg.classList.add("reveal");
+      }
+      appState.videoTimeout = setTimeout(() => {
+        if (appState.isVideoPlaying) runVideoStep();
+      }, 1200);
+    }, LOGO_PAGE_PLAY_VIDEO_DELAY_MS);
+    return;
+  }
+
   if (!isShorts) {
     playWelcome();
-  }
-  if (appState.currentLevelIndex === 0) {
-    if (isShorts) { 
-      switchLevel(1); 
-      runVideoStep(); 
-      return; 
-    } else {
-      const logoImg = els.logoPage.querySelector('.logo-img-anim');
-      if (logoImg && !logoImg.classList.contains('reveal')) {
-        logoImg.classList.add('reveal');
-        appState.videoTimeout = setTimeout(() => { 
-          if (appState.isVideoPlaying) runVideoStep(); 
-        }, 1200); 
-        return;
-      }
-    }
   }
   runVideoStep();
 }

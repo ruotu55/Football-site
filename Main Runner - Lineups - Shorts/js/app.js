@@ -1,6 +1,6 @@
 import { FORMATIONS } from "./formations.js";
 import { appState, clearSlotPhotoIndices, getState, initLevels } from "./state.js";
-import { migratePlayerImages, projectAssetUrl } from "./paths.js";
+import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
 import {
@@ -450,15 +450,17 @@ async function init() {
         const player = appState.currentXi[i];
         if (!player) return;
         const state = getState();
-        if (shouldUseVideoQuestionLayout(state)) return;
+        if (shouldUseVideoQuestionLayout(state) && !e.target.closest(".slot-back")) return;
 
         const paths = playerPhotoPaths(player, state.displayMode);
         if (paths.length <= 1) return;
         const next = ((state.slotPhotoIndexBySlot.get(i) ?? 0) + 1) % paths.length;
         state.slotPhotoIndexBySlot.set(i, next);
-        const img = slot.querySelector(".slot-img");
+        const img = shouldUseVideoQuestionLayout(state)
+            ? slot.querySelector(".slot-back .slot-avatar .slot-img")
+            : slot.querySelector(".slot-avatar .slot-img");
         if (img) {
-            img.src = projectAssetUrl(paths[next]);
+            img.src = projectAssetUrlFresh(paths[next]);
         }
     });
 
