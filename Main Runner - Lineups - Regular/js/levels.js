@@ -3,6 +3,9 @@ import { renderProgressSteps } from "./progress.js";
 import { renderHeader, renderPitch } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 
+/** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
+let pendingLogoToLandingContentReveal = false;
+
 export function switchLevel(index) {
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = index;
@@ -17,20 +20,20 @@ export function switchLevel(index) {
   if (els.videoModeBtn) {
     els.videoModeBtn.setAttribute("aria-pressed", state.videoMode ? "true" : "false");
   }
-  
-  document.querySelectorAll('select').forEach(sel => {
+
+  document.querySelectorAll("select").forEach((sel) => {
     const wrapper = sel.nextElementSibling;
-    if (wrapper && wrapper.classList.contains('custom-select-wrapper')) {
-      const triggerSpan = wrapper.querySelector('.custom-select-trigger span');
+    if (wrapper && wrapper.classList.contains("custom-select-wrapper")) {
+      const triggerSpan = wrapper.querySelector(".custom-select-trigger span");
       if (triggerSpan) {
-        triggerSpan.textContent = sel.options[sel.selectedIndex]?.text || '';
+        triggerSpan.textContent = sel.options[sel.selectedIndex]?.text || "";
       }
-      
-      wrapper.querySelectorAll('.custom-select-option').forEach(opt => {
+
+      wrapper.querySelectorAll(".custom-select-option").forEach((opt) => {
         if (opt.dataset.value === sel.value) {
-          opt.classList.add('selected');
+          opt.classList.add("selected");
         } else {
-          opt.classList.remove('selected');
+          opt.classList.remove("selected");
         }
       });
     }
@@ -53,11 +56,18 @@ export function switchLevel(index) {
     const isLanding = appState.currentLevelIndex === 1;
     const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     const isShorts = document.body.classList.contains("shorts-mode");
+    if (els.landingPage && !isLanding) {
+      els.landingPage.classList.remove(
+        "landing-content-awaiting-shift",
+        "landing-content-slide-in"
+      );
+    }
+    if (els.teamHeader) els.teamHeader.style.top = "";
 
     if (els.quizProgressContainer) {
       els.quizProgressContainer.hidden = (isLogo || isLanding || isOutro) && appState.isVideoPlaying;
     }
-    
+
     if (els.sideTextRight) {
       els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
     }
@@ -70,19 +80,38 @@ export function switchLevel(index) {
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
-      // Keep page switches driven by stage animations only (no extra logo motion branch).
-      logoImg.classList.remove("shift-top-right", "bounce-out");
-      if (!isLogo) {
+      if (!isLogo && !isShorts) {
+        logoImg.classList.add("shift-top-right");
         logoImg.classList.remove("reveal");
+      } else if (isLogo) {
+        logoImg.classList.remove("shift-top-right");
       }
     }
 
     if (isLogo) {
       els.logoPage.hidden = false;
-      if (logoImg) logoImg.classList.remove("shift-top-right", "bounce-out");
+      if (logoImg) {
+        logoImg.classList.remove("shift-top-right", "bounce-out");
+        if (!appState.isVideoPlaying && !state.videoMode && prevIndex !== 0) {
+          logoImg.classList.remove("reveal");
+          void logoImg.offsetWidth;
+          logoImg.classList.add("reveal");
+        } else if (state.videoMode && !appState.isVideoPlaying) {
+          logoImg.classList.remove("reveal");
+        }
+      }
     } else if (isLanding) {
-      els.logoPage.hidden = isShorts; 
+      els.logoPage.hidden = isShorts;
       els.landingPage.hidden = false;
+      if (pendingLogoToLandingContentReveal) {
+        els.landingPage.classList.add("landing-content-awaiting-shift");
+        els.landingPage.classList.remove("landing-content-slide-in");
+      } else {
+        els.landingPage.classList.remove(
+          "landing-content-awaiting-shift",
+          "landing-content-slide-in"
+        );
+      }
     } else if (isOutro) {
       els.logoPage.hidden = isShorts;
       els.outroPage.hidden = false;
@@ -100,7 +129,7 @@ export function switchLevel(index) {
     if (sharedBg) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
-    
+
     if (appState.isVideoPlaying) {
       if (isLanding) {
         const quizType = document.getElementById("in-quiz-type").value;
@@ -115,35 +144,113 @@ export function switchLevel(index) {
 
   if (stageMain) {
     const isShorts = document.body.classList.contains("shorts-mode");
-    
-    stageMain.classList.remove("stage-enter-anim");
-    stageMain.classList.add("stage-exit-anim");
+    const isLogoToLanding = prevIndex === 0 && index === 1 && !isShorts;
+    if (isLogoToLanding) {
+      const LOGO_SHIFT_MS = 800;
+      const LANDING_SLIDE_MS = 650;
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim"
+      );
+      pendingLogoToLandingContentReveal = true;
+      updateDOMContent();
+      pendingLogoToLandingContentReveal = false;
+      setTimeout(() => {
+        if (appState.currentLevelIndex !== 1 || !els.landingPage) return;
+        els.landingPage.classList.remove("landing-content-awaiting-shift");
+        void els.landingPage.offsetWidth;
+        els.landingPage.classList.add("landing-content-slide-in");
+        if (progressContainer) {
+          progressContainer.classList.remove(
+            "progress-out-reg",
+            "progress-out-shorts",
+            "progress-in-reg",
+            "progress-in-shorts"
+          );
+          void progressContainer.offsetWidth;
+          progressContainer.classList.add("progress-in-reg");
+        }
+      }, LOGO_SHIFT_MS);
+      setTimeout(() => {
+        if (els.landingPage && appState.currentLevelIndex === 1) {
+          els.landingPage.classList.remove("landing-content-slide-in");
+        }
+      }, LOGO_SHIFT_MS + LANDING_SLIDE_MS);
+      return;
+    }
+
+    const isFromLogoPage = prevIndex === 0 && index > 1 && !isShorts;
+    if (isFromLogoPage) {
+      const logoImg = els.logoPage?.querySelector(".logo-img-anim");
+      if (logoImg) {
+        logoImg.classList.add("shift-top-right");
+        logoImg.classList.remove("reveal");
+      }
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim"
+      );
+      setTimeout(() => {
+        updateDOMContent();
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            void stageMain.offsetWidth;
+            stageMain.classList.add("stage-enter-video-anim");
+            if (progressContainer) {
+              progressContainer.classList.remove(
+                "progress-out-reg",
+                "progress-out-shorts",
+                "progress-in-reg",
+                "progress-in-shorts"
+              );
+              void progressContainer.offsetWidth;
+              progressContainer.classList.add("progress-in-reg");
+            }
+            setTimeout(() => {
+              stageMain.classList.remove("stage-enter-video-anim");
+            }, 820);
+          });
+        });
+      }, 820);
+      return;
+    }
+
+    const exitClass = "stage-exit-video-anim";
+    const enterClass = "stage-enter-video-anim";
+    const transitionDelay = 820;
+
+    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+    stageMain.classList.add(exitClass);
 
     if (progressContainer) {
-        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
-        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
+      progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
     }
 
     setTimeout(() => {
       updateDOMContent();
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          stageMain.classList.remove("stage-exit-anim");
-          void stageMain.offsetWidth; 
-          stageMain.classList.add("stage-enter-anim");
-          
+          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
+          void stageMain.offsetWidth;
+          stageMain.classList.add(enterClass);
+
           if (progressContainer) {
-              progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
-              void progressContainer.offsetWidth;
-              progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+            progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+            void progressContainer.offsetWidth;
+            progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
           }
 
           setTimeout(() => {
-              stageMain.classList.remove("stage-enter-anim");
-          }, 600);
+            stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+          }, 820);
         });
       });
-    }, 580);
+    }, transitionDelay);
   } else {
     updateDOMContent();
   }
