@@ -11,7 +11,12 @@ import {
   stopTicking,
 } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderCareer, renderHeader, syncCareerSlotControlsVisibility } from "./pitch-render.js";
+import {
+  renderCareer,
+  renderHeader,
+  syncCareerSlotControlsVisibility,
+  syncShortsCareerVideoPreviewLayers,
+} from "./pitch-render.js";
 
 /** After Play Video on the logo page: pause before BGM, welcome, and logo reveal. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
@@ -101,6 +106,7 @@ export function stopVideoFlow() {
   appState.isVideoPlaying = false;
   setVideoRevealPostTimerActive(false);
   document.body.classList.remove("play-video-active");
+  document.body.classList.remove("shorts-play-pre-countdown");
   clearShortsQuestionCountdown();
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
@@ -179,6 +185,13 @@ export function startVideoFlow() {
   appState.isVideoPlaying = true;
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
+  if (
+    isShorts &&
+    appState.currentLevelIndex > 1 &&
+    appState.currentLevelIndex < appState.totalLevelsCount
+  ) {
+    document.body.classList.add("shorts-play-pre-countdown");
+  }
   if (els.careerWrap) {
     if (isShorts && appState.currentLevelIndex > 1 && appState.currentLevelIndex < appState.totalLevelsCount) {
       els.careerWrap.classList.add("video-mode-enabled");
@@ -187,6 +200,8 @@ export function startVideoFlow() {
     }
   }
   syncCareerSlotControlsVisibility();
+  syncShortsCareerVideoPreviewLayers();
+  renderHeader();
   els.playVideoBtn.hidden = true;
   els.panelFab.hidden = true;
   els.controlPanel.classList.add("collapsed");
@@ -244,6 +259,13 @@ function runVideoStep() {
   const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
   const isShorts = document.body.classList.contains("shorts-mode");
   const isQuestionLevel = appState.currentLevelIndex > 1 && !isOutro;
+  if (isShorts && isQuestionLevel && appState.isVideoPlaying) {
+    document.body.classList.add("shorts-play-pre-countdown");
+    syncShortsCareerVideoPreviewLayers();
+    renderHeader();
+  } else {
+    document.body.classList.remove("shorts-play-pre-countdown");
+  }
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
   clearTimeout(appState.tickingLeadTimeout);
@@ -343,6 +365,9 @@ function runVideoStep() {
     function beginQuestionCountdown() {
       if (!appState.isVideoPlaying) return;
 
+      if (isShorts) {
+        document.body.classList.remove("shorts-play-pre-countdown");
+      }
       applyTimerPhase(count);
       updateUrgency(count);
       if (isShorts) {

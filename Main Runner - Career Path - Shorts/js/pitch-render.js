@@ -799,6 +799,23 @@ export function syncCareerSlotControlsVisibility() {
   document.body.classList.toggle("career-hide-slot-controls", hide);
 }
 
+/** Shorts: re-apply preview layer classes after Play Video (no renderCareer — avoids DOM wipe flash). */
+export function syncShortsCareerVideoPreviewLayers() {
+  if (!document.body.classList.contains("shorts-mode")) return;
+  const state = getState();
+  const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
+  const silhouette = document.querySelector(".career-silhouette");
+  if (silhouette) {
+    silhouette.classList.toggle("revealed", previewPostTimer);
+  }
+  const revealPhoto = document.getElementById("career-reveal-photo");
+  const careerGrid = document.querySelector(".career-grid");
+  if (revealPhoto) {
+    revealPhoto.classList.toggle("show", previewPostTimer || previewPreTimer);
+    if (careerGrid) careerGrid.classList.toggle("reveal-active", previewPostTimer);
+  }
+}
+
 export function renderHeader() {
   const state = getState();
   const { els } = appState;

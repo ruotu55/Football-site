@@ -1,6 +1,6 @@
 import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { getVideoQuestionPreviewState, renderHeader, renderCareer } from "./pitch-render.js";
+import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers } from "./pitch-render.js";
 import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
@@ -206,19 +206,7 @@ export function switchLevel(index) {
         }, 820);
       }
 
-      const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
-
-      const silhouette = document.querySelector(".career-silhouette");
-      if (silhouette) {
-        silhouette.classList.toggle("revealed", previewPostTimer);
-      }
-
-      const revealPhoto = document.getElementById("career-reveal-photo");
-      const careerGrid = document.querySelector(".career-grid");
-      if (revealPhoto) {
-        revealPhoto.classList.toggle("show", previewPostTimer || (isShorts && previewPreTimer));
-        if (careerGrid) careerGrid.classList.toggle("reveal-active", previewPostTimer);
-      }
+      syncShortsCareerVideoPreviewLayers();
     }
 
     const sharedBg = document.getElementById("shared-bg-layer");
