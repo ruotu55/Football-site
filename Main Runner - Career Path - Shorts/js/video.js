@@ -212,9 +212,9 @@ function runVideoStep() {
     if (isOutro) {
       return; 
     }
-    let delay = appState.currentLevelIndex === 0 ? 2000 : 5000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
     if (isShorts && appState.currentLevelIndex === 1) {
-      delay = 2000; 
+      delay = 1000;
     }
     appState.videoTimeout = setTimeout(() => { 
       revealCurrentLevel(); 
