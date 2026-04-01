@@ -86,7 +86,7 @@ export const SLOT_BADGE_SCALE_STEP = 0.1;
 export const SLOT_BADGE_SCALE_MIN = 0.001;
 /** Club squads: nationality flag on the card front (original default size). */
 export const DEFAULT_SLOT_FLAG_SCALE = 1;
-/** National squads: club crest on the card front — two “−” steps from 1.0. */
+/** National squads: club crest on the card front — original default (two “−” steps from 1.0). */
 export const DEFAULT_SLOT_TEAM_LOGO_SCALE = 1 - 2 * SLOT_BADGE_SCALE_STEP;
 
 export function sanitizeSlotBadgeScale(n) {
@@ -138,6 +138,16 @@ export function ensureSlotFrontFaceScales(state) {
         state.slotTeamLogoScales[i] ?? DEFAULT_SLOT_TEAM_LOGO_SCALE
       );
     }
+  }
+
+  const teamScales = state.slotTeamLogoScales;
+  const uniform = (v) =>
+    teamScales.slice(0, SLOT_BADGE_SLOT_COUNT).every(
+      (s) => sanitizeSlotBadgeScale(s) === v
+    );
+  // Levels left at our temporary uniform defaults → restore original 0.8 crest size.
+  if (uniform(1) || uniform(1.05) || uniform(1.25) || uniform(1.5)) {
+    state.slotTeamLogoScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE);
   }
 }
 

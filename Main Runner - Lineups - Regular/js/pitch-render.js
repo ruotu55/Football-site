@@ -13,6 +13,31 @@ import {
 
 const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
 
+/** Delay between each slot starting the logo→player flip (wave / one-by-one). */
+const SLOT_FLIP_STAGGER_SEC = 0.09;
+/** Must match `.slot-inner` `transition` duration in css/components/pitch.css */
+const SLOT_FLIP_DURATION_SEC = 0.6;
+
+/** Time from first flip start until last flip finishes (sync with pitch height transition). */
+export function getVideoRevealSyncedPitchTransitionSec(flipSlotCount) {
+  const n = Math.max(0, Math.floor(Number(flipSlotCount)) || 0);
+  if (n <= 1) return SLOT_FLIP_DURATION_SEC;
+  return (n - 1) * SLOT_FLIP_STAGGER_SEC + SLOT_FLIP_DURATION_SEC;
+}
+
+export function syncPitchWrapTransitionToVideoReveal(flipSlotCount) {
+  const wrap = appState.els.pitchWrap;
+  if (!wrap) return;
+  wrap.style.setProperty(
+    "--pitch-wrap-height-duration",
+    `${getVideoRevealSyncedPitchTransitionSec(flipSlotCount)}s`
+  );
+}
+
+export function clearPitchWrapTransitionOverride() {
+  appState.els.pitchWrap?.style.removeProperty("--pitch-wrap-height-duration");
+}
+
 /** Apply --header-logo-scale / --header-logo-nudge-x from the current level (per-level; regular + shorts). */
 export function syncTeamHeaderLogoVarsFromLevel() {
   const state = getState();
@@ -143,14 +168,15 @@ export function renderSwapList(players) {
   });
 }
 
-function applyStrictAvatarBounds(avatarEl) {
+function applyStrictAvatarBounds(avatarEl, options = {}) {
+  const clipCircle = options.clipCircle !== false;
   avatarEl.style.display = "flex";
   avatarEl.style.justifyContent = "center";
   avatarEl.style.alignItems = "center";
-  avatarEl.style.overflow = "hidden";
+  avatarEl.style.overflow = clipCircle ? "hidden" : "visible";
   avatarEl.style.width = "100%";
   avatarEl.style.aspectRatio = "1 / 1";
-  avatarEl.style.borderRadius = "50%";
+  avatarEl.style.borderRadius = clipCircle ? "50%" : "0";
 }
 
 /** Video-mode card front when flag/club image is missing — full name, not initials. */
@@ -236,16 +262,19 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
   if (useVideoQuestionLayout) {
     const inner = document.createElement("div");
     inner.className = "slot-inner";
-    if (getVideoQuestionPreviewState(state).previewPostTimer) {
-      inner.classList.add("flipped");
-    }
+    const shouldFlipToPlayers = getVideoQuestionPreviewState(state).previewPostTimer;
 
     const front = document.createElement("div");
-    front.className = "slot-face slot-front";
+    front.className =
+      "slot-face slot-front" +
+      (state.squadType === "national" ? " slot-front--national-crest" : "");
 
     const frontAvatar = document.createElement("div");
     frontAvatar.className = "slot-avatar";
-    applyStrictAvatarBounds(frontAvatar);
+    applyStrictAvatarBounds(
+      frontAvatar,
+      state.squadType === "national" ? { clipCircle: false } : {}
+    );
 
     const badgeWrap = document.createElement("div");
     badgeWrap.className = "slot-badge-scale-wrap";
@@ -360,6 +389,16 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     inner.append(front, back);
     slotEl.appendChild(inner);
+    /* If we add "flipped" in the same frame as insert, the 0.6s rotateY transition is skipped.
+       Defer + per-slot transition-delay so slots flip in a cascade (not all at once). */
+    if (shouldFlipToPlayers) {
+      inner.style.transitionDelay = `${slotIndex * SLOT_FLIP_STAGGER_SEC}s`;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          inner.classList.add("flipped");
+        });
+      });
+    }
     if (state.videoMode) {
       appendSlotBadgeZoomControls(slotEl, slotIndex);
     }
@@ -466,6 +505,32 @@ export function renderPitch() {
       node.style.setProperty("--slot-scale", String(slotPerspectiveScale(slot.y)));
     }
     renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
+  });
+}
+
+/**
+ * Play video: after countdown, do not rebuild pitch (that reloads logos and fights the pitch-height transition).
+ * Flip existing flip-cards in place while the field/header layout animates.
+ */
+export function applyVideoQuestionPostTimerFlip() {
+  const state = getState();
+  if (!shouldUseVideoQuestionLayout(state) || !appState.els.pitchSlots) {
+    return;
+  }
+  const slots = appState.els.pitchSlots.querySelectorAll(".player-slot.has-player");
+  slots.forEach((slotEl) => {
+    const inner = slotEl.querySelector(".slot-inner");
+    if (!inner || inner.classList.contains("flipped")) {
+      return;
+    }
+    const slotIndex = Number(slotEl.dataset.slotIndex);
+    const idx = Number.isFinite(slotIndex) ? slotIndex : 0;
+    inner.style.transitionDelay = `${idx * SLOT_FLIP_STAGGER_SEC}s`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        inner.classList.add("flipped");
+      });
+    });
   });
 }
 

@@ -2,7 +2,14 @@ import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
 import { startBgMusic, stopAllAudio, playWelcome, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderPitch } from "./pitch-render.js";
+import {
+  applyVideoQuestionPostTimerFlip,
+  clearPitchWrapTransitionOverride,
+  renderHeader,
+  renderPitch,
+  shouldUseVideoQuestionLayout,
+  syncPitchWrapTransitionToVideoReveal,
+} from "./pitch-render.js";
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
@@ -12,6 +19,33 @@ function refreshCurrentQuestionPreview() {
   if (appState.currentLevelIndex <= 1 || appState.currentLevelIndex >= appState.totalLevelsCount) {
     return;
   }
+  const state = getState();
+  const useVideoQ = shouldUseVideoQuestionLayout(state);
+  const postReveal = appState.videoRevealPostTimerActive;
+
+  if (postReveal && useVideoQ) {
+    const pitchSlots = appState.els.pitchSlots;
+    const occupied = pitchSlots?.querySelectorAll(".player-slot.has-player") ?? [];
+    const flipReady =
+      occupied.length > 0 &&
+      [...occupied].every((el) => el.querySelector(".slot-inner"));
+
+    if (!flipReady) {
+      renderPitch();
+      const filled = pitchSlots?.querySelectorAll(".player-slot.has-player");
+      const n = filled?.length ?? 0;
+      syncPitchWrapTransitionToVideoReveal(n);
+      renderHeader();
+      applyVideoQuestionPostTimerFlip();
+      return;
+    }
+    syncPitchWrapTransitionToVideoReveal(occupied.length);
+    renderHeader();
+    applyVideoQuestionPostTimerFlip();
+    return;
+  }
+
+  clearPitchWrapTransitionOverride();
   renderPitch();
   renderHeader();
 }
@@ -19,6 +53,7 @@ function refreshCurrentQuestionPreview() {
 export function stopVideoFlow() {
   appState.isVideoPlaying = false;
   setVideoRevealPostTimerActive(false);
+  clearPitchWrapTransitionOverride();
   document.body.classList.remove("play-video-active");
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
@@ -119,6 +154,7 @@ function runVideoStep() {
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
   if (isQuestionLevel && els.teamHeader) {
+    clearPitchWrapTransitionOverride();
     els.teamHeader.classList.remove("video-revealed");
     els.teamHeader.classList.add("video-hidden");
   }
