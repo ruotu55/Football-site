@@ -1,9 +1,8 @@
-import { appState } from "./state.js";
-
 const paths = {
   welcome: "./Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
   guessNat: "./Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
   guessClub: "./Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+  guessCareer: "./Voices/Game name/Guess the football player by career path !!!.mp3",
   warmUp: "./Voices/Levels/Worm up round dont mess this one .mp3",
   serious: "./Voices/Levels/OK now it's getting serious.mp3",
   nerds: "./Voices/Levels/Only true football nerd know this!!!.mp3",
@@ -28,7 +27,8 @@ const paths = {
 let bgMusic = null;
 let currentBgmIndex = 0;
 let currentVoice = null;
-let tickingAudio = null;
+/** Single ticking track for countdown red phase (no overlapping clips). */
+let tickingAudioEl = null;
 
 // Timeouts and Intervals for fading
 let fadeInterval = null;
@@ -110,9 +110,32 @@ export function stopAllAudio() {
     currentVoice.pause();
     currentVoice.currentTime = 0;
   }
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
+  stopTicking();
+}
+
+const TICKING_VOLUME = 1;
+
+function onTickingClipEnded() {
+  if (!tickingAudioEl) return;
+  tickingAudioEl.currentTime = 0;
+  tickingAudioEl.play().catch((err) => console.warn("Ticking play error:", err));
+}
+
+/** One ticking stream until `stopTicking` (red phase only in video.js). Restarts on `ended` so clips never stack. */
+export function playTicking() {
+  stopTicking();
+  tickingAudioEl = new Audio(paths.ticking);
+  tickingAudioEl.volume = TICKING_VOLUME;
+  tickingAudioEl.addEventListener("ended", onTickingClipEnded);
+  tickingAudioEl.play().catch((err) => console.warn("Ticking play error:", err));
+}
+
+export function stopTicking() {
+  if (tickingAudioEl) {
+    tickingAudioEl.removeEventListener("ended", onTickingClipEnded);
+    tickingAudioEl.pause();
+    tickingAudioEl.currentTime = 0;
+    tickingAudioEl = null;
   }
 }
 
@@ -141,29 +164,41 @@ export function playVoice(src, delayMs = 1000) {
   }, delayMs);
 }
 
-export function playTicking() {
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
-  }
-  tickingAudio = new Audio(paths.ticking);
-  tickingAudio.play().catch(err => console.warn("Ticking play error:", err));
-}
-
-export function stopTicking() {
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
-  }
-}
-
 export function playWelcome() {
+  if (document.body.classList.contains("shorts-mode")) return;
   // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
   playVoice(paths.welcome, 500);
 }
 
+/** Shorts landing: welcome only over BGM (no duck); resolves when the clip ends. Pre-delay lives in video.js. */
+export function playWelcomeShortsLanding() {
+  if (!document.body.classList.contains("shorts-mode")) {
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => {
+    if (currentVoice) {
+      currentVoice.pause();
+      currentVoice.currentTime = 0;
+    }
+    currentVoice = new Audio(paths.welcome);
+    currentVoice.addEventListener(
+      "ended",
+      () => {
+        resolve();
+      },
+      { once: true }
+    );
+    currentVoice.play().catch((err) => {
+      console.warn("Voice play error:", err);
+      resolve();
+    });
+  });
+}
+
 export function playRules(quizType) {
-  if (quizType === "club-by-nat") {
+  if (quizType === "player-by-career") {
+    playVoice(paths.guessCareer, 1000);
+  } else if (quizType === "club-by-nat") {
     playVoice(paths.guessNat, 1000);
   } else {
     playVoice(paths.guessClub, 1000);
@@ -188,6 +223,7 @@ export function playCommentBelow() {
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
+  if (document.body.classList.contains("shorts-mode")) return;
   clearTimeout(progressTimeout);
   
   const questionIndex = levelIndex - 1; 

@@ -96,20 +96,16 @@
 }
 
 /* =========================================
-   OVERRIDE: Regular View Timer (Noticeably Smaller)
+   OVERRIDE: Regular View Timer (compact pill)
    ========================================= */
-body:not(.shorts-mode) .countdown-timer {
-  width: 2.6rem !important;
-  height: 2.6rem !important;
-  border-width: 0.26rem !important;
+body:not(.shorts-mode) .countdown-bar-track {
+  width: min(64vw, 13rem) !important;
+  height: 0.58rem !important;
+  padding: 0.16rem !important;
 }
 
-body:not(.shorts-mode) .timer-svg {
-  inset: -0.26rem !important;
-  width: calc(100% + 0.52rem) !important;
-  height: calc(100% + 0.52rem) !important;
-}
-
-body:not(.shorts-mode) #countdown-text {
-  font-size: 1.4rem !important;
+body:not(.shorts-mode) .countdown-bar-gloss {
+  left: 0.16rem !important;
+  right: 0.16rem !important;
+  top: 0.16rem !important;
 }

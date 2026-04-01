@@ -1,11 +1,15 @@
 import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderHeader, renderPitch } from "./pitch-render.js";
-import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
 
 export function switchLevel(index) {
+  let idx = index;
+  if (document.body.classList.contains("shorts-mode") && idx === 0) {
+    idx = 1;
+  }
   const prevIndex = appState.currentLevelIndex;
-  appState.currentLevelIndex = index;
+  appState.currentLevelIndex = idx;
   const state = getState();
   const { els } = appState;
 
@@ -103,8 +107,14 @@ export function switchLevel(index) {
     
     if (appState.isVideoPlaying) {
       if (isLanding) {
-        const quizType = document.getElementById("in-quiz-type").value;
-        playRules(quizType);
+        if (isShorts) {
+          if (prevIndex !== 0) {
+            void playWelcomeShortsLanding();
+          }
+        } else {
+          const quizType = document.getElementById("in-quiz-type").value;
+          playRules(quizType);
+        }
       } else if (isOutro) {
         playCommentBelow();
       } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {

@@ -34,11 +34,15 @@ export function renderProgressSteps(totalLevels, switchLevel) {
   const prevScrollLeft = els.quizProgressScroll.scrollLeft || 0;
   els.quizProgressScroll.innerHTML = "";
   let activeStepEl = null;
+  const isShortsLayout = document.body.classList.contains("shorts-mode");
   for (let i = 0; i <= totalLevels; i++) {
     const isLogo = (i === 0);
     const isLanding = (i === 1);
     const isOutro = (i === totalLevels);
     const isBonus = (i === totalLevels - 1);
+    if (isShortsLayout && isLogo) {
+      continue;
+    }
     if (appState.isVideoPlaying && (isLogo || isLanding || isOutro)) {
       continue;
     }

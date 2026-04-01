@@ -4,12 +4,14 @@ import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./pa
 import { playerPhotoPaths } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
 import {
+    clearPitchWrapTransitionOverride,
     renderHeader,
     renderPitch,
     renderSwapList,
     scheduleTeamHeaderNameCenterShift,
     scheduleShortsTeamNameFit,
     shouldUseVideoQuestionLayout,
+    syncQuestionPitchVideoModeInPlace,
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
 import { filterTeams, showResults, filterLeagues } from "./teams.js";
@@ -159,8 +161,8 @@ export function updateSetupUI() {
 export function populateSubTypes() {
     const { els } = appState;
     els.inQuizType.innerHTML = `
-      <option value="nat-by-club">Guess the national team by players' club</option>
-      <option value="club-by-nat">Guess the football team by players' nationality</option>
+      <option value="nat-by-club">Guess the football national team name by players' club</option>
+      <option value="club-by-nat">Guess the football team name by players' nationality</option>
     `;
 
     if (els.inQuizType.options.length > 0) {
@@ -177,21 +179,30 @@ export function updateLanding() {
     const title = document.getElementById("landing-title");
     const isShorts = document.body.classList.contains("shorts-mode");
 
-    if (type === "club-by-nat") {
-        title.innerHTML = isShorts
-            ? "GUESS THE FOOTBALL<br>TEAM NAME<br>BY PLAYERS'<br>NATIONALITY"
-            : "GUESS THE FOOTBALL<br>TEAM NAME BY<br>PLAYERS' NATIONALITY";
+    if (isShorts) {
+        if (type === "club-by-nat") {
+            title.innerHTML =
+                "Guess the football <br>team name by <br>players' nationality";
+        } else {
+            title.innerHTML =
+                "Guess the football <br>national team name<br>by players' club";
+        }
+    } else if (type === "club-by-nat") {
+        title.innerHTML = "GUESS THE FOOTBALL<br>TEAM NAME BY<br>PLAYERS' NATIONALITY";
     } else {
-        title.innerHTML = isShorts
-            ? "GUESS THE FOOTBALL<br>NATIONAL TEAM<br>NAME BY<br>PLAYERS' CLUB"
-            : "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB";
+        title.innerHTML = "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB";
     }
 
-    document.getElementById("landing-q-count").textContent = appState.totalLevelsCount - 3;
-    document.getElementById("val-easy").textContent = els.inEasy.value;
-    document.getElementById("val-medium").textContent = els.inMedium.value;
-    document.getElementById("val-hard").textContent = els.inHard.value;
-    document.getElementById("val-impossible").textContent = els.inImpossible.value;
+    const landingQCount = document.getElementById("landing-q-count");
+    if (landingQCount) landingQCount.textContent = appState.totalLevelsCount - 3;
+    const valEasy = document.getElementById("val-easy");
+    if (valEasy) valEasy.textContent = els.inEasy.value;
+    const valMedium = document.getElementById("val-medium");
+    if (valMedium) valMedium.textContent = els.inMedium.value;
+    const valHard = document.getElementById("val-hard");
+    if (valHard) valHard.textContent = els.inHard.value;
+    const valImpossible = document.getElementById("val-impossible");
+    if (valImpossible) valImpossible.textContent = els.inImpossible.value;
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
@@ -271,10 +282,10 @@ async function init() {
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     const initialLevelIndex = didRestoreState
         ? Math.min(
-            Math.max(0, appState.currentLevelIndex),
+            Math.max(1, appState.currentLevelIndex),
             Math.max(0, appState.levelsData.length - 1),
         )
-        : 0;
+        : 1;
     switchLevel(initialLevelIndex);
     syncShortsModeFab();
 
@@ -336,8 +347,11 @@ async function init() {
         const state = getState();
         state.videoMode = e.target.checked;
         syncVideoModeButton(state.videoMode);
+        clearPitchWrapTransitionOverride();
         renderHeader();
-        renderPitch();
+        if (!syncQuestionPitchVideoModeInPlace(getState())) {
+            renderPitch();
+        }
     };
 
     if (els.videoModeBtn && els.videoModeToggle) {

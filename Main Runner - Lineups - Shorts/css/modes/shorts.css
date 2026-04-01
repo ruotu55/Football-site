@@ -46,22 +46,54 @@ body.shorts-mode .logo-page {
 }
 
 body.shorts-mode .landing-page {
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
+}
+
+body.shorts-mode .landing-hero-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 100%;
+    gap: clamp(1rem, 3.2vh, 2.25rem);
+    padding: 0 1rem;
+    /* Keep logo + text above the shorts progress strip without hugging top/bottom */
+    padding-bottom: max(4.5rem, 11vh);
+    box-sizing: border-box;
+    /* Net ~5% viewport down from center (was 10vh, moved 5% up) */
+    transform: translateY(5vh);
+}
+
+body.shorts-mode .landing-hero-text {
+    text-align: center;
+    flex-shrink: 0;
 }
 
 body.shorts-mode .landing-title {
     font-size: 2.7rem;
     line-height: 0.95;
-    margin-top: 5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-transform: none;
 }
 
 body.shorts-mode .landing-subtitle {
     font-size: 1.6rem;
+    margin-bottom: 0;
+    text-transform: none;
 }
 
-body.shorts-mode .landing-q-badge {
-    transform: scale(0.45) perspective(500px) rotateX(5deg);
-    margin-bottom: 1.5rem;
+body.shorts-mode .shorts-landing-logo {
+    display: block;
+    width: 42%;
+    max-width: 220px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.55));
+    animation: float-up-down 3.2s ease-in-out infinite;
 }
 
 body.shorts-mode .difficulty-box {
@@ -326,45 +358,41 @@ body.shorts-mode .quiz-progress .line {
     margin: 0 0.3rem;
 }
 
+/* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: 3.5vh;
+    top: max(2.65rem, 8.5vh);
     left: 50%;
     transform: translateX(-50%);
-    width: 3.2rem;
-    height: 3.2rem;
-    border-width: 0.32rem;
 }
 
-body.shorts-mode .timer-svg {
-    inset: -0.32rem;
-    width: calc(100% + 0.64rem);
-    height: calc(100% + 0.64rem);
-}
-
-body.shorts-mode #countdown-text {
-    font-size: 2rem;
-}
-
-body.shorts-mode .countdown-timer.pulse {
-    animation: pulse-timer-shorts 1s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-}
-
-@keyframes pulse-timer-shorts {
+@keyframes countdown-timer-enter-shorts {
     0% {
-        transform: translateX(-50%) scale(1);
-        opacity: 1;
-    }
-
-    50% {
-        transform: translateX(-50%) scale(1.15);
-        opacity: 0.95;
-        filter: drop-shadow(0 0 10px #ef4444);
+        transform: translateX(-50%) scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        opacity: 0;
+        filter: blur(5px);
     }
 
     100% {
-        transform: translateX(-50%) scale(1);
+        transform: translateX(-50%) scale(1) translateZ(0) rotateX(0deg) translateY(0);
         opacity: 1;
+        filter: blur(0px);
     }
+}
+
+body.shorts-mode .countdown-timer.countdown-timer-stage-enter {
+    animation: countdown-timer-enter-shorts 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.shorts-mode .countdown-bar-track {
+    width: min(78vw, 19rem);
+    height: 0.78rem;
+    padding: 0.22rem;
+}
+
+body.shorts-mode .countdown-bar-gloss {
+    left: 0.22rem;
+    right: 0.22rem;
+    top: 0.22rem;
 }
 
 body.shorts-mode .quiz-progress[hidden] {
@@ -425,20 +453,6 @@ body.shorts-mode .stage-enter-anim {
         opacity: 1;
         filter: blur(0px);
     }
-}
-
-.shorts-landing-logo {
-    display: none;
-}
-
-body.shorts-mode .shorts-landing-logo {
-    display: block;
-    width: 45%;
-    max-width: 250px;
-    margin-top: 8vh;
-    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
-    animation: float-up-down 3.2s ease-in-out infinite;
-    z-index: 10;
 }
 
 body.shorts-mode .outro-top-row .outro-action {

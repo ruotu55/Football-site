@@ -552,6 +552,65 @@ export function applyVideoQuestionPostTimerFlip() {
   });
 }
 
+/**
+ * Toggle Video Mode on a question level: flip cards in place with the same stagger as Play Video,
+ * instead of renderPitch() replaceChildren (which nukes nodes and makes motion feel stuck).
+ * @returns {boolean} true if handled; false → caller should renderPitch().
+ */
+export function syncQuestionPitchVideoModeInPlace(state = getState()) {
+  if (!shouldUseVideoQuestionLayout(state) || !appState.els.pitchSlots) {
+    return false;
+  }
+  const occupied = appState.els.pitchSlots.querySelectorAll(".player-slot.has-player");
+  if (occupied.length === 0) {
+    return false;
+  }
+  for (const slotEl of occupied) {
+    if (!slotEl.querySelector(".slot-inner")) {
+      return false;
+    }
+  }
+
+  occupied.forEach((slotEl) => {
+    slotEl.querySelectorAll(".slot-badge-controls").forEach((el) => el.remove());
+    const inner = slotEl.querySelector(".slot-inner");
+    const slotIndex = Number(slotEl.dataset.slotIndex);
+    const idx = Number.isFinite(slotIndex) ? slotIndex : 0;
+    if (state.videoMode) {
+      appendSlotBadgeZoomControls(slotEl, idx);
+    }
+    inner.style.transitionDelay = `${idx * SLOT_FLIP_STAGGER_SEC}s`;
+  });
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      occupied.forEach((slotEl) => {
+        const inner = slotEl.querySelector(".slot-inner");
+        if (!inner) return;
+        if (state.videoMode) {
+          inner.classList.remove("flipped");
+        } else {
+          inner.classList.add("flipped");
+        }
+      });
+    });
+  });
+
+  const n = occupied.length;
+  const clearMs =
+    n <= 0
+      ? 50
+      : Math.ceil(((n - 1) * SLOT_FLIP_STAGGER_SEC + SLOT_FLIP_DURATION_SEC) * 1000) + 80;
+  window.setTimeout(() => {
+    occupied.forEach((slotEl) => {
+      const inner = slotEl.querySelector(".slot-inner");
+      if (inner) inner.style.transitionDelay = "";
+    });
+  }, clearMs);
+
+  return true;
+}
+
 let teamHeaderShiftRaf = 0;
 
 function updateTeamHeaderNameCenterShift() {

@@ -68,18 +68,39 @@ export function populateSubTypes() {
     applyCustomSelects();
 }
 
+/** Shorts landing: same wording as quiz sub-type option, line break before first " by " (sentence case). */
+function shortsLandingTitleFromQuizSubtype(els) {
+    const sel = els.inQuizType;
+    const raw = (sel?.options?.[sel?.selectedIndex]?.textContent || "").trim();
+    if (!raw) return "";
+    const lower = raw.toLowerCase();
+    const by = " by ";
+    const i = lower.indexOf(by);
+    if (i > 0) {
+        return `${raw.slice(0, i).trim()}<br>${raw.slice(i).trim()}`;
+    }
+    return raw;
+}
+
 export function updateLanding() {
     const { els } = appState;
     const title = document.getElementById("landing-title");
     const isShorts = document.body.classList.contains("shorts-mode");
 
-    title.innerHTML = isShorts ? "GUESS THE<br>FOOTBALL PLAYER<br>BY CAREER PATH" : "GUESS THE FOOTBALL PLAYER<br>BY CAREER PATH";
+    title.innerHTML = isShorts
+        ? shortsLandingTitleFromQuizSubtype(els)
+        : "GUESS THE FOOTBALL PLAYER<br>BY CAREER PATH";
 
-    document.getElementById("landing-q-count").textContent = appState.totalLevelsCount - 3;
-    document.getElementById("val-easy").textContent = els.inEasy.value;
-    document.getElementById("val-medium").textContent = els.inMedium.value;
-    document.getElementById("val-hard").textContent = els.inHard.value;
-    document.getElementById("val-impossible").textContent = els.inImpossible.value;
+    const landingQCount = document.getElementById("landing-q-count");
+    if (landingQCount) landingQCount.textContent = appState.totalLevelsCount - 3;
+    const valEasy = document.getElementById("val-easy");
+    if (valEasy) valEasy.textContent = els.inEasy.value;
+    const valMedium = document.getElementById("val-medium");
+    if (valMedium) valMedium.textContent = els.inMedium.value;
+    const valHard = document.getElementById("val-hard");
+    if (valHard) valHard.textContent = els.inHard.value;
+    const valImpossible = document.getElementById("val-impossible");
+    if (valImpossible) valImpossible.textContent = els.inImpossible.value;
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
@@ -177,10 +198,10 @@ async function init() {
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     const initialLevelIndex = didRestoreState
         ? Math.min(
-            Math.max(0, appState.currentLevelIndex),
+            Math.max(1, appState.currentLevelIndex),
             Math.max(0, appState.levelsData.length - 1),
         )
-        : 2;
+        : 1;
     switchLevel(initialLevelIndex);
     syncShortsCirclePreviewPanel();
     syncShortsModeFab();

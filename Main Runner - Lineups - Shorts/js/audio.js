@@ -28,7 +28,10 @@ const paths = {
 let bgMusic = null;
 let currentBgmIndex = 0;
 let currentVoice = null;
-let tickingAudio = null;
+/** Transport for question countdown: short MP3s often fail to `loop` reliably; we retrigger on an interval. */
+let tickingReplayTimer = null;
+let tickingActive = false;
+let tickingVolumeMuted = true;
 
 // Timeouts and Intervals for fading
 let fadeInterval = null;
@@ -110,10 +113,7 @@ export function stopAllAudio() {
     currentVoice.pause();
     currentVoice.currentTime = 0;
   }
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
-  }
+  stopTicking();
 }
 
 export function playVoice(src, delayMs = 1000) {
@@ -141,25 +141,70 @@ export function playVoice(src, delayMs = 1000) {
   }, delayMs);
 }
 
-export function playTicking() {
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
+const TICKING_VOLUME = 1;
+/** Space between tick clip replays (clip is short; interval avoids overlap and survives broken `loop`). */
+const TICK_CLIP_INTERVAL_MS = 450;
+
+function spawnTickClip() {
+  if (!tickingActive) return;
+  const clip = new Audio(paths.ticking);
+  clip.volume = tickingVolumeMuted ? 0 : TICKING_VOLUME;
+  clip.play().catch((err) => console.warn("Ticking play error:", err));
+}
+
+/** @param {boolean} [startMuted] If true, volume 0 until setTickingAudible(true). */
+export function playTicking(startMuted = false) {
+  stopTicking();
+  tickingActive = true;
+  tickingVolumeMuted = startMuted;
+  spawnTickClip();
+  tickingReplayTimer = setInterval(spawnTickClip, TICK_CLIP_INTERVAL_MS);
+}
+
+export function setTickingAudible(audible) {
+  tickingVolumeMuted = !audible;
+  if (audible && tickingActive) {
+    spawnTickClip();
   }
-  tickingAudio = new Audio(paths.ticking);
-  tickingAudio.play().catch(err => console.warn("Ticking play error:", err));
 }
 
 export function stopTicking() {
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
+  tickingActive = false;
+  if (tickingReplayTimer) {
+    clearInterval(tickingReplayTimer);
+    tickingReplayTimer = null;
   }
 }
 
 export function playWelcome() {
+  if (document.body.classList.contains("shorts-mode")) return;
   // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
   playVoice(paths.welcome, 500);
+}
+
+/** Shorts landing: welcome only over BGM (no duck); resolves when the clip ends. Pre-delay lives in video.js. */
+export function playWelcomeShortsLanding() {
+  if (!document.body.classList.contains("shorts-mode")) {
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => {
+    if (currentVoice) {
+      currentVoice.pause();
+      currentVoice.currentTime = 0;
+    }
+    currentVoice = new Audio(paths.welcome);
+    currentVoice.addEventListener(
+      "ended",
+      () => {
+        resolve();
+      },
+      { once: true }
+    );
+    currentVoice.play().catch((err) => {
+      console.warn("Voice play error:", err);
+      resolve();
+    });
+  });
 }
 
 export function playRules(quizType) {
@@ -188,6 +233,7 @@ export function playCommentBelow() {
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
+  if (document.body.classList.contains("shorts-mode")) return;
   clearTimeout(progressTimeout);
   
   const questionIndex = levelIndex - 1; 

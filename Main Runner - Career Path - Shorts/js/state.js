@@ -125,6 +125,7 @@ export const appState = {
   careerShortsCirclePreview: { enabled: false, count: 5 },
   videoInterval: null,
   videoTimeout: null,
+  tickingLeadTimeout: null,
   careerRevealFxTimeout: null,
   videoModeToggleFxTimeout: null,
   currentXi: [],
