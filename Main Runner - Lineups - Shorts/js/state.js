@@ -73,6 +73,7 @@ export const appState = {
   videoRevealPostTimerActive: false,
   videoInterval: null,
   videoTimeout: null,
+  tickingLeadTimeout: null,
   currentXi: [],
   allGlobalPlayers: null,
 };

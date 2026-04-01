@@ -497,6 +497,11 @@ body.shorts-mode .career-grid {
     transition: opacity 0.45s ease, filter 0.45s ease, transform 0.45s ease;
 }
 
+/* Play Video: kill grid transition so club crest drop-shadows are not tweened away (~0.45s) when body/wrap classes change. */
+body.shorts-mode.play-video-active .career-grid {
+    transition: none !important;
+}
+
 /* Remove debug frame around shorts career grid. */
 body.shorts-mode .career-grid--shorts-split::before {
     content: none;
@@ -711,6 +716,11 @@ body.shorts-mode .career-silhouette {
       drop-shadow(0 18px 28px rgba(32, 9, 80, 0.48));
 }
 
+body.shorts-mode.play-video-active .career-silhouette {
+    transition: none !important;
+    will-change: auto;
+}
+
 body.shorts-mode .career-clear-player-btn {
     left: auto;
     right: clamp(0.5rem, 3vw, 1rem);
@@ -863,6 +873,18 @@ body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo.sh
     animation: career-reveal-overlay-rise-safe-shorts-smooth 1.15s cubic-bezier(0.2, 1, 0.25, 1) forwards;
 }
 
+/* Play Video: freeze shell only during question preview + countdown — not post-timer reveal (body loses
+   career-shorts-video-layout / wrap loses video-mode-enabled; a broad selector was killing answer animations). */
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo.show,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.show,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .career-reveal-photo.show,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show {
+    animation: none;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+}
+
 body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo {
     overflow: visible;
 }
@@ -893,6 +915,28 @@ body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo-im
 
 body.shorts-mode .career-reveal-photo.show::after {
     animation: career-reveal-shadow-drop-shorts-smooth 0.42s cubic-bezier(0.12, 0.9, 0.3, 1) forwards;
+}
+
+/* Play Video: pin floor shadow only during preview/countdown — post-timer reveal should run ::after keyframes. */
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo.show::after,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.show::after,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .career-reveal-photo.show::after,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show::after {
+    animation: none;
+    opacity: 0.75;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(6px);
+}
+
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-reveal-photo,
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-reveal-photo-img,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-reveal-photo-img,
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo-img,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo-img {
+    transition: none !important;
 }
 
 body.shorts-mode .career-wrap.video-mode-enabled .career-reveal-photo {
@@ -934,9 +978,33 @@ body.shorts-mode .career-wrap.video-mode-enabled:not(.play-video-active) .career
       );
 }
 
+/* BGM / stage-swap window before countdown: same dimmed portrait as preview (avoids full-color “plain” flash on Play). */
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown.career-shorts-video-layout .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
+}
+
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap.video-mode-enabled .career-reveal-photo.is-tall-player.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown.career-shorts-video-layout .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+      );
+}
+
 body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 1;
-    filter: none;
+    /* Non-`none` filter keeps parent drop-shadow stable when leaving dimmed grayscale (Chromium). */
+    filter: brightness(1) contrast(1) saturate(1);
     transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
       scale(
         calc(var(--career-reveal-scale-x, 1.08) * 0.85),
@@ -962,7 +1030,7 @@ body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap
 
 body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 1;
-    filter: none;
+    filter: brightness(1) contrast(1) saturate(1);
     transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
       scale(
         calc(var(--career-reveal-scale-x, 1.08) * 0.85),
@@ -1024,6 +1092,17 @@ body.shorts-mode:not(.play-video-active) .career-grid.reveal-active {
     transform: translateX(-50%)
         translateY(calc(var(--shorts-club-grid-shift-y, 0px) - 0.25rem))
         scale(var(--shorts-club-grid-scale, 1));
+}
+
+/* Pre-countdown Play Video: same dimmed grid as preview so we do not run the 0.45s opacity/filter transition
+   from preview values to the fully-hidden .reveal-active base (reads as the portrait / shadow flickering). */
+body.shorts-mode.play-video-active:not(.shorts-question-countdown) .career-grid.reveal-active {
+    opacity: 0.22;
+    filter: blur(7px);
+    transform: translateX(-50%)
+        translateY(calc(var(--shorts-club-grid-shift-y, 0px) - 0.25rem))
+        scale(var(--shorts-club-grid-scale, 1));
+    pointer-events: none;
 }
 
 /* Shorts: hide "No image / No photo" fallback label on reveal layer. */

@@ -8,7 +8,6 @@ import {
   playTheAnswerIs,
   playCommentBelow,
   playTicking,
-  setTickingAudible,
   stopTicking,
 } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
@@ -30,8 +29,8 @@ const SHORTS_STAGE_CONTENT_SWAP_MS = 580;
 const SHORTS_STAGE_ENTER_MS = 800;
 /** Added to base question countdown (5s shorts / 3s regular) so each tick stays an equal slice of the longer total. */
 const QUESTION_COUNTDOWN_EXTRA_MS = 1500;
-/** Start ticking (mute + audible) this many ms earlier vs the previous schedule. */
-const TICK_SOUND_EARLIER_MS = 500;
+/** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
+const TICKING_LEAD_BEFORE_RED_MS = 2000;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
@@ -85,7 +84,9 @@ export function stopVideoFlow() {
   clearShortsQuestionCountdown();
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
-  stopAllAudio(); 
+  clearTimeout(appState.tickingLeadTimeout);
+  appState.tickingLeadTimeout = null;
+  stopAllAudio();
   const { els } = appState;
   els.playVideoBtn.hidden = false;
   els.countdownTimer.hidden = true;
@@ -206,6 +207,9 @@ function runVideoStep() {
   const isQuestionLevel = appState.currentLevelIndex > 1 && !isOutro;
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
+  clearTimeout(appState.tickingLeadTimeout);
+  appState.tickingLeadTimeout = null;
+  stopTicking();
   if (isQuestionLevel && els.teamHeader) {
     clearPitchWrapTransitionOverride();
     els.teamHeader.classList.remove("video-revealed");
@@ -253,6 +257,15 @@ function runVideoStep() {
     const totalTime = totalDurationMs / 1000;
     const tickMs = totalDurationMs / baseSteps;
     const fillEl = document.getElementById("countdown-bar-fill");
+    /** Wall time from interval start until UI first matches red (same threshold as timer-phase-red). */
+    const msUntilRed = (() => {
+      for (let s = baseSteps; s >= 1; s--) {
+        if (s > 0 && s / totalTime <= 0.25) {
+          return (baseSteps - s) * tickMs;
+        }
+      }
+      return (baseSteps - 1) * tickMs;
+    })();
 
     function applyTimerPhase(c) {
       const el = els.countdownTimer;
@@ -314,24 +327,12 @@ function runVideoStep() {
         }, 50);
       }
 
-      const delayToTick = Math.max(
-        0,
-        (count - (isShorts ? 4.0 : 4.5)) * tickMs - TICK_SOUND_EARLIER_MS
-      );
-      setTimeout(() => {
-        if (appState.isVideoPlaying) playTicking(true);
-      }, delayToTick);
-
-      const firstShakeCount = Math.floor(totalTime * 0.25);
-      if (firstShakeCount >= 1) {
-        const delayUnmuteTick = Math.max(
-          0,
-          (totalTime - firstShakeCount) * 1000 - 300 - TICK_SOUND_EARLIER_MS
-        );
-        setTimeout(() => {
-          if (appState.isVideoPlaying) setTickingAudible(true);
-        }, delayUnmuteTick);
-      }
+      clearTimeout(appState.tickingLeadTimeout);
+      const msUntilTicking = Math.max(0, msUntilRed - TICKING_LEAD_BEFORE_RED_MS);
+      appState.tickingLeadTimeout = setTimeout(() => {
+        appState.tickingLeadTimeout = null;
+        if (appState.isVideoPlaying) playTicking();
+      }, msUntilTicking);
 
       appState.videoInterval = setInterval(() => {
         count--;
@@ -342,7 +343,9 @@ function runVideoStep() {
           setBarToCountdownMoment(count);
         } else {
           clearInterval(appState.videoInterval);
-          if (appState.isVideoPlaying) stopTicking();
+          clearTimeout(appState.tickingLeadTimeout);
+          appState.tickingLeadTimeout = null;
+          stopTicking();
           clearShortsQuestionCountdown();
           els.countdownTimer.hidden = true;
           els.countdownTimer.classList.remove(

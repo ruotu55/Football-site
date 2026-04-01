@@ -1,5 +1,3 @@
-import { appState } from "./state.js";
-
 const paths = {
   welcome: "./Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
   guessNat: "./Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
@@ -28,10 +26,8 @@ const paths = {
 let bgMusic = null;
 let currentBgmIndex = 0;
 let currentVoice = null;
-/** Transport for question countdown: short MP3s often fail to `loop` reliably; we retrigger on an interval. */
-let tickingReplayTimer = null;
-let tickingActive = false;
-let tickingVolumeMuted = true;
+/** Single ticking track for countdown (no overlapping clips). */
+let tickingAudioEl = null;
 
 // Timeouts and Intervals for fading
 let fadeInterval = null;
@@ -142,37 +138,28 @@ export function playVoice(src, delayMs = 1000) {
 }
 
 const TICKING_VOLUME = 1;
-/** Space between tick clip replays (clip is short; interval avoids overlap and survives broken `loop`). */
-const TICK_CLIP_INTERVAL_MS = 450;
 
-function spawnTickClip() {
-  if (!tickingActive) return;
-  const clip = new Audio(paths.ticking);
-  clip.volume = tickingVolumeMuted ? 0 : TICKING_VOLUME;
-  clip.play().catch((err) => console.warn("Ticking play error:", err));
+function onTickingClipEnded() {
+  if (!tickingAudioEl) return;
+  tickingAudioEl.currentTime = 0;
+  tickingAudioEl.play().catch((err) => console.warn("Ticking play error:", err));
 }
 
-/** @param {boolean} [startMuted] If true, volume 0 until setTickingAudible(true). */
-export function playTicking(startMuted = false) {
+/** One ticking stream until `stopTicking`; restarts on `ended` so clips never stack. */
+export function playTicking() {
   stopTicking();
-  tickingActive = true;
-  tickingVolumeMuted = startMuted;
-  spawnTickClip();
-  tickingReplayTimer = setInterval(spawnTickClip, TICK_CLIP_INTERVAL_MS);
-}
-
-export function setTickingAudible(audible) {
-  tickingVolumeMuted = !audible;
-  if (audible && tickingActive) {
-    spawnTickClip();
-  }
+  tickingAudioEl = new Audio(paths.ticking);
+  tickingAudioEl.volume = TICKING_VOLUME;
+  tickingAudioEl.addEventListener("ended", onTickingClipEnded);
+  tickingAudioEl.play().catch((err) => console.warn("Ticking play error:", err));
 }
 
 export function stopTicking() {
-  tickingActive = false;
-  if (tickingReplayTimer) {
-    clearInterval(tickingReplayTimer);
-    tickingReplayTimer = null;
+  if (tickingAudioEl) {
+    tickingAudioEl.removeEventListener("ended", onTickingClipEnded);
+    tickingAudioEl.pause();
+    tickingAudioEl.currentTime = 0;
+    tickingAudioEl = null;
   }
 }
 
