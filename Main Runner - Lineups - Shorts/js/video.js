@@ -24,6 +24,8 @@ import {
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 /** Shorts landing: BGM plays; wait before welcome, then full welcome, then level advance. */
 const SHORTS_LANDING_PRE_WELCOME_DELAY_MS = 2000;
+/** Shorts: “Add specific title” stamp on landing — show only after Play Video, not on static landing. */
+const SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 500;
 /** Match `levels.js` stage swap before enter anim; enter duration matches `stage-enter-shorts`. */
 const SHORTS_STAGE_CONTENT_SWAP_MS = 580;
 const SHORTS_STAGE_ENTER_MS = 800;
@@ -34,6 +36,26 @@ const TICKING_LEAD_BEFORE_RED_MS = 2000;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
+}
+
+function hideShortsLandingSpecialBadgeIfEnabled() {
+  if (!document.body.classList.contains("shorts-mode")) return;
+  const toggle = document.getElementById("in-specific-title-toggle");
+  const badge = document.getElementById("landing-special-badge");
+  if (toggle?.checked && badge) {
+    badge.hidden = true;
+  }
+}
+
+function scheduleShortsLandingSpecialBadgeAfterPlayVideo() {
+  if (!document.body.classList.contains("shorts-mode")) return;
+  const toggle = document.getElementById("in-specific-title-toggle");
+  if (!toggle?.checked) return;
+  setTimeout(() => {
+    if (!appState.isVideoPlaying) return;
+    const badge = document.getElementById("landing-special-badge");
+    if (badge) badge.hidden = false;
+  }, SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
 }
 
 function refreshCurrentQuestionPreview() {
@@ -121,6 +143,7 @@ export function stopVideoFlow() {
     }
   }
   refreshCurrentQuestionPreview();
+  hideShortsLandingSpecialBadgeIfEnabled();
 }
 
 export function startVideoFlow() {
@@ -167,6 +190,7 @@ export function startVideoFlow() {
   }
 
   startBgMusic();
+  scheduleShortsLandingSpecialBadgeAfterPlayVideo();
 
   if (appState.currentLevelIndex === 0) {
     if (isShorts) {

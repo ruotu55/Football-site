@@ -48,7 +48,10 @@ export function renderLevelsReorderList() {
 
         const name = document.createElement("span");
         name.className = "level-name";
-        name.textContent = lvl.currentSquad ? lvl.currentSquad.name : "Empty";
+        const playerLabel = lvl.careerPlayer && typeof lvl.careerPlayer.name === "string"
+            ? lvl.careerPlayer.name.trim()
+            : "";
+        name.textContent = playerLabel;
 
         item.append(num, name);
 

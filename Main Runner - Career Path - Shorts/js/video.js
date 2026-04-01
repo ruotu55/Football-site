@@ -22,9 +22,11 @@ import {
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 /** Shorts landing: BGM plays; wait before welcome, then full welcome, then level advance. */
 const SHORTS_LANDING_PRE_WELCOME_DELAY_MS = 2000;
-/** Match `levels.js` stage swap before enter anim; enter duration matches `stage-enter-shorts`. */
-const SHORTS_STAGE_CONTENT_SWAP_MS = 580;
-const SHORTS_STAGE_ENTER_MS = 800;
+/** Shorts: “Add specific title” stamp on landing — show only after Play Video, not on static landing. */
+const SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 500;
+/** Match `levels.js` video squeeze: content swaps after `transitionDelay`; enter anim is 0.82s. */
+const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
+const SHORTS_STAGE_ENTER_MS = 820;
 /** Added to base question countdown (5s shorts / 3s regular) so each tick stays an equal slice of the longer total. */
 const QUESTION_COUNTDOWN_EXTRA_MS = 1500;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
@@ -32,6 +34,38 @@ const TICKING_LEAD_BEFORE_RED_MS = 1500;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
+}
+
+function landingSpecialTitleToggleChecked() {
+  const t = appState.els?.inSpecificTitleToggle ?? document.getElementById("in-specific-title-toggle");
+  return !!t?.checked;
+}
+
+function hideShortsLandingSpecialBadgeIfEnabled() {
+  if (!document.body.classList.contains("shorts-mode")) return;
+  if (appState.shortsLandingBadgeRevealTimeoutId != null) {
+    clearTimeout(appState.shortsLandingBadgeRevealTimeoutId);
+    appState.shortsLandingBadgeRevealTimeoutId = null;
+  }
+  const badge = document.getElementById("landing-special-badge");
+  if (landingSpecialTitleToggleChecked() && badge) {
+    badge.hidden = true;
+  }
+}
+
+export function scheduleShortsLandingSpecialBadgeAfterPlayVideo() {
+  if (!document.body.classList.contains("shorts-mode")) return;
+  if (!landingSpecialTitleToggleChecked()) return;
+  if (appState.shortsLandingBadgeRevealTimeoutId != null) {
+    clearTimeout(appState.shortsLandingBadgeRevealTimeoutId);
+    appState.shortsLandingBadgeRevealTimeoutId = null;
+  }
+  appState.shortsLandingBadgeRevealTimeoutId = setTimeout(() => {
+    appState.shortsLandingBadgeRevealTimeoutId = null;
+    if (!appState.isVideoPlaying) return;
+    const badge = document.getElementById("landing-special-badge");
+    if (badge) badge.hidden = false;
+  }, SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
 }
 
 function refreshCurrentQuestionPreview() {
@@ -103,6 +137,10 @@ function clearShortsQuestionCountdown() {
 }
 
 export function stopVideoFlow() {
+  if (appState.shortsLandingBadgeRevealTimeoutId != null) {
+    clearTimeout(appState.shortsLandingBadgeRevealTimeoutId);
+    appState.shortsLandingBadgeRevealTimeoutId = null;
+  }
   appState.isVideoPlaying = false;
   setVideoRevealPostTimerActive(false);
   document.body.classList.remove("play-video-active");
@@ -157,6 +195,7 @@ export function stopVideoFlow() {
   }
   syncCareerSlotControlsVisibility();
   refreshCurrentQuestionPreview();
+  hideShortsLandingSpecialBadgeIfEnabled();
 }
 
 export function startVideoFlow() {
@@ -165,7 +204,7 @@ export function startVideoFlow() {
   const isShorts = document.body.classList.contains("shorts-mode");
   if (appState.currentLevelIndex > 1) {
     if (!state.careerPlayer) { 
-      alert("Please select a player (Browse Player) and check the 'Video Mode' box first."); 
+      alert("Please select a player (use the No Player Selected search on the career screen) and turn on Video Mode first."); 
       return; 
     }
     if (!state.videoMode) { 
@@ -227,6 +266,7 @@ export function startVideoFlow() {
         if (!appState.isVideoPlaying) return;
         switchLevel(1);
         runVideoStep();
+        scheduleShortsLandingSpecialBadgeAfterPlayVideo();
       }, LOGO_PAGE_PLAY_VIDEO_DELAY_MS);
       return;
     }
@@ -248,6 +288,7 @@ export function startVideoFlow() {
     playWelcome();
   }
   runVideoStep();
+  scheduleShortsLandingSpecialBadgeAfterPlayVideo();
 }
 
 function runVideoStep() {

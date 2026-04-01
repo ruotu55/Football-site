@@ -1617,7 +1617,7 @@ export function renderCareer() {
   if (!document.body.classList.contains("shorts-mode")) {
     wrap.classList.toggle("cinematic-reveal-active", previewPostTimer);
     document.body.classList.toggle("career-cinematic-reveal", previewPostTimer);
-    if (!appState.isVideoPlaying && appState.els.teamHeader) {
+    if (appState.els.teamHeader) {
       appState.els.teamHeader.classList.toggle("cinematic-reveal", previewPostTimer);
     }
   }

@@ -206,7 +206,14 @@ export function updateLanding() {
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
-    document.getElementById("landing-special-badge").hidden = !showSpecial;
+    const badgeEl = document.getElementById("landing-special-badge");
+    if (isShorts && showSpecial) {
+        if (!appState.isVideoPlaying) {
+            badgeEl.hidden = true;
+        }
+    } else {
+        badgeEl.hidden = !showSpecial;
+    }
     document.getElementById("landing-special-text").textContent = els.inSpecificTitleText.value;
 
     const iconVal = els.inSpecificTitleIcon.value;
@@ -361,12 +368,15 @@ async function init() {
         };
     }
 
-    els.applyVideoAllBtn.onclick = () => {
-        const isVideoOn = els.videoModeToggle.checked;
-        appState.levelsData.forEach((lvl) => {
-            lvl.videoMode = isVideoOn;
-        });
-    };
+    if (els.applyVideoAllBtn && els.videoModeToggle) {
+        els.applyVideoAllBtn.onclick = () => {
+            appState.levelsData.forEach((lvl) => {
+                lvl.videoMode = true;
+            });
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        };
+    }
 
     els.playVideoBtn.onclick = () => startVideoFlow();
     els.swapClose.onclick = () => els.swapModal.hidden = true;

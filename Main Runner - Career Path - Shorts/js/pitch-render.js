@@ -7,7 +7,9 @@ import {
   DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
   DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
   getDefaultPlayerPictureValues,
+  getDefaultPlayerPictureValuesForCareerMode,
   getState,
+  migrateShortsVideoOffLegacyNormalProfile,
 } from "./state.js";
 import {
   projectAssetUrlFresh,
@@ -312,6 +314,20 @@ function applyCareerRevealAdjustments(wrapEl, st) {
   wrapEl.style.setProperty("--career-reveal-scale-y", String(revealScaleY));
 }
 
+/** Post-countdown answer beat during Play Video: drive reveal portrait vars from shorts "Video Mode off" profile so size/position match static video-off. */
+function getCareerRevealCssVarSource(st, isShortsLayout) {
+  if (!st) return st;
+  const preview = getVideoQuestionPreviewState(st);
+  if (isShortsLayout && appState.isVideoPlaying && preview.previewPostTimer) {
+    return {
+      silhouetteYOffset: Number(st.silhouetteShortsNormalYOffset),
+      silhouetteScaleX: Number(st.silhouetteShortsNormalScaleX),
+      silhouetteScaleY: Number(st.silhouetteShortsNormalScaleY),
+    };
+  }
+  return st;
+}
+
 function ensureCareerPictureModeProfiles(st) {
   if (!st) return;
   const regularDefaults = getDefaultPlayerPictureValues(false);
@@ -348,11 +364,12 @@ function ensureCareerPictureModeProfiles(st) {
   if (!Number.isFinite(Number(st.silhouetteShortsNormalYOffset))) {
     st.silhouetteShortsNormalYOffset = Number(shortsDefaults.silhouetteYOffset);
   }
+  const shortsVideoOffDefaults = getDefaultPlayerPictureValuesForCareerMode(true, false);
   if (!Number.isFinite(Number(st.silhouetteShortsNormalScaleX))) {
-    st.silhouetteShortsNormalScaleX = Number(shortsDefaults.silhouetteScaleX);
+    st.silhouetteShortsNormalScaleX = Number(shortsVideoOffDefaults.silhouetteScaleX);
   }
   if (!Number.isFinite(Number(st.silhouetteShortsNormalScaleY))) {
-    st.silhouetteShortsNormalScaleY = Number(shortsDefaults.silhouetteScaleY);
+    st.silhouetteShortsNormalScaleY = Number(shortsVideoOffDefaults.silhouetteScaleY);
   }
 }
 
@@ -385,7 +402,7 @@ export function applyCareerPictureModeToActiveState(st, isShortsLayout) {
 /** Persist active `silhouette*` into the profile for the given layout (shorts vs regular road). */
 export function persistCareerPictureModeFromActiveState(st, isShortsLayout) {
   if (!st) return;
-  const pictureDefaults = getDefaultPlayerPictureValues(isShortsLayout);
+  const pictureDefaults = getDefaultPlayerPictureValuesForCareerMode(isShortsLayout, !!st.videoMode);
   const y = Number(st.silhouetteYOffset ?? pictureDefaults.silhouetteYOffset);
   const x = Number(st.silhouetteScaleX ?? pictureDefaults.silhouetteScaleX);
   const ys = Number(st.silhouetteScaleY ?? pictureDefaults.silhouetteScaleY);
@@ -866,8 +883,9 @@ export function renderCareer() {
   );
 
   ensureCareerPictureModeProfiles(state);
+  if (isShorts) migrateShortsVideoOffLegacyNormalProfile(state);
   applyCareerPictureModeToActiveState(state, isShorts);
-  applyCareerRevealAdjustments(wrap, state);
+  applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
 
   const favoriteKey = getCareerPictureFavoriteKey(state);
   if (favoriteKey && appliedFavoritePictureKeyByState.get(state) !== favoriteKey) {
@@ -893,7 +911,7 @@ export function renderCareer() {
     state.silhouetteScaleX = DEFAULT_PLAYER_SILHOUETTE_SCALE_X;
     state.silhouetteScaleY = DEFAULT_PLAYER_SILHOUETTE_SCALE_Y;
     persistCareerPictureModeFromActiveState(state, isShorts);
-    applyCareerRevealAdjustments(wrap, state);
+    applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
   }
 
   /* Old regular defaults used 0 / 0.85 / 1. Move those untouched profiles to 0 / 1 / 1. */
@@ -942,7 +960,7 @@ export function renderCareer() {
 
     if (migratedRegularDefaults) {
       applyCareerPictureModeToActiveState(state, false);
-      applyCareerRevealAdjustments(wrap, state);
+      applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
     }
   }
 
@@ -1709,7 +1727,7 @@ function renderCareerPictureControls(wrap, state) {
         else saveCareerPictureFavorite(st);
       }
       if (action === "reset") {
-        const pictureDefaults = getDefaultPlayerPictureValues(layoutShorts);
+        const pictureDefaults = getDefaultPlayerPictureValuesForCareerMode(layoutShorts, !!st.videoMode);
         st.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
         st.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
         st.silhouetteScaleY = pictureDefaults.silhouetteScaleY;
@@ -1731,7 +1749,10 @@ function renderCareerPictureControls(wrap, state) {
       if (silhouette) {
         applyCareerSilhouetteAdjustments(silhouette, st);
       }
-      applyCareerRevealAdjustments(activeWrap, st);
+      applyCareerRevealAdjustments(
+        activeWrap,
+        getCareerRevealCssVarSource(st, layoutShorts),
+      );
     });
     document.body.appendChild(panel);
   }

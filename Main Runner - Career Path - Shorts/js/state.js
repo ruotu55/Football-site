@@ -3,6 +3,9 @@ export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.85;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
+/** Shorts “Adjust Picture (Video Off)” baseline width/height multipliers. */
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 1.0;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 1.0;
 
 export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   return {
@@ -14,6 +17,31 @@ export function getDefaultPlayerPictureValues(isShortsLayout = false) {
       ? DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y
       : DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
   };
+}
+
+/** Defaults for the active Adjust Picture profile (shorts splits Video On vs Video Off). */
+export function getDefaultPlayerPictureValuesForCareerMode(isShortsLayout, videoMode) {
+  if (!isShortsLayout) return getDefaultPlayerPictureValues(false);
+  if (videoMode) return getDefaultPlayerPictureValues(true);
+  return {
+    silhouetteYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+    silhouetteScaleX: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
+    silhouetteScaleY: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y,
+  };
+}
+
+/** One-time-style upgrade: old Video Off default was 0.85×1; new default is 1×1. */
+export function migrateShortsVideoOffLegacyNormalProfile(st) {
+  if (!st) return;
+  const approxS = (value, expected) => Math.abs(Number(value ?? expected) - expected) < 0.001;
+  if (
+    approxS(st.silhouetteShortsNormalYOffset, DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET) &&
+    approxS(st.silhouetteShortsNormalScaleX, DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) &&
+    approxS(st.silhouetteShortsNormalScaleY, DEFAULT_PLAYER_SILHOUETTE_SCALE_Y)
+  ) {
+    st.silhouetteShortsNormalScaleX = DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X;
+    st.silhouetteShortsNormalScaleY = DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y;
+  }
 }
 
 export const appState = {
@@ -89,16 +117,8 @@ export const appState = {
     btnSilhouettePrev: null,
     btnSilhouetteNext: null,
     silhouetteIndicator: null,
-    btnRevealPhoto: null,
     setupCareerControls: null,
-    btnCareerBrowse: null,
-    careerBrowseContainer: null,
-    btnCareerBrowseBack: null,
-    careerBrowseSearch: null,
-    careerBrowseList: null,
     careerSelectedInfo: null,
-    btnBrowseModeTeam: null,
-    btnBrowseModeName: null,
     careerEditModal: null,
     careerEditClose: null,
     careerEditOptions: null,
@@ -125,6 +145,8 @@ export const appState = {
   careerShortsCirclePreview: { enabled: false, count: 5 },
   videoInterval: null,
   videoTimeout: null,
+  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
+  shortsLandingBadgeRevealTimeoutId: null,
   tickingLeadTimeout: null,
   careerRevealFxTimeout: null,
   videoModeToggleFxTimeout: null,
@@ -178,8 +200,8 @@ export function initLevels(count) {
       silhouetteShortsVideoScaleX: shortsPictureDefaults.silhouetteScaleX,
       silhouetteShortsVideoScaleY: shortsPictureDefaults.silhouetteScaleY,
       silhouetteShortsNormalYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
-      silhouetteShortsNormalScaleX: shortsPictureDefaults.silhouetteScaleX,
-      silhouetteShortsNormalScaleY: shortsPictureDefaults.silhouetteScaleY,
+      silhouetteShortsNormalScaleX: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
+      silhouetteShortsNormalScaleY: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y,
       careerPlayer: null,
       careerHistory: [],
       careerSlotBadgeScales: [],

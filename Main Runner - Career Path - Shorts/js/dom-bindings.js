@@ -75,16 +75,8 @@ export function bindDomElements() {
     els.btnSilhouettePrev = document.getElementById("btn-silhouette-prev");
     els.btnSilhouetteNext = document.getElementById("btn-silhouette-next");
     els.silhouetteIndicator = document.getElementById("silhouette-indicator");
-    els.btnRevealPhoto = document.getElementById("btn-reveal-photo");
     els.setupCareerControls = document.getElementById("setup-career-controls");
-    els.btnCareerBrowse = document.getElementById("btn-career-browse");
-    els.careerBrowseContainer = document.getElementById("career-browse-container");
-    els.btnCareerBrowseBack = document.getElementById("btn-career-browse-back");
-    els.careerBrowseSearch = document.getElementById("career-browse-search");
-    els.careerBrowseList = document.getElementById("career-browse-list");
     els.careerSelectedInfo = document.getElementById("career-selected-info");
-    els.btnBrowseModeTeam = document.getElementById("btn-browse-mode-team");
-    els.btnBrowseModeName = document.getElementById("btn-browse-mode-name");
 
     // Career edit modal controls
     els.careerEditModal = document.getElementById("career-edit-modal");

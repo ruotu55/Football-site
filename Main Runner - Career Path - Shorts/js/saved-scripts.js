@@ -15,6 +15,28 @@ const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
 const FIXED_SHORTS_MODE = true;
 
+function jsonSafeClone(value) {
+    if (value == null) return value;
+    try {
+        return JSON.parse(JSON.stringify(value));
+    } catch {
+        return null;
+    }
+}
+
+function cloneCareerPlayerForStorage(p) {
+    if (!p || typeof p !== "object") return null;
+    const raw = jsonSafeClone(p);
+    if (raw && typeof raw === "object") delete raw._clubItem;
+    return raw;
+}
+
+function cloneCareerHistoryForStorage(h) {
+    if (!Array.isArray(h)) return [];
+    const raw = jsonSafeClone(h);
+    return Array.isArray(raw) ? raw : [];
+}
+
 function scriptHasCareer(s) {
     if ((s.landing?.gameMode || "lineup") === "career") return true;
     return (s.levels || []).some((l) => l.gameMode === "career");
@@ -70,35 +92,24 @@ export function initSavedScripts(callbacks) {
         renderSavedScripts();
     };
 
-    els.btnSaveScript.onclick = () => {
-        els.saveScriptName.value = "";
-        els.saveScriptModal.hidden = false;
-        els.saveScriptName.focus();
-    };
-
-    els.saveScriptCancel.onclick = () => {
-        els.saveScriptModal.hidden = true;
-    };
-
-    els.saveScriptConfirm.onclick = () => {
-        const name = els.saveScriptName.value.trim();
-        if (!name) return;
-        
-        const levelsToSave = appState.levelsData.map(lvl => ({
+    function buildLevelsSnapshot() {
+        return appState.levelsData.map((lvl) => ({
             isLogo: lvl.isLogo,
             isIntro: lvl.isIntro,
             isBonus: lvl.isBonus,
             isOutro: lvl.isOutro,
-            gameMode: lvl.gameMode || "career", 
+            gameMode: lvl.gameMode || "career",
             squadType: lvl.squadType,
-            selectedEntry: lvl.selectedEntry,
-            currentSquad: lvl.currentSquad,
+            selectedEntry: jsonSafeClone(lvl.selectedEntry),
+            currentSquad: jsonSafeClone(lvl.currentSquad),
+            careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
+            careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
             formationId: lvl.formationId,
             lastFormationId: lvl.lastFormationId,
             displayMode: lvl.displayMode,
             searchText: lvl.searchText,
-            customXi: lvl.customXi,
-            customNames: lvl.customNames,
+            customXi: jsonSafeClone(lvl.customXi),
+            customNames: jsonSafeClone(lvl.customNames) || {},
             videoMode: lvl.videoMode,
             landingPageType: lvl.landingPageType,
             careerClubsCount: lvl.careerClubsCount,
@@ -130,36 +141,89 @@ export function initSavedScripts(callbacks) {
             careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
                 ? [...lvl.careerSlotYearNudges]
                 : [],
-            slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries())
+            slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
         }));
+    }
 
+    function commitSavedScript(name) {
+        const levelsToSave = buildLevelsSnapshot();
         const newScript = {
             name,
-            folder: null, 
+            folder: null,
             landing: {
                 gameMode: "career",
                 quizType: els.inQuizType.value,
                 specificToggle: els.inSpecificTitleToggle.checked,
                 specificText: els.inSpecificTitleText.value,
                 specificIcon: els.inSpecificTitleIcon.value,
-                easy: els.inEasy.value,
-                medium: els.inMedium.value,
-                hard: els.inHard.value,
-                impossible: els.inImpossible.value
+                easy: els.inEasy?.value ?? "10",
+                medium: els.inMedium?.value ?? "5",
+                hard: els.inHard?.value ?? "3",
+                impossible: els.inImpossible?.value ?? "1",
             },
             lineup: {
                 videoMode: els.videoModeToggle.checked,
                 totalLevels: els.quizLevelsInput.value,
-                shortsMode: FIXED_SHORTS_MODE
+                shortsMode: FIXED_SHORTS_MODE,
             },
-            levels: levelsToSave
+            levels: levelsToSave,
         };
-
         savedScripts.push(newScript);
         localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
-        activeScriptName = name; 
-        els.saveScriptModal.hidden = true;
+        activeScriptName = name;
         renderSavedScripts();
+    }
+
+    function openSaveSettingsRightPanel() {
+        if (!els.rightPanel) return;
+        els.rightPanel.hidden = false;
+        els.rightPanel.innerHTML = `
+      <div class="panel-header">
+        <h1>Save Current Settings</h1>
+        <button type="button" class="panel-toggle" id="btn-close-save-right-panel">Hide</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+        <label class="field" style="margin: 0;">
+          <span class="label">Name</span>
+          <input type="text" id="save-settings-panel-name" placeholder="Enter name..." autocomplete="off"
+            style="width: 100%; padding: 0.6rem; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px; box-sizing: border-box;" />
+        </label>
+        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+          <button type="button" class="panel-toggle" id="save-settings-panel-cancel">Cancel</button>
+          <button type="button" class="panel-toggle" id="save-settings-panel-confirm" style="background: var(--accent); color: #000; font-weight: bold;">Save</button>
+        </div>
+      </div>
+    `;
+
+        const nameInput = document.getElementById("save-settings-panel-name");
+        document.getElementById("btn-close-save-right-panel").onclick = () => {
+            els.rightPanel.hidden = true;
+        };
+        document.getElementById("save-settings-panel-cancel").onclick = () => {
+            els.rightPanel.hidden = true;
+        };
+        document.getElementById("save-settings-panel-confirm").onclick = () => {
+            const name = nameInput.value.trim();
+            if (!name) return;
+            commitSavedScript(name);
+            els.rightPanel.hidden = true;
+        };
+        if (nameInput) nameInput.focus();
+    }
+
+    els.btnSaveScript.onclick = () => {
+        openSaveSettingsRightPanel();
+    };
+
+    els.saveScriptCancel.onclick = () => {
+        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
+    };
+
+    els.saveScriptConfirm.onclick = () => {
+        const name = els.saveScriptName.value.trim();
+        if (!name) return;
+        commitSavedScript(name);
+        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
     };
 
     els.deleteScriptNo.onclick = () => {
@@ -468,6 +532,8 @@ async function loadScript(script) {
             ? [...lvl.careerSlotYearNudges]
             : undefined,
         slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
+        careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
+        careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
     }));
     
     els.teamSearch.value = "";

@@ -1,4 +1,4 @@
-import { appState, getState } from "./state.js";
+import { appState, getState, migrateShortsVideoOffLegacyNormalProfile } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers } from "./pitch-render.js";
 import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
@@ -19,6 +19,7 @@ export function switchLevel(index) {
   if (isQuestionLevel && !state.careerPlayer) {
     const baselineQuestionState = appState.levelsData[2];
     if (baselineQuestionState && baselineQuestionState !== state) {
+      migrateShortsVideoOffLegacyNormalProfile(baselineQuestionState);
       state.careerClubsCount = baselineQuestionState.careerClubsCount;
       state.silhouetteYOffset = baselineQuestionState.silhouetteYOffset;
       state.silhouetteScaleX = baselineQuestionState.silhouetteScaleX;
@@ -170,6 +171,13 @@ export function switchLevel(index) {
     } else if (isLanding) {
       els.logoPage.hidden = isShorts;
       els.landingPage.hidden = false;
+      if (isShorts && appState.isVideoPlaying) {
+        import("./video.js").then((mod) => {
+          if (typeof mod.scheduleShortsLandingSpecialBadgeAfterPlayVideo === "function") {
+            mod.scheduleShortsLandingSpecialBadgeAfterPlayVideo();
+          }
+        });
+      }
       if (pendingLogoToLandingContentReveal) {
         els.landingPage.classList.add("landing-content-awaiting-shift");
         els.landingPage.classList.remove("landing-content-slide-in");
@@ -315,38 +323,6 @@ export function switchLevel(index) {
       return;
     }
 
-    if (isShorts) {
-      stageMain.classList.remove("stage-enter-anim");
-      stageMain.classList.add("stage-exit-anim");
-
-      if (progressContainer) {
-        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
-        progressContainer.classList.add("progress-out-shorts");
-      }
-
-      setTimeout(() => {
-        updateDOMContent();
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            stageMain.classList.remove("stage-exit-anim");
-            void stageMain.offsetWidth;
-            stageMain.classList.add("stage-enter-anim");
-
-            if (progressContainer) {
-              progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
-              void progressContainer.offsetWidth;
-              progressContainer.classList.add("progress-in-shorts");
-            }
-
-            setTimeout(() => {
-              stageMain.classList.remove("stage-enter-anim");
-            }, 600);
-          });
-        });
-      }, 580);
-      return;
-    }
-
     const exitClass = "stage-exit-video-anim";
     const enterClass = "stage-enter-video-anim";
     const transitionDelay = 820;
@@ -356,7 +332,7 @@ export function switchLevel(index) {
 
     if (progressContainer) {
       progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
-      progressContainer.classList.add("progress-out-reg");
+      progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
     }
 
     setTimeout(() => {
@@ -370,7 +346,7 @@ export function switchLevel(index) {
           if (progressContainer) {
             progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
             void progressContainer.offsetWidth;
-            progressContainer.classList.add("progress-in-reg");
+            progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
           }
 
           setTimeout(() => {

@@ -443,10 +443,10 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
     transform: translateX(-50%) translateY(55%) scale(0.68);
     filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
   }
-  58% {
+  /* Opacity/blur only: keeps a quick “materialize” without a second scale leg on transform. */
+  20% {
     opacity: 1;
-    transform: translateX(-50%) translateY(-2.2%) scale(1.11);
-    filter: blur(0) drop-shadow(0 24px 40px rgba(0, 0, 0, 0.86));
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
   }
   100% {
     opacity: 1;
@@ -466,10 +466,9 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
     transform: translateX(-50%) translateY(55%) scale(0.68);
     filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
   }
-  68% {
+  28% {
     opacity: 1;
-    transform: translateX(-50%) translateY(-1.1%) scale(1.08);
-    filter: blur(0) drop-shadow(0 26px 42px rgba(0, 0, 0, 0.88));
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
   }
   100% {
     opacity: 1;
@@ -481,13 +480,8 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
 @keyframes career-reveal-shadow-drop {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-42px) scale(0.72);
+    transform: translateX(-50%) translateY(-28px) scale(1);
     filter: blur(8px);
-  }
-  60% {
-    opacity: 0.95;
-    transform: translateX(-50%) translateY(0) scale(1.06);
-    filter: blur(5px);
   }
   100% {
     opacity: 0.75;
@@ -535,12 +529,11 @@ body:not(.shorts-mode) .career-reveal-name.show {
 @keyframes career-reveal-name-pop {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(64px) scale(0.84);
+    transform: translateX(-50%) translateY(56px) scale(0.9);
     filter: blur(10px);
   }
-  65% {
+  18% {
     opacity: 1;
-    transform: translateX(-50%) translateY(-4px) scale(1.06);
     filter: blur(0);
   }
   100% {

@@ -58,22 +58,12 @@
     </label>
   </div>
 
-  <label class="field">
-    <span class="label">Easy Levels</span>
+  <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
     <input type="number" id="in-easy" value="10" min="0" />
-  </label>
-  <label class="field">
-    <span class="label">Medium Levels</span>
     <input type="number" id="in-medium" value="5" min="0" />
-  </label>
-  <label class="field">
-    <span class="label">Hard Levels</span>
     <input type="number" id="in-hard" value="3" min="0" />
-  </label>
-  <label class="field">
-    <span class="label">Impossible Levels</span>
     <input type="number" id="in-impossible" value="1" min="0" />
-  </label>
+  </div>
 </div>
 
 <div id="panel-setup" class="panel-section">
@@ -111,25 +101,9 @@
     </div>
   </div>
 
-  <button type="button" id="btn-reveal-photo" class="panel-toggle" style="width: 100%; margin-bottom: 1rem; background: var(--accent); color: #000; font-weight: 800; border: none; box-shadow: 0 4px 10px rgba(255, 202, 40, 0.3);">Reveal Photo</button>
-
   <div id="setup-pitch-controls" style="display: none;"></div>
 
   <div id="setup-career-controls" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0;">
-    <button type="button" id="btn-career-browse" class="panel-toggle" style="width: 100%; background: rgba(255,255,255,0.05); color: var(--accent); font-weight: 800; border: 1px dashed var(--accent);">Browse Player</button>
-    
-    <div id="career-browse-container" style="display: none; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; padding: 0.6rem; background: rgba(0,0,0,0.3); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); max-height: 25rem;">
-        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <button type="button" id="btn-browse-mode-team" class="panel-toggle" style="flex: 1; background: var(--accent); color: #000; font-weight: bold;">By Team</button>
-            <button type="button" id="btn-browse-mode-name" class="panel-toggle" style="flex: 1; background: rgba(255,255,255,0.1); color: #fff;">By Name</button>
-        </div>
-        
-        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <button type="button" id="btn-career-browse-back" class="panel-toggle" style="display: none; padding: 0.3rem 0.6rem;">&larr; Back</button>
-            <input type="text" id="career-browse-search" placeholder="Filter..." style="flex: 1; padding: 0.3rem; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;" />
-        </div>
-        <div id="career-browse-list" style="display: flex; flex-direction: column; gap: 0.3rem; overflow-y: auto; flex: 1;"></div>
-    </div>
     <div id="career-selected-info" style="color: #ffca28; font-weight: bold; text-align: center; font-size: 0.9rem;"></div>
   </div>
 
@@ -142,7 +116,6 @@
       <span class="label" style="margin: 0; font-size: 0.72rem; color: #94a3b8;">Number of circles (1–24)</span>
       <input type="number" id="shorts-circle-preview-count" value="5" min="1" max="24" step="1" style="width: 100%; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #444; background: #1a1a1a; color: #fff;" />
     </label>
-    <p style="margin: 0; font-size: 0.65rem; line-height: 1.35; color: #64748b;">Turn on Shorts first. Layout + sizes follow <code style="font-size:0.9em;">shorts-career-club-count-map.css</code> (counts &gt; 12 reuse row logic + base styles).</p>
   </div>
 </div>
 

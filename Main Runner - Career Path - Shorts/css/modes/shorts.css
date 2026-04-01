@@ -116,7 +116,7 @@ body.shorts-mode .landing-special-badge-container {
     left: 50%;
     top: 20%;
     margin: 0;
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 body.shorts-mode .team-header {
@@ -297,7 +297,7 @@ body.shorts-mode .countdown-timer {
 }
 
 body.shorts-mode .countdown-timer.countdown-timer-stage-enter {
-    animation: countdown-timer-enter-shorts 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: countdown-timer-enter-shorts 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 body.shorts-mode .countdown-bar-track {
@@ -480,7 +480,7 @@ body.shorts-mode .career-grid {
     align-items: center;
     align-content: flex-start;
     row-gap: var(--shorts-team-row-gap, var(--shorts-gap-scaled, clamp(0.6rem, 1.6vmin, 0.95rem)));
-    /* Keep club logos above the player reveal layer so the player shadow does not cover them. */
+    /* Below portrait (see .career-reveal-photo z-index): blurred reveal-active grid must not stack on top or team colors tint the player. */
     z-index: 280;
     overflow-y: auto;
     overflow-x: visible;
@@ -769,7 +769,8 @@ body.shorts-mode.play-video-active.shorts-question-countdown .career-silhouette 
     max-height: none;
     aspect-ratio: auto;
     opacity: 0;
-    z-index: 260;
+    /* Above .career-grid (280): full-opacity portrait must sit in front of blurred crest band during reveal. */
+    z-index: 400;
     border-radius: 0;
     border: 0;
     pointer-events: none;
@@ -800,6 +801,15 @@ body.shorts-mode .career-reveal-photo {
     width: 100vw;
     max-width: 100vw;
     overflow: visible;
+    isolation: isolate;
+}
+
+/* Video Mode preview + question countdown (% bar): stack portrait under blurred crest band (original dim / layer look). */
+body.shorts-mode .career-wrap.video-mode-enabled:not(.play-video-active) .career-reveal-photo,
+body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-reveal-photo {
+    z-index: 250;
 }
 
 /* Floor shadow: same as body:not(.shorts-mode) .career-reveal-overlay::after */
@@ -895,6 +905,7 @@ body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo::a
     height: 2.07rem;
 }
 
+/* Video Mode shorts portrait: bottom fade + crest band stack during preview / countdown (see post-countdown override below). */
 body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo-img {
     clip-path: none;
     -webkit-mask-image: linear-gradient(
@@ -1043,9 +1054,14 @@ body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-co
     filter: grayscale(1) brightness(0.1) contrast(1.28);
 }
 
-/* Shorts-only fit correction: keep the regular shell animation, but preserve the old smaller portrait sizing. */
+/* Shorts-only fit correction: keep the regular shell animation, but preserve the old smaller portrait sizing.
+   Fold in --career-reveal-* (set from JS) so Adjust Picture — Shorts (Video Off) actually moves/scales the portrait. */
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-photo.show .career-reveal-photo-img {
-    transform: translateY(-1%) scale(0.78, 0.78);
+    transform: translateY(calc(var(--career-reveal-y, -10%) + 9%))
+        scale(
+            calc(var(--career-reveal-scale-x, 1.08) * (13 / 18)),
+            calc(var(--career-reveal-scale-y, 1.08) * (13 / 18))
+        );
 }
 
 /* Tall portraits need extra downward bias in shorts so the head clears the top bounds and title. */
@@ -1083,6 +1099,15 @@ body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .care
 body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
+}
+
+/* After countdown / while answering: solid portrait on top of crests (no bottom mask). Wrap/body video flags are often cleared post-reveal — #career-reveal-photo covers that case. */
+body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown) .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown).career-shorts-video-layout .career-wrap .career-reveal-photo.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown) #career-reveal-photo.show .career-reveal-photo-img {
+    clip-path: inset(0 0 0 0);
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
 /* Shorts Video Mode OFF: keep background present but blurred behind the player. */
@@ -1155,6 +1180,10 @@ body.shorts-mode .career-reveal-name.show {
         transform: translateX(-50%) translateY(46%) scale(0.74);
         filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
     }
+    20% {
+        opacity: 1;
+        filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+    }
     100% {
         opacity: 1;
         transform: translateX(-50%) translateY(0) scale(1.16);
@@ -1173,6 +1202,10 @@ body.shorts-mode .career-reveal-name.show {
         transform: translateX(-50%) translateY(46%) scale(0.74);
         filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
     }
+    28% {
+        opacity: 1;
+        filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+    }
     100% {
         opacity: 1;
         transform: translateX(-50%) translateY(0) scale(1.04);
@@ -1183,7 +1216,7 @@ body.shorts-mode .career-reveal-name.show {
 @keyframes career-reveal-shadow-drop-shorts-smooth {
     0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-42px) scale(0.72);
+        transform: translateX(-50%) translateY(-28px) scale(1);
         filter: blur(8px);
     }
     100% {
@@ -1196,12 +1229,11 @@ body.shorts-mode .career-reveal-name.show {
 @keyframes career-reveal-name-pop-top {
     0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-64px) scale(0.84);
+        transform: translateX(-50%) translateY(-56px) scale(0.9);
         filter: blur(10px);
     }
-    65% {
+    18% {
         opacity: 1;
-        transform: translateX(-50%) translateY(4px) scale(1.06);
         filter: blur(0);
     }
     100% {
