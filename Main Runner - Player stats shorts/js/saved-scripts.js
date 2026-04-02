@@ -1,4 +1,4 @@
-// js/saved-scripts.js — Main Runner - Placholder 2 - Shorts
+// js/saved-scripts.js — Main Runner - Player stats - Shorts
 import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,

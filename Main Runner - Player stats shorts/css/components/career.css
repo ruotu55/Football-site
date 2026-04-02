@@ -150,12 +150,6 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   will-change: filter, transform;
 }
 
-/* Video mode: black silhouette at 50% so it reads like a shadow (Play Video clears .video-mode-enabled on the wrap). */
-body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed),
-body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
-  opacity: 0.5;
-}
-
 .career-photo-missing-label {
   paint-order: stroke fill;
   stroke: #0a1118;
@@ -449,7 +443,6 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
     transform: translateX(-50%) translateY(55%) scale(0.68);
     filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
   }
-  /* Opacity/blur only: keeps a quick “materialize” without a second scale leg on transform. */
   20% {
     opacity: 1;
     filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
@@ -1007,7 +1000,7 @@ body:not(.shorts-mode) .career-club-placeholder:empty::after {
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Main Runner - Placholder 2: empty question stage */
+/* Main Runner - Player stats - Shorts: empty question stage */
 .placeholder-question-label {
   text-align: center;
   color: rgba(255, 255, 255, 0.42);

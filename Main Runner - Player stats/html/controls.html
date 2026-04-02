@@ -13,7 +13,7 @@
   <label class="field">
     <span class="label">Quiz type</span>
     <select id="in-quiz-type">
-      <option value="placholder" selected>Placholder 2</option>
+      <option value="placholder" selected>guess the player by career stats</option>
     </select>
   </label>
 
@@ -58,12 +58,22 @@
     </label>
   </div>
 
-  <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+  <label class="field">
+    <span class="label">Easy Levels</span>
     <input type="number" id="in-easy" value="10" min="0" />
+  </label>
+  <label class="field">
+    <span class="label">Medium Levels</span>
     <input type="number" id="in-medium" value="5" min="0" />
+  </label>
+  <label class="field">
+    <span class="label">Hard Levels</span>
     <input type="number" id="in-hard" value="3" min="0" />
+  </label>
+  <label class="field">
+    <span class="label">Impossible Levels</span>
     <input type="number" id="in-impossible" value="1" min="0" />
-  </div>
+  </label>
 </div>
 
 <div id="panel-setup" class="panel-section">
@@ -77,7 +87,7 @@
   </div>
   <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
     <input type="checkbox" id="video-mode-toggle" />
-    <input type="checkbox" id="shorts-mode-toggle" checked disabled />
+    <input type="checkbox" id="shorts-mode-toggle" disabled />
   </div>
   <button type="button" id="apply-video-all-btn" class="panel-toggle" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Apply Video Mode To All</button>
 

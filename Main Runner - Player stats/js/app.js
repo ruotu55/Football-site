@@ -37,7 +37,7 @@ export function updateSetupUI() {
 
 export function populateSubTypes() {
     const { els } = appState;
-    els.inQuizType.innerHTML = `<option value="placholder" selected>Placholder 2</option>`;
+    els.inQuizType.innerHTML = `<option value="placholder" selected>guess the player by career stats</option>`;
     if (els.inQuizType.options.length > 0) els.inQuizType.selectedIndex = 0;
     updateSetupUI();
     applyCustomSelects();
@@ -45,7 +45,7 @@ export function populateSubTypes() {
 
 function shortsLandingTitleFromQuizSubtype(els) {
     const raw = (els.inQuizType?.options?.[els.inQuizType?.selectedIndex]?.textContent || "").trim();
-    if (!raw) return "Placholder 2";
+    if (!raw) return "guess the player by career stats";
     const lower = raw.toLowerCase();
     const by = " by ";
     const i = lower.indexOf(by);
@@ -62,7 +62,7 @@ export function updateLanding() {
 
     title.innerHTML = isShorts
         ? shortsLandingTitleFromQuizSubtype(els)
-        : "PLACHOLDER";
+        : "guess the player<br>by career stats";
 
     const landingQCount = document.getElementById("landing-q-count");
     if (landingQCount) landingQCount.textContent = appState.totalLevelsCount - 3;
@@ -105,7 +105,7 @@ export function syncShortsCirclePreviewPanel() {}
 
 export function applyShortsCirclePreviewFromControls() {}
 
-const FIXED_SHORTS_MODE = true;
+const FIXED_SHORTS_MODE = false;
 
 function applyFixedShortsMode(els) {
     if (els.shortsModeToggle) {
@@ -148,10 +148,10 @@ async function init() {
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     const initialLevelIndex = didRestoreState
         ? Math.min(
-            Math.max(1, appState.currentLevelIndex),
+            Math.max(0, appState.currentLevelIndex),
             Math.max(0, appState.levelsData.length - 1),
         )
-        : 1;
+        : 0;
     switchLevel(initialLevelIndex);
     syncShortsModeFab();
 
