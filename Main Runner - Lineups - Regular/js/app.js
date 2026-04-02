@@ -384,11 +384,11 @@ async function init() {
     };
 
     // Load indexes
-    const fetchJsonNoCache = (path) => fetch(new URL(path, window.location.href), { cache: "no-store" }).then((r) => r.json());
+    const fetchJsonNoCache = (path) => fetch(projectAssetUrl(path), { cache: "no-store" }).then((r) => r.json());
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonNoCache("./data/teams-index.json"),
-        fetchJsonNoCache("./data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
-        fetchJsonNoCache("./data/country-to-flagcode.json").catch(() => ({ codes: {} })),
+        fetchJsonNoCache("data/teams-index.json"),
+        fetchJsonNoCache("data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
+        fetchJsonNoCache("data/country-to-flagcode.json").catch(() => ({ codes: {} })),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);

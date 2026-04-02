@@ -3,7 +3,7 @@
 #   & "C:\Users\Rom\Desktop\‏‏תיקיה חדשה\Football Channel\Main Runner - Lineups - Shorts\run_site.bat" --no-browser
 # macOS/Linux:
 #   python3 "C:/Users/Rom/Desktop/‏‏תיקיה חדשה/Football Channel/Main Runner - Lineups - Shorts/run_site.py"
-"""Serve this runner root and open its index.html."""
+"""Serve Football Channel repo root; open this runner's index.html."""
 from __future__ import annotations
 
 import argparse
@@ -20,7 +20,9 @@ from pathlib import Path
 from urllib.parse import quote, urlparse
 
 RUNNER_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = RUNNER_DIR
+PROJECT_ROOT = RUNNER_DIR.parent
+_RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
+RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
 DEFAULT_PORT = 8889
 LIVE_RELOAD_POLL_SECONDS = 0.6
 LIVE_RELOAD_HEARTBEAT_SECONDS = 2.0
@@ -275,16 +277,19 @@ def main() -> None:
         if chosen != args.port:
             print(f"Note: port {args.port} was busy; using {chosen} instead.\n")
 
-    url = f"http://127.0.0.1:{chosen}/index.html"
+    url = f"http://127.0.0.1:{chosen}{RUNNER_WEB_PREFIX}/index.html"
     print(f"Serving: {PROJECT_ROOT}")
     print(f"Open:    {url}")
     if args.host == "0.0.0.0":
         lan_ip = _primary_lan_ipv4()
         if lan_ip:
-            print(f"LAN:     http://{lan_ip}:{chosen}/index.html  (same Wi‑Fi/Ethernet as this PC)")
+            print(f"LAN:     http://{lan_ip}:{chosen}{RUNNER_WEB_PREFIX}/index.html  (same Wi‑Fi/Ethernet as this PC)")
         else:
             print(
-                "LAN:     Use http://<this-PC-IPv4>:" + str(chosen) + "/index.html on other devices.",
+                "LAN:     Use http://<this-PC-IPv4>:"
+                + str(chosen)
+                + RUNNER_WEB_PREFIX
+                + "/index.html on other devices.",
             )
             print("         Find the address with:  ipconfig  (IPv4 Address of your active adapter).")
 

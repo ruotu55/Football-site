@@ -1,26 +1,26 @@
 const paths = {
-  welcome: "./Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
-  guessNat: "./Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
-  guessClub: "./Voices/Game name/Guess the football national team name by players' club !!!.mp3",
-  warmUp: "./Voices/Levels/Worm up round dont mess this one .mp3",
-  serious: "./Voices/Levels/OK now it's getting serious.mp3",
-  nerds: "./Voices/Levels/Only true football nerd know this!!!.mp3",
-  genius: "./Voices/Levels/If you get this you are basically a genius!!!.mp3",
+  welcome: "../Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
+  guessNat: "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
+  guessClub: "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+  warmUp: "../Voices/Levels/Worm up round dont mess this one .mp3",
+  serious: "../Voices/Levels/OK now it's getting serious.mp3",
+  nerds: "../Voices/Levels/Only true football nerd know this!!!.mp3",
+  genius: "../Voices/Levels/If you get this you are basically a genius!!!.mp3",
   bgmPlaylist: [
-    "./Voices/Ringhton/viacheslavstarostin-upbeat-fun-music-427230.mp3",
-    "./Voices/Ringhton/nesterouk-fun-evening-145960.mp3",
-    "./Voices/Ringhton/paulyudin-fun-fun-fun-fun-fun-152388.mp3",
-    "./Voices/Ringhton/paulyudin-fun-morning-198120.mp3",
-    "./Voices/Ringhton/sunsides-summer-funny-fun-204398.mp3",
-    "./Voices/Ringhton/universfield-bright-piano-fun-270899.mp3",
-    "./Voices/Ringhton/backgroundmusicmaster-quiz-master-382651.mp3",
-    "./Voices/Ringhton/nra-lab-ukulele-fun-acoustic-background-happy-strings-221183.mp3",
-    "./Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
+    "../Voices/Ringhton/viacheslavstarostin-upbeat-fun-music-427230.mp3",
+    "../Voices/Ringhton/nesterouk-fun-evening-145960.mp3",
+    "../Voices/Ringhton/paulyudin-fun-fun-fun-fun-fun-152388.mp3",
+    "../Voices/Ringhton/paulyudin-fun-morning-198120.mp3",
+    "../Voices/Ringhton/sunsides-summer-funny-fun-204398.mp3",
+    "../Voices/Ringhton/universfield-bright-piano-fun-270899.mp3",
+    "../Voices/Ringhton/backgroundmusicmaster-quiz-master-382651.mp3",
+    "../Voices/Ringhton/nra-lab-ukulele-fun-acoustic-background-happy-strings-221183.mp3",
+    "../Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
   ],
-  theAnswerIs: "./Voices/the answer is/The answer is.mp3",
-  dong: "./Voices/the answer is/dong.wav",
-  commentBelow: "./Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  ticking: "./Voices/Ticking sound/ticking sound.mp3"
+  theAnswerIs: "../Voices/the answer is/The answer is.mp3",
+  dong: "../Voices/the answer is/dong.wav",
+  commentBelow: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  ticking: "../Voices/Ticking sound/ticking sound.mp3"
 };
 
 let bgMusic = null;

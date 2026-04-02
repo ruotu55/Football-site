@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Run (no browser, PowerShell): & "C:\Users\Rom\Desktop\‏‏תיקיה חדשה\Football Channel\Main Runner - Career Path - Shorts\run_site.bat" --no-browser -->
+<!-- macOS/Linux: python3 "C:/Users/Rom/Desktop/‏‏תיקיה חדשה/Football Channel/Main Runner - Career Path - Shorts/run_site.py" -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Football Quiz Studio - Placholder 2 - Shorts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://flagcdn.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      
+      <div id="floating-background" class="floating-background" aria-hidden="true"></div>
+
+      <div class="side-text left">THE FOOTBALL LAB</div>
+      <div class="side-text right" id="side-text-right">THE FOOTBALL LAB</div>
+
+      <button type="button" class="panel-fab" id="panel-fab">Show controls</button>
+      <button type="button" class="panel-fab video-mode-btn" id="video-mode-btn" aria-pressed="false">Video Mode</button>
+            <button type="button" class="panel-fab play-video-btn" id="play-video-btn">Play Video</button>
+      
+      <div id="countdown-timer" class="countdown-timer" hidden>
+        <div class="countdown-bar-track">
+          <div class="countdown-bar-inner">
+            <div id="countdown-bar-fill" class="countdown-bar-fill"></div>
+          </div>
+          <div class="countdown-bar-gloss" aria-hidden="true"></div>
+        </div>
+      </div>
+      
+      <aside class="control-panel" id="control-panel"></aside>
+      <aside class="control-panel right-panel" id="right-panel" hidden></aside>
+
+      <main class="stage">
+        <div id="stage-main" class="stage-main">
+            </div>
+        <div class="quiz-progress" id="quiz-progress-container"></div>
+      </main>
+
+      <div id="modal-container"></div>
+
+    </div>
+
+    <script type="module">
+      async function loadComponent(url, elementId, isReplace = false) {
+        try {
+          const response = await fetch(url);
+          const html = await response.text();
+          const target = document.getElementById(elementId);
+          if (isReplace) {
+            target.innerHTML = html;
+          } else {
+            target.insertAdjacentHTML('beforeend', html);
+          }
+        } catch (err) {
+          console.error(`Failed to load ${url}:`, err);
+        }
+      }
+
+      async function init() {
+        await Promise.all([
+          loadComponent('html/controls.html', 'control-panel', true),
+          loadComponent('html/progress.html', 'quiz-progress-container', true),
+          loadComponent('html/modals.html', 'modal-container', true)
+        ]);
+
+        const stageComponents = [
+          'html/shorts-stage-stub.html',
+          'html/landing.html',
+          'html/outro.html',
+          'html/header.html',
+          'html/career.html'
+        ];
+
+        for (const url of stageComponents) {
+          await loadComponent(url, 'stage-main');
+        }
+
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = 'js/app.js';
+        document.body.appendChild(script);
+      }
+
+      init();
+    </script>
+  </body>
+</html>

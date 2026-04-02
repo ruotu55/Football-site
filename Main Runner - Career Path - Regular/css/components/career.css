@@ -150,6 +150,12 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   will-change: filter, transform;
 }
 
+/* Video mode: black silhouette at 50% so it reads like a shadow (Play Video clears .video-mode-enabled on the wrap). */
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed),
+body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
+  opacity: 0.5;
+}
+
 .career-photo-missing-label {
   paint-order: stroke fill;
   stroke: #0a1118;

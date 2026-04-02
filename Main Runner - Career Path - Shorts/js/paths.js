@@ -25,9 +25,10 @@ export function normalizeTeamPath(path) {
     .replace(/\.\.\/Squad Formation\//g, "Squad Formation/");
 }
 
+/** Resolve a path relative to the Football Channel repo root (shared asset folders sit next to each runner). */
 export function projectAssetUrl(relativePath) {
   const rel = String(relativePath || "").replace(/^\/+/, "");
-  return new URL(`./${rel}`, window.location.href).href;
+  return new URL(`../${rel}`, window.location.href).href;
 }
 
 const PAGE_LOAD_CACHE_BUST = String(Date.now());

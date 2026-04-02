@@ -1,0 +1,111 @@
+/* css/components/quiz-progress.css */
+
+.quiz-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  right: 2.5rem;
+  top: 50%; 
+  transform: translateY(-50%);
+  z-index: 150;
+  width: auto; 
+  pointer-events: auto; 
+}
+.quiz-progress[hidden] { display: none !important; }
+
+.quiz-progress-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(2, 10, 16, 0.3);
+  padding: 0.6rem 0.5rem;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  margin: -2.4rem 0; 
+  transform: scale(0.8);
+  transform-origin: center;
+}
+
+.quiz-progress-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Extra bottom room so the bonus step label (absolute, below the circle) stays inside the scrollport */
+  padding: 0.6rem 0.2rem 1.35rem;
+  height: 24.55rem;
+  scroll-behavior: smooth;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.quiz-progress-scroll::-webkit-scrollbar {
+  display: none; 
+}
+
+.quiz-progress .step {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: rgba(17, 17, 17, 0.8);
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: background-color 0.8s ease-in-out, border-color 0.8s ease-in-out, color 0.8s ease-in-out;
+}
+
+.quiz-progress .line {
+  flex-shrink: 0;
+  width: 4px;
+  height: 20px; 
+  background: rgba(255, 255, 255, 0.25);
+  margin: 0.4rem 0;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: background-color 0.8s ease-in-out;
+}
+
+.bonus-step { position: relative; }
+.bonus-step-label {
+  position: absolute;
+  bottom: -1.2rem;
+  font-size: 0.6rem;
+  color: #ffca28;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.difficulty-label {
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  position: relative;
+  z-index: 10;
+}
+
+/* =========================================
+   OVERRIDE: Regular View Timer (compact pill)
+   ========================================= */
+body:not(.shorts-mode) .countdown-bar-track {
+  width: min(64vw, 13rem) !important;
+  height: 0.58rem !important;
+  padding: 0.16rem !important;
+}
+
+body:not(.shorts-mode) .countdown-bar-gloss {
+  left: 0.16rem !important;
+  right: 0.16rem !important;
+  top: 0.16rem !important;
+}

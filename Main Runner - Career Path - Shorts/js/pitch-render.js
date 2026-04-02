@@ -28,6 +28,7 @@ import {
   saveCareerClubFavorite,
   saveCareerPictureFavorite,
 } from "./career-size-favorites.js";
+import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 
 export const CAREER_BADGE_SCALE_MIN = 0.5;
 export const CAREER_BADGE_SCALE_MAX = 2.25;
@@ -1215,7 +1216,8 @@ export function renderCareer() {
     );
 
     uniqueNames.forEach((name) => {
-      out.push(`Teams Images/(1) Other Teams/${name}.png`);
+      const rel = getClubLogoOtherTeamsRelPath(name);
+      if (rel) out.push(rel);
     });
 
     if (foundClubEntry && foundClubEntry.country && foundClubEntry.league) {

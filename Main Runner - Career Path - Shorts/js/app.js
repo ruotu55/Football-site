@@ -8,6 +8,7 @@ import {
     initLevels,
 } from "./state.js";
 import { migratePlayerImages, projectAssetUrl } from "./paths.js";
+import { getClubLogoOtherTeamsUrl } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
 import {
     renderHeader,
@@ -395,17 +396,27 @@ async function init() {
                     state.careerHistory.push({ club: "Unknown", year: "YYYY" });
                 }
 
-                // Generate Absolute URL link 
-                let logoPath = "";
+                const slot = state.careerHistory[appState.careerActiveSlotIndex];
+                slot.club = team.name;
+
+                let customImageUrl = "";
                 if (team.country && team.league) {
-                    logoPath = `Teams Images/${team.country}/${team.league}/${team.name}.png`;
+                    customImageUrl = projectAssetUrl(
+                        `Teams Images/${team.country}/${team.league}/${team.name}.png`
+                    );
                 } else if (team.region) {
-                    logoPath = `Nationality images/${team.region}/${team.name}.png`;
+                    customImageUrl = projectAssetUrl(`Nationality images/${team.region}/${team.name}.png`);
+                } else {
+                    const ot = getClubLogoOtherTeamsUrl(team.name);
+                    if (ot) customImageUrl = ot;
                 }
 
-                // Set this manually found URL as customImage, rendering function will display it naturally. 
-                state.careerHistory[appState.careerActiveSlotIndex].customImage = projectAssetUrl(logoPath);
-                
+                if (customImageUrl) {
+                    slot.customImage = customImageUrl;
+                } else {
+                    delete slot.customImage;
+                }
+
                 els.careerEditModal.hidden = true;
                 renderCareer();
             };
@@ -478,11 +489,11 @@ async function init() {
     }
 
     // Load indexes
-    const fetchJsonNoCache = (path) => fetch(new URL(path, window.location.href), { cache: "no-store" }).then((r) => r.json());
+    const fetchJsonNoCache = (path) => fetch(projectAssetUrl(path), { cache: "no-store" }).then((r) => r.json());
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonNoCache("./data/teams-index.json"),
-        fetchJsonNoCache("./data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
-        fetchJsonNoCache("./data/country-to-flagcode.json").catch(() => ({ codes: {} })),
+        fetchJsonNoCache("data/teams-index.json"),
+        fetchJsonNoCache("data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
+        fetchJsonNoCache("data/country-to-flagcode.json").catch(() => ({ codes: {} })),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);

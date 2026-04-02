@@ -81,7 +81,7 @@ body.shorts-mode .landing-title {
 }
 
 body.shorts-mode .landing-subtitle {
-    font-size: 1.6rem;
+    font-size: clamp(1.35rem, 4.2vmin, 1.85rem);
     margin-bottom: 0;
     text-transform: none;
 }
@@ -453,6 +453,11 @@ body.shorts-mode .stage-enter-anim {
         opacity: 1;
         filter: blur(0px);
     }
+}
+
+/* Outro only: move logo, headings, and like/subscribe up; quiz bar stays on .stage (sibling). */
+body.shorts-mode #outro-page:not([hidden]) {
+    transform: translateY(-10vh);
 }
 
 body.shorts-mode .outro-top-row .outro-action {

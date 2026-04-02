@@ -1,0 +1,21 @@
+@echo off
+rem Run (no browser, PowerShell): & "C:\Users\Rom\Desktop\‏‏תיקיה חדשה\Football Channel\Main Runner - Career Path - Shorts\run_site.bat" --no-browser
+setlocal
+set "HERE=%~dp0"
+set "PY=%LocalAppData%\Programs\Python\Python312\python.exe"
+if exist "%PY%" goto :run
+set "PY=%LocalAppData%\Programs\Python\Python313\python.exe"
+if exist "%PY%" goto :run
+set "PY=%LocalAppData%\Programs\Python\Python311\python.exe"
+if exist "%PY%" goto :run
+
+echo.
+echo Could not find Python at %%LocalAppData%%\Programs\Python\Python312 ^(or 313/311^).
+echo Install: winget install Python.Python.3.12
+echo Or turn OFF "App execution aliases" for python.exe ^(Settings - Apps - Advanced app settings^).
+echo.
+exit /b 1
+
+:run
+"%PY%" "%HERE%run_site.py" %*
+exit /b %ERRORLEVEL%

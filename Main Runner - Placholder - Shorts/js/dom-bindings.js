@@ -1,0 +1,92 @@
+import { appState } from "./state.js";
+
+// Centralized DOM binding keeps app init readable without changing behavior.
+export function bindDomElements() {
+    const { els } = appState;
+
+    els.squadType = document.getElementById("squad-type");
+    els.teamSearch = document.getElementById("team-search");
+    els.teamResults = document.getElementById("team-results");
+    els.formation = document.getElementById("formation");
+    els.displayMode = document.getElementById("display-mode");
+    els.pitchSlots = document.getElementById("pitch-slots"); /* null without pitch.html */
+    els.panelToggle = document.getElementById("panel-toggle");
+    els.panelFab = document.getElementById("panel-fab");
+    els.controlPanel = document.getElementById("control-panel");
+    els.headerName = document.getElementById("team-header-name");
+    els.headerLogo = document.getElementById("team-header-logo");
+    els.quizLevelsInput = document.getElementById("quiz-levels-input");
+    els.updateLevelsBtn = document.getElementById("update-levels-btn");
+    els.quizProgressScroll = document.getElementById("quiz-progress-scroll");
+    els.videoModeToggle = document.getElementById("video-mode-toggle");
+    els.videoModeBtn = document.getElementById("video-mode-btn");
+    els.applyVideoAllBtn = document.getElementById("apply-video-all-btn");
+    els.playVideoBtn = document.getElementById("play-video-btn");
+    els.shortsModeBtn = document.getElementById("shorts-mode-btn");
+    els.countdownTimer = document.getElementById("countdown-timer");
+    els.teamHeader = document.getElementById("team-header");
+    els.tabBtnLanding = document.getElementById("tab-btn-landing");
+    els.tabBtnSetup = document.getElementById("tab-btn-setup");
+    els.tabBtnSaved = document.getElementById("tab-btn-saved");
+    els.panelLanding = document.getElementById("panel-landing");
+    els.panelSetup = document.getElementById("panel-setup");
+    els.panelSaved = document.getElementById("panel-saved");
+    els.setupPitchControls = document.getElementById("setup-pitch-controls");
+    els.btnSaveScript = document.getElementById("btn-save-script");
+    els.btnCreateFolder = document.getElementById("btn-create-folder");
+    els.savedScriptsList = document.getElementById("saved-scripts-list");
+    els.saveScriptModal = document.getElementById("save-script-modal");
+    els.saveScriptName = document.getElementById("save-script-name");
+    els.saveScriptCancel = document.getElementById("save-script-cancel");
+    els.saveScriptConfirm = document.getElementById("save-script-confirm");
+    els.createFolderModal = document.getElementById("create-folder-modal");
+    els.createFolderName = document.getElementById("create-folder-name");
+    els.createFolderCancel = document.getElementById("create-folder-cancel");
+    els.createFolderConfirm = document.getElementById("create-folder-confirm");
+    els.deleteScriptModal = document.getElementById("delete-script-modal");
+    els.deleteScriptNo = document.getElementById("delete-script-no");
+    els.deleteScriptYes = document.getElementById("delete-script-yes");
+    els.inQuizType = document.getElementById("in-quiz-type");
+    els.inSpecificTitleToggle = document.getElementById("in-specific-title-toggle");
+    els.inSpecificTitleText = document.getElementById("in-specific-title-text");
+    els.inSpecificTitleIcon = document.getElementById("in-specific-title-icon");
+    els.inEasy = document.getElementById("in-easy");
+    els.inMedium = document.getElementById("in-medium");
+    els.inHard = document.getElementById("in-hard");
+    els.inImpossible = document.getElementById("in-impossible");
+    els.landingPage = document.getElementById("landing-page");
+    els.outroPage = document.getElementById("outro-page");
+    els.pitchWrap = document.getElementById("pitch-wrap");
+    els.logoPage = document.getElementById("logo-page");
+    els.quizProgressContainer = document.getElementById("quiz-progress-container");
+    els.sideTextRight = document.getElementById("side-text-right");
+    els.shortsModeToggle = document.getElementById("shorts-mode-toggle");
+    els.setupShortsCirclePreviewField = document.getElementById("setup-shorts-circle-preview-field");
+    els.shortsCirclePreviewToggle = document.getElementById("shorts-circle-preview-toggle");
+    els.shortsCirclePreviewCount = document.getElementById("shorts-circle-preview-count");
+    els.searchMode = document.getElementById("search-mode");
+    els.btnLevelsControl = document.getElementById("btn-levels-control");
+    els.rightPanel = document.getElementById("right-panel");
+    els.careerWrap = document.getElementById("career-wrap");
+    els.inCareerClubs = document.getElementById("in-career-clubs");
+    els.setupCareerClubsField = document.getElementById("setup-career-clubs-field");
+    els.setupCareerSilhouetteField = document.getElementById("setup-career-silhouette-field");
+    els.btnPictureControls = document.getElementById("btn-picture-controls");
+    els.btnSilhouettePrev = document.getElementById("btn-silhouette-prev");
+    els.btnSilhouetteNext = document.getElementById("btn-silhouette-next");
+    els.silhouetteIndicator = document.getElementById("silhouette-indicator");
+    els.setupCareerControls = document.getElementById("setup-career-controls");
+    els.careerSelectedInfo = document.getElementById("career-selected-info");
+
+    // Career edit modal controls
+    els.careerEditModal = document.getElementById("career-edit-modal");
+    els.careerEditClose = document.getElementById("career-edit-close");
+    els.careerEditOptions = document.getElementById("career-edit-options");
+    els.careerEditSearchContainer = document.getElementById("career-edit-search-container");
+    els.careerEditBackBtn = document.getElementById("career-edit-back-btn");
+    els.careerEditSearchInput = document.getElementById("career-edit-search-input");
+    els.careerEditSearchResults = document.getElementById("career-edit-search-results");
+    els.careerEditImgBtn = document.getElementById("career-edit-image-btn");
+    els.careerEditTeamBtn = document.getElementById("career-edit-team-btn");
+    els.careerEditYearBtn = document.getElementById("career-edit-year-btn");
+}

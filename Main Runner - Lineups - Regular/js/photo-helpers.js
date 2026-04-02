@@ -1,6 +1,9 @@
 import { appState, getState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 
+/** Loose crests: drop a PNG named exactly like the squad JSON `club` string (e.g. Atlético de Madrid.png). */
+const TEAMS_IMAGES_OTHER_TEAMS_DIR = "Teams Images/(1) Other Teams";
+
 export function generateMonogram(name) {
   if (!name) return "?";
   const words = name.trim().split(/\s+/);
@@ -16,6 +19,17 @@ export function getClubLogoUrl(clubName) {
     return projectAssetUrl(`Teams Images/${clubEntry.country}/${clubEntry.league}/${clubEntry.name}.png`);
   }
   return null;
+}
+
+/**
+ * Fallback crest path when the canonical country/league file is missing or the name does not match the index.
+ * File name must match the player JSON `club` field (including accents/spacing).
+ */
+export function getClubLogoOtherTeamsUrl(clubField) {
+  if (clubField == null || typeof clubField !== "string") return null;
+  const t = clubField.trim();
+  if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
+  return projectAssetUrl(`${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`);
 }
 
 /** Pitch uses rotateX(~38deg); smaller y = farther away — scale so portrait size matches FUT.GG-style depth */

@@ -60,7 +60,12 @@ export function syncTeamHeaderLogoVarsFromLevel() {
 }
 import { projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { pickStartingXI } from "./pick-xi.js";
-import { getClubLogoUrl, playerPhotoPaths, slotPerspectiveScale } from "./photo-helpers.js";
+import {
+  getClubLogoOtherTeamsUrl,
+  getClubLogoUrl,
+  playerPhotoPaths,
+  slotPerspectiveScale,
+} from "./photo-helpers.js";
 
 export function shouldUseVideoQuestionLayout(state = getState()) {
   if (!state || !state.currentSquad) return false;
@@ -307,10 +312,12 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       }
     } else {
       const clubName = player.club || "UNK";
-      const logoUrl = getClubLogoUrl(clubName);
+      const primaryLogoUrl = getClubLogoUrl(clubName);
+      const otherTeamsLogoUrl = getClubLogoOtherTeamsUrl(player.club);
+      const firstLogoUrl = primaryLogoUrl || otherTeamsLogoUrl;
       const clubLabel = player.club?.trim() ? player.club.trim() : "Unknown club";
 
-      if (!logoUrl) {
+      if (!firstLogoUrl) {
         appendSlotBadgeTextFallback(badgeWrap, clubLabel);
       } else {
         const img = document.createElement("img");
@@ -326,8 +333,14 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         img.style.objectFit = "contain";
         img.style.display = "block";
 
-        img.src = logoUrl;
+        let triedOtherTeamsFallback = false;
+        img.src = firstLogoUrl;
         img.onerror = () => {
+          if (!triedOtherTeamsFallback && primaryLogoUrl && otherTeamsLogoUrl) {
+            triedOtherTeamsFallback = true;
+            img.src = otherTeamsLogoUrl;
+            return;
+          }
           img.remove();
           appendSlotBadgeTextFallback(badgeWrap, clubLabel);
         };
