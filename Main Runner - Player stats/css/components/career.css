@@ -133,6 +133,7 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   /* Road + player image share this layer; moved another 5% higher */
   transform: rotateX(15deg) translateY(-20%);
   z-index: 5;
+  isolation: isolate;
 }
 
 .career-silhouette {
@@ -394,16 +395,14 @@ body:not(.shorts-mode) .career-reveal-overlay::after {
   pointer-events: none;
 }
 
+/* Video mode OFF: match Career Path full-size reveal. */
 body:not(.shorts-mode) .career-reveal-overlay-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
   transform: translateY(var(--career-reveal-y, -10%))
-    scale(
-      calc(var(--career-reveal-scale-x, 1.08) * 0.5),
-      calc(var(--career-reveal-scale-y, 1.08) * 0.5)
-    );
+    scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
   transform-origin: center bottom;
 }
 
@@ -437,8 +436,23 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay {
   overflow: hidden;
 }
 
+/* Video mode ON: original Player stats (half-scale reveal). */
 body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay-img {
   clip-path: inset(0 0 0 0);
+  transform: translateY(var(--career-reveal-y, -10%))
+    scale(
+      calc(var(--career-reveal-scale-x, 1.08) * 0.5),
+      calc(var(--career-reveal-scale-y, 1.08) * 0.5)
+    );
+}
+
+/* Play Video clears .video-mode-enabled on the wrap; keep smaller reveal during playback. */
+body:not(.shorts-mode).play-video-active .career-wrap .career-reveal-overlay-img {
+  transform: translateY(var(--career-reveal-y, -10%))
+    scale(
+      calc(var(--career-reveal-scale-x, 1.08) * 0.5),
+      calc(var(--career-reveal-scale-y, 1.08) * 0.5)
+    );
 }
 
 body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay.show {

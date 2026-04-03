@@ -233,23 +233,40 @@ const CAREER_LOGO_SLACK_CSS_MAX = 108;
 const CAREER_LOGO_SLACK_MAX_FRAC_OF_BOX = 0.38;
 const CAREER_SHADOW_UNIFORM_Y = -2;
 const CAREER_SHADOW_UNIFORM_SCALE = 0.82;
-/* Legacy square <image> side length in SVG user units (viewBox 1000×400). Regular uses 50% of former 760. */
-const CAREER_SILHOUETTE_MAX_REGULAR = 456; /* was 380; +20% */
-const CAREER_SILHOUETTE_BOTTOM_REGULAR = 525; /* bottom anchor: y + height = 525 */
-const CAREER_SILHOUETTE_MAX_SHORTS = 696; /* was 580; +20% */
-const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500; /* legacy square was y=-80, h=580 */
-/** Extra upward shift: y uses bottomY − hUx×(1+this) so the figure moves up by this fraction of its SVG height. */
-const CAREER_SILHOUETTE_VERTICAL_UP_FRAC = 0.00;
+/* Video mode OFF: same caps as Main Runner - Career Path - Regular (viewBox 1000×400). */
+const CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_OFF = 760;
+const CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_OFF = 580;
+const CAREER_SILHOUETTE_CENTER_X_REGULAR_VIDEO_OFF = 505; /* 125 + 760/2 */
+/* Video mode ON: original Player stats framing (smaller regular, taller shorts). */
+const CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_ON = 456;
+const CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_ON = 696;
+const CAREER_SILHOUETTE_CENTER_X_REGULAR_VIDEO_ON = 500;
+const CAREER_SILHOUETTE_BOTTOM_REGULAR = 525;
+const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500;
+/** Extra upward shift for video-on (Player stats) path; Career Path off uses bottomY − hUx only. */
+const CAREER_SILHOUETTE_VERTICAL_UP_FRAC = 0.0;
 /** Positive = move silhouette down in SVG user space (shorts + Video Mode). Layout uses SVG x/y, not CSS transform. */
 const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
-const CAREER_SILHOUETTE_CENTER_X_REGULAR = 500; /* viewBox center (was 315 = legacy box 125+380/2, read as left-heavy) */
-const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500; /* 210 + 580/2 */
+const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500;
 const CAREER_REVEAL_BASE_Y = -10;
 const CAREER_REVEAL_BASE_SCALE = 1.08;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
 const CAREER_PLAYER_TRIM_ALPHA_THRESHOLD = 12;
 const CAREER_PLAYER_TRIM_MARGIN_PX = 8;
+
+function getCareerSilhouetteSizingCaps(isShorts, videoMode) {
+  if (!videoMode) {
+    return {
+      maxU: isShorts ? CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_OFF : CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_OFF,
+      centerX: isShorts ? CAREER_SILHOUETTE_CENTER_X_SHORTS : CAREER_SILHOUETTE_CENTER_X_REGULAR_VIDEO_OFF,
+    };
+  }
+  return {
+    maxU: isShorts ? CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_ON : CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_ON,
+    centerX: isShorts ? CAREER_SILHOUETTE_CENTER_X_SHORTS : CAREER_SILHOUETTE_CENTER_X_REGULAR_VIDEO_ON,
+  };
+}
 
 /**
  * Size the SVG <image> rect to the bitmap aspect ratio.
@@ -272,7 +289,7 @@ function applyCareerSilhouetteSvgImageRect(imageEl, isShorts, videoMode = false)
     return;
   }
 
-  const maxU = isShorts ? CAREER_SILHOUETTE_MAX_SHORTS : CAREER_SILHOUETTE_MAX_REGULAR;
+  const { maxU, centerX } = getCareerSilhouetteSizingCaps(isShorts, videoMode);
   const sqWpx = maxU * (rw / 1000);
   const sqHpx = maxU * (rh / 400);
   const maxLongPx = Math.max(sqWpx, sqHpx);
@@ -290,11 +307,15 @@ function applyCareerSilhouetteSvgImageRect(imageEl, isShorts, videoMode = false)
   const wUx = (screenW * 1000) / rw;
   const hUx = (screenH * 400) / rh;
   const bottomY = isShorts ? CAREER_SILHOUETTE_BOTTOM_SHORTS : CAREER_SILHOUETTE_BOTTOM_REGULAR;
-  const centerX = isShorts ? CAREER_SILHOUETTE_CENTER_X_SHORTS : CAREER_SILHOUETTE_CENTER_X_REGULAR;
   const x = Math.round(centerX - wUx / 2);
-  let y = Math.round(bottomY - hUx * (1 + CAREER_SILHOUETTE_VERTICAL_UP_FRAC));
-  if (isShorts && videoMode) {
-    y += CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE;
+  let y;
+  if (!videoMode) {
+    y = Math.round(bottomY - hUx);
+  } else {
+    y = Math.round(bottomY - hUx * (1 + CAREER_SILHOUETTE_VERTICAL_UP_FRAC));
+    if (isShorts) {
+      y += CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE;
+    }
   }
   imageEl.setAttribute("x", String(x));
   imageEl.setAttribute("y", String(y));
@@ -1190,33 +1211,42 @@ export function renderCareer() {
 
   const imageGroup = document.createElementNS(svgNamespace, "g");
   const image = document.createElementNS(svgNamespace, "image");
-  
-  if (isShorts) {
-    image.setAttribute("x", String(500 - CAREER_SILHOUETTE_MAX_SHORTS / 2));
-    image.setAttribute(
-      "y",
-      String(
-        Math.round(
-          CAREER_SILHOUETTE_BOTTOM_SHORTS -
-            CAREER_SILHOUETTE_MAX_SHORTS * (1 + CAREER_SILHOUETTE_VERTICAL_UP_FRAC),
-        ),
-      ),
+
+  if (!state.videoMode) {
+    if (isShorts) {
+      image.setAttribute("x", "210");
+      image.setAttribute("y", "-80");
+      image.setAttribute("width", String(CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_OFF));
+      image.setAttribute("height", String(CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_OFF));
+    } else {
+      image.setAttribute("x", "125");
+      image.setAttribute("y", "-235");
+      image.setAttribute("width", String(CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_OFF));
+      image.setAttribute("height", String(CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_OFF));
+    }
+  } else if (isShorts) {
+    const maxSq = CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_ON;
+    let placeholderY = Math.round(
+      CAREER_SILHOUETTE_BOTTOM_SHORTS - maxSq * (1 + CAREER_SILHOUETTE_VERTICAL_UP_FRAC),
     );
-    image.setAttribute("width", String(CAREER_SILHOUETTE_MAX_SHORTS));
-    image.setAttribute("height", String(CAREER_SILHOUETTE_MAX_SHORTS));
+    placeholderY += CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE;
+    image.setAttribute("x", String(500 - maxSq / 2));
+    image.setAttribute("y", String(placeholderY));
+    image.setAttribute("width", String(maxSq));
+    image.setAttribute("height", String(maxSq));
   } else {
-    image.setAttribute("x", String(500 - CAREER_SILHOUETTE_MAX_REGULAR / 2));
+    const maxSq = CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_ON;
+    image.setAttribute("x", String(500 - maxSq / 2));
     image.setAttribute(
       "y",
       String(
         Math.round(
-          CAREER_SILHOUETTE_BOTTOM_REGULAR -
-            CAREER_SILHOUETTE_MAX_REGULAR * (1 + CAREER_SILHOUETTE_VERTICAL_UP_FRAC),
+          CAREER_SILHOUETTE_BOTTOM_REGULAR - maxSq * (1 + CAREER_SILHOUETTE_VERTICAL_UP_FRAC),
         ),
       ),
     );
-    image.setAttribute("width", String(CAREER_SILHOUETTE_MAX_REGULAR));
-    image.setAttribute("height", String(CAREER_SILHOUETTE_MAX_REGULAR));
+    image.setAttribute("width", String(maxSq));
+    image.setAttribute("height", String(maxSq));
   }
 
   image.setAttribute("preserveAspectRatio", "xMidYMax meet");
