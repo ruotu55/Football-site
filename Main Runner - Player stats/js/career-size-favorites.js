@@ -171,7 +171,7 @@ export async function loadCareerPictureFavoritesFromFile() {
   }
 }
 
-export function getCareerPictureFavoriteKey(state) {
+export function getCareerPictureFavoriteKey(state, options = {}) {
   const playerName = state?.careerPlayer?.name?.trim();
   const readyRelPath = careerReadyPhotoRelPath(playerName);
   if (!readyRelPath) return "";
@@ -180,12 +180,13 @@ export function getCareerPictureFavoriteKey(state) {
     document.body &&
     document.body.classList.contains("shorts-mode");
   const layoutSuffix = isShorts ? "|shorts" : "";
-  const modeSuffix = state?.videoMode ? "|video" : "|normal";
+  const useVideoMode = options.forceNormalMode ? false : !!state?.videoMode;
+  const modeSuffix = useVideoMode ? "|video" : "|normal";
   return `${PLAYER_PREFIX}${readyRelPath.toLowerCase()}${layoutSuffix}${modeSuffix}`;
 }
 
-export function getCareerPictureFavoriteSize(state) {
-  const key = getCareerPictureFavoriteKey(state);
+export function getCareerPictureFavoriteSize(state, options = {}) {
+  const key = getCareerPictureFavoriteKey(state, options);
   if (!key) return null;
   const store = readStore();
   const scoped = coercePlayerFavorite(store[key]);
@@ -200,7 +201,8 @@ export function getCareerPictureFavoriteSize(state) {
   const playerName = state?.careerPlayer?.name?.trim();
   const readyRelPath = careerReadyPhotoRelPath(playerName);
   if (!readyRelPath) return null;
-  const modeSuffix = state?.videoMode ? "|video" : "|normal";
+  const useVideoMode = options.forceNormalMode ? false : !!state?.videoMode;
+  const modeSuffix = useVideoMode ? "|video" : "|normal";
   const legacyModeKey = `${PLAYER_PREFIX}${readyRelPath.toLowerCase()}${modeSuffix}`;
   const fromMode = coercePlayerFavorite(store[legacyModeKey]);
   if (fromMode) return fromMode;

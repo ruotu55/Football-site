@@ -1063,6 +1063,7 @@ body:not(.shorts-mode) .player-stats-panel {
   pointer-events: auto;
   background: transparent;
   box-shadow: none;
+  overflow: visible;
 }
 
 /* Gaps between cards: transparent → full-page blue (html) shows through. */
@@ -1076,6 +1077,7 @@ body:not(.shorts-mode) .player-stats-panel__matrix {
   box-sizing: border-box;
   background: transparent;
   border-radius: 0.1rem;
+  overflow: visible;
 }
 
 /* Main row: [ Games+Position | Clubs | Goals+Assists ] — side columns stay short; Clubs height does not push bottom cards down. */
@@ -1087,6 +1089,7 @@ body:not(.shorts-mode) .player-stats-panel__row {
   gap: var(--player-stats-grid-gap);
   width: 100%;
   min-width: 0;
+  overflow: visible;
 }
 
 body:not(.shorts-mode) .player-stats-panel__column {
@@ -1096,6 +1099,7 @@ body:not(.shorts-mode) .player-stats-panel__column {
   gap: var(--player-stats-grid-gap);
   flex: 1 1 0;
   min-width: 0;
+  overflow: visible;
 }
 
 /* Main stats row: wider center strip for 4 clubs per row; side columns a bit narrower. */
@@ -1117,6 +1121,41 @@ body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card {
   flex: 0 0 auto;
   width: 100%;
   min-width: 0;
+}
+
+/* Waving nationality art: directly under Position, same column as Career games (regular mode). */
+body:not(.shorts-mode) .player-stats-waving-flag {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  margin-top: -8.25rem;
+  overflow: visible;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+/*
+ * Asset may ship with opaque black; screen compositing knocks pure black to the backdrop.
+ * Viewport-sized bitmap + scale() so it can read larger than the stats column / 100vw box.
+ */
+body:not(.shorts-mode) .player-stats-waving-flag__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100vw, 234rem);
+  max-height: min(100vh, 144rem);
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  background: transparent;
+  mix-blend-mode: screen;
+  /* Was 2.15; −30% → ×0.7 ≈ 1.5 */
+  transform: translateY(-5.25rem) scale(1.505);
+  transform-origin: center top;
 }
 
 /* Fixed height for every card except expanded Clubs. */

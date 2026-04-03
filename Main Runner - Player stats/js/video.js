@@ -8,7 +8,9 @@ import { renderCareer, renderHeader, syncCareerSlotControlsVisibility } from "./
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 
 function setVideoRevealPostTimerActive(isActive) {
-  appState.videoRevealPostTimerActive = !!isActive;
+  const on = !!isActive;
+  appState.videoRevealPostTimerActive = on;
+  document.body.classList.toggle("career-play-video-answer-reveal", on && appState.isVideoPlaying);
 }
 
 function refreshCurrentQuestionPreview() {

@@ -10,6 +10,7 @@ import {
   getState,
 } from "./state.js";
 import {
+  projectAssetUrl,
   projectAssetUrlFresh,
   careerReadyPhotoRelPath,
   CAREER_NO_PHOTO_LABEL,
@@ -27,6 +28,19 @@ import {
   saveCareerPictureFavorite,
 } from "./career-size-favorites.js";
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
+
+/** Repo-root `Nationality images/Waving/{file}` for pre-rendered waving flags (regular layout stats panel). */
+function careerWavingNationalityFlagRel(nationalityRaw) {
+  const n = String(nationalityRaw || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  if (n === "portugal" || n === "portuguese") {
+    return "Nationality images/Waving/Portugal.png";
+  }
+  return null;
+}
 
 export const CAREER_BADGE_SCALE_MIN = 0.5;
 export const CAREER_BADGE_SCALE_MAX = 2.25;
@@ -1766,10 +1780,24 @@ export function renderCareer() {
     rowMain.className = "player-stats-panel__row player-stats-panel__row--main";
     const colLeft = document.createElement("div");
     colLeft.className = "player-stats-panel__column";
-    colLeft.append(
+    const wavingFlagRel = careerWavingNationalityFlagRel(statPlayer?.nationality);
+    const colLeftChildren = [
       mkStatCard("Career games", careerGamesStr, { icon: "pitch", nudgeLabelStrong: true }),
       mkStatCard("Position", positionStr, { icon: "position" }),
-    );
+    ];
+    if (wavingFlagRel) {
+      const waveWrap = document.createElement("div");
+      waveWrap.className = "player-stats-waving-flag";
+      const waveImg = document.createElement("img");
+      waveImg.className = "player-stats-waving-flag__img";
+      waveImg.alt = "National flag";
+      waveImg.decoding = "async";
+      waveImg.loading = "lazy";
+      waveImg.src = projectAssetUrl(wavingFlagRel);
+      waveWrap.appendChild(waveImg);
+      colLeftChildren.push(waveWrap);
+    }
+    colLeft.append(...colLeftChildren);
     const colRight = document.createElement("div");
     colRight.className = "player-stats-panel__column";
     colRight.append(
