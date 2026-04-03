@@ -8,13 +8,72 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "CLPD"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
+    {
+      "name": "Omar Carabalí",
+      "position": "Goalkeeper",
+      "age": 28,
+      "nationality": "Chile",
+      "club": "CD O'Higgins",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colo-Colo",
+          "year": "2019"
+        },
+        {
+          "club": "San Luis",
+          "year": "2020"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2021"
+        },
+        {
+          "club": "La Calera",
+          "year": "2023"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2023"
+        },
+        {
+          "club": "Audax Italiano",
+          "year": "2024"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2024"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 111,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Jorge Peña",
       "position": "Goalkeeper",
@@ -23,17 +82,55 @@
       "club": "CD O'Higgins",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Omar Carabalí",
-      "position": "Goalkeeper",
-      "age": 28,
-      "nationality": "Chile",
-      "club": "CD O'Higgins",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Everton",
+          "year": "2019"
+        },
+        {
+          "club": "San Luis",
+          "year": "2023"
+        },
+        {
+          "club": "CD Everton",
+          "year": "2023"
+        },
+        {
+          "club": "La Calera",
+          "year": "2024"
+        },
+        {
+          "club": "CD Everton",
+          "year": "2024"
+        },
+        {
+          "club": "La Calera",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        },
+        {
+          "club": "La Calera",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 68,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Carreño",
@@ -43,7 +140,35 @@
       "club": "CD O'Higgins",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Cruz",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +178,49 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "CD O'Higgins",
-      "appearances": 9,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2020"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2024"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "year": "2025"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alan Robledo",
@@ -63,9 +228,37 @@
       "age": 28,
       "nationality": "Argentina",
       "club": "CD O'Higgins",
-      "appearances": 9,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chacarita Jrs.",
+          "year": "2017"
+        },
+        {
+          "club": "CA Alvarado",
+          "year": "2021"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Garrido",
@@ -73,9 +266,49 @@
       "age": 23,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CDF Vial",
+          "year": "2022"
+        },
+        {
+          "club": "San Felipe",
+          "year": "2023"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2024"
+        },
+        {
+          "club": "U. Concepción",
+          "year": "2024"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Tomás Movillo",
@@ -85,7 +318,27 @@
       "club": "CD O'Higgins",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leandro Díaz",
@@ -95,7 +348,47 @@
       "club": "CD O'Higgins",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CDF Vial",
+          "year": "2018"
+        },
+        {
+          "club": "U. Concepción",
+          "year": "2019"
+        },
+        {
+          "club": "La Serena",
+          "year": "2021"
+        },
+        {
+          "club": "La Calera",
+          "year": "2023"
+        },
+        {
+          "club": "Huachipato",
+          "year": "2024"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Pavez Muñoz",
@@ -103,19 +396,95 @@
       "age": 30,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 9,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colo-Colo",
+          "year": "2013"
+        },
+        {
+          "club": "Cádiz CF",
+          "year": "2015"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2016"
+        },
+        {
+          "club": "Wanderers",
+          "year": "2017"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2017"
+        },
+        {
+          "club": "Union Española",
+          "year": "2018"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Union Española",
+          "year": "2022"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 290,
+        "goals": 9,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felipe Faúndez",
       "position": "Right-Back",
-      "age": 19,
+      "age": 20,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamín Rojas",
@@ -123,9 +492,45 @@
       "age": 25,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palestino",
+          "year": "2021"
+        },
+        {
+          "club": "AC Barnechea",
+          "year": "2021"
+        },
+        {
+          "club": "Pogon Szczecin",
+          "year": "2025"
+        },
+        {
+          "club": "Académico Viseu",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristián Morales",
@@ -135,7 +540,27 @@
       "club": "CD O'Higgins",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +570,37 @@
       "age": 22,
       "nationality": "Argentina",
       "club": "CD O'Higgins",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Defensa",
+          "year": "2023"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        },
+        {
+          "club": "Defensa",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Pinto",
@@ -155,9 +608,33 @@
       "age": 21,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Limache",
+          "year": "2024"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristóbal Castillo",
@@ -167,7 +644,35 @@
       "club": "CD O'Higgins",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2022"
+        },
+        {
+          "club": "Santa Cruz",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Leiva",
@@ -175,9 +680,61 @@
       "age": 32,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "D. Concepción",
+          "year": "2012"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2016"
+        },
+        {
+          "club": "Audax Italiano",
+          "year": "2017"
+        },
+        {
+          "club": "La Calera",
+          "year": "2019"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2021"
+        },
+        {
+          "club": "Ñublense",
+          "year": "2023"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2023"
+        },
+        {
+          "club": "Cobreloa",
+          "year": "2024"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 26,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felipe Ogaz",
@@ -185,9 +742,29 @@
       "age": 22,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 9,
+      "appearances": 6,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Rabello",
@@ -195,9 +772,97 @@
       "age": 31,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Colo-Colo",
+          "year": "2012"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2012"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2013"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2014"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2014"
+        },
+        {
+          "club": "FC Luzern",
+          "year": "2014"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2015"
+        },
+        {
+          "club": "CD Leganés",
+          "year": "2015"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2015"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2017"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2017"
+        },
+        {
+          "club": "Lobos BUAP",
+          "year": "2018"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2019"
+        },
+        {
+          "club": "U. Concepción",
+          "year": "2019"
+        },
+        {
+          "club": "Atromitos",
+          "year": "2020"
+        },
+        {
+          "club": "Union Española",
+          "year": "2021"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2023"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 398,
+        "goals": 37,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martín Maturana",
@@ -207,7 +872,35 @@
       "club": "CD O'Higgins",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Cruz",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +910,53 @@
       "age": 28,
       "nationality": "Argentina",
       "club": "CD O'Higgins",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "Coritiba FC",
+          "year": "2020"
+        },
+        {
+          "club": "Internacional",
+          "year": "2021"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2021"
+        },
+        {
+          "club": "Internacional",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 22,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Godoy",
@@ -229,7 +966,27 @@
       "club": "CD O'Higgins",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bastián Yáñez",
@@ -237,9 +994,37 @@
       "age": 24,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 11,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Union Española",
+          "year": "2019"
+        },
+        {
+          "club": "Godoy Cruz",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 9,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco González",
@@ -247,9 +1032,37 @@
       "age": 24,
       "nationality": "Argentina",
       "club": "CD O'Higgins",
-      "appearances": 11,
-      "goals": 3,
-      "assists": 3
+      "appearances": 7,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Newell's",
+          "year": "2020"
+        },
+        {
+          "club": "Defensa",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 17,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joaquín Tapia",
@@ -257,9 +1070,29 @@
       "age": 22,
       "nationality": "Chile",
       "club": "CD O'Higgins",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Esteban Calderón",
@@ -269,7 +1102,27 @@
       "club": "CD O'Higgins",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Vecino",
@@ -277,9 +1130,61 @@
       "age": 27,
       "nationality": "Uruguay",
       "club": "CD O'Higgins",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nacional",
+          "year": "2019"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2022"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2023"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2023"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2024"
+        },
+        {
+          "club": "Huachipato",
+          "year": "2024"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2025"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 45,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Esteban Moreira",
@@ -289,7 +1194,35 @@
       "club": "CD O'Higgins",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O'Higgins",
+          "year": "2022"
+        },
+        {
+          "club": "La Serena",
+          "year": "2025"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arnaldo Castillo",
@@ -297,9 +1230,73 @@
       "age": 28,
       "nationality": "Paraguay",
       "club": "CD O'Higgins",
-      "appearances": 11,
-      "goals": 3,
-      "assists": 0
+      "appearances": 7,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Naval",
+          "year": "2017"
+        },
+        {
+          "club": "CDF Vial",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Iberia",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Puerto Montt",
+          "year": "2021"
+        },
+        {
+          "club": "U. Concepción",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 40,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ES1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -48,7 +49,21 @@
           "club": "Real Oviedo",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 195,
+        "clean_sheets": 59
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Horațiu Moldovan",
@@ -56,7 +71,7 @@
       "age": 28,
       "nationality": "Romania",
       "club": "Real Oviedo",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -116,7 +131,21 @@
           "club": "Atlético",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 192,
+        "clean_sheets": 64
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 17,
+        "clean_sheets": 7
+      }
     }
   ],
   "defenders": [
@@ -178,7 +207,21 @@
           "club": "Nott'm Forest",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric Bailly",
@@ -186,7 +229,7 @@
       "age": 31,
       "nationality": "Ivory Coast",
       "club": "Real Oviedo",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -222,7 +265,21 @@
           "club": "Real Oviedo",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Costas",
@@ -270,15 +327,29 @@
           "club": "Real Oviedo",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dani Calvo",
       "position": "Centre-Back",
-      "age": 31,
+      "age": 32,
       "nationality": "Spain",
       "club": "Real Oviedo",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -306,7 +377,21 @@
           "club": "Real Oviedo",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 381,
+        "goals": 15,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javi López",
@@ -314,7 +399,7 @@
       "age": 24,
       "nationality": "Spain",
       "club": "Real Oviedo",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -338,7 +423,21 @@
           "club": "Real Sociedad",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rahim Alhassane",
@@ -346,7 +445,7 @@
       "age": 24,
       "nationality": "Niger",
       "club": "Real Oviedo",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -374,7 +473,21 @@
           "club": "Real Oviedo",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nacho Vidal",
@@ -410,7 +523,21 @@
           "club": "Real Oviedo",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 14,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Ahijado",
@@ -418,7 +545,7 @@
       "age": 31,
       "nationality": "Spain",
       "club": "Real Oviedo",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -430,7 +557,21 @@
           "club": "Real Oviedo",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 5,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -440,7 +581,7 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "Real Oviedo",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -504,7 +645,21 @@
           "club": "León",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 22,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leander Dendoncker",
@@ -556,7 +711,21 @@
           "club": "Real Oviedo",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 450,
+        "goals": 29,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Fonseca",
@@ -564,7 +733,7 @@
       "age": 27,
       "nationality": "Uruguay",
       "club": "Real Oviedo",
-      "appearances": 27,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -604,7 +773,21 @@
           "club": "León",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alberto Reina",
@@ -612,7 +795,7 @@
       "age": 28,
       "nationality": "Spain",
       "club": "Real Oviedo",
-      "appearances": 29,
+      "appearances": 28,
       "goals": 3,
       "assists": 0,
       "transfer_history": [
@@ -640,7 +823,21 @@
           "club": "Real Oviedo",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 21,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kwasi Sibo",
@@ -648,7 +845,7 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Real Oviedo",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -696,7 +893,21 @@
           "club": "Real Oviedo",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santi Cazorla",
@@ -740,7 +951,21 @@
           "club": "Real Oviedo",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 766,
+        "goals": 144,
+        "assists": 156,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 81,
+        "goals": 15,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Ilic",
@@ -748,8 +973,8 @@
       "age": 26,
       "nationality": "Serbia",
       "club": "Real Oviedo",
-      "appearances": 19,
-      "goals": 2,
+      "appearances": 18,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -800,7 +1025,21 @@
           "club": "Real Oviedo",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 42,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Agudín",
@@ -808,22 +1047,36 @@
       "age": 18,
       "nationality": "Spain",
       "club": "Real Oviedo Vetusta",
-      "appearances": 20,
-      "goals": 3,
+      "appearances": 5,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Oviedo Vetusta",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Thiago Fernández",
       "position": "Left Winger",
-      "age": 21,
+      "age": 22,
       "nationality": "Argentina",
       "club": "Real Oviedo",
       "appearances": 8,
@@ -842,7 +1095,21 @@
           "club": "Real Oviedo",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 7,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilyas Chaira",
@@ -850,7 +1117,7 @@
       "age": 25,
       "nationality": "Morocco",
       "club": "Real Oviedo",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 4,
       "assists": 1,
       "transfer_history": [
@@ -894,7 +1161,21 @@
           "club": "Real Oviedo",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 31,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ovie Ejaria",
@@ -946,7 +1227,21 @@
           "club": "Real Oviedo",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 17,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haissem Hassan",
@@ -954,7 +1249,7 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Real Oviedo",
-      "appearances": 29,
+      "appearances": 28,
       "goals": 0,
       "assists": 3,
       "transfer_history": [
@@ -982,7 +1277,21 @@
           "club": "Real Oviedo",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 15,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Federico Viñas",
@@ -990,7 +1299,7 @@
       "age": 27,
       "nationality": "Uruguay",
       "club": "Real Oviedo",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 6,
       "assists": 1,
       "transfer_history": [
@@ -1022,7 +1331,21 @@
           "club": "León",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 61,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Borbas",
@@ -1050,7 +1373,21 @@
           "club": "RB Bragantino",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 56,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álex Forés",
@@ -1058,9 +1395,9 @@
       "age": 24,
       "nationality": "Spain",
       "club": "Real Oviedo",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "FC Villarreal C",
@@ -1086,7 +1423,21 @@
           "club": "Villarreal",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 29,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MYS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 32,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 18,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kelantan FA",
+          "year": "2015"
+        },
+        {
+          "club": "Kedah FA",
+          "year": "2018"
+        },
+        {
+          "club": "FA Penang",
+          "year": "2019"
+        },
+        {
+          "club": "Kelantan Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "UiTM FC",
+          "year": "2022"
+        },
+        {
+          "club": "PDRM FC",
+          "year": "2023"
+        },
+        {
+          "club": "Perak FC",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 142,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khairulazhan Khalid",
@@ -31,29 +80,125 @@
       "age": 36,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 14,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shahzan Muda",
+          "year": "2011"
+        },
+        {
+          "club": "FA Pahang",
+          "year": "2013"
+        },
+        {
+          "club": "Selangor",
+          "year": "2015"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 161,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 11,
+        "clean_sheets": 7
+      }
     },
     {
       "name": "Khatul Anuar",
       "position": "Goalkeeper",
-      "age": 28,
+      "age": 29,
       "nationality": "Malaysia",
       "club": "Penang FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kuala Lumpur FA",
+          "year": "2017"
+        },
+        {
+          "club": "UKM FC",
+          "year": "2019"
+        },
+        {
+          "club": "Kuala Lumpur",
+          "year": "2019"
+        },
+        {
+          "club": "Penang",
+          "year": "2021"
+        },
+        {
+          "club": "Kelantan DN",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 51,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ashriq Izzat",
       "position": "Goalkeeper",
-      "age": 23,
+      "age": 24,
       "nationality": "Malaysia",
       "club": "Penang FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KL Extension",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +208,57 @@
       "age": 32,
       "nationality": "Argentina",
       "club": "Penang FC",
-      "appearances": 28,
-      "goals": 7,
-      "assists": 1
+      "appearances": 18,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Comerciantes",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Rafaela",
+          "year": "2017"
+        },
+        {
+          "club": "Gimnasia (M)",
+          "year": "2018"
+        },
+        {
+          "club": "Atl. Rafaela",
+          "year": "2019"
+        },
+        {
+          "club": "Carlos Stein",
+          "year": "2021"
+        },
+        {
+          "club": "Estudiantes",
+          "year": "2022"
+        },
+        {
+          "club": "Sri Pahang",
+          "year": "2023"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 36,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akmal Zahir",
@@ -73,9 +266,53 @@
       "age": 32,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sime Darby",
+          "year": "2016"
+        },
+        {
+          "club": "Harimau Muda A",
+          "year": "2016"
+        },
+        {
+          "club": "Melaka United SA",
+          "year": "2016"
+        },
+        {
+          "club": "UKM FC",
+          "year": "2017"
+        },
+        {
+          "club": "Melaka Utd",
+          "year": "2019"
+        },
+        {
+          "club": "KDA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khairul Akmal Rokisham",
@@ -83,9 +320,29 @@
       "age": 27,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 13,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FA Penang",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faith Obilor",
@@ -93,9 +350,69 @@
       "age": 35,
       "nationality": "Nigeria",
       "club": "Penang FC",
-      "appearances": 25,
+      "appearances": 16,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AmaZulu FC",
+          "year": "2010"
+        },
+        {
+          "club": "PS Kemi",
+          "year": "2011"
+        },
+        {
+          "club": "RoPS",
+          "year": "2012"
+        },
+        {
+          "club": "FC Inter",
+          "year": "2012"
+        },
+        {
+          "club": "FC Inter",
+          "year": "2016"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2017"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2020"
+        },
+        {
+          "club": "Taraz",
+          "year": "2021"
+        },
+        {
+          "club": "FC Aksu",
+          "year": "2022"
+        },
+        {
+          "club": "PDRM FC",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 477,
+        "goals": 15,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aidil Wafiy",
@@ -105,7 +422,22 @@
       "club": "Penang FC II",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adib Ra'op",
@@ -113,9 +445,33 @@
       "age": 26,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 1
+      "appearances": 16,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Perak FA",
+          "year": "2020"
+        },
+        {
+          "club": "Penang",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 4,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kamil Amirul",
@@ -123,9 +479,37 @@
       "age": 22,
       "nationality": "Philippines",
       "club": "Penang FC",
-      "appearances": 17,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ADT",
+          "year": "2022"
+        },
+        {
+          "club": "Cebu",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmad Irfan",
@@ -133,9 +517,29 @@
       "age": 24,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 18,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +549,57 @@
       "age": 31,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Johor FA",
+          "year": "2013"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2016"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2021"
+        },
+        {
+          "club": "Melaka Utd",
+          "year": "2021"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2022"
+        },
+        {
+          "club": "N. Sembilan FC",
+          "year": "2023"
+        },
+        {
+          "club": "KDA FC",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haziq Kutty",
@@ -155,9 +607,29 @@
       "age": 21,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Erick Brendon",
@@ -165,9 +637,65 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "Penang FC",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Botafogo",
+          "year": "2015"
+        },
+        {
+          "club": "América-RJ",
+          "year": "2016"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2016"
+        },
+        {
+          "club": "Portuguesa-RJ",
+          "year": "2017"
+        },
+        {
+          "club": "Central",
+          "year": "2018"
+        },
+        {
+          "club": "CA Barra",
+          "year": "2018"
+        },
+        {
+          "club": "Goytacaz-RJ",
+          "year": "2019"
+        },
+        {
+          "club": "Värnamo",
+          "year": "2019"
+        },
+        {
+          "club": "Östersund",
+          "year": "2022"
+        },
+        {
+          "club": "Penang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 11,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amirul Hisyam",
@@ -175,9 +703,37 @@
       "age": 30,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 14,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Harimau Muda C",
+          "year": "2013"
+        },
+        {
+          "club": "Kedah FA",
+          "year": "2016"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Izzat Zikri Iziruddin",
@@ -185,9 +741,29 @@
       "age": 23,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 19,
+      "appearances": 11,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Penang",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Firdaus Saiyadi",
@@ -195,9 +771,41 @@
       "age": 29,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 21,
+      "appearances": 12,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Perak FA",
+          "year": "2016"
+        },
+        {
+          "club": "Kuala Lumpur",
+          "year": "2023"
+        },
+        {
+          "club": "Perak FC",
+          "year": "2023"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruo Han",
@@ -205,9 +813,29 @@
       "age": 24,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +845,29 @@
       "age": 23,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penang",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "OJ Porteria",
@@ -227,9 +875,73 @@
       "age": 31,
       "nationality": "Philippines",
       "club": "Penang FC",
-      "appearances": 24,
-      "goals": 1,
-      "assists": 3
+      "appearances": 16,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Kaya FC",
+          "year": "2012"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Ceres-Negros FC",
+          "year": "2017"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2020"
+        },
+        {
+          "club": "United City",
+          "year": "2021"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Kelantan Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Dewa United",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 57,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akid Zamri",
@@ -237,9 +949,29 @@
       "age": 21,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omid Musawi",
@@ -247,9 +979,57 @@
       "age": 25,
       "nationality": "Afghanistan",
       "club": "Penang FC",
-      "appearances": 18,
+      "appearances": 8,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Twente Youth",
+          "year": "2011"
+        },
+        {
+          "club": "Para Hills",
+          "year": "2022"
+        },
+        {
+          "club": "Achyronas FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Para Hills",
+          "year": "2024"
+        },
+        {
+          "club": "Selangor FC",
+          "year": "2025"
+        },
+        {
+          "club": "Penang",
+          "year": "2026"
+        },
+        {
+          "club": "Selangor FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Syakirin Fadzli",
@@ -259,7 +1039,27 @@
       "club": "Penang FC II",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kedah C",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Wenzel-Halls",
@@ -267,9 +1067,41 @@
       "age": 28,
       "nationality": "Australia",
       "club": "Penang FC",
-      "appearances": 28,
-      "goals": 12,
-      "assists": 7
+      "appearances": 18,
+      "goals": 9,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Brisbane Roar",
+          "year": "2018"
+        },
+        {
+          "club": "Western United",
+          "year": "2021"
+        },
+        {
+          "club": "Central Coast",
+          "year": "2023"
+        },
+        {
+          "club": "Penang",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 41,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shamie Iszuan",
@@ -277,9 +1109,69 @@
       "age": 30,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harimau Muda C",
+          "year": "2013"
+        },
+        {
+          "club": "SPA",
+          "year": "2014"
+        },
+        {
+          "club": "Sarawak FA",
+          "year": "2015"
+        },
+        {
+          "club": "PJ Rangers",
+          "year": "2017"
+        },
+        {
+          "club": "Sarawak FA",
+          "year": "2019"
+        },
+        {
+          "club": "N. Sembilan FA",
+          "year": "2020"
+        },
+        {
+          "club": "Sarawak United",
+          "year": "2021"
+        },
+        {
+          "club": "Sri Pahang",
+          "year": "2023"
+        },
+        {
+          "club": "Kuching City",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2026"
+        },
+        {
+          "club": "Kuching City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arif Shaqirin",
@@ -287,9 +1179,49 @@
       "age": 26,
       "nationality": "Malaysia",
       "club": "Penang FC",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kuantan FA",
+          "year": "2018"
+        },
+        {
+          "club": "Kuala Lumpur",
+          "year": "2021"
+        },
+        {
+          "club": "Perak FC",
+          "year": "2023"
+        },
+        {
+          "club": "Kuala Lumpur",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Penang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Douglas Coutinho",
@@ -297,9 +1229,133 @@
       "age": 32,
       "nationality": "Brazil",
       "club": "Penang FC",
-      "appearances": 25,
-      "goals": 8,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético-PR",
+          "year": "2013"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2016"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2016"
+        },
+        {
+          "club": "Braga",
+          "year": "2016"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2017"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2018"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2018"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2018"
+        },
+        {
+          "club": "Seoul E-Land",
+          "year": "2019"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2019"
+        },
+        {
+          "club": "Operário-PR",
+          "year": "2020"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2020"
+        },
+        {
+          "club": "Fujairah SC",
+          "year": "2021"
+        },
+        {
+          "club": "Operário-PR",
+          "year": "2021"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2022"
+        },
+        {
+          "club": "Tapajós",
+          "year": "2023"
+        },
+        {
+          "club": "Ferroviária",
+          "year": "2023"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Nam Dinh FC",
+          "year": "2023"
+        },
+        {
+          "club": "Khanh Hoa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Tombense",
+          "year": "2024"
+        },
+        {
+          "club": "Borneo FC",
+          "year": "2025"
+        },
+        {
+          "club": "Penang",
+          "year": "2026"
+        },
+        {
+          "club": "Borneo FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 384,
+        "goals": 85,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kipré Tchetche",
@@ -307,9 +1363,61 @@
       "age": 38,
       "nationality": "Ivory Coast",
       "club": "Penang FC",
-      "appearances": 24,
-      "goals": 8,
-      "assists": 3
+      "appearances": 16,
+      "goals": 7,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Azam FC",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2017"
+        },
+        {
+          "club": "Terengganu",
+          "year": "2017"
+        },
+        {
+          "club": "Kedah FA",
+          "year": "2019"
+        },
+        {
+          "club": "Terengganu FC",
+          "year": "2021"
+        },
+        {
+          "club": "Kuala Lumpur",
+          "year": "2023"
+        },
+        {
+          "club": "Kuching City",
+          "year": "2024"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 77,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Suzuki",
@@ -317,9 +1425,81 @@
       "age": 35,
       "nationality": "Japan",
       "club": "Penang FC",
-      "appearances": 14,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Albirex Niigata",
+          "year": "2009"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2009"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2010"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2011"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2013"
+        },
+        {
+          "club": "Home United",
+          "year": "2014"
+        },
+        {
+          "club": "Geylang",
+          "year": "2015"
+        },
+        {
+          "club": "FC Gifu",
+          "year": "2016"
+        },
+        {
+          "club": "N. Sembilan FA",
+          "year": "2017"
+        },
+        {
+          "club": "Terengganu FC",
+          "year": "2018"
+        },
+        {
+          "club": "PDRM FC",
+          "year": "2021"
+        },
+        {
+          "club": "Bangkok FC",
+          "year": "2022"
+        },
+        {
+          "club": "PDRM FC",
+          "year": "2023"
+        },
+        {
+          "club": "Penang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 258,
+        "goals": 73,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 30,
       "nationality": "Croatia",
       "club": "Motor Lublin",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Istra",
+          "year": "2014"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2017"
+        },
+        {
+          "club": "NK Imotski",
+          "year": "2017"
+        },
+        {
+          "club": "Cibalia",
+          "year": "2017"
+        },
+        {
+          "club": "Zrinjski Mostar",
+          "year": "2018"
+        },
+        {
+          "club": "Riga",
+          "year": "2021"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2022"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 280,
+        "clean_sheets": 95
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gasper Tratnik",
@@ -31,9 +80,41 @@
       "age": 26,
       "nationality": "Slovenia",
       "club": "Motor Lublin",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Dob",
+          "year": "2019"
+        },
+        {
+          "club": "NK Domzale",
+          "year": "2022"
+        },
+        {
+          "club": "ND Primorje",
+          "year": "2024"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 142,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patryk Kukulski",
@@ -43,7 +124,47 @@
       "club": "Motor Lublin",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GKS Katowice",
+          "year": "2021"
+        },
+        {
+          "club": "Gwarek T.G.",
+          "year": "2023"
+        },
+        {
+          "club": "GKS Katowice",
+          "year": "2024"
+        },
+        {
+          "club": "Olimpia Grudz.",
+          "year": "2024"
+        },
+        {
+          "club": "Jelenia Gora",
+          "year": "2025"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 73,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +174,29 @@
       "age": 19,
       "nationality": "Poland",
       "club": "Motor Lublin",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hervé Matthys",
@@ -63,9 +204,61 @@
       "age": 30,
       "nationality": "Belgium",
       "club": "Motor Lublin",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2014"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2016"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2017"
+        },
+        {
+          "club": "FC Eindhoven",
+          "year": "2017"
+        },
+        {
+          "club": "Excelsior",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2021"
+        },
+        {
+          "club": "Beerschot VA",
+          "year": "2022"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 4,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marek Bartos",
@@ -75,7 +268,51 @@
       "club": "Motor Lublin",
       "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Puchov",
+          "year": "2015"
+        },
+        {
+          "club": "Dunajska Luzna",
+          "year": "2016"
+        },
+        {
+          "club": "Pohronie",
+          "year": "2018"
+        },
+        {
+          "club": "Podbrezova",
+          "year": "2018"
+        },
+        {
+          "club": "Pohronie",
+          "year": "2019"
+        },
+        {
+          "club": "Podbrezova",
+          "year": "2019"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 16,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arkadiusz Najemski",
@@ -85,7 +322,47 @@
       "club": "Motor Lublin",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Z. Sosnowiec",
+          "year": "2016"
+        },
+        {
+          "club": "Z. Sosnowiec",
+          "year": "2017"
+        },
+        {
+          "club": "Legia Warszawa",
+          "year": "2018"
+        },
+        {
+          "club": "Wigry Suwalki",
+          "year": "2018"
+        },
+        {
+          "club": "GKS Belchatow",
+          "year": "2020"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paskal Meyer",
@@ -93,9 +370,29 @@
       "age": 20,
       "nationality": "Poland",
       "club": "Motor Lublin",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Artem Akatov",
@@ -105,7 +402,31 @@
       "club": "Motor Lublin",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tsentr Futbola",
+          "year": "2024"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Krystian Brzozowski",
@@ -115,7 +436,27 @@
       "club": "Motor Lublin",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Motor Lublin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Luberecki",
@@ -123,9 +464,29 @@
       "age": 20,
       "nationality": "Poland",
       "club": "Motor Lublin",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Motor Lublin",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 1,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thomas Santos",
@@ -135,7 +496,39 @@
       "club": "Motor Lublin",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Skive IK",
+          "year": "2017"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2021"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2023"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 277,
+        "goals": 28,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paweł Stolarski",
@@ -145,7 +538,51 @@
       "club": "Motor Lublin",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wisla Kraków",
+          "year": "2012"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2014"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2014"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2015"
+        },
+        {
+          "club": "Legia Warszawa",
+          "year": "2018"
+        },
+        {
+          "club": "Pogon Szczecin",
+          "year": "2021"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 5,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Wójcik",
@@ -155,7 +592,47 @@
       "club": "Motor Lublin",
       "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unia Tarnow",
+          "year": "2013"
+        },
+        {
+          "club": "P. Niepolomice",
+          "year": "2016"
+        },
+        {
+          "club": "Garbarnia",
+          "year": "2017"
+        },
+        {
+          "club": "P. Niepolomice",
+          "year": "2019"
+        },
+        {
+          "club": "Stalowa Wola",
+          "year": "2019"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 310,
+        "goals": 18,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -167,7 +644,55 @@
       "club": "Motor Lublin",
       "appearances": 23,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Barcelona",
+          "year": "2016"
+        },
+        {
+          "club": "Granada CF",
+          "year": "2016"
+        },
+        {
+          "club": "Barcelona",
+          "year": "2017"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2017"
+        },
+        {
+          "club": "Barcelona",
+          "year": "2018"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2019"
+        },
+        {
+          "club": "FC Andorra",
+          "year": "2023"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 2,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Łabojko",
@@ -175,19 +700,65 @@
       "age": 28,
       "nationality": "Poland",
       "club": "Motor Lublin",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Ivo Rodrigues",
-      "position": "Attacking Midfield",
-      "age": 30,
-      "nationality": "Portugal",
-      "club": "Motor Lublin",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 4
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Radzionkow",
+          "year": "2016"
+        },
+        {
+          "club": "Raków",
+          "year": "2017"
+        },
+        {
+          "club": "Radzionkow",
+          "year": "2017"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2018"
+        },
+        {
+          "club": "Brescia",
+          "year": "2020"
+        },
+        {
+          "club": "AEK Larnaca",
+          "year": "2022"
+        },
+        {
+          "club": "Brescia",
+          "year": "2022"
+        },
+        {
+          "club": "Ternana",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 10,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bartosz Wolski",
@@ -197,7 +768,141 @@
       "club": "Motor Lublin",
       "appearances": 26,
       "goals": 3,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Elana Torun",
+          "year": "2013"
+        },
+        {
+          "club": "US Latina Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Genoa",
+          "year": "2016"
+        },
+        {
+          "club": "Cesena",
+          "year": "2016"
+        },
+        {
+          "club": "Genoa",
+          "year": "2017"
+        },
+        {
+          "club": "Bytovia Bytow",
+          "year": "2017"
+        },
+        {
+          "club": "Genoa",
+          "year": "2018"
+        },
+        {
+          "club": "Bytovia Bytow",
+          "year": "2018"
+        },
+        {
+          "club": "Chojniczanka",
+          "year": "2019"
+        },
+        {
+          "club": "Stal Rzeszow",
+          "year": "2020"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 345,
+        "goals": 24,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ivo Rodrigues",
+      "position": "Attacking Midfield",
+      "age": 31,
+      "nationality": "Portugal",
+      "club": "Motor Lublin",
+      "appearances": 24,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "FC Porto Youth",
+          "year": "2005"
+        },
+        {
+          "club": "FC Porto U15",
+          "year": "2008"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2015"
+        },
+        {
+          "club": "Arouca",
+          "year": "2015"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2016"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2017"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2018"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2023"
+        },
+        {
+          "club": "Arouca",
+          "year": "2024"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2025"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 378,
+        "goals": 46,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kacper Karasek",
@@ -205,19 +910,91 @@
       "age": 24,
       "nationality": "Poland",
       "club": "Motor Lublin",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. Skierniewice",
+          "year": "2019"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2021"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2022"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2023"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2023"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 35,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathieu Scalet",
       "position": "Attacking Midfield",
-      "age": 28,
+      "age": 29,
       "nationality": "France",
       "club": "Motor Lublin",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Beskid Andrychow",
+          "year": "2016"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2020"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2021"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 17,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Franciszek Lewandowski",
@@ -227,7 +1004,27 @@
       "club": "Motor Lublin",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Koziej",
@@ -235,9 +1032,57 @@
       "age": 19,
       "nationality": "Poland",
       "club": "Motor Lublin",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Widok Lublin",
+          "year": "2016"
+        },
+        {
+          "club": "BKS Lublin Młod",
+          "year": "2017"
+        },
+        {
+          "club": "Polonia Youth",
+          "year": "2022"
+        },
+        {
+          "club": "Lublin Youth",
+          "year": "2023"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Pulawy",
+          "year": "2024"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        },
+        {
+          "club": "Stal Krasnik",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -248,8 +1093,36 @@
       "nationality": "Senegal",
       "club": "Motor Lublin",
       "appearances": 16,
-      "goals": 6,
-      "assists": 2
+      "goals": 7,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Keur Madior FC",
+          "year": "2020"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2022"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bradly van Hoeven",
@@ -259,7 +1132,59 @@
       "club": "Motor Lublin",
       "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sparta Youth",
+          "year": "2009"
+        },
+        {
+          "club": "Go Ahead Eagles",
+          "year": "2020"
+        },
+        {
+          "club": "Almere City",
+          "year": "2021"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2023"
+        },
+        {
+          "club": "Almere City",
+          "year": "2023"
+        },
+        {
+          "club": "FC Emmen",
+          "year": "2024"
+        },
+        {
+          "club": "Almere City",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 37,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fábio Ronaldo",
@@ -267,9 +1192,49 @@
       "age": 24,
       "nationality": "Portugal",
       "club": "Motor Lublin",
-      "appearances": 22,
-      "goals": 4,
-      "assists": 6
+      "appearances": 20,
+      "goals": 3,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "FC Porto Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Palmeiras U15",
+          "year": "2014"
+        },
+        {
+          "club": "Boavista U15",
+          "year": "2015"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2021"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2025"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 13,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michał Król",
@@ -279,7 +1244,43 @@
       "club": "Motor Lublin",
       "appearances": 23,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Wisla Pulawy",
+          "year": "2018"
+        },
+        {
+          "club": "Wigry Suwalki",
+          "year": "2019"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2020"
+        },
+        {
+          "club": "Gornik Leczna",
+          "year": "2021"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 14,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florian Haxha",
@@ -287,9 +1288,33 @@
       "age": 23,
       "nationality": "TM nationality id 244",
       "club": "Motor Lublin",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SV Kapfenberg",
+          "year": "2023"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 22,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karol Czubak",
@@ -299,7 +1324,47 @@
       "club": "Motor Lublin",
       "appearances": 24,
       "goals": 14,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Jantar Ustka",
+          "year": "2014"
+        },
+        {
+          "club": "Bytovia Bytow",
+          "year": "2019"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2020"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2021"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2025"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 100,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Renat Dadashov",
@@ -307,9 +1372,81 @@
       "age": 26,
       "nationality": "Azerbaijan",
       "club": "Motor Lublin",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Frankfurt",
+          "year": "2017"
+        },
+        {
+          "club": "Estoril",
+          "year": "2018"
+        },
+        {
+          "club": "Wolves",
+          "year": "2019"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2019"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2020"
+        },
+        {
+          "club": "Wolves",
+          "year": "2020"
+        },
+        {
+          "club": "Tondela",
+          "year": "2021"
+        },
+        {
+          "club": "Wolves",
+          "year": "2022"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2022"
+        },
+        {
+          "club": "Hatayspor",
+          "year": "2023"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2024"
+        },
+        {
+          "club": "Ankaragücü",
+          "year": "2024"
+        },
+        {
+          "club": "Radomiak",
+          "year": "2025"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 275,
+        "goals": 73,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kacper Plichta",
@@ -319,7 +1456,31 @@
       "club": "Motor Lublin",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stal Rzeszow",
+          "year": "2024"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

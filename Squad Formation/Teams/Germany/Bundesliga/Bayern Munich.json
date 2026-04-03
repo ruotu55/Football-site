@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "L1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 22,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 14,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -48,7 +49,21 @@
           "club": "Bayern Munich",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 202,
+        "clean_sheets": 49
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manuel Neuer",
@@ -56,7 +71,7 @@
       "age": 40,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 29,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -68,7 +83,21 @@
           "club": "Bayern Munich",
           "year": "2011"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 850,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 728,
+        "clean_sheets": 384
+      },
+      "national_team_career_totals": {
+        "appearances": 124,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 118,
+        "clean_sheets": 51
+      }
     },
     {
       "name": "Sven Ulreich",
@@ -96,7 +125,21 @@
           "club": "Bayern Munich",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 452,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 591,
+        "clean_sheets": 130
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leon Klanac",
@@ -104,10 +147,24 @@
       "age": 19,
       "nationality": "Germany",
       "club": "FC Bayern Munich II",
-      "appearances": 14,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
-      "transfer_history": []
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 97,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     }
   ],
   "defenders": [
@@ -117,9 +174,9 @@
       "age": 27,
       "nationality": "France",
       "club": "Bayern Munich",
-      "appearances": 34,
+      "appearances": 22,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Salzburg",
@@ -133,7 +190,21 @@
           "club": "Bayern Munich",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 382,
+        "goals": 11,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Tah",
@@ -141,9 +212,9 @@
       "age": 30,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 37,
-      "goals": 3,
-      "assists": 2,
+      "appearances": 22,
+      "goals": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Hamburg",
@@ -165,7 +236,21 @@
           "club": "Bayern Munich",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 553,
+        "goals": 25,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Min-jae Kim",
@@ -173,7 +258,7 @@
       "age": 29,
       "nationality": "South Korea",
       "club": "Bayern Munich",
-      "appearances": 29,
+      "appearances": 19,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -221,7 +306,21 @@
           "club": "Bayern Munich",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 77,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hiroki Ito",
@@ -229,7 +328,7 @@
       "age": 26,
       "nationality": "Japan",
       "club": "Bayern Munich",
-      "appearances": 17,
+      "appearances": 11,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -261,7 +360,21 @@
           "club": "Bayern Munich",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alphonso Davies",
@@ -269,9 +382,9 @@
       "age": 25,
       "nationality": "Canada",
       "club": "Bayern Munich",
-      "appearances": 13,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Whitecaps FC 2",
@@ -285,7 +398,21 @@
           "club": "Bayern Munich",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 339,
+        "goals": 28,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 58,
+        "goals": 15,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raphaël Guerreiro",
@@ -293,8 +420,8 @@
       "age": 32,
       "nationality": "Portugal",
       "club": "Bayern Munich",
-      "appearances": 23,
-      "goals": 4,
+      "appearances": 13,
+      "goals": 3,
       "assists": 3,
       "transfer_history": [
         {
@@ -312,18 +439,36 @@
         {
           "club": "Bayern Munich",
           "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 520,
+        "goals": 67,
+        "assists": 68,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 65,
+        "goals": 4,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josip Stanisic",
       "position": "Right-Back",
-      "age": 25,
+      "age": 26,
       "nationality": "Croatia",
       "club": "Bayern Munich",
-      "appearances": 30,
-      "goals": 3,
-      "assists": 7,
+      "appearances": 19,
+      "goals": 2,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Bayern Munich",
@@ -337,7 +482,21 @@
           "club": "Bayern Munich",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 11,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konrad Laimer",
@@ -345,9 +504,9 @@
       "age": 28,
       "nationality": "Austria",
       "club": "Bayern Munich",
-      "appearances": 34,
+      "appearances": 22,
       "goals": 3,
-      "assists": 9,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Salzburg Youth",
@@ -373,7 +532,21 @@
           "club": "Bayern Munich",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 438,
+        "goals": 32,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -383,7 +556,7 @@
       "age": 21,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 35,
+      "appearances": 21,
       "goals": 3,
       "assists": 1,
       "transfer_history": [
@@ -391,7 +564,21 @@
           "club": "Bayern Munich",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 9,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Kimmich",
@@ -399,9 +586,9 @@
       "age": 31,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 37,
+      "appearances": 23,
       "goals": 2,
-      "assists": 9,
+      "assists": 6,
       "transfer_history": [
         {
           "club": "Leipzig",
@@ -415,7 +602,21 @@
           "club": "Bayern Munich",
           "year": "2015"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 597,
+        "goals": 59,
+        "assists": 143,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 108,
+        "goals": 10,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tom Bischof",
@@ -423,7 +624,7 @@
       "age": 20,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 32,
+      "appearances": 22,
       "goals": 0,
       "assists": 3,
       "transfer_history": [
@@ -435,7 +636,21 @@
           "club": "Bayern Munich",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 26,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leon Goretzka",
@@ -443,7 +658,7 @@
       "age": 31,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 37,
+      "appearances": 24,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -463,7 +678,21 @@
           "club": "Without Club",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 530,
+        "goals": 99,
+        "assists": 79,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 69,
+        "goals": 15,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bara Sapoko Ndiaye",
@@ -483,7 +712,21 @@
           "club": "Gambinos Stars",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamal Musiala",
@@ -491,8 +734,8 @@
       "age": 23,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 11,
-      "goals": 3,
+      "appearances": 8,
+      "goals": 1,
       "assists": 2,
       "transfer_history": [
         {
@@ -507,7 +750,21 @@
           "club": "Bayern Munich",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 251,
+        "goals": 75,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 8,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lennart Karl",
@@ -515,15 +772,29 @@
       "age": 18,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 35,
-      "goals": 8,
-      "assists": 6,
+      "appearances": 23,
+      "goals": 4,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Bayern Munich",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 42,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -533,9 +804,9 @@
       "age": 29,
       "nationality": "Colombia",
       "club": "Bayern Munich",
-      "appearances": 38,
-      "goals": 22,
-      "assists": 18,
+      "appearances": 25,
+      "goals": 15,
+      "assists": 14,
       "transfer_history": [
         {
           "club": "Barranquilla FC",
@@ -557,7 +828,21 @@
           "club": "Bayern Munich",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 459,
+        "goals": 127,
+        "assists": 70,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 72,
+        "goals": 21,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Olise",
@@ -565,9 +850,9 @@
       "age": 24,
       "nationality": "France",
       "club": "Bayern Munich",
-      "appearances": 39,
-      "goals": 16,
-      "assists": 27,
+      "appearances": 25,
+      "goals": 11,
+      "assists": 19,
       "transfer_history": [
         {
           "club": "Chelsea Youth",
@@ -589,7 +874,21 @@
           "club": "Bayern Munich",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 67,
+        "assists": 95,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Serge Gnabry",
@@ -597,9 +896,9 @@
       "age": 30,
       "nationality": "Germany",
       "club": "Bayern Munich",
-      "appearances": 34,
-      "goals": 10,
-      "assists": 10,
+      "appearances": 20,
+      "goals": 8,
+      "assists": 6,
       "transfer_history": [
         {
           "club": "GSV Hemm. Jgd.",
@@ -637,7 +936,21 @@
           "club": "Bayern Munich",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 450,
+        "goals": 144,
+        "assists": 92,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 26,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harry Kane",
@@ -645,8 +958,8 @@
       "age": 32,
       "nationality": "England",
       "club": "Bayern Munich",
-      "appearances": 40,
-      "goals": 48,
+      "appearances": 26,
+      "goals": 31,
       "assists": 5,
       "transfer_history": [
         {
@@ -693,7 +1006,21 @@
           "club": "Bayern Munich",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 650,
+        "goals": 440,
+        "assists": 110,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 112,
+        "goals": 78,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Jackson",
@@ -701,9 +1028,9 @@
       "age": 24,
       "nationality": "Senegal",
       "club": "Bayern Munich",
-      "appearances": 26,
-      "goals": 7,
-      "assists": 3,
+      "appearances": 17,
+      "goals": 4,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "CD Mirandés",
@@ -725,7 +1052,21 @@
           "club": "Chelsea",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 58,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

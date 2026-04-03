@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "THA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 30,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2014"
+        },
+        {
+          "club": "Phetchabun FC",
+          "year": "2014"
+        },
+        {
+          "club": "Army Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 219,
+        "clean_sheets": 47
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sirassawut Wongruankhum",
@@ -31,9 +72,29 @@
       "age": 20,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Farus Patee",
@@ -43,7 +104,35 @@
       "club": "Singha Chiangrai United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Chiangrai City",
+          "year": "2021"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jetnipat Khomsom",
@@ -53,7 +142,27 @@
       "club": "Singha Chiangrai United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +172,53 @@
       "age": 27,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 0
+      "appearances": 22,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alfonsine",
+          "year": "2017"
+        },
+        {
+          "club": "Chainat FC",
+          "year": "2018"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Victor Cardozo",
@@ -73,9 +226,85 @@
       "age": 36,
       "nationality": "Brazil",
       "club": "Singha Chiangrai United",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América-RJ",
+          "year": "2011"
+        },
+        {
+          "club": "Esportivo",
+          "year": "2012"
+        },
+        {
+          "club": "Campinense-PB",
+          "year": "2014"
+        },
+        {
+          "club": "Operário-PR",
+          "year": "2014"
+        },
+        {
+          "club": "Duque de Caxias",
+          "year": "2014"
+        },
+        {
+          "club": "São Bento (SP)",
+          "year": "2015"
+        },
+        {
+          "club": "Ubon UMT Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "PTT Rayong",
+          "year": "2019"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Lamphun Warrior",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 65,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hélio",
@@ -83,9 +312,77 @@
       "age": 36,
       "nationality": "Brazil",
       "club": "Singha Chiangrai United",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boa Esporte",
+          "year": "2013"
+        },
+        {
+          "club": "Comercial-SP",
+          "year": "2013"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2015"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2016"
+        },
+        {
+          "club": "Caldense",
+          "year": "2017"
+        },
+        {
+          "club": "Desp. Brasil",
+          "year": "2017"
+        },
+        {
+          "club": "JFK Ventspils",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Zakho SC",
+          "year": "2020"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Talaba SC",
+          "year": "2023"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2024"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Banphakit Phrmanee",
@@ -93,9 +390,29 @@
       "age": 27,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 6,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tanasak Srisai",
@@ -103,9 +420,57 @@
       "age": 36,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pluak Daeng",
+          "year": "2007"
+        },
+        {
+          "club": "TOT SC",
+          "year": "2011"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2013"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2015"
+        },
+        {
+          "club": "Ubon UMT Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Pattaya United",
+          "year": "2016"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 311,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santipap Yaemsaen",
@@ -113,19 +478,115 @@
       "age": 26,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Krabi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Navy FC",
+          "year": "2021"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Krabi FC",
+          "year": "2022"
+        },
+        {
+          "club": "Chainat FC",
+          "year": "2022"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thawatchai Inprakhon",
       "position": "Left-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Buriram Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Police Tero FC",
+          "year": "2024"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Nara Club",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gionata Verzura",
@@ -133,9 +594,77 @@
       "age": 33,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Osotspa",
+          "year": "2010"
+        },
+        {
+          "club": "Sakaeo United",
+          "year": "2011"
+        },
+        {
+          "club": "Osotspa",
+          "year": "2011"
+        },
+        {
+          "club": "Phuket",
+          "year": "2014"
+        },
+        {
+          "club": "Osotspa FC",
+          "year": "2014"
+        },
+        {
+          "club": "Hua Hin",
+          "year": "2015"
+        },
+        {
+          "club": "Super Power FC",
+          "year": "2015"
+        },
+        {
+          "club": "Ubon UMT Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Super Power FC",
+          "year": "2016"
+        },
+        {
+          "club": "Ubon UMT Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 241,
+        "goals": 3,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Piyaphon Phanichakul",
@@ -143,9 +672,53 @@
       "age": 39,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 23,
-      "goals": 2,
-      "assists": 6
+      "appearances": 19,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pattaya Utd.",
+          "year": "2006"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2009"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2010"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Nongbua FC",
+          "year": "2022"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 35,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -157,7 +730,59 @@
       "club": "Singha Chiangrai United",
       "appearances": 24,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Criciúma",
+          "year": "2019"
+        },
+        {
+          "club": "União Luziense",
+          "year": "2021"
+        },
+        {
+          "club": "Ceilândia",
+          "year": "2022"
+        },
+        {
+          "club": "Brasiliense-DF",
+          "year": "2022"
+        },
+        {
+          "club": "Altos",
+          "year": "2023"
+        },
+        {
+          "club": "Goianésia (GO)",
+          "year": "2024"
+        },
+        {
+          "club": "Boa Esporte",
+          "year": "2024"
+        },
+        {
+          "club": "Itabaiana",
+          "year": "2024"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Settasit Suvannaseat",
@@ -165,9 +790,29 @@
       "age": 24,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sanukran Thinjom",
@@ -175,9 +820,85 @@
       "age": 32,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 3
+      "appearances": 18,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2012"
+        },
+        {
+          "club": "Kasem Bundit",
+          "year": "2013"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2013"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2014"
+        },
+        {
+          "club": "Customs Utd.",
+          "year": "2014"
+        },
+        {
+          "club": "Thonburi City",
+          "year": "2015"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Nonthaburi FC",
+          "year": "2015"
+        },
+        {
+          "club": "Army Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2025"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 17,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phoptham Pornkod",
@@ -185,9 +906,29 @@
       "age": 16,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dudu",
@@ -195,9 +936,89 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Singha Chiangrai United",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 3,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santa Cruz-RN",
+          "year": "2019"
+        },
+        {
+          "club": "Tombense",
+          "year": "2020"
+        },
+        {
+          "club": "Primavera",
+          "year": "2021"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2021"
+        },
+        {
+          "club": "Primavera",
+          "year": "2022"
+        },
+        {
+          "club": "Barra",
+          "year": "2022"
+        },
+        {
+          "club": "Ferroviário",
+          "year": "2022"
+        },
+        {
+          "club": "ASA",
+          "year": "2023"
+        },
+        {
+          "club": "Primavera",
+          "year": "2023"
+        },
+        {
+          "club": "Figueirense FC",
+          "year": "2023"
+        },
+        {
+          "club": "Botafogo-PB",
+          "year": "2024"
+        },
+        {
+          "club": "Primavera",
+          "year": "2024"
+        },
+        {
+          "club": "Capital-DF",
+          "year": "2025"
+        },
+        {
+          "club": "Primavera",
+          "year": "2025"
+        },
+        {
+          "club": "Treze",
+          "year": "2025"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thakdanai Jaihan",
@@ -205,9 +1026,37 @@
       "age": 24,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 2
+      "appearances": 18,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Chiangrai City",
+          "year": "2021"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -219,7 +1068,47 @@
       "club": "Singha Chiangrai United",
       "appearances": 20,
       "goals": 5,
-      "assists": 7
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Primavera",
+          "year": "2020"
+        },
+        {
+          "club": "Rio Branco-SP",
+          "year": "2023"
+        },
+        {
+          "club": "Parauapebas-PA",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Branco-SP",
+          "year": "2024"
+        },
+        {
+          "club": "Laranja (PR)",
+          "year": "2024"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 12,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chinngoen Phutonyong",
@@ -227,9 +1116,41 @@
       "age": 22,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 9,
-      "goals": 3,
-      "assists": 2
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Star Power",
+          "year": "2022"
+        },
+        {
+          "club": "Chiangrai City",
+          "year": "2022"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ongsa Singthong",
@@ -237,9 +1158,29 @@
       "age": 20,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 4,
-      "goals": 3,
-      "assists": 1
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seung-won Lee",
@@ -247,9 +1188,49 @@
       "age": 28,
       "nationality": "South Korea",
       "club": "Singha Chiangrai United",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Kapfenberg",
+          "year": "2013"
+        },
+        {
+          "club": "SV Rödinghausen",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "SV Lippstadt 08",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 19,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Montree Promsawat",
@@ -257,9 +1238,53 @@
       "age": 30,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bangkok FC",
+          "year": "2014"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangmai Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Muangkan United",
+          "year": "2020"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2021"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 14,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nanthiphat Chaiman",
@@ -267,9 +1292,37 @@
       "age": 19,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Itsuki Enomoto",
@@ -277,9 +1330,49 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Singha Chiangrai United",
-      "appearances": 25,
-      "goals": 10,
-      "assists": 3
+      "appearances": 23,
+      "goals": 9,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Matsumoto Yama.",
+          "year": "2019"
+        },
+        {
+          "club": "Thespaku. Gunma",
+          "year": "2019"
+        },
+        {
+          "club": "Matsumoto Yama.",
+          "year": "2020"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2025"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 41,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Emaviwe",
@@ -287,9 +1380,73 @@
       "age": 24,
       "nationality": "Singapore",
       "club": "Singha Chiangrai United",
-      "appearances": 20,
-      "goals": 3,
-      "assists": 0
+      "appearances": 13,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiasso Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Castiglione Gio",
+          "year": "2017"
+        },
+        {
+          "club": "Chiasso Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2020"
+        },
+        {
+          "club": "Military",
+          "year": "2021"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2021"
+        },
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2023"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 22,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sittichok Kannoo",
@@ -297,9 +1454,65 @@
       "age": 29,
       "nationality": "Thailand",
       "club": "Singha Chiangrai United",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Buriram Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Surin FC",
+          "year": "2015"
+        },
+        {
+          "club": "Thai Honda FC",
+          "year": "2017"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Air Force",
+          "year": "2019"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 32,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 8,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

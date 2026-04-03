@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PFL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,93 @@
       "age": 36,
       "nationality": "Pakistan",
       "club": "Stallion Laguna FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hellerup IK",
+          "year": "2007"
+        },
+        {
+          "club": "BK Skjold",
+          "year": "2010"
+        },
+        {
+          "club": "BGA",
+          "year": "2010"
+        },
+        {
+          "club": "Brönshöj BK",
+          "year": "2014"
+        },
+        {
+          "club": "Svebölle BI",
+          "year": "2015"
+        },
+        {
+          "club": "Brönshöj BK",
+          "year": "2016"
+        },
+        {
+          "club": "Fredensborg BI",
+          "year": "2017"
+        },
+        {
+          "club": "Herlev IF",
+          "year": "2017"
+        },
+        {
+          "club": "Greve Fodbold",
+          "year": "2018"
+        },
+        {
+          "club": "AB Taarnby",
+          "year": "2018"
+        },
+        {
+          "club": "Ishöj IF",
+          "year": "2021"
+        },
+        {
+          "club": "AB Taarnby",
+          "year": "2022"
+        },
+        {
+          "club": "Ishöj IF",
+          "year": "2022"
+        },
+        {
+          "club": "Taarnby FF",
+          "year": "2024"
+        },
+        {
+          "club": "Karlslunde IF",
+          "year": "2025"
+        },
+        {
+          "club": "Gentofte VI",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 85,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 62,
+        "clean_sheets": 4
+      }
     },
     {
       "name": "Benoît Beaujeon",
@@ -31,9 +116,93 @@
       "age": 33,
       "nationality": "France",
       "club": "Stallion Laguna FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Intrépide",
+          "year": "2009"
+        },
+        {
+          "club": "Uckfield Town",
+          "year": "2012"
+        },
+        {
+          "club": "Hailsham Town",
+          "year": "2013"
+        },
+        {
+          "club": "Crawley Down",
+          "year": "2013"
+        },
+        {
+          "club": "Siauliai",
+          "year": "2014"
+        },
+        {
+          "club": "Career break",
+          "year": "2015"
+        },
+        {
+          "club": "Western Condors",
+          "year": "2017"
+        },
+        {
+          "club": "Union Innsbruck",
+          "year": "2019"
+        },
+        {
+          "club": "Central Sports",
+          "year": "2019"
+        },
+        {
+          "club": "CSM Pascani",
+          "year": "2020"
+        },
+        {
+          "club": "Gilortul",
+          "year": "2021"
+        },
+        {
+          "club": "CSM Pascani",
+          "year": "2022"
+        },
+        {
+          "club": "Green Island",
+          "year": "2023"
+        },
+        {
+          "club": "T. Maraerenga",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Ifira Bl. Bird",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kadji Theo Sorel",
@@ -43,7 +212,27 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javi Coscolluela",
@@ -53,7 +242,39 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maharlika FC",
+          "year": "2020"
+        },
+        {
+          "club": "Loyola",
+          "year": "2023"
+        },
+        {
+          "club": "Maharlika FC",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +284,73 @@
       "age": 32,
       "nationality": "United States",
       "club": "Stallion Laguna FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Mount SAC Mount",
+          "year": "2012"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "NN Nighthawks",
+          "year": "2015"
+        },
+        {
+          "club": "CB Lancers",
+          "year": "2016"
+        },
+        {
+          "club": "Golden State",
+          "year": "2018"
+        },
+        {
+          "club": "LA Force",
+          "year": "2019"
+        },
+        {
+          "club": "Golden State",
+          "year": "2020"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 14,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ken Pryde",
@@ -73,9 +358,33 @@
       "age": 25,
       "nationality": "Philippines",
       "club": "Stallion Laguna FC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 14,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Duluth",
+          "year": "2023"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthew Nierras",
@@ -85,7 +394,31 @@
       "club": "Stallion Laguna FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Stallion FC",
+          "year": "2015"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Terence Smith",
@@ -93,9 +426,101 @@
       "age": 34,
       "nationality": "Barbados",
       "club": "Stallion Laguna FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NSU RiverHawks",
+          "year": "2011"
+        },
+        {
+          "club": "Toronto Lynx",
+          "year": "2012"
+        },
+        {
+          "club": "NSU RiverHawks",
+          "year": "2012"
+        },
+        {
+          "club": "Toronto Lynx",
+          "year": "2013"
+        },
+        {
+          "club": "NSU RiverHawks",
+          "year": "2013"
+        },
+        {
+          "club": "Toronto Lynx",
+          "year": "2014"
+        },
+        {
+          "club": "NSU RiverHawks",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Tulsa Athletics",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Roughnecks FC",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Michigan Stars",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "FC Brandenburg",
+          "year": "2022"
+        },
+        {
+          "club": "SV Zehdenick",
+          "year": "2023"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2024"
+        },
+        {
+          "club": "Maharlika FC",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephen Banor",
@@ -103,9 +528,33 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Stallion Laguna FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tudu Mighty Jet",
+          "year": "2018"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousmane Badji",
@@ -113,9 +562,69 @@
       "age": 31,
       "nationality": "France",
       "club": "Stallion Laguna FC",
-      "appearances": 16,
+      "appearances": 5,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cergy Pontoise",
+          "year": "2015"
+        },
+        {
+          "club": "AF Bobigny",
+          "year": "2018"
+        },
+        {
+          "club": "Bourges Foot",
+          "year": "2019"
+        },
+        {
+          "club": "Concarneau",
+          "year": "2020"
+        },
+        {
+          "club": "US Boulogne",
+          "year": "2021"
+        },
+        {
+          "club": "FC Villefranche",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Racing CFF",
+          "year": "2023"
+        },
+        {
+          "club": "AS Beauvais",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rousset",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kouichi Belgira",
@@ -123,9 +632,61 @@
       "age": 29,
       "nationality": "Philippines",
       "club": "Stallion Laguna FC",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 1
+      "appearances": 8,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Loyola FC",
+          "year": "2016"
+        },
+        {
+          "club": "JPV Marikina FC",
+          "year": "2017"
+        },
+        {
+          "club": "FK Celik Niksic",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "G. Archers Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2019"
+        },
+        {
+          "club": "Shan United",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 7,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Oren",
@@ -135,7 +696,43 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Hartford Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aaron Vasquez",
@@ -143,9 +740,45 @@
       "age": 24,
       "nationality": "Philippines",
       "club": "Stallion Laguna FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Pogoń Łobżenica",
+          "year": "2024"
+        },
+        {
+          "club": "Kuktosh",
+          "year": "2024"
+        },
+        {
+          "club": "Loyola",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nico McMillan",
@@ -153,9 +786,49 @@
       "age": 22,
       "nationality": "Philippines",
       "club": "Stallion Laguna FC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Stanford Card.",
+          "year": "2021"
+        },
+        {
+          "club": "Marin FC",
+          "year": "2024"
+        },
+        {
+          "club": "Stanford Card.",
+          "year": "2024"
+        },
+        {
+          "club": "Marin FC",
+          "year": "2025"
+        },
+        {
+          "club": "Stanford Card.",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel De Mesa",
@@ -164,8 +837,40 @@
       "nationality": "Philippines",
       "club": "Stallion Laguna FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maharlika FC",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayoub Gharbia",
@@ -175,7 +880,35 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sehremini",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tremane Castillo",
@@ -185,7 +918,35 @@
       "club": "Stallion Laguna FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mendiola FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jerald Aquino",
@@ -195,7 +956,39 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tuloy",
+          "year": "2023"
+        },
+        {
+          "club": "Eleven Tiger",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -205,9 +998,37 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Stallion Laguna FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Farroupilha-RS",
+          "year": "2022"
+        },
+        {
+          "club": "Capital-TO",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Sendra",
@@ -215,9 +1036,73 @@
       "age": 38,
       "nationality": "Argentina",
       "club": "Stallion Laguna FC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 3
+      "appearances": 14,
+      "goals": 3,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Kimberley",
+          "year": "2014"
+        },
+        {
+          "club": "CA Alvarado",
+          "year": "2015"
+        },
+        {
+          "club": "Geylang",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Mendiola FC",
+          "year": "2019"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2020"
+        },
+        {
+          "club": "Cebu",
+          "year": "2021"
+        },
+        {
+          "club": "United City",
+          "year": "2022"
+        },
+        {
+          "club": "RCFC",
+          "year": "2023"
+        },
+        {
+          "club": "Kaya FC",
+          "year": "2023"
+        },
+        {
+          "club": "United City",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 40,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Pierre Zang",
@@ -227,7 +1112,39 @@
       "club": "Stallion Laguna FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Sirocco Fezer",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Issa Gakou",
@@ -237,7 +1154,43 @@
       "club": "Stallion Laguna FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Weiler",
+          "year": "2020"
+        },
+        {
+          "club": "Signal FC",
+          "year": "2022"
+        },
+        {
+          "club": "Weiler",
+          "year": "2022"
+        },
+        {
+          "club": "Schengen",
+          "year": "2023"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitris Theodorou",
@@ -247,7 +1200,47 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Omonia 29 Maiou",
+          "year": "2021"
+        },
+        {
+          "club": "Mt Druitt Town",
+          "year": "2022"
+        },
+        {
+          "club": "Launceston Utd",
+          "year": "2023"
+        },
+        {
+          "club": "Glenorchy",
+          "year": "2024"
+        },
+        {
+          "club": "Balcatta FC",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yogo Jacques Lottin",
@@ -257,7 +1250,27 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denzel Vasquez",
@@ -265,9 +1278,37 @@
       "age": 21,
       "nationality": "Philippines",
       "club": "Stallion Laguna FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Pickering FC",
+          "year": "2023"
+        },
+        {
+          "club": "Siello FC",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rhys Williams",
@@ -277,7 +1318,63 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Basingstoke",
+          "year": "2019"
+        },
+        {
+          "club": "Harcum College",
+          "year": "2021"
+        },
+        {
+          "club": "Ocean City",
+          "year": "2022"
+        },
+        {
+          "club": "Walsh Cavaliers",
+          "year": "2022"
+        },
+        {
+          "club": "Corinthians FC",
+          "year": "2023"
+        },
+        {
+          "club": "Rattlers",
+          "year": "2023"
+        },
+        {
+          "club": "So.Cal Eagles",
+          "year": "2024"
+        },
+        {
+          "club": "Rattlers",
+          "year": "2024"
+        },
+        {
+          "club": "Swindon Superm.",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristián Ivanobski",
@@ -287,7 +1384,79 @@
       "club": "Stallion Laguna FC",
       "appearances": 13,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Stgo. Morning",
+          "year": "2013"
+        },
+        {
+          "club": "AC Barnechea",
+          "year": "2014"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Cimarrones",
+          "year": "2016"
+        },
+        {
+          "club": "Zacatepec",
+          "year": "2017"
+        },
+        {
+          "club": "Cobreloa",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Puerto Montt",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "LA Force",
+          "year": "2021"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 22,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jvon Cunningham",
@@ -297,7 +1466,35 @@
       "club": "Stallion Laguna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sonoma State",
+          "year": "2022"
+        },
+        {
+          "club": "Sonoma County",
+          "year": "2022"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Lingg",
@@ -307,7 +1504,67 @@
       "club": "Stallion Laguna FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tössfeld",
+          "year": "2018"
+        },
+        {
+          "club": "FC OWT",
+          "year": "2019"
+        },
+        {
+          "club": "Career break",
+          "year": "2020"
+        },
+        {
+          "club": "FC Uster",
+          "year": "2022"
+        },
+        {
+          "club": "FC Phönix Seen",
+          "year": "2023"
+        },
+        {
+          "club": "Tössfeld",
+          "year": "2023"
+        },
+        {
+          "club": "FC Embrach",
+          "year": "2024"
+        },
+        {
+          "club": "FC Bassersdorf",
+          "year": "2024"
+        },
+        {
+          "club": "One Taguig",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -319,7 +1576,27 @@
       "club": "Stallion Laguna FC",
       "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zamoranho Ho-A-Tham",
@@ -327,19 +1604,139 @@
       "age": 30,
       "nationality": "Suriname",
       "club": "Stallion Laguna FC",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hercules",
+          "year": "2015"
+        },
+        {
+          "club": "Zeeburgia",
+          "year": "2016"
+        },
+        {
+          "club": "DHSC",
+          "year": "2017"
+        },
+        {
+          "club": "Wooter Aca.",
+          "year": "2018"
+        },
+        {
+          "club": "Inter Leipzig",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "FC Cosmos",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FC Karbach",
+          "year": "2024"
+        },
+        {
+          "club": "Cebu",
+          "year": "2024"
+        },
+        {
+          "club": "Naxxar Lions FC",
+          "year": "2025"
+        },
+        {
+          "club": "Vict. Rosport",
+          "year": "2025"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2026"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 37,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Magson Dourado",
       "position": "Left Winger",
-      "age": 33,
+      "age": 34,
       "nationality": "Brazil",
       "club": "Stallion Laguna FC",
       "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kirivong FC",
+          "year": "2020"
+        },
+        {
+          "club": "Asia Euro Utd",
+          "year": "2021"
+        },
+        {
+          "club": "Prey Veng FC",
+          "year": "2021"
+        },
+        {
+          "club": "Watbot City",
+          "year": "2022"
+        },
+        {
+          "club": "Khon Kaen FC",
+          "year": "2023"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2024"
+        },
+        {
+          "club": "Cebu",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sam Zook",
@@ -347,9 +1744,45 @@
       "age": 23,
       "nationality": "United States",
       "club": "Stallion Laguna FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "RSL Arizona",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Trujillo",
@@ -357,9 +1790,33 @@
       "age": 26,
       "nationality": "Mexico",
       "club": "Stallion Laguna FC",
-      "appearances": 15,
-      "goals": 2,
-      "assists": 10
+      "appearances": 16,
+      "goals": 4,
+      "assists": 14,
+      "transfer_history": [
+        {
+          "club": "Cocodrilos",
+          "year": "2017"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 26,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Ebene Moukouta",
@@ -367,19 +1824,107 @@
       "age": 32,
       "nationality": "Cameroon",
       "club": "Stallion Laguna FC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 2
+      "appearances": 7,
+      "goals": 6,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Les Astres FC",
+          "year": "2015"
+        },
+        {
+          "club": "UMS de Loum",
+          "year": "2017"
+        },
+        {
+          "club": "Feutcheu FC",
+          "year": "2018"
+        },
+        {
+          "club": "Unisport Bafang",
+          "year": "2021"
+        },
+        {
+          "club": "Victoria United",
+          "year": "2021"
+        },
+        {
+          "club": "Fovu de Baham",
+          "year": "2022"
+        },
+        {
+          "club": "AS Kigali",
+          "year": "2023"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2024"
+        },
+        {
+          "club": "Manila Digger",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Finn McDaniel",
       "position": "Centre-Forward",
-      "age": 25,
+      "age": 26,
       "nationality": "Philippines",
       "club": "Stallion Laguna FC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 22,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Stallion Laguna",
+          "year": "2020"
+        },
+        {
+          "club": "Drochtersen/A.",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 64,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Memari",
@@ -387,9 +1932,81 @@
       "age": 32,
       "nationality": "TM nationality id 71",
       "club": "Stallion Laguna FC",
-      "appearances": 5,
-      "goals": 2,
-      "assists": 1
+      "appearances": 6,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Shahrdari Yasuj",
+          "year": "2014"
+        },
+        {
+          "club": "Khayr Vahdat",
+          "year": "2015"
+        },
+        {
+          "club": "Panjsher",
+          "year": "2019"
+        },
+        {
+          "club": "FC Dushanbe",
+          "year": "2021"
+        },
+        {
+          "club": "Khalij Fars",
+          "year": "2021"
+        },
+        {
+          "club": "Qala Diza",
+          "year": "2022"
+        },
+        {
+          "club": "Biss Buru SC",
+          "year": "2022"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2023"
+        },
+        {
+          "club": "Persipa",
+          "year": "2023"
+        },
+        {
+          "club": "Aizawl FC",
+          "year": "2024"
+        },
+        {
+          "club": "Attack Energy",
+          "year": "2024"
+        },
+        {
+          "club": "Mendiola FC",
+          "year": "2024"
+        },
+        {
+          "club": "Samail SC",
+          "year": "2025"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deane Mountney",
@@ -397,9 +2014,37 @@
       "age": 20,
       "nationality": "Netherlands",
       "club": "Stallion Laguna FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DVS '33",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Stallion Laguna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

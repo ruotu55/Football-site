@@ -4,7 +4,6 @@ const paths = {
   welcome: "../Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
   guessNat: "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
   guessClub: "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
-  guessCareer: "../Voices/Game name/Guess the football player by career path !!!.mp3",
   warmUp: "../Voices/Levels/Worm up round dont mess this one .mp3",
   serious: "../Voices/Levels/OK now it's getting serious.mp3",
   nerds: "../Voices/Levels/Only true football nerd know this!!!.mp3",
@@ -164,9 +163,7 @@ export function playWelcome() {
 }
 
 export function playRules(quizType) {
-  if (quizType === "placholder" || quizType === "player-by-career") {
-    playVoice(paths.guessCareer, 1000);
-  } else if (quizType === "club-by-nat") {
+  if (quizType === "club-by-nat") {
     playVoice(paths.guessNat, 1000);
   } else {
     playVoice(paths.guessClub, 1000);

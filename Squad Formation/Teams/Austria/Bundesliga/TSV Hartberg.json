@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "A1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 21,
       "nationality": "Germany",
       "club": "TSV Hartberg",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "SKN St. Pölten",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 149,
+        "clean_sheets": 33
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ammar Helac",
@@ -33,7 +58,51 @@
       "club": "TSV Hartberg",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FAL U15",
+          "year": "2012"
+        },
+        {
+          "club": "ASKÖ Donau Linz",
+          "year": "2016"
+        },
+        {
+          "club": "Blau Weiss Linz",
+          "year": "2017"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2020"
+        },
+        {
+          "club": "A. Lustenau",
+          "year": "2022"
+        },
+        {
+          "club": "SCR Altach",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 209,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Maric",
@@ -43,7 +112,35 @@
       "club": "TSV Hartberg",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stmk.-Sturm U15",
+          "year": "2016"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2020"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 103,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harald Postl",
@@ -51,9 +148,29 @@
       "age": 20,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 17,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 98,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +180,49 @@
       "age": 22,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rapid Youth",
+          "year": "2013"
+        },
+        {
+          "club": "AKA Rapid U15",
+          "year": "2018"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2024"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2025"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Komposch",
@@ -73,9 +230,37 @@
       "age": 24,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 9,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Stmk.-Sturm U15",
+          "year": "2015"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2020"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Wilfinger",
@@ -83,9 +268,33 @@
       "age": 22,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 0
+      "appearances": 23,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hartberg Umg.",
+          "year": "2019"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konstantin Schopp",
@@ -93,9 +302,41 @@
       "age": 20,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 1
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stmk.-Sturm U15",
+          "year": "2019"
+        },
+        {
+          "club": "Mainz",
+          "year": "2025"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2026"
+        },
+        {
+          "club": "Mainz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Habib Coulibaly",
@@ -105,7 +346,31 @@
       "club": "TSV Hartberg",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lukas Spendlhofer",
@@ -113,9 +378,73 @@
       "age": 32,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 24,
+      "appearances": 21,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Inter",
+          "year": "2012"
+        },
+        {
+          "club": "Varese",
+          "year": "2013"
+        },
+        {
+          "club": "Inter",
+          "year": "2014"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2014"
+        },
+        {
+          "club": "Inter",
+          "year": "2015"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2015"
+        },
+        {
+          "club": "Ascoli",
+          "year": "2020"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2021"
+        },
+        {
+          "club": "Ascoli",
+          "year": "2021"
+        },
+        {
+          "club": "M. Bnei Reineh",
+          "year": "2022"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2023"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 386,
+        "goals": 23,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Ojukwu",
@@ -125,7 +454,55 @@
       "club": "TSV Hartberg",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rapid Youth",
+          "year": "2013"
+        },
+        {
+          "club": "FAC Youth",
+          "year": "2016"
+        },
+        {
+          "club": "SV Donau Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Elektra Jgd",
+          "year": "2019"
+        },
+        {
+          "club": "SV Donau Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Stadlau Youth",
+          "year": "2022"
+        },
+        {
+          "club": "Wiener SC",
+          "year": "2023"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maximilian Hennig",
@@ -133,9 +510,33 @@
       "age": 19,
       "nationality": "Germany",
       "club": "TSV Hartberg",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 1,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Unterhaching",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 1,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damjan Kovacevic",
@@ -143,9 +544,33 @@
       "age": 21,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Vorarlberg U15",
+          "year": "2018"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Pazourek",
@@ -153,9 +578,45 @@
       "age": 21,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 15,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2019"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2022"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2026"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julian Gölles",
@@ -163,9 +624,49 @@
       "age": 26,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stmk.-Sturm U15",
+          "year": "2013"
+        },
+        {
+          "club": "FC Liefering",
+          "year": "2017"
+        },
+        {
+          "club": "Wiener Neustadt",
+          "year": "2018"
+        },
+        {
+          "club": "WSG Tirol",
+          "year": "2019"
+        },
+        {
+          "club": "Blau Weiss Linz",
+          "year": "2021"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +676,41 @@
       "age": 25,
       "nationality": "Slovenia",
       "club": "TSV Hartberg",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Domzale Jugend",
+          "year": "2015"
+        },
+        {
+          "club": "NK Domzale",
+          "year": "2020"
+        },
+        {
+          "club": "NK Dob",
+          "year": "2020"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julian Halwachs",
@@ -185,19 +718,135 @@
       "age": 23,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Salzb. U15",
+          "year": "2017"
+        },
+        {
+          "club": "FC Liefering",
+          "year": "2021"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        },
+        {
+          "club": "ASK Voitsberg",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 12,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youba Diarra",
       "position": "Central Midfield",
-      "age": 27,
+      "age": 28,
       "nationality": "Mali",
       "club": "TSV Hartberg",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Salzburg",
+          "year": "2018"
+        },
+        {
+          "club": "Wiener Neustadt",
+          "year": "2018"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2018"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2019"
+        },
+        {
+          "club": "St. Pauli",
+          "year": "2019"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2020"
+        },
+        {
+          "club": "New York",
+          "year": "2021"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2021"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2022"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2022"
+        },
+        {
+          "club": "Cádiz CF",
+          "year": "2023"
+        },
+        {
+          "club": "Asteras Tripoli",
+          "year": "2023"
+        },
+        {
+          "club": "Cádiz CF",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2024"
+        },
+        {
+          "club": "Cádiz CF",
+          "year": "2025"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 7,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jürgen Heil",
@@ -205,9 +854,33 @@
       "age": 28,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 1
+      "appearances": 19,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Anger",
+          "year": "2012"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2015"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 388,
+        "goals": 26,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maximilian Fillafer",
@@ -215,9 +888,37 @@
       "age": 21,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spittal Youth",
+          "year": "2019"
+        },
+        {
+          "club": "SV Spittal/Drau",
+          "year": "2021"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 18,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Bratschko",
@@ -225,9 +926,37 @@
       "age": 20,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 7,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stmk.-Sturm U15",
+          "year": "2019"
+        },
+        {
+          "club": "SC Weiz",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tobias Kainz",
@@ -235,9 +964,61 @@
       "age": 33,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 1,
-      "assists": 5
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Sturm Graz U15",
+          "year": "2006"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2011"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2012"
+        },
+        {
+          "club": "Wiener Neustadt",
+          "year": "2014"
+        },
+        {
+          "club": "Grödig",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Limerick FC",
+          "year": "2017"
+        },
+        {
+          "club": "SV Kapfenberg",
+          "year": "2017"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 438,
+        "goals": 24,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonas Karner",
@@ -245,9 +1026,37 @@
       "age": 21,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stmk.-Sturm U15",
+          "year": "2018"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1066,33 @@
       "age": 22,
       "nationality": "Australia",
       "club": "TSV Hartberg",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 2,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Macarthur",
+          "year": "2022"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 21,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elias Havel",
@@ -267,9 +1100,53 @@
       "age": 22,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 26,
-      "goals": 13,
-      "assists": 4
+      "appearances": 24,
+      "goals": 10,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Salzburg Youth",
+          "year": "2017"
+        },
+        {
+          "club": "AKA Salzb. U15",
+          "year": "2017"
+        },
+        {
+          "club": "FC Liefering",
+          "year": "2021"
+        },
+        {
+          "club": "LASK",
+          "year": "2023"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2026"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 65,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Hoffmann",
@@ -277,9 +1154,41 @@
       "age": 22,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 3,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rapid Youth",
+          "year": "2015"
+        },
+        {
+          "club": "AKA Rapid U15",
+          "year": "2017"
+        },
+        {
+          "club": "Halbturn",
+          "year": "2019"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 25,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lukas Fridrikas",
@@ -287,9 +1196,73 @@
       "age": 28,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Salzburg Youth",
+          "year": "2012"
+        },
+        {
+          "club": "USK Anif",
+          "year": "2015"
+        },
+        {
+          "club": "Seekirchen",
+          "year": "2016"
+        },
+        {
+          "club": "Wiener Neustadt",
+          "year": "2017"
+        },
+        {
+          "club": "SC/ESV Parndorf",
+          "year": "2017"
+        },
+        {
+          "club": "Wiener Neustadt",
+          "year": "2018"
+        },
+        {
+          "club": "FC Dornbirn",
+          "year": "2018"
+        },
+        {
+          "club": "FC Wacker",
+          "year": "2021"
+        },
+        {
+          "club": "A. Klagenfurt",
+          "year": "2022"
+        },
+        {
+          "club": "A. Lustenau",
+          "year": "2022"
+        },
+        {
+          "club": "SCR Altach",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 293,
+        "goals": 98,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musibau Aziz",
@@ -297,9 +1270,41 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "TSV Hartberg",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2022"
+        },
+        {
+          "club": "Still Bel. FC",
+          "year": "2022"
+        },
+        {
+          "club": "Dreams FC",
+          "year": "2024"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Korherr",
@@ -307,9 +1312,37 @@
       "age": 23,
       "nationality": "Austria",
       "club": "TSV Hartberg",
-      "appearances": 8,
-      "goals": 3,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Greinbach",
+          "year": "2019"
+        },
+        {
+          "club": "Pinkafeld",
+          "year": "2022"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 66,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

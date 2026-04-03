@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SMR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,65 @@
       "age": 34,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Marino",
+          "year": "2011"
+        },
+        {
+          "club": "Torres",
+          "year": "2013"
+        },
+        {
+          "club": "San Marino",
+          "year": "2014"
+        },
+        {
+          "club": "AC Rimini",
+          "year": "2014"
+        },
+        {
+          "club": "Catanzaro",
+          "year": "2015"
+        },
+        {
+          "club": "San Marino",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2016"
+        },
+        {
+          "club": "Romagna Centro",
+          "year": "2017"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 352,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 363,
+        "clean_sheets": 139
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Munari",
@@ -31,9 +88,65 @@
       "age": 20,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 11,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cattolica",
+          "year": "2021"
+        },
+        {
+          "club": "Victor SM",
+          "year": "2022"
+        },
+        {
+          "club": "Misano",
+          "year": "2023"
+        },
+        {
+          "club": "Vis Pesaro Yout",
+          "year": "2023"
+        },
+        {
+          "club": "Vis Pesaro",
+          "year": "2024"
+        },
+        {
+          "club": "Castelfidardo",
+          "year": "2025"
+        },
+        {
+          "club": "Vis Pesaro",
+          "year": "2025"
+        },
+        {
+          "club": "Albalonga",
+          "year": "2025"
+        },
+        {
+          "club": "Vis Pesaro",
+          "year": "2026"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 23,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mattia Cervellini",
@@ -43,7 +156,47 @@
       "club": "SP Tre Penne",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Marino Ac.",
+          "year": "2021"
+        },
+        {
+          "club": "CBR Carli Pietracuta",
+          "year": "2022"
+        },
+        {
+          "club": "San Marino Ac.",
+          "year": "2023"
+        },
+        {
+          "club": "Murata",
+          "year": "2024"
+        },
+        {
+          "club": "San Marino Ac.",
+          "year": "2025"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +206,97 @@
       "age": 38,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bellaria IM",
+          "year": "2007"
+        },
+        {
+          "club": "Giacomense",
+          "year": "2010"
+        },
+        {
+          "club": "Teramo",
+          "year": "2011"
+        },
+        {
+          "club": "Alessandria",
+          "year": "2014"
+        },
+        {
+          "club": "Pordenone",
+          "year": "2015"
+        },
+        {
+          "club": "Campobasso",
+          "year": "2015"
+        },
+        {
+          "club": "AJ Fano",
+          "year": "2016"
+        },
+        {
+          "club": "Reggina",
+          "year": "2018"
+        },
+        {
+          "club": "Rimini",
+          "year": "2018"
+        },
+        {
+          "club": "Picerno",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Viterbese",
+          "year": "2020"
+        },
+        {
+          "club": "Vis Pesaro",
+          "year": "2021"
+        },
+        {
+          "club": "Picerno",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Avezzano",
+          "year": "2023"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2024"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 500,
+        "goals": 25,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Angelo Gregorio",
@@ -63,19 +304,211 @@
       "age": 34,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santarcangelo",
+          "year": "2010"
+        },
+        {
+          "club": "Cesena",
+          "year": "2012"
+        },
+        {
+          "club": "Pontedera",
+          "year": "2012"
+        },
+        {
+          "club": "Cesena",
+          "year": "2013"
+        },
+        {
+          "club": "Bologna",
+          "year": "2013"
+        },
+        {
+          "club": "Teramo",
+          "year": "2013"
+        },
+        {
+          "club": "Bologna",
+          "year": "2014"
+        },
+        {
+          "club": "Romagna Centro",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Bra",
+          "year": "2016"
+        },
+        {
+          "club": "Tuttocuoio",
+          "year": "2017"
+        },
+        {
+          "club": "Savignanese",
+          "year": "2018"
+        },
+        {
+          "club": "Team Altamura",
+          "year": "2019"
+        },
+        {
+          "club": "Franciacorta",
+          "year": "2019"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2020"
+        },
+        {
+          "club": "Tre Fiori",
+          "year": "2022"
+        },
+        {
+          "club": "Libertas",
+          "year": "2023"
+        },
+        {
+          "club": "US Russi",
+          "year": "2023"
+        },
+        {
+          "club": "CBR Carli Pietracuta",
+          "year": "2024"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mirko Palazzi",
       "position": "Left-Back",
-      "age": 38,
+      "age": 39,
       "nationality": "San Marino",
       "club": "SP Tre Penne",
-      "appearances": 11,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Castelnuovo",
+          "year": "2006"
+        },
+        {
+          "club": "Rimini",
+          "year": "2007"
+        },
+        {
+          "club": "Bellaria IM",
+          "year": "2007"
+        },
+        {
+          "club": "Verucchio",
+          "year": "2007"
+        },
+        {
+          "club": "Rimini",
+          "year": "2009"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2009"
+        },
+        {
+          "club": "AC Rimini",
+          "year": "2010"
+        },
+        {
+          "club": "Nuova Cosenza",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "San Marino",
+          "year": "2014"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2015"
+        },
+        {
+          "club": "Gualdo",
+          "year": "2015"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2016"
+        },
+        {
+          "club": "Barbara",
+          "year": "2017"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2018"
+        },
+        {
+          "club": "Marignanese",
+          "year": "2019"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2020"
+        },
+        {
+          "club": "Marignanese",
+          "year": "2020"
+        },
+        {
+          "club": "Cosmos",
+          "year": "2022"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 335,
+        "goals": 20,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 76,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Mosquera",
@@ -83,9 +516,45 @@
       "age": 22,
       "nationality": "Colombia",
       "club": "SP Tre Penne",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Valdichienti",
+          "year": "2021"
+        },
+        {
+          "club": "Potenza Picena",
+          "year": "2022"
+        },
+        {
+          "club": "Osimana",
+          "year": "2023"
+        },
+        {
+          "club": "Chiesanuova",
+          "year": "2025"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giacomo Nigretti",
@@ -93,9 +562,61 @@
       "age": 26,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rimini Gio",
+          "year": "2015"
+        },
+        {
+          "club": "Rimini Gio",
+          "year": "2018"
+        },
+        {
+          "club": "Forlì",
+          "year": "2018"
+        },
+        {
+          "club": "Ravenna",
+          "year": "2019"
+        },
+        {
+          "club": "Rimini",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2021"
+        },
+        {
+          "club": "Libertas",
+          "year": "2022"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 18,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro D'Addario",
@@ -103,9 +624,57 @@
       "age": 28,
       "nationality": "San Marino",
       "club": "SP Tre Penne",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Marino",
+          "year": "2015"
+        },
+        {
+          "club": "Pianese",
+          "year": "2015"
+        },
+        {
+          "club": "Rimini",
+          "year": "2017"
+        },
+        {
+          "club": "La Fiorita",
+          "year": "2018"
+        },
+        {
+          "club": "San Marino",
+          "year": "2018"
+        },
+        {
+          "club": "Tre Fiori",
+          "year": "2019"
+        },
+        {
+          "club": "Cosmos",
+          "year": "2022"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 9,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -115,9 +684,85 @@
       "age": 37,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Rimini",
+          "year": "2009"
+        },
+        {
+          "club": "San Marino",
+          "year": "2009"
+        },
+        {
+          "club": "Rimini",
+          "year": "2010"
+        },
+        {
+          "club": "San Marino",
+          "year": "2010"
+        },
+        {
+          "club": "AC Mezzocorona",
+          "year": "2012"
+        },
+        {
+          "club": "Formigine",
+          "year": "2014"
+        },
+        {
+          "club": "AS Deruta",
+          "year": "2014"
+        },
+        {
+          "club": "Ribelle",
+          "year": "2014"
+        },
+        {
+          "club": "San Marino",
+          "year": "2015"
+        },
+        {
+          "club": "Rimini",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Recanatese",
+          "year": "2017"
+        },
+        {
+          "club": "La Fiorita",
+          "year": "2017"
+        },
+        {
+          "club": "Cosmos",
+          "year": "2022"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 484,
+        "goals": 20,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simone Errico",
@@ -125,9 +770,81 @@
       "age": 33,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 25,
-      "goals": 5,
-      "assists": 1
+      "appearances": 22,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Boville Ernica",
+          "year": "2010"
+        },
+        {
+          "club": "Sora",
+          "year": "2011"
+        },
+        {
+          "club": "Sarnese",
+          "year": "2011"
+        },
+        {
+          "club": "Ragusa",
+          "year": "2013"
+        },
+        {
+          "club": "Cynthia",
+          "year": "2013"
+        },
+        {
+          "club": "Albalonga",
+          "year": "2015"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2016"
+        },
+        {
+          "club": "San Marino",
+          "year": "2017"
+        },
+        {
+          "club": "Trestina",
+          "year": "2017"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2018"
+        },
+        {
+          "club": "Jesina",
+          "year": "2019"
+        },
+        {
+          "club": "La Fiorita",
+          "year": "2020"
+        },
+        {
+          "club": "Cosmos",
+          "year": "2022"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 422,
+        "goals": 40,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filippo Fabbri",
@@ -135,9 +852,73 @@
       "age": 30,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 26,
-      "goals": 2,
-      "assists": 0
+      "appearances": 23,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Marino",
+          "year": "2013"
+        },
+        {
+          "club": "Vis Pesaro",
+          "year": "2014"
+        },
+        {
+          "club": "Rimini",
+          "year": "2016"
+        },
+        {
+          "club": "Marignanese",
+          "year": "2017"
+        },
+        {
+          "club": "Diegaro",
+          "year": "2020"
+        },
+        {
+          "club": "Murata",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Tropical Coriano",
+          "year": "2021"
+        },
+        {
+          "club": "CBR Carli Pietracuta",
+          "year": "2022"
+        },
+        {
+          "club": "Tropical Coriano",
+          "year": "2023"
+        },
+        {
+          "club": "CBR Carli Pietracuta",
+          "year": "2023"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Casadio",
@@ -145,9 +926,41 @@
       "age": 23,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sammaurese",
+          "year": "2021"
+        },
+        {
+          "club": "Forlì",
+          "year": "2023"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2024"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giacomo Zafferani",
@@ -155,9 +968,24 @@
       "age": 29,
       "nationality": "San Marino",
       "club": "SP Tre Penne",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tommaso Bartoli",
@@ -165,9 +993,33 @@
       "age": 21,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 16,
-      "goals": 4,
-      "assists": 0
+      "appearances": 9,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tropical Coriano",
+          "year": "2021"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lorenzo Pastorelli",
@@ -175,9 +1027,57 @@
       "age": 24,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 1,
-      "assists": 7
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "RC Giovanili",
+          "year": "2018"
+        },
+        {
+          "club": "RC Cesena",
+          "year": "2018"
+        },
+        {
+          "club": "Forlì",
+          "year": "2019"
+        },
+        {
+          "club": "Marignanese Catt",
+          "year": "2020"
+        },
+        {
+          "club": "Trestina",
+          "year": "2021"
+        },
+        {
+          "club": "Victor SM",
+          "year": "2021"
+        },
+        {
+          "club": "Cosmos",
+          "year": "2022"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 13,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -187,9 +1087,109 @@
       "age": 34,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Bellaria IM",
+          "year": "2011"
+        },
+        {
+          "club": "Cesena",
+          "year": "2012"
+        },
+        {
+          "club": "Südtirol",
+          "year": "2013"
+        },
+        {
+          "club": "Cesena",
+          "year": "2014"
+        },
+        {
+          "club": "Parma",
+          "year": "2014"
+        },
+        {
+          "club": "Matera",
+          "year": "2014"
+        },
+        {
+          "club": "Parma",
+          "year": "2015"
+        },
+        {
+          "club": "Barletta",
+          "year": "2015"
+        },
+        {
+          "club": "Forlì",
+          "year": "2015"
+        },
+        {
+          "club": "Maceratese",
+          "year": "2016"
+        },
+        {
+          "club": "Lecce",
+          "year": "2017"
+        },
+        {
+          "club": "Casertana",
+          "year": "2017"
+        },
+        {
+          "club": "Lecce",
+          "year": "2018"
+        },
+        {
+          "club": "Südtirol",
+          "year": "2018"
+        },
+        {
+          "club": "Casertana",
+          "year": "2021"
+        },
+        {
+          "club": "Südtirol",
+          "year": "2021"
+        },
+        {
+          "club": "Imolese",
+          "year": "2021"
+        },
+        {
+          "club": "Foggia",
+          "year": "2022"
+        },
+        {
+          "club": "Casertana",
+          "year": "2022"
+        },
+        {
+          "club": "Mestre",
+          "year": "2024"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 464,
+        "goals": 65,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucio Peluso",
@@ -197,9 +1197,77 @@
       "age": 35,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 5,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Romagna Centro",
+          "year": "2008"
+        },
+        {
+          "club": "Sampierana",
+          "year": "2009"
+        },
+        {
+          "club": "Romagna Centro",
+          "year": "2009"
+        },
+        {
+          "club": "Forlì",
+          "year": "2015"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2016"
+        },
+        {
+          "club": "Diegaro",
+          "year": "2016"
+        },
+        {
+          "club": "Savignanese",
+          "year": "2017"
+        },
+        {
+          "club": "Axys Zola",
+          "year": "2017"
+        },
+        {
+          "club": "Savignanese",
+          "year": "2018"
+        },
+        {
+          "club": "La Fiorita",
+          "year": "2020"
+        },
+        {
+          "club": "Montecchio",
+          "year": "2021"
+        },
+        {
+          "club": "Gambettola",
+          "year": "2024"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 46,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filippo Berardi",
@@ -207,9 +1275,65 @@
       "age": 28,
       "nationality": "San Marino",
       "club": "SP Tre Penne",
-      "appearances": 21,
-      "goals": 11,
-      "assists": 1
+      "appearances": 20,
+      "goals": 12,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Juve Stabia",
+          "year": "2017"
+        },
+        {
+          "club": "Torino",
+          "year": "2018"
+        },
+        {
+          "club": "Monopoli",
+          "year": "2018"
+        },
+        {
+          "club": "Torino",
+          "year": "2019"
+        },
+        {
+          "club": "Vibonese",
+          "year": "2019"
+        },
+        {
+          "club": "Ancona",
+          "year": "2021"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2023"
+        },
+        {
+          "club": "Cosmos",
+          "year": "2023"
+        },
+        {
+          "club": "Vibonese",
+          "year": "2024"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 52,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Imre Badalassi",
@@ -217,9 +1341,53 @@
       "age": 31,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 28,
-      "goals": 15,
-      "assists": 1
+      "appearances": 25,
+      "goals": 14,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Santarcangelo",
+          "year": "2013"
+        },
+        {
+          "club": "Marignanese",
+          "year": "2014"
+        },
+        {
+          "club": "Tre Fiori",
+          "year": "2016"
+        },
+        {
+          "club": "SS Folgore",
+          "year": "2018"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2021"
+        },
+        {
+          "club": "Cosmos",
+          "year": "2024"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 176,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riccardo Pieri",
@@ -227,9 +1395,37 @@
       "age": 31,
       "nationality": "Italy",
       "club": "SP Tre Penne",
-      "appearances": 27,
-      "goals": 6,
-      "assists": 2
+      "appearances": 24,
+      "goals": 5,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Cesenatico",
+          "year": "2013"
+        },
+        {
+          "club": "Sammaurese",
+          "year": "2014"
+        },
+        {
+          "club": "Tre Penne",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 60,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maurice Kamouni",
@@ -237,9 +1433,29 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "SP Tre Penne",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tre Penne",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

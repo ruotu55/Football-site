@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "COLP"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 25,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Cartagena",
+          "year": "2022"
+        },
+        {
+          "club": "Orsomarso SC",
+          "year": "2022"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 142,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Gallese",
@@ -31,9 +60,61 @@
       "age": 36,
       "nationality": "Peru",
       "club": "Deportivo Cali",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. San Martín",
+          "year": "2007"
+        },
+        {
+          "club": "Atlético Minero",
+          "year": "2009"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2009"
+        },
+        {
+          "club": "Juan Aurich",
+          "year": "2015"
+        },
+        {
+          "club": "Tiburones Rojos",
+          "year": "2016"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2019"
+        },
+        {
+          "club": "Tiburones Rojos",
+          "year": "2019"
+        },
+        {
+          "club": "Orlando",
+          "year": "2020"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 439,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 594,
+        "clean_sheets": 117
+      },
+      "national_team_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 143,
+        "clean_sheets": 44
+      }
     },
     {
       "name": "Marco Espíndola",
@@ -41,9 +122,49 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gil Vicente",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Quilmes",
+          "year": "2020"
+        },
+        {
+          "club": "CD América",
+          "year": "2021"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2024"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 64,
+        "clean_sheets": 17
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alejandro Rojo",
@@ -53,7 +174,27 @@
       "club": "Deportivo Cali",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +204,37 @@
       "age": 22,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pachuca",
+          "year": "2023"
+        },
+        {
+          "club": "Montréal",
+          "year": "2023"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Caldera",
@@ -75,7 +244,31 @@
       "club": "Deportivo Cali",
       "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Fortaleza CEIF",
+          "year": "2020"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felipe Aguilar",
@@ -83,9 +276,81 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Nacional",
+          "year": "2011"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2013"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2016"
+        },
+        {
+          "club": "Santos",
+          "year": "2019"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2022"
+        },
+        {
+          "club": "Lanús",
+          "year": "2022"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2023"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Rionegro Águila",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keimer Sandoval",
@@ -93,9 +358,45 @@
       "age": 20,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Orsomarso SC",
+          "year": "2023"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2024"
+        },
+        {
+          "club": "Red Star",
+          "year": "2025"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julián Quiñónes",
@@ -103,9 +404,41 @@
       "age": 36,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2010"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2014"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 457,
+        "goals": 28,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrés Correa",
@@ -113,9 +446,53 @@
       "age": 32,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Indep. Medellín",
+          "year": "2012"
+        },
+        {
+          "club": "Fortaleza CEIF",
+          "year": "2014"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2014"
+        },
+        {
+          "club": "Seattle",
+          "year": "2015"
+        },
+        {
+          "club": "Boyacá Chicó",
+          "year": "2016"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2017"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 3,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Tello",
@@ -125,7 +502,47 @@
       "club": "Deportivo Cali",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2021"
+        },
+        {
+          "club": "Real C.",
+          "year": "2022"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2023"
+        },
+        {
+          "club": "Llaneros FC",
+          "year": "2023"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2024"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabián Viáfara",
@@ -133,9 +550,53 @@
       "age": 34,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rionegro Águila",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2019"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2020"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2023"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2024"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 405,
+        "goals": 4,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Orejuela",
@@ -143,9 +604,89 @@
       "age": 30,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2016"
+        },
+        {
+          "club": "Ajax",
+          "year": "2017"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2019"
+        },
+        {
+          "club": "Ajax",
+          "year": "2019"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2020"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2020"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2021"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2022"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2022"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2022"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2023"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2023"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2023"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +696,57 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2009"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2014"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2015"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2023"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 565,
+        "goals": 4,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronaldo Pájaro",
@@ -165,9 +754,33 @@
       "age": 24,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fortaleza CEIF",
+          "year": "2020"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yani Quintero",
@@ -177,7 +790,59 @@
       "club": "Deportivo Cali",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CBJ Cali",
+          "year": "2019"
+        },
+        {
+          "club": "Quindío",
+          "year": "2020"
+        },
+        {
+          "club": "Quindío",
+          "year": "2022"
+        },
+        {
+          "club": "Red Bull",
+          "year": "2023"
+        },
+        {
+          "club": "Quindío",
+          "year": "2023"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2024"
+        },
+        {
+          "club": "Quindío",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        },
+        {
+          "club": "Quindío",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Orozco",
@@ -185,9 +850,29 @@
       "age": 18,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 7,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrés Colorado",
@@ -195,9 +880,73 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter Palmira",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2019"
+        },
+        {
+          "club": "Inter Palmira",
+          "year": "2021"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2022"
+        },
+        {
+          "club": "Inter Palmira",
+          "year": "2022"
+        },
+        {
+          "club": "Partizan",
+          "year": "2023"
+        },
+        {
+          "club": "Inter Palmira",
+          "year": "2023"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2023"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2024"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 10,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Giraldo",
@@ -205,9 +954,65 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2011"
+        },
+        {
+          "club": "Olhanense",
+          "year": "2014"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2016"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2019"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2019"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2021"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2022"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2023"
+        },
+        {
+          "club": "Juventude",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 482,
+        "goals": 15,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joan Gómez",
@@ -217,7 +1022,31 @@
       "club": "Deportivo Cali",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Santander",
+          "year": "2024"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emanuel Reynoso",
@@ -225,9 +1054,53 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Deportivo Cali",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CA Talleres",
+          "year": "2015"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2018"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2020"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2024"
+        },
+        {
+          "club": "CA Talleres",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        },
+        {
+          "club": "CA Talleres",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 43,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1110,41 @@
       "age": 24,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Indep. Medellín",
+          "year": "2022"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2023"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Avilés Hurtado",
@@ -247,9 +1152,69 @@
       "age": 38,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 12,
-      "goals": 4,
-      "assists": 0
+      "appearances": 13,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD América",
+          "year": "2009"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2011"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2013"
+        },
+        {
+          "club": "Chiapas FC",
+          "year": "2013"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2014"
+        },
+        {
+          "club": "Chiapas FC",
+          "year": "2015"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2016"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2017"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2021"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2023"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 531,
+        "goals": 109,
+        "assists": 82,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Mena",
@@ -259,7 +1224,43 @@
       "club": "Deportivo Cali",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pereira",
+          "year": "2023"
+        },
+        {
+          "club": "Orsomarso SC",
+          "year": "2025"
+        },
+        {
+          "club": "Pereira",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        },
+        {
+          "club": "Pereira",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Dinenno",
@@ -267,9 +1268,89 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Deportivo Cali",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2013"
+        },
+        {
+          "club": "CA Temperley",
+          "year": "2014"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2015"
+        },
+        {
+          "club": "Aldosivi",
+          "year": "2016"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2016"
+        },
+        {
+          "club": "Dep. Cuenca",
+          "year": "2017"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2017"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2018"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2019"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2019"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2020"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2020"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2024"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2025"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 401,
+        "goals": 148,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Steven Rodríguez",
@@ -277,9 +1358,77 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "Deportivo Cali",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Indep. Medellín",
+          "year": "2019"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2021"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2021"
+        },
+        {
+          "club": "Envigado",
+          "year": "2021"
+        },
+        {
+          "club": "Sri Pahang",
+          "year": "2022"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2022"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2023"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2023"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2023"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2024"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2024"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2026"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 68,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhon Aponzá",
@@ -289,7 +1438,35 @@
       "club": "Deportivo Cali",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CBJ Cali",
+          "year": "2024"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        },
+        {
+          "club": "CBJ Cali",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Galindo",
@@ -299,7 +1476,27 @@
       "club": "Deportivo Cali",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

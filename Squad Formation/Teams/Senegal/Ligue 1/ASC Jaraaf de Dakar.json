@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SEN1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UC Thiès",
+          "year": "2022"
+        },
+        {
+          "club": "United Académie",
+          "year": "2023"
+        },
+        {
+          "club": "Elite Falcons",
+          "year": "2024"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bassirou Ndao",
@@ -33,7 +66,31 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC HLM",
+          "year": "2021"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Boubacar Fall",
@@ -43,7 +100,39 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Esp. Guédiawaye",
+          "year": "2019"
+        },
+        {
+          "club": "Saint-Étienne",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 27,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulaye Diakhaté",
@@ -51,9 +140,33 @@
       "age": 34,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Saloum",
+          "year": "2021"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 3,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +176,45 @@
       "age": 24,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 17,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2022"
+        },
+        {
+          "club": "Thiès FC",
+          "year": "2023"
+        },
+        {
+          "club": "ASC HLM",
+          "year": "2023"
+        },
+        {
+          "club": "Sacré Cœur",
+          "year": "2024"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adama Wade",
@@ -75,7 +224,43 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ümraniyespor",
+          "year": "2020"
+        },
+        {
+          "club": "FC Locomotive",
+          "year": "2021"
+        },
+        {
+          "club": "Guédiawaye FC",
+          "year": "2022"
+        },
+        {
+          "club": "Sacré Cœur",
+          "year": "2022"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nouha Coly",
@@ -83,9 +268,37 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Casa Sports",
+          "year": "2021"
+        },
+        {
+          "club": "Sonacos",
+          "year": "2022"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kabinet Kouyaté",
@@ -95,7 +308,31 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hafia FC",
+          "year": "2021"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Madieng Ndiaye",
@@ -105,17 +342,73 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ndiambour",
+          "year": "2015"
+        },
+        {
+          "club": "Jamono Fatick",
+          "year": "2022"
+        },
+        {
+          "club": "Guédiawaye FC",
+          "year": "2024"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mbaye Ndiaye",
       "position": "Left-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
       "appearances": 16,
-      "goals": 1,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sacré Cœur",
+          "year": "2022"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Falilou Fall",
@@ -123,9 +416,33 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guédiawaye FC",
+          "year": "2021"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mamadou Diatta",
@@ -133,9 +450,29 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adama Barry",
@@ -143,19 +480,75 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lusitana",
+          "year": "2021"
+        },
+        {
+          "club": "Sonacos",
+          "year": "2022"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Papa Fara Gaye",
+      "name": "Papa Gaye",
       "position": "Right-Back",
       "age": 22,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2022"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2024"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +558,37 @@
       "age": 19,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "AF Darou Salam",
+          "year": "2023"
+        },
+        {
+          "club": "Wally Daan",
+          "year": "2024"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Makha Ben Ahmad Ba",
@@ -177,7 +598,31 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC La Linguère",
+          "year": "2019"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Babacar Cissé",
@@ -185,9 +630,29 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alphousseyni Diambang",
@@ -195,9 +660,29 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pape Ibrahima Ba",
@@ -205,9 +690,29 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 7,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Issaga Kane",
@@ -217,7 +722,31 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Naby Soumah",
@@ -225,9 +754,33 @@
       "age": 23,
       "nationality": "Guinea",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 17,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Teungueth FC",
+          "year": "2024"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ameth Niang",
@@ -235,9 +788,29 @@
       "age": 19,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maheri Touré",
@@ -247,29 +820,101 @@
       "club": "ASC Jaraaf de Dakar",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
-    {
-      "name": "Malick Ndoye",
-      "position": "Left Winger",
-      "age": 22,
-      "nationality": "Senegal",
-      "club": "ASC Jaraaf de Dakar",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
-    },
     {
       "name": "Abdoulaye Oualy",
       "position": "Left Winger",
       "age": 27,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 17,
+      "appearances": 18,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "TP Diamono",
+          "year": "2018"
+        },
+        {
+          "club": "Sonacos",
+          "year": "2019"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Malick Ndoye",
+      "position": "Left Winger",
+      "age": 22,
+      "nationality": "Senegal",
+      "club": "ASC Jaraaf de Dakar",
+      "appearances": 14,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teungueth FC",
+          "year": "2020"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saliou Guèye",
@@ -277,9 +922,33 @@
       "age": 24,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 15,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "AC Arles",
+          "year": "2023"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulaye Faty",
@@ -287,9 +956,29 @@
       "age": 25,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sadraque Monteiro",
@@ -297,9 +986,33 @@
       "age": 19,
       "nationality": "Guinea-Bissau",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica de Biss",
+          "year": "2023"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souleymane Coly",
@@ -307,19 +1020,79 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Port Autonome",
+          "year": "2021"
+        },
+        {
+          "club": "Ouakam",
+          "year": "2022"
+        },
+        {
+          "club": "Jamus FC",
+          "year": "2025"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Almamy Mathew Fall",
+      "name": "Almamy Fall",
       "position": "Centre-Forward",
       "age": 22,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "D. Diop FC",
+          "year": "2019"
+        },
+        {
+          "club": "Dakar UC",
+          "year": "2021"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mamadou Soumaré",
@@ -327,9 +1100,29 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "appearances": 12,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mandione Mbaye",
@@ -337,9 +1130,41 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "ASC Jaraaf de Dakar",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guelwaars",
+          "year": "2022"
+        },
+        {
+          "club": "AJEL Rufisque",
+          "year": "2024"
+        },
+        {
+          "club": "CA Bizertin",
+          "year": "2025"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

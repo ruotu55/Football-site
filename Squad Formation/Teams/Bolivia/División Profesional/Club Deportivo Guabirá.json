@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "BO1A"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2017"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2023"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2023"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2024"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2024"
+        },
+        {
+          "club": "D. Concepción",
+          "year": "2025"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 118,
+        "clean_sheets": 45
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manuel Ferrel",
@@ -33,7 +82,27 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 83,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Araúz",
@@ -43,7 +112,55 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Blooming",
+          "year": "2014"
+        },
+        {
+          "club": "Quebracho",
+          "year": "2017"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2017"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "GV San José",
+          "year": "2024"
+        },
+        {
+          "club": "Oriente P.",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 198,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Roger Coronado",
@@ -53,7 +170,27 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +200,33 @@
       "age": 23,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Royal Pari",
+          "year": "2022"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Corrales",
@@ -75,7 +236,31 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wilstermann",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joaquín Barro",
@@ -83,9 +268,49 @@
       "age": 25,
       "nationality": "Argentina",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2022"
+        },
+        {
+          "club": "General Paz Jrs",
+          "year": "2022"
+        },
+        {
+          "club": "Zapla",
+          "year": "2024"
+        },
+        {
+          "club": "Germinal",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milciades Portillo",
@@ -93,9 +318,37 @@
       "age": 34,
       "nationality": "Paraguay",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sol de América",
+          "year": "2018"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2021"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Robles",
@@ -103,9 +356,53 @@
       "age": 34,
       "nationality": "Paraguay",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rubio Ñú",
+          "year": "2015"
+        },
+        {
+          "club": "Club Petrolero",
+          "year": "2016"
+        },
+        {
+          "club": "Real Tomayapo",
+          "year": "2021"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2022"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2023"
+        },
+        {
+          "club": "Aurora",
+          "year": "2024"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 22,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Flores",
@@ -113,9 +410,45 @@
       "age": 32,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bolívar",
+          "year": "2016"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2021"
+        },
+        {
+          "club": "Oriente P.",
+          "year": "2023"
+        },
+        {
+          "club": "SA Bulo Bulo",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 4,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Gil",
@@ -123,9 +456,49 @@
       "age": 28,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2020"
+        },
+        {
+          "club": "Gran Mamoré",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Gran Mamoré",
+          "year": "2022"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2024"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +508,61 @@
       "age": 29,
       "nationality": "Uruguay",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Defensor SC",
+          "year": "2017"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2020"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2021"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "year": "2022"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2022"
+        },
+        {
+          "club": "River Plate",
+          "year": "2022"
+        },
+        {
+          "club": "Mushuc Runa SC",
+          "year": "2025"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asiel Paredes",
@@ -147,17 +572,61 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Óscar Ríos",
       "position": "Defensive Midfield",
-      "age": 16,
+      "age": 17,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Héctor Sánchez",
@@ -165,9 +634,45 @@
       "age": 28,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 13,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oriente P.",
+          "year": "2016"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2019"
+        },
+        {
+          "club": "Oriente P.",
+          "year": "2020"
+        },
+        {
+          "club": "GV San José",
+          "year": "2024"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 21,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Masskooni",
@@ -177,7 +682,27 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Parada",
@@ -187,7 +712,31 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Destroyers",
+          "year": "2020"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Chávez",
@@ -197,7 +746,27 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Ribeiro",
@@ -205,9 +774,89 @@
       "age": 41,
       "nationality": "Brazil",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Artsul-RJ",
+          "year": "2004"
+        },
+        {
+          "club": "Independência",
+          "year": "2006"
+        },
+        {
+          "club": "ADESG",
+          "year": "2007"
+        },
+        {
+          "club": "Rio Branco-AC",
+          "year": "2008"
+        },
+        {
+          "club": "Juventus-SP",
+          "year": "2009"
+        },
+        {
+          "club": "BFC Siófok",
+          "year": "2009"
+        },
+        {
+          "club": "Barcs",
+          "year": "2011"
+        },
+        {
+          "club": "BFC Siófok",
+          "year": "2011"
+        },
+        {
+          "club": "VLS Veszprém",
+          "year": "2011"
+        },
+        {
+          "club": "Dunaújváros",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Real América",
+          "year": "2016"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2018"
+        },
+        {
+          "club": "Real Tomayapo",
+          "year": "2022"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2024"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 348,
+        "goals": 27,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milton Maciel",
@@ -215,9 +864,65 @@
       "age": 26,
       "nationality": "Paraguay",
       "club": "Club Deportivo Guabirá",
-      "appearances": 20,
-      "goals": 4,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guaraní",
+          "year": "2019"
+        },
+        {
+          "club": "Guaireña FC",
+          "year": "2022"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2023"
+        },
+        {
+          "club": "Resistencia SC",
+          "year": "2023"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2024"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2024"
+        },
+        {
+          "club": "Trinidense",
+          "year": "2024"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2025"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafinha",
@@ -225,9 +930,107 @@
       "age": 34,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC São José",
+          "year": "2014"
+        },
+        {
+          "club": "Novo Hamburgo",
+          "year": "2014"
+        },
+        {
+          "club": "CA Juventus-SC",
+          "year": "2015"
+        },
+        {
+          "club": "EC São José",
+          "year": "2015"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2016"
+        },
+        {
+          "club": "EC São José",
+          "year": "2016"
+        },
+        {
+          "club": "Náutico",
+          "year": "2017"
+        },
+        {
+          "club": "EC São José",
+          "year": "2017"
+        },
+        {
+          "club": "Ypiranga-RS",
+          "year": "2018"
+        },
+        {
+          "club": "Juventude",
+          "year": "2018"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Cruz-PE",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 304,
+        "goals": 77,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Andrés Ruiz",
+      "position": "",
+      "age": 19,
+      "nationality": "Bolivia",
+      "club": "Club Deportivo Guabirá",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +1042,27 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustavo Peredo",
@@ -247,9 +1070,29 @@
       "age": 25,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 33,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Añez",
@@ -257,9 +1100,45 @@
       "age": 30,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "The Strongest",
+          "year": "2020"
+        },
+        {
+          "club": "Wilstermann",
+          "year": "2021"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2023"
+        },
+        {
+          "club": "Oriente P.",
+          "year": "2024"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 21,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roler Ferrufino",
@@ -267,9 +1146,49 @@
       "age": 25,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Calleja",
+          "year": "2018"
+        },
+        {
+          "club": "Academia FC",
+          "year": "2021"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2022"
+        },
+        {
+          "club": "GV San José",
+          "year": "2024"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 35,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denilso Fernandez",
@@ -279,7 +1198,35 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Petrolero",
+          "year": "2024"
+        },
+        {
+          "club": "Real Oruro",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 21,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Pinto",
@@ -289,7 +1236,27 @@
       "club": "Club Deportivo Guabirá",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Garzón",
@@ -297,19 +1264,111 @@
       "age": 26,
       "nationality": "Bolivia",
       "club": "Club Deportivo Guabirá",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 8,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Blooming",
+          "year": "2020"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 21,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro",
       "position": "Centre-Forward",
-      "age": 26,
+      "age": 27,
       "nationality": "Brazil",
       "club": "Club Deportivo Guabirá",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Passo Fundo",
+          "year": "2020"
+        },
+        {
+          "club": "América-RJ",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Paraná",
+          "year": "2021"
+        },
+        {
+          "club": "Serra Macaense",
+          "year": "2021"
+        },
+        {
+          "club": "KF Egnatia",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Serra Macaense",
+          "year": "2023"
+        },
+        {
+          "club": "Flamurtari FC",
+          "year": "2023"
+        },
+        {
+          "club": "Persikabo 1973",
+          "year": "2023"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 37,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

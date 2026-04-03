@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,31 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BW Feldkirch J.",
+          "year": "2023"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonas Strunk",
@@ -31,9 +56,29 @@
       "age": 22,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 27,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Igor Miguéis",
@@ -43,7 +88,35 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Taboeira U15",
+          "year": "2010"
+        },
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +126,29 @@
       "age": 33,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Graber",
@@ -65,7 +158,35 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eschen/Mauren",
+          "year": "2020"
+        },
+        {
+          "club": "Altstätten",
+          "year": "2023"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthias Quaderer",
@@ -73,9 +194,37 @@
       "age": 29,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2014"
+        },
+        {
+          "club": "FC Sevelen",
+          "year": "2017"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lukas Graber",
@@ -83,9 +232,41 @@
       "age": 24,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eschen/Mauren",
+          "year": "2020"
+        },
+        {
+          "club": "Almuñécar City",
+          "year": "2023"
+        },
+        {
+          "club": "Eschen/Mauren",
+          "year": "2024"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johannes Schädler",
@@ -95,7 +276,27 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Biedermann",
@@ -103,9 +304,29 @@
       "age": 29,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Altin Jahiji",
@@ -113,9 +334,33 @@
       "age": 20,
       "nationality": "Serbia",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Sevelen",
+          "year": "2021"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ihsan Ajdari",
@@ -123,9 +368,29 @@
       "age": 19,
       "nationality": "TM nationality id 244",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +400,53 @@
       "age": 35,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Balzers",
+          "year": "2008"
+        },
+        {
+          "club": "Eschen/Mauren",
+          "year": "2010"
+        },
+        {
+          "club": "FC Balzers",
+          "year": "2011"
+        },
+        {
+          "club": "FC Triesenberg",
+          "year": "2013"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2015"
+        },
+        {
+          "club": "FC Sevelen",
+          "year": "2017"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabio Quaderer",
@@ -145,9 +454,37 @@
       "age": 29,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2014"
+        },
+        {
+          "club": "FC Sevelen",
+          "year": "2017"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Kaiser",
@@ -157,7 +494,39 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "USV Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Eschen/Mauren 2",
+          "year": "2019"
+        },
+        {
+          "club": "FC Buchs",
+          "year": "2024"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Kranz",
@@ -165,9 +534,29 @@
       "age": 22,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Ochsner",
@@ -177,7 +566,27 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -187,9 +596,33 @@
       "age": 22,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Triesenberg",
+          "year": "2020"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karar Barzo",
@@ -199,7 +632,31 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bad Ragaz Jgd.",
+          "year": "2024"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Oehri",
@@ -209,7 +666,27 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julien Hasler",
@@ -219,7 +696,35 @@
       "club": "FC Schaan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Career break",
+          "year": "2013"
+        },
+        {
+          "club": "FC Triesen",
+          "year": "2019"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matias Antunovic",
@@ -227,9 +732,29 @@
       "age": 25,
       "nationality": "Croatia",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schaan",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Endre Kepenyes",
@@ -237,9 +762,45 @@
       "age": 22,
       "nationality": "Hungary",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "FC Sevelen",
+          "year": "2023"
+        },
+        {
+          "club": "Gyulai FC",
+          "year": "2024"
+        },
+        {
+          "club": "Szeghalmi FC",
+          "year": "2025"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ridvan Kardesoglu",
@@ -247,9 +808,61 @@
       "age": 29,
       "nationality": "Liechtenstein",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eschen/Mauren",
+          "year": "2015"
+        },
+        {
+          "club": "Chur 97",
+          "year": "2019"
+        },
+        {
+          "club": "FC Balzers",
+          "year": "2020"
+        },
+        {
+          "club": "Chur 97",
+          "year": "2020"
+        },
+        {
+          "club": "FC Ruggell",
+          "year": "2021"
+        },
+        {
+          "club": "Nenzing",
+          "year": "2022"
+        },
+        {
+          "club": "Höchst",
+          "year": "2023"
+        },
+        {
+          "club": "Montlingen",
+          "year": "2023"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Gatic",
@@ -257,9 +870,33 @@
       "age": 18,
       "nationality": "TM nationality id 24",
       "club": "FC Schaan",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Grabs",
+          "year": "2024"
+        },
+        {
+          "club": "FC Schaan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

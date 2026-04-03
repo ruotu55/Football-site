@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BU1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,19 +22,95 @@
       "age": 27,
       "nationality": "Switzerland",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baden 1897",
+          "year": "2017"
+        },
+        {
+          "club": "FC Winterthur",
+          "year": "2018"
+        },
+        {
+          "club": "Rapperswil-Jona",
+          "year": "2020"
+        },
+        {
+          "club": "PO Xylotymbou",
+          "year": "2021"
+        },
+        {
+          "club": "PAEEK Kyrenia",
+          "year": "2022"
+        },
+        {
+          "club": "AEZ Zakakiou",
+          "year": "2023"
+        },
+        {
+          "club": "Anorthosis",
+          "year": "2024"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 203,
+        "clean_sheets": 38
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petar Zovko",
       "position": "Goalkeeper",
-      "age": 23,
+      "age": 24,
       "nationality": "TM nationality id 24",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spezia Calcio",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 74,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +120,29 @@
       "age": 21,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Plovdiv",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Ryan",
@@ -55,7 +152,47 @@
       "club": "Lokomotiv Plovdiv",
       "appearances": 23,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vere FC",
+          "year": "2022"
+        },
+        {
+          "club": "CSA",
+          "year": "2023"
+        },
+        {
+          "club": "Caxias-RS",
+          "year": "2024"
+        },
+        {
+          "club": "Paraná",
+          "year": "2025"
+        },
+        {
+          "club": "Botafogo-SP",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Ruskov",
@@ -63,9 +200,33 @@
       "age": 24,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Belasitsa",
+          "year": "2021"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrei Chindriș",
@@ -73,9 +234,69 @@
       "age": 27,
       "nationality": "Romania",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Botosani",
+          "year": "2016"
+        },
+        {
+          "club": "Academica Clince",
+          "year": "2017"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2017"
+        },
+        {
+          "club": "Miroslava",
+          "year": "2017"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2018"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2022"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaloyan Kostov",
@@ -84,18 +305,70 @@
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Plovdiv",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Espinoza",
       "position": "Left-Back",
-      "age": 24,
+      "age": 25,
       "nationality": "Argentina",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santamarina",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Beroe",
+          "year": "2023"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Cova",
@@ -103,9 +376,49 @@
       "age": 25,
       "nationality": "Venezuela",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CP El Ejido",
+          "year": "2020"
+        },
+        {
+          "club": "Recre Granada",
+          "year": "2021"
+        },
+        {
+          "club": "SD Logroñés",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Krumovgrad",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -115,9 +428,53 @@
       "age": 31,
       "nationality": "Tajikistan",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 27,
-      "goals": 3,
-      "assists": 6
+      "appearances": 25,
+      "goals": 2,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Neftekhimik",
+          "year": "2013"
+        },
+        {
+          "club": "Khimik",
+          "year": "2014"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2015"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2016"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2022"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 464,
+        "goals": 40,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 68,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Efe Ali",
@@ -125,9 +482,37 @@
       "age": 23,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 0
+      "appearances": 23,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Haskovo",
+          "year": "2021"
+        },
+        {
+          "club": "OFK Haskovo",
+          "year": "2022"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Atanasov",
@@ -135,9 +520,45 @@
       "age": 24,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Slavia Sofia",
+          "year": "2019"
+        },
+        {
+          "club": "Botev Vratsa",
+          "year": "2022"
+        },
+        {
+          "club": "Minyor Pernik",
+          "year": "2023"
+        },
+        {
+          "club": "Marek Dupnitsa",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivaylo Ivanov",
@@ -145,9 +566,33 @@
       "age": 23,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Yantra",
+          "year": "2020"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miha Trdan",
@@ -155,9 +600,37 @@
       "age": 20,
       "nationality": "Slovenia",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 8,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pisa",
+          "year": "2023"
+        },
+        {
+          "club": "Krasava ENY",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cătălin Itu",
@@ -165,9 +638,57 @@
       "age": 26,
       "nationality": "Romania",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 24,
-      "goals": 4,
-      "assists": 5
+      "appearances": 23,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2016"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2019"
+        },
+        {
+          "club": "FC Dinamo",
+          "year": "2021"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2022"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2023"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2023"
+        },
+        {
+          "club": "Krumovgrad",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 17,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Georgi Chorbadzhiyski",
@@ -175,9 +696,29 @@
       "age": 21,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 20,
-      "goals": 3,
-      "assists": 1
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Plovdiv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -187,9 +728,65 @@
       "age": 26,
       "nationality": "France",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 3,
-      "assists": 3
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Plabennec",
+          "year": "2017"
+        },
+        {
+          "club": "Rotherham",
+          "year": "2019"
+        },
+        {
+          "club": "AFC Wimbledon",
+          "year": "2020"
+        },
+        {
+          "club": "Rotherham",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Grimsby Town",
+          "year": "2021"
+        },
+        {
+          "club": "EN Paralimniou",
+          "year": "2021"
+        },
+        {
+          "club": "NK Celje",
+          "year": "2023"
+        },
+        {
+          "club": "NS Mura",
+          "year": "2024"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 24,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sevi Idriz",
@@ -197,9 +794,29 @@
       "age": 18,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 3,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zapro Dinev",
@@ -207,9 +824,65 @@
       "age": 26,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 21,
-      "goals": 6,
-      "assists": 4
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Belasitsa",
+          "year": "2016"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2019"
+        },
+        {
+          "club": "Vitosha",
+          "year": "2019"
+        },
+        {
+          "club": "S. Simitli",
+          "year": "2020"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2021"
+        },
+        {
+          "club": "S. Simitli",
+          "year": "2021"
+        },
+        {
+          "club": "Minyor Pernik",
+          "year": "2022"
+        },
+        {
+          "club": "Belasitsa",
+          "year": "2022"
+        },
+        {
+          "club": "Pirin",
+          "year": "2024"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 46,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco Politino",
@@ -217,9 +890,37 @@
       "age": 26,
       "nationality": "Palestine",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Beroe",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christ Longville",
@@ -229,7 +930,27 @@
       "club": "Lokomotiv Plovdiv",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joël Zwarts",
@@ -238,8 +959,60 @@
       "nationality": "Netherlands",
       "club": "Lokomotiv Plovdiv",
       "appearances": 7,
-      "goals": 1,
-      "assists": 2
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FC Dordrecht",
+          "year": "2019"
+        },
+        {
+          "club": "Excelsior",
+          "year": "2019"
+        },
+        {
+          "club": "J. Regensburg",
+          "year": "2021"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2022"
+        },
+        {
+          "club": "J. Regensburg",
+          "year": "2023"
+        },
+        {
+          "club": "1860 Munich",
+          "year": "2023"
+        },
+        {
+          "club": "VfL Osnabrück",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 78,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mariyan Vangelov",
@@ -247,9 +1020,41 @@
       "age": 22,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 16,
-      "goals": 7,
-      "assists": 3
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Belasitsa",
+          "year": "2022"
+        },
+        {
+          "club": "Dunav",
+          "year": "2024"
+        },
+        {
+          "club": "Pirin",
+          "year": "2025"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 24,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Axel Velev",
@@ -257,9 +1062,29 @@
       "age": 19,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 14,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Plovdiv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitar Iliev",
@@ -267,9 +1092,65 @@
       "age": 37,
       "nationality": "Bulgaria",
       "club": "Lokomotiv Plovdiv",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Loko Plovdiv",
+          "year": "2004"
+        },
+        {
+          "club": "CSKA Sofia",
+          "year": "2010"
+        },
+        {
+          "club": "Minyor Pernik",
+          "year": "2010"
+        },
+        {
+          "club": "Pirin",
+          "year": "2011"
+        },
+        {
+          "club": "CSKA Sofia",
+          "year": "2011"
+        },
+        {
+          "club": "Montana",
+          "year": "2011"
+        },
+        {
+          "club": "Loko Sofia",
+          "year": "2012"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2014"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2017"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 589,
+        "goals": 132,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

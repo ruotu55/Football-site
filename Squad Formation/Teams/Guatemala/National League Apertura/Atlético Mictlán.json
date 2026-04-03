@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "GU1C"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,81 @@
       "age": 35,
       "nationality": "Uruguay",
       "club": "Atlético Mictlán",
-      "appearances": 31,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juventud",
+          "year": "2010"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Club Oriental",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Huracán",
+          "year": "2018"
+        },
+        {
+          "club": "Colón FC",
+          "year": "2019"
+        },
+        {
+          "club": "Rampla Jrs",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "La Luz",
+          "year": "2021"
+        },
+        {
+          "club": "Club Oriental",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Cerrito",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 135,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junior Figueroa",
@@ -33,7 +106,55 @@
       "club": "Atlético Mictlán",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juv. Pinulteca",
+          "year": "2022"
+        },
+        {
+          "club": "Antigua U22",
+          "year": "2022"
+        },
+        {
+          "club": "Chimaltenango",
+          "year": "2022"
+        },
+        {
+          "club": "Guastatoya",
+          "year": "2023"
+        },
+        {
+          "club": "Barberena FC",
+          "year": "2024"
+        },
+        {
+          "club": "Aurora",
+          "year": "2024"
+        },
+        {
+          "club": "Iztapa",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +164,57 @@
       "age": 29,
       "nationality": "Paraguay",
       "club": "Atlético Mictlán",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportes Tolima",
+          "year": "2019"
+        },
+        {
+          "club": "General Diaz",
+          "year": "2019"
+        },
+        {
+          "club": "Sol de América",
+          "year": "2021"
+        },
+        {
+          "club": "Luqueño",
+          "year": "2021"
+        },
+        {
+          "club": "Club 24 de Set.",
+          "year": "2023"
+        },
+        {
+          "club": "SA Bulo Bulo",
+          "year": "2024"
+        },
+        {
+          "club": "Club A.B.B.",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Renny Folleco",
@@ -53,9 +222,49 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Atlético Mictlán",
-      "appearances": 27,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Leones d. Norte",
+          "year": "2020"
+        },
+        {
+          "club": "M. Iturralde",
+          "year": "2021"
+        },
+        {
+          "club": "Cuniburo FC",
+          "year": "2022"
+        },
+        {
+          "club": "CD Aampetra",
+          "year": "2022"
+        },
+        {
+          "club": "San Benito FC",
+          "year": "2023"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Ramírez",
@@ -63,9 +272,53 @@
       "age": 34,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 33,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "J. Escuintleca",
+          "year": "2012"
+        },
+        {
+          "club": "Santa Lucía C.",
+          "year": "2017"
+        },
+        {
+          "club": "Dep. San Pedro",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Lucía C.",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Zacapa",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Cuque",
@@ -75,17 +328,81 @@
       "club": "Atlético Mictlán",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Monges",
       "position": "Centre-Back",
-      "age": 28,
+      "age": 29,
       "nationality": "Paraguay",
       "club": "Atlético Mictlán",
-      "appearances": 0,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RI 3 Corrales",
+          "year": "2018"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2021"
+        },
+        {
+          "club": "Puerto Montt",
+          "year": "2023"
+        },
+        {
+          "club": "3 de Febrero",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        },
+        {
+          "club": "Verdes FC",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonas Herrarte",
@@ -93,9 +410,24 @@
       "age": 21,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 29,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Sánchez",
@@ -103,9 +435,41 @@
       "age": 20,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guastatoya U22",
+          "year": "2023"
+        },
+        {
+          "club": "Xinabajul",
+          "year": "2024"
+        },
+        {
+          "club": "Malacateco",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Menéndez",
@@ -113,19 +477,91 @@
       "age": 31,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 19,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Malacateco",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "N. Concepción",
+          "year": "2021"
+        },
+        {
+          "club": "Zacapa",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Carlos Escobar",
       "position": "Right-Back",
-      "age": 32,
+      "age": 33,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 32,
+      "appearances": 15,
       "goals": 1,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Atl. Mictlán",
+          "year": "2021"
+        },
+        {
+          "club": "Zacapa",
+          "year": "2023"
+        },
+        {
+          "club": "Guastatoya",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +571,69 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Atlético Mictlán",
-      "appearances": 17,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Nacional",
+          "year": "2009"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2012"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2013"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2013"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2014"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Universitario",
+          "year": "2019"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elmer Monroy",
@@ -145,9 +641,41 @@
       "age": 32,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 24,
-      "goals": 1,
-      "assists": 1
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zacapa",
+          "year": "2019"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        },
+        {
+          "club": "Cobán Imperial",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Alejandro Osorio",
@@ -155,9 +683,49 @@
       "age": 24,
       "nationality": "Colombia",
       "club": "Atlético Mictlán",
-      "appearances": 8,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Patacona",
+          "year": "2020"
+        },
+        {
+          "club": "L'Eliana",
+          "year": "2021"
+        },
+        {
+          "club": "Ribarroja CF",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "CF Cracks",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osman Salguero",
@@ -165,9 +733,29 @@
       "age": 20,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 31,
-      "goals": 4,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mario Grijalva",
@@ -175,9 +763,29 @@
       "age": 24,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brandon Rivas",
@@ -185,9 +793,53 @@
       "age": 31,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 3,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2016"
+        },
+        {
+          "club": "Santa Lucía C.",
+          "year": "2017"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2018"
+        },
+        {
+          "club": "Aurora",
+          "year": "2020"
+        },
+        {
+          "club": "U San Carlos",
+          "year": "2023"
+        },
+        {
+          "club": "Chiquimulilla",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kendel Herrarte",
@@ -195,9 +847,65 @@
       "age": 33,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 33,
-      "goals": 1,
-      "assists": 2
+      "appearances": 15,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Comunicaciones",
+          "year": "2011"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2016"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2017"
+        },
+        {
+          "club": "Guastatoya",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Lucía C.",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Coatepeque",
+          "year": "2022"
+        },
+        {
+          "club": "San Benito FC",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Lucía C.",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 391,
+        "goals": 17,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Justin Racancoj",
@@ -205,9 +913,37 @@
       "age": 20,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Xelajú",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        },
+        {
+          "club": "Xelajú",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elder Tobar",
@@ -215,9 +951,29 @@
       "age": 20,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +983,97 @@
       "age": 34,
       "nationality": "Uruguay",
       "club": "Atlético Mictlán",
-      "appearances": 34,
-      "goals": 1,
-      "assists": 4
+      "appearances": 17,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sud América",
+          "year": "2012"
+        },
+        {
+          "club": "Juventud",
+          "year": "2012"
+        },
+        {
+          "club": "Club Oriental",
+          "year": "2014"
+        },
+        {
+          "club": "Villa Española",
+          "year": "2015"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2015"
+        },
+        {
+          "club": "U San Carlos",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Club Oriental",
+          "year": "2017"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2018"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2019"
+        },
+        {
+          "club": "Tacuarembó",
+          "year": "2019"
+        },
+        {
+          "club": "Gualaceo SC",
+          "year": "2020"
+        },
+        {
+          "club": "CDS Vida",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Juticalpa",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Xinabajul",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 11,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Fajardo",
@@ -237,9 +1081,53 @@
       "age": 25,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 31,
-      "goals": 7,
-      "assists": 1
+      "appearances": 15,
+      "goals": 9,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sanarate FC",
+          "year": "2018"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2021"
+        },
+        {
+          "club": "Achuapa",
+          "year": "2023"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2023"
+        },
+        {
+          "club": "Guastatoya",
+          "year": "2023"
+        },
+        {
+          "club": "Achuapa",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 24,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Angel Lemus",
@@ -247,19 +1135,67 @@
       "age": 23,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zacapa",
+          "year": "2023"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emilio Korich",
       "position": "Second Striker",
-      "age": 20,
+      "age": 21,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Colón",
@@ -267,9 +1203,41 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "Atlético Mictlán",
-      "appearances": 5,
-      "goals": 4,
-      "assists": 0
+      "appearances": 9,
+      "goals": 7,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real de Minas",
+          "year": "2020"
+        },
+        {
+          "club": "Boyacá Chicó",
+          "year": "2022"
+        },
+        {
+          "club": "Santos FC",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 18,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "César Chinchilla",
@@ -277,9 +1245,53 @@
       "age": 30,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 33,
-      "goals": 2,
-      "assists": 3
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U San Carlos",
+          "year": "2017"
+        },
+        {
+          "club": "Chimaltenango",
+          "year": "2018"
+        },
+        {
+          "club": "Achuapa",
+          "year": "2019"
+        },
+        {
+          "club": "Sololá FC",
+          "year": "2021"
+        },
+        {
+          "club": "Coatepeque",
+          "year": "2023"
+        },
+        {
+          "club": "Barberena FC",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Betancourth",
@@ -287,9 +1299,61 @@
       "age": 34,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Heredia",
+          "year": "2011"
+        },
+        {
+          "club": "Xelajú",
+          "year": "2014"
+        },
+        {
+          "club": "Cobán Imperial",
+          "year": "2015"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2018"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2020"
+        },
+        {
+          "club": "Cobán Imperial",
+          "year": "2021"
+        },
+        {
+          "club": "Monagas SC",
+          "year": "2023"
+        },
+        {
+          "club": "Guastatoya",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 550,
+        "goals": 111,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julio Rodríguez",
@@ -297,9 +1361,109 @@
       "age": 35,
       "nationality": "Paraguay",
       "club": "Atlético Mictlán",
-      "appearances": 9,
-      "goals": 0,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Defensa",
+          "year": "2010"
+        },
+        {
+          "club": "Berazategui",
+          "year": "2011"
+        },
+        {
+          "club": "Defensa",
+          "year": "2012"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2013"
+        },
+        {
+          "club": "Godoy Cruz",
+          "year": "2014"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2014"
+        },
+        {
+          "club": "Defensa",
+          "year": "2014"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2015"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2016"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2016"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2016"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "CD Capiatá",
+          "year": "2018"
+        },
+        {
+          "club": "Zira FC",
+          "year": "2019"
+        },
+        {
+          "club": "Sabah FK",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Guillermo Brown",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Xinabajul",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 61,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Martínez",
@@ -309,7 +1473,31 @@
       "club": "Atlético Mictlán",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Mixco",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Douglas Romero",
@@ -317,9 +1505,29 @@
       "age": 22,
       "nationality": "Guatemala",
       "club": "Atlético Mictlán",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Atl. Mictlán",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

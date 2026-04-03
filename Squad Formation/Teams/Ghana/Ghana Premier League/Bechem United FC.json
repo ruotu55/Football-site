@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GHPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Bechem United FC",
       "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "King Faisal",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 64,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Anning",
@@ -31,9 +60,41 @@
       "age": 29,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Nations FC",
+          "year": "2022"
+        },
+        {
+          "club": "Debibi United",
+          "year": "2023"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 17,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dennis Votere",
@@ -43,7 +104,39 @@
       "club": "Bechem United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Accra Lions",
+          "year": "2022"
+        },
+        {
+          "club": "Nsoatreman FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 34,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +148,27 @@
       "club": "Bechem United FC",
       "appearances": 20,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Baba Moro Abdulai",
@@ -65,7 +178,22 @@
       "club": "Bechem United FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Ababio",
@@ -75,17 +203,56 @@
       "club": "Bechem United FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Atta Derrick Afriyie",
       "position": "Centre-Back",
-      "age": 23,
+      "age": 24,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nzema Kotoko",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Foster Gyamfi",
@@ -93,9 +260,37 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2024"
+        },
+        {
+          "club": "VIM SC",
+          "year": "2025"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaw Acheampong",
@@ -105,7 +300,35 @@
       "club": "Bechem United FC",
       "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eleven Wonders",
+          "year": "2021"
+        },
+        {
+          "club": "Nzema Kotoko",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adams Sanut",
@@ -115,7 +338,22 @@
       "club": "Bechem United FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Ampiah",
@@ -125,7 +363,39 @@
       "club": "Bechem United FC",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Delta Force",
+          "year": "2018"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2019"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Charles Owusu",
@@ -133,9 +403,33 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Yeboah",
@@ -144,8 +438,23 @@
       "nationality": "Ghana",
       "club": "Bechem United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul Razak Alhassan",
@@ -153,9 +462,29 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -167,7 +496,39 @@
       "club": "Bechem United FC",
       "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2019"
+        },
+        {
+          "club": "Eleven Wonders",
+          "year": "2020"
+        },
+        {
+          "club": "Gold Stars FC",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul Mumini Salifu",
@@ -176,8 +537,28 @@
       "nationality": "Ghana",
       "club": "Bechem United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaiah Nyarko",
@@ -185,9 +566,24 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Augustine Okrah",
@@ -195,9 +591,97 @@
       "age": 32,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 22,
-      "goals": 9,
-      "assists": 0
+      "appearances": 23,
+      "goals": 10,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2012"
+        },
+        {
+          "club": "Liberty Prof.",
+          "year": "2013"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2013"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2013"
+        },
+        {
+          "club": "Häcken",
+          "year": "2014"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Merrikh SC",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2016"
+        },
+        {
+          "club": "Smouha",
+          "year": "2018"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2019"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2021"
+        },
+        {
+          "club": "Simba SC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2023"
+        },
+        {
+          "club": "Young Africans",
+          "year": "2024"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 42,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rasco Abassah London",
@@ -205,9 +689,29 @@
       "age": 18,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Sefah",
@@ -215,9 +719,24 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kofi Tompuo",
@@ -225,9 +744,24 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Tonah",
@@ -237,7 +771,31 @@
       "club": "Bechem United FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Dwamena",
@@ -245,9 +803,24 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -259,7 +832,27 @@
       "club": "Bechem United FC",
       "appearances": 20,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Aminu",
@@ -269,7 +862,39 @@
       "club": "Bechem United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Dordrecht",
+          "year": "2019"
+        },
+        {
+          "club": "Lommel SK",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darlvin Yeboah",
@@ -279,7 +904,77 @@
       "club": "Bechem United FC",
       "appearances": 13,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Samuel Ayinebire Atubga",
+      "position": "Centre-Forward",
+      "age": 18,
+      "nationality": "Ghana",
+      "club": "Bechem United FC",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Amadu Abdulai",
+      "position": "Centre-Forward",
+      "age": 25,
+      "nationality": "Ghana",
+      "club": "Bechem United FC",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kabu Agyemang Raymond",
@@ -289,7 +984,27 @@
       "club": "Bechem United FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Augustine Afranie Mensah",
@@ -299,7 +1014,27 @@
       "club": "Bechem United FC",
       "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Foster Sakitey",
@@ -307,19 +1042,37 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 20,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Samuel Ayinebire Atubga",
-      "position": "",
-      "age": 18,
-      "nationality": "Ghana",
-      "club": "Bechem United FC",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        },
+        {
+          "club": "Y. Apostles FC",
+          "year": "2025"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaw Annor",
@@ -327,9 +1080,29 @@
       "age": 18,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 0
+      "appearances": 18,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rueben Owusu Boadu",
@@ -339,17 +1112,22 @@
       "club": "Bechem United FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Amadu Abdulai",
-      "position": "",
-      "age": 25,
-      "nationality": "Ghana",
-      "club": "Bechem United FC",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Okai",
@@ -357,9 +1135,24 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 8,
-      "goals": 0,
-      "assists": 0
+      "appearances": 10,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Godfred Yawson",
@@ -367,9 +1160,24 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Bechem United FC",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

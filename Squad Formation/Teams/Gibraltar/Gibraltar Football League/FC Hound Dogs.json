@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,43 @@
       "club": "FC Hound Dogs",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Europa Point FC",
+          "year": "2022"
+        },
+        {
+          "club": "Manch. 62 Res",
+          "year": "2023"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2024"
+        },
+        {
+          "club": "St Joseph's Res",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 133,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mark Hamm",
@@ -31,9 +68,53 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "FC Hound Dogs",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Patro Eisden",
+          "year": "2020"
+        },
+        {
+          "club": "Germ. Teveren",
+          "year": "2024"
+        },
+        {
+          "club": "Patro Eisden",
+          "year": "2024"
+        },
+        {
+          "club": "KFC Diest",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Baynounah SC",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zack Zammit",
@@ -43,7 +124,31 @@
       "club": "FC Hound Dogs",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 38,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +158,45 @@
       "age": 21,
       "nationality": "Palestine",
       "club": "FC Hound Dogs",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Broadfields",
+          "year": "2024"
+        },
+        {
+          "club": "Hendon",
+          "year": "2025"
+        },
+        {
+          "club": "Hibiscus Coast",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matt Clenahan",
@@ -63,9 +204,41 @@
       "age": 30,
       "nationality": "England",
       "club": "FC Hound Dogs",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leo FC",
+          "year": "2018"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2019"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 14,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arash Ghaseme",
@@ -75,7 +248,31 @@
       "club": "FC Hound Dogs",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pcimianka Pcim",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ross Gray",
@@ -85,7 +282,67 @@
       "club": "FC Hound Dogs",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Career break",
+          "year": "2013"
+        },
+        {
+          "club": "Mid Annandale",
+          "year": "2014"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2018"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "St Joseph's Res",
+          "year": "2024"
+        },
+        {
+          "club": "Lions Gib Res",
+          "year": "2024"
+        },
+        {
+          "club": "Career break",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nélson Benga",
@@ -93,9 +350,37 @@
       "age": 20,
       "nationality": "Portugal",
       "club": "FC Hound Dogs",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Glacis Utd Res",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -105,9 +390,61 @@
       "age": 26,
       "nationality": "Gibraltar",
       "club": "FC Hound Dogs",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Hound Dogs",
+          "year": "2015"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2018"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2020"
+        },
+        {
+          "club": "FC College 1975",
+          "year": "2021"
+        },
+        {
+          "club": "Lions Gibraltar",
+          "year": "2022"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2023"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souleymane Diallo",
@@ -115,9 +452,37 @@
       "age": 21,
       "nationality": "England",
       "club": "FC Hound Dogs",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lynx FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shane Borda",
@@ -125,9 +490,33 @@
       "age": 20,
       "nationality": "Gibraltar",
       "club": "FC Hound Dogs",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Red Imps Res",
+          "year": "2021"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zak Ahmed",
@@ -135,9 +524,29 @@
       "age": 26,
       "nationality": "England",
       "club": "FC Hound Dogs",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhamet Gashi",
@@ -145,9 +554,41 @@
       "age": 24,
       "nationality": "England",
       "club": "FC Hound Dogs",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Doncaster City",
+          "year": "2023"
+        },
+        {
+          "club": "Wakefield AFC",
+          "year": "2024"
+        },
+        {
+          "club": "Silsden",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bertie Faller",
@@ -155,9 +596,29 @@
       "age": 27,
       "nationality": "Gibraltar",
       "club": "FC Hound Dogs",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Hound Dogs",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aiden Mansfield",
@@ -165,9 +626,41 @@
       "age": 19,
       "nationality": "Gibraltar",
       "club": "FC Hound Dogs",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 1
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Manch. 62 Res",
+          "year": "2023"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2024"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Smith",
@@ -175,9 +668,29 @@
       "age": 26,
       "nationality": "England",
       "club": "FC Hound Dogs",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yasar Dafallah",
@@ -185,9 +698,45 @@
       "age": 22,
       "nationality": "England",
       "club": "FC Hound Dogs",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cannons Wood",
+          "year": "2021"
+        },
+        {
+          "club": "Corinthian",
+          "year": "2022"
+        },
+        {
+          "club": "Holmesdale",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Morais Lee",
@@ -195,9 +744,33 @@
       "age": 23,
       "nationality": "United States",
       "club": "FC Hound Dogs",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 1
+      "appearances": 6,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Bentonit",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jesse Clinton",
@@ -205,9 +778,41 @@
       "age": 22,
       "nationality": "Gibraltar",
       "club": "FC Hound Dogs",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "St Joseph's Res",
+          "year": "2020"
+        },
+        {
+          "club": "Red Imps Res",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,19 +822,95 @@
       "age": 28,
       "nationality": "France",
       "club": "FC Hound Dogs",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "L'Etrat La Tour",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Halsen IF",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Velay",
+          "year": "2024"
+        },
+        {
+          "club": "NK Nosteria Nustar",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vincent Luglio",
       "position": "Right Winger",
-      "age": 22,
+      "age": 23,
       "nationality": "United States",
       "club": "FC Hound Dogs",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thesprotos",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Perez",
@@ -237,19 +918,57 @@
       "age": 27,
       "nationality": "Gibraltar",
       "club": "FC Hound Dogs",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Tyrese Sutherland",
-      "position": "Centre-Forward",
-      "age": 26,
-      "nationality": "England",
-      "club": "FC Hound Dogs",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mons Calpe",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Lynx Reserve",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Manch. 62 Res",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ardian Gashi",
@@ -257,9 +976,33 @@
       "age": 22,
       "nationality": "England",
       "club": "FC Hound Dogs",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

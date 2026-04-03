@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IT1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 30,
       "nationality": "France",
       "club": "AC Milan",
-      "appearances": 33,
+      "appearances": 29,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -36,7 +37,21 @@
           "club": "AC Milan",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 433,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 451,
+        "clean_sheets": 158
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 29,
+        "clean_sheets": 20
+      }
     },
     {
       "name": "Pietro Terracciano",
@@ -96,7 +111,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 315,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 387,
+        "clean_sheets": 89
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lorenzo Torriani",
@@ -104,7 +133,7 @@
       "age": 21,
       "nationality": "Italy",
       "club": "AC Milan",
-      "appearances": 17,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -112,7 +141,21 @@
           "club": "AC Milan",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 81,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -122,7 +165,7 @@
       "age": 24,
       "nationality": "Serbia",
       "club": "AC Milan",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 4,
       "assists": 1,
       "transfer_history": [
@@ -162,7 +205,21 @@
           "club": "AC Milan",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 16,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 54,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Koni De Winter",
@@ -170,7 +227,7 @@
       "age": 23,
       "nationality": "Belgium",
       "club": "AC Milan",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -202,7 +259,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fikayo Tomori",
@@ -210,9 +281,9 @@
       "age": 28,
       "nationality": "England",
       "club": "AC Milan",
-      "appearances": 31,
+      "appearances": 27,
       "goals": 0,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Brighton",
@@ -246,7 +317,21 @@
           "club": "Chelsea",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 19,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matteo Gabbia",
@@ -254,7 +339,7 @@
       "age": 26,
       "nationality": "Italy",
       "club": "AC Milan",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -278,7 +363,21 @@
           "club": "AC Milan",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 12,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Odogu",
@@ -286,7 +385,7 @@
       "age": 19,
       "nationality": "Germany",
       "club": "AC Milan",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -298,7 +397,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davide Bartesaghi",
@@ -306,9 +419,9 @@
       "age": 20,
       "nationality": "Italy",
       "club": "AC Milan",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 2,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Milan Futuro",
@@ -318,7 +431,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pervis Estupiñán",
@@ -326,7 +453,7 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "AC Milan",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -382,7 +509,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 356,
+        "goals": 12,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 52,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zachary Athekame",
@@ -390,7 +531,7 @@
       "age": 21,
       "nationality": "Switzerland",
       "club": "AC Milan",
-      "appearances": 26,
+      "appearances": 20,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -410,7 +551,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -420,7 +575,7 @@
       "age": 23,
       "nationality": "Switzerland",
       "club": "AC Milan",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -436,7 +591,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 31,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuele Ricci",
@@ -444,7 +613,7 @@
       "age": 24,
       "nationality": "Italy",
       "club": "AC Milan",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 1,
       "assists": 3,
       "transfer_history": [
@@ -464,7 +633,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 287,
+        "goals": 10,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssouf Fofana",
@@ -472,9 +655,9 @@
       "age": 27,
       "nationality": "France",
       "club": "AC Milan",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 2,
-      "assists": 4,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "R. Strasbourg",
@@ -488,15 +671,29 @@
           "club": "AC Milan",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 18,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrien Rabiot",
       "position": "Central Midfield",
-      "age": 30,
+      "age": 31,
       "nationality": "France",
       "club": "AC Milan",
-      "appearances": 25,
+      "appearances": 21,
       "goals": 5,
       "assists": 5,
       "transfer_history": [
@@ -540,7 +737,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 519,
+        "goals": 63,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 57,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruben Loftus-Cheek",
@@ -548,7 +759,7 @@
       "age": 30,
       "nationality": "England",
       "club": "AC Milan",
-      "appearances": 27,
+      "appearances": 23,
       "goals": 3,
       "assists": 1,
       "transfer_history": [
@@ -576,7 +787,21 @@
           "club": "AC Milan",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 372,
+        "goals": 32,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Modrić",
@@ -584,7 +809,7 @@
       "age": 40,
       "nationality": "Croatia",
       "club": "AC Milan",
-      "appearances": 32,
+      "appearances": 29,
       "goals": 2,
       "assists": 3,
       "transfer_history": [
@@ -620,7 +845,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 927,
+        "goals": 99,
+        "assists": 143,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 196,
+        "goals": 28,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Saelemaekers",
@@ -628,9 +867,9 @@
       "age": 26,
       "nationality": "Belgium",
       "club": "AC Milan",
-      "appearances": 32,
+      "appearances": 28,
       "goals": 2,
-      "assists": 5,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "RSC Anderlecht",
@@ -660,7 +899,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 25,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -670,8 +923,8 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "AC Milan",
-      "appearances": 24,
-      "goals": 10,
+      "appearances": 22,
+      "goals": 9,
       "assists": 2,
       "transfer_history": [
         {
@@ -690,7 +943,21 @@
           "club": "AC Milan",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 103,
+        "assists": 70,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 5,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Pulisic",
@@ -698,8 +965,8 @@
       "age": 27,
       "nationality": "United States",
       "club": "AC Milan",
-      "appearances": 27,
-      "goals": 10,
+      "appearances": 23,
+      "goals": 8,
       "assists": 3,
       "transfer_history": [
         {
@@ -718,7 +985,21 @@
           "club": "AC Milan",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 424,
+        "goals": 101,
+        "assists": 86,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 84,
+        "goals": 32,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Nkunku",
@@ -726,8 +1007,8 @@
       "age": 28,
       "nationality": "France",
       "club": "AC Milan",
-      "appearances": 27,
-      "goals": 6,
+      "appearances": 24,
+      "goals": 5,
       "assists": 3,
       "transfer_history": [
         {
@@ -750,7 +1031,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 383,
+        "goals": 119,
+        "assists": 74,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Gimenez",
@@ -758,9 +1053,9 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "AC Milan",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 2,
+      "appearances": 10,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "CD Cruz Azul",
@@ -774,7 +1069,21 @@
           "club": "AC Milan",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 115,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niclas Füllkrug",
@@ -782,7 +1091,7 @@
       "age": 33,
       "nationality": "Germany",
       "club": "AC Milan",
-      "appearances": 23,
+      "appearances": 14,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -826,7 +1135,21 @@
           "club": "West Ham",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 460,
+        "goals": 163,
+        "assists": 57,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 14,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

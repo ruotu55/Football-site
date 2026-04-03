@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -40,7 +41,21 @@
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 107,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Viktor Dzodic",
@@ -48,10 +63,24 @@
       "age": 19,
       "nationality": "Serbia",
       "club": "Montpellier HSC B",
-      "appearances": 14,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
-      "transfer_history": []
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 70,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathieu Michel",
@@ -59,7 +88,7 @@
       "age": 34,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -95,7 +124,21 @@
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 390,
+        "clean_sheets": 80
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -105,8 +148,8 @@
       "age": 19,
       "nationality": "Morocco",
       "club": "Montpellier HSC",
-      "appearances": 24,
-      "goals": 1,
+      "appearances": 18,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
@@ -121,7 +164,21 @@
           "club": "PSG",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaël Mouanga",
@@ -129,15 +186,29 @@
       "age": 20,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 20,
-      "goals": 1,
+      "appearances": 16,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Montpellier",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julien Laporte",
@@ -145,7 +216,7 @@
       "age": 32,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -161,7 +232,21 @@
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 15,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Jullien",
@@ -169,7 +254,7 @@
       "age": 33,
       "nationality": "Guadeloupe",
       "club": "Montpellier HSC",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 2,
       "assists": 1,
       "transfer_history": [
@@ -205,7 +290,21 @@
           "club": "Montpellier",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 42,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Théo Sainte-Luce",
@@ -213,7 +312,7 @@
       "age": 27,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -241,7 +340,21 @@
           "club": "Montpellier",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Mincarelli",
@@ -249,7 +362,7 @@
       "age": 22,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 28,
+      "appearances": 21,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -261,7 +374,21 @@
           "club": "Montpellier",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Tchato",
@@ -269,15 +396,29 @@
       "age": 23,
       "nationality": "Cameroon",
       "club": "Montpellier HSC",
-      "appearances": 28,
-      "goals": 1,
-      "assists": 2,
+      "appearances": 23,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Montpellier",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wilfried Ndollo Bille",
@@ -285,10 +426,24 @@
       "age": 20,
       "nationality": "Cameroon",
       "club": "Montpellier HSC B",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
-      "transfer_history": []
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -298,7 +453,7 @@
       "age": 22,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 26,
+      "appearances": 20,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -310,7 +465,21 @@
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalil Fayad",
@@ -318,7 +487,7 @@
       "age": 21,
       "nationality": "Morocco",
       "club": "Montpellier HSC",
-      "appearances": 20,
+      "appearances": 16,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -326,7 +495,21 @@
           "club": "Montpellier",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Théo Chennahi",
@@ -334,7 +517,7 @@
       "age": 21,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 31,
+      "appearances": 26,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -346,7 +529,21 @@
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nabil Homssa",
@@ -354,9 +551,9 @@
       "age": 23,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 15,
-      "goals": 2,
-      "assists": 2,
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Reims Sainte-A.",
@@ -386,7 +583,21 @@
           "club": "Montpellier",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Téji Savanier",
@@ -394,9 +605,9 @@
       "age": 34,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 4,
+      "appearances": 22,
+      "goals": 5,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "AC Arles-Avignon",
@@ -410,7 +621,21 @@
           "club": "Montpellier",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 456,
+        "goals": 81,
+        "assists": 92,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayanda Sishuba",
@@ -418,7 +643,7 @@
       "age": 21,
       "nationality": "Belgium",
       "club": "Montpellier HSC",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -442,7 +667,21 @@
           "club": "Stade Rennais",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 20,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -452,7 +691,7 @@
       "age": 24,
       "nationality": "Democratic Republic of the Congo",
       "club": "Montpellier HSC",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 3,
       "assists": 6,
       "transfer_history": [
@@ -492,7 +731,21 @@
           "club": "Augsburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 17,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yanis Issoufou",
@@ -500,15 +753,29 @@
       "age": 19,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 24,
-      "goals": 6,
-      "assists": 6,
+      "appearances": 11,
+      "goals": 2,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Pays",
@@ -516,9 +783,9 @@
       "age": 22,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 30,
-      "goals": 4,
-      "assists": 3,
+      "appearances": 24,
+      "goals": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Clermont For.",
@@ -536,7 +803,21 @@
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Axel Guéguin",
@@ -544,15 +825,29 @@
       "age": 21,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 4,
+      "appearances": 3,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandre Mendy",
@@ -560,8 +855,8 @@
       "age": 32,
       "nationality": "Guinea-Bissau",
       "club": "Montpellier HSC",
-      "appearances": 32,
-      "goals": 13,
+      "appearances": 28,
+      "goals": 10,
       "assists": 2,
       "transfer_history": [
         {
@@ -608,7 +903,21 @@
           "club": "Montpellier",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 384,
+        "goals": 141,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Molebe",
@@ -616,8 +925,8 @@
       "age": 18,
       "nationality": "France",
       "club": "Montpellier HSC",
-      "appearances": 17,
-      "goals": 5,
+      "appearances": 6,
+      "goals": 1,
       "assists": 1,
       "transfer_history": [
         {
@@ -636,7 +945,21 @@
           "club": "Lyon",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SC1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 25,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 34,
+      "appearances": 31,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bohemians",
+          "year": "2022"
+        },
+        {
+          "club": "Stevenage",
+          "year": "2023"
+        },
+        {
+          "club": "Norwich",
+          "year": "2023"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2023"
+        },
+        {
+          "club": "Accrington",
+          "year": "2023"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        },
+        {
+          "club": "Norwich",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 221,
+        "clean_sheets": 32
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kieran O'Hara",
@@ -31,9 +76,85 @@
       "age": 29,
       "nationality": "Republic of Ireland",
       "club": "Dundee FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Trafford",
+          "year": "2013"
+        },
+        {
+          "club": "Fylde",
+          "year": "2015"
+        },
+        {
+          "club": "Morecambe FC",
+          "year": "2015"
+        },
+        {
+          "club": "Stockport",
+          "year": "2015"
+        },
+        {
+          "club": "Morecambe FC",
+          "year": "2016"
+        },
+        {
+          "club": "Macclesfield",
+          "year": "2018"
+        },
+        {
+          "club": "Burton Albion",
+          "year": "2019"
+        },
+        {
+          "club": "Burton Albion",
+          "year": "2020"
+        },
+        {
+          "club": "Scunthorpe Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Burton Albion",
+          "year": "2021"
+        },
+        {
+          "club": "Fleetwood",
+          "year": "2022"
+        },
+        {
+          "club": "Colchester Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Kilmarnock FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 339,
+        "clean_sheets": 38
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 1
+      }
     }
   ],
   "defenders": [
@@ -43,9 +164,65 @@
       "age": 22,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 34,
-      "goals": 3,
-      "assists": 2
+      "appearances": 30,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lochee",
+          "year": "2021"
+        },
+        {
+          "club": "Dundee Reserves",
+          "year": "2022"
+        },
+        {
+          "club": "Albion Rovers",
+          "year": "2022"
+        },
+        {
+          "club": "Dundee Reserves",
+          "year": "2023"
+        },
+        {
+          "club": "Montrose",
+          "year": "2023"
+        },
+        {
+          "club": "Dundee Reserves",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        },
+        {
+          "club": "Falkirk",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        },
+        {
+          "club": "Falkirk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Astley",
@@ -53,9 +230,33 @@
       "age": 24,
       "nationality": "Wales",
       "club": "Dundee FC",
-      "appearances": 34,
-      "goals": 3,
-      "assists": 1
+      "appearances": 30,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Accrington",
+          "year": "2022"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Billy Koumetio",
@@ -63,9 +264,41 @@
       "age": 23,
       "nationality": "France",
       "club": "Dundee FC",
-      "appearances": 17,
-      "goals": 1,
-      "assists": 0
+      "appearances": 14,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Austria Vienna",
+          "year": "2022"
+        },
+        {
+          "club": "USL Dunkerque",
+          "year": "2023"
+        },
+        {
+          "club": "Blackburn",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aaron Donnelly",
@@ -73,9 +306,41 @@
       "age": 22,
       "nationality": "Northern Ireland",
       "club": "Dundee FC",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Port Vale",
+          "year": "2023"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2023"
+        },
+        {
+          "club": "Colchester Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lewis Montsma",
@@ -83,9 +348,41 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "Dundee FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2018"
+        },
+        {
+          "club": "Lincoln City",
+          "year": "2020"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clark Robertson",
@@ -93,9 +390,49 @@
       "age": 32,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 17,
-      "goals": 4,
-      "assists": 1
+      "appearances": 14,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Aberdeen FC",
+          "year": "2011"
+        },
+        {
+          "club": "Blackpool",
+          "year": "2015"
+        },
+        {
+          "club": "Rotherham",
+          "year": "2018"
+        },
+        {
+          "club": "Portsmouth",
+          "year": "2021"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2023"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 389,
+        "goals": 20,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Imari Samuels",
@@ -103,9 +440,33 @@
       "age": 23,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 33,
+      "appearances": 27,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fleetwood",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 4,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brad Halliday",
@@ -113,9 +474,57 @@
       "age": 30,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "York City",
+          "year": "2014"
+        },
+        {
+          "club": "Hartlepool",
+          "year": "2015"
+        },
+        {
+          "club": "Accrington",
+          "year": "2015"
+        },
+        {
+          "club": "Cambridge Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Doncaster",
+          "year": "2019"
+        },
+        {
+          "club": "Fleetwood",
+          "year": "2021"
+        },
+        {
+          "club": "Bradford",
+          "year": "2022"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 490,
+        "goals": 12,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,19 +534,57 @@
       "age": 31,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 18,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Joel Cotterill",
-      "position": "Defensive Midfield",
-      "age": 21,
-      "nationality": "Wales",
-      "club": "Dundee FC",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Barnsley",
+          "year": "2013"
+        },
+        {
+          "club": "Ipswich",
+          "year": "2016"
+        },
+        {
+          "club": "Barnsley",
+          "year": "2016"
+        },
+        {
+          "club": "Mansfield Town",
+          "year": "2017"
+        },
+        {
+          "club": "Forest Green",
+          "year": "2018"
+        },
+        {
+          "club": "Stevenage",
+          "year": "2019"
+        },
+        {
+          "club": "Cambridge Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 370,
+        "goals": 7,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Hamilton",
@@ -145,9 +592,57 @@
       "age": 27,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 34,
-      "goals": 2,
-      "assists": 0
+      "appearances": 27,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Man Utd Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Rochdale",
+          "year": "2019"
+        },
+        {
+          "club": "Southend United",
+          "year": "2019"
+        },
+        {
+          "club": "Bolton",
+          "year": "2020"
+        },
+        {
+          "club": "Peterborough",
+          "year": "2020"
+        },
+        {
+          "club": "Accrington",
+          "year": "2021"
+        },
+        {
+          "club": "Lincoln City",
+          "year": "2023"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 35,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Finlay Robertson",
@@ -155,9 +650,37 @@
       "age": 23,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 24,
+      "appearances": 20,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dundee FC",
+          "year": "2020"
+        },
+        {
+          "club": "Cove Rangers",
+          "year": "2021"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Callum Jones",
@@ -165,9 +688,111 @@
       "age": 24,
       "nationality": "Wales",
       "club": "Dundee FC",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TNS Development",
+          "year": "2015"
+        },
+        {
+          "club": "Oswestry",
+          "year": "2018"
+        },
+        {
+          "club": "Hull City",
+          "year": "2020"
+        },
+        {
+          "club": "Morecambe FC",
+          "year": "2021"
+        },
+        {
+          "club": "Hull City",
+          "year": "2022"
+        },
+        {
+          "club": "Grimsby Town",
+          "year": "2022"
+        },
+        {
+          "club": "Forest Green",
+          "year": "2023"
+        },
+        {
+          "club": "Hull City",
+          "year": "2024"
+        },
+        {
+          "club": "Morecambe FC",
+          "year": "2024"
+        },
+        {
+          "club": "Hull City",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Joel Cotterill",
+      "position": "Central Midfield",
+      "age": 21,
+      "nationality": "Wales",
+      "club": "Dundee FC",
+      "appearances": 9,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stockport",
+          "year": "2023"
+        },
+        {
+          "club": "Swindon Town",
+          "year": "2024"
+        },
+        {
+          "club": "Bristol Rovers",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Drey Wright",
@@ -175,19 +800,45 @@
       "age": 30,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 35,
-      "goals": 2,
-      "assists": 2
-    },
-    {
-      "name": "Cameron Congreve",
-      "position": "Left Midfield",
-      "age": 22,
-      "nationality": "Wales",
-      "club": "Dundee FC",
       "appearances": 30,
-      "goals": 2,
-      "assists": 6
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Colchester Utd.",
+          "year": "2012"
+        },
+        {
+          "club": "St. Johnstone",
+          "year": "2018"
+        },
+        {
+          "club": "Hibernian FC",
+          "year": "2020"
+        },
+        {
+          "club": "St. Johnstone",
+          "year": "2022"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 370,
+        "goals": 23,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Charlie Reilly",
@@ -195,9 +846,57 @@
       "age": 24,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 1,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hamilton A. Re.",
+          "year": "2019"
+        },
+        {
+          "club": "Airdrieonians",
+          "year": "2019"
+        },
+        {
+          "club": "Hamilton A. Re.",
+          "year": "2020"
+        },
+        {
+          "club": "Partick Thistle",
+          "year": "2020"
+        },
+        {
+          "club": "Albion Rovers",
+          "year": "2021"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2023"
+        },
+        {
+          "club": "Arbroath",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 32,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yan Dhanda",
@@ -205,9 +904,49 @@
       "age": 27,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Swansea",
+          "year": "2018"
+        },
+        {
+          "club": "Ross County",
+          "year": "2022"
+        },
+        {
+          "club": "Heart of Midl.",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        },
+        {
+          "club": "Heart of Midl.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 252,
+        "goals": 33,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +956,33 @@
       "age": 20,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 34,
+      "appearances": 29,
       "goals": 1,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Exeter City",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Scott Wright",
@@ -227,9 +990,99 @@
       "age": 28,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aberdeen FC",
+          "year": "2017"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2019"
+        },
+        {
+          "club": "Aberdeen FC",
+          "year": "2019"
+        },
+        {
+          "club": "Rangers",
+          "year": "2021"
+        },
+        {
+          "club": "Birmingham",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2026"
+        },
+        {
+          "club": "Birmingham",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 28,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Cameron Congreve",
+      "position": "Right Winger",
+      "age": 22,
+      "nationality": "Wales",
+      "club": "Dundee FC",
+      "appearances": 28,
+      "goals": 2,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Swansea",
+          "year": "2022"
+        },
+        {
+          "club": "Bromley",
+          "year": "2024"
+        },
+        {
+          "club": "Swansea",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        },
+        {
+          "club": "Swansea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 9,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joe Westley",
@@ -237,9 +1090,41 @@
       "age": 21,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Fylde",
+          "year": "2024"
+        },
+        {
+          "club": "Rochdale",
+          "year": "2024"
+        },
+        {
+          "club": "Swindon Town",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 15,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ashley Hay",
@@ -247,9 +1132,41 @@
       "age": 22,
       "nationality": "England",
       "club": "Dundee FC",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 2
+      "appearances": 23,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Biggleswade Town",
+          "year": "2022"
+        },
+        {
+          "club": "Hitchin Town",
+          "year": "2022"
+        },
+        {
+          "club": "Cheltenham",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simon Murray",
@@ -257,9 +1174,85 @@
       "age": 34,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 31,
-      "goals": 7,
-      "assists": 0
+      "appearances": 26,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Downfield FC",
+          "year": "2011"
+        },
+        {
+          "club": "Tayport FC",
+          "year": "2012"
+        },
+        {
+          "club": "Career break",
+          "year": "2013"
+        },
+        {
+          "club": "Dundee Violet",
+          "year": "2014"
+        },
+        {
+          "club": "Arbroath",
+          "year": "2014"
+        },
+        {
+          "club": "Dundee United",
+          "year": "2015"
+        },
+        {
+          "club": "Arbroath",
+          "year": "2015"
+        },
+        {
+          "club": "Hibernian FC",
+          "year": "2017"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2018"
+        },
+        {
+          "club": "Hibernian FC",
+          "year": "2018"
+        },
+        {
+          "club": "Bidvest Wits FC",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Queen's Park",
+          "year": "2020"
+        },
+        {
+          "club": "Ross County",
+          "year": "2023"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 162,
+        "assists": 60,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joe Bevan",
@@ -267,9 +1260,41 @@
       "age": 21,
       "nationality": "Scotland",
       "club": "Dundee FC",
-      "appearances": 15,
-      "goals": 4,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Camelon",
+          "year": "2022"
+        },
+        {
+          "club": "Albion Rovers",
+          "year": "2023"
+        },
+        {
+          "club": "Carlisle United",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 19,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco Valenzuela",
@@ -277,9 +1302,29 @@
       "age": 18,
       "nationality": "Mexico",
       "club": "Dundee FC",
-      "appearances": 16,
-      "goals": 2,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dundee FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

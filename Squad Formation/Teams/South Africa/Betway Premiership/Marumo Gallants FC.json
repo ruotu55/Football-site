@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SFA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,47 @@
       "club": "Marumo Gallants FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Platinum Stars",
+          "year": "2011"
+        },
+        {
+          "club": "Buya Msuthu",
+          "year": "2016"
+        },
+        {
+          "club": "Baberwa FC",
+          "year": "2017"
+        },
+        {
+          "club": "Black Eagles",
+          "year": "2022"
+        },
+        {
+          "club": "Highbury FC",
+          "year": "2023"
+        },
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 17,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Washington Arubi",
@@ -31,9 +72,69 @@
       "age": 40,
       "nationality": "Zimbabwe",
       "club": "Marumo Gallants FC",
-      "appearances": 25,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Highlanders",
+          "year": "2007"
+        },
+        {
+          "club": "Bantu",
+          "year": "2009"
+        },
+        {
+          "club": "Dynamos",
+          "year": "2010"
+        },
+        {
+          "club": "U. Pretoria",
+          "year": "2012"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Black Aces",
+          "year": "2016"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2017"
+        },
+        {
+          "club": "SuperSport Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Tshakhuma",
+          "year": "2020"
+        },
+        {
+          "club": "SuperSport Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 293,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 342,
+        "clean_sheets": 83
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 36,
+        "clean_sheets": 8
+      }
     }
   ],
   "defenders": [
@@ -43,9 +144,37 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "Marumo Gallants FC",
-      "appearances": 18,
+      "appearances": 13,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jong Essevee",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Trevor Mathiane",
@@ -55,7 +184,39 @@
       "club": "Marumo Gallants FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Golden Arrows",
+          "year": "2013"
+        },
+        {
+          "club": "Chippa United",
+          "year": "2022"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2023"
+        },
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Katekani Mhlongo",
@@ -63,9 +224,37 @@
       "age": 24,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marumo",
+          "year": "2024"
+        },
+        {
+          "club": "Leruma United",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sibusiso Sikhosana",
@@ -73,9 +262,49 @@
       "age": 31,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 25,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mbombela United",
+          "year": "2016"
+        },
+        {
+          "club": "Witbank Spurs",
+          "year": "2017"
+        },
+        {
+          "club": "Polokwane City",
+          "year": "2018"
+        },
+        {
+          "club": "FS Stars",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Marumo",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Azola Ntsabo",
@@ -83,9 +312,41 @@
       "age": 27,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 9,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "All Stars",
+          "year": "2021"
+        },
+        {
+          "club": "Chippa United",
+          "year": "2022"
+        },
+        {
+          "club": "Marumo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lebogang Mabotja",
@@ -93,9 +354,49 @@
       "age": 34,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Black Leopards",
+          "year": "2013"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2018"
+        },
+        {
+          "club": "Tshakhuma",
+          "year": "2018"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2023"
+        },
+        {
+          "club": "Magesi FC",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khumbulani Ncube",
@@ -103,9 +404,29 @@
       "age": 25,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 26,
+      "appearances": 21,
       "goals": 0,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edson Khumalo",
@@ -115,7 +436,47 @@
       "club": "Marumo Gallants FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sanjoanense",
+          "year": "2019"
+        },
+        {
+          "club": "Bidvest Res.",
+          "year": "2020"
+        },
+        {
+          "club": "Cape Umoya Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "All Stars",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Marumo",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bongolwethu Siyasi",
@@ -125,7 +486,59 @@
       "club": "Marumo Gallants FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Cape Town",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Sundowns Res.",
+          "year": "2022"
+        },
+        {
+          "club": "Venda",
+          "year": "2023"
+        },
+        {
+          "club": "Sundowns Res.",
+          "year": "2023"
+        },
+        {
+          "club": "U. Pretoria",
+          "year": "2023"
+        },
+        {
+          "club": "Sundowns Res.",
+          "year": "2024"
+        },
+        {
+          "club": "Venda",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +548,49 @@
       "age": 36,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leopards Youth",
+          "year": "2007"
+        },
+        {
+          "club": "Black Leopards",
+          "year": "2008"
+        },
+        {
+          "club": "Platinum Stars",
+          "year": "2014"
+        },
+        {
+          "club": "Golden Arrows",
+          "year": "2015"
+        },
+        {
+          "club": "Polokwane City",
+          "year": "2016"
+        },
+        {
+          "club": "Tshakhuma",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darrel Matsheke",
@@ -146,8 +599,68 @@
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kaizer Chiefs",
+          "year": "2020"
+        },
+        {
+          "club": "Uthongathi",
+          "year": "2021"
+        },
+        {
+          "club": "Kaizer Chiefs",
+          "year": "2022"
+        },
+        {
+          "club": "Moroka Swallows",
+          "year": "2022"
+        },
+        {
+          "club": "Kaizer Chiefs",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "P. Callies",
+          "year": "2024"
+        },
+        {
+          "club": "Kruger United",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mkhuseli Rampa",
@@ -157,7 +670,31 @@
       "club": "Marumo Gallants FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Moroka Swallows",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Bancé",
@@ -165,9 +702,61 @@
       "age": 25,
       "nationality": "Burkina Faso",
       "club": "Marumo Gallants FC",
-      "appearances": 15,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASEC Mimosas",
+          "year": "2018"
+        },
+        {
+          "club": "Helsingborgs IF",
+          "year": "2019"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2019"
+        },
+        {
+          "club": "Real Monarchs",
+          "year": "2021"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "RC Abidjan",
+          "year": "2023"
+        },
+        {
+          "club": "Stade d'Abidjan",
+          "year": "2023"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siyabonga Nhlapo",
@@ -175,9 +764,57 @@
       "age": 37,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 25,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jomo Cosmos",
+          "year": "2010"
+        },
+        {
+          "club": "Bidvest Wits FC",
+          "year": "2013"
+        },
+        {
+          "club": "Highlands Park",
+          "year": "2017"
+        },
+        {
+          "club": "Bidvest Wits FC",
+          "year": "2017"
+        },
+        {
+          "club": "SuperSport Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "P. Callies",
+          "year": "2023"
+        },
+        {
+          "club": "Chippa United",
+          "year": "2023"
+        },
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 323,
+        "goals": 6,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Doumbia",
@@ -185,9 +822,61 @@
       "age": 27,
       "nationality": "Ivory Coast",
       "club": "Marumo Gallants FC",
-      "appearances": 11,
+      "appearances": 6,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ekenäs IF",
+          "year": "2017"
+        },
+        {
+          "club": "Dukla Prague",
+          "year": "2018"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "SC Majestic",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Young Africans",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2026"
+        },
+        {
+          "club": "Young Africans",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 15,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ndabayithethwa Ndlondlo",
@@ -195,9 +884,45 @@
       "age": 30,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 21,
-      "goals": 6,
-      "assists": 0
+      "appearances": 17,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AmaZulu FC",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Tshakhuma",
+          "year": "2018"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2022"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 25,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sekela Sithole",
@@ -205,9 +930,73 @@
       "age": 29,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 24,
-      "goals": 3,
-      "assists": 1
+      "appearances": 19,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Golden Arrows",
+          "year": "2014"
+        },
+        {
+          "club": "FC Cape Town",
+          "year": "2015"
+        },
+        {
+          "club": "SuperSport Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2017"
+        },
+        {
+          "club": "SuperSport Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Mbombela United",
+          "year": "2018"
+        },
+        {
+          "club": "SuperSport Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Steenberg Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "FS Stars",
+          "year": "2020"
+        },
+        {
+          "club": "Cape Umoya Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2021"
+        },
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simo Mbhele",
@@ -215,9 +1004,61 @@
       "age": 27,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "1º Dezembro",
+          "year": "2016"
+        },
+        {
+          "club": "Palmelense",
+          "year": "2018"
+        },
+        {
+          "club": "Sertanense",
+          "year": "2019"
+        },
+        {
+          "club": "1º Dezembro",
+          "year": "2020"
+        },
+        {
+          "club": "Golden Arrows",
+          "year": "2021"
+        },
+        {
+          "club": "Venda",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Luthuli Brigade",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Monde Mpambaniso",
@@ -225,9 +1066,37 @@
       "age": 33,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tshakhuma",
+          "year": "2017"
+        },
+        {
+          "club": "Polokwane City",
+          "year": "2018"
+        },
+        {
+          "club": "Tshakhuma",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimakatso Mashao",
@@ -237,7 +1106,27 @@
       "club": "Marumo Gallants FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1136,73 @@
       "age": 29,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Sundowns",
+          "year": "2018"
+        },
+        {
+          "club": "Platinum Stars",
+          "year": "2018"
+        },
+        {
+          "club": "Cape Umoya Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2019"
+        },
+        {
+          "club": "Ajax Cape Town",
+          "year": "2019"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2020"
+        },
+        {
+          "club": "Orbit College",
+          "year": "2020"
+        },
+        {
+          "club": "Marumo",
+          "year": "2021"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2023"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2025"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 5,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kamohelo Sithole",
@@ -257,9 +1210,57 @@
       "age": 29,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Orlando P. Res.",
+          "year": "2014"
+        },
+        {
+          "club": "Sundowns Res.",
+          "year": "2018"
+        },
+        {
+          "club": "TS Sporting",
+          "year": "2019"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2021"
+        },
+        {
+          "club": "JDR Stars FC",
+          "year": "2022"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Obarate Morgan",
@@ -269,7 +1270,39 @@
       "club": "Marumo Gallants FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stellenbosch R.",
+          "year": "2022"
+        },
+        {
+          "club": "Hungry Lions FC",
+          "year": "2023"
+        },
+        {
+          "club": "Marumo Reserves",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thapelo Dhludhlu",
@@ -279,7 +1312,27 @@
       "club": "Marumo Gallants FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marumo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Msindisi Ndlovu",
@@ -287,9 +1340,41 @@
       "age": 24,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Uthongathi",
+          "year": "2022"
+        },
+        {
+          "club": "AmaZulu FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mofossé Karidioula",
@@ -297,9 +1382,45 @@
       "age": 28,
       "nationality": "Ivory Coast",
       "club": "Marumo Gallants FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Williamsville",
+          "year": "2017"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2022"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Teboho Motloung",
@@ -307,9 +1428,45 @@
       "age": 25,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "JDR Stars FC",
+          "year": "2021"
+        },
+        {
+          "club": "TTM FC",
+          "year": "2021"
+        },
+        {
+          "club": "Golden Arrows",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bheki Mabuza",
@@ -317,9 +1474,37 @@
       "age": 22,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 26,
+      "appearances": 21,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "M Tigers FC",
+          "year": "2023"
+        },
+        {
+          "club": "Leruma United",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Doudy James",
@@ -327,9 +1512,33 @@
       "age": 25,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Crystal Palace",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaisen Clifford",
@@ -337,9 +1546,85 @@
       "age": 30,
       "nationality": "South Africa",
       "club": "Marumo Gallants FC",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gudja United FC",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Mqabba FC",
+          "year": "2016"
+        },
+        {
+          "club": "Stumbras",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Condeixa",
+          "year": "2019"
+        },
+        {
+          "club": "All Stars",
+          "year": "2020"
+        },
+        {
+          "club": "FC Van",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "FC Van",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Etar",
+          "year": "2024"
+        },
+        {
+          "club": "Sportist Svoge",
+          "year": "2024"
+        },
+        {
+          "club": "Etar",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Romaric Dognimin Ouattara",
@@ -347,9 +1632,37 @@
       "age": 21,
       "nationality": "Ivory Coast",
       "club": "Marumo Gallants FC",
-      "appearances": 10,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Algiers",
+          "year": "2024"
+        },
+        {
+          "club": "Olympique Akbou",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kossi Adetu",
@@ -357,9 +1670,61 @@
       "age": 30,
       "nationality": "Togo",
       "club": "Marumo Gallants FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qanah",
+          "year": "2018"
+        },
+        {
+          "club": "Baf Ülkü Yurdu",
+          "year": "2019"
+        },
+        {
+          "club": "Magusa TG",
+          "year": "2020"
+        },
+        {
+          "club": "N. Sembilan FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Olympic",
+          "year": "2022"
+        },
+        {
+          "club": "Raya SC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Marumo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Mwiinde",
@@ -367,9 +1732,65 @@
       "age": 25,
       "nationality": "Zambia",
       "club": "Marumo Gallants FC",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Buildcon FC",
+          "year": "2019"
+        },
+        {
+          "club": "Nkana FC",
+          "year": "2021"
+        },
+        {
+          "club": "Forest Rangers",
+          "year": "2021"
+        },
+        {
+          "club": "Zanaco FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Hatta Club",
+          "year": "2022"
+        },
+        {
+          "club": "Masafi SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Salam SC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Marumo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

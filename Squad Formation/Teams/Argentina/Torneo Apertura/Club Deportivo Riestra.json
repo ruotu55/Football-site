@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "ARG1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,89 @@
       "age": 34,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unión Santa Fe",
+          "year": "2011"
+        },
+        {
+          "club": "Dep. Merlo",
+          "year": "2012"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2013"
+        },
+        {
+          "club": "Atl. Paraná",
+          "year": "2014"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2015"
+        },
+        {
+          "club": "Crucero",
+          "year": "2016"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2017"
+        },
+        {
+          "club": "San Martín (T)",
+          "year": "2017"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2018"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2019"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2019"
+        },
+        {
+          "club": "San Martín (T)",
+          "year": "2019"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2021"
+        },
+        {
+          "club": "La Calera",
+          "year": "2022"
+        },
+        {
+          "club": "Platense",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 268,
+        "clean_sheets": 129
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iván López",
@@ -31,9 +112,57 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ferro",
+          "year": "2017"
+        },
+        {
+          "club": "San Miguel",
+          "year": "2020"
+        },
+        {
+          "club": "Ferro",
+          "year": "2021"
+        },
+        {
+          "club": "Sacachispas",
+          "year": "2022"
+        },
+        {
+          "club": "Ferro",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Armenio",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        },
+        {
+          "club": "Dep. Armenio",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 49,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -45,7 +174,35 @@
       "club": "Club Deportivo Riestra",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almirante Brown",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Paz",
@@ -53,9 +210,53 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karpaty Lviv",
+          "year": "2017"
+        },
+        {
+          "club": "San Miguel",
+          "year": "2017"
+        },
+        {
+          "club": "CA Temperley",
+          "year": "2018"
+        },
+        {
+          "club": "San Martín (SJ)",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Morón",
+          "year": "2021"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Barbieri",
@@ -63,19 +264,77 @@
       "age": 32,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Nicolás Caro Torres",
-      "position": "Centre-Back",
-      "age": 30,
-      "nationality": "Argentina",
-      "club": "Club Deportivo Riestra",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Def. Belgrano",
+          "year": "2015"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2016"
+        },
+        {
+          "club": "Def. Belgrano",
+          "year": "2017"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2017"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2018"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2019"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2020"
+        },
+        {
+          "club": "Toluca",
+          "year": "2021"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2021"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2023"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2023"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Randazzo",
@@ -85,17 +344,43 @@
       "club": "Club Deportivo Riestra",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Eric Tovo",
-      "position": "Centre-Back",
-      "age": 34,
-      "nationality": "Argentina",
-      "club": "Club Deportivo Riestra",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flandria",
+          "year": "2015"
+        },
+        {
+          "club": "Estudiantes",
+          "year": "2020"
+        },
+        {
+          "club": "UTC",
+          "year": "2023"
+        },
+        {
+          "club": "Mushuc Runa SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yeison Murillo",
@@ -105,7 +390,31 @@
       "club": "Club Deportivo Riestra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes SL",
+          "year": "2015"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Ramírez",
@@ -113,9 +422,45 @@
       "age": 25,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Defensa",
+          "year": "2021"
+        },
+        {
+          "club": "Estudiantes",
+          "year": "2021"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2022"
+        },
+        {
+          "club": "Defensa",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Gallo",
@@ -123,9 +468,37 @@
       "age": 25,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gimnasia",
+          "year": "2022"
+        },
+        {
+          "club": "Ferro (GP)",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Sayavedra",
@@ -133,9 +506,53 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes",
+          "year": "2017"
+        },
+        {
+          "club": "Arg. de Quilmes",
+          "year": "2019"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Morón",
+          "year": "2022"
+        },
+        {
+          "club": "Brown (Adrogué)",
+          "year": "2022"
+        },
+        {
+          "club": "Racing (Cba)",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Sansotre",
@@ -143,9 +560,45 @@
       "age": 32,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almagro",
+          "year": "2017"
+        },
+        {
+          "club": "Villa Dálmine",
+          "year": "2018"
+        },
+        {
+          "club": "Tigre",
+          "year": "2020"
+        },
+        {
+          "club": "San Martín (T)",
+          "year": "2021"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mariano Bracamonte",
@@ -153,9 +606,49 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Morón",
+          "year": "2019"
+        },
+        {
+          "club": "UAI Urquiza",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Morón",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Morón",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +658,33 @@
       "age": 32,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sp. Barracas",
+          "year": "2016"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 13,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Watson",
@@ -177,7 +694,59 @@
       "club": "Club Deportivo Riestra",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Instituto ACC",
+          "year": "2019"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2022"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2022"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "year": "2024"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2024"
+        },
+        {
+          "club": "San Martín (SJ)",
+          "year": "2025"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías García",
@@ -187,7 +756,59 @@
       "club": "Club Deportivo Riestra",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2018"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2018"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "year": "2019"
+        },
+        {
+          "club": "LDU Portoviejo",
+          "year": "2020"
+        },
+        {
+          "club": "Def. Belgrano",
+          "year": "2021"
+        },
+        {
+          "club": "Sol de Mayo",
+          "year": "2022"
+        },
+        {
+          "club": "CA Güemes",
+          "year": "2023"
+        },
+        {
+          "club": "San Martín (T)",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patricio Madero",
@@ -195,9 +816,41 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Central Córdoba",
+          "year": "2023"
+        },
+        {
+          "club": "UAI Urquiza",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        },
+        {
+          "club": "UAI Urquiza",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Monje",
@@ -205,9 +858,37 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Armenio",
+          "year": "2020"
+        },
+        {
+          "club": "Laferrere",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo Ramírez",
@@ -215,9 +896,65 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boca Unidos",
+          "year": "2016"
+        },
+        {
+          "club": "Gimnasia (M)",
+          "year": "2017"
+        },
+        {
+          "club": "Guillermo Brown",
+          "year": "2019"
+        },
+        {
+          "club": "Fénix",
+          "year": "2020"
+        },
+        {
+          "club": "J.J. Urquiza",
+          "year": "2020"
+        },
+        {
+          "club": "Los Andes",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Merlo",
+          "year": "2023"
+        },
+        {
+          "club": "Carlos Stein",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Landriel",
@@ -227,7 +964,43 @@
       "club": "Club Deportivo Riestra",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UAI Urquiza",
+          "year": "2017"
+        },
+        {
+          "club": "Ferro",
+          "year": "2018"
+        },
+        {
+          "club": "Los Andes",
+          "year": "2019"
+        },
+        {
+          "club": "Colegiales",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alejo Dramisino",
@@ -237,7 +1010,43 @@
       "club": "Club Deportivo Riestra",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlanta",
+          "year": "2020"
+        },
+        {
+          "club": "Botafogo-SP",
+          "year": "2025"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 9,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mauro Smarra",
@@ -245,9 +1054,53 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 5,
-      "goals": 2,
-      "assists": 1
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Centro Español",
+          "year": "2021"
+        },
+        {
+          "club": "El Porvenir",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Centro Español",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Villa Corina",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1110,69 @@
       "age": 24,
       "nationality": "Nigeria",
       "club": "Club Deportivo Riestra",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartak Trnava",
+          "year": "2020"
+        },
+        {
+          "club": "Family Love",
+          "year": "2021"
+        },
+        {
+          "club": "Mosta FC",
+          "year": "2021"
+        },
+        {
+          "club": "Birkirkara FC",
+          "year": "2022"
+        },
+        {
+          "club": "Mosta FC",
+          "year": "2022"
+        },
+        {
+          "club": "Slovan Galanta",
+          "year": "2023"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "AS Trencin",
+          "year": "2025"
+        },
+        {
+          "club": "Lehota pod V.",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 6,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángel Stringa",
@@ -267,9 +1180,53 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dock Sud",
+          "year": "2018"
+        },
+        {
+          "club": "Ituzaingó",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Armenio",
+          "year": "2021"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2022"
+        },
+        {
+          "club": "Arg. de Quilmes",
+          "year": "2023"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Obredor",
@@ -279,17 +1236,117 @@
       "club": "Club Deportivo Riestra",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Huracan Trelew",
+          "year": "2017"
+        },
+        {
+          "club": "Defensores de La Ribera",
+          "year": "2020"
+        },
+        {
+          "club": "Cruz del Sur",
+          "year": "2022"
+        },
+        {
+          "club": "Germinal",
+          "year": "2023"
+        },
+        {
+          "club": "Almagro",
+          "year": "2024"
+        },
+        {
+          "club": "Villa Mitre",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 12,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Díaz",
       "position": "Centre-Forward",
-      "age": 25,
+      "age": 26,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Lorenzo",
+          "year": "2020"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2022"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2022"
+        },
+        {
+          "club": "Ferro",
+          "year": "2023"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2023"
+        },
+        {
+          "club": "CRB",
+          "year": "2024"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antony Alonso",
@@ -297,9 +1354,61 @@
       "age": 27,
       "nationality": "Uruguay",
       "club": "Club Deportivo Riestra",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 11,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "J.J. Urquiza",
+          "year": "2019"
+        },
+        {
+          "club": "CA Temperley",
+          "year": "2020"
+        },
+        {
+          "club": "J.J. Urquiza",
+          "year": "2021"
+        },
+        {
+          "club": "Guaireña FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "J.J. Urquiza",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        },
+        {
+          "club": "J.J. Urquiza",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Benegas",
@@ -307,9 +1416,65 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Quilmes",
+          "year": "2016"
+        },
+        {
+          "club": "San Martín (T)",
+          "year": "2017"
+        },
+        {
+          "club": "Brown (Adrogué)",
+          "year": "2018"
+        },
+        {
+          "club": "Def. Belgrano",
+          "year": "2019"
+        },
+        {
+          "club": "Seoul E-Land",
+          "year": "2021"
+        },
+        {
+          "club": "Sol de América",
+          "year": "2022"
+        },
+        {
+          "club": "Def. Belgrano",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        },
+        {
+          "club": "Def. Belgrano",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 259,
+        "goals": 53,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Herrera",
@@ -317,9 +1482,89 @@
       "age": 34,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Riestra",
+          "year": "2015"
+        },
+        {
+          "club": "Atl. Venezuela",
+          "year": "2017"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2017"
+        },
+        {
+          "club": "Ferro",
+          "year": "2018"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2018"
+        },
+        {
+          "club": "Audax Italiano",
+          "year": "2018"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2020"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2021"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2021"
+        },
+        {
+          "club": "Independiente",
+          "year": "2021"
+        },
+        {
+          "club": "Patronato",
+          "year": "2022"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2022"
+        },
+        {
+          "club": "Ferro",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 75,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gonzalo Flores",
@@ -329,7 +1574,47 @@
       "club": "Club Deportivo Riestra",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tigre",
+          "year": "2023"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2024"
+        },
+        {
+          "club": "Tigre",
+          "year": "2024"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 12,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Portillo",
@@ -339,7 +1624,39 @@
       "club": "Club Deportivo Riestra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vil. San Carlos",
+          "year": "2018"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2021"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José María Ingratti",
@@ -347,9 +1664,61 @@
       "age": 25,
       "nationality": "Argentina",
       "club": "Club Deportivo Riestra",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mitre (SdE)",
+          "year": "2021"
+        },
+        {
+          "club": "Sacachispas",
+          "year": "2021"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2022"
+        },
+        {
+          "club": "Cuniburo FC",
+          "year": "2023"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2023"
+        },
+        {
+          "club": "UAI Urquiza",
+          "year": "2024"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

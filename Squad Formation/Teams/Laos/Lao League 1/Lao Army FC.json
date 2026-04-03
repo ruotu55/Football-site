@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LAO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 25,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Elephants",
+          "year": "2024"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 98,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 26,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Phoutthasack Thammachanh",
@@ -33,7 +58,31 @@
       "club": "Lao Army FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phetthanakone Phomsavanh",
@@ -43,7 +92,31 @@
       "club": "Lao Army FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Viengchanh FC",
+          "year": "2021"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 14,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vilaphong Phoumsavath",
@@ -53,49 +126,83 @@
       "club": "Lao Army FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
-    {
-      "name": "Xouxana Sihalath",
-      "position": "Centre-Back",
-      "age": 29,
-      "nationality": "Laos",
-      "club": "Lao Army FC",
-      "appearances": 18,
-      "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Inthavong Luangsalath",
-      "position": "Centre-Back",
-      "age": 24,
-      "nationality": "Laos",
-      "club": "Lao Army FC",
-      "appearances": 17,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Okham Latsachack",
       "position": "Centre-Back",
       "age": 18,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Thanakone Kongtakan",
+      "name": "Xouxana Sihalath",
       "position": "Centre-Back",
-      "age": 21,
+      "age": 29,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tiengkham Bounyasaysy",
@@ -103,9 +210,101 @@
       "age": 31,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 11,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Inthavong Luangsalath",
+      "position": "Centre-Back",
+      "age": 25,
+      "nationality": "Laos",
+      "club": "Lao Army FC",
+      "appearances": 13,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HBT 941",
+          "year": "2020"
+        },
+        {
+          "club": "Master",
+          "year": "2024"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Thanakone Kongtakan",
+      "position": "Centre-Back",
+      "age": 21,
+      "nationality": "Laos",
+      "club": "Lao Army FC",
+      "appearances": 9,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lao Army FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vanhkod Yangchaluen",
@@ -113,9 +312,24 @@
       "age": 29,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 0
+      "appearances": 17,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vanna Bounlovongsa",
@@ -123,29 +337,53 @@
       "age": 27,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 15,
-      "goals": 5,
-      "assists": 2
-    },
-    {
-      "name": "Sayleuan Phengsakoun",
-      "position": "Right-Back",
-      "age": 19,
-      "nationality": "Laos",
-      "club": "Lao Army FC",
-      "appearances": 15,
-      "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Vongsakoun Sisomphou",
-      "position": "Right-Back",
-      "age": 28,
-      "nationality": "Laos",
-      "club": "Lao Army FC",
-      "appearances": 16,
-      "goals": 0,
-      "assists": 1
+      "appearances": 11,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "DK FC",
+          "year": "2017"
+        },
+        {
+          "club": "Luang Prabang U",
+          "year": "2018"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2019"
+        },
+        {
+          "club": "FC Chanthabouly",
+          "year": "2021"
+        },
+        {
+          "club": "Viengchanh FC",
+          "year": "2022"
+        },
+        {
+          "club": "HBT 941",
+          "year": "2023"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anousin Khaophanh",
@@ -153,9 +391,74 @@
       "age": 20,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Vongsakoun Sisomphou",
+      "position": "Right-Back",
+      "age": 28,
+      "nationality": "Laos",
+      "club": "Lao Army FC",
+      "appearances": 13,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Sayleuan Phengsakoun",
+      "position": "Right-Back",
+      "age": 19,
+      "nationality": "Laos",
+      "club": "Lao Army FC",
+      "appearances": 14,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khonesamai Sunthavi",
@@ -163,9 +466,24 @@
       "age": 26,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 11,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vithaya Seangsilivanh",
@@ -175,7 +493,22 @@
       "club": "Lao Army FC",
       "appearances": 7,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -187,7 +520,35 @@
       "club": "Lao Army FC",
       "appearances": 15,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lao Army FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Somlith Sengvanny",
@@ -195,9 +556,41 @@
       "age": 26,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 22,
-      "goals": 4,
-      "assists": 2
+      "appearances": 18,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "DK FC",
+          "year": "2017"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2019"
+        },
+        {
+          "club": "Luang Prabang",
+          "year": "2022"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 16,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sonexay Xaykhampheng",
@@ -205,9 +598,24 @@
       "age": 21,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 1
+      "appearances": 15,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phousomboun Panyavong",
@@ -217,7 +625,27 @@
       "club": "Lao Army FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lao Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xayyaphon Sengsavang",
@@ -227,7 +655,35 @@
       "club": "Lao Army FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Master 7",
+          "year": "2019"
+        },
+        {
+          "club": "Ezra FC",
+          "year": "2020"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thienthanva Sichampa",
@@ -235,9 +691,66 @@
       "age": 22,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ezra FC",
+          "year": "2021"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Saiyoh Phetsalat",
+      "position": "",
+      "age": 16,
+      "nationality": "Laos",
+      "club": "Lao Army FC",
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souliyo Inthavong",
@@ -247,17 +760,27 @@
       "club": "Lao Army FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Saiyoh Phetsalat",
-      "position": "",
-      "age": 16,
-      "nationality": "Laos",
-      "club": "Lao Army FC",
-      "appearances": 9,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lao Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +790,24 @@
       "age": 24,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 21,
-      "goals": 16,
-      "assists": 2
+      "appearances": 17,
+      "goals": 15,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 32,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sisawad Dalavong",
@@ -277,9 +815,37 @@
       "age": 29,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 3
+      "appearances": 17,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "HAA",
+          "year": "2014"
+        },
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Lao Army FC",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 20,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anoukhane Malongthong",
@@ -289,7 +855,22 @@
       "club": "Lao Army FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xaymangkone Piammalay",
@@ -297,9 +878,29 @@
       "age": 20,
       "nationality": "Laos",
       "club": "Lao Army FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lao Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "LI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,27 @@
       "club": "FA Siauliai",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FA Siauliai",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 112,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vilius Šivickas",
@@ -33,7 +54,31 @@
       "club": "FA Siauliai",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jonava",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 35,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paulius Linkevičius",
@@ -43,7 +88,31 @@
       "club": "FA Siauliai",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Klaipedos FM",
+          "year": "2022"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 57,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +122,45 @@
       "age": 24,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zalgiris",
+          "year": "2020"
+        },
+        {
+          "club": "Jonava",
+          "year": "2022"
+        },
+        {
+          "club": "Zalgiris",
+          "year": "2022"
+        },
+        {
+          "club": "Riteriai",
+          "year": "2023"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martynas Dapkus",
@@ -65,7 +170,67 @@
       "club": "FA Siauliai",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maccabi Haifa",
+          "year": "2012"
+        },
+        {
+          "club": "H.Nazareth Illit",
+          "year": "2012"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2013"
+        },
+        {
+          "club": "H.Nazareth Illit",
+          "year": "2013"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2014"
+        },
+        {
+          "club": "Stumbras",
+          "year": "2015"
+        },
+        {
+          "club": "Trakai",
+          "year": "2016"
+        },
+        {
+          "club": "Silas",
+          "year": "2017"
+        },
+        {
+          "club": "Jonava",
+          "year": "2017"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2019"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 13,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edgaras Bierontas",
@@ -73,9 +238,33 @@
       "age": 18,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Klaipedos FM",
+          "year": "2023"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristupas Keršys",
@@ -85,7 +274,39 @@
       "club": "FA Siauliai",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metta",
+          "year": "2022"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2024"
+        },
+        {
+          "club": "Metta",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 12,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lazar Vukovic",
@@ -93,9 +314,73 @@
       "age": 27,
       "nationality": "Serbia",
       "club": "FA Siauliai",
-      "appearances": 16,
-      "goals": 0,
-      "assists": 0
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Batajnica",
+          "year": "2016"
+        },
+        {
+          "club": "Borac Sakule",
+          "year": "2017"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2018"
+        },
+        {
+          "club": "Borac Sakule",
+          "year": "2019"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2019"
+        },
+        {
+          "club": "IMT Belgrad",
+          "year": "2019"
+        },
+        {
+          "club": "FK Alfa Modriča",
+          "year": "2021"
+        },
+        {
+          "club": "Tekstilac",
+          "year": "2021"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2022"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2024"
+        },
+        {
+          "club": "Radnik Bijelj.",
+          "year": "2025"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danielius Jarašius",
@@ -105,7 +390,27 @@
       "club": "FA Siauliai",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FA Siauliai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Mandić",
@@ -113,9 +418,69 @@
       "age": 27,
       "nationality": "Serbia",
       "club": "FA Siauliai",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vojvodina",
+          "year": "2018"
+        },
+        {
+          "club": "Becej 1918",
+          "year": "2018"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2019"
+        },
+        {
+          "club": "Kabel Novi Sad",
+          "year": "2019"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2021"
+        },
+        {
+          "club": "Backa",
+          "year": "2021"
+        },
+        {
+          "club": "Mladost GAT",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "RFK Novi Sad",
+          "year": "2024"
+        },
+        {
+          "club": "GOSK Gabela",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 1,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -127,7 +492,47 @@
       "club": "FA Siauliai",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2014"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2021"
+        },
+        {
+          "club": "Real SC",
+          "year": "2022"
+        },
+        {
+          "club": "1º Dezembro",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustas Geštautas",
@@ -135,9 +540,29 @@
       "age": 19,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FA Siauliai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karolis Žebrauskas",
@@ -145,9 +570,33 @@
       "age": 23,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Banga",
+          "year": "2022"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 4,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Divine Naah",
@@ -155,9 +604,77 @@
       "age": 29,
       "nationality": "Ghana",
       "club": "FA Siauliai",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Strømsgodset",
+          "year": "2014"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2015"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2016"
+        },
+        {
+          "club": "Örebro SK",
+          "year": "2017"
+        },
+        {
+          "club": "AFC Tubize",
+          "year": "2018"
+        },
+        {
+          "club": "Hapoel Raanana",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Mosta FC",
+          "year": "2021"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Turan Tovuz",
+          "year": "2023"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2023"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 24,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sammy Skytte",
@@ -165,9 +682,69 @@
       "age": 29,
       "nationality": "Denmark",
       "club": "FA Siauliai",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Silkeborg IF",
+          "year": "2016"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2018"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2018"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2019"
+        },
+        {
+          "club": "Stabæk",
+          "year": "2019"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2020"
+        },
+        {
+          "club": "Stabæk",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Concordia",
+          "year": "2022"
+        },
+        {
+          "club": "HB Tórshavn",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 203,
+        "goals": 26,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emilis Gasiūnas",
@@ -177,7 +754,31 @@
       "club": "FA Siauliai",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Džiugas",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabrielius Micevičius",
@@ -185,9 +786,29 @@
       "age": 22,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FA Siauliai",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 12,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deividas Dovydaitis",
@@ -195,9 +816,33 @@
       "age": 23,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Banga",
+          "year": "2023"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabijus Micevičius",
@@ -207,7 +852,27 @@
       "club": "FA Siauliai",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FA Siauliai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Romanovskij",
@@ -215,9 +880,73 @@
       "age": 29,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zalgiris",
+          "year": "2014"
+        },
+        {
+          "club": "Utenis",
+          "year": "2016"
+        },
+        {
+          "club": "Zalgiris",
+          "year": "2016"
+        },
+        {
+          "club": "Stumbras",
+          "year": "2017"
+        },
+        {
+          "club": "Zalgiris",
+          "year": "2017"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2018"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2019"
+        },
+        {
+          "club": "Olimpik Donetsk",
+          "year": "2020"
+        },
+        {
+          "club": "Banga",
+          "year": "2021"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 277,
+        "goals": 45,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ugnius Vaitiekaitis",
@@ -225,9 +954,29 @@
       "age": 19,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brooklyn Leipus",
@@ -235,9 +984,41 @@
       "age": 18,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cinderford",
+          "year": "2024"
+        },
+        {
+          "club": "Didcot",
+          "year": "2024"
+        },
+        {
+          "club": "Swindon Superm.",
+          "year": "2025"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1028,89 @@
       "age": 29,
       "nationality": "Portugal",
       "club": "FA Siauliai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mafra Sub-15",
+          "year": "2009"
+        },
+        {
+          "club": "Sintrense Y17",
+          "year": "2011"
+        },
+        {
+          "club": "Sacavenense S17",
+          "year": "2012"
+        },
+        {
+          "club": "AC Malveira",
+          "year": "2015"
+        },
+        {
+          "club": "Loures",
+          "year": "2016"
+        },
+        {
+          "club": "Torreense",
+          "year": "2017"
+        },
+        {
+          "club": "Real SC",
+          "year": "2019"
+        },
+        {
+          "club": "CO Montijo",
+          "year": "2021"
+        },
+        {
+          "club": "Cova Piedade",
+          "year": "2021"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2022"
+        },
+        {
+          "club": "Oliv. Hospital",
+          "year": "2022"
+        },
+        {
+          "club": "Alverca",
+          "year": "2023"
+        },
+        {
+          "club": "1º Dezembro",
+          "year": "2024"
+        },
+        {
+          "club": "Alverca",
+          "year": "2024"
+        },
+        {
+          "club": "Zhenis",
+          "year": "2025"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 30,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrikas Pranckus",
@@ -257,9 +1118,33 @@
       "age": 19,
       "nationality": "Lithuania",
       "club": "FA Siauliai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Baltijos FA",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nedas Garbaliauskas",
@@ -269,7 +1154,35 @@
       "club": "FA Siauliai",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Genoa CFC Youth",
+          "year": "2023"
+        },
+        {
+          "club": "Baltijos FA",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 17,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chidera Nwoga",
@@ -277,9 +1190,61 @@
       "age": 25,
       "nationality": "Nigeria",
       "club": "FA Siauliai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tirsense",
+          "year": "2019"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2021"
+        },
+        {
+          "club": "S. João Ver",
+          "year": "2021"
+        },
+        {
+          "club": "Salgueiros",
+          "year": "2022"
+        },
+        {
+          "club": "Union Gurten",
+          "year": "2023"
+        },
+        {
+          "club": "Kety Bistrica",
+          "year": "2023"
+        },
+        {
+          "club": "Mosta FC",
+          "year": "2024"
+        },
+        {
+          "club": "FK TransINVEST",
+          "year": "2024"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 46,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

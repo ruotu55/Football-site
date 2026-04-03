@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 27,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 21,
+      "appearances": 10,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -72,7 +73,21 @@
           "club": "Southampton",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 402,
+        "clean_sheets": 60
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 6,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Nick Pope",
@@ -80,9 +95,9 @@
       "age": 33,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 31,
+      "appearances": 22,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Bury Town",
@@ -144,7 +159,21 @@
           "club": "Newcastle",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 379,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 408,
+        "clean_sheets": 143
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 7
+      }
     },
     {
       "name": "Mark Gillespie",
@@ -180,7 +209,21 @@
           "club": "Newcastle",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 396,
+        "clean_sheets": 67
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Ruddy",
@@ -272,7 +315,21 @@
           "club": "Newcastle",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 553,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 698,
+        "clean_sheets": 172
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     }
   ],
   "defenders": [
@@ -282,9 +339,9 @@
       "age": 24,
       "nationality": "Germany",
       "club": "Newcastle United",
-      "appearances": 47,
-      "goals": 5,
-      "assists": 1,
+      "appearances": 28,
+      "goals": 4,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "FC Schalke 04",
@@ -298,7 +355,21 @@
           "club": "Newcastle",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 277,
+        "goals": 20,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sven Botman",
@@ -306,8 +377,8 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "Newcastle United",
-      "appearances": 31,
-      "goals": 2,
+      "appearances": 18,
+      "goals": 1,
       "assists": 1,
       "transfer_history": [
         {
@@ -326,7 +397,21 @@
           "club": "Newcastle",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 305,
+        "goals": 25,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Schär",
@@ -334,8 +419,8 @@
       "age": 34,
       "nationality": "Switzerland",
       "club": "Newcastle United",
-      "appearances": 21,
-      "goals": 1,
+      "appearances": 16,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -358,7 +443,21 @@
           "club": "Newcastle",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 482,
+        "goals": 49,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 86,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dan Burn",
@@ -366,9 +465,9 @@
       "age": 33,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 38,
-      "goals": 1,
-      "assists": 6,
+      "appearances": 23,
+      "goals": 0,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Hartley Juniors",
@@ -426,7 +525,21 @@
           "club": "Newcastle",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 560,
+        "goals": 24,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lewis Hall",
@@ -434,9 +547,9 @@
       "age": 21,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 41,
+      "appearances": 24,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Chelsea",
@@ -454,7 +567,21 @@
           "club": "Newcastle",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 16,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Murphy",
@@ -462,7 +589,7 @@
       "age": 21,
       "nationality": "Republic of Ireland",
       "club": "Newcastle United",
-      "appearances": 11,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -478,7 +605,21 @@
           "club": "Newcastle",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tino Livramento",
@@ -486,7 +627,7 @@
       "age": 23,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 24,
+      "appearances": 15,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -498,7 +639,21 @@
           "club": "Newcastle",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 6,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kieran Trippier",
@@ -506,9 +661,9 @@
       "age": 35,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 34,
+      "appearances": 18,
       "goals": 0,
-      "assists": 4,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Man City Res.",
@@ -550,7 +705,21 @@
           "club": "Newcastle",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 602,
+        "goals": 14,
+        "assists": 106,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 54,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emil Krafth",
@@ -558,7 +727,7 @@
       "age": 31,
       "nationality": "Sweden",
       "club": "Newcastle United",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -590,7 +759,21 @@
           "club": "Newcastle",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 311,
+        "goals": 6,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 52,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -600,9 +783,9 @@
       "age": 25,
       "nationality": "Italy",
       "club": "Newcastle United",
-      "appearances": 47,
-      "goals": 3,
-      "assists": 7,
+      "appearances": 29,
+      "goals": 0,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Piacenza Youth",
@@ -632,7 +815,21 @@
           "club": "Newcastle",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 35,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Guimarães",
@@ -640,9 +837,9 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Newcastle United",
-      "appearances": 35,
+      "appearances": 23,
       "goals": 9,
-      "assists": 7,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Atlético-PR",
@@ -656,7 +853,21 @@
           "club": "Newcastle",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 375,
+        "goals": 44,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 2,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacob Ramsey",
@@ -664,7 +875,7 @@
       "age": 24,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 36,
+      "appearances": 21,
       "goals": 2,
       "assists": 1,
       "transfer_history": [
@@ -680,7 +891,21 @@
           "club": "Newcastle",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 46,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joelinton",
@@ -688,9 +913,9 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "Newcastle United",
-      "appearances": 39,
-      "goals": 6,
-      "assists": 2,
+      "appearances": 24,
+      "goals": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Sport Recife",
@@ -712,7 +937,21 @@
           "club": "Newcastle",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 414,
+        "goals": 74,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lewis Miley",
@@ -720,15 +959,29 @@
       "age": 19,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 30,
-      "goals": 3,
+      "appearances": 19,
+      "goals": 1,
       "assists": 3,
       "transfer_history": [
         {
           "club": "Newcastle",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 13,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joe Willock",
@@ -736,9 +989,9 @@
       "age": 26,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 35,
-      "goals": 1,
-      "assists": 2,
+      "appearances": 20,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Arsenal",
@@ -752,7 +1005,21 @@
           "club": "Arsenal",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 49,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -762,9 +1029,9 @@
       "age": 25,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 45,
-      "goals": 17,
-      "assists": 5,
+      "appearances": 25,
+      "goals": 6,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Everton Youth",
@@ -786,7 +1053,21 @@
           "club": "Newcastle",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 303,
+        "goals": 71,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harvey Barnes",
@@ -794,9 +1075,9 @@
       "age": 28,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 50,
-      "goals": 14,
-      "assists": 5,
+      "appearances": 30,
+      "goals": 5,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "MK Dons",
@@ -822,7 +1103,21 @@
           "club": "Newcastle",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 418,
+        "goals": 106,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Elanga",
@@ -830,9 +1125,9 @@
       "age": 23,
       "nationality": "Sweden",
       "club": "Newcastle United",
-      "appearances": 44,
-      "goals": 3,
-      "assists": 2,
+      "appearances": 27,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Malmö FF Jgd.",
@@ -858,7 +1153,21 @@
           "club": "Newcastle",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 44,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacob Murphy",
@@ -866,9 +1175,9 @@
       "age": 31,
       "nationality": "England",
       "club": "Newcastle United",
-      "appearances": 39,
-      "goals": 4,
-      "assists": 4,
+      "appearances": 26,
+      "goals": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Norwich",
@@ -930,7 +1239,21 @@
           "club": "Newcastle",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 493,
+        "goals": 77,
+        "assists": 83,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nick Woltemade",
@@ -938,9 +1261,9 @@
       "age": 24,
       "nationality": "Germany",
       "club": "Newcastle United",
-      "appearances": 48,
-      "goals": 11,
-      "assists": 5,
+      "appearances": 27,
+      "goals": 7,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Werder Bremen",
@@ -962,7 +1285,21 @@
           "club": "Newcastle",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 85,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yoane Wissa",
@@ -970,9 +1307,9 @@
       "age": 29,
       "nationality": "Democratic Republic of the Congo",
       "club": "Newcastle United",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 1,
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "LB Châteauroux",
@@ -1010,7 +1347,21 @@
           "club": "Newcastle",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 114,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Osula",
@@ -1018,9 +1369,9 @@
       "age": 22,
       "nationality": "Denmark",
       "club": "Newcastle United",
-      "appearances": 28,
-      "goals": 4,
-      "assists": 1,
+      "appearances": 17,
+      "goals": 2,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Sheff Utd",
@@ -1038,7 +1389,21 @@
           "club": "Newcastle",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

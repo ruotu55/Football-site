@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BOS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 24,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 31,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 168,
+        "clean_sheets": 61
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tarik Abdulahovic",
@@ -33,7 +54,59 @@
       "club": "FK Zeljeznicar Sarajevo",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Igman Konjic",
+          "year": "2017"
+        },
+        {
+          "club": "Mladost Kakanj",
+          "year": "2018"
+        },
+        {
+          "club": "OFK Olimpik",
+          "year": "2020"
+        },
+        {
+          "club": "FK Krupa",
+          "year": "2020"
+        },
+        {
+          "club": "Simm-Bau",
+          "year": "2021"
+        },
+        {
+          "club": "FK Rudar Kakanj",
+          "year": "2022"
+        },
+        {
+          "club": "Zvijezda 09",
+          "year": "2022"
+        },
+        {
+          "club": "FK Tuzla City",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 182,
+        "clean_sheets": 47
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +116,49 @@
       "age": 30,
       "nationality": "Netherlands",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 24,
+      "appearances": 20,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RKC Waalwijk",
+          "year": "2014"
+        },
+        {
+          "club": "Inverness CT",
+          "year": "2017"
+        },
+        {
+          "club": "FC Eindhoven",
+          "year": "2018"
+        },
+        {
+          "club": "FC Emmen",
+          "year": "2020"
+        },
+        {
+          "club": "FC Eindhoven",
+          "year": "2021"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 339,
+        "goals": 15,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ermin Bicakcic",
@@ -55,7 +168,51 @@
       "club": "FK Zeljeznicar Sarajevo",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stuttgart",
+          "year": "2011"
+        },
+        {
+          "club": "E. Braunschweig",
+          "year": "2012"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "E. Braunschweig",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 24,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mustafa Sukilovic",
@@ -63,9 +220,37 @@
       "age": 23,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Tuzla City",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edin Osmanovic",
@@ -73,9 +258,45 @@
       "age": 24,
       "nationality": "Luxembourg",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "E. Ettelbrück",
+          "year": "2018"
+        },
+        {
+          "club": "Differdange 03",
+          "year": "2019"
+        },
+        {
+          "club": "SKF Sered",
+          "year": "2022"
+        },
+        {
+          "club": "Titus Petange",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aiman Semdin",
@@ -83,9 +304,29 @@
       "age": 20,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enes Alic",
@@ -93,9 +334,53 @@
       "age": 26,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 29,
-      "goals": 6,
-      "assists": 1
+      "appearances": 23,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Detmarovice",
+          "year": "2018"
+        },
+        {
+          "club": "Fanna BK",
+          "year": "2019"
+        },
+        {
+          "club": "Mladost Kakanj",
+          "year": "2020"
+        },
+        {
+          "club": "NK Domzale",
+          "year": "2021"
+        },
+        {
+          "club": "Kisvárda",
+          "year": "2023"
+        },
+        {
+          "club": "NK Varazdin",
+          "year": "2024"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 12,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrik-Gabriel Galchev",
@@ -103,9 +388,41 @@
       "age": 24,
       "nationality": "Bulgaria",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Levski Sofia",
+          "year": "2020"
+        },
+        {
+          "club": "Loko Sofia",
+          "year": "2025"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2025"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 5,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edwin Odinaka",
@@ -113,19 +430,103 @@
       "age": 22,
       "nationality": "Nigeria",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 1,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giovanni Troupée",
       "position": "Right-Back",
-      "age": 27,
+      "age": 28,
       "nationality": "Curaçao",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Utrecht Youth",
+          "year": "2009"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2016"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2018"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2019"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2020"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2020"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 256,
+        "goals": 14,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +536,53 @@
       "age": 26,
       "nationality": "Serbia",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 25,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Brodarac",
+          "year": "2017"
+        },
+        {
+          "club": "Proleter",
+          "year": "2019"
+        },
+        {
+          "club": "Soligorsk",
+          "year": "2021"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2022"
+        },
+        {
+          "club": "FK TSC",
+          "year": "2024"
+        },
+        {
+          "club": "M. Bnei Reineh",
+          "year": "2025"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Erick",
@@ -145,9 +590,53 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NK Rudes",
+          "year": "2018"
+        },
+        {
+          "club": "Croat. Zmijavci",
+          "year": "2020"
+        },
+        {
+          "club": "Santa Cruz-PE",
+          "year": "2022"
+        },
+        {
+          "club": "América-PE",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "HSK Posusje",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Armin Hodzic",
@@ -155,9 +644,61 @@
       "age": 26,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 11,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sloboda Tuzla",
+          "year": "2019"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2020"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2021"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2022"
+        },
+        {
+          "club": "Hatayspor",
+          "year": "2023"
+        },
+        {
+          "club": "Manisa FK",
+          "year": "2024"
+        },
+        {
+          "club": "Hatayspor",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 25,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samir Radovac",
@@ -165,9 +706,57 @@
       "age": 30,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Sarajevo",
+          "year": "2012"
+        },
+        {
+          "club": "OFK Olimpik",
+          "year": "2019"
+        },
+        {
+          "club": "PAS Giannina",
+          "year": "2019"
+        },
+        {
+          "club": "Velez Mostar",
+          "year": "2020"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Ilioupoli",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 289,
+        "goals": 16,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismail Oulad M'Hand",
@@ -177,7 +766,35 @@
       "club": "FK Zeljeznicar Sarajevo",
       "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Arsenal Youth",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Afan Foco",
@@ -185,9 +802,24 @@
       "age": 18,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 17,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominik Prokop",
@@ -195,9 +827,61 @@
       "age": 28,
       "nationality": "Austria",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2011"
+        },
+        {
+          "club": "A. Vienna Res.",
+          "year": "2013"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Wehen Wiesbaden",
+          "year": "2020"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2022"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 57,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bojan Nastic",
@@ -205,9 +889,57 @@
       "age": 31,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 17,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vojvodina",
+          "year": "2012"
+        },
+        {
+          "club": "Genk",
+          "year": "2016"
+        },
+        {
+          "club": "KV Oostende",
+          "year": "2019"
+        },
+        {
+          "club": "Genk",
+          "year": "2019"
+        },
+        {
+          "club": "BATE Borisov",
+          "year": "2019"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2021"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 323,
+        "goals": 5,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Madzid Sosic",
@@ -215,9 +947,49 @@
       "age": 23,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 1,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Hajduk Split",
+          "year": "2021"
+        },
+        {
+          "club": "Zrinjski Mostar",
+          "year": "2021"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2022"
+        },
+        {
+          "club": "NK Radomlje",
+          "year": "2022"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2024"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 51,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dzenan Sabic",
@@ -225,9 +997,29 @@
       "age": 20,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 30,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deni Milosevic",
@@ -235,19 +1027,82 @@
       "age": 31,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Standard Liège",
+          "year": "2014"
+        },
+        {
+          "club": "Waasland-Beveren",
+          "year": "2015"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2016"
+        },
+        {
+          "club": "Konyaspor",
+          "year": "2016"
+        },
+        {
+          "club": "Antalyaspor",
+          "year": "2021"
+        },
+        {
+          "club": "Sakaryaspor",
+          "year": "2022"
+        },
+        {
+          "club": "Antalyaspor",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 24,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eldar Dragovic",
       "position": "Attacking Midfield",
-      "age": 17,
+      "age": 18,
       "nationality": "Bosnia-Herzegovina",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 19,
-      "goals": 8,
-      "assists": 6
+      "appearances": 4,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1112,53 @@
       "age": 28,
       "nationality": "North Macedonia",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 27,
+      "appearances": 22,
       "goals": 3,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2017"
+        },
+        {
+          "club": "Vardar",
+          "year": "2018"
+        },
+        {
+          "club": "FC Shkupi",
+          "year": "2021"
+        },
+        {
+          "club": "Gyirmót FC",
+          "year": "2022"
+        },
+        {
+          "club": "FK Partizani",
+          "year": "2022"
+        },
+        {
+          "club": "AP Brera",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 272,
+        "goals": 35,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vini Peixoto",
@@ -267,9 +1166,61 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 29,
+      "appearances": 25,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Esportivo",
+          "year": "2021"
+        },
+        {
+          "club": "Novo Hamburgo",
+          "year": "2022"
+        },
+        {
+          "club": "Brasil Pelotas",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona-BA",
+          "year": "2023"
+        },
+        {
+          "club": "Ypiranga-RS",
+          "year": "2023"
+        },
+        {
+          "club": "Concórdia",
+          "year": "2023"
+        },
+        {
+          "club": "São Luiz",
+          "year": "2024"
+        },
+        {
+          "club": "Tubarão-SC",
+          "year": "2024"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ernad Babaluk",
@@ -277,9 +1228,29 @@
       "age": 19,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 3
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 41,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Jaganjac",
@@ -287,9 +1258,45 @@
       "age": 22,
       "nationality": "Bosnia-Herzegovina",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Adana Demirspor",
+          "year": "2023"
+        },
+        {
+          "club": "NK Istra",
+          "year": "2024"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2024"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        },
+        {
+          "club": "NK Istra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 31,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joey Konings",
@@ -297,9 +1304,53 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RKC Youth",
+          "year": "2007"
+        },
+        {
+          "club": "Heracles Almelo",
+          "year": "2018"
+        },
+        {
+          "club": "De Graafschap",
+          "year": "2020"
+        },
+        {
+          "club": "FC Den Bosch",
+          "year": "2022"
+        },
+        {
+          "club": "FC Emmen",
+          "year": "2023"
+        },
+        {
+          "club": "FC Eindhoven",
+          "year": "2025"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 60,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muharem Huskovic",
@@ -307,9 +1358,57 @@
       "age": 23,
       "nationality": "Austria",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 18,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2017"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2020"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2021"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2025"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        },
+        {
+          "club": "Blau Weiss Linz",
+          "year": "2025"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2026"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 33,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davor Rakic",
@@ -319,7 +1418,39 @@
       "club": "FK Zeljeznicar Sarajevo",
       "appearances": 18,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Red Star U15",
+          "year": "2018"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2022"
+        },
+        {
+          "club": "DFK Dainava",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 38,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sulejman Krpic",
@@ -327,9 +1458,89 @@
       "age": 35,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 1
+      "appearances": 10,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2010"
+        },
+        {
+          "club": "HNK Orasje",
+          "year": "2011"
+        },
+        {
+          "club": "FK Sarajevo",
+          "year": "2012"
+        },
+        {
+          "club": "Metalac",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2013"
+        },
+        {
+          "club": "Sloboda Tuzla",
+          "year": "2014"
+        },
+        {
+          "club": "AIK",
+          "year": "2017"
+        },
+        {
+          "club": "Sloboda Tuzla",
+          "year": "2017"
+        },
+        {
+          "club": "Tractor Sazi",
+          "year": "2018"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2018"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Astra Giurgiu",
+          "year": "2021"
+        },
+        {
+          "club": "FK Tuzla City",
+          "year": "2021"
+        },
+        {
+          "club": "Western Sydney",
+          "year": "2022"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 404,
+        "goals": 127,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zlatan Zenicanin",
@@ -337,9 +1548,29 @@
       "age": 19,
       "nationality": "TM nationality id 24",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 38,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibraheem Adams Olanrewaju",
@@ -347,9 +1578,33 @@
       "age": 19,
       "nationality": "Nigeria",
       "club": "FK Zeljeznicar Sarajevo",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        },
+        {
+          "club": "Romanija Pale",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Garcia",
@@ -359,7 +1614,27 @@
       "club": "FK Zeljeznicar Sarajevo",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeljeznicar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

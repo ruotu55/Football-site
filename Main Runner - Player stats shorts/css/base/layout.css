@@ -1,10 +1,16 @@
 *, *::before, *::after { box-sizing: border-box; }
 
-html, body {
+html {
+  min-height: 100%;
+  /* Repo root: Logo/Backgrounds/Blue background.jpg */
+  background: #0d1a2e url("../../../Logo/Backgrounds/Blue%20background.jpg") center / cover no-repeat fixed;
+}
+
+body {
   margin: 0;
   height: 100%;
   font-family: "Segoe UI", system-ui, sans-serif;
-  background: var(--bg-stage);
+  background: transparent;
   color: var(--text);
   overflow: hidden; 
   /* Font smoothing for crisp, sharp text edges */

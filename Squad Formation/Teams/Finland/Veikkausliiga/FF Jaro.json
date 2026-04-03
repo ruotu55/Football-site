@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "FI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,19 +22,123 @@
       "age": 29,
       "nationality": "Belgium",
       "club": "FF Jaro",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OH Leuven",
+          "year": "2014"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2016"
+        },
+        {
+          "club": "MVV Maastricht",
+          "year": "2017"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2017"
+        },
+        {
+          "club": "Sport. Hasselt",
+          "year": "2017"
+        },
+        {
+          "club": "KSK Lierse Kem.",
+          "year": "2018"
+        },
+        {
+          "club": "Helmond Sport",
+          "year": "2019"
+        },
+        {
+          "club": "RCS Braine",
+          "year": "2020"
+        },
+        {
+          "club": "Vict. Rosport",
+          "year": "2021"
+        },
+        {
+          "club": "Rupel Boom",
+          "year": "2022"
+        },
+        {
+          "club": "Dalkurd",
+          "year": "2023"
+        },
+        {
+          "club": "Vasalunds IF",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Strømmen",
+          "year": "2025"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 164,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joas Snellman",
       "position": "Goalkeeper",
-      "age": 23,
+      "age": 24,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2021"
+        },
+        {
+          "club": "Jakobstads BK",
+          "year": "2024"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 132,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anton Finell",
@@ -41,9 +146,29 @@
       "age": 18,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +178,53 @@
       "age": 27,
       "nationality": "Sweden",
       "club": "FF Jaro",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Utsiktens BK",
+          "year": "2018"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2018"
+        },
+        {
+          "club": "Utsiktens BK",
+          "year": "2019"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2019"
+        },
+        {
+          "club": "Utsiktens BK",
+          "year": "2020"
+        },
+        {
+          "club": "07 Vestur",
+          "year": "2024"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Ogungbaro",
@@ -63,9 +232,57 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "FF Jaro",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jerv",
+          "year": "2016"
+        },
+        {
+          "club": "IK Start",
+          "year": "2018"
+        },
+        {
+          "club": "Åsane",
+          "year": "2018"
+        },
+        {
+          "club": "Jerv",
+          "year": "2019"
+        },
+        {
+          "club": "IK Start",
+          "year": "2019"
+        },
+        {
+          "club": "NK Bravo",
+          "year": "2019"
+        },
+        {
+          "club": "FC KTP",
+          "year": "2020"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 20,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johan Brunell",
@@ -73,9 +290,45 @@
       "age": 34,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2010"
+        },
+        {
+          "club": "Toronto",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Jakobstads BK",
+          "year": "2017"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 20,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felix Kass",
@@ -83,9 +336,29 @@
       "age": 19,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ted Söderström",
@@ -93,9 +366,29 @@
       "age": 16,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Østigård Ness",
@@ -103,9 +396,45 @@
       "age": 26,
       "nationality": "Norway",
       "club": "FF Jaro",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grorud",
+          "year": "2016"
+        },
+        {
+          "club": "IK Start",
+          "year": "2023"
+        },
+        {
+          "club": "B36 Tórshavn",
+          "year": "2024"
+        },
+        {
+          "club": "NSÍ Runavík",
+          "year": "2025"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 11,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aron Bjonbäck",
@@ -113,9 +442,29 @@
       "age": 23,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 3,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +474,45 @@
       "age": 22,
       "nationality": "Norway",
       "club": "FF Jaro",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Odd",
+          "year": "2022"
+        },
+        {
+          "club": "Mjøndalen",
+          "year": "2024"
+        },
+        {
+          "club": "Odd",
+          "year": "2024"
+        },
+        {
+          "club": "Mjøndalen",
+          "year": "2025"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mats Pedersen",
@@ -135,9 +520,57 @@
       "age": 20,
       "nationality": "Norway",
       "club": "FF Jaro",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bodø/Glimt",
+          "year": "2023"
+        },
+        {
+          "club": "Mjøndalen",
+          "year": "2023"
+        },
+        {
+          "club": "Mjøndalen",
+          "year": "2024"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2024"
+        },
+        {
+          "club": "Kolding IF",
+          "year": "2025"
+        },
+        {
+          "club": "HamKam",
+          "year": "2025"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        },
+        {
+          "club": "HamKam",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 23,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Vidjeskog",
@@ -145,9 +578,53 @@
       "age": 27,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2015"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2016"
+        },
+        {
+          "club": "Kemi Kings",
+          "year": "2018"
+        },
+        {
+          "club": "Kokkolan PV",
+          "year": "2019"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2022"
+        },
+        {
+          "club": "Oskarshamns AIK",
+          "year": "2023"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 14,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jim Myrevik",
@@ -155,9 +632,33 @@
       "age": 30,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jakobstads BK",
+          "year": "2015"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 266,
+        "goals": 35,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oliver Isak Kass Kawo",
@@ -165,9 +666,45 @@
       "age": 24,
       "nationality": "Syria",
       "club": "FF Jaro",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Järfälla",
+          "year": "2021"
+        },
+        {
+          "club": "FC Helsingør",
+          "year": "2022"
+        },
+        {
+          "club": "Dalkurd",
+          "year": "2023"
+        },
+        {
+          "club": "IFK Haninge",
+          "year": "2024"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ludvig Nyman",
@@ -175,9 +712,37 @@
       "age": 18,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2024"
+        },
+        {
+          "club": "Kokkolan PV",
+          "year": "2025"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valde Löfs",
@@ -185,9 +750,29 @@
       "age": 17,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaius Hardén",
@@ -195,9 +780,33 @@
       "age": 21,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2022"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 32,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +816,75 @@
       "age": 22,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "IF Gnistan",
+          "year": "2022"
+        },
+        {
+          "club": "FC KTP",
+          "year": "2024"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 27,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ville Vuorinen",
+      "position": "Left Winger",
+      "age": 21,
+      "nationality": "Finland",
+      "club": "FF Jaro",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 21,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elliot Holmäng",
@@ -217,9 +892,29 @@
       "age": 19,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joas Vikström",
@@ -227,9 +922,29 @@
       "age": 17,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Herman Sjögrell",
@@ -237,9 +952,45 @@
       "age": 24,
       "nationality": "Sweden",
       "club": "FF Jaro",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Örgryte",
+          "year": "2020"
+        },
+        {
+          "club": "Sirius",
+          "year": "2021"
+        },
+        {
+          "club": "Örgryte",
+          "year": "2022"
+        },
+        {
+          "club": "Sirius",
+          "year": "2022"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Morteza Najafi",
@@ -247,9 +998,29 @@
       "age": 16,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Mendy",
@@ -257,9 +1028,29 @@
       "age": 21,
       "nationality": "The Gambia",
       "club": "FF Jaro",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rudi Vikström",
@@ -267,9 +1058,29 @@
       "age": 18,
       "nationality": "Finland",
       "club": "FF Jaro",
-      "appearances": 5,
-      "goals": 7,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FF Jaro",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 21,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Linus Zetterström",
@@ -277,9 +1088,57 @@
       "age": 28,
       "nationality": "Sweden",
       "club": "FF Jaro",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brage",
+          "year": "2014"
+        },
+        {
+          "club": "Karlstad BK",
+          "year": "2018"
+        },
+        {
+          "club": "BK Forward",
+          "year": "2019"
+        },
+        {
+          "club": "Yxhults IK",
+          "year": "2019"
+        },
+        {
+          "club": "Karlbergs BK",
+          "year": "2020"
+        },
+        {
+          "club": "Kvarnsvedens IK",
+          "year": "2020"
+        },
+        {
+          "club": "Enköpings SK",
+          "year": "2021"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 33,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

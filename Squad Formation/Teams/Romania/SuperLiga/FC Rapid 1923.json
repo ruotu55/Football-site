@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "RO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 26,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chindia",
+          "year": "2016"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 294,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 316,
+        "clean_sheets": 102
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Dejan Iliev",
@@ -33,7 +62,79 @@
       "club": "FC Rapid 1923",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arsenal",
+          "year": "2018"
+        },
+        {
+          "club": "SKF Sered",
+          "year": "2019"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2019"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2020"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2020"
+        },
+        {
+          "club": "Shrewsbury",
+          "year": "2020"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2021"
+        },
+        {
+          "club": "SKF Sered",
+          "year": "2021"
+        },
+        {
+          "club": "AS Trencin",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        },
+        {
+          "club": "FK Sarajevo",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 204,
+        "clean_sheets": 46
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Adrian Briciu",
@@ -43,7 +144,22 @@
       "club": "FC Rapid 1923",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,19 +169,45 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "FC Rapid 1923",
-      "appearances": 26,
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Léo Bolgado",
-      "position": "Centre-Back",
-      "age": 27,
-      "nationality": "Brazil",
-      "club": "FC Rapid 1923",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2010"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2018"
+        },
+        {
+          "club": "Viborg FF",
+          "year": "2019"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 26,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandru Pașcanu",
@@ -74,8 +216,130 @@
       "nationality": "Romania",
       "club": "FC Rapid 1923",
       "appearances": 22,
-      "goals": 4,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CFR Cluj",
+          "year": "2019"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2020"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2022"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2022"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2023"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 286,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Léo Bolgado",
+      "position": "Centre-Back",
+      "age": 27,
+      "nationality": "Brazil",
+      "club": "FC Rapid 1923",
+      "appearances": 16,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Coimbra",
+          "year": "2020"
+        },
+        {
+          "club": "Alverca",
+          "year": "2020"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2021"
+        },
+        {
+          "club": "Leixões",
+          "year": "2021"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2022"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2022"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2023"
+        },
+        {
+          "club": "Leixões",
+          "year": "2023"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2025"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Ciobotariu",
@@ -83,9 +347,57 @@
       "age": 27,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Dinamo",
+          "year": "2017"
+        },
+        {
+          "club": "Chindia",
+          "year": "2017"
+        },
+        {
+          "club": "FC Dinamo",
+          "year": "2018"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2020"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2022"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2022"
+        },
+        {
+          "club": "Sepsi OSK",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 256,
+        "goals": 20,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrei Borza",
@@ -95,7 +407,35 @@
       "club": "FC Rapid 1923",
       "appearances": 21,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2018"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 6,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert Sălceanu",
@@ -103,9 +443,49 @@
       "age": 22,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "D. Calarasi",
+          "year": "2020"
+        },
+        {
+          "club": "FC Buzau",
+          "year": "2022"
+        },
+        {
+          "club": "D. Calarasi",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2025"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Manea",
@@ -113,9 +493,69 @@
       "age": 28,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 3,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2009"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2014"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2015"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2015"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2017"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2017"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2019"
+        },
+        {
+          "club": "FCSB",
+          "year": "2019"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2020"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 337,
+        "goals": 16,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Răzvan Onea",
@@ -123,9 +563,41 @@
       "age": 27,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LPS Satu Mare",
+          "year": "2016"
+        },
+        {
+          "club": "CS Afumati",
+          "year": "2017"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2019"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -137,7 +609,51 @@
       "club": "FC Rapid 1923",
       "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KVC Westerlo",
+          "year": "2019"
+        },
+        {
+          "club": "FC Sion",
+          "year": "2021"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2022"
+        },
+        {
+          "club": "Sivasspor",
+          "year": "2022"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2025"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cătălin Vulturar",
@@ -145,9 +661,41 @@
       "age": 22,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atletico Arad",
+          "year": "2012"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2019"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 7,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Hromada",
@@ -155,9 +703,81 @@
       "age": 29,
       "nationality": "Slovakia",
       "club": "FC Rapid 1923",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KAC Kosice",
+          "year": "2012"
+        },
+        {
+          "club": "Juventus Youth",
+          "year": "2012"
+        },
+        {
+          "club": "KAC Kosice",
+          "year": "2013"
+        },
+        {
+          "club": "Pro Vercelli",
+          "year": "2015"
+        },
+        {
+          "club": "Sampdoria",
+          "year": "2015"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2015"
+        },
+        {
+          "club": "Sampdoria",
+          "year": "2016"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2016"
+        },
+        {
+          "club": "Sampdoria",
+          "year": "2017"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2017"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2020"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2020"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diogo Mendes",
@@ -166,8 +786,36 @@
       "nationality": "Cape Verde",
       "club": "FC Rapid 1923",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2011"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tobias Christensen",
@@ -175,9 +823,49 @@
       "age": 25,
       "nationality": "Norway",
       "club": "FC Rapid 1923",
-      "appearances": 31,
+      "appearances": 29,
       "goals": 1,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Vigør",
+          "year": "2015"
+        },
+        {
+          "club": "IK Start",
+          "year": "2016"
+        },
+        {
+          "club": "Molde FK",
+          "year": "2019"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2021"
+        },
+        {
+          "club": "Fehérvár",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 297,
+        "goals": 35,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Constantin Grameni",
@@ -185,9 +873,33 @@
       "age": 23,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 4,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Viitorul",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 15,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Gheorghe",
@@ -195,9 +907,37 @@
       "age": 19,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        },
+        {
+          "club": "FC Arges",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrei Șucu",
@@ -207,7 +947,22 @@
       "club": "FC Rapid 1923",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +972,61 @@
       "age": 25,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 31,
-      "goals": 5,
-      "assists": 10
+      "appearances": 30,
+      "goals": 4,
+      "assists": 10,
+      "transfer_history": [
+        {
+          "club": "LPS Bihorul",
+          "year": "2012"
+        },
+        {
+          "club": "Hidişelul",
+          "year": "2015"
+        },
+        {
+          "club": "LPS Bihorul",
+          "year": "2016"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2018"
+        },
+        {
+          "club": "Sepsi OSK",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2023"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 252,
+        "goals": 39,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Talisson",
@@ -227,9 +1034,61 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "FC Rapid 1923",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RB Bragantino",
+          "year": "2023"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2024"
+        },
+        {
+          "club": "RB Bragantino",
+          "year": "2024"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2025"
+        },
+        {
+          "club": "RB Bragantino",
+          "year": "2025"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2025"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2026"
+        },
+        {
+          "club": "RB Bragantino",
+          "year": "2026"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandru Dobre",
@@ -237,9 +1096,61 @@
       "age": 27,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 34,
-      "goals": 17,
-      "assists": 1
+      "appearances": 32,
+      "goals": 15,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bury",
+          "year": "2017"
+        },
+        {
+          "club": "Rochdale",
+          "year": "2018"
+        },
+        {
+          "club": "Yeovil Town",
+          "year": "2019"
+        },
+        {
+          "club": "Wigan",
+          "year": "2020"
+        },
+        {
+          "club": "Dijon",
+          "year": "2020"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2023"
+        },
+        {
+          "club": "Dijon",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 42,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olimpiu Moruțan",
@@ -247,9 +1158,69 @@
       "age": 26,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 27,
+      "appearances": 10,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "U Cluj",
+          "year": "2015"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2016"
+        },
+        {
+          "club": "FCSB",
+          "year": "2018"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2021"
+        },
+        {
+          "club": "Pisa",
+          "year": "2022"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2023"
+        },
+        {
+          "club": "Ankaragücü",
+          "year": "2023"
+        },
+        {
+          "club": "Pisa",
+          "year": "2024"
+        },
+        {
+          "club": "Ankaragücü",
+          "year": "2025"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2025"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 328,
+        "goals": 33,
+        "assists": 57,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Drilon Hazrollaj",
@@ -259,7 +1230,31 @@
       "club": "FC Rapid 1923",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Malisheva",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 48,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Paraschiv",
@@ -267,9 +1262,77 @@
       "age": 26,
       "nationality": "Romania",
       "club": "FC Rapid 1923",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 0
+      "appearances": 11,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Precizia Sacele",
+          "year": "2015"
+        },
+        {
+          "club": "V. Ghimbav",
+          "year": "2017"
+        },
+        {
+          "club": "AFC Harman",
+          "year": "2018"
+        },
+        {
+          "club": "Luceafarul",
+          "year": "2018"
+        },
+        {
+          "club": "Viitorul Tg.Jiu",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2021"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2021"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2022"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2022"
+        },
+        {
+          "club": "Real Oviedo",
+          "year": "2024"
+        },
+        {
+          "club": "CyD Leonesa",
+          "year": "2025"
+        },
+        {
+          "club": "Real Oviedo",
+          "year": "2026"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 64,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elvir Koljic",
@@ -279,7 +1342,55 @@
       "club": "FC Rapid 1923",
       "appearances": 28,
       "goals": 5,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "NK Triglav",
+          "year": "2013"
+        },
+        {
+          "club": "FK Krupa",
+          "year": "2014"
+        },
+        {
+          "club": "B. Banja Luka",
+          "year": "2015"
+        },
+        {
+          "club": "FK Krupa",
+          "year": "2016"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2018"
+        },
+        {
+          "club": "FK Krupa",
+          "year": "2018"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2018"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 88,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Borisav Burmaz",
@@ -287,9 +1398,53 @@
       "age": 24,
       "nationality": "Serbia",
       "club": "FC Rapid 1923",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Red Star",
+          "year": "2020"
+        },
+        {
+          "club": "Graficar",
+          "year": "2020"
+        },
+        {
+          "club": "Red Star",
+          "year": "2021"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2021"
+        },
+        {
+          "club": "Graficar",
+          "year": "2022"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 66,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

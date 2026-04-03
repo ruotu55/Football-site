@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "BRA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ponte Preta",
+          "year": "2015"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2022"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2022"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2023"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2023"
+        },
+        {
+          "club": "Internacional",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 173,
+        "clean_sheets": 74
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcelo Rangel",
@@ -31,9 +76,45 @@
       "age": 37,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cianorte",
+          "year": "2011"
+        },
+        {
+          "club": "Operário-PR",
+          "year": "2014"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2014"
+        },
+        {
+          "club": "Goiás",
+          "year": "2017"
+        },
+        {
+          "club": "Remo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 325,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 334,
+        "clean_sheets": 103
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ygor Vinhas",
@@ -41,9 +122,69 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paulista-SP",
+          "year": "2015"
+        },
+        {
+          "club": "Ferroviária",
+          "year": "2016"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2017"
+        },
+        {
+          "club": "São Caetano",
+          "year": "2017"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2017"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2018"
+        },
+        {
+          "club": "Água Santa-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2023"
+        },
+        {
+          "club": "Água Santa-SP",
+          "year": "2024"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 189,
+        "clean_sheets": 42
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +194,57 @@
       "age": 27,
       "nationality": "Cameroon",
       "club": "Clube do Remo (PA)",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "R. Strasbourg",
+          "year": "2017"
+        },
+        {
+          "club": "Strømsgodset",
+          "year": "2019"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2021"
+        },
+        {
+          "club": "SönderjyskE",
+          "year": "2021"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2022"
+        },
+        {
+          "club": "Sönderjyske",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2023"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kayky Almeida",
@@ -63,9 +252,33 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 11,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Watford",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thalisson",
@@ -73,9 +286,49 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Coritiba FC",
+          "year": "2023"
+        },
+        {
+          "club": "Camboriú",
+          "year": "2023"
+        },
+        {
+          "club": "Paysandu",
+          "year": "2025"
+        },
+        {
+          "club": "Coritiba FC",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        },
+        {
+          "club": "Coritiba FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marllon",
@@ -83,9 +336,101 @@
       "age": 33,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flamengo",
+          "year": "2011"
+        },
+        {
+          "club": "Boavista",
+          "year": "2013"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2013"
+        },
+        {
+          "club": "Macaé",
+          "year": "2013"
+        },
+        {
+          "club": "Rio Claro",
+          "year": "2014"
+        },
+        {
+          "club": "Santa Cruz-PE",
+          "year": "2014"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2015"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2015"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2016"
+        },
+        {
+          "club": "Cianorte",
+          "year": "2017"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2017"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2018"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2019"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2019"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2020"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2020"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2021"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 19,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Tassano",
@@ -93,9 +438,77 @@
       "age": 29,
       "nationality": "Uruguay",
       "club": "Clube do Remo (PA)",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2015"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2016"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2018"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2019"
+        },
+        {
+          "club": "CD Mirandés",
+          "year": "2019"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2020"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2020"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2020"
+        },
+        {
+          "club": "Khimki",
+          "year": "2023"
+        },
+        {
+          "club": "Torreense",
+          "year": "2023"
+        },
+        {
+          "club": "Khimki",
+          "year": "2024"
+        },
+        {
+          "club": "Feirense",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Léo Andrade",
@@ -103,29 +516,49 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "William Klaus",
-      "position": "Centre-Back",
-      "age": 32,
-      "nationality": "Brazil",
-      "club": "Clube do Remo (PA)",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Kawan",
-      "position": "Centre-Back",
-      "age": 22,
-      "nationality": "Brazil",
-      "club": "Clube do Remo (PA)",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juventude",
+          "year": "2019"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2020"
+        },
+        {
+          "club": "Khimki",
+          "year": "2023"
+        },
+        {
+          "club": "PAS Lamia",
+          "year": "2024"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Braian Cufré",
@@ -133,19 +566,127 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "Clube do Remo (PA)",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2015"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2020"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2021"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2022"
+        },
+        {
+          "club": "New York City",
+          "year": "2023"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2023"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 7,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Sávio",
+      "name": "Mayk",
       "position": "Left-Back",
-      "age": 30,
+      "age": 26,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América-RN",
+          "year": "2017"
+        },
+        {
+          "club": "América-RN",
+          "year": "2019"
+        },
+        {
+          "club": "Joinville-SC",
+          "year": "2020"
+        },
+        {
+          "club": "Retrô",
+          "year": "2022"
+        },
+        {
+          "club": "Guarani",
+          "year": "2022"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2024"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2025"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2026"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 3,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Lucas",
@@ -153,9 +694,131 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 11,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bangu-RJ",
+          "year": "2019"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2019"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2021"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2021"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2022"
+        },
+        {
+          "club": "Santos",
+          "year": "2023"
+        },
+        {
+          "club": "Juventude",
+          "year": "2024"
+        },
+        {
+          "club": "Santos",
+          "year": "2024"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 221,
+        "goals": 5,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Matheus Alexandre",
+      "position": "Right-Back",
+      "age": 26,
+      "nationality": "Brazil",
+      "club": "Clube do Remo (PA)",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marília-SP",
+          "year": "2018"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2018"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2019"
+        },
+        {
+          "club": "Inter Limeira",
+          "year": "2021"
+        },
+        {
+          "club": "Coritiba FC",
+          "year": "2021"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2023"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcelinho",
@@ -163,9 +826,53 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Confiança",
+          "year": "2019"
+        },
+        {
+          "club": "Brasil Pelotas",
+          "year": "2022"
+        },
+        {
+          "club": "Confiança",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2023"
+        },
+        {
+          "club": "Chapecoense",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 11,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +882,57 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 3
+      "appearances": 6,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Palmeiras",
+          "year": "2020"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2022"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2024"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2024"
+        },
+        {
+          "club": "Estoril",
+          "year": "2025"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 17,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonel Picco",
@@ -187,7 +942,47 @@
       "club": "Clube do Remo (PA)",
       "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2019"
+        },
+        {
+          "club": "Colon",
+          "year": "2022"
+        },
+        {
+          "club": "Platense",
+          "year": "2023"
+        },
+        {
+          "club": "Colon",
+          "year": "2024"
+        },
+        {
+          "club": "Platense",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zé Welison",
@@ -197,7 +992,113 @@
       "club": "Clube do Remo (PA)",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC Vitória",
+          "year": "2014"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2018"
+        },
+        {
+          "club": "EC Vitória",
+          "year": "2018"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2019"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2020"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2021"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2021"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2022"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2022"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2023"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 17,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "David Braga",
+      "position": "Defensive Midfield",
+      "age": 24,
+      "nationality": "Brazil",
+      "club": "Clube do Remo (PA)",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Desp. Brasil",
+          "year": "2022"
+        },
+        {
+          "club": "Athletic",
+          "year": "2023"
+        },
+        {
+          "club": "Desp. Brasil",
+          "year": "2023"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2023"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 24,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Víctor Cantillo",
@@ -205,9 +1106,53 @@
       "age": 32,
       "nationality": "Colombia",
       "club": "Clube do Remo (PA)",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leones FC",
+          "year": "2014"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2017"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2017"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2020"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2024"
+        },
+        {
+          "club": "Huracán",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 362,
+        "goals": 6,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Panagiotis Tachtsidis",
@@ -215,9 +1160,129 @@
       "age": 35,
       "nationality": "Greece",
       "club": "Clube do Remo (PA)",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AEK Athens",
+          "year": "2008"
+        },
+        {
+          "club": "Genoa",
+          "year": "2010"
+        },
+        {
+          "club": "Cesena",
+          "year": "2010"
+        },
+        {
+          "club": "Grosseto",
+          "year": "2011"
+        },
+        {
+          "club": "Genoa",
+          "year": "2011"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2011"
+        },
+        {
+          "club": "Genoa",
+          "year": "2012"
+        },
+        {
+          "club": "Roma",
+          "year": "2012"
+        },
+        {
+          "club": "Genoa",
+          "year": "2013"
+        },
+        {
+          "club": "Catania",
+          "year": "2013"
+        },
+        {
+          "club": "Torino",
+          "year": "2014"
+        },
+        {
+          "club": "Catania",
+          "year": "2014"
+        },
+        {
+          "club": "Genoa",
+          "year": "2014"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2014"
+        },
+        {
+          "club": "Genoa",
+          "year": "2015"
+        },
+        {
+          "club": "Torino",
+          "year": "2016"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2016"
+        },
+        {
+          "club": "Torino",
+          "year": "2017"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2017"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2018"
+        },
+        {
+          "club": "Lecce",
+          "year": "2019"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2021"
+        },
+        {
+          "club": "Khor Fakkan",
+          "year": "2022"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2023"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 431,
+        "goals": 28,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zé Ricardo",
@@ -225,9 +1290,65 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boavista",
+          "year": "2020"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2021"
+        },
+        {
+          "club": "Boavista",
+          "year": "2021"
+        },
+        {
+          "club": "Tombense",
+          "year": "2022"
+        },
+        {
+          "club": "Goiás",
+          "year": "2023"
+        },
+        {
+          "club": "Tombense",
+          "year": "2023"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2024"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2025"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Freitas",
@@ -235,9 +1356,45 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tianguá EC",
+          "year": "2021"
+        },
+        {
+          "club": "Atlético-CE",
+          "year": "2021"
+        },
+        {
+          "club": "Atlético-CE",
+          "year": "2022"
+        },
+        {
+          "club": "Prudente-SP",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick",
@@ -245,9 +1402,89 @@
       "age": 33,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Operário-PR",
+          "year": "2012"
+        },
+        {
+          "club": "Marcílio Dias",
+          "year": "2013"
+        },
+        {
+          "club": "Caxias-RS",
+          "year": "2013"
+        },
+        {
+          "club": "Comercial-SP",
+          "year": "2014"
+        },
+        {
+          "club": "Gaziantepspor",
+          "year": "2014"
+        },
+        {
+          "club": "Caxias-RS",
+          "year": "2015"
+        },
+        {
+          "club": "Goiás",
+          "year": "2015"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2017"
+        },
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2022"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2023"
+        },
+        {
+          "club": "Santos",
+          "year": "2024"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2025"
+        },
+        {
+          "club": "Santos",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        },
+        {
+          "club": "Santos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 567,
+        "goals": 47,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giovanni Pavani",
@@ -255,19 +1492,147 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 6,
-      "goals": 2,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rio Preto-SP",
+          "year": "2016"
+        },
+        {
+          "club": "Olímpia-SP",
+          "year": "2016"
+        },
+        {
+          "club": "Linense",
+          "year": "2017"
+        },
+        {
+          "club": "Noroeste",
+          "year": "2018"
+        },
+        {
+          "club": "Linense",
+          "year": "2018"
+        },
+        {
+          "club": "Patrocinense",
+          "year": "2019"
+        },
+        {
+          "club": "Linense",
+          "year": "2019"
+        },
+        {
+          "club": "Uberaba-MG",
+          "year": "2019"
+        },
+        {
+          "club": "EC São Bernardo",
+          "year": "2019"
+        },
+        {
+          "club": "Taubaté",
+          "year": "2020"
+        },
+        {
+          "club": "Linense",
+          "year": "2020"
+        },
+        {
+          "club": "Água Santa-SP",
+          "year": "2020"
+        },
+        {
+          "club": "Linense",
+          "year": "2021"
+        },
+        {
+          "club": "São Bernardo",
+          "year": "2021"
+        },
+        {
+          "club": "Operário-PR",
+          "year": "2022"
+        },
+        {
+          "club": "Linense",
+          "year": "2022"
+        },
+        {
+          "club": "Chapecoense",
+          "year": "2023"
+        },
+        {
+          "club": "Linense",
+          "year": "2023"
+        },
+        {
+          "club": "Remo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 14,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Franco Catarozzi",
       "position": "Central Midfield",
-      "age": 25,
+      "age": 26,
       "nationality": "Uruguay",
       "club": "Clube do Remo (PA)",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mvd City Torque",
+          "year": "2020"
+        },
+        {
+          "club": "Nacional",
+          "year": "2025"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vitor Bueno",
@@ -275,19 +1640,69 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Guty",
-      "position": "Attacking Midfield",
-      "age": 22,
-      "nationality": "Brazil",
-      "club": "Clube do Remo (PA)",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Botafogo-SP",
+          "year": "2012"
+        },
+        {
+          "club": "Santos",
+          "year": "2015"
+        },
+        {
+          "club": "Botafogo-SP",
+          "year": "2016"
+        },
+        {
+          "club": "Santos",
+          "year": "2016"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2018"
+        },
+        {
+          "club": "Santos",
+          "year": "2019"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2019"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2020"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2022"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 384,
+        "goals": 68,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -297,9 +1712,57 @@
       "age": 25,
       "nationality": "Uruguay",
       "club": "Clube do Remo (PA)",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanderers",
+          "year": "2020"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2023"
+        },
+        {
+          "club": "León",
+          "year": "2024"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2024"
+        },
+        {
+          "club": "CD Everton",
+          "year": "2025"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 20,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Ferreira",
@@ -307,9 +1770,37 @@
       "age": 24,
       "nationality": "Uruguay",
       "club": "Clube do Remo (PA)",
-      "appearances": 7,
-      "goals": 2,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanderers",
+          "year": "2022"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        },
+        {
+          "club": "Wanderers",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 14,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alef Manga",
@@ -317,9 +1808,121 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 2,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Jabaquara-SP",
+          "year": "2012"
+        },
+        {
+          "club": "São Vicente-SP",
+          "year": "2013"
+        },
+        {
+          "club": "Bandeirante-SP",
+          "year": "2015"
+        },
+        {
+          "club": "Jabaquara-SP",
+          "year": "2016"
+        },
+        {
+          "club": "Cascavel-PR",
+          "year": "2017"
+        },
+        {
+          "club": "Maringá",
+          "year": "2017"
+        },
+        {
+          "club": "Cascavel-PR",
+          "year": "2018"
+        },
+        {
+          "club": "Maringá",
+          "year": "2018"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2018"
+        },
+        {
+          "club": "Santa Rita-AL",
+          "year": "2019"
+        },
+        {
+          "club": "Coruripe",
+          "year": "2019"
+        },
+        {
+          "club": "ASA",
+          "year": "2019"
+        },
+        {
+          "club": "Resende",
+          "year": "2020"
+        },
+        {
+          "club": "Coruripe",
+          "year": "2020"
+        },
+        {
+          "club": "Volta Redonda",
+          "year": "2020"
+        },
+        {
+          "club": "Coruripe",
+          "year": "2021"
+        },
+        {
+          "club": "Volta Redonda",
+          "year": "2021"
+        },
+        {
+          "club": "Goiás",
+          "year": "2021"
+        },
+        {
+          "club": "Coritiba FC",
+          "year": "2022"
+        },
+        {
+          "club": "Volta Redonda",
+          "year": "2022"
+        },
+        {
+          "club": "Coritiba FC",
+          "year": "2023"
+        },
+        {
+          "club": "Pafos",
+          "year": "2023"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 69,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jajá",
@@ -327,9 +1930,97 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 1,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boavista",
+          "year": "2019"
+        },
+        {
+          "club": "Aparecida-GO",
+          "year": "2019"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2020"
+        },
+        {
+          "club": "Boavista",
+          "year": "2020"
+        },
+        {
+          "club": "XV Piracicaba",
+          "year": "2020"
+        },
+        {
+          "club": "Boavista",
+          "year": "2021"
+        },
+        {
+          "club": "Sampaio-MA",
+          "year": "2021"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2021"
+        },
+        {
+          "club": "Boavista",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2022"
+        },
+        {
+          "club": "Dibba Fujairah",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2023"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2023"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2024"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2025"
+        },
+        {
+          "club": "Portuguesa",
+          "year": "2025"
+        },
+        {
+          "club": "Goiás",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 23,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jáderson",
@@ -337,9 +2028,45 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santa Cruz-PE",
+          "year": "2020"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2022"
+        },
+        {
+          "club": "Tombense",
+          "year": "2023"
+        },
+        {
+          "club": "Remo",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 17,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yago Pikachu",
@@ -347,9 +2074,57 @@
       "age": 33,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 13,
-      "goals": 3,
-      "assists": 0
+      "appearances": 9,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paysandu",
+          "year": "2012"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2016"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2021"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2022"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2023"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 709,
+        "goals": 141,
+        "assists": 64,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Taliari",
@@ -357,9 +2132,89 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 11,
-      "goals": 6,
-      "assists": 0
+      "appearances": 3,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC São Bernardo",
+          "year": "2015"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2017"
+        },
+        {
+          "club": "Água Santa-SP",
+          "year": "2017"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2018"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2019"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2020"
+        },
+        {
+          "club": "Ituano",
+          "year": "2020"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2021"
+        },
+        {
+          "club": "Brusque",
+          "year": "2021"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2022"
+        },
+        {
+          "club": "Santo André",
+          "year": "2023"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2023"
+        },
+        {
+          "club": "CSA",
+          "year": "2023"
+        },
+        {
+          "club": "Juventude",
+          "year": "2023"
+        },
+        {
+          "club": "Juventude",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 49,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlinhos",
@@ -367,9 +2222,113 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Corinthians",
+          "year": "2017"
+        },
+        {
+          "club": "Oeste",
+          "year": "2018"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2018"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2019"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2019"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2019"
+        },
+        {
+          "club": "Marcílio Dias",
+          "year": "2020"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2020"
+        },
+        {
+          "club": "Atibaia-SP",
+          "year": "2020"
+        },
+        {
+          "club": "São Caetano",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Santo André",
+          "year": "2021"
+        },
+        {
+          "club": "Audax-RJ",
+          "year": "2021"
+        },
+        {
+          "club": "Juventus-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Audax-RJ",
+          "year": "2023"
+        },
+        {
+          "club": "Camboriú",
+          "year": "2023"
+        },
+        {
+          "club": "Nova Iguaçu-RJ",
+          "year": "2023"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2024"
+        },
+        {
+          "club": "EC Vitória",
+          "year": "2025"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 33,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Pedro",
@@ -377,9 +2336,69 @@
       "age": 29,
       "nationality": "Guinea-Bissau",
       "club": "Clube do Remo (PA)",
-      "appearances": 9,
-      "goals": 3,
-      "assists": 1
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santa Clara",
+          "year": "2014"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2015"
+        },
+        {
+          "club": "Trofense",
+          "year": "2018"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2020"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2020"
+        },
+        {
+          "club": "Bursaspor",
+          "year": "2022"
+        },
+        {
+          "club": "Panetolikos",
+          "year": "2022"
+        },
+        {
+          "club": "Dibba Al-Hisn",
+          "year": "2024"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 264,
+        "goals": 46,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Monti",
@@ -387,9 +2406,57 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "Clube do Remo (PA)",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acassuso",
+          "year": "2019"
+        },
+        {
+          "club": "UE La Jonquera",
+          "year": "2020"
+        },
+        {
+          "club": "L'Escala",
+          "year": "2021"
+        },
+        {
+          "club": "Muñiz",
+          "year": "2022"
+        },
+        {
+          "club": "Fénix",
+          "year": "2023"
+        },
+        {
+          "club": "Vinotinto FC",
+          "year": "2024"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        },
+        {
+          "club": "Vinotinto FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 30,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Poveda",
@@ -397,9 +2464,93 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 9,
-      "goals": 5,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guarani",
+          "year": "2018"
+        },
+        {
+          "club": "Alverca",
+          "year": "2019"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2019"
+        },
+        {
+          "club": "Juventude",
+          "year": "2019"
+        },
+        {
+          "club": "Brasil Pelotas",
+          "year": "2020"
+        },
+        {
+          "club": "Alverca",
+          "year": "2020"
+        },
+        {
+          "club": "Brasil Pelotas",
+          "year": "2021"
+        },
+        {
+          "club": "Alverca",
+          "year": "2021"
+        },
+        {
+          "club": "Sampaio-MA",
+          "year": "2022"
+        },
+        {
+          "club": "Alverca",
+          "year": "2022"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2023"
+        },
+        {
+          "club": "Alverca",
+          "year": "2023"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2023"
+        },
+        {
+          "club": "Alverca",
+          "year": "2024"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2025"
+        },
+        {
+          "club": "Primavera",
+          "year": "2026"
+        },
+        {
+          "club": "Remo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 63,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eduardo Melo",
@@ -407,9 +2558,53 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "Clube do Remo (PA)",
-      "appearances": 6,
-      "goals": 2,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Criciúma",
+          "year": "2021"
+        },
+        {
+          "club": "Concórdia",
+          "year": "2023"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2023"
+        },
+        {
+          "club": "Gir. Kitakyushu",
+          "year": "2023"
+        },
+        {
+          "club": "Caxias-RS",
+          "year": "2025"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

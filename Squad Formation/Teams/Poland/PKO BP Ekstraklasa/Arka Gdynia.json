@@ -9,21 +9,120 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
+      "name": "Andrei Vlad",
+      "position": "Goalkeeper",
+      "age": 26,
+      "nationality": "Romania",
+      "club": "Arka Gdynia",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Un. Craiova",
+          "year": "2016"
+        },
+        {
+          "club": "FCSB",
+          "year": "2017"
+        },
+        {
+          "club": "Aktobe",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 151,
+        "clean_sheets": 58
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      }
+    },
+    {
       "name": "Damian Węglarz",
       "position": "Goalkeeper",
-      "age": 29,
+      "age": 30,
       "nationality": "Poland",
       "club": "Arka Gdynia",
-      "appearances": 25,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zawisza",
+          "year": "2013"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2016"
+        },
+        {
+          "club": "Wigry Suwalki",
+          "year": "2018"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2019"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2021"
+        },
+        {
+          "club": "Chrobry Glogow",
+          "year": "2022"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2023"
+        },
+        {
+          "club": "Chrobry Glogow",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 302,
+        "clean_sheets": 55
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jędrzej Grobelny",
@@ -31,9 +130,45 @@
       "age": 24,
       "nationality": "Poland",
       "club": "Arka Gdynia",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pogon Szczecin",
+          "year": "2018"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2020"
+        },
+        {
+          "club": "Pogon Szczecin",
+          "year": "2021"
+        },
+        {
+          "club": "Warta Poznan",
+          "year": "2021"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 163,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kacper Krzepisz",
@@ -43,10 +178,112 @@
       "club": "Arka Gdynia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arka Gdynia",
+          "year": "2018"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2024"
+        },
+        {
+          "club": "Kotwica",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 113,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
+    {
+      "name": "Serafin Szota",
+      "position": "Centre-Back",
+      "age": 27,
+      "nationality": "Poland",
+      "club": "Arka Gdynia",
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lech Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2017"
+        },
+        {
+          "club": "Odra Opole",
+          "year": "2018"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2019"
+        },
+        {
+          "club": "Wisla Kraków",
+          "year": "2019"
+        },
+        {
+          "club": "Stomil Olsztyn",
+          "year": "2020"
+        },
+        {
+          "club": "Wisla Kraków",
+          "year": "2020"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2022"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2024"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 245,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Kike Hermoso",
       "position": "Centre-Back",
@@ -55,17 +292,51 @@
       "club": "Arka Gdynia",
       "appearances": 15,
       "goals": 0,
-      "assists": 2
-    },
-    {
-      "name": "Serafin Szota",
-      "position": "Centre-Back",
-      "age": 27,
-      "nationality": "Poland",
-      "club": "Arka Gdynia",
-      "appearances": 29,
-      "goals": 2,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Alcobendas CF",
+          "year": "2016"
+        },
+        {
+          "club": "SD Ejea",
+          "year": "2019"
+        },
+        {
+          "club": "SD Huesca",
+          "year": "2020"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2020"
+        },
+        {
+          "club": "Vilafranquense",
+          "year": "2022"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michał Marcjanik",
@@ -73,9 +344,53 @@
       "age": 31,
       "nationality": "Poland",
       "club": "Arka Gdynia",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arka Gdynia",
+          "year": "2013"
+        },
+        {
+          "club": "FC Empoli",
+          "year": "2018"
+        },
+        {
+          "club": "Carpi",
+          "year": "2019"
+        },
+        {
+          "club": "FC Empoli",
+          "year": "2019"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2019"
+        },
+        {
+          "club": "FC Empoli",
+          "year": "2020"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 352,
+        "goals": 33,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dawid Gojny",
@@ -85,7 +400,47 @@
       "club": "Arka Gdynia",
       "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LKS Krzyzano.",
+          "year": "2012"
+        },
+        {
+          "club": "Odra Wodzislaw",
+          "year": "2013"
+        },
+        {
+          "club": "ROW Rybnik",
+          "year": "2014"
+        },
+        {
+          "club": "GKS Jastrzebie",
+          "year": "2018"
+        },
+        {
+          "club": "Z. Sosnowiec",
+          "year": "2020"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 378,
+        "goals": 8,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominick Zator",
@@ -93,9 +448,61 @@
       "age": 31,
       "nationality": "Canada",
       "club": "Arka Gdynia",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Calgary",
+          "year": "2016"
+        },
+        {
+          "club": "Calgary Dinos",
+          "year": "2016"
+        },
+        {
+          "club": "Whitecaps FC 2",
+          "year": "2017"
+        },
+        {
+          "club": "Calgary",
+          "year": "2018"
+        },
+        {
+          "club": "Cavalry FC",
+          "year": "2018"
+        },
+        {
+          "club": "York United",
+          "year": "2021"
+        },
+        {
+          "club": "Vasalunds IF",
+          "year": "2021"
+        },
+        {
+          "club": "Korona Kielce",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -105,9 +512,29 @@
       "age": 21,
       "nationality": "Poland",
       "club": "Arka Gdynia",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 1
+      "appearances": 24,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 10,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aurélien Nguiamba",
@@ -115,9 +542,61 @@
       "age": 27,
       "nationality": "France",
       "club": "Arka Gdynia",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Nancy",
+          "year": "2018"
+        },
+        {
+          "club": "G. Ajaccio",
+          "year": "2020"
+        },
+        {
+          "club": "AS Nancy",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Spezia Calcio",
+          "year": "2021"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2023"
+        },
+        {
+          "club": "Spezia Calcio",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Perea",
@@ -125,9 +604,57 @@
       "age": 28,
       "nationality": "Spain",
       "club": "Arka Gdynia",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CA Osasuna",
+          "year": "2018"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2020"
+        },
+        {
+          "club": "CA Osasuna",
+          "year": "2020"
+        },
+        {
+          "club": "CD Leganés",
+          "year": "2020"
+        },
+        {
+          "club": "OFI Crete",
+          "year": "2022"
+        },
+        {
+          "club": "CD Leganés",
+          "year": "2023"
+        },
+        {
+          "club": "Racing Ferrol",
+          "year": "2024"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michał Rzuchowski",
@@ -135,9 +662,65 @@
       "age": 32,
       "nationality": "Poland",
       "club": "Arka Gdynia",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arka Gdynia",
+          "year": "2012"
+        },
+        {
+          "club": "Ruch Chorzow",
+          "year": "2014"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2015"
+        },
+        {
+          "club": "Ruch Chorzow",
+          "year": "2015"
+        },
+        {
+          "club": "Bytovia Bytow",
+          "year": "2016"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Chrobry Glogow",
+          "year": "2021"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2022"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 35,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Navarro",
@@ -145,19 +728,57 @@
       "age": 30,
       "nationality": "Spain",
       "club": "Arka Gdynia",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 2,
-      "assists": 4
-    },
-    {
-      "name": "Patryk Szysz",
-      "position": "Right Midfield",
-      "age": 27,
-      "nationality": "Poland",
-      "club": "Arka Gdynia",
-      "appearances": 17,
-      "goals": 0,
-      "assists": 1
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Espanyol",
+          "year": "2017"
+        },
+        {
+          "club": "Watford",
+          "year": "2018"
+        },
+        {
+          "club": "CD Leganés",
+          "year": "2019"
+        },
+        {
+          "club": "Watford",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "El Paso",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 17,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tornike Gaprindashvili",
@@ -167,7 +788,135 @@
       "club": "Arka Gdynia",
       "appearances": 17,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Gagra",
+          "year": "2016"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2019"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2022"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 27,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Patryk Szysz",
+      "position": "Right Midfield",
+      "age": 28,
+      "nationality": "Poland",
+      "club": "Arka Gdynia",
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Motor Lublin",
+          "year": "2016"
+        },
+        {
+          "club": "Gornik Leczna",
+          "year": "2017"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2018"
+        },
+        {
+          "club": "Gornik Leczna",
+          "year": "2018"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2022"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 63,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Oskar Kubiak",
+      "position": "Left Midfield",
+      "age": 19,
+      "nationality": "Poland",
+      "club": "Arka Gdynia",
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wda Swiecie",
+          "year": "2024"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        },
+        {
+          "club": "Sokol Kleczew",
+          "year": "2025"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dawid Kocyla",
@@ -175,9 +924,45 @@
       "age": 23,
       "nationality": "Poland",
       "club": "Arka Gdynia",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GKS Belchatow",
+          "year": "2019"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2020"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2022"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2022"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 22,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Oliveira",
@@ -187,7 +972,59 @@
       "club": "Arka Gdynia",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Luzern",
+          "year": "2015"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2017"
+        },
+        {
+          "club": "FC Luzern",
+          "year": "2018"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Cova Piedade",
+          "year": "2020"
+        },
+        {
+          "club": "Leixões",
+          "year": "2021"
+        },
+        {
+          "club": "Debrecen",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 52,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dawid Abramowicz",
@@ -195,19 +1032,89 @@
       "age": 34,
       "nationality": "Poland",
       "club": "Arka Gdynia",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 1,
-      "assists": 1
-    },
-    {
-      "name": "Oskar Kubiak",
-      "position": "Left Midfield",
-      "age": 19,
-      "nationality": "Poland",
-      "club": "Arka Gdynia",
-      "appearances": 24,
-      "goals": 15,
-      "assists": 5
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Slask Wroclaw",
+          "year": "2010"
+        },
+        {
+          "club": "Olimpia Grudz.",
+          "year": "2012"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2012"
+        },
+        {
+          "club": "Chojniczanka",
+          "year": "2013"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2013"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2013"
+        },
+        {
+          "club": "Skra Czesto.",
+          "year": "2014"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2015"
+        },
+        {
+          "club": "P. Niepolomice",
+          "year": "2015"
+        },
+        {
+          "club": "GKS Katowice",
+          "year": "2016"
+        },
+        {
+          "club": "GKS Tychy",
+          "year": "2017"
+        },
+        {
+          "club": "Radomiak",
+          "year": "2019"
+        },
+        {
+          "club": "Wisla Kraków",
+          "year": "2020"
+        },
+        {
+          "club": "Radomiak",
+          "year": "2021"
+        },
+        {
+          "club": "P. Niepolomice",
+          "year": "2024"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 26,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alassane Sidibe",
@@ -215,9 +1122,45 @@
       "age": 23,
       "nationality": "Ivory Coast",
       "club": "Arka Gdynia",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atalanta",
+          "year": "2022"
+        },
+        {
+          "club": "Cosenza",
+          "year": "2022"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2023"
+        },
+        {
+          "club": "Ascoli",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 55,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Kerk",
@@ -225,9 +1168,65 @@
       "age": 31,
       "nationality": "Germany",
       "club": "Arka Gdynia",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 3,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Freiburg",
+          "year": "2013"
+        },
+        {
+          "club": "1.FC Nuremberg",
+          "year": "2015"
+        },
+        {
+          "club": "Freiburg",
+          "year": "2016"
+        },
+        {
+          "club": "1.FC K'lautern",
+          "year": "2016"
+        },
+        {
+          "club": "Freiburg",
+          "year": "2017"
+        },
+        {
+          "club": "1.FC Nuremberg",
+          "year": "2017"
+        },
+        {
+          "club": "VfL Osnabrück",
+          "year": "2020"
+        },
+        {
+          "club": "Hannover 96",
+          "year": "2021"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 67,
+        "assists": 60,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,19 +1236,127 @@
       "age": 27,
       "nationality": "Ukraine",
       "club": "Arka Gdynia",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2018"
+        },
+        {
+          "club": "Zorya Lugansk",
+          "year": "2019"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2019"
+        },
+        {
+          "club": "Legia Warszawa",
+          "year": "2021"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2021"
+        },
+        {
+          "club": "SC Dnipro-1",
+          "year": "2021"
+        },
+        {
+          "club": "Chornomorets",
+          "year": "2022"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2022"
+        },
+        {
+          "club": "Zorya Lugansk",
+          "year": "2022"
+        },
+        {
+          "club": "Sunderland",
+          "year": "2023"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2025"
+        },
+        {
+          "club": "Sunderland",
+          "year": "2025"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        },
+        {
+          "club": "Sunderland",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 44,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vladislavs Gutkovskis",
       "position": "Centre-Forward",
-      "age": 30,
+      "age": 31,
       "nationality": "Latvia",
       "club": "Arka Gdynia",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Skonto",
+          "year": "2013"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2016"
+        },
+        {
+          "club": "Raków",
+          "year": "2020"
+        },
+        {
+          "club": "Daejeon Hana C.",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 133,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 14,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edu Espiau",
@@ -257,9 +1364,57 @@
       "age": 31,
       "nationality": "Spain",
       "club": "Arka Gdynia",
-      "appearances": 22,
-      "goals": 6,
-      "assists": 0
+      "appearances": 21,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acodetti CF",
+          "year": "2012"
+        },
+        {
+          "club": "UD Las Palmas C",
+          "year": "2016"
+        },
+        {
+          "club": "Las Palmas Atl.",
+          "year": "2018"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2019"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2020"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2021"
+        },
+        {
+          "club": "Burgos CF",
+          "year": "2023"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 287,
+        "goals": 45,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

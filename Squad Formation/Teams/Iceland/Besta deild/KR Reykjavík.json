@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "IS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,47 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fjölnir",
+          "year": "2020"
+        },
+        {
+          "club": "Vaengir J.",
+          "year": "2021"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2021"
+        },
+        {
+          "club": "Vaengir J.",
+          "year": "2022"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2022"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 102,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arnar Freyr Ólafsson",
@@ -33,7 +74,83 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fjölnir",
+          "year": "2010"
+        },
+        {
+          "club": "KF Björninn",
+          "year": "2010"
+        },
+        {
+          "club": "KF Björninn",
+          "year": "2011"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2011"
+        },
+        {
+          "club": "KF Björninn",
+          "year": "2012"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2012"
+        },
+        {
+          "club": "Aegir",
+          "year": "2013"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2013"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2014"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2014"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2015"
+        },
+        {
+          "club": "HK Kópavogs",
+          "year": "2016"
+        },
+        {
+          "club": "Ýmir",
+          "year": "2019"
+        },
+        {
+          "club": "HK Kópavogs",
+          "year": "2019"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 380,
+        "clean_sheets": 58
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haukur Logi Tryggvason",
@@ -43,7 +160,27 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +192,39 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wehen Wiesbaden",
+          "year": "2016"
+        },
+        {
+          "club": "Dynamo Dresden",
+          "year": "2021"
+        },
+        {
+          "club": "Aarhus GF",
+          "year": "2023"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 6,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Finnur Tómas Pálmason",
@@ -65,17 +234,85 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2017"
+        },
+        {
+          "club": "Thróttur",
+          "year": "2018"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2018"
+        },
+        {
+          "club": "Norrköping",
+          "year": "2021"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2021"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gyrdir Hrafn Gudbrandsson",
       "position": "Centre-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "Iceland",
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leiknir",
+          "year": "2019"
+        },
+        {
+          "club": "Hafnarfjördur",
+          "year": "2023"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 17,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Birgir Steinn Styrmisson",
@@ -84,8 +321,40 @@
       "nationality": "Iceland",
       "club": "KR Reykjavík",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2020"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2023"
+        },
+        {
+          "club": "KV Vesturbaejar",
+          "year": "2025"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Hrannar Eyjólfsson",
@@ -95,7 +364,43 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grótta",
+          "year": "2019"
+        },
+        {
+          "club": "KV Vesturbaejar",
+          "year": "2019"
+        },
+        {
+          "club": "Vestri",
+          "year": "2020"
+        },
+        {
+          "club": "Grótta",
+          "year": "2020"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 19,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ástbjörn Thórdarson",
@@ -105,7 +410,67 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2015"
+        },
+        {
+          "club": "ÍA Akranes",
+          "year": "2018"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2018"
+        },
+        {
+          "club": "Víkingur Ó.",
+          "year": "2018"
+        },
+        {
+          "club": "Grótta",
+          "year": "2019"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2019"
+        },
+        {
+          "club": "Grótta",
+          "year": "2020"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2020"
+        },
+        {
+          "club": "Keflavík",
+          "year": "2021"
+        },
+        {
+          "club": "Hafnarfjördur",
+          "year": "2022"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 16,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hjalti Sigurdsson",
@@ -114,8 +479,60 @@
       "nationality": "Iceland",
       "club": "KR Reykjavík",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2018"
+        },
+        {
+          "club": "KV Vesturbaejar",
+          "year": "2018"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2019"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2020"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2021"
+        },
+        {
+          "club": "Dayton Flyers",
+          "year": "2023"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2024"
+        },
+        {
+          "club": "Dayton Flyers",
+          "year": "2024"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -127,7 +544,43 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fram Reykjavík",
+          "year": "2014"
+        },
+        {
+          "club": "HK Kópavogs",
+          "year": "2015"
+        },
+        {
+          "club": "Thróttur",
+          "year": "2016"
+        },
+        {
+          "club": "Fram Reykjavík",
+          "year": "2020"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 290,
+        "goals": 28,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Helgi Sigurdarson",
@@ -135,9 +588,53 @@
       "age": 29,
       "nationality": "Iceland",
       "club": "KR Reykjavík",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 19,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Breidablik",
+          "year": "2016"
+        },
+        {
+          "club": "Víkingur Ó.",
+          "year": "2016"
+        },
+        {
+          "club": "Víkingur Ó.",
+          "year": "2018"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2018"
+        },
+        {
+          "club": "Vasalunds IF",
+          "year": "2022"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2023"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arnór Ingvi Traustason",
@@ -145,9 +642,69 @@
       "age": 32,
       "nationality": "Iceland",
       "club": "KR Reykjavík",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Keflavík",
+          "year": "2009"
+        },
+        {
+          "club": "Sandnes Ulf",
+          "year": "2012"
+        },
+        {
+          "club": "Keflavík",
+          "year": "2012"
+        },
+        {
+          "club": "Norrköping",
+          "year": "2014"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2016"
+        },
+        {
+          "club": "AEK Athens",
+          "year": "2017"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2017"
+        },
+        {
+          "club": "Malmö",
+          "year": "2018"
+        },
+        {
+          "club": "New England",
+          "year": "2021"
+        },
+        {
+          "club": "Norrköping",
+          "year": "2022"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 440,
+        "goals": 81,
+        "assists": 58,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 66,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Orri Hrafn Kjartansson",
@@ -155,9 +712,49 @@
       "age": 24,
       "nationality": "Iceland",
       "club": "KR Reykjavík",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fylkir",
+          "year": "2018"
+        },
+        {
+          "club": "Fylkir",
+          "year": "2020"
+        },
+        {
+          "club": "Valur",
+          "year": "2022"
+        },
+        {
+          "club": "Fylkir",
+          "year": "2024"
+        },
+        {
+          "club": "Valur",
+          "year": "2024"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hrafn Tómasson",
@@ -167,7 +764,51 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2021"
+        },
+        {
+          "club": "KV Vesturbaejar",
+          "year": "2022"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2022"
+        },
+        {
+          "club": "KV Vesturbaejar",
+          "year": "2023"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2024"
+        },
+        {
+          "club": "Thróttur",
+          "year": "2025"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sigurdur Breki Kárason",
@@ -177,7 +818,27 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -189,7 +850,47 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fjölnir",
+          "year": "2009"
+        },
+        {
+          "club": "Tromsø IL",
+          "year": "2016"
+        },
+        {
+          "club": "IK Start",
+          "year": "2018"
+        },
+        {
+          "club": "Union SG",
+          "year": "2020"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2021"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 378,
+        "goals": 108,
+        "assists": 55,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amin Cosic",
@@ -199,7 +900,31 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Njardvík",
+          "year": "2024"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gudmundur Andri Tryggvason",
@@ -209,7 +934,47 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2015"
+        },
+        {
+          "club": "IK Start",
+          "year": "2018"
+        },
+        {
+          "club": "Víkingur",
+          "year": "2019"
+        },
+        {
+          "club": "IK Start",
+          "year": "2019"
+        },
+        {
+          "club": "Valur",
+          "year": "2021"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 28,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefán Árni Geirsson",
@@ -219,7 +984,35 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2018"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2019"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 17,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luke Rae",
@@ -229,7 +1022,39 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tindastóll",
+          "year": "2020"
+        },
+        {
+          "club": "Vestri",
+          "year": "2021"
+        },
+        {
+          "club": "Grótta",
+          "year": "2022"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 30,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Galdur Guðmundsson",
@@ -237,9 +1062,37 @@
       "age": 19,
       "nationality": "Iceland",
       "club": "KR Reykjavík",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Breidablik",
+          "year": "2021"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2025"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Rafn Pálmason",
@@ -249,7 +1102,31 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        },
+        {
+          "club": "FCN Youth",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eidur Gauti Saebjörnsson",
@@ -259,7 +1136,39 @@
       "club": "KR Reykjavík",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HK Kópavogs",
+          "year": "2016"
+        },
+        {
+          "club": "Ýmir",
+          "year": "2019"
+        },
+        {
+          "club": "HK Kópavogs",
+          "year": "2024"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 25,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

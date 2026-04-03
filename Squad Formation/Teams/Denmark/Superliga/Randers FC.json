@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "DK1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 31,
       "nationality": "Australia",
       "club": "Randers FC",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FFA C. of Excel",
+          "year": "2010"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2011"
+        },
+        {
+          "club": "Central Coast",
+          "year": "2015"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2017"
+        },
+        {
+          "club": "AO Xanthi",
+          "year": "2020"
+        },
+        {
+          "club": "Melb. Victory",
+          "year": "2022"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 290,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 391,
+        "clean_sheets": 83
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 4,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Jannich Storch",
@@ -31,9 +76,53 @@
       "age": 32,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nordsjaelland",
+          "year": "2013"
+        },
+        {
+          "club": "Akademisk BK",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "FC Roskilde",
+          "year": "2018"
+        },
+        {
+          "club": "Nyköbing FC",
+          "year": "2019"
+        },
+        {
+          "club": "Lyngby BK",
+          "year": "2023"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 375,
+        "clean_sheets": 50
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mert Demirci",
@@ -41,9 +130,29 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "Randers FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 3,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +162,53 @@
       "age": 31,
       "nationality": "Netherlands",
       "club": "Randers FC",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Feyenoord",
+          "year": "2014"
+        },
+        {
+          "club": "SC Cambuur",
+          "year": "2015"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2016"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2017"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2020"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2022"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 37,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Lissens",
@@ -63,9 +216,41 @@
       "age": 24,
       "nationality": "Belgium",
       "club": "Randers FC",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2021"
+        },
+        {
+          "club": "RSCA Futures",
+          "year": "2023"
+        },
+        {
+          "club": "Lyngby BK",
+          "year": "2024"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oliver Jones",
@@ -73,9 +258,33 @@
       "age": 23,
       "nationality": "Australia",
       "club": "Randers FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Macarthur",
+          "year": "2023"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Høegh",
@@ -83,9 +292,45 @@
       "age": 35,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Odense BK",
+          "year": "2010"
+        },
+        {
+          "club": "Basel",
+          "year": "2015"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2017"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2020"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 380,
+        "goals": 26,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikolas Dyhr",
@@ -93,9 +338,57 @@
       "age": 24,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FCM Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2019"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2021"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2021"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2023"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2023"
+        },
+        {
+          "club": "St. Louis CITY",
+          "year": "2024"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 6,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Sjølstad",
@@ -103,9 +396,53 @@
       "age": 25,
       "nationality": "Norway",
       "club": "Randers FC",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Follo FK Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Follo FK",
+          "year": "2018"
+        },
+        {
+          "club": "Strømmen",
+          "year": "2020"
+        },
+        {
+          "club": "Kristiansund BK",
+          "year": "2022"
+        },
+        {
+          "club": "Kongsvinger",
+          "year": "2022"
+        },
+        {
+          "club": "Sogndal",
+          "year": "2023"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 7,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sabil Hansen",
@@ -113,9 +450,29 @@
       "age": 20,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Randers FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin Örn",
@@ -125,7 +482,31 @@
       "club": "Randers FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Helsingborgs IF",
+          "year": "2023"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +516,53 @@
       "age": 32,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCM Youth",
+          "year": "2008"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2013"
+        },
+        {
+          "club": "Odense BK",
+          "year": "2018"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2018"
+        },
+        {
+          "club": "Elfsborg",
+          "year": "2021"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2023"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 433,
+        "goals": 24,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Björkengren",
@@ -145,9 +570,45 @@
       "age": 27,
       "nationality": "Sweden",
       "club": "Randers FC",
-      "appearances": 24,
+      "appearances": 21,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Falkenbergs FF",
+          "year": "2017"
+        },
+        {
+          "club": "Lecce",
+          "year": "2020"
+        },
+        {
+          "club": "Brescia",
+          "year": "2023"
+        },
+        {
+          "club": "Lecce",
+          "year": "2023"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 18,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Laurits Pedersen",
@@ -155,9 +616,29 @@
       "age": 20,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 24,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Randers FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frederik Lauenborg",
@@ -165,9 +646,29 @@
       "age": 28,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Randers FC",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 9,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousseynou Fall Seck",
@@ -175,9 +676,33 @@
       "age": 18,
       "nationality": "Senegal",
       "club": "Randers FC",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AJEL Rufisque",
+          "year": "2024"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Max Albæk",
@@ -185,9 +710,29 @@
       "age": 20,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 19,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mike Themsen",
@@ -195,31 +740,113 @@
       "age": 20,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 25,
+      "appearances": 21,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Hundested IK",
+          "year": "2013"
+        },
+        {
+          "club": "FCN Youth",
+          "year": "2016"
+        },
+        {
+          "club": "FIF Hilleröd",
+          "year": "2020"
+        },
+        {
+          "club": "FCH Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
-    {
-      "name": "Noah Shamoun",
-      "position": "Left Winger",
-      "age": 23,
-      "nationality": "Syria",
-      "club": "Randers FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Ernest Agyiri",
       "position": "Left Winger",
       "age": 28,
       "nationality": "Ghana",
       "club": "Randers FC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vålerenga",
+          "year": "2016"
+        },
+        {
+          "club": "AFC Tubize",
+          "year": "2018"
+        },
+        {
+          "club": "EN Paralimniou",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "FCI Levadia",
+          "year": "2021"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2023"
+        },
+        {
+          "club": "Kolding IF",
+          "year": "2024"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2024"
+        },
+        {
+          "club": "FCI Levadia",
+          "year": "2025"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 220,
+        "goals": 47,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cyril Edudzi",
@@ -227,9 +854,33 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Randers FC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 1
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Dila",
+          "year": "2025"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathias Greve",
@@ -237,9 +888,41 @@
       "age": 31,
       "nationality": "Denmark",
       "club": "Randers FC",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 1
+      "appearances": 19,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Odense BK",
+          "year": "2014"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2020"
+        },
+        {
+          "club": "Bröndby IF",
+          "year": "2021"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 374,
+        "goals": 40,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elies Mahmoud",
@@ -247,9 +930,37 @@
       "age": 25,
       "nationality": "France",
       "club": "Randers FC",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 3
+      "appearances": 22,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Le Havre AC",
+          "year": "2020"
+        },
+        {
+          "club": "StadeLO",
+          "year": "2023"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 25,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thibault Klidjé",
@@ -257,9 +968,49 @@
       "age": 24,
       "nationality": "Togo",
       "club": "Randers FC",
-      "appearances": 29,
-      "goals": 4,
-      "assists": 1
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Espoir de Tsévié",
+          "year": "2017"
+        },
+        {
+          "club": "Gomido FC",
+          "year": "2018"
+        },
+        {
+          "club": "FC Luzern",
+          "year": "2022"
+        },
+        {
+          "club": "Hibernian FC",
+          "year": "2025"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2026"
+        },
+        {
+          "club": "Hibernian FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 27,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Warren Caddy",
@@ -267,9 +1018,57 @@
       "age": 28,
       "nationality": "Madagascar",
       "club": "Randers FC",
-      "appearances": 24,
-      "goals": 14,
-      "assists": 0
+      "appearances": 4,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RC Grasse",
+          "year": "2017"
+        },
+        {
+          "club": "US Colomiers",
+          "year": "2018"
+        },
+        {
+          "club": "FC Sète 34",
+          "year": "2019"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2020"
+        },
+        {
+          "club": "FC Annecy",
+          "year": "2023"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2024"
+        },
+        {
+          "club": "StadeLO",
+          "year": "2024"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 78,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amin Al-Hamawi",
@@ -277,9 +1076,49 @@
       "age": 22,
       "nationality": "Iraq",
       "club": "Randers FC",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Helsingborgs IF",
+          "year": "2022"
+        },
+        {
+          "club": "Torns IF",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sandvikens IF",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 27,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musa Touré",
@@ -287,9 +1126,41 @@
       "age": 20,
       "nationality": "Australia",
       "club": "Randers FC",
-      "appearances": 13,
-      "goals": 2,
-      "assists": 0
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FFSA NTC",
+          "year": "2019"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2023"
+        },
+        {
+          "club": "Clermont Foot",
+          "year": "2024"
+        },
+        {
+          "club": "Randers FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

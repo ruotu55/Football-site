@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SER1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,89 @@
       "age": 35,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Zemun",
+          "year": "2010"
+        },
+        {
+          "club": "Graficar",
+          "year": "2010"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2011"
+        },
+        {
+          "club": "Pazova",
+          "year": "2012"
+        },
+        {
+          "club": "Smederevo 1924",
+          "year": "2013"
+        },
+        {
+          "club": "Sindjelic Bg",
+          "year": "2014"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2015"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2017"
+        },
+        {
+          "club": "Napredak",
+          "year": "2019"
+        },
+        {
+          "club": "Kaspiy Aktau",
+          "year": "2020"
+        },
+        {
+          "club": "FC Astana",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Debrecen",
+          "year": "2023"
+        },
+        {
+          "club": "B. Banja Luka",
+          "year": "2024"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 280,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 372,
+        "clean_sheets": 81
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milos Krunic",
@@ -31,9 +112,69 @@
       "age": 29,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Zemun",
+          "year": "2014"
+        },
+        {
+          "club": "Srem Jakovo",
+          "year": "2015"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2016"
+        },
+        {
+          "club": "Rakovica",
+          "year": "2016"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2017"
+        },
+        {
+          "club": "FK Bezanija",
+          "year": "2018"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2018"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2020"
+        },
+        {
+          "club": "Hajer",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Partizan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 170,
+        "clean_sheets": 44
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tarik Banjic",
@@ -41,21 +182,69 @@
       "age": 18,
       "nationality": "Bosnia-Herzegovina",
       "club": "FK Partizan Belgrade",
-      "appearances": 20,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Loznica U15",
+          "year": "2022"
+        },
+        {
+          "club": "Partizan U15",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 74,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 7,
+        "clean_sheets": 7
+      }
     }
   ],
   "defenders": [
     {
       "name": "Nikola Simic",
       "position": "Centre-Back",
-      "age": 18,
+      "age": 19,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 33,
+      "appearances": 28,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan U15",
+          "year": "2021"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vukasin Djurdjevic",
@@ -63,9 +252,41 @@
       "age": 22,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 2,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rad U15",
+          "year": "2018"
+        },
+        {
+          "club": "Rad",
+          "year": "2021"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2023"
+        },
+        {
+          "club": "Partizan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefan Milic",
@@ -73,9 +294,65 @@
       "age": 25,
       "nationality": "Montenegro",
       "club": "FK Partizan Belgrade",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B. Podgorica",
+          "year": "2018"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2020"
+        },
+        {
+          "club": "NK Varazdin",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2021"
+        },
+        {
+          "club": "NK Bravo",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2023"
+        },
+        {
+          "club": "FK Decic Tuzi",
+          "year": "2023"
+        },
+        {
+          "club": "Chernomorets N.",
+          "year": "2025"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 235,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateja Milovanovic",
@@ -83,9 +360,37 @@
       "age": 21,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefan Mitrovic",
@@ -93,9 +398,89 @@
       "age": 35,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Red Star U15",
+          "year": "2003"
+        },
+        {
+          "club": "Petrzalka",
+          "year": "2009"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2010"
+        },
+        {
+          "club": "Metalac",
+          "year": "2011"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2012"
+        },
+        {
+          "club": "Benfica",
+          "year": "2013"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2014"
+        },
+        {
+          "club": "Benfica",
+          "year": "2014"
+        },
+        {
+          "club": "Freiburg",
+          "year": "2014"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2015"
+        },
+        {
+          "club": "Freiburg",
+          "year": "2016"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2016"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2018"
+        },
+        {
+          "club": "Getafe",
+          "year": "2021"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 448,
+        "goals": 17,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mario Jurcevic",
@@ -103,9 +488,87 @@
       "age": 30,
       "nationality": "Slovenia",
       "club": "FK Partizan Belgrade",
-      "appearances": 14,
+      "appearances": 9,
       "goals": 1,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "NK Radomlje",
+          "year": "2015"
+        },
+        {
+          "club": "NK Olimpija",
+          "year": "2015"
+        },
+        {
+          "club": "NK Aluminij",
+          "year": "2017"
+        },
+        {
+          "club": "NK Olimpija",
+          "year": "2018"
+        },
+        {
+          "club": "NK Osijek",
+          "year": "2020"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2023"
+        },
+        {
+          "club": "Partizan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 7,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Stefan Petrovic",
+      "position": "Left-Back",
+      "age": 18,
+      "nationality": "Serbia",
+      "club": "FK Partizan Belgrade",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan U15",
+          "year": "2022"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulmalik Mohammed",
@@ -115,17 +578,27 @@
       "club": "FK Partizan Belgrade",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Stefan Petrovic",
-      "position": "Left-Back",
-      "age": 18,
-      "nationality": "Serbia",
-      "club": "FK Partizan Belgrade",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Roganovic",
@@ -133,9 +606,29 @@
       "age": 20,
       "nationality": "Montenegro",
       "club": "FK Partizan Belgrade",
-      "appearances": 31,
+      "appearances": 25,
       "goals": 0,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Partizan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arandjel Stojkovic",
@@ -143,9 +636,57 @@
       "age": 31,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 16,
+      "appearances": 13,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "BSK Borca",
+          "year": "2014"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2016"
+        },
+        {
+          "club": "Spartak",
+          "year": "2016"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2018"
+        },
+        {
+          "club": "FK TSC",
+          "year": "2021"
+        },
+        {
+          "club": "Partizan",
+          "year": "2023"
+        },
+        {
+          "club": "Debrecen",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 20,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Lazarevic",
@@ -153,9 +694,53 @@
       "age": 29,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 9,
+      "goals": 20,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vojvodina",
+          "year": "2016"
+        },
+        {
+          "club": "Proleter",
+          "year": "2016"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2017"
+        },
+        {
+          "club": "Rad",
+          "year": "2020"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2021"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2022"
+        },
+        {
+          "club": "Partizan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 6,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Zivkovic",
@@ -163,9 +748,69 @@
       "age": 31,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 15,
+      "goals": 19,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teleoptik",
+          "year": "2011"
+        },
+        {
+          "club": "Partizan",
+          "year": "2013"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2014"
+        },
+        {
+          "club": "Suduva",
+          "year": "2015"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Radnicki Nis",
+          "year": "2019"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2019"
+        },
+        {
+          "club": "Partizan",
+          "year": "2021"
+        },
+        {
+          "club": "Teleoptik",
+          "year": "2025"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 8,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +820,37 @@
       "age": 20,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 32,
+      "appearances": 27,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Partizan U15",
+          "year": "2020"
+        },
+        {
+          "club": "Teleoptik",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sasa Zdjelar",
@@ -187,7 +860,71 @@
       "club": "FK Partizan Belgrade",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OFK Beograd",
+          "year": "2012"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2013"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2013"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2015"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2017"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2017"
+        },
+        {
+          "club": "Partizan",
+          "year": "2018"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2018"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Partizan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 418,
+        "goals": 8,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dusan Makevic",
@@ -197,7 +934,35 @@
       "club": "FK Partizan Belgrade",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan U15",
+          "year": "2021"
+        },
+        {
+          "club": "Teleoptik",
+          "year": "2025"
+        },
+        {
+          "club": "Partizan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ognjen Ugresic",
@@ -205,9 +970,33 @@
       "age": 19,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 34,
-      "goals": 6,
-      "assists": 3
+      "appearances": 28,
+      "goals": 4,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Partizan U15",
+          "year": "2020"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 20,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitrije Jankovic",
@@ -215,9 +1004,29 @@
       "age": 20,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 21,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Vukotic",
@@ -225,9 +1034,57 @@
       "age": 23,
       "nationality": "Montenegro",
       "club": "FK Partizan Belgrade",
-      "appearances": 32,
-      "goals": 6,
-      "assists": 7
+      "appearances": 26,
+      "goals": 4,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "FK Iskra",
+          "year": "2019"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2022"
+        },
+        {
+          "club": "Tabor Sezana",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "Zrinjski Mostar",
+          "year": "2023"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2023"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 30,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ghayas Zahid",
@@ -237,7 +1094,55 @@
       "club": "FK Partizan Belgrade",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Vålerenga",
+          "year": "2012"
+        },
+        {
+          "club": "Ullensaker/Kisa",
+          "year": "2013"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2013"
+        },
+        {
+          "club": "APOEL Nicosia",
+          "year": "2017"
+        },
+        {
+          "club": "Panathinaikos",
+          "year": "2019"
+        },
+        {
+          "club": "APOEL Nicosia",
+          "year": "2020"
+        },
+        {
+          "club": "Ankaragücü",
+          "year": "2021"
+        },
+        {
+          "club": "Partizan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 413,
+        "goals": 73,
+        "assists": 80,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bibars Natcho",
@@ -245,9 +1150,49 @@
       "age": 38,
       "nationality": "Israel",
       "club": "FK Partizan Belgrade",
-      "appearances": 30,
+      "appearances": 25,
       "goals": 5,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2006"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2010"
+        },
+        {
+          "club": "PAOK",
+          "year": "2014"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2014"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2018"
+        },
+        {
+          "club": "Partizan",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 755,
+        "goals": 153,
+        "assists": 151,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 88,
+        "goals": 4,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1202,29 @@
       "age": 21,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 25,
+      "appearances": 19,
       "goals": 3,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Partizan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 27,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bogdan Kostic",
@@ -267,9 +1232,33 @@
       "age": 19,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 24,
-      "goals": 4,
-      "assists": 1
+      "appearances": 18,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Partizan U15",
+          "year": "2021"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 33,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivan Martinovic",
@@ -277,9 +1266,41 @@
       "age": 18,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Partizan U15",
+          "year": "2021"
+        },
+        {
+          "club": "Teleoptik",
+          "year": "2025"
+        },
+        {
+          "club": "Partizan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dusan Jovanovic",
@@ -287,9 +1308,29 @@
       "age": 18,
       "nationality": "Serbia",
       "club": "FK Partizan Belgrade",
-      "appearances": 7,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Demba Seck",
@@ -297,9 +1338,65 @@
       "age": 25,
       "nationality": "Senegal",
       "club": "FK Partizan Belgrade",
-      "appearances": 32,
+      "appearances": 28,
       "goals": 5,
-      "assists": 7
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Imolese Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Sasso Marconi",
+          "year": "2019"
+        },
+        {
+          "club": "SPAL",
+          "year": "2020"
+        },
+        {
+          "club": "Torino",
+          "year": "2022"
+        },
+        {
+          "club": "Frosinone",
+          "year": "2024"
+        },
+        {
+          "club": "Torino",
+          "year": "2024"
+        },
+        {
+          "club": "Catanzaro",
+          "year": "2024"
+        },
+        {
+          "club": "Torino",
+          "year": "2025"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        },
+        {
+          "club": "Torino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 21,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matija Ninic",
@@ -309,7 +1406,43 @@
       "club": "FK Partizan Belgrade",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan U15",
+          "year": "2020"
+        },
+        {
+          "club": "Teleoptik U15",
+          "year": "2020"
+        },
+        {
+          "club": "Partizan U15",
+          "year": "2021"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        },
+        {
+          "club": "Teleoptik",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 19,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrej Kostic",
@@ -317,19 +1450,123 @@
       "age": 19,
       "nationality": "Montenegro",
       "club": "FK Partizan Belgrade",
-      "appearances": 34,
-      "goals": 11,
-      "assists": 1
+      "appearances": 27,
+      "goals": 10,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "B. Podgorica",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2025"
+        },
+        {
+          "club": "Milan Futuro",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 20,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Polter",
       "position": "Centre-Forward",
-      "age": 34,
+      "age": 35,
       "nationality": "Germany",
       "club": "FK Partizan Belgrade",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 0
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wolfsburg",
+          "year": "2011"
+        },
+        {
+          "club": "1.FC Nuremberg",
+          "year": "2012"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2013"
+        },
+        {
+          "club": "Mainz",
+          "year": "2013"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2014"
+        },
+        {
+          "club": "Mainz",
+          "year": "2015"
+        },
+        {
+          "club": "QPR",
+          "year": "2015"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2017"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2020"
+        },
+        {
+          "club": "VfL Bochum",
+          "year": "2021"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2022"
+        },
+        {
+          "club": "Darmstadt 98",
+          "year": "2024"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2024"
+        },
+        {
+          "club": "E. Braunschweig",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 494,
+        "goals": 150,
+        "assists": 56,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Lekic",
@@ -339,7 +1576,31 @@
       "club": "FK Partizan Belgrade",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teleoptik",
+          "year": "2020"
+        },
+        {
+          "club": "Partizan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

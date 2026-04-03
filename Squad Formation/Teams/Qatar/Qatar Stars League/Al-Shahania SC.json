@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "QSL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,51 @@
       "club": "Al-Shahania SC",
       "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Duhail Acad.",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Kharaitiyat",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 171,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Ebrahim Mordou",
@@ -31,9 +76,29 @@
       "age": 29,
       "nationality": "TM nationality id 71",
       "club": "Al-Shahania SC",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shahania SC",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 55,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Kadik",
@@ -41,9 +106,53 @@
       "age": 26,
       "nationality": "Algeria",
       "club": "Al-Shahania SC",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qatar SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Markhiya SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Bidda SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Markhiya SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shamal SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shamal SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majed Khalaf",
@@ -53,7 +162,22 @@
       "club": "Al-Shahania SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,17 +189,101 @@
       "club": "Al-Shahania SC",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord Youth",
+          "year": "2005"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2013"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2021"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Muniesa",
       "position": "Centre-Back",
-      "age": 33,
+      "age": 34,
       "nationality": "Spain",
       "club": "Al-Shahania SC",
-      "appearances": 18,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barça Atlètic",
+          "year": "2009"
+        },
+        {
+          "club": "Stoke City",
+          "year": "2013"
+        },
+        {
+          "club": "Girona",
+          "year": "2017"
+        },
+        {
+          "club": "Stoke City",
+          "year": "2018"
+        },
+        {
+          "club": "Girona",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2019"
+        },
+        {
+          "club": "Lyngby BK",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 9,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bahaa Ellethy",
@@ -83,9 +291,73 @@
       "age": 26,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Sadd",
+          "year": "2017"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2020"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2022"
+        },
+        {
+          "club": "Muaither SC",
+          "year": "2023"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli SC",
+          "year": "2024"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Artur Jorge",
@@ -93,9 +365,81 @@
       "age": 31,
       "nationality": "Portugal",
       "club": "Al-Shahania SC",
-      "appearances": 17,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Braga U15",
+          "year": "2007"
+        },
+        {
+          "club": "Vilaverdense",
+          "year": "2014"
+        },
+        {
+          "club": "Freamunde",
+          "year": "2015"
+        },
+        {
+          "club": "Braga",
+          "year": "2016"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2017"
+        },
+        {
+          "club": "Braga",
+          "year": "2017"
+        },
+        {
+          "club": "FCSB",
+          "year": "2017"
+        },
+        {
+          "club": "Braga",
+          "year": "2018"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2018"
+        },
+        {
+          "club": "APOEL Nicosia",
+          "year": "2020"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Bataeh CSC",
+          "year": "2022"
+        },
+        {
+          "club": "Farense",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 277,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moaz Al-Wadie",
@@ -103,9 +447,45 @@
       "age": 21,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Sadd Olympic",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daouda Diakité",
@@ -113,9 +493,33 @@
       "age": 21,
       "nationality": "Mali",
       "club": "Al-Shahania SC",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Waab SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousuf Al-Raeesi",
@@ -123,9 +527,57 @@
       "age": 29,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qatar SC",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2016"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2017"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Markhiya SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalid Muftah",
@@ -133,9 +585,45 @@
       "age": 33,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 17,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lekhwiya SC",
+          "year": "2010"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 302,
+        "goals": 9,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simo",
@@ -143,9 +631,45 @@
       "age": 22,
       "nationality": "Spain",
       "club": "Al-Shahania SC",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 0
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Onubense",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Husam Kamal",
@@ -153,9 +677,65 @@
       "age": 30,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Sadd Reserve",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2018"
+        },
+        {
+          "club": "Umm Salal SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2020"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2021"
+        },
+        {
+          "club": "Umm Salal SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +745,41 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Al-Shahania SC",
-      "appearances": 24,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barça Youth",
+          "year": "2015"
+        },
+        {
+          "club": "CD Mirandés",
+          "year": "2023"
+        },
+        {
+          "club": "Racing Ferrol",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Al-Emadi",
@@ -175,9 +787,37 @@
       "age": 30,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Arabi SC",
+          "year": "2015"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Sayyar",
@@ -185,9 +825,49 @@
       "age": 35,
       "nationality": "Bahrain",
       "club": "Al-Shahania SC",
-      "appearances": 22,
+      "appearances": 16,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Gharafa",
+          "year": "2009"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moameen Mutasem",
@@ -195,9 +875,45 @@
       "age": 23,
       "nationality": "Sudan",
       "club": "Al-Shahania SC",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 2
+      "appearances": 16,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Rayyan",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulaziz Mohammed",
@@ -205,9 +921,45 @@
       "age": 23,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Duhail SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shamal SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jassem Al-Sharshani",
@@ -215,9 +967,33 @@
       "age": 23,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdalla Khaled Al-Yazidi",
@@ -225,9 +1001,49 @@
       "age": 36,
       "nationality": "Yemen",
       "club": "Al-Shahania SC",
-      "appearances": 8,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Rayyan",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ebrahim Abdo",
@@ -235,9 +1051,24 @@
       "age": 23,
       "nationality": "Yemen",
       "club": "Al-Shahania SC",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francesco Antonucci",
@@ -247,7 +1078,51 @@
       "club": "Al-Shahania SC",
       "appearances": 13,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Volendam",
+          "year": "2019"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2020"
+        },
+        {
+          "club": "FC Volendam",
+          "year": "2020"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2021"
+        },
+        {
+          "club": "FC Volendam",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 46,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jawad El Jemili",
@@ -255,9 +1130,37 @@
       "age": 23,
       "nationality": "Spain",
       "club": "Al-Shahania SC",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 1
+      "appearances": 18,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Akritas Chlor.",
+          "year": "2021"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 20,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,19 +1170,83 @@
       "age": 22,
       "nationality": "Ivory Coast",
       "club": "Al-Shahania SC",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 4,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Botev Plovdiv",
+          "year": "2022"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 27,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lotfi Madjer",
       "position": "Left Winger",
-      "age": 23,
+      "age": 24,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 23,
+      "appearances": 17,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Duhail Acad.",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Duhail Res.",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Said Al-Muhannadi",
@@ -287,9 +1254,69 @@
       "age": 32,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 10,
-      "goals": 3,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qatar SC",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2018"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Markhiya SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Markhiya SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shamal SC",
+          "year": "2024"
+        },
+        {
+          "club": "Umm Salal SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shamal SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shamal SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Mussed",
@@ -297,9 +1324,41 @@
       "age": 30,
       "nationality": "Yemen",
       "club": "Al-Shahania SC",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2019"
+        },
+        {
+          "club": "Lusail SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Nasser Kala",
@@ -307,9 +1366,41 @@
       "age": 29,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Arabi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaime Pombo",
@@ -317,9 +1408,37 @@
       "age": 21,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Rayyan",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Hany Al-Raeesi",
@@ -327,19 +1446,95 @@
       "age": 22,
       "nationality": "Qatar",
       "club": "Al-Shahania SC",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lusail SC",
+          "year": "2023"
+        },
+        {
+          "club": "Duhail Olympic",
+          "year": "2024"
+        },
+        {
+          "club": "Lusail SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pelle van Amersfoort",
       "position": "Centre-Forward",
-      "age": 29,
+      "age": 30,
       "nationality": "Netherlands",
       "club": "Al-Shahania SC",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Heerenveen",
+          "year": "2014"
+        },
+        {
+          "club": "Almere City",
+          "year": "2015"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2016"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 117,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Balah",
@@ -347,9 +1542,69 @@
       "age": 32,
       "nationality": "Palestine",
       "club": "Al-Shahania SC",
-      "appearances": 13,
-      "goals": 3,
-      "assists": 1
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2017"
+        },
+        {
+          "club": "That Ras",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Orouba SC",
+          "year": "2019"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Sadaqa",
+          "year": "2021"
+        },
+        {
+          "club": "El Masry",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Sadaqa",
+          "year": "2023"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

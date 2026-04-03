@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "JPL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 23,
       "nationality": "Suriname",
       "club": "Cavalier FC",
-      "appearances": 16,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "PVV",
+          "year": "2025"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 37,
+        "clean_sheets": 11
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taywane Lynch",
@@ -33,7 +66,31 @@
       "club": "Cavalier FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jamaica Coll.",
+          "year": "2022"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Reddison",
@@ -43,7 +100,22 @@
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Garfield Tomlinson",
@@ -53,17 +125,27 @@
       "club": "Cavalier FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Jahieme Gray",
-      "position": "Goalkeeper",
-      "age": 15,
-      "nationality": "Jamaica",
-      "club": "Cavalier FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vino Barclett",
@@ -73,7 +155,72 @@
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barbados SA",
+          "year": "2018"
+        },
+        {
+          "club": "Morv. Cal. Utd",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Grenades FC",
+          "year": "2019"
+        },
+        {
+          "club": "El Niños",
+          "year": "2020"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 85,
+        "clean_sheets": 43
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 59,
+        "clean_sheets": 6
+      }
+    },
+    {
+      "name": "Jahieme Gray",
+      "position": "Goalkeeper",
+      "age": 16,
+      "nationality": "Jamaica",
+      "club": "Cavalier FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamari Gordon",
@@ -83,20 +230,25 @@
       "club": "Cavalier FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
-    {
-      "name": "Kwayne Thompson",
-      "position": "Centre-Back",
-      "age": 20,
-      "nationality": "Jamaica",
-      "club": "Cavalier FC",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 0
-    },
     {
       "name": "Michael Forbes",
       "position": "Centre-Back",
@@ -105,7 +257,31 @@
       "club": "Cavalier FC",
       "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vere United FC",
+          "year": "2024"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeovanni Laing",
@@ -113,9 +289,58 @@
       "age": 25,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 31,
+      "appearances": 30,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Kwayne Thompson",
+      "position": "Centre-Back",
+      "age": 20,
+      "nationality": "Jamaica",
+      "club": "Cavalier FC",
+      "appearances": 22,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexavier Gooden",
@@ -124,8 +349,23 @@
       "nationality": "Jamaica",
       "club": "Cavalier FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Ainsworth",
@@ -133,9 +373,24 @@
       "age": 20,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 31,
-      "goals": 10,
-      "assists": 0
+      "appearances": 30,
+      "goals": 9,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 22,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Watson",
@@ -143,9 +398,37 @@
       "age": 23,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 15,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akil Henry",
@@ -153,9 +436,29 @@
       "age": 19,
       "nationality": "Trinidad and Tobago",
       "club": "Cavalier FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rojawn Small",
@@ -165,17 +468,22 @@
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Jahdiel Russell",
-      "position": "",
-      "age": 20,
-      "nationality": "Jamaica",
-      "club": "Cavalier FC",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deshawn Talbert",
@@ -183,31 +491,85 @@
       "age": 19,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jahdiel Russell",
+      "position": "",
+      "age": 20,
+      "nationality": "Jamaica",
+      "club": "Cavalier FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
-    {
-      "name": "Zerguinho Deira",
-      "position": "Defensive Midfield",
-      "age": 23,
-      "nationality": "Suriname",
-      "club": "Cavalier FC",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Kyle Belizaire",
       "position": "Defensive Midfield",
       "age": 19,
       "nationality": "Turks and Caicos Islands",
       "club": "Cavalier FC",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teachers FC",
+          "year": "2024"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shamar Watson",
@@ -215,9 +577,24 @@
       "age": 21,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 0
+      "appearances": 21,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrian Reid",
@@ -225,9 +602,24 @@
       "age": 19,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dwayne Allen",
@@ -235,9 +627,29 @@
       "age": 24,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keyanni Jackson",
@@ -247,7 +659,27 @@
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daryl Massicot",
@@ -255,9 +687,33 @@
       "age": 21,
       "nationality": "Antigua and Barbuda",
       "club": "Cavalier FC",
-      "appearances": 22,
-      "goals": 4,
-      "assists": 0
+      "appearances": 20,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grenades FC",
+          "year": "2024"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omari Grant",
@@ -267,7 +723,22 @@
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Gallimore",
@@ -275,9 +746,24 @@
       "age": null,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oshane Chambers",
@@ -287,17 +773,89 @@
       "club": "Cavalier FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Terence Williams",
+      "name": "Dusean Petgrave",
       "position": "",
-      "age": 19,
+      "age": 18,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Shad San Millán",
+      "position": "",
+      "age": 21,
+      "nationality": "Haiti",
+      "club": "Cavalier FC",
+      "appearances": 0,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Getafe CF Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Violette AC",
+          "year": "2023"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2024"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omarian O'Brian",
@@ -307,27 +865,22 @@
       "club": "Cavalier FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Livingston Donaldson",
-      "position": "",
-      "age": 20,
-      "nationality": "Jamaica",
-      "club": "Cavalier FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Shad San Millán",
-      "position": "",
-      "age": 21,
-      "nationality": "Haiti",
-      "club": "Cavalier FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamoy Dennis",
@@ -335,19 +888,49 @@
       "age": 18,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maalick Whyte",
       "position": "",
-      "age": 17,
+      "age": 18,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jerome McLeary",
@@ -355,9 +938,79 @@
       "age": 22,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 30,
+      "appearances": 29,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Livingston Donaldson",
+      "position": "",
+      "age": 20,
+      "nationality": "Jamaica",
+      "club": "Cavalier FC",
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Terence Williams",
+      "position": "",
+      "age": 19,
+      "nationality": "Jamaica",
+      "club": "Cavalier FC",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -367,9 +1020,24 @@
       "age": 21,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Odane Wilberforce",
@@ -377,9 +1045,37 @@
       "age": 19,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2019"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2021"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omario Henry",
@@ -388,18 +1084,23 @@
       "nationality": "Jamaica",
       "club": "Cavalier FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Romarion Thomas",
-      "position": "",
-      "age": 21,
-      "nationality": "Jamaica",
-      "club": "Cavalier FC",
-      "appearances": 23,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kshaine Gordon",
@@ -407,9 +1108,37 @@
       "age": 20,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Apache",
+          "year": "2025"
+        },
+        {
+          "club": "Vere United FC",
+          "year": "2025"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damarley Williams",
@@ -419,17 +1148,22 @@
       "club": "Cavalier FC",
       "appearances": 6,
       "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Tevin Savage",
-      "position": "",
-      "age": 16,
-      "nationality": "Jamaica",
-      "club": "Cavalier FC",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kimarly Scott",
@@ -437,9 +1171,33 @@
       "age": 18,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2026"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan-Oneil Francis",
@@ -449,7 +1207,22 @@
       "club": "Cavalier FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Oneil",
@@ -459,7 +1232,52 @@
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Romarion Thomas",
+      "position": "",
+      "age": 21,
+      "nationality": "Jamaica",
+      "club": "Cavalier FC",
+      "appearances": 25,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javel Watson",
@@ -467,9 +1285,24 @@
       "age": 17,
       "nationality": "Jamaica",
       "club": "Cavalier FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dashawn Jacques",
@@ -479,7 +1312,47 @@
       "club": "Cavalier FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Tevin Savage",
+      "position": "",
+      "age": 16,
+      "nationality": "Jamaica",
+      "club": "Cavalier FC",
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

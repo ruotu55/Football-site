@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IRQ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,31 @@
       "club": "Newroz SC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Najaf FC",
+          "year": "2023"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 28,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hani Shaker",
@@ -31,9 +56,37 @@
       "age": 35,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Najaf FC",
+          "year": "2022"
+        },
+        {
+          "club": "Naft Al-Wassat",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 40,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Choman Ahmad",
@@ -41,9 +94,41 @@
       "age": 29,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Newroz SC Res.",
+          "year": "2018"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ramadi",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 2,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulkareem Jassam",
@@ -53,7 +138,31 @@
       "club": "Newroz SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +174,39 @@
       "club": "Newroz SC",
       "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CSK Celarevo",
+          "year": "2018"
+        },
+        {
+          "club": "Napredak",
+          "year": "2020"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristijan Tojcic",
@@ -75,17 +216,47 @@
       "club": "Newroz SC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Jeferson Bahia",
-      "position": "Centre-Back",
-      "age": 33,
-      "nationality": "Brazil",
-      "club": "Newroz SC",
-      "appearances": 9,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zvijezda 09",
+          "year": "2018"
+        },
+        {
+          "club": "Macva",
+          "year": "2021"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2022"
+        },
+        {
+          "club": "NK Nafta 1903",
+          "year": "2024"
+        },
+        {
+          "club": "Zelez. Pancevo",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 253,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Salah Jaber",
@@ -93,9 +264,29 @@
       "age": null,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Akpudje",
@@ -103,9 +294,69 @@
       "age": 27,
       "nationality": "Nigeria",
       "club": "Newroz SC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MFM FC",
+          "year": "2019"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2020"
+        },
+        {
+          "club": "Panevezys",
+          "year": "2022"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2022"
+        },
+        {
+          "club": "Jablonec",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        },
+        {
+          "club": "Ilves",
+          "year": "2024"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2025"
+        },
+        {
+          "club": "FC KTP",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abbas Badeea",
@@ -115,7 +366,64 @@
       "club": "Newroz SC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Naft Missan",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2022"
+        },
+        {
+          "club": "Naft Al-Basra",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ameer Nadeem",
+      "position": "Centre-Back",
+      "age": null,
+      "nationality": "Iraq",
+      "club": "Newroz SC",
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Al-Hayek",
@@ -123,9 +431,53 @@
       "age": 26,
       "nationality": "Lebanon",
       "club": "Newroz SC",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 7
+      "appearances": 9,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ahed",
+          "year": "2019"
+        },
+        {
+          "club": "Safa Beirut SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2020"
+        },
+        {
+          "club": "Tadamon Sour",
+          "year": "2022"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2023"
+        },
+        {
+          "club": "Safa Beirut SC",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 1,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taqi Falah",
@@ -133,9 +485,37 @@
       "age": 31,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Naft Al-Wassat",
+          "year": "2022"
+        },
+        {
+          "club": "A. Baghdad SC",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussein Jasim",
@@ -145,7 +525,35 @@
       "club": "Newroz SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Diwaniya SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Hedod SC",
+          "year": "2023"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hasan Ashour",
@@ -155,7 +563,43 @@
       "club": "Newroz SC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shorta",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2022"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Talaba SC",
+          "year": "2023"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Dlawar",
@@ -163,9 +607,33 @@
       "age": 25,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 1,
-      "assists": 6
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Erbil SC",
+          "year": "2020"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 1,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salah Hassan",
@@ -175,7 +643,31 @@
       "club": "Newroz SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karbala'a FC",
+          "year": "2023"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +677,77 @@
       "age": 30,
       "nationality": "Nigeria",
       "club": "Newroz SC",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GD Ribeirão",
+          "year": "2014"
+        },
+        {
+          "club": "AD Oliveirense",
+          "year": "2015"
+        },
+        {
+          "club": "Vilaverdense",
+          "year": "2016"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2018"
+        },
+        {
+          "club": "Varzim",
+          "year": "2021"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2021"
+        },
+        {
+          "club": "SC Covilhã",
+          "year": "2021"
+        },
+        {
+          "club": "Zira FC",
+          "year": "2022"
+        },
+        {
+          "club": "Kapaz PFK",
+          "year": "2022"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Quwa Al-Jaw.",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 12,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rawa Yousef",
@@ -195,9 +755,41 @@
       "age": 31,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Duhok SC",
+          "year": "2018"
+        },
+        {
+          "club": "Ghaz Al-Shamal",
+          "year": "2019"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2021"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Mohammed",
@@ -207,7 +799,35 @@
       "club": "Newroz SC",
       "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Newroz SC",
+          "year": "2018"
+        },
+        {
+          "club": "Peshmerga SC",
+          "year": "2023"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rastgo Fariq",
@@ -215,9 +835,37 @@
       "age": 26,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 1,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Said Sadeq SC",
+          "year": "2017"
+        },
+        {
+          "club": "New Sirwan SC",
+          "year": "2018"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Murtadha Hedaib",
@@ -227,7 +875,43 @@
       "club": "Newroz SC",
       "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Naft Missan",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Najaf FC",
+          "year": "2022"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Kahrbaa Club",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Hussein Anber",
@@ -237,7 +921,35 @@
       "club": "Newroz SC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Najaf FC",
+          "year": "2025"
+        },
+        {
+          "club": "Karbala'a FC",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Ridha Jalil",
@@ -245,9 +957,53 @@
       "age": 26,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 1
+      "appearances": 22,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Talaba SC",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2018"
+        },
+        {
+          "club": "Naft Al-Wassat",
+          "year": "2022"
+        },
+        {
+          "club": "Sanat Naft",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Quwa Al-Jaw.",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussam Malek",
@@ -255,9 +1011,29 @@
       "age": 31,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +1043,33 @@
       "age": null,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Karbala'a FC",
+          "year": "2022"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Neto Acará",
@@ -277,9 +1077,89 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Newroz SC",
-      "appearances": 10,
-      "goals": 6,
-      "assists": 2
+      "appearances": 12,
+      "goals": 7,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bragantino-PA",
+          "year": "2019"
+        },
+        {
+          "club": "Anápolis",
+          "year": "2020"
+        },
+        {
+          "club": "Itumbiara-GO",
+          "year": "2020"
+        },
+        {
+          "club": "Prudente-SP",
+          "year": "2021"
+        },
+        {
+          "club": "Portuguesa-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Prudente-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Jaraguá EC",
+          "year": "2022"
+        },
+        {
+          "club": "Votuporanguense",
+          "year": "2023"
+        },
+        {
+          "club": "Comercial-SP",
+          "year": "2023"
+        },
+        {
+          "club": "Aruko",
+          "year": "2023"
+        },
+        {
+          "club": "Cianorte",
+          "year": "2024"
+        },
+        {
+          "club": "Aruko",
+          "year": "2024"
+        },
+        {
+          "club": "SA Bulo Bulo",
+          "year": "2024"
+        },
+        {
+          "club": "Anápolis",
+          "year": "2025"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 22,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sivan Omar",
@@ -289,7 +1169,43 @@
       "club": "Newroz SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Peshmerga",
+          "year": "2011"
+        },
+        {
+          "club": "New Sirwan SC",
+          "year": "2021"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2022"
+        },
+        {
+          "club": "Peshmerga SC",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cláudio Maradona",
@@ -297,9 +1213,73 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Newroz SC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 3,
-      "assists": 4
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Macaé",
+          "year": "2017"
+        },
+        {
+          "club": "Boavista",
+          "year": "2017"
+        },
+        {
+          "club": "Sampaio-MA",
+          "year": "2018"
+        },
+        {
+          "club": "Americano-RJ",
+          "year": "2018"
+        },
+        {
+          "club": "EC São José",
+          "year": "2018"
+        },
+        {
+          "club": "Madureira",
+          "year": "2019"
+        },
+        {
+          "club": "EC São José",
+          "year": "2019"
+        },
+        {
+          "club": "Americano-RJ",
+          "year": "2019"
+        },
+        {
+          "club": "EC São José",
+          "year": "2020"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2022"
+        },
+        {
+          "club": "Dibba Al-Hisn",
+          "year": "2023"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 34,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Komolafe",
@@ -307,9 +1287,65 @@
       "age": 25,
       "nationality": "Nigeria",
       "club": "Newroz SC",
-      "appearances": 10,
-      "goals": 3,
-      "assists": 0
+      "appearances": 6,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SV Kapfenberg",
+          "year": "2020"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2022"
+        },
+        {
+          "club": "Arbroath",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "KF Erzeni",
+          "year": "2024"
+        },
+        {
+          "club": "CTG Abahani",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2025"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 31,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marwan Hussein",
@@ -317,9 +1353,69 @@
       "age": 34,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 20,
-      "goals": 4,
-      "assists": 2
+      "appearances": 21,
+      "goals": 5,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2009"
+        },
+        {
+          "club": "Al-Shorta",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Shorta",
+          "year": "2015"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Talaba SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Shorta",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2021"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Najaf FC",
+          "year": "2022"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 29,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abbas Taresh",
@@ -329,7 +1425,27 @@
       "club": "Newroz SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Khalil",
@@ -337,9 +1453,45 @@
       "age": 29,
       "nationality": "Iraq",
       "club": "Newroz SC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Naft SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Mina'a SC",
+          "year": "2023"
+        },
+        {
+          "club": "A. Baghdad SC",
+          "year": "2023"
+        },
+        {
+          "club": "Naft Al-Basra",
+          "year": "2024"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

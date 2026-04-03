@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "L2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 23,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -28,7 +29,21 @@
           "club": "Hertha BSC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 177,
+        "clean_sheets": 51
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Konstantin Heide",
@@ -36,7 +51,7 @@
       "age": 20,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -48,7 +63,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 128,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marius Gersbeck",
@@ -56,7 +85,7 @@
       "age": 30,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -88,7 +117,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 259,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 348,
+        "clean_sheets": 76
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tim Goller",
@@ -96,7 +139,7 @@
       "age": 21,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -104,7 +147,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 131,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -114,7 +171,7 @@
       "age": 22,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -130,7 +187,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Márton Dárdai",
@@ -138,15 +209,29 @@
       "age": 24,
       "nationality": "Hungary",
       "club": "Hertha BSC",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 0,
-      "assists": 2,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hertha BSC",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pascal Klemens",
@@ -154,7 +239,7 @@
       "age": 21,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -162,7 +247,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niklas Kolbe",
@@ -170,7 +269,7 @@
       "age": 29,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 20,
+      "appearances": 17,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -190,7 +289,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Brooks",
@@ -222,7 +335,21 @@
           "club": "Hertha BSC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 411,
+        "goals": 30,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 45,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Toni Leistner",
@@ -230,7 +357,7 @@
       "age": 35,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -282,7 +409,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 468,
+        "goals": 14,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tim Hoffmann",
@@ -290,7 +431,7 @@
       "age": 21,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 18,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -306,7 +447,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 5,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michal Karbownik",
@@ -314,9 +469,9 @@
       "age": 25,
       "nationality": "Poland",
       "club": "Hertha BSC",
-      "appearances": 24,
+      "appearances": 20,
       "goals": 0,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Legia Warszawa",
@@ -354,7 +509,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 1,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julian Eitschberger",
@@ -362,7 +531,7 @@
       "age": 22,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -386,7 +555,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 10,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deyovaisio Zeefuik",
@@ -434,7 +617,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 4,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Janne Berner",
@@ -442,15 +639,29 @@
       "age": 20,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 5,
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 14,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -460,15 +671,29 @@
       "age": 16,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 15,
-      "goals": 1,
+      "appearances": 12,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Boris Mamuzah Lum",
@@ -476,15 +701,29 @@
       "age": 18,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 18,
-      "goals": 2,
+      "appearances": 6,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Demme",
@@ -492,9 +731,9 @@
       "age": 34,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Arm. Bielefeld",
@@ -516,7 +755,21 @@
           "club": "Hertha BSC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 498,
+        "goals": 11,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michaël Cuisance",
@@ -524,9 +777,9 @@
       "age": 26,
       "nationality": "France",
       "club": "Hertha BSC",
-      "appearances": 29,
-      "goals": 3,
-      "assists": 6,
+      "appearances": 25,
+      "goals": 2,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Schiltigh. Jgd.",
@@ -572,7 +825,21 @@
           "club": "Hertha BSC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 22,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leon Jensen",
@@ -580,7 +847,7 @@
       "age": 28,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -600,7 +867,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 41,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Sessa",
@@ -608,7 +889,7 @@
       "age": 25,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -620,17 +901,31 @@
           "club": "Hertha BSC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 22,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Seguin",
       "position": "Central Midfield",
-      "age": 30,
+      "age": 31,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Wolfsburg",
@@ -664,7 +959,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 391,
+        "goals": 47,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeremy Dudziak",
@@ -672,9 +981,9 @@
       "age": 30,
       "nationality": "Tunisia",
       "club": "Hertha BSC",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 4,
+      "appearances": 7,
+      "goals": 1,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Dortmund",
@@ -712,7 +1021,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 322,
+        "goals": 34,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maurice Krattenmacher",
@@ -720,9 +1043,9 @@
       "age": 20,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 1,
+      "appearances": 18,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Unterhaching",
@@ -748,7 +1071,21 @@
           "club": "Bayern Munich",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 35,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -758,8 +1095,8 @@
       "age": 28,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 30,
-      "goals": 10,
+      "appearances": 26,
+      "goals": 9,
       "assists": 11,
       "transfer_history": [
         {
@@ -790,7 +1127,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 93,
+        "assists": 99,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josip Brekalo",
@@ -798,8 +1149,8 @@
       "age": 27,
       "nationality": "Croatia",
       "club": "Hertha BSC",
-      "appearances": 23,
-      "goals": 4,
+      "appearances": 7,
+      "goals": 3,
       "assists": 2,
       "transfer_history": [
         {
@@ -854,7 +1205,21 @@
           "club": "Hertha BSC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 310,
+        "goals": 48,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marten Winkler",
@@ -862,8 +1227,8 @@
       "age": 23,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 29,
-      "goals": 6,
+      "appearances": 25,
+      "goals": 5,
       "assists": 7,
       "transfer_history": [
         {
@@ -874,7 +1239,21 @@
           "club": "Hertha BSC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 46,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dawid Kownacki",
@@ -882,8 +1261,8 @@
       "age": 29,
       "nationality": "Poland",
       "club": "Hertha BSC",
-      "appearances": 20,
-      "goals": 6,
+      "appearances": 17,
+      "goals": 5,
       "assists": 2,
       "transfer_history": [
         {
@@ -934,7 +1313,21 @@
           "club": "Werder Bremen",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 349,
+        "goals": 90,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Schuler",
@@ -942,8 +1335,8 @@
       "age": 27,
       "nationality": "Germany",
       "club": "Hertha BSC",
-      "appearances": 25,
-      "goals": 10,
+      "appearances": 22,
+      "goals": 8,
       "assists": 1,
       "transfer_history": [
         {
@@ -958,7 +1351,21 @@
           "club": "Hertha BSC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 49,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Grönning",
@@ -966,8 +1373,8 @@
       "age": 29,
       "nationality": "Denmark",
       "club": "Hertha BSC",
-      "appearances": 20,
-      "goals": 4,
+      "appearances": 18,
+      "goals": 3,
       "assists": 0,
       "transfer_history": [
         {
@@ -995,7 +1402,7 @@
           "year": "2022"
         },
         {
-          "club": "OFI Crete FC",
+          "club": "OFI Crete",
           "year": "2023"
         },
         {
@@ -1010,7 +1417,21 @@
           "club": "Hertha BSC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 107,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

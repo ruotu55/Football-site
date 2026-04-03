@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "WAL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 21,
       "nationality": "England",
       "club": "Flint Town United",
-      "appearances": 31,
+      "appearances": 29,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flint Town",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 127,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dawid Szczepaniak",
@@ -31,9 +52,69 @@
       "age": 25,
       "nationality": "Poland",
       "club": "Flint Town United",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Airbus UK DVP",
+          "year": "2016"
+        },
+        {
+          "club": "Airbus UK",
+          "year": "2017"
+        },
+        {
+          "club": "Morecambe FC",
+          "year": "2018"
+        },
+        {
+          "club": "Wrexham",
+          "year": "2019"
+        },
+        {
+          "club": "Cefn Druids",
+          "year": "2020"
+        },
+        {
+          "club": "Wrexham",
+          "year": "2021"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Airbus UK",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +124,61 @@
       "age": 22,
       "nationality": "Wales",
       "club": "Flint Town United",
-      "appearances": 32,
+      "appearances": 30,
       "goals": 4,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Connah's Quay",
+          "year": "2021"
+        },
+        {
+          "club": "Ruthin",
+          "year": "2022"
+        },
+        {
+          "club": "Connah's Quay",
+          "year": "2022"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2022"
+        },
+        {
+          "club": "Connah's Quay",
+          "year": "2023"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2023"
+        },
+        {
+          "club": "Connah's Quay",
+          "year": "2024"
+        },
+        {
+          "club": "Colwyn Bay",
+          "year": "2024"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 20,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Woollam",
@@ -53,9 +186,61 @@
       "age": 22,
       "nationality": "England",
       "club": "Flint Town United",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "The New Saints",
+          "year": "2022"
+        },
+        {
+          "club": "Guilsfield",
+          "year": "2022"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2023"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2023"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2024"
+        },
+        {
+          "club": "Bala",
+          "year": "2025"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2025"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2025"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alec Mudimu",
@@ -63,19 +248,139 @@
       "age": 30,
       "nationality": "Zimbabwe",
       "club": "Flint Town United",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cefn Druids",
+          "year": "2017"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2020"
+        },
+        {
+          "club": "Ankaraspor",
+          "year": "2021"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2021"
+        },
+        {
+          "club": "Altrincham",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Caernarfon",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2023"
+        },
+        {
+          "club": "Olympique Beja",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2024"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 19,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oliver Kilner",
       "position": "Centre-Back",
-      "age": 21,
+      "age": 22,
       "nationality": "England",
       "club": "Flint Town United",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Curzon Ashton",
+          "year": "2021"
+        },
+        {
+          "club": "Oldham Athletic",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Oldham Athletic",
+          "year": "2024"
+        },
+        {
+          "club": "Bury",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Stockport Town",
+          "year": "2024"
+        },
+        {
+          "club": "Twin City",
+          "year": "2025"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Max Purvis",
@@ -83,9 +388,37 @@
       "age": 18,
       "nationality": "Wales",
       "club": "Flint Town United",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wrexham",
+          "year": "2025"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2026"
+        },
+        {
+          "club": "Wrexham",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lee Jonas",
@@ -93,9 +426,67 @@
       "age": 21,
       "nationality": "England",
       "club": "Flint Town United",
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Evan Smith",
+      "position": "Left-Back",
+      "age": 21,
+      "nationality": "England",
+      "club": "Flint Town United",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bala",
+          "year": "2025"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Callum Ferguson",
@@ -103,9 +494,29 @@
       "age": null,
       "nationality": "Wales",
       "club": "Flint Town United FC Development Team",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FTU Development",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Levi Morrison",
@@ -113,19 +524,33 @@
       "age": 17,
       "nationality": "Wales",
       "club": "Flint Town United",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Evan Smith",
-      "position": "",
-      "age": 21,
-      "nationality": "England",
-      "club": "Flint Town United",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FTU Development",
+          "year": "2024"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,19 +560,119 @@
       "age": 27,
       "nationality": "Spain",
       "club": "Flint Town United",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "AFC Darwen",
+          "year": "2017"
+        },
+        {
+          "club": "Radcliffe",
+          "year": "2018"
+        },
+        {
+          "club": "AFC Darwen",
+          "year": "2020"
+        },
+        {
+          "club": "Macclesfield",
+          "year": "2021"
+        },
+        {
+          "club": "Glossop NE",
+          "year": "2021"
+        },
+        {
+          "club": "Macclesfield",
+          "year": "2022"
+        },
+        {
+          "club": "Runcorn Linnets",
+          "year": "2022"
+        },
+        {
+          "club": "Clitheroe",
+          "year": "2023"
+        },
+        {
+          "club": "Atherton Collieries",
+          "year": "2023"
+        },
+        {
+          "club": "Bamber Bridge",
+          "year": "2024"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jack Thorn",
       "position": "Defensive Midfield",
-      "age": 24,
+      "age": 25,
       "nationality": "England",
       "club": "Flint Town United",
-      "appearances": 33,
+      "appearances": 30,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Wrexham",
+          "year": "2019"
+        },
+        {
+          "club": "Newtown",
+          "year": "2019"
+        },
+        {
+          "club": "Wrexham",
+          "year": "2020"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2020"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 13,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jake Canavan",
@@ -155,9 +680,73 @@
       "age": 22,
       "nationality": "England",
       "club": "Flint Town United",
-      "appearances": 31,
+      "appearances": 28,
       "goals": 4,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Burnley Youth",
+          "year": "2016"
+        },
+        {
+          "club": "TNS Youth",
+          "year": "2019"
+        },
+        {
+          "club": "TNS Development",
+          "year": "2020"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2021"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2023"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2023"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2024"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2024"
+        },
+        {
+          "club": "Caernarfon",
+          "year": "2025"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2025"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2025"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 15,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jake Phillips",
@@ -165,9 +754,61 @@
       "age": 29,
       "nationality": "Wales",
       "club": "Flint Town United",
-      "appearances": 30,
+      "appearances": 29,
       "goals": 1,
-      "assists": 9
+      "assists": 10,
+      "transfer_history": [
+        {
+          "club": "Cefn Druids",
+          "year": "2016"
+        },
+        {
+          "club": "Connah's Quay",
+          "year": "2017"
+        },
+        {
+          "club": "Bangor City",
+          "year": "2018"
+        },
+        {
+          "club": "Connah's Quay",
+          "year": "2018"
+        },
+        {
+          "club": "Airbus UK",
+          "year": "2019"
+        },
+        {
+          "club": "Newtown",
+          "year": "2020"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2021"
+        },
+        {
+          "club": "Airbus UK",
+          "year": "2022"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 8,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mikey Burke",
@@ -175,9 +816,37 @@
       "age": 23,
       "nationality": "England",
       "club": "Flint Town United",
-      "appearances": 27,
-      "goals": 2,
-      "assists": 3
+      "appearances": 23,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Airbus UK",
+          "year": "2022"
+        },
+        {
+          "club": "Prestatyn",
+          "year": "2023"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Wynne",
@@ -185,9 +854,45 @@
       "age": 23,
       "nationality": "England",
       "club": "Flint Town United",
-      "appearances": 29,
-      "goals": 9,
-      "assists": 3
+      "appearances": 24,
+      "goals": 6,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "City of Liverp.",
+          "year": "2020"
+        },
+        {
+          "club": "Cefn Druids",
+          "year": "2021"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2022"
+        },
+        {
+          "club": "Caernarfon",
+          "year": "2022"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 22,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Hughes",
@@ -195,9 +900,29 @@
       "age": 21,
       "nationality": "Wales",
       "club": "Flint Town United",
-      "appearances": 30,
-      "goals": 2,
-      "assists": 2
+      "appearances": 28,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Flint Town",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 9,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +932,117 @@
       "age": 34,
       "nationality": "Nigeria",
       "club": "Flint Town United",
-      "appearances": 29,
+      "appearances": 25,
       "goals": 1,
-      "assists": 4
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Altrincham",
+          "year": "2007"
+        },
+        {
+          "club": "Stalybridge",
+          "year": "2009"
+        },
+        {
+          "club": "Ashton United",
+          "year": "2010"
+        },
+        {
+          "club": "Salford",
+          "year": "2011"
+        },
+        {
+          "club": "Halifax Town",
+          "year": "2012"
+        },
+        {
+          "club": "Nantwich Town",
+          "year": "2013"
+        },
+        {
+          "club": "Ramsbottom",
+          "year": "2014"
+        },
+        {
+          "club": "Buxton",
+          "year": "2015"
+        },
+        {
+          "club": "Nantwich Town",
+          "year": "2016"
+        },
+        {
+          "club": "Stafford",
+          "year": "2017"
+        },
+        {
+          "club": "Hednesford",
+          "year": "2018"
+        },
+        {
+          "club": "Buxton",
+          "year": "2020"
+        },
+        {
+          "club": "Matlock",
+          "year": "2020"
+        },
+        {
+          "club": "Barwell",
+          "year": "2021"
+        },
+        {
+          "club": "Stourbridge",
+          "year": "2021"
+        },
+        {
+          "club": "Ashton United",
+          "year": "2021"
+        },
+        {
+          "club": "Matlock",
+          "year": "2022"
+        },
+        {
+          "club": "Stalybridge",
+          "year": "2022"
+        },
+        {
+          "club": "Guiseley",
+          "year": "2023"
+        },
+        {
+          "club": "Rylands",
+          "year": "2023"
+        },
+        {
+          "club": "Bala",
+          "year": "2023"
+        },
+        {
+          "club": "Caernarfon",
+          "year": "2025"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 9,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elliott Reeves",
@@ -218,8 +1051,44 @@
       "nationality": "England",
       "club": "Flint Town United",
       "appearances": 27,
-      "goals": 16,
-      "assists": 1
+      "goals": 12,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ilkeston Town",
+          "year": "2018"
+        },
+        {
+          "club": "Margate FC",
+          "year": "2019"
+        },
+        {
+          "club": "Alfreton",
+          "year": "2020"
+        },
+        {
+          "club": "Mickleover",
+          "year": "2022"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 65,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josh Jones",
@@ -227,9 +1096,41 @@
       "age": 25,
       "nationality": "Wales",
       "club": "Flint Town United",
-      "appearances": 31,
+      "appearances": 27,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bala",
+          "year": "2018"
+        },
+        {
+          "club": "Llandyrnog",
+          "year": "2019"
+        },
+        {
+          "club": "Ruthin",
+          "year": "2020"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 53,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darren Stephenson",
@@ -237,9 +1138,97 @@
       "age": 33,
       "nationality": "Jamaica",
       "club": "Flint Town United",
-      "appearances": 29,
-      "goals": 9,
-      "assists": 2
+      "appearances": 26,
+      "goals": 6,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bradford",
+          "year": "2011"
+        },
+        {
+          "club": "Hinckley United",
+          "year": "2011"
+        },
+        {
+          "club": "Stockport S",
+          "year": "2011"
+        },
+        {
+          "club": "Southport",
+          "year": "2012"
+        },
+        {
+          "club": "Bradford",
+          "year": "2012"
+        },
+        {
+          "club": "Chorley",
+          "year": "2012"
+        },
+        {
+          "club": "Tranmere",
+          "year": "2016"
+        },
+        {
+          "club": "Fylde",
+          "year": "2016"
+        },
+        {
+          "club": "Tranmere",
+          "year": "2017"
+        },
+        {
+          "club": "Stockport",
+          "year": "2017"
+        },
+        {
+          "club": "Curzon Ashton",
+          "year": "2020"
+        },
+        {
+          "club": "Halifax Town",
+          "year": "2021"
+        },
+        {
+          "club": "Curzon Ashton",
+          "year": "2021"
+        },
+        {
+          "club": "Chester",
+          "year": "2021"
+        },
+        {
+          "club": "Curzon Ashton",
+          "year": "2022"
+        },
+        {
+          "club": "Chester",
+          "year": "2023"
+        },
+        {
+          "club": "Farsley",
+          "year": "2023"
+        },
+        {
+          "club": "Flint Town",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 316,
+        "goals": 66,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "HOC1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 33,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 40,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpia Res.",
+          "year": "2010"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2014"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 305,
+        "clean_sheets": 157
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 39,
+        "clean_sheets": 18
+      }
     },
     {
       "name": "Onan Rodriguez",
@@ -31,9 +56,33 @@
       "age": 23,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 12,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real España",
+          "year": "2023"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 25,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +92,57 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "CD Olimpia",
-      "appearances": 42,
-      "goals": 3,
-      "assists": 0
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "River Plate",
+          "year": "2019"
+        },
+        {
+          "club": "Jaguares FC",
+          "year": "2020"
+        },
+        {
+          "club": "Sud América",
+          "year": "2021"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2021"
+        },
+        {
+          "club": "Sarmiento Junin",
+          "year": "2023"
+        },
+        {
+          "club": "Cobresal",
+          "year": "2024"
+        },
+        {
+          "club": "Sarmiento Junin",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 12,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Queiroz",
@@ -53,9 +150,65 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "CD Olimpia",
-      "appearances": 34,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boston River",
+          "year": "2019"
+        },
+        {
+          "club": "Bella Vista",
+          "year": "2020"
+        },
+        {
+          "club": "Rukh",
+          "year": "2021"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2022"
+        },
+        {
+          "club": "Orense SC",
+          "year": "2023"
+        },
+        {
+          "club": "CA Fénix",
+          "year": "2024"
+        },
+        {
+          "club": "Cobán Imperial",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clinton Bennett",
@@ -63,9 +216,33 @@
       "age": 23,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 0
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpia Res.",
+          "year": "2023"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elison Rivas",
@@ -73,9 +250,73 @@
       "age": 26,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 32,
-      "goals": 3,
-      "assists": 2
+      "appearances": 8,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Real España",
+          "year": "2018"
+        },
+        {
+          "club": "Platense FC",
+          "year": "2020"
+        },
+        {
+          "club": "Real España",
+          "year": "2020"
+        },
+        {
+          "club": "Real de Minas",
+          "year": "2021"
+        },
+        {
+          "club": "Real España",
+          "year": "2021"
+        },
+        {
+          "club": "CD Águila",
+          "year": "2021"
+        },
+        {
+          "club": "CDS Vida",
+          "year": "2022"
+        },
+        {
+          "club": "Real España",
+          "year": "2023"
+        },
+        {
+          "club": "CDS Vida",
+          "year": "2023"
+        },
+        {
+          "club": "Rionegro Águila",
+          "year": "2024"
+        },
+        {
+          "club": "Olancho FC",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 15,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josman Figueroa",
@@ -83,9 +324,37 @@
       "age": 24,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 2
+      "appearances": 5,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2021"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2023"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Sánchez",
@@ -93,9 +362,45 @@
       "age": 35,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 31,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Real España",
+          "year": "2015"
+        },
+        {
+          "club": "Honduras Progr.",
+          "year": "2015"
+        },
+        {
+          "club": "FC Motagua",
+          "year": "2018"
+        },
+        {
+          "club": "CDS Vida",
+          "year": "2020"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 346,
+        "goals": 26,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edwin Lobo",
@@ -103,9 +408,29 @@
       "age": 20,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 25,
+      "appearances": 6,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Félix García",
@@ -113,9 +438,33 @@
       "age": 22,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 1
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lobos UPNFM",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Güity",
@@ -123,9 +472,37 @@
       "age": 23,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 39,
-      "goals": 2,
-      "assists": 3
+      "appearances": 11,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Real Sociedad",
+          "year": "2022"
+        },
+        {
+          "club": "CD Victoria",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +512,41 @@
       "age": 28,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 32,
-      "goals": 3,
-      "assists": 7
+      "appearances": 11,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Olimpia Res.",
+          "year": "2016"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2018"
+        },
+        {
+          "club": "Olimpia Res.",
+          "year": "2018"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 289,
+        "goals": 23,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Agustín Mulet",
@@ -145,9 +554,57 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "CD Olimpia",
-      "appearances": 32,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2021"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2023"
+        },
+        {
+          "club": "Cobreloa",
+          "year": "2024"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2024"
+        },
+        {
+          "club": "Ind. Rivadavia",
+          "year": "2024"
+        },
+        {
+          "club": "CA Cerro",
+          "year": "2025"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raul García",
@@ -155,9 +612,33 @@
       "age": 22,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 1
+      "appearances": 10,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lobos UPNFM",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Axel Maldonado",
@@ -165,19 +646,54 @@
       "age": 24,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 18,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Ortiz",
       "position": "Left Midfield",
-      "age": 18,
+      "age": 19,
       "nationality": "Honduras",
       "club": "CD Olimpia Reserve",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -187,9 +703,41 @@
       "age": 28,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 41,
-      "goals": 7,
-      "assists": 10
+      "appearances": 12,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2018"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2018"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2019"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 55,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Ramírez",
@@ -199,7 +747,67 @@
       "club": "CD Olimpia",
       "appearances": 5,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2016"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2018"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Central Español",
+          "year": "2019"
+        },
+        {
+          "club": "Villa Española",
+          "year": "2021"
+        },
+        {
+          "club": "La Luz",
+          "year": "2022"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2023"
+        },
+        {
+          "club": "CA Cerro",
+          "year": "2023"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2025"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 18,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edwin Rodríguez",
@@ -207,9 +815,37 @@
       "age": 26,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 25,
+      "appearances": 11,
       "goals": 3,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2019"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2022"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 253,
+        "goals": 31,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michaell Chirinos",
@@ -217,9 +853,53 @@
       "age": 30,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 6
+      "appearances": 6,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2015"
+        },
+        {
+          "club": "Lobos BUAP",
+          "year": "2018"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2019"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2019"
+        },
+        {
+          "club": "Volos NFC",
+          "year": "2023"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2023"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 87,
+        "assists": 56,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Benguché",
@@ -227,9 +907,65 @@
       "age": 29,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 39,
-      "goals": 18,
-      "assists": 4
+      "appearances": 11,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2015"
+        },
+        {
+          "club": "Juticalpa",
+          "year": "2015"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2018"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2018"
+        },
+        {
+          "club": "Boavista",
+          "year": "2020"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2021"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2022"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2022"
+        },
+        {
+          "club": "AC Bellinzona",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 332,
+        "goals": 112,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maynor Arzú",
@@ -237,9 +973,45 @@
       "age": 22,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 19,
+      "appearances": 6,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2022"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2022"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2024"
+        },
+        {
+          "club": "CD Victoria",
+          "year": "2024"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yustin Arboleda",
@@ -247,9 +1019,57 @@
       "age": 34,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 35,
-      "goals": 10,
-      "assists": 5
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indep. Medellín",
+          "year": "2010"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2013"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2013"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2015"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2015"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2016"
+        },
+        {
+          "club": "Marathón",
+          "year": "2017"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 464,
+        "goals": 175,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jerry Bengtson",
@@ -257,9 +1077,57 @@
       "age": 38,
       "nationality": "Honduras",
       "club": "CD Olimpia",
-      "appearances": 33,
-      "goals": 5,
-      "assists": 4
+      "appearances": 12,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Motagua",
+          "year": "2011"
+        },
+        {
+          "club": "New England",
+          "year": "2012"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2014"
+        },
+        {
+          "club": "New England",
+          "year": "2015"
+        },
+        {
+          "club": "Persepolis FC",
+          "year": "2015"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2016"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2017"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 502,
+        "goals": 192,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 70,
+        "goals": 23,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Didier Paguada",
@@ -267,9 +1135,24 @@
       "age": 20,
       "nationality": "Honduras",
       "club": "CD Olimpia Reserve",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Flores",
@@ -277,9 +1160,24 @@
       "age": 18,
       "nationality": "Honduras",
       "club": "CD Olimpia Reserve",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

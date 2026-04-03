@@ -9,21 +9,62 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "EGY1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Ahmed Mayhoub",
       "position": "Goalkeeper",
-      "age": 29,
+      "age": 30,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wadi Degla",
+          "year": "2020"
+        },
+        {
+          "club": "La Viena FC",
+          "year": "2022"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2022"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2023"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 47,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "El-Hani Soliman",
@@ -31,9 +72,41 @@
       "age": 41,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ittihad Alex",
+          "year": "2007"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2013"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2015"
+        },
+        {
+          "club": "Smouha",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 485,
+        "clean_sheets": 121
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussein Taimour",
@@ -41,9 +114,24 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +141,41 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 19,
+      "appearances": 14,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bank El Ahly",
+          "year": "2019"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Smouha",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Ragab",
@@ -63,9 +183,53 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 21,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aswan SC",
+          "year": "2020"
+        },
+        {
+          "club": "Pharco FC",
+          "year": "2021"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2021"
+        },
+        {
+          "club": "Masry Salloum",
+          "year": "2021"
+        },
+        {
+          "club": "Wadi Degla",
+          "year": "2022"
+        },
+        {
+          "club": "Kahraba",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Awad",
@@ -73,9 +237,33 @@
       "age": 30,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pharco FC",
+          "year": "2017"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Dabash",
@@ -83,9 +271,57 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qanah",
+          "year": "2010"
+        },
+        {
+          "club": "El Shorta",
+          "year": "2011"
+        },
+        {
+          "club": "Kafr Elzayat",
+          "year": "2012"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2013"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2018"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2020"
+        },
+        {
+          "club": "El Masry",
+          "year": "2022"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 252,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelrahman Amer",
@@ -93,9 +329,45 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pharco FC",
+          "year": "2014"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Smouha",
+          "year": "2021"
+        },
+        {
+          "club": "Ban",
+          "year": "2022"
+        },
+        {
+          "club": "Smouha",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 3,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Afifi",
@@ -103,9 +375,37 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cleopatra FC",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sherif Reda",
@@ -113,9 +413,37 @@
       "age": 29,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 16,
+      "appearances": 11,
       "goals": 0,
-      "assists": 4
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2018"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 6,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hesham Hafez",
@@ -123,9 +451,45 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "El Makasa",
+          "year": "2021"
+        },
+        {
+          "club": "Modern Future",
+          "year": "2022"
+        },
+        {
+          "club": "Baladiya",
+          "year": "2023"
+        },
+        {
+          "club": "Modern Future",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +499,33 @@
       "age": 22,
       "nationality": "Benin",
       "club": "Smouha SC",
-      "appearances": 18,
+      "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Masry",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Fawzi",
@@ -145,9 +533,65 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 24,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting",
+          "year": "2019"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2022"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2022"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2023"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2023"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2024"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2025"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2025"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samir Fekri",
@@ -155,9 +599,57 @@
       "age": 30,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 25,
-      "goals": 5,
-      "assists": 2
+      "appearances": 18,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El Dakhlia",
+          "year": "2015"
+        },
+        {
+          "club": "T. Beni Suef",
+          "year": "2016"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2017"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2019"
+        },
+        {
+          "club": "El Masry",
+          "year": "2023"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2025"
+        },
+        {
+          "club": "El Masry",
+          "year": "2025"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 17,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled El Ghandour",
@@ -165,9 +657,49 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 24,
-      "goals": 5,
-      "assists": 4
+      "appearances": 18,
+      "goals": 3,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "El Shorta",
+          "year": "2014"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2016"
+        },
+        {
+          "club": "El Shorta",
+          "year": "2017"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2017"
+        },
+        {
+          "club": "El Masry",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 343,
+        "goals": 23,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amr El Sisi",
@@ -175,9 +707,41 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 25,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2019"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2022"
+        },
+        {
+          "club": "Modern Future",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emad Fathi",
@@ -185,9 +749,69 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Makasa",
+          "year": "2016"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2018"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2018"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        },
+        {
+          "club": "El Masry",
+          "year": "2019"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2020"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2021"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 10,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kone Mohamed",
@@ -195,9 +819,29 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "Smouha SC",
-      "appearances": 12,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bibo Ahmed Hassan",
@@ -205,9 +849,45 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nogoom FC",
+          "year": "2019"
+        },
+        {
+          "club": "FC Masr",
+          "year": "2020"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2023"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Ali Amin",
@@ -217,7 +897,27 @@
       "club": "Smouha SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islam Ateya",
@@ -225,9 +925,33 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 14,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Masry",
+          "year": "2017"
+        },
+        {
+          "club": "Smouha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Ehab",
@@ -235,9 +959,29 @@
       "age": 21,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,19 +991,91 @@
       "age": 29,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kafr Elzayat",
+          "year": "2016"
+        },
+        {
+          "club": "Smouha",
+          "year": "2018"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2019"
+        },
+        {
+          "club": "Modern Future",
+          "year": "2022"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephen Amankona",
       "position": "Left Winger",
-      "age": 25,
+      "age": 26,
       "nationality": "Ghana",
       "club": "Smouha SC",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2019"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2021"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2023"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 57,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Khaled",
@@ -267,9 +1083,49 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2019"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2020"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2021"
+        },
+        {
+          "club": "A. Abo Qir",
+          "year": "2021"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2022"
+        },
+        {
+          "club": "Smouha",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Amadi",
@@ -277,9 +1133,49 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Smouha SC",
-      "appearances": 22,
+      "appearances": 16,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akwa United",
+          "year": "2020"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2022"
+        },
+        {
+          "club": "Smouha",
+          "year": "2024"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2025"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdo Yehia",
@@ -287,9 +1183,45 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 26,
+      "appearances": 19,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Mahalla",
+          "year": "2018"
+        },
+        {
+          "club": "El Masry",
+          "year": "2023"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2023"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 20,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Makarona",
@@ -297,9 +1229,29 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pape Badji",
@@ -307,9 +1259,49 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "Smouha SC",
-      "appearances": 24,
-      "goals": 7,
-      "assists": 1
+      "appearances": 19,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Guédiawaye FC",
+          "year": "2021"
+        },
+        {
+          "club": "Génération Foot",
+          "year": "2022"
+        },
+        {
+          "club": "Salitas",
+          "year": "2022"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2023"
+        },
+        {
+          "club": "El Masry",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 21,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hossam Ashraf",
@@ -317,9 +1309,53 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 26,
-      "goals": 2,
-      "assists": 1
+      "appearances": 19,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2023"
+        },
+        {
+          "club": "Baladiya",
+          "year": "2023"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2025"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 21,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amoory",
@@ -327,19 +1363,59 @@
       "age": 20,
       "nationality": "Egypt",
       "club": "Smouha SC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Nweke",
-      "position": "",
+      "position": "Centre-Forward",
       "age": 19,
       "nationality": "Nigeria",
       "club": "Smouha SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

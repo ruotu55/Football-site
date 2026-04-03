@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SL1C"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 24,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 39,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Águila Res.",
+          "year": "2021"
+        },
+        {
+          "club": "Jocoro",
+          "year": "2023"
+        },
+        {
+          "club": "CD Dragón",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 78,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Bonilla",
@@ -33,7 +66,27 @@
       "club": "CD Cacahuatique",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeremy Rodríguez",
@@ -41,9 +94,29 @@
       "age": 21,
       "nationality": "Panama",
       "club": "CD Cacahuatique",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 2,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +126,61 @@
       "age": 32,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 41,
+      "appearances": 16,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "L.A. Firpo",
+          "year": "2015"
+        },
+        {
+          "club": "CD Audaz",
+          "year": "2017"
+        },
+        {
+          "club": "Jocoro",
+          "year": "2018"
+        },
+        {
+          "club": "El Vencedor",
+          "year": "2019"
+        },
+        {
+          "club": "CD Águila",
+          "year": "2020"
+        },
+        {
+          "club": "L.A. Firpo",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Marte",
+          "year": "2023"
+        },
+        {
+          "club": "Fuerte SF",
+          "year": "2023"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 289,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronald Padilla",
@@ -63,9 +188,41 @@
       "age": 29,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 34,
-      "goals": 2,
-      "assists": 1
+      "appearances": 12,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Platense",
+          "year": "2020"
+        },
+        {
+          "club": "L.A. Firpo",
+          "year": "2023"
+        },
+        {
+          "club": "Zacatecoluca",
+          "year": "2025"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Quintanilla",
@@ -73,9 +230,37 @@
       "age": 24,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 15,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jocoro",
+          "year": "2023"
+        },
+        {
+          "club": "CD Dragón",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guillermo Fuentes",
@@ -83,9 +268,33 @@
       "age": 24,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 18,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jocoro",
+          "year": "2023"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eduardo Hernández",
@@ -93,9 +302,41 @@
       "age": 21,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 19,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Cacahuatique",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "San Miguel FC",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco Carballo",
@@ -103,9 +344,37 @@
       "age": 31,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 36,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Turín FESA FC",
+          "year": "2010"
+        },
+        {
+          "club": "Fuerte SF",
+          "year": "2012"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Márquez",
@@ -113,19 +382,49 @@
       "age": 29,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 31,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Anderson Portillo",
-      "position": "",
-      "age": 18,
-      "nationality": "El Salvador",
-      "club": "CD Cacahuatique",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CD Águila",
+          "year": "2017"
+        },
+        {
+          "club": "L.A. Firpo",
+          "year": "2018"
+        },
+        {
+          "club": "Once Deportivo",
+          "year": "2019"
+        },
+        {
+          "club": "Fuerte SF",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +434,41 @@
       "age": 24,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 17,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Águila Res.",
+          "year": "2020"
+        },
+        {
+          "club": "CD Platense",
+          "year": "2023"
+        },
+        {
+          "club": "ADI Metapán",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bladimir González",
@@ -145,9 +476,29 @@
       "age": 22,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 36,
+      "appearances": 11,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Byron Mendoza",
@@ -155,9 +506,33 @@
       "age": 32,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter FA",
+          "year": "2025"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Garay",
@@ -166,8 +541,48 @@
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD FAS Res.",
+          "year": "2018"
+        },
+        {
+          "club": "Once Lobos",
+          "year": "2020"
+        },
+        {
+          "club": "FAS",
+          "year": "2020"
+        },
+        {
+          "club": "CD Titán",
+          "year": "2021"
+        },
+        {
+          "club": "Santa Tecla",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Herbert Sosa",
@@ -175,9 +590,69 @@
       "age": 36,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Alianza FC",
+          "year": "2008"
+        },
+        {
+          "club": "Juventud",
+          "year": "2014"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2015"
+        },
+        {
+          "club": "Santa Tecla",
+          "year": "2019"
+        },
+        {
+          "club": "ADI Metapán",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "L.A. Firpo",
+          "year": "2022"
+        },
+        {
+          "club": "CD Dragón",
+          "year": "2022"
+        },
+        {
+          "club": "Jocoro",
+          "year": "2023"
+        },
+        {
+          "club": "CD Dragón",
+          "year": "2025"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 469,
+        "goals": 64,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Márquez",
@@ -185,9 +660,49 @@
       "age": 29,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 36,
+      "appearances": 15,
       "goals": 5,
-      "assists": 5
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CD Águila",
+          "year": "2016"
+        },
+        {
+          "club": "L.A. Firpo",
+          "year": "2018"
+        },
+        {
+          "club": "Once Deportivo",
+          "year": "2019"
+        },
+        {
+          "club": "Fuerte SF",
+          "year": "2021"
+        },
+        {
+          "club": "CD Pipil",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 23,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Misael Palacios",
@@ -195,9 +710,29 @@
       "age": 20,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 29,
-      "goals": 2,
-      "assists": 0
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elías Umeres",
@@ -205,9 +740,53 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "CD Cacahuatique",
-      "appearances": 35,
+      "appearances": 14,
       "goals": 1,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Plaza Colonia",
+          "year": "2018"
+        },
+        {
+          "club": "Guillermo Brown",
+          "year": "2020"
+        },
+        {
+          "club": "Plaza Colonia",
+          "year": "2020"
+        },
+        {
+          "club": "Rampla Jrs",
+          "year": "2022"
+        },
+        {
+          "club": "Acassuso",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 9,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Rodríguez",
@@ -215,9 +794,41 @@
       "age": 27,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 19,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jocoro",
+          "year": "2018"
+        },
+        {
+          "club": "Fuerte SF",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diomer Hinestroza",
@@ -225,9 +836,63 @@
       "age": 30,
       "nationality": "Colombia",
       "club": "CD Cacahuatique",
-      "appearances": 31,
-      "goals": 2,
-      "assists": 2
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Anderson Portillo",
+      "position": "",
+      "age": 18,
+      "nationality": "El Salvador",
+      "club": "CD Cacahuatique",
+      "appearances": 11,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +902,33 @@
       "age": 23,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 27,
-      "goals": 3,
-      "assists": 3
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Águila",
+          "year": "2023"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Hinestroza",
@@ -247,9 +936,69 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "CD Cacahuatique",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 2
+      "appearances": 7,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2012"
+        },
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Santa Tecla",
+          "year": "2015"
+        },
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2018"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Safa",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 316,
+        "goals": 40,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Óscar Cerén",
@@ -257,9 +1006,57 @@
       "age": 34,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 39,
+      "appearances": 16,
       "goals": 2,
-      "assists": 7
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "CD Águila",
+          "year": "2014"
+        },
+        {
+          "club": "ADI Metapán",
+          "year": "2015"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2021"
+        },
+        {
+          "club": "ADI Metapán",
+          "year": "2022"
+        },
+        {
+          "club": "CD Águila",
+          "year": "2023"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 503,
+        "goals": 75,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alesson",
@@ -267,9 +1064,53 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "CD Cacahuatique",
-      "appearances": 31,
-      "goals": 12,
-      "assists": 1
+      "appearances": 13,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Porto Velho",
+          "year": "2021"
+        },
+        {
+          "club": "Humaitá",
+          "year": "2022"
+        },
+        {
+          "club": "Ypiranga-AP",
+          "year": "2023"
+        },
+        {
+          "club": "St. Andrews FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Humaitá",
+          "year": "2025"
+        },
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 23,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oscar de la O",
@@ -277,9 +1118,29 @@
       "age": null,
       "nationality": "El Salvador",
       "club": "CD Cacahuatique",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Cacahuatique",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

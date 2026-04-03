@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 29,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Podbeskidzie",
+          "year": "2014"
+        },
+        {
+          "club": "Legionovia",
+          "year": "2016"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2016"
+        },
+        {
+          "club": "Wisla Pulawy",
+          "year": "2017"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2018"
+        },
+        {
+          "club": "Olimpia Elblag",
+          "year": "2018"
+        },
+        {
+          "club": "Motor Lublin",
+          "year": "2020"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 269,
+        "clean_sheets": 78
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henrich Ravas",
@@ -31,9 +80,61 @@
       "age": 28,
       "nationality": "Slovakia",
       "club": "Cracovia",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boston Utd",
+          "year": "2015"
+        },
+        {
+          "club": "Gainsborough",
+          "year": "2017"
+        },
+        {
+          "club": "Derby",
+          "year": "2020"
+        },
+        {
+          "club": "Hartlepool",
+          "year": "2020"
+        },
+        {
+          "club": "Derby",
+          "year": "2021"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2021"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2022"
+        },
+        {
+          "club": "New England",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 359,
+        "clean_sheets": 57
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konrad Golonka",
@@ -41,9 +142,29 @@
       "age": 18,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cracovia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 86,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +174,95 @@
       "age": 22,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cracovia",
+          "year": "2020"
+        },
+        {
+          "club": "GKS Belchatow",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Bosko Sutalo",
+      "position": "Centre-Back",
+      "age": 26,
+      "nationality": "Croatia",
+      "club": "Cracovia",
+      "appearances": 21,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Osijek",
+          "year": "2018"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2020"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2021"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2022"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brahim Traoré",
@@ -63,9 +270,41 @@
       "age": 22,
       "nationality": "France",
       "club": "Cracovia",
-      "appearances": 12,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SM Caen",
+          "year": "2021"
+        },
+        {
+          "club": "SL16 FC",
+          "year": "2023"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2023"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustav Henriksson",
@@ -75,7 +314,39 @@
       "club": "Cracovia",
       "appearances": 22,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Elfsborg",
+          "year": "2018"
+        },
+        {
+          "club": "Wolfsberger AC",
+          "year": "2021"
+        },
+        {
+          "club": "Elfsborg",
+          "year": "2022"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kamil Glik",
@@ -83,29 +354,123 @@
       "age": 38,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Silesia Lubomia",
+          "year": "2005"
+        },
+        {
+          "club": "UD Horadada",
+          "year": "2006"
+        },
+        {
+          "club": "Real Madrid C",
+          "year": "2007"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2008"
+        },
+        {
+          "club": "US Palermo",
+          "year": "2010"
+        },
+        {
+          "club": "Bari",
+          "year": "2011"
+        },
+        {
+          "club": "US Palermo",
+          "year": "2011"
+        },
+        {
+          "club": "Torino",
+          "year": "2011"
+        },
+        {
+          "club": "Monaco",
+          "year": "2016"
+        },
+        {
+          "club": "Benevento",
+          "year": "2020"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 523,
+        "goals": 34,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 103,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mauro Perkovic",
       "position": "Left-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Croatia",
       "club": "Cracovia",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 3,
-      "assists": 1
-    },
-    {
-      "name": "Bosko Sutalo",
-      "position": "Right-Back",
-      "age": 26,
-      "nationality": "Croatia",
-      "club": "Cracovia",
-      "appearances": 21,
-      "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Istra 1961 Jgd",
+          "year": "2012"
+        },
+        {
+          "club": "NK Istra",
+          "year": "2021"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "NK Istra",
+          "year": "2023"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2026"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Otar Kakabadze",
@@ -113,9 +478,53 @@
       "age": 30,
       "nationality": "Georgia",
       "club": "Cracovia",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2013"
+        },
+        {
+          "club": "Gimnàstic",
+          "year": "2016"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2017"
+        },
+        {
+          "club": "Gimnàstic",
+          "year": "2017"
+        },
+        {
+          "club": "FC Luzern",
+          "year": "2018"
+        },
+        {
+          "club": "CD Tenerife",
+          "year": "2020"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 16,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 77,
+        "goals": 0,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominik Piła",
@@ -123,9 +532,37 @@
       "age": 24,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 1
+      "appearances": 20,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chrobry Glogow",
+          "year": "2019"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2022"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 11,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -137,7 +574,59 @@
       "club": "Cracovia",
       "appearances": 26,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Husqvarna FF",
+          "year": "2017"
+        },
+        {
+          "club": "J-Södra IF",
+          "year": "2018"
+        },
+        {
+          "club": "Halmstads BK",
+          "year": "2021"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2022"
+        },
+        {
+          "club": "Mjällby AIF",
+          "year": "2022"
+        },
+        {
+          "club": "Halmstads BK",
+          "year": "2023"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2023"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 290,
+        "goals": 34,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Beno Selan",
@@ -145,9 +634,33 @@
       "age": 21,
       "nationality": "Slovenia",
       "club": "Cracovia",
-      "appearances": 25,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Bravo",
+          "year": "2022"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateusz Klich",
@@ -157,7 +670,75 @@
       "club": "Cracovia",
       "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cracovia",
+          "year": "2008"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2011"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2013"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2013"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2014"
+        },
+        {
+          "club": "1.FC K'lautern",
+          "year": "2015"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2016"
+        },
+        {
+          "club": "Leeds",
+          "year": "2017"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2018"
+        },
+        {
+          "club": "Leeds",
+          "year": "2018"
+        },
+        {
+          "club": "D.C. United",
+          "year": "2023"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 501,
+        "goals": 57,
+        "assists": 74,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karol Knap",
@@ -165,9 +746,45 @@
       "age": 24,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 15,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Karpaty Krosno",
+          "year": "2018"
+        },
+        {
+          "club": "P. Niepolomice",
+          "year": "2020"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2021"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 6,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maxime Dominguez",
@@ -177,7 +794,71 @@
       "club": "Cracovia",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Servette FC",
+          "year": "2014"
+        },
+        {
+          "club": "Servette FC",
+          "year": "2015"
+        },
+        {
+          "club": "FC Zürich",
+          "year": "2016"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2016"
+        },
+        {
+          "club": "Neuchâtel Xamax",
+          "year": "2020"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2021"
+        },
+        {
+          "club": "Raków",
+          "year": "2023"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2023"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2024"
+        },
+        {
+          "club": "Toronto",
+          "year": "2025"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2025"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 348,
+        "goals": 56,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Minchev",
@@ -186,8 +867,40 @@
       "nationality": "Bulgaria",
       "club": "Cracovia",
       "appearances": 25,
-      "goals": 6,
-      "assists": 1
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cherno More",
+          "year": "2017"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2020"
+        },
+        {
+          "club": "C. Rizespor",
+          "year": "2023"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 42,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dijon Kameri",
@@ -197,7 +910,59 @@
       "club": "Cracovia",
       "appearances": 16,
       "goals": 1,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Salzburg Youth",
+          "year": "2016"
+        },
+        {
+          "club": "AKA Salzb. U15",
+          "year": "2018"
+        },
+        {
+          "club": "FC Liefering",
+          "year": "2021"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2022"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2024"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2024"
+        },
+        {
+          "club": "SCR Altach",
+          "year": "2024"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2025"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 21,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateusz Praszelik",
@@ -205,9 +970,65 @@
       "age": 25,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Legia Warszawa",
+          "year": "2018"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2020"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2022"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2022"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2023"
+        },
+        {
+          "club": "Cosenza",
+          "year": "2023"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2024"
+        },
+        {
+          "club": "Südtirol",
+          "year": "2024"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2025"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 227,
+        "goals": 24,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateusz Skoczylas",
@@ -215,9 +1036,37 @@
       "age": 19,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lubin Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Milan Futuro",
+          "year": "2025"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateusz Tabisz",
@@ -225,9 +1074,29 @@
       "age": 18,
       "nationality": "Poland",
       "club": "Cracovia",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cracovia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1106,41 @@
       "age": 21,
       "nationality": "Spain",
       "club": "Cracovia",
-      "appearances": 20,
+      "appearances": 8,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Aragón",
+          "year": "2023"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2026"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ajdin Hasic",
@@ -248,8 +1149,60 @@
       "nationality": "TM nationality id 24",
       "club": "Cracovia",
       "appearances": 19,
-      "goals": 6,
-      "assists": 2
+      "goals": 7,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2020"
+        },
+        {
+          "club": "Ümraniyespor",
+          "year": "2020"
+        },
+        {
+          "club": "Ümraniyespor",
+          "year": "2022"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2022"
+        },
+        {
+          "club": "Göztepe",
+          "year": "2022"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2023"
+        },
+        {
+          "club": "FK Sarajevo",
+          "year": "2023"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 28,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wiktor Bogacz",
@@ -259,7 +1212,39 @@
       "club": "Cracovia",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Miedz Legnica",
+          "year": "2023"
+        },
+        {
+          "club": "New York",
+          "year": "2025"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2026"
+        },
+        {
+          "club": "New York",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Charpentier",
@@ -267,9 +1252,69 @@
       "age": 26,
       "nationality": "TM nationality id 85",
       "club": "Cracovia",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartaks",
+          "year": "2019"
+        },
+        {
+          "club": "Avellino",
+          "year": "2019"
+        },
+        {
+          "club": "Spartaks",
+          "year": "2020"
+        },
+        {
+          "club": "Genoa",
+          "year": "2020"
+        },
+        {
+          "club": "Reggina",
+          "year": "2020"
+        },
+        {
+          "club": "Genoa",
+          "year": "2021"
+        },
+        {
+          "club": "Ascoli",
+          "year": "2021"
+        },
+        {
+          "club": "Frosinone",
+          "year": "2021"
+        },
+        {
+          "club": "Genoa",
+          "year": "2022"
+        },
+        {
+          "club": "Parma",
+          "year": "2022"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 28,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kahveh Zahiroleslam",
@@ -277,19 +1322,83 @@
       "age": 23,
       "nationality": "United States",
       "club": "Cracovia",
-      "appearances": 21,
-      "goals": 4,
-      "assists": 0
+      "appearances": 17,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yale Bulldogs",
+          "year": "2020"
+        },
+        {
+          "club": "Chicago FC",
+          "year": "2022"
+        },
+        {
+          "club": "Yale Bulldogs",
+          "year": "2022"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2023"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 14,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Batoum",
       "position": "Centre-Forward",
-      "age": 23,
+      "age": 24,
       "nationality": "Cameroon",
       "club": "Cracovia",
-      "appearances": 22,
-      "goals": 5,
-      "assists": 2
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dyn. Douala",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2025"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

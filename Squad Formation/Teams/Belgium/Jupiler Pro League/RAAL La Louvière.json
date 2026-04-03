@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,19 +22,91 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "RAAL La Louvière",
-      "appearances": 29,
+      "appearances": 30,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unión Santa Fe",
+          "year": "2019"
+        },
+        {
+          "club": "Def. Belgrano",
+          "year": "2021"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2021"
+        },
+        {
+          "club": "Defensa",
+          "year": "2022"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Rafaela",
+          "year": "2023"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2024"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 126,
+        "clean_sheets": 53
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Célestin De Schrevel",
       "position": "Goalkeeper",
-      "age": 23,
+      "age": 24,
       "nationality": "Belgium",
       "club": "RAAL La Louvière",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KAA Gent",
+          "year": "2022"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 61,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Monteiro",
@@ -43,7 +116,31 @@
       "club": "RAAL La Louvière",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RJ Aischoise",
+          "year": "2023"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 25,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +150,33 @@
       "age": 23,
       "nationality": "France",
       "club": "RAAL La Louvière",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Chantilly",
+          "year": "2022"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yllan Okou",
@@ -63,9 +184,45 @@
       "age": 23,
       "nationality": "France",
       "club": "RAAL La Louvière",
-      "appearances": 29,
-      "goals": 0,
-      "assists": 0
+      "appearances": 27,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Monaco",
+          "year": "2023"
+        },
+        {
+          "club": "SC Bastia",
+          "year": "2023"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2024"
+        },
+        {
+          "club": "SC Bastia",
+          "year": "2025"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maxence Maisonneuve",
@@ -73,9 +230,45 @@
       "age": 27,
       "nationality": "France",
       "club": "RAAL La Louvière",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Martigues",
+          "year": "2018"
+        },
+        {
+          "club": "Aurillac-Arpaj.",
+          "year": "2020"
+        },
+        {
+          "club": "US Saint-Malo",
+          "year": "2021"
+        },
+        {
+          "club": "Olym. Charleroi",
+          "year": "2022"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wagane Faye",
@@ -83,9 +276,33 @@
       "age": 32,
       "nationality": "Senegal",
       "club": "RAAL La Louvière",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 1
+      "appearances": 23,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RFC Seraing",
+          "year": "2016"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthis Riou",
@@ -93,9 +310,33 @@
       "age": 25,
       "nationality": "France",
       "club": "RAAL La Louvière",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guingamp",
+          "year": "2021"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thierry Lutonda",
@@ -103,9 +344,49 @@
       "age": 25,
       "nationality": "Belgium",
       "club": "RAAL La Louvière",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2019"
+        },
+        {
+          "club": "RKC Waalwijk",
+          "year": "2020"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2021"
+        },
+        {
+          "club": "RKC Waalwijk",
+          "year": "2021"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nolan Gillot",
@@ -113,9 +394,33 @@
       "age": 23,
       "nationality": "France",
       "club": "RAAL La Louvière",
-      "appearances": 18,
-      "goals": 3,
-      "assists": 1
+      "appearances": 16,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Young Reds",
+          "year": "2023"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darío Benavides",
@@ -123,21 +428,85 @@
       "age": 23,
       "nationality": "Spain",
       "club": "RAAL La Louvière",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sevilla FC C",
+          "year": "2022"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2023"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
     {
       "name": "Alexis Beka Beka",
       "position": "Defensive Midfield",
-      "age": 24,
+      "age": 25,
       "nationality": "France",
       "club": "RAAL La Louvière",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SM Caen",
+          "year": "2020"
+        },
+        {
+          "club": "Loko Moscow",
+          "year": "2021"
+        },
+        {
+          "club": "Nice",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majeed Ashimeru",
@@ -145,9 +514,69 @@
       "age": 28,
       "nationality": "Ghana",
       "club": "RAAL La Louvière",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "WAFA SC",
+          "year": "2016"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2017"
+        },
+        {
+          "club": "A. Lustenau",
+          "year": "2017"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2018"
+        },
+        {
+          "club": "Wolfsberger AC",
+          "year": "2018"
+        },
+        {
+          "club": "FC St. Gallen",
+          "year": "2018"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2019"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2021"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2021"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2026"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 253,
+        "goals": 22,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sami Lahssaini",
@@ -157,7 +586,59 @@
       "club": "RAAL La Louvière",
       "appearances": 27,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RFC Seraing",
+          "year": "2017"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2019"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2019"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2020"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2022"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2022"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2023"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2024"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Gueulette",
@@ -165,9 +646,41 @@
       "age": 25,
       "nationality": "Rwanda",
       "club": "RAAL La Louvière",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AFC Tubize",
+          "year": "2019"
+        },
+        {
+          "club": "KSV Roeselare",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordi Liongola",
@@ -177,17 +690,85 @@
       "club": "RAAL La Louvière",
       "appearances": 27,
       "goals": 1,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "KSK Lierse Kem.",
+          "year": "2021"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 17,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joël Ito",
       "position": "Attacking Midfield",
-      "age": 27,
+      "age": 28,
       "nationality": "Belgium",
       "club": "RAAL La Louvière",
-      "appearances": 30,
+      "appearances": 28,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "ASV Geel",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "UR La Louvière",
+          "year": "2020"
+        },
+        {
+          "club": "Olym. Charleroi",
+          "year": "2021"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Owen Maës",
@@ -197,7 +778,39 @@
       "club": "RAAL La Louvière",
       "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Red Star FC",
+          "year": "2021"
+        },
+        {
+          "club": "CS Sedan",
+          "year": "2022"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 24,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Soumaré",
@@ -205,9 +818,49 @@
       "age": 27,
       "nationality": "France",
       "club": "RAAL La Louvière",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saint-Quentin",
+          "year": "2016"
+        },
+        {
+          "club": "Dijon",
+          "year": "2019"
+        },
+        {
+          "club": "FC Sochaux",
+          "year": "2020"
+        },
+        {
+          "club": "Dijon",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 21,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Makembo-Ntemo",
@@ -215,9 +868,33 @@
       "age": 19,
       "nationality": "Belgium",
       "club": "RAAL La Louvière",
-      "appearances": 10,
-      "goals": 3,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SL16 FC",
+          "year": "2023"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +904,53 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "RAAL La Louvière",
-      "appearances": 23,
-      "goals": 11,
-      "assists": 1
+      "appearances": 21,
+      "goals": 8,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Génération Foot",
+          "year": "2022"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2023"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2024"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2024"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2025"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 29,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jerry Afriyie",
@@ -237,9 +958,41 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "RAAL La Louvière",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 2
+      "appearances": 25,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Qadsiah",
+          "year": "2025"
+        },
+        {
+          "club": "CD Lugo",
+          "year": "2025"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mouhamed Belkheir",
@@ -249,7 +1002,55 @@
       "club": "RAAL La Louvière",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brescia",
+          "year": "2018"
+        },
+        {
+          "club": "Sanjoanense",
+          "year": "2019"
+        },
+        {
+          "club": "Leixões",
+          "year": "2020"
+        },
+        {
+          "club": "Vilafranquense",
+          "year": "2021"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2023"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2024"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2025"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 59,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nachon Nsingi",
@@ -257,9 +1058,45 @@
       "age": 24,
       "nationality": "Belgium",
       "club": "RAAL La Louvière",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "appearances": 11,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OH Leuven",
+          "year": "2022"
+        },
+        {
+          "club": "USL Dunkerque",
+          "year": "2024"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2025"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Makaté",
@@ -267,9 +1104,45 @@
       "age": 23,
       "nationality": "Equatorial Guinea",
       "club": "RAAL La Louvière",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Platges Calvià",
+          "year": "2021"
+        },
+        {
+          "club": "Ambrosiana",
+          "year": "2021"
+        },
+        {
+          "club": "Union SG",
+          "year": "2025"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2026"
+        },
+        {
+          "club": "Union SG",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 53,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

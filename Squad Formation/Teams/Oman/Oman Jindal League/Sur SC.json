@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "OM1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 10,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dhofar Club",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2020"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2022"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 52,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Ahmed Al-Araimi",
@@ -33,7 +82,31 @@
       "club": "Sur SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda SC",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sanad Al-Mukhaini",
@@ -43,7 +116,47 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ahmed Al-Mashaikhi",
+      "position": "Goalkeeper",
+      "age": null,
+      "nationality": "TM nationality id 126",
+      "club": "Sur SC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +166,37 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 7,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mana Sbeit",
@@ -63,9 +204,41 @@
       "age": 33,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Nahda",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2024"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yahya Al-Hudaifi",
@@ -75,7 +248,51 @@
       "club": "Sur SC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Seeb",
+          "year": "2019"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2021"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousef Salim Al-Gheliani",
@@ -85,7 +302,22 @@
       "club": "Sur SC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kingsley Obumneme",
@@ -95,7 +327,95 @@
       "club": "Sur SC",
       "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HAL",
+          "year": "2012"
+        },
+        {
+          "club": "Kalighat Milan",
+          "year": "2013"
+        },
+        {
+          "club": "Police AC",
+          "year": "2014"
+        },
+        {
+          "club": "United SC",
+          "year": "2015"
+        },
+        {
+          "club": "Peerless",
+          "year": "2016"
+        },
+        {
+          "club": "Aizawl FC",
+          "year": "2016"
+        },
+        {
+          "club": "ATK Mohun Bagan",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Aizawl FC",
+          "year": "2019"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2020"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2022"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ittihad Club",
+          "year": "2023"
+        },
+        {
+          "club": "Peshmerga SC",
+          "year": "2023"
+        },
+        {
+          "club": "Pishasazi",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Firas Al-Mukhaini",
@@ -103,19 +423,75 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 1,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Badar Khamis",
       "position": "Left-Back",
-      "age": 31,
+      "age": 32,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Orouba SC",
+          "year": "2020"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul Aziz Gheilani",
@@ -123,9 +499,49 @@
       "age": 30,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 10,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fahad Al-Hajeri",
@@ -133,9 +549,41 @@
       "age": 26,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 12,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ibri Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2024"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amjad Salah",
@@ -145,7 +593,22 @@
       "club": "Sur SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdallah Khamis",
@@ -155,7 +618,47 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2018"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2020"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Wahda SC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shehab Al-Mukhaini",
@@ -163,9 +666,29 @@
       "age": 21,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 1,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Al-Gheliani",
@@ -175,7 +698,22 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +723,37 @@
       "age": 27,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wahda SC",
+          "year": "2023"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Al-Moatasim Al-Mukhaini",
@@ -197,7 +763,31 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2018"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samih Al-Hasani",
@@ -205,9 +795,33 @@
       "age": 30,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 9,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ibri Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Badar Al-Jabri",
@@ -215,9 +829,61 @@
       "age": 33,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 4,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Majees SC",
+          "year": "2018"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2020"
+        },
+        {
+          "club": "Majees SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2023"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khamis Al Gheilani",
@@ -227,7 +893,27 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hisham Al-Shuaibi",
@@ -237,7 +923,27 @@
       "club": "Sur SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thwaini Hadid",
@@ -245,19 +951,95 @@
       "age": 31,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Orouba SC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sa'ud Al-Farsi",
       "position": "Attacking Midfield",
-      "age": 32,
+      "age": 33,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Orouba SC",
+          "year": "2016"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2017"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2018"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2020"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juma Mubarak",
@@ -267,7 +1049,35 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2017"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2020"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mutasem Al-Muhaijiri",
@@ -275,9 +1085,49 @@
       "age": 28,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 3,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saham Club",
+          "year": "2019"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Sulaibikhat",
+          "year": "2023"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moaz Al-Araimi",
@@ -287,7 +1137,22 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Owaisi",
@@ -297,17 +1162,35 @@
       "club": "Sur SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Wahab Al-Sabry",
-      "position": "",
-      "age": null,
-      "nationality": "TM nationality id 126",
-      "club": "Sur SC",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muscat Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Khamis Al-Alawi",
@@ -317,7 +1200,22 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamad Al-Mukhaini",
@@ -327,7 +1225,27 @@
       "club": "Sur SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Al-Hooti",
@@ -337,7 +1255,22 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -349,7 +1282,27 @@
       "club": "Sur SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousef Al-Mukhaini",
@@ -357,9 +1310,33 @@
       "age": 28,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 10,
+      "appearances": 13,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Orouba SC",
+          "year": "2022"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aiman Ibrahim",
@@ -367,9 +1344,37 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 1
+      "appearances": 16,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2018"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2021"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Naser",
@@ -379,7 +1384,27 @@
       "club": "Sur SC",
       "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arsène Loko",
@@ -387,9 +1412,69 @@
       "age": 31,
       "nationality": "Benin",
       "club": "Sur SC",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CO Korhogo",
+          "year": "2013"
+        },
+        {
+          "club": "Africa Sports",
+          "year": "2014"
+        },
+        {
+          "club": "DC Motema Pembe",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Akhdar",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Mussanah C.",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Washm",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Axel Méyé",
@@ -397,9 +1482,101 @@
       "age": 30,
       "nationality": "Gabon",
       "club": "Sur SC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 3,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "US Bitam",
+          "year": "2012"
+        },
+        {
+          "club": "Missile FC",
+          "year": "2012"
+        },
+        {
+          "club": "Akanda FC",
+          "year": "2015"
+        },
+        {
+          "club": "Eskisehirspor",
+          "year": "2016"
+        },
+        {
+          "club": "Manisaspor",
+          "year": "2017"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2018"
+        },
+        {
+          "club": "Qadsia SC",
+          "year": "2018"
+        },
+        {
+          "club": "CR Al Hoceima",
+          "year": "2019"
+        },
+        {
+          "club": "Ittihad Tanger",
+          "year": "2020"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2022"
+        },
+        {
+          "club": "OC Safi",
+          "year": "2023"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "CS Constantine",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mesaimeer",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 51,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tunde Adeniji",
@@ -409,7 +1586,75 @@
       "club": "Sur SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Levski Sofia",
+          "year": "2016"
+        },
+        {
+          "club": "Atyrau",
+          "year": "2018"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nasr SC",
+          "year": "2019"
+        },
+        {
+          "club": "Debrecen",
+          "year": "2019"
+        },
+        {
+          "club": "KS FC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Adalah",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Tadamon SC",
+          "year": "2022"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2024"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2024"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 66,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamid Juma Al-Wahaibi",
@@ -419,7 +1664,31 @@
       "club": "Sur SC",
       "appearances": 5,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Taliya Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Waleed Al-Saadi",
@@ -427,9 +1696,65 @@
       "age": 31,
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 6,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Suwaiq",
+          "year": "2009"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2015"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Salam SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2018"
+        },
+        {
+          "club": "Ibri Club",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Ittihad Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Wahda SC",
+          "year": "2022"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saeed Al-Gheliani",
@@ -439,7 +1764,22 @@
       "club": "Sur SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sami Al-Hasani",
@@ -449,7 +1789,59 @@
       "club": "Sur SC",
       "appearances": 6,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2012"
+        },
+        {
+          "club": "Al-Orouba SC",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Mudhaibi",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Orouba SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2021"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Saleh Abdul-Hadi",
@@ -458,8 +1850,48 @@
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Orouba SC",
+          "year": "2009"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2016"
+        },
+        {
+          "club": "Mirbat SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Orouba SC",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shihab Al-Araimi",
@@ -469,7 +1901,22 @@
       "club": "Sur SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Al-Qasim Al-Shaabi",
@@ -478,8 +1925,23 @@
       "nationality": "TM nationality id 126",
       "club": "Sur SC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

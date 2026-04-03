@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 33,
+      "appearances": 27,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Flamengo",
+          "year": "2017"
+        },
+        {
+          "club": "Sampaio-MA",
+          "year": "2022"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2022"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 183,
+        "clean_sheets": 61
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Neneca",
@@ -31,9 +64,45 @@
       "age": 22,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Londrina-PR",
+          "year": "2023"
+        },
+        {
+          "club": "Cascavel-PR",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2024"
+        },
+        {
+          "club": "Cascavel-PR",
+          "year": "2025"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 69,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian",
@@ -41,9 +110,45 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ceará SC",
+          "year": "2023"
+        },
+        {
+          "club": "Anápolis",
+          "year": "2024"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2024"
+        },
+        {
+          "club": "Alverca",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 13,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +158,41 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 19,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vasco da Gama",
+          "year": "2021"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2022"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sidney Lima",
@@ -63,9 +200,45 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 33,
+      "appearances": 26,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paraíba EC (PB)",
+          "year": "2017"
+        },
+        {
+          "club": "Rondoniense-RO",
+          "year": "2018"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2018"
+        },
+        {
+          "club": "Feirense",
+          "year": "2021"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frederico Venâncio",
@@ -73,9 +246,61 @@
       "age": 33,
       "nationality": "Portugal",
       "club": "CD Santa Clara",
-      "appearances": 27,
+      "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Setúbal FC U15",
+          "year": "2006"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2012"
+        },
+        {
+          "club": "Sheff Wed",
+          "year": "2017"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2018"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2018"
+        },
+        {
+          "club": "CD Lugo",
+          "year": "2020"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2021"
+        },
+        {
+          "club": "SD Eibar",
+          "year": "2021"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Pacheco",
@@ -83,9 +308,87 @@
       "age": 29,
       "nationality": "Portugal",
       "club": "CD Santa Clara",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Basel",
+          "year": "2017"
+        },
+        {
+          "club": "Rapperswil-Jona",
+          "year": "2018"
+        },
+        {
+          "club": "Basel",
+          "year": "2018"
+        },
+        {
+          "club": "SC YF Juventus",
+          "year": "2018"
+        },
+        {
+          "club": "Basel",
+          "year": "2019"
+        },
+        {
+          "club": "Amarante",
+          "year": "2019"
+        },
+        {
+          "club": "Mafra",
+          "year": "2021"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 235,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Henrique Silva",
+      "position": "Centre-Back",
+      "age": 20,
+      "nationality": "Brazil",
+      "club": "CD Santa Clara",
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paulo Victor",
@@ -93,9 +396,65 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 26,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nova Iguaçu-RJ",
+          "year": "2020"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2020"
+        },
+        {
+          "club": "Nova Iguaçu-RJ",
+          "year": "2021"
+        },
+        {
+          "club": "Internacional",
+          "year": "2021"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2022"
+        },
+        {
+          "club": "Internacional",
+          "year": "2023"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2023"
+        },
+        {
+          "club": "Internacional",
+          "year": "2024"
+        },
+        {
+          "club": "Farense",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guilherme Romão",
@@ -103,9 +462,73 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Oeste",
+          "year": "2017"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2018"
+        },
+        {
+          "club": "Oeste",
+          "year": "2018"
+        },
+        {
+          "club": "São Bento (SP)",
+          "year": "2019"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2019"
+        },
+        {
+          "club": "Botafogo-SP",
+          "year": "2020"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2020"
+        },
+        {
+          "club": "CRB",
+          "year": "2021"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2024"
+        },
+        {
+          "club": "CRB",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2026"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 354,
+        "goals": 13,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Soares",
@@ -113,9 +536,45 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 28,
-      "goals": 1,
-      "assists": 0
+      "appearances": 23,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alverca",
+          "year": "2019"
+        },
+        {
+          "club": "Alverca",
+          "year": "2021"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2021"
+        },
+        {
+          "club": "Alverca",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 4,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diogo Calila",
@@ -123,9 +582,37 @@
       "age": 27,
       "nationality": "Mozambique",
       "club": "CD Santa Clara",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 1
+      "appearances": 17,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2011"
+        },
+        {
+          "club": "B SAD",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +622,45 @@
       "age": 28,
       "nationality": "Portugal",
       "club": "CD Santa Clara",
-      "appearances": 36,
+      "appearances": 27,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2011"
+        },
+        {
+          "club": "Mafra",
+          "year": "2018"
+        },
+        {
+          "club": "Varzim",
+          "year": "2019"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2020"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 8,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darlan",
@@ -147,7 +670,51 @@
       "club": "CD Santa Clara",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grêmio",
+          "year": "2019"
+        },
+        {
+          "club": "Juventude",
+          "year": "2022"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2022"
+        },
+        {
+          "club": "Chapecoense",
+          "year": "2022"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2023"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 8,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Serginho",
@@ -155,9 +722,53 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "CD Santa Clara",
-      "appearances": 35,
+      "appearances": 26,
       "goals": 4,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sandinenses Y15",
+          "year": "2012"
+        },
+        {
+          "club": "Vitória SC U15",
+          "year": "2013"
+        },
+        {
+          "club": "CD Ponte",
+          "year": "2018"
+        },
+        {
+          "club": "GD Joane",
+          "year": "2019"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2020"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2022"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 17,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustavo Klismahn",
@@ -165,9 +776,83 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Alverca",
+          "year": "2021"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2022"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2024"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2025"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 14,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Djé",
+      "position": "Central Midfield",
+      "age": 22,
+      "nationality": "Cape Verde",
+      "club": "CD Santa Clara",
+      "appearances": 18,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrey",
@@ -177,19 +862,83 @@
       "club": "CD Santa Clara",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Avaí FC",
+          "year": "2023"
+        },
+        {
+          "club": "Náutico",
+          "year": "2024"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Gabriel Silva",
       "position": "Left Winger",
-      "age": 23,
+      "age": 24,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 29,
-      "goals": 8,
-      "assists": 1
+      "appearances": 22,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palmeiras",
+          "year": "2022"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2022"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 53,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vinícius Lopes",
@@ -197,9 +946,53 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 30,
-      "goals": 8,
-      "assists": 1
+      "appearances": 22,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Goiás",
+          "year": "2020"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2022"
+        },
+        {
+          "club": "RWDM",
+          "year": "2022"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 202,
+        "goals": 34,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brenner",
@@ -207,9 +1000,45 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 30,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC Bahia",
+          "year": "2022"
+        },
+        {
+          "club": "Leiria",
+          "year": "2024"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2024"
+        },
+        {
+          "club": "Alverca",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Welinton Torrão",
@@ -217,9 +1046,69 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cruzeiro",
+          "year": "2020"
+        },
+        {
+          "club": "Inter Limeira",
+          "year": "2021"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2021"
+        },
+        {
+          "club": "Brasil Pelotas",
+          "year": "2021"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2021"
+        },
+        {
+          "club": "Ferroviária",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Athletic",
+          "year": "2023"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2023"
+        },
+        {
+          "club": "Athletic",
+          "year": "2024"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 20,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernando",
@@ -227,19 +1116,91 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 13,
-      "goals": 5,
-      "assists": 0
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ferroviária",
+          "year": "2024"
+        },
+        {
+          "club": "Maringá",
+          "year": "2025"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 18,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vitinho",
       "position": "Right Winger",
-      "age": 22,
+      "age": 23,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palmeiras",
+          "year": "2023"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2023"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2024"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2024"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2025"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2025"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elias Manoel",
@@ -247,9 +1208,53 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "CD Santa Clara",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grêmio",
+          "year": "2022"
+        },
+        {
+          "club": "New York",
+          "year": "2022"
+        },
+        {
+          "club": "New York",
+          "year": "2023"
+        },
+        {
+          "club": "Salt Lake",
+          "year": "2024"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2025"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2025"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 35,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gonçalo Paciência",
@@ -259,7 +1264,91 @@
       "club": "CD Santa Clara",
       "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Porto U15",
+          "year": "2007"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2015"
+        },
+        {
+          "club": "Porto",
+          "year": "2016"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2016"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2017"
+        },
+        {
+          "club": "Porto",
+          "year": "2017"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2017"
+        },
+        {
+          "club": "Porto",
+          "year": "2018"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2018"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2020"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2021"
+        },
+        {
+          "club": "Celta de Vigo",
+          "year": "2022"
+        },
+        {
+          "club": "VfL Bochum",
+          "year": "2023"
+        },
+        {
+          "club": "Celta de Vigo",
+          "year": "2024"
+        },
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2024"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2025"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 315,
+        "goals": 68,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Costa",
@@ -267,9 +1356,49 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "CD Santa Clara",
-      "appearances": 14,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CAC U15",
+          "year": "2013"
+        },
+        {
+          "club": "ACD Bocal",
+          "year": "2019"
+        },
+        {
+          "club": "Loures",
+          "year": "2021"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2022"
+        },
+        {
+          "club": "Alverca",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 36,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

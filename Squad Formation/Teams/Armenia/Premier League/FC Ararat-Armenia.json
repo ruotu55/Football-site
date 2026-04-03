@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ARM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 24,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BKMA Yerevan",
+          "year": "2019"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 211,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Pinto",
@@ -31,9 +56,57 @@
       "age": 33,
       "nationality": "Portugal",
       "club": "FC Ararat-Armenia",
-      "appearances": 14,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alfenense",
+          "year": "2011"
+        },
+        {
+          "club": "GD Tourizense",
+          "year": "2013"
+        },
+        {
+          "club": "Cesarense",
+          "year": "2015"
+        },
+        {
+          "club": "São Martinho",
+          "year": "2017"
+        },
+        {
+          "club": "Salgueiros",
+          "year": "2020"
+        },
+        {
+          "club": "Tirsense",
+          "year": "2021"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 95,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hayk Khachatryan",
@@ -41,9 +114,37 @@
       "age": 21,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat-Armenia",
+          "year": "2022"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 99,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +154,41 @@
       "age": 29,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Def. Belgrano",
+          "year": "2017"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2018"
+        },
+        {
+          "club": "Once Caldas",
+          "year": "2019"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Queirós",
@@ -63,9 +196,57 @@
       "age": 27,
       "nationality": "Portugal",
       "club": "FC Ararat-Armenia",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Porto U15",
+          "year": "2011"
+        },
+        {
+          "club": "Unknown",
+          "year": "2012"
+        },
+        {
+          "club": "1.FC Köln",
+          "year": "2017"
+        },
+        {
+          "club": "1.FC Köln",
+          "year": "2019"
+        },
+        {
+          "club": "1.FC Köln",
+          "year": "2020"
+        },
+        {
+          "club": "Chaves",
+          "year": "2021"
+        },
+        {
+          "club": "Mafra",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bouchaib Arrassi",
@@ -73,9 +254,41 @@
       "age": 26,
       "nationality": "Morocco",
       "club": "FC Ararat-Armenia",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCA Reserve",
+          "year": "2021"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2026"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandros Malis",
@@ -83,9 +296,45 @@
       "age": 29,
       "nationality": "Greece",
       "club": "FC Ararat-Armenia",
-      "appearances": 12,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Panetolikos",
+          "year": "2016"
+        },
+        {
+          "club": "Neos Amfilochos",
+          "year": "2017"
+        },
+        {
+          "club": "Panetolikos",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edgar Grigoryan",
@@ -93,19 +342,83 @@
       "age": 27,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Urartu",
+          "year": "2019"
+        },
+        {
+          "club": "FC Noah",
+          "year": "2019"
+        },
+        {
+          "club": "FC Urartu",
+          "year": "2020"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 0,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hakob Hakobyan",
       "position": "Left-Back",
-      "age": 28,
+      "age": 29,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Banants",
+          "year": "2014"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2022"
+        },
+        {
+          "club": "FC Van",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 6,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kamo Hovhannisyan",
@@ -113,9 +426,53 @@
       "age": 33,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 2
+      "appearances": 14,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2010"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2017"
+        },
+        {
+          "club": "Alashkert FC",
+          "year": "2018"
+        },
+        {
+          "club": "Zhetysu",
+          "year": "2018"
+        },
+        {
+          "club": "Kairat Almaty",
+          "year": "2020"
+        },
+        {
+          "club": "FC Astana",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 498,
+        "goals": 54,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 96,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Oliveira",
@@ -123,9 +480,53 @@
       "age": 24,
       "nationality": "Portugal",
       "club": "FC Ararat-Armenia",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FC Porto Youth",
+          "year": "2011"
+        },
+        {
+          "club": "FC Porto U15",
+          "year": "2015"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2020"
+        },
+        {
+          "club": "Vizela",
+          "year": "2023"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2024"
+        },
+        {
+          "club": "Vizela",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 11,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +536,61 @@
       "age": 33,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2011"
+        },
+        {
+          "club": "Alashkert FC",
+          "year": "2015"
+        },
+        {
+          "club": "Gällivare FF",
+          "year": "2017"
+        },
+        {
+          "club": "Alashkert FC",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2018"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2020"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2020"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 409,
+        "goals": 6,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vahram Makhsudyan",
@@ -145,9 +598,33 @@
       "age": 23,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "West Armenia",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Balanta Jr.",
@@ -155,9 +632,65 @@
       "age": 29,
       "nationality": "Colombia",
       "club": "FC Ararat-Armenia",
-      "appearances": 19,
-      "goals": 5,
-      "assists": 1
+      "appearances": 15,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2016"
+        },
+        {
+          "club": "Cúcuta Dep.",
+          "year": "2017"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2017"
+        },
+        {
+          "club": "Jaguares FC",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2018"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2018"
+        },
+        {
+          "club": "AD Oliveirense",
+          "year": "2019"
+        },
+        {
+          "club": "Canelas 2010",
+          "year": "2020"
+        },
+        {
+          "club": "Torreense",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alwyn Tera",
@@ -165,9 +698,33 @@
       "age": 29,
       "nationality": "Kenya",
       "club": "FC Ararat-Armenia",
-      "appearances": 18,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2015"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 18,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Armen Ambartsumyan",
@@ -175,9 +732,45 @@
       "age": 31,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Zenit Penza",
+          "year": "2014"
+        },
+        {
+          "club": "Torpedo Armavir",
+          "year": "2015"
+        },
+        {
+          "club": "Mordovia",
+          "year": "2016"
+        },
+        {
+          "club": "Fakel Voronezh",
+          "year": "2017"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 449,
+        "goals": 28,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zidane Banjaqui",
@@ -185,9 +778,53 @@
       "age": 27,
       "nationality": "Guinea-Bissau",
       "club": "FC Ararat-Armenia",
-      "appearances": 17,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mirandela",
+          "year": "2017"
+        },
+        {
+          "club": "Desportivo Aves",
+          "year": "2020"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2021"
+        },
+        {
+          "club": "Mafra",
+          "year": "2022"
+        },
+        {
+          "club": "Feirense",
+          "year": "2023"
+        },
+        {
+          "club": "Panserraikos",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 19,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Welton",
@@ -195,9 +832,77 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "FC Ararat-Armenia",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Prudentópolis",
+          "year": "2018"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Remo",
+          "year": "2019"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2019"
+        },
+        {
+          "club": "Berço",
+          "year": "2019"
+        },
+        {
+          "club": "Berço",
+          "year": "2022"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2022"
+        },
+        {
+          "club": "Berço",
+          "year": "2023"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2023"
+        },
+        {
+          "club": "Berço",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        },
+        {
+          "club": "Berço",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 14,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davit Barseghyan",
@@ -207,7 +912,39 @@
       "club": "FC Ararat-Armenia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2024"
+        },
+        {
+          "club": "Gandzasar",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davit Petrosyan",
@@ -217,7 +954,39 @@
       "club": "FC Ararat-Armenia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Van",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2024"
+        },
+        {
+          "club": "West Armenia",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 19,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +996,61 @@
       "age": 24,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 2,
-      "assists": 6
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Ararat-Armenia",
+          "year": "2017"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2019"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2021"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2022"
+        },
+        {
+          "club": "CSKA-Sofia",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2024"
+        },
+        {
+          "club": "Debrecen",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 84,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Artur Serobyan",
@@ -237,9 +1058,53 @@
       "age": 22,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 3
+      "appearances": 15,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ararat-Armenia",
+          "year": "2020"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2021"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2024"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 41,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alioune Ndour",
@@ -247,9 +1112,61 @@
       "age": 28,
       "nationality": "Senegal",
       "club": "FC Ararat-Armenia",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Florø SK",
+          "year": "2017"
+        },
+        {
+          "club": "Sogndal",
+          "year": "2019"
+        },
+        {
+          "club": "Haugesund",
+          "year": "2021"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2022"
+        },
+        {
+          "club": "Kristiansund BK",
+          "year": "2024"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2024"
+        },
+        {
+          "club": "Kristiansund BK",
+          "year": "2025"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 56,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arayik Eloyan",
@@ -257,9 +1174,33 @@
       "age": 22,
       "nationality": "Armenia",
       "club": "FC Ararat-Armenia",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "BKMA Yerevan",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 39,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Ayongo",
@@ -267,9 +1208,69 @@
       "age": 29,
       "nationality": "Ghana",
       "club": "FC Ararat-Armenia",
-      "appearances": 13,
-      "goals": 3,
-      "assists": 0
+      "appearances": 11,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oeiras",
+          "year": "2014"
+        },
+        {
+          "club": "Amarante",
+          "year": "2015"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2018"
+        },
+        {
+          "club": "Mafra",
+          "year": "2019"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2020"
+        },
+        {
+          "club": "Académico Viseu",
+          "year": "2020"
+        },
+        {
+          "club": "Central Coast",
+          "year": "2022"
+        },
+        {
+          "club": "Hesperange",
+          "year": "2023"
+        },
+        {
+          "club": "Leiria",
+          "year": "2024"
+        },
+        {
+          "club": "Chaves",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 38,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

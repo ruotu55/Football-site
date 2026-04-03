@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 29,
       "nationality": "Italy",
       "club": "Tottenham Hotspur",
-      "appearances": 43,
+      "appearances": 31,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -68,7 +69,21 @@
           "club": "Tottenham",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 483,
+        "clean_sheets": 88
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 4,
+        "clean_sheets": 3
+      }
     },
     {
       "name": "Antonín Kinský",
@@ -76,7 +91,7 @@
       "age": 23,
       "nationality": "Czech Republic",
       "club": "Tottenham Hotspur",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -108,7 +123,21 @@
           "club": "Tottenham",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 139,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brandon Austin",
@@ -132,7 +161,21 @@
           "club": "Tottenham",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 180,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -142,8 +185,8 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "Tottenham Hotspur",
-      "appearances": 38,
-      "goals": 7,
+      "appearances": 28,
+      "goals": 4,
       "assists": 1,
       "transfer_history": [
         {
@@ -162,7 +205,21 @@
           "club": "Tottenham",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 15,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Romero",
@@ -170,9 +227,9 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Tottenham Hotspur",
-      "appearances": 31,
-      "goals": 6,
-      "assists": 4,
+      "appearances": 22,
+      "goals": 4,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Belgrano",
@@ -218,7 +275,21 @@
           "club": "Tottenham",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 20,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 49,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Radu Drăgușin",
@@ -226,7 +297,7 @@
       "age": 24,
       "nationality": "Romania",
       "club": "Tottenham Hotspur",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -266,7 +337,21 @@
           "club": "Tottenham",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 12,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Danso",
@@ -274,7 +359,7 @@
       "age": 27,
       "nationality": "Austria",
       "club": "Tottenham Hotspur",
-      "appearances": 29,
+      "appearances": 17,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -310,7 +395,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 16,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Davies",
@@ -318,7 +417,7 @@
       "age": 32,
       "nationality": "Wales",
       "club": "Tottenham Hotspur",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -334,7 +433,21 @@
           "club": "Tottenham",
           "year": "2014"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 458,
+        "goals": 13,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 100,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Destiny Udogie",
@@ -342,7 +455,7 @@
       "age": 23,
       "nationality": "Italy",
       "club": "Tottenham Hotspur",
-      "appearances": 22,
+      "appearances": 14,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -370,7 +483,21 @@
           "club": "Tottenham",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 19,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Djed Spence",
@@ -378,7 +505,7 @@
       "age": 25,
       "nationality": "England",
       "club": "Tottenham Hotspur",
-      "appearances": 38,
+      "appearances": 24,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -418,7 +545,21 @@
           "club": "Genoa",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 8,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souza",
@@ -438,7 +579,21 @@
           "club": "Tottenham",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Porro",
@@ -446,9 +601,9 @@
       "age": 26,
       "nationality": "Spain",
       "club": "Tottenham Hotspur",
-      "appearances": 40,
-      "goals": 1,
-      "assists": 6,
+      "appearances": 27,
+      "goals": 0,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "CF Peralada",
@@ -490,7 +645,21 @@
           "club": "Sporting",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 28,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -500,7 +669,7 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "Tottenham Hotspur",
-      "appearances": 28,
+      "appearances": 20,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -516,7 +685,21 @@
           "club": "Tottenham",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 388,
+        "goals": 14,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 73,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Palhinha",
@@ -524,9 +707,9 @@
       "age": 30,
       "nationality": "Portugal",
       "club": "Tottenham Hotspur",
-      "appearances": 38,
-      "goals": 5,
-      "assists": 3,
+      "appearances": 26,
+      "goals": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Sacavenense S15",
@@ -576,7 +759,21 @@
           "club": "Bayern Munich",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 381,
+        "goals": 28,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yves Bissouma",
@@ -604,7 +801,21 @@
           "club": "Tottenham",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 15,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Bergvall",
@@ -612,9 +823,9 @@
       "age": 20,
       "nationality": "Sweden",
       "club": "Tottenham Hotspur",
-      "appearances": 28,
+      "appearances": 18,
       "goals": 1,
-      "assists": 4,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Brommapojkarna",
@@ -628,7 +839,21 @@
           "club": "Tottenham",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 12,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Archie Gray",
@@ -636,9 +861,9 @@
       "age": 20,
       "nationality": "England",
       "club": "Tottenham Hotspur",
-      "appearances": 32,
+      "appearances": 21,
       "goals": 2,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Leeds",
@@ -648,7 +873,21 @@
           "club": "Tottenham",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 6,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Conor Gallagher",
@@ -656,9 +895,9 @@
       "age": 26,
       "nationality": "England",
       "club": "Tottenham Hotspur",
-      "appearances": 38,
-      "goals": 3,
-      "assists": 2,
+      "appearances": 9,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Charlton",
@@ -688,7 +927,21 @@
           "club": "Tottenham",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 50,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pape Matar Sarr",
@@ -696,7 +949,7 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "Tottenham Hotspur",
-      "appearances": 33,
+      "appearances": 22,
       "goals": 2,
       "assists": 3,
       "transfer_history": [
@@ -716,7 +969,21 @@
           "club": "Tottenham",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 16,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xavi Simons",
@@ -724,9 +991,9 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "Tottenham Hotspur",
-      "appearances": 40,
-      "goals": 5,
-      "assists": 6,
+      "appearances": 25,
+      "goals": 1,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Barça Youth",
@@ -760,7 +1027,21 @@
           "club": "Tottenham",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 69,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dejan Kulusevski",
@@ -768,8 +1049,8 @@
       "age": 25,
       "nationality": "Sweden",
       "club": "Tottenham Hotspur",
-      "appearances": 0,
-      "goals": 0,
+      "appearances": 22,
+      "goals": 15,
       "assists": 0,
       "transfer_history": [
         {
@@ -804,7 +1085,21 @@
           "club": "Tottenham",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 343,
+        "goals": 78,
+        "assists": 75,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 45,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Maddison",
@@ -812,9 +1107,9 @@
       "age": 29,
       "nationality": "England",
       "club": "Tottenham Hotspur",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0,
+      "appearances": 51,
+      "goals": 35,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Coventry",
@@ -844,7 +1139,21 @@
           "club": "Tottenham",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 97,
+        "assists": 89,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -854,9 +1163,9 @@
       "age": 21,
       "nationality": "France",
       "club": "Tottenham Hotspur",
-      "appearances": 33,
-      "goals": 2,
-      "assists": 5,
+      "appearances": 24,
+      "goals": 0,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Troyes",
@@ -870,7 +1179,21 @@
           "club": "Tottenham",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 34,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Kudus",
@@ -878,8 +1201,8 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Tottenham Hotspur",
-      "appearances": 26,
-      "goals": 3,
+      "appearances": 19,
+      "goals": 2,
       "assists": 6,
       "transfer_history": [
         {
@@ -898,7 +1221,21 @@
           "club": "Tottenham",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 70,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominic Solanke",
@@ -906,8 +1243,8 @@
       "age": 28,
       "nationality": "England",
       "club": "Tottenham Hotspur",
-      "appearances": 17,
-      "goals": 6,
+      "appearances": 12,
+      "goals": 3,
       "assists": 0,
       "transfer_history": [
         {
@@ -926,7 +1263,21 @@
           "club": "Tottenham",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 385,
+        "goals": 147,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richarlison",
@@ -934,9 +1285,9 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Tottenham Hotspur",
-      "appearances": 37,
-      "goals": 10,
-      "assists": 4,
+      "appearances": 26,
+      "goals": 9,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "América-MG",
@@ -958,7 +1309,21 @@
           "club": "Tottenham",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 411,
+        "goals": 116,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 54,
+        "goals": 20,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathys Tel",
@@ -966,9 +1331,9 @@
       "age": 20,
       "nationality": "France",
       "club": "Tottenham Hotspur",
-      "appearances": 31,
+      "appearances": 24,
       "goals": 3,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "ASJA Jugend",
@@ -990,7 +1355,21 @@
           "club": "Bayern Munich",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 34,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 12,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Randal Kolo Muani",
@@ -998,9 +1377,9 @@
       "age": 27,
       "nationality": "France",
       "club": "Tottenham Hotspur",
-      "appearances": 34,
-      "goals": 5,
-      "assists": 4,
+      "appearances": 23,
+      "goals": 1,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "FC Nantes",
@@ -1038,7 +1417,21 @@
           "club": "PSG",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 324,
+        "goals": 97,
+        "assists": 56,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,21 +9,54 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PN1C"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Jorginho Frías",
       "position": "Goalkeeper",
-      "age": 24,
+      "age": 25,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tauro FC",
+          "year": "2020"
+        },
+        {
+          "club": "CD del Este",
+          "year": "2021"
+        },
+        {
+          "club": "San Miguelito",
+          "year": "2022"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 124,
+        "clean_sheets": 43
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xavier Cruz",
@@ -31,9 +64,37 @@
       "age": 22,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2023"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2024"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 48,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,19 +104,67 @@
       "age": 23,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Potros del Este",
+          "year": "2024"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        },
+        {
+          "club": "Potros del Este",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Víctor Simmons",
+      "name": "Aimar Rodríguez",
       "position": "Centre-Back",
-      "age": 24,
+      "age": 23,
       "nationality": "Panama",
       "club": "San Francisco FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 18,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enrique Laguna",
@@ -65,7 +174,35 @@
       "club": "San Francisco FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Udelas FC",
+          "year": "2022"
+        },
+        {
+          "club": "Águilas UP",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Ortiz",
@@ -73,9 +210,53 @@
       "age": 31,
       "nationality": "Colombia",
       "club": "San Francisco FC",
-      "appearances": 22,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leones Negros",
+          "year": "2020"
+        },
+        {
+          "club": "Halcones",
+          "year": "2020"
+        },
+        {
+          "club": "Llaneros FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2023"
+        },
+        {
+          "club": "Matagalpa",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guillermo Benítez",
@@ -83,9 +264,45 @@
       "age": 27,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "ATL UTD 2",
+          "year": "2019"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2019"
+        },
+        {
+          "club": "Potros del Este",
+          "year": "2023"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2024"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 9,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Calderón",
@@ -93,9 +310,41 @@
       "age": 25,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2019"
+        },
+        {
+          "club": "Puerto Cabello",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 12,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Galván",
@@ -103,9 +352,45 @@
       "age": 30,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Miguelito",
+          "year": "2014"
+        },
+        {
+          "club": "UCV FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "San Miguelito",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 5,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodolfo Rodríguez",
@@ -113,9 +398,49 @@
       "age": 27,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 3,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Independiente",
+          "year": "2019"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Águilas UP",
+          "year": "2022"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2024"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Rivas",
@@ -123,9 +448,53 @@
       "age": 30,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Alianza FC",
+          "year": "2020"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2021"
+        },
+        {
+          "club": "UMECIT FC",
+          "year": "2024"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2024"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 1,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josué Wood",
@@ -135,7 +504,27 @@
       "club": "San Francisco FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +534,33 @@
       "age": 24,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Potros del Este",
+          "year": "2023"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ernesto Walker",
@@ -155,9 +568,65 @@
       "age": 27,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Plaza Amador",
+          "year": "2018"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2019"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2020"
+        },
+        {
+          "club": "Olhanense",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Rayo Zuliano",
+          "year": "2023"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Herrera FC",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Rivera",
@@ -165,9 +634,61 @@
       "age": 28,
       "nationality": "Colombia",
       "club": "San Francisco FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Nacional",
+          "year": "2018"
+        },
+        {
+          "club": "Real Santander",
+          "year": "2018"
+        },
+        {
+          "club": "Envigado",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Orsomarso SC",
+          "year": "2023"
+        },
+        {
+          "club": "Monagas SC",
+          "year": "2024"
+        },
+        {
+          "club": "UMECIT FC",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edilson Carrasquilla",
@@ -175,9 +696,33 @@
       "age": 23,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tauro FC",
+          "year": "2020"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonel Triana",
@@ -185,9 +730,61 @@
       "age": 30,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SUNTRACS FC",
+          "year": "2015"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2019"
+        },
+        {
+          "club": "Universitario",
+          "year": "2019"
+        },
+        {
+          "club": "Independiente",
+          "year": "2020"
+        },
+        {
+          "club": "Universitario",
+          "year": "2021"
+        },
+        {
+          "club": "Herrera FC",
+          "year": "2022"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2023"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2024"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elver Rodríguez",
@@ -195,9 +792,33 @@
       "age": 24,
       "nationality": "Colombia",
       "club": "San Francisco FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Panamá City",
+          "year": "2023"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Rangel",
@@ -207,7 +828,27 @@
       "club": "San Francisco FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wesley Lashley",
@@ -217,7 +858,27 @@
       "club": "San Francisco FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,19 +888,83 @@
       "age": 24,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Nacional",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darwin Pinzón",
       "position": "Left Winger",
-      "age": 31,
+      "age": 32,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Carabobo FC",
+          "year": "2016"
+        },
+        {
+          "club": "San Miguelito",
+          "year": "2016"
+        },
+        {
+          "club": "Career break",
+          "year": "2017"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2022"
+        },
+        {
+          "club": "UMECIT FC",
+          "year": "2023"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 34,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bayron Walters",
@@ -247,9 +972,45 @@
       "age": 22,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Potros del Este",
+          "year": "2023"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        },
+        {
+          "club": "CD La Union",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronaldo Dinolis",
@@ -257,9 +1018,89 @@
       "age": 31,
       "nationality": "Panama",
       "club": "San Francisco FC",
-      "appearances": 25,
-      "goals": 8,
-      "assists": 2
+      "appearances": 10,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Santos FC",
+          "year": "2018"
+        },
+        {
+          "club": "San Miguelito",
+          "year": "2018"
+        },
+        {
+          "club": "Universitario",
+          "year": "2019"
+        },
+        {
+          "club": "Real España",
+          "year": "2019"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2020"
+        },
+        {
+          "club": "San Miguelito",
+          "year": "2020"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2021"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2021"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2023"
+        },
+        {
+          "club": "Independiente",
+          "year": "2024"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Mictlán",
+          "year": "2025"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 71,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

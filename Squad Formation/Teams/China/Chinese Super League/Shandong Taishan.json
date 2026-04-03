@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "CSL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2021"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dalei Wang",
@@ -31,9 +60,37 @@
       "age": 37,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH United",
+          "year": "2006"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2007"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2014"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 543,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 635,
+        "clean_sheets": 161
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 47,
+        "clean_sheets": 13
+      }
     },
     {
       "name": "Qiwei Liu",
@@ -43,7 +100,27 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 36,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qihang Sun",
@@ -53,7 +130,47 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ZB Sunday",
+          "year": "2018"
+        },
+        {
+          "club": "ZB Cuju",
+          "year": "2019"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        },
+        {
+          "club": "CQ Tongliangl.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +180,45 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "Shandong Taishan",
-      "appearances": 20,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2013"
+        },
+        {
+          "club": "B SAD",
+          "year": "2020"
+        },
+        {
+          "club": "Estoril",
+          "year": "2022"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2025"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xiao Peng",
@@ -73,9 +226,37 @@
       "age": 20,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zhunyi Gao",
@@ -85,7 +266,59 @@
       "club": "Shandong Taishan",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kataller Toyama",
+          "year": "2014"
+        },
+        {
+          "club": "Avispa Fukuoka",
+          "year": "2015"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2015"
+        },
+        {
+          "club": "HB CFFC",
+          "year": "2016"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2017"
+        },
+        {
+          "club": "HB CFFC",
+          "year": "2017"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2019"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2022"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 9,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Songchen Shi",
@@ -94,8 +327,36 @@
       "nationality": "China",
       "club": "Shandong Taishan",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jianfei Zhao",
@@ -105,7 +366,39 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan Res.",
+          "year": "2017"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2018"
+        },
+        {
+          "club": "CZ Mighty Lions",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruiqi Yang",
@@ -115,7 +408,47 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2022"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        },
+        {
+          "club": "SX Union",
+          "year": "2024"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        },
+        {
+          "club": "MZ Hakka",
+          "year": "2025"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qiancheng Qi",
@@ -125,7 +458,27 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yang Liu",
@@ -133,9 +486,45 @@
       "age": 30,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sintrense",
+          "year": "2014"
+        },
+        {
+          "club": "Cova Piedade",
+          "year": "2015"
+        },
+        {
+          "club": "Oriental Dragon",
+          "year": "2015"
+        },
+        {
+          "club": "Oriental Dragon",
+          "year": "2016"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 241,
+        "goals": 14,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zheng Zheng",
@@ -143,9 +532,29 @@
       "age": 36,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Luneng",
+          "year": "2008"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 15,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tong Wang",
@@ -153,9 +562,29 @@
       "age": 33,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Luneng",
+          "year": "2011"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 5,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shemshidin Yusupjan",
@@ -165,7 +594,27 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +624,45 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Botafogo-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Desp. Brasil",
+          "year": "2023"
+        },
+        {
+          "club": "Botafogo-SP",
+          "year": "2024"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2024"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zhengyu Huang",
@@ -185,9 +670,37 @@
       "age": 29,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GZ R&F",
+          "year": "2016"
+        },
+        {
+          "club": "GZ City Res.",
+          "year": "2022"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Imran Memet",
@@ -197,7 +710,31 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuanyi Li",
@@ -205,9 +742,65 @@
       "age": 32,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Tianjin JMT Res",
+          "year": "2013"
+        },
+        {
+          "club": "Boavista",
+          "year": "2013"
+        },
+        {
+          "club": "Leixões",
+          "year": "2014"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2015"
+        },
+        {
+          "club": "Leixões",
+          "year": "2015"
+        },
+        {
+          "club": "TJ Teda",
+          "year": "2016"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2016"
+        },
+        {
+          "club": "TJ Teda",
+          "year": "2017"
+        },
+        {
+          "club": "SZ FC",
+          "year": "2019"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 297,
+        "goals": 21,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zeshi Chen",
@@ -215,9 +808,29 @@
       "age": 21,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Delgado",
@@ -225,9 +838,85 @@
       "age": 28,
       "nationality": "Portugal",
       "club": "Shandong Taishan",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "0000"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2018"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2019"
+        },
+        {
+          "club": "Desportivo Aves",
+          "year": "2020"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2021"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2022"
+        },
+        {
+          "club": "KS FC",
+          "year": "2022"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2022"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2023"
+        },
+        {
+          "club": "SZ Dongwu",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 41,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liuyu Duan",
@@ -237,7 +926,51 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Luneng",
+          "year": "2018"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        },
+        {
+          "club": "QD West Coast",
+          "year": "2024"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        },
+        {
+          "club": "QD West Coast",
+          "year": "2025"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 17,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mewlan Mijit",
@@ -245,9 +978,37 @@
       "age": 22,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2023"
+        },
+        {
+          "club": "QD Hainiu",
+          "year": "2025"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jiaxi Yin",
@@ -257,7 +1018,35 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Luneng SC",
+          "year": "2020"
+        },
+        {
+          "club": "NT Zhiyun",
+          "year": "2025"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +1056,61 @@
       "age": 33,
       "nationality": "Georgia",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Metalurgi R.",
+          "year": "2010"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2011"
+        },
+        {
+          "club": "Sioni Bolnisi",
+          "year": "2011"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2011"
+        },
+        {
+          "club": "Legia Warszawa",
+          "year": "2016"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2017"
+        },
+        {
+          "club": "SJ Earthquakes",
+          "year": "2017"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2021"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 494,
+        "goals": 148,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 63,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raphaël Merkies",
@@ -279,7 +1120,39 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Colts",
+          "year": "2017"
+        },
+        {
+          "club": "HKFC",
+          "year": "2022"
+        },
+        {
+          "club": "Southern",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pu Chen",
@@ -287,9 +1160,57 @@
       "age": 29,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan Res.",
+          "year": "2015"
+        },
+        {
+          "club": "Desp. Brasil",
+          "year": "2018"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2019"
+        },
+        {
+          "club": "SD Luneng",
+          "year": "2019"
+        },
+        {
+          "club": "SJZ Ever Bright",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2020"
+        },
+        {
+          "club": "HN SS Longmen",
+          "year": "2021"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 29,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Binbin Liu",
@@ -299,7 +1220,27 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Luneng",
+          "year": "2012"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 33,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wenneng Xie",
@@ -307,9 +1248,49 @@
       "age": 25,
       "nationality": "China",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ZB Cuju",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2021"
+        },
+        {
+          "club": "QD Hainiu",
+          "year": "2021"
+        },
+        {
+          "club": "QD Hainiu",
+          "year": "2022"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 36,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cryzan",
@@ -317,9 +1298,65 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Atlético-PR",
+          "year": "2015"
+        },
+        {
+          "club": "Oeste",
+          "year": "2016"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2016"
+        },
+        {
+          "club": "Cercle Brugge",
+          "year": "2017"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Batin",
+          "year": "2018"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2019"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2020"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 339,
+        "goals": 122,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zeca",
@@ -327,9 +1364,53 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "Shandong Taishan",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Criciúma",
+          "year": "2020"
+        },
+        {
+          "club": "Oeste",
+          "year": "2021"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2021"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Daegu FC",
+          "year": "2022"
+        },
+        {
+          "club": "Pohang Steelers",
+          "year": "2023"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 61,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shuaijun Mei",
@@ -339,7 +1420,27 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yixiang Peng",
@@ -349,7 +1450,27 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junwei Lu",
@@ -359,7 +1480,27 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuxuan Wang",
@@ -369,7 +1510,31 @@
       "club": "Shandong Taishan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Taishan",
+          "year": "2024"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

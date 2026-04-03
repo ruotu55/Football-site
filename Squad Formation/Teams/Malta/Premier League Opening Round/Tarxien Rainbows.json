@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MT1P"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,61 @@
       "age": 26,
       "nationality": "Poland",
       "club": "Tarxien Rainbows",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ROW Rybnik",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Kuznia",
+          "year": "2020"
+        },
+        {
+          "club": "ROW Rybnik",
+          "year": "2021"
+        },
+        {
+          "club": "Goczalkowice",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Melita",
+          "year": "2024"
+        },
+        {
+          "club": "Gzira Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 87,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrea Cassar",
@@ -31,9 +84,49 @@
       "age": 33,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 20,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pembroke",
+          "year": "2014"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2015"
+        },
+        {
+          "club": "Floriana",
+          "year": "2019"
+        },
+        {
+          "club": "Marsa FC",
+          "year": "2021"
+        },
+        {
+          "club": "Sirens FC",
+          "year": "2022"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 249,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 399,
+        "clean_sheets": 54
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andreas Vella",
@@ -43,7 +136,51 @@
       "club": "Tarxien Rainbows",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qormi FC",
+          "year": "2015"
+        },
+        {
+          "club": "Birkirkara FC",
+          "year": "2016"
+        },
+        {
+          "club": "Mosta FC",
+          "year": "2017"
+        },
+        {
+          "club": "Santa Lucia FC",
+          "year": "2020"
+        },
+        {
+          "club": "Floriana",
+          "year": "2021"
+        },
+        {
+          "club": "Mosta FC",
+          "year": "2023"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 250,
+        "clean_sheets": 45
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Spiteri",
@@ -51,9 +188,57 @@
       "age": 22,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 9,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Getafe CF Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Birkirkara FC",
+          "year": "2020"
+        },
+        {
+          "club": "San Gwann FC",
+          "year": "2022"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2023"
+        },
+        {
+          "club": "Luqa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Lucia FC",
+          "year": "2024"
+        },
+        {
+          "club": "Sirens FC",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 114,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +248,41 @@
       "age": 24,
       "nationality": "Colombia",
       "club": "Tarxien Rainbows",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Envigado",
+          "year": "2021"
+        },
+        {
+          "club": "Jaguares FC",
+          "year": "2024"
+        },
+        {
+          "club": "Orsomarso SC",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelrahman Kuku",
@@ -73,9 +290,61 @@
       "age": 27,
       "nationality": "Sudan",
       "club": "Tarxien Rainbows",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EFSC Titans",
+          "year": "2018"
+        },
+        {
+          "club": "Redhawks",
+          "year": "2020"
+        },
+        {
+          "club": "Flint City",
+          "year": "2021"
+        },
+        {
+          "club": "FGCU Eagles",
+          "year": "2021"
+        },
+        {
+          "club": "Green Gully SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Merrikh SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel D'Alessandro",
@@ -83,9 +352,37 @@
       "age": 26,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 19,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "St. Andrews FC",
+          "year": "2019"
+        },
+        {
+          "club": "Sliema Wander.",
+          "year": "2022"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sheldon Mizzi",
@@ -93,9 +390,41 @@
       "age": 24,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 16,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pietà Hotspurs",
+          "year": "2020"
+        },
+        {
+          "club": "Santa Lucia FC",
+          "year": "2023"
+        },
+        {
+          "club": "Marsa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petar Panic",
@@ -103,9 +432,57 @@
       "age": 24,
       "nationality": "Serbia",
       "club": "Tarxien Rainbows",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Internacional",
+          "year": "2017"
+        },
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "Smederevo 1924",
+          "year": "2021"
+        },
+        {
+          "club": "Pozarevac",
+          "year": "2022"
+        },
+        {
+          "club": "Smederevo 1924",
+          "year": "2023"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2024"
+        },
+        {
+          "club": "Jedinstvo Uzice",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andreas Vella",
@@ -113,9 +490,49 @@
       "age": 25,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 33,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santa Lucia FC",
+          "year": "2020"
+        },
+        {
+          "club": "Floriana",
+          "year": "2022"
+        },
+        {
+          "club": "Sirens FC",
+          "year": "2023"
+        },
+        {
+          "club": "Zabbar SP",
+          "year": "2023"
+        },
+        {
+          "club": "Santa Lucia FC",
+          "year": "2024"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyle Gatt",
@@ -123,9 +540,57 @@
       "age": 26,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Gwann FC",
+          "year": "2017"
+        },
+        {
+          "club": "Zebbug Rangers",
+          "year": "2018"
+        },
+        {
+          "club": "San Gwann FC",
+          "year": "2018"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2020"
+        },
+        {
+          "club": "Gudja United FC",
+          "year": "2021"
+        },
+        {
+          "club": "San Gwann FC",
+          "year": "2022"
+        },
+        {
+          "club": "Marsa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nhayson",
@@ -133,9 +598,53 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Tarxien Rainbows",
-      "appearances": 27,
-      "goals": 5,
-      "assists": 1
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Red Bull",
+          "year": "2020"
+        },
+        {
+          "club": "Maringá",
+          "year": "2021"
+        },
+        {
+          "club": "Esp. Lagos",
+          "year": "2021"
+        },
+        {
+          "club": "União Santarém",
+          "year": "2023"
+        },
+        {
+          "club": "Lus. Lourosa",
+          "year": "2024"
+        },
+        {
+          "club": "Caldas",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -147,7 +656,67 @@
       "club": "Tarxien Rainbows",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brasil Pelotas",
+          "year": "2021"
+        },
+        {
+          "club": "Villa Nova",
+          "year": "2022"
+        },
+        {
+          "club": "Paysandu",
+          "year": "2022"
+        },
+        {
+          "club": "Juventude",
+          "year": "2023"
+        },
+        {
+          "club": "Madureira",
+          "year": "2024"
+        },
+        {
+          "club": "Ipatinga",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Claro",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Betim Futebol",
+          "year": "2025"
+        },
+        {
+          "club": "Cascavel-PR",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Musulin",
@@ -155,9 +724,49 @@
       "age": 26,
       "nationality": "Croatia",
       "club": "Tarxien Rainbows",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Rogaska",
+          "year": "2022"
+        },
+        {
+          "club": "Croat. Zmijavci",
+          "year": "2023"
+        },
+        {
+          "club": "GOSK Gabela",
+          "year": "2023"
+        },
+        {
+          "club": "FC Ferizaj",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 22,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kwasi Donsu",
@@ -165,9 +774,57 @@
       "age": 30,
       "nationality": "Ghana",
       "club": "Tarxien Rainbows",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 0
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Medeama",
+          "year": "2015"
+        },
+        {
+          "club": "Switchbacks FC",
+          "year": "2019"
+        },
+        {
+          "club": "Medeama",
+          "year": "2019"
+        },
+        {
+          "club": "Sirens FC",
+          "year": "2023"
+        },
+        {
+          "club": "Medeama",
+          "year": "2024"
+        },
+        {
+          "club": "FC Mgarr United",
+          "year": "2024"
+        },
+        {
+          "club": "Medeama",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 25,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luke Anthony Borg",
@@ -175,9 +832,33 @@
       "age": 26,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 16,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "St. Andrews FC",
+          "year": "2019"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcus Grima",
@@ -185,9 +866,41 @@
       "age": 25,
       "nationality": "Malta",
       "club": "Tarxien Rainbows",
-      "appearances": 27,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "St. Andrews FC",
+          "year": "2018"
+        },
+        {
+          "club": "St. Andrews FC",
+          "year": "2019"
+        },
+        {
+          "club": "Balzan FC",
+          "year": "2019"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -197,9 +910,133 @@
       "age": 32,
       "nationality": "Brazil",
       "club": "Tarxien Rainbows",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sport Recife",
+          "year": "2013"
+        },
+        {
+          "club": "Paysandu",
+          "year": "2015"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Mafra",
+          "year": "2015"
+        },
+        {
+          "club": "CRB",
+          "year": "2016"
+        },
+        {
+          "club": "Mafra",
+          "year": "2016"
+        },
+        {
+          "club": "Desportivo Aves",
+          "year": "2016"
+        },
+        {
+          "club": "Treze",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Itumbiara-GO",
+          "year": "2018"
+        },
+        {
+          "club": "AD Oliveirense",
+          "year": "2018"
+        },
+        {
+          "club": "Moura",
+          "year": "2019"
+        },
+        {
+          "club": "CO Montijo",
+          "year": "2019"
+        },
+        {
+          "club": "River-PI",
+          "year": "2020"
+        },
+        {
+          "club": "Aimoré",
+          "year": "2021"
+        },
+        {
+          "club": "Barra",
+          "year": "2021"
+        },
+        {
+          "club": "Juazeirense-BA",
+          "year": "2021"
+        },
+        {
+          "club": "Portuguesa-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Juazeirense-BA",
+          "year": "2022"
+        },
+        {
+          "club": "Jaraguá EC",
+          "year": "2022"
+        },
+        {
+          "club": "Nacional-AM",
+          "year": "2023"
+        },
+        {
+          "club": "CS Esportiva",
+          "year": "2024"
+        },
+        {
+          "club": "Fluminense-BA",
+          "year": "2024"
+        },
+        {
+          "club": "Águia de Marabá",
+          "year": "2025"
+        },
+        {
+          "club": "Glória-RS",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cláudio Murici",
@@ -207,19 +1044,115 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Tarxien Rainbows",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 2
+      "appearances": 11,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Globo",
+          "year": "2019"
+        },
+        {
+          "club": "América-RN",
+          "year": "2019"
+        },
+        {
+          "club": "Força e Luz",
+          "year": "2020"
+        },
+        {
+          "club": "América-RN",
+          "year": "2020"
+        },
+        {
+          "club": "Treze",
+          "year": "2020"
+        },
+        {
+          "club": "América-RN",
+          "year": "2021"
+        },
+        {
+          "club": "Zejtun C.",
+          "year": "2021"
+        },
+        {
+          "club": "Ghajnsielem",
+          "year": "2022"
+        },
+        {
+          "club": "Hamrun Spart.",
+          "year": "2023"
+        },
+        {
+          "club": "Ghajnsielem",
+          "year": "2023"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 25,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángel Valverde",
       "position": "Second Striker",
-      "age": 26,
+      "age": 27,
       "nationality": "Panama",
       "club": "Tarxien Rainbows",
-      "appearances": 18,
-      "goals": 3,
-      "assists": 1
+      "appearances": 11,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Independiente",
+          "year": "2022"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        },
+        {
+          "club": "Independiente",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 21,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Schmidt",
@@ -227,9 +1160,69 @@
       "age": 27,
       "nationality": "Austria",
       "club": "Tarxien Rainbows",
-      "appearances": 23,
-      "goals": 4,
-      "assists": 1
+      "appearances": 7,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Admira Youth",
+          "year": "2011"
+        },
+        {
+          "club": "AKA Admira U15",
+          "year": "2012"
+        },
+        {
+          "club": "Admira Wacker",
+          "year": "2016"
+        },
+        {
+          "club": "Barnsley",
+          "year": "2019"
+        },
+        {
+          "club": "SV Ried",
+          "year": "2021"
+        },
+        {
+          "club": "Barnsley",
+          "year": "2021"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2021"
+        },
+        {
+          "club": "Barnsley",
+          "year": "2022"
+        },
+        {
+          "club": "Admira Wacker",
+          "year": "2022"
+        },
+        {
+          "club": "First Vienna FC",
+          "year": "2024"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 79,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Lokosa",
@@ -237,9 +1230,81 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Tarxien Rainbows",
-      "appearances": 29,
-      "goals": 6,
-      "assists": 3
+      "appearances": 11,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Crown FC",
+          "year": "2013"
+        },
+        {
+          "club": "36 Lion FC",
+          "year": "2015"
+        },
+        {
+          "club": "Beitar TA Ramla",
+          "year": "2016"
+        },
+        {
+          "club": "36 Lion FC",
+          "year": "2017"
+        },
+        {
+          "club": "Pharco FC",
+          "year": "2017"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2019"
+        },
+        {
+          "club": "Pharco FC",
+          "year": "2020"
+        },
+        {
+          "club": "Pharco FC",
+          "year": "2022"
+        },
+        {
+          "club": "Zelez. Pancevo",
+          "year": "2023"
+        },
+        {
+          "club": "Smederevo 1924",
+          "year": "2024"
+        },
+        {
+          "club": "Zelez. Pancevo",
+          "year": "2024"
+        },
+        {
+          "club": "Smederevo 1924",
+          "year": "2025"
+        },
+        {
+          "club": "Zelez. Pancevo",
+          "year": "2025"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 16,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manyluak Aguek",
@@ -249,7 +1314,63 @@
       "club": "Tarxien Rainbows",
       "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "South Melbourne",
+          "year": "2017"
+        },
+        {
+          "club": "Central Coast",
+          "year": "2021"
+        },
+        {
+          "club": "Avondale FC",
+          "year": "2022"
+        },
+        {
+          "club": "Central Coast",
+          "year": "2022"
+        },
+        {
+          "club": "Balzan FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Avondale FC",
+          "year": "2024"
+        },
+        {
+          "club": "South Melbourne",
+          "year": "2025"
+        },
+        {
+          "club": "Swat Cat",
+          "year": "2026"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 34,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

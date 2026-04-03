@@ -37,6 +37,7 @@ from generate_squads_from_transfermarkt import (  # noqa: E402
     _season_hint,
     _serialize_squad,
     fetch_squad_payload,
+    season_context_for_competition,
 )
 
 # Transfermarkt competition IDs (first tier / second tier per country)
@@ -73,6 +74,9 @@ async def sync_league(
     nt_cache: dict[str, str],
     player_cache: dict[str, Any],
     stats_cache: dict[str, tuple[int, int, int]],
+    transfer_cache: dict[str, list[dict[str, str]]],
+    club_career_cache: dict[str, dict[str, Any]],
+    national_career_cache: dict[str, dict[str, Any]],
     season_meta: dict[str, Any],
     dry_run: bool,
 ) -> tuple[int, int]:
@@ -96,6 +100,9 @@ async def sync_league(
         f"  … {len(official)} clubs on TM, scanning {country}/{league}",
         file=sys.stderr,
         flush=True,
+    )
+    season_meta_league, sid = await season_context_for_competition(
+        tmkt, competition_id, fallback_meta=season_meta
     )
     league_img = TEAMS_IMAGES / country / league
     league_out = OUT_TEAMS / country / league
@@ -163,12 +170,6 @@ async def sync_league(
             flush=True,
         )
 
-    sid = season_meta.get("seasonId")
-    if isinstance(sid, str) and sid.isdigit():
-        sid = int(sid)
-    elif not isinstance(sid, int):
-        sid = None
-
     n_missing = len(missing)
     for mi, cid in enumerate(sorted(missing), start=1):
         cdata = await _get_club_safe(tmkt, cid)
@@ -191,7 +192,17 @@ async def sync_league(
             safe_guess = f"{_safe_json_filename_stem(official_name)}.png"
             image_path = str(Path("Teams Images") / country / league / safe_guess)
 
+        sml = season_meta_league if isinstance(season_meta_league, dict) else {}
+        cv = sml.get("competitionId")
+        comp_stats = (
+            str(cv).strip().upper() if cv is not None and str(cv).strip() else None
+        )
         try:
+            lbl = (
+                str(sml.get("label")).strip()
+                if isinstance(sml, dict) and sml.get("label")
+                else None
+            )
             squads = await fetch_squad_payload(
                 tmkt,
                 cid,
@@ -201,8 +212,13 @@ async def sync_league(
                 nt_name_cache=nt_cache,
                 player_cache=player_cache,
                 stats_cache=stats_cache,
+                transfer_cache=transfer_cache,
+                club_career_cache=club_career_cache,
+                national_career_cache=national_career_cache,
                 season_id=sid,
                 national_team_squad=False,
+                season_competition_id=comp_stats,
+                season_label_hint=lbl,
             )
         except Exception as exc:
             print(f"  skip squad {official_name} ({cid}): {exc}", file=sys.stderr)
@@ -213,7 +229,7 @@ async def sync_league(
             label=official_name,
             rel_image=image_path,
             tm_id=cid,
-            season_meta=season_meta,
+            season_meta=season_meta_league,
             squads=squads,
         )
         if rel_img is None:
@@ -243,6 +259,9 @@ async def run(dry_run: bool) -> int:
     nt_cache: dict[str, str] = {}
     player_cache: dict[str, Any] = {}
     stats_cache: dict[str, tuple[int, int, int]] = {}
+    transfer_cache: dict[str, list[dict[str, str]]] = {}
+    club_career_cache: dict[str, dict[str, Any]] = {}
+    national_career_cache: dict[str, dict[str, Any]] = {}
 
     async with TMKT() as tmkt:
         season_meta = await _season_hint(tmkt)
@@ -259,6 +278,9 @@ async def run(dry_run: bool) -> int:
                 nt_cache=nt_cache,
                 player_cache=player_cache,
                 stats_cache=stats_cache,
+                transfer_cache=transfer_cache,
+                club_career_cache=club_career_cache,
+                national_career_cache=national_career_cache,
                 season_meta=season_meta,
                 dry_run=dry_run,
             )

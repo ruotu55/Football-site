@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PRC1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,19 +22,65 @@
       "age": 26,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Alejandro Mercado",
-      "position": "Goalkeeper",
-      "age": 21,
-      "nationality": "Puerto Rico",
-      "club": "Academia Quintana",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tropics",
+          "year": "2019"
+        },
+        {
+          "club": "MCC Tigers",
+          "year": "2019"
+        },
+        {
+          "club": "Mercy Mavericks",
+          "year": "2019"
+        },
+        {
+          "club": "Chicago House",
+          "year": "2021"
+        },
+        {
+          "club": "Bayamón FC",
+          "year": "2022"
+        },
+        {
+          "club": "LA Force",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2024"
+        },
+        {
+          "club": "FC Naples",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 18,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 27,
+        "clean_sheets": 9
+      }
     },
     {
       "name": "Jeremy Sálamo",
@@ -41,9 +88,24 @@
       "age": 27,
       "nationality": "Paraguay",
       "club": "Academia Quintana",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yoksan Rosario",
@@ -51,9 +113,59 @@
       "age": 18,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 11,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 14,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Alejandro Mercado",
+      "position": "Goalkeeper",
+      "age": 21,
+      "nationality": "Puerto Rico",
+      "club": "Academia Quintana",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +175,61 @@
       "age": 24,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Satélite Norte",
+          "year": "2020"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2021"
+        },
+        {
+          "club": "Chicago House",
+          "year": "2021"
+        },
+        {
+          "club": "Puerto Rico Sol",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Fort Wayne",
+          "year": "2023"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2023"
+        },
+        {
+          "club": "FC Naples",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Angel Aguas",
@@ -73,19 +237,75 @@
       "age": 23,
       "nationality": "United States",
       "club": "Academia Quintana",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Carolina Core",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Unknown",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Luis Cano",
       "position": "Centre-Back",
-      "age": 24,
+      "age": 25,
       "nationality": "Guatemala",
       "club": "Academia Quintana",
-      "appearances": 20,
-      "goals": 3,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomas Fernández",
@@ -93,9 +313,41 @@
       "age": 23,
       "nationality": "Argentina",
       "club": "Academia Quintana",
-      "appearances": 23,
-      "goals": 9,
-      "assists": 0
+      "appearances": 10,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Daquilema FC",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "San Martín (9J)",
+          "year": "2024"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rayson Rosario",
@@ -103,9 +355,24 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 17,
-      "goals": 2,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Soto",
@@ -113,9 +380,24 @@
       "age": 17,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Steven Hernaiz",
@@ -123,9 +405,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Cedeno",
@@ -133,9 +430,45 @@
       "age": 24,
       "nationality": "United States",
       "club": "Academia Quintana",
-      "appearances": 19,
-      "goals": 5,
-      "assists": 5
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GWU Colonials",
+          "year": "2021"
+        },
+        {
+          "club": "USD Toreros",
+          "year": "2023"
+        },
+        {
+          "club": "Miami AC",
+          "year": "2024"
+        },
+        {
+          "club": "Rovers SC",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos González",
@@ -143,9 +476,24 @@
       "age": 20,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 26,
-      "goals": 4,
-      "assists": 2
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrés Chavez",
@@ -153,9 +501,24 @@
       "age": 19,
       "nationality": "Colombia",
       "club": "Academia Quintana",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Pérez",
@@ -163,9 +526,29 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Sims",
@@ -175,7 +558,22 @@
       "club": "Academia Quintana",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +583,24 @@
       "age": 31,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Bermúdez",
@@ -195,9 +608,33 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 13,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Puerto Rico SSC",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Dilan",
@@ -205,9 +642,61 @@
       "age": 27,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 2,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "PBA Sailfish",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "The Villages SC",
+          "year": "2022"
+        },
+        {
+          "club": "Nona FC",
+          "year": "2023"
+        },
+        {
+          "club": "The Villages SC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "CFL Spurs",
+          "year": "2024"
+        },
+        {
+          "club": "Unknown",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ian Martínez",
@@ -215,9 +704,24 @@
       "age": 25,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 22,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan O'Neill",
@@ -225,9 +729,45 @@
       "age": 27,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 1
+      "appearances": 8,
+      "goals": 1,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Greyhounds",
+          "year": "2018"
+        },
+        {
+          "club": "Broncos",
+          "year": "2020"
+        },
+        {
+          "club": "Project 51O",
+          "year": "2022"
+        },
+        {
+          "club": "Black Rock FC",
+          "year": "2024"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jackie Marrero",
@@ -235,9 +775,57 @@
       "age": 32,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 29,
-      "goals": 12,
-      "assists": 3
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Islanders",
+          "year": "2012"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2013"
+        },
+        {
+          "club": "Kultsu FC",
+          "year": "2014"
+        },
+        {
+          "club": "Criollos",
+          "year": "2015"
+        },
+        {
+          "club": "Puerto Rico FC",
+          "year": "2016"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 22,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Nieves",
@@ -245,9 +833,53 @@
       "age": 27,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 23,
-      "goals": 11,
-      "assists": 7
+      "appearances": 10,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bayamón FC",
+          "year": "2019"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2021"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2022"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2024"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2024"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 23,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Lebrón",
@@ -255,9 +887,29 @@
       "age": 24,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Víctor Reyes",
@@ -265,9 +917,29 @@
       "age": 23,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 3,
-      "goals": 3,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Agosto",
@@ -275,9 +947,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 7,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -287,9 +974,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Rivera",
@@ -297,9 +999,29 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 27,
-      "goals": 9,
-      "assists": 4
+      "appearances": 9,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 18,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eriesel Hernández",
@@ -307,9 +1029,24 @@
       "age": 23,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 21,
+      "appearances": 10,
       "goals": 4,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Rivera",
@@ -317,9 +1054,53 @@
       "age": 28,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 5,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Vilamarxant",
+          "year": "2018"
+        },
+        {
+          "club": "Union Omaha",
+          "year": "2021"
+        },
+        {
+          "club": "CD Buñol",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Universidad O&M",
+          "year": "2024"
+        },
+        {
+          "club": "Miami FC",
+          "year": "2025"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 20,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harry Sálamo",
@@ -327,9 +1108,24 @@
       "age": 20,
       "nationality": "Paraguay",
       "club": "Academia Quintana",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chrisleniel Arroyo",
@@ -337,9 +1133,29 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Torres",
@@ -347,9 +1163,37 @@
       "age": 23,
       "nationality": "Puerto Rico",
       "club": "Academia Quintana",
-      "appearances": 22,
-      "goals": 23,
-      "assists": 1
+      "appearances": 9,
+      "goals": 12,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Siello FC",
+          "year": "2021"
+        },
+        {
+          "club": "AD Orcasitas",
+          "year": "2023"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 27,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Derick Palacios",
@@ -357,9 +1201,33 @@
       "age": 20,
       "nationality": "Honduras",
       "club": "Academia Quintana",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD San Juan",
+          "year": "2024"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

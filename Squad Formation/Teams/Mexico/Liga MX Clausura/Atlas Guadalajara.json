@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MEXA"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,65 @@
       "age": 37,
       "nationality": "Colombia",
       "club": "Atlas Guadalajara",
-      "appearances": 25,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2007"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2015"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2016"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2017"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2018"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2019"
+        },
+        {
+          "club": "Atlas",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 569,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": 655,
+        "clean_sheets": 189
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 36,
+        "clean_sheets": 18
+      }
     },
     {
       "name": "Antonio Sánchez",
@@ -31,9 +88,37 @@
       "age": 26,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlas",
+          "year": "2022"
+        },
+        {
+          "club": "Correcaminos",
+          "year": "2023"
+        },
+        {
+          "club": "Atlas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 157,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "César Ramos",
@@ -41,21 +126,85 @@
       "age": 25,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Monterrey",
+          "year": "2021"
+        },
+        {
+          "club": "Atlas",
+          "year": "2025"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 163,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
     {
       "name": "Rodrigo Schlegel",
       "position": "Centre-Back",
-      "age": 28,
+      "age": 29,
       "nationality": "Argentina",
       "club": "Atlas Guadalajara",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2018"
+        },
+        {
+          "club": "Orlando",
+          "year": "2020"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2020"
+        },
+        {
+          "club": "Orlando",
+          "year": "2021"
+        },
+        {
+          "club": "Atlas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Róber Pier",
@@ -65,17 +214,105 @@
       "club": "Atlas Guadalajara",
       "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dep. La Coruña",
+          "year": "2016"
+        },
+        {
+          "club": "Levante",
+          "year": "2016"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2017"
+        },
+        {
+          "club": "Levante",
+          "year": "2017"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2018"
+        },
+        {
+          "club": "Levante",
+          "year": "2018"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2019"
+        },
+        {
+          "club": "Levante",
+          "year": "2019"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2023"
+        },
+        {
+          "club": "Atlas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gaddi Aguirre",
       "position": "Centre-Back",
-      "age": 29,
+      "age": 30,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 27,
+      "appearances": 16,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Académicos",
+          "year": "2014"
+        },
+        {
+          "club": "Atlas",
+          "year": "2016"
+        },
+        {
+          "club": "Tampico Madero",
+          "year": "2019"
+        },
+        {
+          "club": "Atlas",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Mora",
@@ -83,9 +320,65 @@
       "age": 28,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toluca",
+          "year": "2019"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2021"
+        },
+        {
+          "club": "Toluca",
+          "year": "2021"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2021"
+        },
+        {
+          "club": "Toluca",
+          "year": "2022"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2022"
+        },
+        {
+          "club": "Toluca",
+          "year": "2023"
+        },
+        {
+          "club": "Atlas",
+          "year": "2024"
+        },
+        {
+          "club": "Atlas",
+          "year": "2025"
+        },
+        {
+          "club": "Toluca",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manuel Capasso",
@@ -93,9 +386,65 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "Atlas Guadalajara",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aldosivi",
+          "year": "2019"
+        },
+        {
+          "club": "Platense",
+          "year": "2019"
+        },
+        {
+          "club": "Aldosivi",
+          "year": "2020"
+        },
+        {
+          "club": "Newell's",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "year": "2022"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2023"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2024"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2024"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2025"
+        },
+        {
+          "club": "Atlas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rivaldo Lozano",
@@ -105,7 +454,59 @@
       "club": "Atlas Guadalajara",
       "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Cafessa",
+          "year": "2016"
+        },
+        {
+          "club": "Atlas",
+          "year": "2019"
+        },
+        {
+          "club": "Tampico Madero",
+          "year": "2020"
+        },
+        {
+          "club": "Atlas",
+          "year": "2021"
+        },
+        {
+          "club": "San Luis",
+          "year": "2021"
+        },
+        {
+          "club": "Atlas",
+          "year": "2022"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2022"
+        },
+        {
+          "club": "Atlas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 19,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Rodríguez",
@@ -113,9 +514,57 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 9,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Toluca Jgd.",
+          "year": "2017"
+        },
+        {
+          "club": "Valle de Bravo",
+          "year": "2017"
+        },
+        {
+          "club": "Toluca",
+          "year": "2021"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2023"
+        },
+        {
+          "club": "Toluca",
+          "year": "2024"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2024"
+        },
+        {
+          "club": "Atlas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustavo Ferrareis",
@@ -123,19 +572,73 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "Atlas Guadalajara",
-      "appearances": 0,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Carlos Orrantía",
-      "position": "Right-Back",
-      "age": 35,
-      "nationality": "Mexico",
-      "club": "Atlas Guadalajara",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Internacional",
+          "year": "2016"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2017"
+        },
+        {
+          "club": "Internacional",
+          "year": "2017"
+        },
+        {
+          "club": "Figueirense FC",
+          "year": "2018"
+        },
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2019"
+        },
+        {
+          "club": "Internacional",
+          "year": "2019"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2019"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2020"
+        },
+        {
+          "club": "Internacional",
+          "year": "2021"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2021"
+        },
+        {
+          "club": "Atlas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 341,
+        "goals": 26,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +648,59 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 25,
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Paulo Ramírez",
+      "position": "Defensive Midfield",
+      "age": 23,
+      "nationality": "Mexico",
+      "club": "Atlas Guadalajara",
+      "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Édgar Zaldívar",
@@ -157,7 +710,31 @@
       "club": "Atlas Guadalajara",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Académicos",
+          "year": "2015"
+        },
+        {
+          "club": "Atlas",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aldo Rocha",
@@ -165,9 +742,49 @@
       "age": 33,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 23,
+      "appearances": 12,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Leonés",
+          "year": "2009"
+        },
+        {
+          "club": "León",
+          "year": "2013"
+        },
+        {
+          "club": "Monarcas Morelia",
+          "year": "2017"
+        },
+        {
+          "club": "León",
+          "year": "2017"
+        },
+        {
+          "club": "Mazatlán FC",
+          "year": "2020"
+        },
+        {
+          "club": "Atlas",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 453,
+        "goals": 33,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abraham Bass",
@@ -175,19 +792,41 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 21,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Paulo Ramírez",
-      "position": "Defensive Midfield",
-      "age": 23,
-      "nationality": "Mexico",
-      "club": "Atlas Guadalajara",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Altamira",
+          "year": "2018"
+        },
+        {
+          "club": "Tampico Madero",
+          "year": "2020"
+        },
+        {
+          "club": "Atlético La Paz",
+          "year": "2025"
+        },
+        {
+          "club": "Atlas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 22,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edyairth Ortega",
@@ -196,8 +835,44 @@
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Académicos",
+          "year": "2015"
+        },
+        {
+          "club": "Académicos",
+          "year": "2017"
+        },
+        {
+          "club": "Atlas",
+          "year": "2018"
+        },
+        {
+          "club": "Tampico Madero",
+          "year": "2019"
+        },
+        {
+          "club": "Atlas",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Hernández",
@@ -205,9 +880,29 @@
       "age": 21,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 21,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Atlas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +912,45 @@
       "age": 31,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 0,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlas",
+          "year": "2012"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2016"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2024"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2025"
+        },
+        {
+          "club": "Atlas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 444,
+        "goals": 72,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego González",
@@ -227,9 +958,61 @@
       "age": 23,
       "nationality": "Paraguay",
       "club": "Atlas Guadalajara",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 6
+      "appearances": 17,
+      "goals": 5,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "CD del Este",
+          "year": "2021"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2021"
+        },
+        {
+          "club": "Potros del Este",
+          "year": "2021"
+        },
+        {
+          "club": "Celaya",
+          "year": "2022"
+        },
+        {
+          "club": "Celaya",
+          "year": "2023"
+        },
+        {
+          "club": "Lazio",
+          "year": "2023"
+        },
+        {
+          "club": "Atlas",
+          "year": "2025"
+        },
+        {
+          "club": "Lazio",
+          "year": "2025"
+        },
+        {
+          "club": "Atlas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 36,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo García",
@@ -237,9 +1020,65 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "Atlas Guadalajara",
-      "appearances": 16,
-      "goals": 3,
-      "assists": 1
+      "appearances": 9,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Instituto ACC",
+          "year": "2014"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2016"
+        },
+        {
+          "club": "CA Osasuna",
+          "year": "2017"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2018"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2018"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2018"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2019"
+        },
+        {
+          "club": "Red Star",
+          "year": "2019"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2020"
+        },
+        {
+          "club": "Atlas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 39,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eduardo Aguirre",
@@ -247,9 +1086,45 @@
       "age": 27,
       "nationality": "Mexico",
       "club": "Atlas Guadalajara",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 2
+      "appearances": 11,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tampico Madero",
+          "year": "2017"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2019"
+        },
+        {
+          "club": "Atlas",
+          "year": "2023"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2024"
+        },
+        {
+          "club": "Atlas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 54,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Agustín Rodríguez",
@@ -257,9 +1132,81 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "Atlas Guadalajara",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Juventud",
+          "year": "2020"
+        },
+        {
+          "club": "Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "Juventud",
+          "year": "2021"
+        },
+        {
+          "club": "Boston River",
+          "year": "2022"
+        },
+        {
+          "club": "Juventud",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2023"
+        },
+        {
+          "club": "Juventud",
+          "year": "2023"
+        },
+        {
+          "club": "La Calera",
+          "year": "2023"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2024"
+        },
+        {
+          "club": "Juventud",
+          "year": "2024"
+        },
+        {
+          "club": "Atlas",
+          "year": "2026"
+        },
+        {
+          "club": "Juventud",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 53,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustavo del Prete",
@@ -267,9 +1214,49 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "Atlas Guadalajara",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CA Torque",
+          "year": "2019"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2021"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2022"
+        },
+        {
+          "club": "Mazatlán FC",
+          "year": "2024"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2024"
+        },
+        {
+          "club": "Atlas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 60,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

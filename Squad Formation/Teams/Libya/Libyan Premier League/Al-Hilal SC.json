@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 24,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Sadaqa SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 34,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Madani",
@@ -33,7 +58,22 @@
       "club": "Al-Hilal SC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Ramroum",
@@ -43,7 +83,31 @@
       "club": "Al-Hilal SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Borouq",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +117,57 @@
       "age": 30,
       "nationality": "Tunisia",
       "club": "Al-Hilal SC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Olympique Beja",
+          "year": "2016"
+        },
+        {
+          "club": "ES Metlaoui",
+          "year": "2017"
+        },
+        {
+          "club": "Ingulets",
+          "year": "2021"
+        },
+        {
+          "club": "CS Chebba",
+          "year": "2022"
+        },
+        {
+          "club": "Ingulets",
+          "year": "2022"
+        },
+        {
+          "club": "OKMK Olmaliq",
+          "year": "2023"
+        },
+        {
+          "club": "US Monastir",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muad Alamami",
@@ -63,9 +175,29 @@
       "age": 27,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamed El-Thalba",
@@ -75,7 +207,31 @@
       "club": "Al-Hilal SC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahly",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anis Khemaissia",
@@ -83,9 +239,53 @@
       "age": 27,
       "nationality": "Algeria",
       "club": "Al-Hilal SC",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "USM Annaba",
+          "year": "2018"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2019"
+        },
+        {
+          "club": "USM Annaba",
+          "year": "2021"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2022"
+        },
+        {
+          "club": "Chelghoum Laïd",
+          "year": "2022"
+        },
+        {
+          "club": "MC El Bayadh",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rajab Al-Mughrabi",
@@ -95,7 +295,31 @@
       "club": "Al-Hilal SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Tersana",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anes Khalifa Al Barki",
@@ -105,7 +329,27 @@
       "club": "Al-Hilal SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hany Al-Dersi",
@@ -115,7 +359,22 @@
       "club": "Al-Hilal SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qais El Sheikhy",
@@ -125,7 +384,22 @@
       "club": "Al-Hilal SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +409,37 @@
       "age": 24,
       "nationality": "Senegal",
       "club": "Al-Hilal SC",
-      "appearances": 15,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Casa Sports",
+          "year": "2019"
+        },
+        {
+          "club": "CA Bizertin",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benny Mongo",
@@ -147,7 +449,39 @@
       "club": "Al-Hilal SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Monastir",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ta'awon",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Abuaagla",
@@ -155,9 +489,37 @@
       "age": 33,
       "nationality": "Sudan",
       "club": "Al-Hilal SC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faisal Al-Badri",
@@ -165,9 +527,33 @@
       "age": 35,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahly",
+          "year": "0000"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2015"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 15,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hasan Abbas",
@@ -177,7 +563,27 @@
       "club": "Al-Hilal SC",
       "appearances": 8,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Hisham",
@@ -185,9 +591,37 @@
       "age": 22,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Anwar",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Sadaqa SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Saad",
@@ -195,9 +629,37 @@
       "age": 29,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Akhdar",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Sadaqa SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osama Belaid",
@@ -205,9 +667,37 @@
       "age": 27,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Journi",
@@ -215,9 +705,61 @@
       "age": 25,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CS Sfaxien",
+          "year": "2020"
+        },
+        {
+          "club": "US Tataouine",
+          "year": "2020"
+        },
+        {
+          "club": "CS Sfaxien",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2021"
+        },
+        {
+          "club": "CS Sfaxien",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Madina",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +769,41 @@
       "age": 29,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Ta'awon",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan Al-Tawerghi",
@@ -239,7 +813,27 @@
       "club": "Al-Hilal SC",
       "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Okoli",
@@ -247,9 +841,65 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Al-Hilal SC",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MFM FC",
+          "year": "2017"
+        },
+        {
+          "club": "Yenicami AK",
+          "year": "2017"
+        },
+        {
+          "club": "Gönyeli SK",
+          "year": "2018"
+        },
+        {
+          "club": "Yenicami AK",
+          "year": "2019"
+        },
+        {
+          "club": "Göcmenköy IYSK",
+          "year": "2019"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2020"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2021"
+        },
+        {
+          "club": "Asswehly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Karma",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 38,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anas Al-Misrati",
@@ -257,9 +907,45 @@
       "age": 31,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ta'awon",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roy Ndoutoumo",
@@ -267,9 +953,49 @@
       "age": 31,
       "nationality": "Gabon",
       "club": "Al-Hilal SC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mangasport",
+          "year": "2016"
+        },
+        {
+          "club": "CF Mounana",
+          "year": "2019"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ta'awon",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 16,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moataz Al-Mehdi",
@@ -277,9 +1003,61 @@
       "age": 35,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fahaheel SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2023"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Sadaqa SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Wefaq Ly",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 14,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sufian Al-Ojly",
@@ -289,17 +1067,47 @@
       "club": "Al-Hilal SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Mazin",
       "position": "",
-      "age": 18,
+      "age": 19,
       "nationality": "Libya",
       "club": "Al-Hilal SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Issa Boujwari",
@@ -309,7 +1117,22 @@
       "club": "Al-Hilal SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islam Al-Ruzam",
@@ -319,7 +1142,22 @@
       "club": "Al-Hilal SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

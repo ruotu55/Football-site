@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SER1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,69 @@
       "age": 41,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 26,
+      "appearances": 27,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dubocica",
+          "year": "2003"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2005"
+        },
+        {
+          "club": "Napredak",
+          "year": "2006"
+        },
+        {
+          "club": "Red Star",
+          "year": "2008"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2011"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Okzhetpes",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Sabah FK",
+          "year": "2018"
+        },
+        {
+          "club": "Aktobe",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 476,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 547,
+        "clean_sheets": 157
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bogdan Matijasevic",
@@ -31,19 +92,71 @@
       "age": 21,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2023"
+        },
+        {
+          "club": "Sloga Požega",
+          "year": "2025"
+        },
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 67,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Popovic",
       "position": "Goalkeeper",
-      "age": 19,
+      "age": 20,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 18,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Javor-Matis U15",
+          "year": "2020"
+        },
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 53,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +166,79 @@
       "age": 28,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 25,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vozdovac",
+          "year": "2015"
+        },
+        {
+          "club": "Radnicki Obreno",
+          "year": "2016"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2018"
+        },
+        {
+          "club": "Dobanovci",
+          "year": "2018"
+        },
+        {
+          "club": "Radnik",
+          "year": "2020"
+        },
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Aleksa Milosevic",
+      "position": "Centre-Back",
+      "age": 19,
+      "nationality": "Serbia",
+      "club": "FK Mladost Lucani",
+      "appearances": 18,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nemanja Zunic",
@@ -65,17 +248,47 @@
       "club": "FK Mladost Lucani",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Aleksa Milosevic",
-      "position": "Centre-Back",
-      "age": 19,
-      "nationality": "Serbia",
-      "club": "FK Mladost Lucani",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Mladost",
+          "year": "2022"
+        },
+        {
+          "club": "Vrsac",
+          "year": "2024"
+        },
+        {
+          "club": "Mladost",
+          "year": "2024"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2024"
+        },
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Cirkovic",
@@ -83,9 +296,53 @@
       "age": 34,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metalac",
+          "year": "2010"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2015"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2015"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2019"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2021"
+        },
+        {
+          "club": "SC Kfar Qasem",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 445,
+        "goals": 33,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Joksimovic",
@@ -93,9 +350,77 @@
       "age": 36,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sloboda Uzice",
+          "year": "2007"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2009"
+        },
+        {
+          "club": "Spartak",
+          "year": "2011"
+        },
+        {
+          "club": "Jedinstvo Uzice",
+          "year": "2012"
+        },
+        {
+          "club": "Metalac",
+          "year": "2013"
+        },
+        {
+          "club": "Jedinstvo Uzice",
+          "year": "2014"
+        },
+        {
+          "club": "Sloboda Uzice",
+          "year": "2016"
+        },
+        {
+          "club": "FK Gorodeya",
+          "year": "2017"
+        },
+        {
+          "club": "KA Akureyri",
+          "year": "2018"
+        },
+        {
+          "club": "FK Gorodeya",
+          "year": "2019"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2020"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2021"
+        },
+        {
+          "club": "Mladost",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 382,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Lekovic",
@@ -105,7 +430,79 @@
       "club": "FK Mladost Lucani",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Bezanija",
+          "year": "2008"
+        },
+        {
+          "club": "Rad",
+          "year": "2010"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2013"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2014"
+        },
+        {
+          "club": "Partizan",
+          "year": "2015"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2016"
+        },
+        {
+          "club": "Napredak",
+          "year": "2016"
+        },
+        {
+          "club": "Dinamo Minsk",
+          "year": "2017"
+        },
+        {
+          "club": "AOK Kerkyra",
+          "year": "2018"
+        },
+        {
+          "club": "Karabükspor",
+          "year": "2018"
+        },
+        {
+          "club": "Mladost",
+          "year": "2018"
+        },
+        {
+          "club": "FK Tuzla City",
+          "year": "2020"
+        },
+        {
+          "club": "Napredak",
+          "year": "2020"
+        },
+        {
+          "club": "Mladost",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 439,
+        "goals": 15,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dusan Cvetinovic",
@@ -113,9 +510,93 @@
       "age": 37,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Macva",
+          "year": "2006"
+        },
+        {
+          "club": "Macva",
+          "year": "2007"
+        },
+        {
+          "club": "Dinamo Vranje",
+          "year": "2007"
+        },
+        {
+          "club": "FC Wohlen",
+          "year": "2009"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2010"
+        },
+        {
+          "club": "FC Wohlen",
+          "year": "2011"
+        },
+        {
+          "club": "FC Vaduz",
+          "year": "2011"
+        },
+        {
+          "club": "Haugesund",
+          "year": "2013"
+        },
+        {
+          "club": "Lens",
+          "year": "2015"
+        },
+        {
+          "club": "Haugesund",
+          "year": "2016"
+        },
+        {
+          "club": "Lens",
+          "year": "2016"
+        },
+        {
+          "club": "Yokohama F. M.",
+          "year": "2018"
+        },
+        {
+          "club": "Tokushima Vort.",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2022"
+        },
+        {
+          "club": "FK TSC",
+          "year": "2023"
+        },
+        {
+          "club": "Mladost",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 399,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zarko Udovicic",
@@ -125,7 +606,59 @@
       "club": "FK Mladost Lucani",
       "appearances": 25,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sloboda Uzice",
+          "year": "2006"
+        },
+        {
+          "club": "Mladost",
+          "year": "2008"
+        },
+        {
+          "club": "Napredak",
+          "year": "2012"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2014"
+        },
+        {
+          "club": "Z. Sosnowiec",
+          "year": "2015"
+        },
+        {
+          "club": "Lechia Gdansk",
+          "year": "2019"
+        },
+        {
+          "club": "Raków",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 467,
+        "goals": 34,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Andric",
@@ -133,9 +666,61 @@
       "age": 33,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 17,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Podbrezova",
+          "year": "2011"
+        },
+        {
+          "club": "Mladost",
+          "year": "2016"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2022"
+        },
+        {
+          "club": "B. Banja Luka",
+          "year": "2022"
+        },
+        {
+          "club": "Radnicki Nis",
+          "year": "2023"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2023"
+        },
+        {
+          "club": "Mladost",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 332,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Boranijasevic",
@@ -143,9 +728,57 @@
       "age": 33,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Rudar",
+          "year": "2012"
+        },
+        {
+          "club": "Borac Cacak",
+          "year": "2012"
+        },
+        {
+          "club": "JFK Ventspils",
+          "year": "2015"
+        },
+        {
+          "club": "Napredak",
+          "year": "2017"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2019"
+        },
+        {
+          "club": "FC Zürich",
+          "year": "2021"
+        },
+        {
+          "club": "Konyaspor",
+          "year": "2024"
+        },
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 407,
+        "goals": 15,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +788,81 @@
       "age": 26,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2018"
+        },
+        {
+          "club": "LFK Mladost",
+          "year": "2018"
+        },
+        {
+          "club": "Sloga Požega",
+          "year": "2019"
+        },
+        {
+          "club": "Mladost",
+          "year": "2019"
+        },
+        {
+          "club": "Borac Cacak",
+          "year": "2019"
+        },
+        {
+          "club": "Borac Cacak",
+          "year": "2020"
+        },
+        {
+          "club": "Mladost",
+          "year": "2020"
+        },
+        {
+          "club": "IMT Belgrad",
+          "year": "2021"
+        },
+        {
+          "club": "Mladost",
+          "year": "2021"
+        },
+        {
+          "club": "FK Loznica",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost",
+          "year": "2022"
+        },
+        {
+          "club": "IMT Belgrad",
+          "year": "2022"
+        },
+        {
+          "club": "Jedinstvo Ub",
+          "year": "2025"
+        },
+        {
+          "club": "Mladost",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 12,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Zunic",
@@ -165,19 +870,41 @@
       "age": 23,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Janko Tumbasevic",
-      "position": "Central Midfield",
-      "age": 41,
-      "nationality": "Montenegro",
-      "club": "FK Mladost Lucani",
-      "appearances": 25,
-      "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sloga Požega",
+          "year": "2021"
+        },
+        {
+          "club": "Mladost",
+          "year": "2021"
+        },
+        {
+          "club": "Mladost",
+          "year": "2022"
+        },
+        {
+          "club": "Zlatibor",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jagos Djurkovic",
@@ -185,9 +912,115 @@
       "age": 18,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Janko Tumbasevic",
+      "position": "Central Midfield",
+      "age": 41,
+      "nationality": "Montenegro",
+      "club": "FK Mladost Lucani",
+      "appearances": 26,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zeta Golubovac",
+          "year": "2001"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2007"
+        },
+        {
+          "club": "Dacia",
+          "year": "2011"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2012"
+        },
+        {
+          "club": "Dacia",
+          "year": "2012"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2013"
+        },
+        {
+          "club": "Spartak",
+          "year": "2014"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Spartak",
+          "year": "2015"
+        },
+        {
+          "club": "Mladost",
+          "year": "2016"
+        },
+        {
+          "club": "FK TSC",
+          "year": "2019"
+        },
+        {
+          "club": "Mladost",
+          "year": "2021"
+        },
+        {
+          "club": "Spartak",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 561,
+        "goals": 49,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandar Varjacic",
@@ -197,7 +1030,67 @@
       "club": "FK Mladost Lucani",
       "appearances": 16,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Radnicki 1923",
+          "year": "2009"
+        },
+        {
+          "club": "Pob. Belosevac",
+          "year": "2011"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2011"
+        },
+        {
+          "club": "Radnik",
+          "year": "2013"
+        },
+        {
+          "club": "Pob. Belosevac",
+          "year": "2014"
+        },
+        {
+          "club": "Jagodina",
+          "year": "2014"
+        },
+        {
+          "club": "Tabane",
+          "year": "2014"
+        },
+        {
+          "club": "FK Topola",
+          "year": "2015"
+        },
+        {
+          "club": "OFK Sapine",
+          "year": "2016"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2016"
+        },
+        {
+          "club": "Mladost",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 24,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nemanja Milojevic",
@@ -207,7 +1100,55 @@
       "club": "FK Mladost Lucani",
       "appearances": 25,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cukaricki",
+          "year": "2017"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2018"
+        },
+        {
+          "club": "Panionios",
+          "year": "2019"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2020"
+        },
+        {
+          "club": "Kolubara",
+          "year": "2022"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2023"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2024"
+        },
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 19,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -219,7 +1160,27 @@
       "club": "FK Mladost Lucani",
       "appearances": 7,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 31,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jovan Ciric",
@@ -227,9 +1188,29 @@
       "age": 19,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 19,
-      "goals": 0,
-      "assists": 2
+      "appearances": 15,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ognjen Alempijevic",
@@ -237,9 +1218,24 @@
       "age": 18,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 19,
-      "goals": 8,
-      "assists": 1
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 39,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petar Bojic",
@@ -247,9 +1243,69 @@
       "age": 34,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 25,
+      "appearances": 26,
       "goals": 4,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Sloga Požega",
+          "year": "2009"
+        },
+        {
+          "club": "Mladost",
+          "year": "2010"
+        },
+        {
+          "club": "Napredak",
+          "year": "2012"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2014"
+        },
+        {
+          "club": "Mladost",
+          "year": "2019"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2019"
+        },
+        {
+          "club": "Sepsi OSK",
+          "year": "2021"
+        },
+        {
+          "club": "Kolubara",
+          "year": "2022"
+        },
+        {
+          "club": "Sepsi OSK",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Mladost",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 431,
+        "goals": 70,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Djokic",
@@ -257,9 +1313,29 @@
       "age": 16,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mladost U15",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 19,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Uros Ljubomirac",
@@ -267,19 +1343,73 @@
       "age": 35,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 25,
+      "appearances": 26,
       "goals": 3,
-      "assists": 2
-    },
-    {
-      "name": "Irfan Hadzic",
-      "position": "Centre-Forward",
-      "age": 32,
-      "nationality": "TM nationality id 24",
-      "club": "FK Mladost Lucani",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2009"
+        },
+        {
+          "club": "Sloga Požega",
+          "year": "2009"
+        },
+        {
+          "club": "Mladost",
+          "year": "2010"
+        },
+        {
+          "club": "Lokomotiva",
+          "year": "2012"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2014"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2014"
+        },
+        {
+          "club": "IMT Belgrad",
+          "year": "2014"
+        },
+        {
+          "club": "Dinamo Vranje",
+          "year": "2015"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2016"
+        },
+        {
+          "club": "Balzan FC",
+          "year": "2017"
+        },
+        {
+          "club": "Napredak",
+          "year": "2023"
+        },
+        {
+          "club": "Mladost",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 43,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mihailo Todosijevic",
@@ -287,9 +1417,131 @@
       "age": 18,
       "nationality": "Serbia",
       "club": "FK Mladost Lucani",
-      "appearances": 26,
-      "goals": 4,
-      "assists": 0
+      "appearances": 15,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mladost",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Irfan Hadzic",
+      "position": "Centre-Forward",
+      "age": 32,
+      "nationality": "TM nationality id 24",
+      "club": "FK Mladost Lucani",
+      "appearances": 21,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zulte Waregem",
+          "year": "2011"
+        },
+        {
+          "club": "Inter Zapresic",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2013"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2014"
+        },
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2015"
+        },
+        {
+          "club": "VW Hamme",
+          "year": "2015"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2016"
+        },
+        {
+          "club": "NK Celje",
+          "year": "2016"
+        },
+        {
+          "club": "Radnik Bijelj.",
+          "year": "2017"
+        },
+        {
+          "club": "Zrinjski Mostar",
+          "year": "2019"
+        },
+        {
+          "club": "Akhisarspor",
+          "year": "2019"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Zrinjski Mostar",
+          "year": "2022"
+        },
+        {
+          "club": "FK Tuzla City",
+          "year": "2023"
+        },
+        {
+          "club": "Gangwon FC",
+          "year": "2024"
+        },
+        {
+          "club": "Tekstilac",
+          "year": "2025"
+        },
+        {
+          "club": "Mladost",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 55,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Musa",
@@ -297,9 +1549,33 @@
       "age": 19,
       "nationality": "Nigeria",
       "club": "FK Mladost Lucani",
-      "appearances": 16,
-      "goals": 15,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abuja FC",
+          "year": "2025"
+        },
+        {
+          "club": "Abuja FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 25,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

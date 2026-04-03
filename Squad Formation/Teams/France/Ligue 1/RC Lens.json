@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 21,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 30,
+      "appearances": 27,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -48,7 +49,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 126,
+        "clean_sheets": 38
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathieu Gorgelin",
@@ -84,7 +99,21 @@
           "club": "Lens",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 236,
+        "clean_sheets": 50
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Régis Gurtner",
@@ -92,7 +121,7 @@
       "age": 39,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -120,7 +149,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 510,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 571,
+        "clean_sheets": 168
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilan Jourdren",
@@ -136,19 +179,33 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 8,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
     {
       "name": "Samson Baidoo",
       "position": "Centre-Back",
-      "age": 21,
+      "age": 22,
       "nationality": "Austria",
       "club": "RC Lens",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 2,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "GAK Youth",
@@ -170,7 +227,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malang Sarr",
@@ -178,7 +249,7 @@
       "age": 27,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -210,7 +281,97 @@
           "club": "Lens",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 251,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ismaëlo Ganiou",
+      "position": "Centre-Back",
+      "age": 21,
+      "nationality": "France",
+      "club": "RC Lens",
+      "appearances": 16,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lens",
+          "year": "2024"
+        },
+        {
+          "club": "Padova",
+          "year": "2025"
+        },
+        {
+          "club": "FC Annecy",
+          "year": "2025"
+        },
+        {
+          "club": "Lens",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Nidal Celik",
+      "position": "Centre-Back",
+      "age": 19,
+      "nationality": "Bosnia-Herzegovina",
+      "club": "RC Lens",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Sarajevo",
+          "year": "2024"
+        },
+        {
+          "club": "Lens",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Gradit",
@@ -238,55 +399,21 @@
           "club": "Lens",
           "year": "2019"
         }
-      ]
-    },
-    {
-      "name": "Ismaëlo Ganiou",
-      "position": "Centre-Back",
-      "age": 21,
-      "nationality": "France",
-      "club": "RC Lens",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "Lens",
-          "year": "2024"
-        },
-        {
-          "club": "Padova",
-          "year": "2025"
-        },
-        {
-          "club": "FC Annecy",
-          "year": "2025"
-        },
-        {
-          "club": "Lens",
-          "year": "2025"
-        }
-      ]
-    },
-    {
-      "name": "Nidal Celik",
-      "position": "Centre-Back",
-      "age": 19,
-      "nationality": "Bosnia-Herzegovina",
-      "club": "RC Lens",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "FK Sarajevo",
-          "year": "2024"
-        },
-        {
-          "club": "Lens",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyllian Antonio",
@@ -294,7 +421,7 @@
       "age": 18,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -302,7 +429,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthieu Udol",
@@ -310,9 +451,9 @@
       "age": 30,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 31,
-      "goals": 2,
-      "assists": 9,
+      "appearances": 27,
+      "goals": 1,
+      "assists": 7,
       "transfer_history": [
         {
           "club": "FC Metz",
@@ -330,7 +471,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 22,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arthur Masuaku",
@@ -338,7 +493,7 @@
       "age": 32,
       "nationality": "Democratic Republic of the Congo",
       "club": "RC Lens",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -378,7 +533,67 @@
           "club": "Sunderland",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 9,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Saud Abdulhamid",
+      "position": "Right-Back",
+      "age": 26,
+      "nationality": "Saudi Arabia",
+      "club": "RC Lens",
+      "appearances": 20,
+      "goals": 1,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Al-Ittihad",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2022"
+        },
+        {
+          "club": "Roma",
+          "year": "2024"
+        },
+        {
+          "club": "Lens",
+          "year": "2025"
+        },
+        {
+          "club": "Roma",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 10,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruben Aguilar",
@@ -386,7 +601,7 @@
       "age": 32,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -410,39 +625,21 @@
           "club": "Lens",
           "year": "2023"
         }
-      ]
-    },
-    {
-      "name": "Saud Abdulhamid",
-      "position": "Right-Back",
-      "age": 26,
-      "nationality": "Saudi Arabia",
-      "club": "RC Lens",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 5,
-      "transfer_history": [
-        {
-          "club": "Al-Ittihad",
-          "year": "2018"
-        },
-        {
-          "club": "Al-Hilal",
-          "year": "2022"
-        },
-        {
-          "club": "Roma",
-          "year": "2024"
-        },
-        {
-          "club": "Lens",
-          "year": "2025"
-        },
-        {
-          "club": "Roma",
-          "year": "2026"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 10,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -452,7 +649,7 @@
       "age": 19,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -464,7 +661,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mamadou Sangaré",
@@ -472,7 +683,7 @@
       "age": 23,
       "nationality": "Mali",
       "club": "RC Lens",
-      "appearances": 32,
+      "appearances": 24,
       "goals": 3,
       "assists": 3,
       "transfer_history": [
@@ -520,7 +731,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 25,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amadou Haidara",
@@ -528,7 +753,7 @@
       "age": 28,
       "nationality": "Mali",
       "club": "RC Lens",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -552,7 +777,71 @@
           "club": "Lens",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 32,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Andrija Bulatovic",
+      "position": "Central Midfield",
+      "age": 19,
+      "nationality": "Montenegro",
+      "club": "RC Lens",
+      "appearances": 14,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rudar Pljevlja",
+          "year": "2023"
+        },
+        {
+          "club": "FK Berane",
+          "year": "2023"
+        },
+        {
+          "club": "Rudar Pljevlja",
+          "year": "2024"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2024"
+        },
+        {
+          "club": "Lens",
+          "year": "2025"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrien Thomasson",
@@ -560,7 +849,7 @@
       "age": 32,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 2,
       "assists": 9,
       "transfer_history": [
@@ -588,43 +877,21 @@
           "club": "Lens",
           "year": "2023"
         }
-      ]
-    },
-    {
-      "name": "Andrija Bulatovic",
-      "position": "Central Midfield",
-      "age": 19,
-      "nationality": "Montenegro",
-      "club": "RC Lens",
-      "appearances": 17,
-      "goals": 2,
-      "assists": 1,
-      "transfer_history": [
-        {
-          "club": "Rudar Pljevlja",
-          "year": "2023"
-        },
-        {
-          "club": "FK Berane",
-          "year": "2023"
-        },
-        {
-          "club": "Rudar Pljevlja",
-          "year": "2024"
-        },
-        {
-          "club": "B. Podgorica",
-          "year": "2024"
-        },
-        {
-          "club": "Lens",
-          "year": "2025"
-        },
-        {
-          "club": "B. Podgorica",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 446,
+        "goals": 66,
+        "assists": 64,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alpha Diallo",
@@ -640,7 +907,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -650,9 +931,9 @@
       "age": 29,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 22,
-      "goals": 4,
-      "assists": 4,
+      "appearances": 5,
+      "goals": 1,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Saint-Étienne",
@@ -706,7 +987,21 @@
           "club": "Lens",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 47,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdallah Sima",
@@ -714,9 +1009,9 @@
       "age": 24,
       "nationality": "Senegal",
       "club": "RC Lens",
-      "appearances": 20,
-      "goals": 5,
-      "assists": 3,
+      "appearances": 16,
+      "goals": 1,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "MAS Taborsko",
@@ -766,7 +1061,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 63,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Bermont",
@@ -774,7 +1083,7 @@
       "age": 21,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -790,7 +1099,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 22,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florian Thauvin",
@@ -798,9 +1121,9 @@
       "age": 33,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 29,
-      "goals": 10,
-      "assists": 7,
+      "appearances": 27,
+      "goals": 9,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "SC Bastia",
@@ -850,7 +1173,51 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 491,
+        "goals": 130,
+        "assists": 91,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Erawan Garnier",
+      "position": "Right Winger",
+      "age": 20,
+      "nationality": "Thailand",
+      "club": "RC Lens",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lens",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Odsonne Édouard",
@@ -858,8 +1225,8 @@
       "age": 28,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 28,
-      "goals": 13,
+      "appearances": 23,
+      "goals": 12,
       "assists": 3,
       "transfer_history": [
         {
@@ -902,7 +1269,21 @@
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 134,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 17,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rayan Fofana",
@@ -910,15 +1291,29 @@
       "age": 20,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 26,
-      "goals": 6,
+      "appearances": 22,
+      "goals": 5,
       "assists": 1,
       "transfer_history": [
         {
           "club": "Lens",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 41,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wesley Saïd",
@@ -926,7 +1321,7 @@
       "age": 30,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 10,
       "assists": 2,
       "transfer_history": [
@@ -962,7 +1357,21 @@
           "club": "Lens",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 341,
+        "goals": 79,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florian Sotoca",
@@ -970,9 +1379,9 @@
       "age": 35,
       "nationality": "France",
       "club": "RC Lens",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 1,
+      "appearances": 20,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "FU Narbonne",
@@ -998,7 +1407,21 @@
           "club": "Lens",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 425,
+        "goals": 84,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

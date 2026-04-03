@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GHPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 26,
       "nationality": "Guinea",
       "club": "Asante Kotoko SC",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kaloum",
+          "year": "2021"
+        },
+        {
+          "club": "SOAR",
+          "year": "2024"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 32,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Dari Aziz Haruna",
@@ -33,7 +62,31 @@
       "club": "Asante Kotoko SC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2020"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 83,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin Twum",
@@ -43,7 +96,27 @@
       "club": "Asante Kotoko SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +126,29 @@
       "age": 26,
       "nationality": "TM nationality id 85",
       "club": "Asante Kotoko SC",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Ablorh",
@@ -63,9 +156,29 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musa Hamzata",
@@ -75,7 +188,31 @@
       "club": "Asante Kotoko SC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Accra Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henry Ansu",
@@ -83,9 +220,29 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fuseini Zackaria",
@@ -95,7 +252,39 @@
       "club": "Asante Kotoko SC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2016"
+        },
+        {
+          "club": "San Fernando CD",
+          "year": "2020"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2021"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Asiedu",
@@ -103,9 +292,29 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francis Acquah",
@@ -113,9 +322,29 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Inusah Adam",
@@ -123,9 +352,53 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "WAFA SC",
+          "year": "2017"
+        },
+        {
+          "club": "SC Covilhã",
+          "year": "2019"
+        },
+        {
+          "club": "Loures",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Kotoku Royals",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Amoah",
@@ -133,9 +406,29 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yakubu Dogo",
@@ -143,9 +436,37 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AFC Eskilstuna",
+          "year": "2025"
+        },
+        {
+          "club": "MidCity FC",
+          "year": "2025"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lord Amoah",
@@ -153,9 +474,29 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 1,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Kotei",
@@ -163,9 +504,33 @@
       "age": 28,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nsoatreman FC",
+          "year": "2023"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shayibu Abubakari",
@@ -175,7 +540,35 @@
       "club": "Asante Kotoko SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Tamale",
+          "year": "2023"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +578,33 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Samartex",
+          "year": "2024"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrews Ntim",
@@ -195,9 +612,33 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 20,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Legon Cities FC",
+          "year": "2021"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Justice Blay",
@@ -206,8 +647,36 @@
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 13,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2019"
+        },
+        {
+          "club": "Medeama",
+          "year": "2020"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 11,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hubert Gyau",
@@ -215,9 +684,33 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 28,
-      "goals": 5,
-      "assists": 0
+      "appearances": 26,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2024"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Antwi",
@@ -225,9 +718,29 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seth Kwadwo",
@@ -235,9 +748,41 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asokwa FC",
+          "year": "2020"
+        },
+        {
+          "club": "Gold Coast FA",
+          "year": "2021"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2022"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Walid Fuseini",
@@ -245,9 +790,37 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Nsoatreman FC",
+          "year": "2022"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Philip Amoh",
@@ -255,9 +828,24 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yahaya Baba",
@@ -265,9 +853,41 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "ES Bafing",
+          "year": "2021"
+        },
+        {
+          "club": "King Faisal",
+          "year": "2021"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Badu",
@@ -275,9 +895,29 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 20,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -287,9 +927,45 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liberty Prof.",
+          "year": "2018"
+        },
+        {
+          "club": "AS Soliman",
+          "year": "2020"
+        },
+        {
+          "club": "NK Rogaska",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 17,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Morifing Donzo",
@@ -297,9 +973,33 @@
       "age": 28,
       "nationality": "Guinea",
       "club": "Asante Kotoko SC",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 0
+      "appearances": 25,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hafia FC",
+          "year": "2022"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saaka Dauda",
@@ -309,7 +1009,27 @@
       "club": "Asante Kotoko SC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johnson Owusu",
@@ -317,9 +1037,61 @@
       "age": 28,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter Allies",
+          "year": "2015"
+        },
+        {
+          "club": "Trinity Zlin",
+          "year": "2022"
+        },
+        {
+          "club": "Camacha",
+          "year": "2022"
+        },
+        {
+          "club": "FK Kukësi",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Dreams FC",
+          "year": "2023"
+        },
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Peter Amidu Acquah",
@@ -327,9 +1099,29 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Albert Amoah",
@@ -337,9 +1129,41 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 18,
-      "goals": 5,
-      "assists": 0
+      "appearances": 11,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2025"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 23,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kwame Opoku",
@@ -349,7 +1173,47 @@
       "club": "Asante Kotoko SC",
       "appearances": 15,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2020"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2021"
+        },
+        {
+          "club": "Najran SC",
+          "year": "2022"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2023"
+        },
+        {
+          "club": "O. Khouribga",
+          "year": "2023"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 27,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac Mintah",
@@ -357,9 +1221,45 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Asante Kotoko SC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "New Edubiase",
+          "year": "2019"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 17,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Amissah",
@@ -369,7 +1269,22 @@
       "club": "Asante Kotoko SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

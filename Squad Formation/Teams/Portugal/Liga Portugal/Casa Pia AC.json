@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 27,
       "nationality": "Costa Rica",
       "club": "Casa Pia AC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saprissa",
+          "year": "2016"
+        },
+        {
+          "club": "Real Unión",
+          "year": "2017"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2019"
+        },
+        {
+          "club": "Real Unión",
+          "year": "2019"
+        },
+        {
+          "club": "Real Unión",
+          "year": "2021"
+        },
+        {
+          "club": "CD Lugo",
+          "year": "2022"
+        },
+        {
+          "club": "UD Ibiza",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 153,
+        "clean_sheets": 40
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 16,
+        "clean_sheets": 9
+      }
     },
     {
       "name": "Ivan Mandić",
@@ -33,7 +82,55 @@
       "club": "Casa Pia AC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Sesvete Jgd",
+          "year": "2017"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2022"
+        },
+        {
+          "club": "NK Dugo Selo",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "NK Vukovar 1991",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2024"
+        },
+        {
+          "club": "NK Vukovar 1991",
+          "year": "2024"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 39,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Moura",
@@ -41,9 +138,61 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "Casa Pia AC",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vilafranquense",
+          "year": "2015"
+        },
+        {
+          "club": "Olhanense",
+          "year": "2019"
+        },
+        {
+          "club": "Vilafranquense",
+          "year": "2020"
+        },
+        {
+          "club": "Águeda",
+          "year": "2020"
+        },
+        {
+          "club": "Trofense",
+          "year": "2021"
+        },
+        {
+          "club": "Chaves",
+          "year": "2022"
+        },
+        {
+          "club": "Persijap",
+          "year": "2025"
+        },
+        {
+          "club": "Chaves",
+          "year": "2026"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 82,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Batista",
@@ -51,9 +200,89 @@
       "age": 39,
       "nationality": "Angola",
       "club": "Casa Pia AC",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Setúbal FC U15",
+          "year": "1999"
+        },
+        {
+          "club": "Fulham",
+          "year": "2004"
+        },
+        {
+          "club": "MK Dons",
+          "year": "2006"
+        },
+        {
+          "club": "Fulham",
+          "year": "2006"
+        },
+        {
+          "club": "Wycombe",
+          "year": "2006"
+        },
+        {
+          "club": "Wycombe",
+          "year": "2007"
+        },
+        {
+          "club": "Fulham",
+          "year": "2007"
+        },
+        {
+          "club": "Sporting",
+          "year": "2008"
+        },
+        {
+          "club": "Olhanense",
+          "year": "2010"
+        },
+        {
+          "club": "Sporting",
+          "year": "2011"
+        },
+        {
+          "club": "Ban",
+          "year": "2011"
+        },
+        {
+          "club": "Nacional",
+          "year": "2013"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2014"
+        },
+        {
+          "club": "C.R.D. Libolo",
+          "year": "2015"
+        },
+        {
+          "club": "Gaz Metan",
+          "year": "2018"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 256,
+        "clean_sheets": 77
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +292,49 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Casa Pia AC",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sampdoria",
+          "year": "2020"
+        },
+        {
+          "club": "Internacional",
+          "year": "2021"
+        },
+        {
+          "club": "Sampdoria",
+          "year": "2022"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2023"
+        },
+        {
+          "club": "Internacional",
+          "year": "2025"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Goulart",
@@ -73,9 +342,33 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "Casa Pia AC",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mafra",
+          "year": "2022"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Sousa",
@@ -83,9 +376,41 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "Casa Pia AC",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cercle Brugge",
+          "year": "2021"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2023"
+        },
+        {
+          "club": "RWDM",
+          "year": "2024"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaly",
@@ -95,7 +420,31 @@
       "club": "Casa Pia AC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Dila",
+          "year": "2024"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Fonte",
@@ -103,19 +452,135 @@
       "age": 42,
       "nationality": "Portugal",
       "club": "Casa Pia AC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "1996"
+        },
+        {
+          "club": "Sacavenense S15",
+          "year": "1997"
+        },
+        {
+          "club": "Sacavenense S17",
+          "year": "1998"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2004"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2005"
+        },
+        {
+          "club": "Benfica",
+          "year": "2006"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2006"
+        },
+        {
+          "club": "CF Estrela",
+          "year": "2006"
+        },
+        {
+          "club": "Benfica",
+          "year": "2007"
+        },
+        {
+          "club": "Crystal Palace",
+          "year": "2007"
+        },
+        {
+          "club": "Southampton",
+          "year": "2010"
+        },
+        {
+          "club": "West Ham",
+          "year": "2017"
+        },
+        {
+          "club": "DL Yifang",
+          "year": "2018"
+        },
+        {
+          "club": "Lille",
+          "year": "2018"
+        },
+        {
+          "club": "Braga",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 747,
+        "goals": 33,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdu Conté",
       "position": "Left-Back",
-      "age": 27,
+      "age": 28,
       "nationality": "Portugal",
       "club": "Casa Pia AC",
       "appearances": 17,
-      "goals": 1,
-      "assists": 2
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Moreirense",
+          "year": "2019"
+        },
+        {
+          "club": "Troyes",
+          "year": "2022"
+        },
+        {
+          "club": "Young Boys",
+          "year": "2024"
+        },
+        {
+          "club": "Troyes",
+          "year": "2025"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 2,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Rosas",
@@ -123,9 +588,53 @@
       "age": 25,
       "nationality": "Portugal",
       "club": "Casa Pia AC",
-      "appearances": 23,
-      "goals": 4,
-      "assists": 2
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feirense Sub-15",
+          "year": "2013"
+        },
+        {
+          "club": "Feirense Sub-17",
+          "year": "2015"
+        },
+        {
+          "club": "Feirense Sub-23",
+          "year": "2018"
+        },
+        {
+          "club": "Gondomar",
+          "year": "2021"
+        },
+        {
+          "club": "Real SC",
+          "year": "2022"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 11,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gaizka Larrazabal",
@@ -133,9 +642,53 @@
       "age": 28,
       "nationality": "Spain",
       "club": "Casa Pia AC",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 4
+      "appearances": 25,
+      "goals": 3,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Zamudio SD",
+          "year": "2016"
+        },
+        {
+          "club": "Bilbao Athletic",
+          "year": "2017"
+        },
+        {
+          "club": "Athletic Club",
+          "year": "2019"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2020"
+        },
+        {
+          "club": "SD Amorebieta",
+          "year": "2021"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2022"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 26,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "André Geraldes",
@@ -143,21 +696,177 @@
       "age": 34,
       "nationality": "Portugal",
       "club": "Casa Pia AC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maia Lidador",
+          "year": "2009"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2010"
+        },
+        {
+          "club": "Chaves",
+          "year": "2010"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2011"
+        },
+        {
+          "club": "Desportivo Aves",
+          "year": "2011"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2012"
+        },
+        {
+          "club": "Istanbul BBSK",
+          "year": "2012"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2014"
+        },
+        {
+          "club": "Istanbul BBSK",
+          "year": "2014"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2015"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2016"
+        },
+        {
+          "club": "Sporting",
+          "year": "2017"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2017"
+        },
+        {
+          "club": "Sporting",
+          "year": "2018"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2018"
+        },
+        {
+          "club": "Sporting",
+          "year": "2019"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2019"
+        },
+        {
+          "club": "Sporting",
+          "year": "2020"
+        },
+        {
+          "club": "APOEL Nicosia",
+          "year": "2020"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2021"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 441,
+        "goals": 1,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
     {
       "name": "Seba Pérez",
       "position": "Defensive Midfield",
-      "age": 32,
+      "age": 33,
       "nationality": "Colombia",
       "club": "Casa Pia AC",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 0
+      "appearances": 21,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Nacional",
+          "year": "2011"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2016"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2018"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2018"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2019"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2020"
+        },
+        {
+          "club": "Boavista",
+          "year": "2020"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2021"
+        },
+        {
+          "club": "Boavista",
+          "year": "2021"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 399,
+        "goals": 14,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Brito",
@@ -165,9 +874,37 @@
       "age": 24,
       "nationality": "Portugal",
       "club": "Casa Pia AC",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2015"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2022"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iyad Mohamed",
@@ -177,7 +914,47 @@
       "club": "Casa Pia AC",
       "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AJ Auxerre",
+          "year": "2021"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2022"
+        },
+        {
+          "club": "Le Mans FC",
+          "year": "2023"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2023"
+        },
+        {
+          "club": "Pau FC",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lawrence Ofori",
@@ -187,7 +964,71 @@
       "club": "Casa Pia AC",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Leixões",
+          "year": "2018"
+        },
+        {
+          "club": "Feirense",
+          "year": "2019"
+        },
+        {
+          "club": "Leixões",
+          "year": "2019"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2019"
+        },
+        {
+          "club": "Arouca",
+          "year": "2020"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2021"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2022"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2022"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2022"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2023"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 8,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Prieto",
@@ -195,9 +1036,33 @@
       "age": 22,
       "nationality": "Uruguay",
       "club": "Casa Pia AC",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Defensor SC",
+          "year": "2025"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +1072,69 @@
       "age": 22,
       "nationality": "Portugal",
       "club": "Casa Pia AC",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boavista CJ",
+          "year": "2014"
+        },
+        {
+          "club": "Boavista U15",
+          "year": "2016"
+        },
+        {
+          "club": "Benfica U15",
+          "year": "2017"
+        },
+        {
+          "club": "Boavista",
+          "year": "2020"
+        },
+        {
+          "club": "Leixões",
+          "year": "2022"
+        },
+        {
+          "club": "Boavista",
+          "year": "2023"
+        },
+        {
+          "club": "Lille",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        },
+        {
+          "club": "Lille",
+          "year": "2025"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        },
+        {
+          "club": "Lille",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 21,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Marques",
@@ -219,7 +1144,59 @@
       "club": "Casa Pia AC",
       "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barreirense J",
+          "year": "2014"
+        },
+        {
+          "club": "Barreirense U15",
+          "year": "2015"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2020"
+        },
+        {
+          "club": "Estoril",
+          "year": "2023"
+        },
+        {
+          "club": "Braga",
+          "year": "2024"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2025"
+        },
+        {
+          "club": "Braga",
+          "year": "2025"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2026"
+        },
+        {
+          "club": "Braga",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 21,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kelian Nsona",
@@ -227,9 +1204,53 @@
       "age": 23,
       "nationality": "France",
       "club": "Casa Pia AC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SM Caen",
+          "year": "2019"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2022"
+        },
+        {
+          "club": "MSK Zilina",
+          "year": "2024"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2024"
+        },
+        {
+          "club": "FC Emmen",
+          "year": "2024"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2025"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 20,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jérémy Livolant",
@@ -237,9 +1258,65 @@
       "age": 28,
       "nationality": "France",
       "club": "Casa Pia AC",
-      "appearances": 27,
-      "goals": 5,
-      "assists": 7
+      "appearances": 26,
+      "goals": 3,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Guingamp",
+          "year": "2016"
+        },
+        {
+          "club": "US Boulogne",
+          "year": "2017"
+        },
+        {
+          "club": "Guingamp",
+          "year": "2018"
+        },
+        {
+          "club": "LB Châteauroux",
+          "year": "2018"
+        },
+        {
+          "club": "Guingamp",
+          "year": "2019"
+        },
+        {
+          "club": "FC Sochaux",
+          "year": "2019"
+        },
+        {
+          "club": "Guingamp",
+          "year": "2020"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 362,
+        "goals": 55,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xander Severina",
@@ -247,9 +1324,45 @@
       "age": 24,
       "nationality": "Curaçao",
       "club": "Casa Pia AC",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ADO Den Haag",
+          "year": "2021"
+        },
+        {
+          "club": "Partizan",
+          "year": "2023"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2024"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 23,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Korede Osundina",
@@ -257,9 +1370,37 @@
       "age": 22,
       "nationality": "United States",
       "club": "Casa Pia AC",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Orange County",
+          "year": "2022"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 16,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kiki",
@@ -269,7 +1410,39 @@
       "club": "Casa Pia AC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "1 Dezembro Y.",
+          "year": "2007"
+        },
+        {
+          "club": "1 Dezembro Y15",
+          "year": "2011"
+        },
+        {
+          "club": "Leixões",
+          "year": "2020"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 14,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dailon Livramento",
@@ -277,9 +1450,41 @@
       "age": 24,
       "nationality": "Cape Verde",
       "club": "Casa Pia AC",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MVV Maastricht",
+          "year": "2022"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2024"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2025"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 41,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cassiano",
@@ -287,9 +1492,121 @@
       "age": 36,
       "nationality": "Brazil",
       "club": "Casa Pia AC",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nea Salamis",
+          "year": "2011"
+        },
+        {
+          "club": "EC São José",
+          "year": "2012"
+        },
+        {
+          "club": "Esportivo",
+          "year": "2012"
+        },
+        {
+          "club": "Internacional",
+          "year": "2013"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2013"
+        },
+        {
+          "club": "Santa Cruz-PE",
+          "year": "2014"
+        },
+        {
+          "club": "Internacional",
+          "year": "2014"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2015"
+        },
+        {
+          "club": "Internacional",
+          "year": "2015"
+        },
+        {
+          "club": "Gwangju FC",
+          "year": "2015"
+        },
+        {
+          "club": "Goiás",
+          "year": "2016"
+        },
+        {
+          "club": "Internacional",
+          "year": "2016"
+        },
+        {
+          "club": "Aktobe",
+          "year": "2017"
+        },
+        {
+          "club": "Internacional",
+          "year": "2017"
+        },
+        {
+          "club": "Brasil Pelotas",
+          "year": "2017"
+        },
+        {
+          "club": "Paysandu",
+          "year": "2018"
+        },
+        {
+          "club": "HLJ Lava Spring",
+          "year": "2018"
+        },
+        {
+          "club": "CSA",
+          "year": "2019"
+        },
+        {
+          "club": "Boavista",
+          "year": "2019"
+        },
+        {
+          "club": "Vizela",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Estoril",
+          "year": "2023"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2024"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 425,
+        "goals": 102,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clau Mendes",
@@ -297,9 +1614,61 @@
       "age": 25,
       "nationality": "Guinea-Bissau",
       "club": "Casa Pia AC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UD Las Palmas C",
+          "year": "2019"
+        },
+        {
+          "club": "Las Palmas Atl.",
+          "year": "2020"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2021"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2022"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2022"
+        },
+        {
+          "club": "UD Logroñés",
+          "year": "2022"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2023"
+        },
+        {
+          "club": "UE Cornellà",
+          "year": "2023"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 20,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

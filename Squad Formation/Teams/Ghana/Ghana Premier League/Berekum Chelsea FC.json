@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GHPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 31,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 18,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Amidaus Prof.",
+          "year": "2011"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2014"
+        },
+        {
+          "club": "Medeama",
+          "year": "2017"
+        },
+        {
+          "club": "Legon Cities FC",
+          "year": "2021"
+        },
+        {
+          "club": "Hearts of Oak",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 101,
+        "clean_sheets": 46
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adu Emmanuel",
@@ -33,7 +78,27 @@
       "club": "Berekum Chelsea FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 48,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Addai",
@@ -43,7 +108,31 @@
       "club": "Berekum Chelsea FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 3,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,19 +142,71 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 23,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Amofa",
       "position": "Centre-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liberty Prof.",
+          "year": "2018"
+        },
+        {
+          "club": "Gold Stars FC",
+          "year": "2021"
+        },
+        {
+          "club": "Hearts of Oak",
+          "year": "2024"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Mensah Awuah",
@@ -73,9 +214,33 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 17,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hearts of Oak",
+          "year": "2024"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Adams",
@@ -84,8 +249,60 @@
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 7,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shoulla",
+          "year": "2014"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2019"
+        },
+        {
+          "club": "Flat Earth FC",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "KFA",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Morrison Anokye",
@@ -93,9 +310,33 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 11,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Nsoatreman FC",
+          "year": "2023"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaw Dankwah",
@@ -104,8 +345,40 @@
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dreams FC",
+          "year": "2020"
+        },
+        {
+          "club": "Unity FC",
+          "year": "2021"
+        },
+        {
+          "club": "Dreams FC",
+          "year": "2022"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Anane",
@@ -115,7 +388,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 23,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin Abaidoo",
@@ -125,7 +413,31 @@
       "club": "Berekum Chelsea FC",
       "appearances": 23,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Medeama",
+          "year": "2021"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kuffour Edwin Asamoah",
@@ -135,7 +447,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin Awuah Achempong",
@@ -145,7 +472,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Augustine Agyapong",
@@ -153,9 +495,33 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 19,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zidane Osman",
@@ -165,7 +531,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Osei",
@@ -173,9 +554,24 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kennedy Kofi Mensah",
@@ -183,9 +579,24 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Ofosu",
@@ -193,9 +604,24 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 3,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -205,9 +631,33 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 11,
-      "goals": 0,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2024"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Flavien Kongoza",
@@ -217,7 +667,31 @@
       "club": "Berekum Chelsea FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2019"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Augustine Henneh",
@@ -225,19 +699,79 @@
       "age": 31,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leopards",
+          "year": "2021"
+        },
+        {
+          "club": "El Nasr",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johnson Osei",
       "position": "Attacking Midfield",
-      "age": 23,
+      "age": 24,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vision FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vincent Klu Adjei",
@@ -245,9 +779,29 @@
       "age": 17,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samed Nasri Musah",
@@ -257,7 +811,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Charles Agyemang",
@@ -265,9 +834,49 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Mighty Royals",
+          "year": "2021"
+        },
+        {
+          "club": "Medeama",
+          "year": "2023"
+        },
+        {
+          "club": "Sirens FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Jackson Asante",
@@ -277,7 +886,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fataho Nerie",
@@ -287,7 +911,27 @@
       "club": "Berekum Chelsea FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -297,9 +941,45 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 0
+      "appearances": 9,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Legon Cities FC",
+          "year": "2020"
+        },
+        {
+          "club": "Auda",
+          "year": "2023"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        },
+        {
+          "club": "Mingachevir",
+          "year": "2025"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 22,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kofi Owusu",
@@ -307,9 +987,53 @@
       "age": 34,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 12,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2013"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2014"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Ashanti Gold",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 31,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kofi Patric Ansu",
@@ -319,7 +1043,35 @@
       "club": "Berekum Chelsea FC",
       "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Medeama",
+          "year": "2021"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2023"
+        },
+        {
+          "club": "Medeama",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 15,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marvin Owusu",
@@ -327,9 +1079,58 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Golden Kick SC",
+          "year": "2023"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Faisal Shaibu",
+      "position": "Centre-Forward",
+      "age": 20,
+      "nationality": "Ghana",
+      "club": "Berekum Chelsea FC",
+      "appearances": 19,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abubakari Seidu",
@@ -337,9 +1138,33 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 0
+      "appearances": 21,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Samartex",
+          "year": "2022"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 18,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Sarpong",
@@ -349,7 +1174,43 @@
       "club": "Berekum Chelsea FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liberty Prof.",
+          "year": "2016"
+        },
+        {
+          "club": "FC Drita",
+          "year": "2017"
+        },
+        {
+          "club": "Star Madrid FC",
+          "year": "2018"
+        },
+        {
+          "club": "FC Finnkurd",
+          "year": "2021"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 25,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rahman Abdul",
@@ -359,7 +1220,43 @@
       "club": "Berekum Chelsea FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Heart of Lions",
+          "year": "2021"
+        },
+        {
+          "club": "Legon Cities FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Nsoatreman FC",
+          "year": "2025"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johnson Amuzu",
@@ -369,17 +1266,51 @@
       "club": "Berekum Chelsea FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Faisal Shaibu",
-      "position": "",
-      "age": 20,
-      "nationality": "Ghana",
-      "club": "Berekum Chelsea FC",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Javor-Matis",
+          "year": "2023"
+        },
+        {
+          "club": "Radnicki Srem",
+          "year": "2024"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ebenezer Shamo",
@@ -389,7 +1320,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Kwakye",
@@ -399,7 +1345,22 @@
       "club": "Berekum Chelsea FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominic Frimpong",
@@ -407,9 +1368,33 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Berekum Chelsea FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 12,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berekum Chelsea",
+          "year": "2026"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

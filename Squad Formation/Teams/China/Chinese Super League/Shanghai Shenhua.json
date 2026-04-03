@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "CSL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,43 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TJ Tianhai",
+          "year": "2019"
+        },
+        {
+          "club": "TJ Tianh. Res.",
+          "year": "2019"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2020"
+        },
+        {
+          "club": "YN Yukun",
+          "year": "2025"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 103,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qinghao Xue",
@@ -31,9 +68,49 @@
       "age": 25,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DL Pro Res.",
+          "year": "2020"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2021"
+        },
+        {
+          "club": "NT Zhiyun",
+          "year": "2023"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2023"
+        },
+        {
+          "club": "NT Zhiyun",
+          "year": "2024"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 104,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hanyi Wang",
@@ -43,7 +120,35 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH JD Huilong",
+          "year": "2024"
+        },
+        {
+          "club": "QD West Coast",
+          "year": "2025"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jie Wang",
@@ -53,7 +158,27 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +188,45 @@
       "age": 25,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2018"
+        },
+        {
+          "club": "Tianjin JMT Res",
+          "year": "2020"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2020"
+        },
+        {
+          "club": "CQ Liangjiang",
+          "year": "2021"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chenjie Zhu",
@@ -73,9 +234,29 @@
       "age": 25,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shuai Yang",
@@ -83,9 +264,45 @@
       "age": 29,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liaoning FC",
+          "year": "2017"
+        },
+        {
+          "club": "CQ Dangdai Lif.",
+          "year": "2019"
+        },
+        {
+          "club": "HN SS Longmen",
+          "year": "2022"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2024"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shunkai Jin",
@@ -93,9 +310,29 @@
       "age": 24,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hongyu Jiang",
@@ -105,7 +342,27 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shuyi Zhao",
@@ -115,7 +372,27 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shinichi Chan",
@@ -123,9 +400,45 @@
       "age": 23,
       "nationality": "Hong Kong",
       "club": "Shanghai Shenhua",
-      "appearances": 9,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCFC",
+          "year": "2017"
+        },
+        {
+          "club": "Kitchee",
+          "year": "2018"
+        },
+        {
+          "club": "Real Unión",
+          "year": "2023"
+        },
+        {
+          "club": "Kitchee",
+          "year": "2023"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 15,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wilson Manafá",
@@ -133,9 +446,69 @@
       "age": 31,
       "nationality": "Portugal",
       "club": "Shanghai Shenhua",
-      "appearances": 9,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O. Bairro S15",
+          "year": "2006"
+        },
+        {
+          "club": "O. Bairro S17",
+          "year": "2008"
+        },
+        {
+          "club": "Ol. Bairro",
+          "year": "2011"
+        },
+        {
+          "club": "Beira-Mar",
+          "year": "2015"
+        },
+        {
+          "club": "Anadia",
+          "year": "2015"
+        },
+        {
+          "club": "Varzim",
+          "year": "2016"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2016"
+        },
+        {
+          "club": "Porto",
+          "year": "2019"
+        },
+        {
+          "club": "Porto",
+          "year": "2023"
+        },
+        {
+          "club": "Granada CF",
+          "year": "2023"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 345,
+        "goals": 11,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shilong Wang",
@@ -143,9 +516,45 @@
       "age": 25,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GZ Evergrande",
+          "year": "2018"
+        },
+        {
+          "club": "GuaZ FC Res.",
+          "year": "2019"
+        },
+        {
+          "club": "GuaZ FC Res.",
+          "year": "2020"
+        },
+        {
+          "club": "GuaZ FC",
+          "year": "2020"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zexiang Yang",
@@ -153,9 +562,61 @@
       "age": 31,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TJ Teda",
+          "year": "2015"
+        },
+        {
+          "club": "BD Yingli ETS",
+          "year": "2017"
+        },
+        {
+          "club": "TJ Teda",
+          "year": "2017"
+        },
+        {
+          "club": "DL Transcen.",
+          "year": "2018"
+        },
+        {
+          "club": "DL Pro Res.",
+          "year": "2019"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2021"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2021"
+        },
+        {
+          "club": "SH Shenhua Res.",
+          "year": "2021"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yue Zhu",
@@ -165,7 +626,55 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2020"
+        },
+        {
+          "club": "SH Shenhua Res.",
+          "year": "2023"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2023"
+        },
+        {
+          "club": "CZ Mighty Lions",
+          "year": "2024"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        },
+        {
+          "club": "SZ Dongwu",
+          "year": "2025"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        },
+        {
+          "club": "GX Pingguo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +684,29 @@
       "age": 25,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nico Yennaris",
@@ -185,9 +714,73 @@
       "age": 32,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arsenal",
+          "year": "2011"
+        },
+        {
+          "club": "Notts County",
+          "year": "2012"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2012"
+        },
+        {
+          "club": "Bournemouth",
+          "year": "2013"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2014"
+        },
+        {
+          "club": "Brentford",
+          "year": "2014"
+        },
+        {
+          "club": "Wycombe",
+          "year": "2015"
+        },
+        {
+          "club": "Brentford",
+          "year": "2015"
+        },
+        {
+          "club": "BJ Guoan",
+          "year": "2019"
+        },
+        {
+          "club": "BJ Guoan Res.",
+          "year": "2022"
+        },
+        {
+          "club": "BJ Guoan",
+          "year": "2023"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 370,
+        "goals": 17,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ming Huang",
@@ -197,7 +790,35 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        },
+        {
+          "club": "SH JD Huilong",
+          "year": "2025"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qipeng Wu",
@@ -205,9 +826,29 @@
       "age": 19,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bin Zhang",
@@ -217,7 +858,27 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shilin Wang",
@@ -227,7 +888,27 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tianyi Gao",
@@ -235,9 +916,49 @@
       "age": 27,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SZ FC",
+          "year": "2016"
+        },
+        {
+          "club": "JS Suning",
+          "year": "2017"
+        },
+        {
+          "club": "SZ FC",
+          "year": "2019"
+        },
+        {
+          "club": "JS Suning",
+          "year": "2019"
+        },
+        {
+          "club": "BJ Guoan",
+          "year": "2021"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 248,
+        "goals": 13,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xi Wu",
@@ -245,9 +966,37 @@
       "age": 37,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 9,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2009"
+        },
+        {
+          "club": "JS Sainty",
+          "year": "2013"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 497,
+        "goals": 69,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 90,
+        "goals": 9,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haoyu Yang",
@@ -255,9 +1004,29 @@
       "age": 19,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 9,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haoyang Xu",
@@ -265,9 +1034,57 @@
       "age": 27,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2018"
+        },
+        {
+          "club": "SH Shenhua Res.",
+          "year": "2019"
+        },
+        {
+          "club": "BJ BSU",
+          "year": "2020"
+        },
+        {
+          "club": "SH Shenhua Res.",
+          "year": "2020"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2021"
+        },
+        {
+          "club": "SH Shenhua Res.",
+          "year": "2021"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2022"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 9,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Carlos Teixeira",
@@ -275,19 +1092,103 @@
       "age": 33,
       "nationality": "Portugal",
       "club": "Shanghai Shenhua",
-      "appearances": 10,
-      "goals": 3,
-      "assists": 1
+      "appearances": 2,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2007"
+        },
+        {
+          "club": "Liverpool Res.",
+          "year": "2012"
+        },
+        {
+          "club": "Brentford",
+          "year": "2013"
+        },
+        {
+          "club": "Brighton",
+          "year": "2014"
+        },
+        {
+          "club": "Porto",
+          "year": "2016"
+        },
+        {
+          "club": "Braga",
+          "year": "2017"
+        },
+        {
+          "club": "Porto",
+          "year": "2018"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2018"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2020"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2022"
+        },
+        {
+          "club": "Umm Salal SC",
+          "year": "2022"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 322,
+        "goals": 51,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yang Yang",
       "position": "",
-      "age": 18,
+      "age": 19,
       "nationality": "China",
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Li'ao Zhang",
@@ -297,7 +1198,27 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -307,9 +1228,33 @@
       "age": 21,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 18,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pengfei Xie",
@@ -317,9 +1262,45 @@
       "age": 32,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HZ Greentown",
+          "year": "2012"
+        },
+        {
+          "club": "JS Suning",
+          "year": "2016"
+        },
+        {
+          "club": "CZ Mighty Lions",
+          "year": "2021"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2022"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 316,
+        "goals": 45,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tianle Cheng",
@@ -329,7 +1310,27 @@
       "club": "Shanghai Shenhua",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Ratão",
@@ -337,9 +1338,117 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "Shanghai Shenhua",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penapolense",
+          "year": "2014"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2014"
+        },
+        {
+          "club": "Boa Esporte",
+          "year": "2014"
+        },
+        {
+          "club": "Penapolense",
+          "year": "2015"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2015"
+        },
+        {
+          "club": "Guaratinguetá",
+          "year": "2015"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2015"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2016"
+        },
+        {
+          "club": "Náutico",
+          "year": "2016"
+        },
+        {
+          "club": "Chungju H.",
+          "year": "2016"
+        },
+        {
+          "club": "Tubarão-SC",
+          "year": "2017"
+        },
+        {
+          "club": "Luverdense-MT",
+          "year": "2017"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2017"
+        },
+        {
+          "club": "Oeste",
+          "year": "2018"
+        },
+        {
+          "club": "Zorya Lugansk",
+          "year": "2018"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2019"
+        },
+        {
+          "club": "Zorya Lugansk",
+          "year": "2020"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2020"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2021"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2023"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2025"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2025"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 388,
+        "goals": 109,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Makhtar Gueye",
@@ -347,9 +1456,61 @@
       "age": 28,
       "nationality": "Senegal",
       "club": "Shanghai Shenhua",
-      "appearances": 20,
+      "appearances": 1,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Saint-Étienne",
+          "year": "2018"
+        },
+        {
+          "club": "AS Nancy",
+          "year": "2019"
+        },
+        {
+          "club": "Saint-Étienne",
+          "year": "2020"
+        },
+        {
+          "club": "KV Oostende",
+          "year": "2020"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2022"
+        },
+        {
+          "club": "KV Oostende",
+          "year": "2023"
+        },
+        {
+          "club": "RWDM",
+          "year": "2023"
+        },
+        {
+          "club": "Blackburn",
+          "year": "2024"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 252,
+        "goals": 62,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saulo Mineiro",
@@ -357,9 +1518,65 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Shanghai Shenhua",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Uberlândia",
+          "year": "2017"
+        },
+        {
+          "club": "Uberaba-MG",
+          "year": "2018"
+        },
+        {
+          "club": "Uberlândia",
+          "year": "2018"
+        },
+        {
+          "club": "Tupi",
+          "year": "2019"
+        },
+        {
+          "club": "CRAC (GO)",
+          "year": "2019"
+        },
+        {
+          "club": "Volta Redonda",
+          "year": "2019"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2020"
+        },
+        {
+          "club": "Yokohama FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2023"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 59,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chengyu Liu",
@@ -367,9 +1584,29 @@
       "age": 19,
       "nationality": "China",
       "club": "Shanghai Shenhua",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SH Shenhua",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 23,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

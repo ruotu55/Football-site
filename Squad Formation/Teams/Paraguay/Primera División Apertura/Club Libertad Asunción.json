@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "PR1A"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 27,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 11,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 85,
+        "clean_sheets": 40
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 8,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Ángel González",
@@ -33,7 +54,27 @@
       "club": "Club Libertad Asunción",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Victor Rojas",
@@ -43,7 +84,27 @@
       "club": "Club Libertad Asunción",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +114,45 @@
       "age": 26,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 9,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cerro Porteño",
+          "year": "2020"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2023"
+        },
+        {
+          "club": "Santos",
+          "year": "2025"
+        },
+        {
+          "club": "Libertad",
+          "year": "2026"
+        },
+        {
+          "club": "Santos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert Rojas",
@@ -65,7 +162,51 @@
       "club": "Club Libertad Asunción",
       "appearances": 3,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Guaraní",
+          "year": "2017"
+        },
+        {
+          "club": "River Plate",
+          "year": "2019"
+        },
+        {
+          "club": "Tigre",
+          "year": "2023"
+        },
+        {
+          "club": "River Plate",
+          "year": "2024"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2024"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2025"
+        },
+        {
+          "club": "Libertad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 17,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Viera",
@@ -73,9 +214,57 @@
       "age": 34,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 11,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cerro Porteño",
+          "year": "2011"
+        },
+        {
+          "club": "Rubio Ñú",
+          "year": "2011"
+        },
+        {
+          "club": "Tacuary FBC",
+          "year": "2012"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2012"
+        },
+        {
+          "club": "Luqueño",
+          "year": "2013"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2013"
+        },
+        {
+          "club": "Godoy Cruz",
+          "year": "2015"
+        },
+        {
+          "club": "Libertad",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 408,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Delvalle",
@@ -83,9 +272,24 @@
       "age": 21,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 1,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Fernández",
@@ -93,9 +297,24 @@
       "age": 18,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Néstor Giménez",
@@ -103,9 +322,45 @@
       "age": 28,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2015"
+        },
+        {
+          "club": "Nacional",
+          "year": "2019"
+        },
+        {
+          "club": "Libertad",
+          "year": "2020"
+        },
+        {
+          "club": "Tacuary FBC",
+          "year": "2021"
+        },
+        {
+          "club": "Libertad",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 6,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Espinoza",
@@ -113,9 +368,33 @@
       "age": 28,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 9,
+      "appearances": 12,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "General Diaz",
+          "year": "2017"
+        },
+        {
+          "club": "Libertad",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 28,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iván Ramírez",
@@ -123,9 +402,73 @@
       "age": 31,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2013"
+        },
+        {
+          "club": "CD Santaní",
+          "year": "2015"
+        },
+        {
+          "club": "Libertad",
+          "year": "2015"
+        },
+        {
+          "club": "Rubio Ñú",
+          "year": "2016"
+        },
+        {
+          "club": "Libertad",
+          "year": "2016"
+        },
+        {
+          "club": "Godoy Cruz",
+          "year": "2018"
+        },
+        {
+          "club": "Libertad",
+          "year": "2019"
+        },
+        {
+          "club": "CD Santaní",
+          "year": "2019"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2019"
+        },
+        {
+          "club": "Libertad",
+          "year": "2020"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2022"
+        },
+        {
+          "club": "Libertad",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 9,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alan Benítez",
@@ -133,9 +476,94 @@
       "age": 32,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 7,
+      "appearances": 5,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2013"
+        },
+        {
+          "club": "Rubio Ñú",
+          "year": "2015"
+        },
+        {
+          "club": "Libertad",
+          "year": "2015"
+        },
+        {
+          "club": "Libertad",
+          "year": "2016"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2020"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2021"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2023"
+        },
+        {
+          "club": "Internacional",
+          "year": "2025"
+        },
+        {
+          "club": "Libertad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 12,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Estiven Villalba",
+      "position": "Right-Back",
+      "age": 17,
+      "nationality": "Paraguay",
+      "club": "Club Libertad Asunción",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +573,37 @@
       "age": 30,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 11,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rubio Ñú",
+          "year": "2015"
+        },
+        {
+          "club": "General Diaz",
+          "year": "2019"
+        },
+        {
+          "club": "Libertad",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 10,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hernesto Caballero",
@@ -155,9 +611,45 @@
       "age": 34,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 10,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpia",
+          "year": "2017"
+        },
+        {
+          "club": "General Diaz",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "River Plate",
+          "year": "2021"
+        },
+        {
+          "club": "Libertad",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Sanabria",
@@ -165,9 +657,37 @@
       "age": 26,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2020"
+        },
+        {
+          "club": "Tacuary FBC",
+          "year": "2022"
+        },
+        {
+          "club": "Libertad",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Martínez",
@@ -175,9 +695,29 @@
       "age": 25,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 5,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amín Molinas",
@@ -185,9 +725,33 @@
       "age": 20,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 7,
+      "appearances": 10,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "2 de Mayo",
+          "year": "2025"
+        },
+        {
+          "club": "Libertad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Martínez",
@@ -197,7 +761,31 @@
       "club": "Club Libertad Asunción",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Trinidense",
+          "year": "2024"
+        },
+        {
+          "club": "Libertad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Rojas",
@@ -205,9 +793,69 @@
       "age": 30,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cerro Porteño",
+          "year": "2015"
+        },
+        {
+          "club": "Lanús",
+          "year": "2017"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2018"
+        },
+        {
+          "club": "Defensa",
+          "year": "2018"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2019"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2019"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2023"
+        },
+        {
+          "club": "Miami",
+          "year": "2024"
+        },
+        {
+          "club": "River Plate",
+          "year": "2025"
+        },
+        {
+          "club": "Portland",
+          "year": "2025"
+        },
+        {
+          "club": "Libertad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 245,
+        "goals": 48,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joaquín Bogarín",
@@ -217,7 +865,27 @@
       "club": "Club Libertad Asunción",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Recalde",
@@ -225,9 +893,45 @@
       "age": 33,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2012"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2020"
+        },
+        {
+          "club": "Newell's",
+          "year": "2023"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2024"
+        },
+        {
+          "club": "Libertad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 65,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +943,55 @@
       "club": "Club Libertad Asunción",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpia",
+          "year": "2018"
+        },
+        {
+          "club": "General Diaz",
+          "year": "2018"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2019"
+        },
+        {
+          "club": "Defensa",
+          "year": "2021"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2022"
+        },
+        {
+          "club": "Libertad",
+          "year": "2025"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2025"
+        },
+        {
+          "club": "Libertad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 26,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Fretes",
@@ -247,9 +999,29 @@
       "age": 20,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 8,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Villalba",
@@ -259,7 +1031,22 @@
       "club": "Club Libertad Asunción",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Federico Carrizo",
@@ -267,9 +1054,65 @@
       "age": 34,
       "nationality": "Argentina",
       "club": "Club Libertad Asunción",
-      "appearances": 9,
-      "goals": 2,
-      "assists": 1
+      "appearances": 12,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Rosario Central",
+          "year": "2010"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2014"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2015"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2015"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2017"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2022"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2022"
+        },
+        {
+          "club": "Libertad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 533,
+        "goals": 59,
+        "assists": 79,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Villalba",
@@ -277,9 +1120,33 @@
       "age": 20,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guaireña FC",
+          "year": "2022"
+        },
+        {
+          "club": "Libertad",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iván Franco",
@@ -287,9 +1154,37 @@
       "age": 25,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2018"
+        },
+        {
+          "club": "Houston",
+          "year": "2023"
+        },
+        {
+          "club": "Libertad",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 280,
+        "goals": 35,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcelo Fernández",
@@ -297,9 +1192,33 @@
       "age": 24,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tacuary FBC",
+          "year": "2022"
+        },
+        {
+          "club": "Libertad",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 15,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustavo Aguilar",
@@ -307,9 +1226,41 @@
       "age": 26,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 11,
+      "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Tacuary FBC",
+          "year": "2021"
+        },
+        {
+          "club": "Tacuary FBC",
+          "year": "2022"
+        },
+        {
+          "club": "Nacional",
+          "year": "2023"
+        },
+        {
+          "club": "Libertad",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 28,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Vera",
@@ -319,7 +1270,22 @@
       "club": "Club Libertad Asunción",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lorenzo Melgarejo",
@@ -327,9 +1293,61 @@
       "age": 35,
       "nationality": "Paraguay",
       "club": "Club Libertad Asunción",
-      "appearances": 11,
-      "goals": 7,
-      "assists": 1
+      "appearances": 13,
+      "goals": 9,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Olimpia",
+          "year": "2010"
+        },
+        {
+          "club": "Independiente",
+          "year": "2011"
+        },
+        {
+          "club": "Benfica",
+          "year": "2011"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2011"
+        },
+        {
+          "club": "Benfica",
+          "year": "2012"
+        },
+        {
+          "club": "Kuban Krasnodar",
+          "year": "2013"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2016"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2020"
+        },
+        {
+          "club": "Libertad",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 458,
+        "goals": 126,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

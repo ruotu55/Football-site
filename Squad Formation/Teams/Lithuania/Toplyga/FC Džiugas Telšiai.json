@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "LI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 31,
       "nationality": "Lithuania",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palanga",
+          "year": "2019"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 169,
+        "clean_sheets": 34
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mykyta Rybchynskyi",
@@ -33,7 +58,39 @@
       "club": "FC Džiugas Telšiai",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Orzel Zlinice",
+          "year": "2023"
+        },
+        {
+          "club": "KS Warka",
+          "year": "2023"
+        },
+        {
+          "club": "LKS Lomza",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vladyslav Ryabenko",
@@ -41,9 +98,37 @@
       "age": 23,
       "nationality": "Ukraine",
       "club": "FC Džiugas Telšiai",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Khust",
+          "year": "2023"
+        },
+        {
+          "club": "FC Trostyanets",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +138,45 @@
       "age": 22,
       "nationality": "Ivory Coast",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lillestrøm SK",
+          "year": "2022"
+        },
+        {
+          "club": "Zoman FC",
+          "year": "2022"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bacary Sané",
@@ -63,19 +184,111 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liepaja",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2024"
+        },
+        {
+          "club": "Hamrun Spart.",
+          "year": "2025"
+        },
+        {
+          "club": "Naxxar Lions FC",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josh Okpolokpo",
       "position": "Centre-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Republic of Ireland",
       "club": "FC Džiugas Telšiai",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leiston",
+          "year": "2022"
+        },
+        {
+          "club": "Gorleston",
+          "year": "2022"
+        },
+        {
+          "club": "Leiston",
+          "year": "2023"
+        },
+        {
+          "club": "Sudbury",
+          "year": "2023"
+        },
+        {
+          "club": "Dulwich Hamlet",
+          "year": "2023"
+        },
+        {
+          "club": "NK Triglav",
+          "year": "2024"
+        },
+        {
+          "club": "Concordia",
+          "year": "2024"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brendan Ifeanyi Asomugha",
@@ -85,7 +298,31 @@
       "club": "FC Džiugas Telšiai",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sveikata",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Wawszczyk",
@@ -93,9 +330,77 @@
       "age": 28,
       "nationality": "Poland",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chwaszczyno",
+          "year": "2017"
+        },
+        {
+          "club": "Olimpia Grudz.",
+          "year": "2017"
+        },
+        {
+          "club": "KP Starogard",
+          "year": "2018"
+        },
+        {
+          "club": "Radomiak",
+          "year": "2018"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2019"
+        },
+        {
+          "club": "Sandecja",
+          "year": "2021"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2022"
+        },
+        {
+          "club": "Pol. Warsaw",
+          "year": "2022"
+        },
+        {
+          "club": "Znicz Pruszkow",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Riteriai",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 6,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentino Vermeulen",
@@ -105,17 +410,73 @@
       "club": "FC Džiugas Telšiai",
       "appearances": 5,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Eindhoven",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 10,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Džiugas Aleksa",
       "position": "Right-Back",
-      "age": 21,
+      "age": 22,
       "nationality": "Lithuania",
       "club": "FC Džiugas Telšiai",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zalgiris",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -127,7 +488,51 @@
       "club": "FC Džiugas Telšiai",
       "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lanusei",
+          "year": "2015"
+        },
+        {
+          "club": "Tortolì",
+          "year": "2015"
+        },
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "Tauras",
+          "year": "2017"
+        },
+        {
+          "club": "Tortolì",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vilius Piliukaitis",
@@ -135,9 +540,53 @@
       "age": 25,
       "nationality": "Lithuania",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LFF Akademija",
+          "year": "2017"
+        },
+        {
+          "club": "LFF Akademija",
+          "year": "2019"
+        },
+        {
+          "club": "Zalgiris",
+          "year": "2021"
+        },
+        {
+          "club": "Banga",
+          "year": "2023"
+        },
+        {
+          "club": "Zalgiris",
+          "year": "2023"
+        },
+        {
+          "club": "Banga",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Ževžikovas",
@@ -145,9 +594,33 @@
       "age": 21,
       "nationality": "Lithuania",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "DFK Dainava",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gastón Manuel Romano",
@@ -155,9 +628,57 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Espinho",
+          "year": "2019"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2020"
+        },
+        {
+          "club": "Taranto",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2023"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 3,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denys Bunchukov",
@@ -165,9 +686,49 @@
       "age": 22,
       "nationality": "Ukraine",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KODYuSSh-Arsenal",
+          "year": "2018"
+        },
+        {
+          "club": "Brooke House FA",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "URSL Visé",
+          "year": "2023"
+        },
+        {
+          "club": "Belisia Bilzen",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikita Pavlovskij",
@@ -175,9 +736,33 @@
       "age": 19,
       "nationality": "Lithuania",
       "club": "FC Džiugas Telšiai",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK BE1",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deitonas Vinckus",
@@ -187,7 +772,35 @@
       "club": "FC Džiugas Telšiai",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2019"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2022"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nidas Vosylius",
@@ -197,17 +810,56 @@
       "club": "FC Džiugas Telšiai",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gvidas Girdvainis",
       "position": "",
       "age": 19,
       "nationality": "Lithuania",
-      "club": "",
+      "club": "FC Dziugas Telsiai B",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simas Rimantas Patella",
@@ -217,7 +869,31 @@
       "club": "FC Džiugas Telšiai",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atmosfera",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +903,41 @@
       "age": 19,
       "nationality": "Ukraine",
       "club": "FC Džiugas Telšiai",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DYuSSh Zvezda",
+          "year": "2022"
+        },
+        {
+          "club": "FK Zamin",
+          "year": "2025"
+        },
+        {
+          "club": "Super Nova",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Bahia",
@@ -237,9 +945,53 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "FC Džiugas Telšiai",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Amazonas",
+          "year": "2024"
+        },
+        {
+          "club": "Porto Velho",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Babrungas",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 12,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronald Sobowale",
@@ -247,9 +999,69 @@
       "age": 28,
       "nationality": "England",
       "club": "FC Džiugas Telšiai",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2012"
+        },
+        {
+          "club": "Carshalton Ath.",
+          "year": "2016"
+        },
+        {
+          "club": "Molesey FC",
+          "year": "2017"
+        },
+        {
+          "club": "Whyteleafe",
+          "year": "2019"
+        },
+        {
+          "club": "Whitehawk",
+          "year": "2020"
+        },
+        {
+          "club": "FC Malisheva",
+          "year": "2021"
+        },
+        {
+          "club": "KF Laçi",
+          "year": "2023"
+        },
+        {
+          "club": "FC Malisheva",
+          "year": "2024"
+        },
+        {
+          "club": "KF Laçi",
+          "year": "2024"
+        },
+        {
+          "club": "FC Prishtina",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 39,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomas Stelmokas",
@@ -257,9 +1069,37 @@
       "age": 20,
       "nationality": "Lithuania",
       "club": "FC Džiugas Telšiai",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2025"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 26,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iker Scotto",
@@ -267,9 +1107,45 @@
       "age": 23,
       "nationality": "Argentina",
       "club": "FC Džiugas Telšiai",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karpaty Galych",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Hamra",
+          "year": "2022"
+        },
+        {
+          "club": "Dubai City FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

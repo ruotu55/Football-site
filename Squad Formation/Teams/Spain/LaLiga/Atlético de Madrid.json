@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ES1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,9 +21,9 @@
       "age": 33,
       "nationality": "Slovenia",
       "club": "Atlético de Madrid",
-      "appearances": 37,
+      "appearances": 26,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "NK Olimpija",
@@ -64,7 +65,21 @@
           "club": "Atlético",
           "year": "2014"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 643,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 572,
+        "clean_sheets": 279
+      },
+      "national_team_career_totals": {
+        "appearances": 82,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 72,
+        "clean_sheets": 38
+      }
     },
     {
       "name": "Juan Musso",
@@ -72,7 +87,7 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Atlético de Madrid",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -100,7 +115,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 327,
+        "clean_sheets": 82
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 3
+      }
     }
   ],
   "defenders": [
@@ -110,9 +139,9 @@
       "age": 28,
       "nationality": "Slovakia",
       "club": "Atlético de Madrid",
-      "appearances": 42,
-      "goals": 3,
-      "assists": 3,
+      "appearances": 26,
+      "goals": 0,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "MSK Zilina",
@@ -142,7 +171,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 374,
+        "goals": 53,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 7,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Pubill",
@@ -150,7 +193,7 @@
       "age": 22,
       "nationality": "Spain",
       "club": "Atlético de Madrid",
-      "appearances": 25,
+      "appearances": 12,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -174,7 +217,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 5,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Le Normand",
@@ -182,8 +239,8 @@
       "age": 29,
       "nationality": "Spain",
       "club": "Atlético de Madrid",
-      "appearances": 34,
-      "goals": 3,
+      "appearances": 21,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -194,7 +251,21 @@
           "club": "Atlético",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 16,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José María Giménez",
@@ -202,8 +273,8 @@
       "age": 31,
       "nationality": "Uruguay",
       "club": "Atlético de Madrid",
-      "appearances": 23,
-      "goals": 1,
+      "appearances": 14,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
@@ -214,7 +285,21 @@
           "club": "Atlético",
           "year": "2013"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 396,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 99,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clément Lenglet",
@@ -222,7 +307,7 @@
       "age": 30,
       "nationality": "France",
       "club": "Atlético de Madrid",
-      "appearances": 15,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -266,7 +351,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 463,
+        "goals": 23,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matteo Ruggeri",
@@ -274,9 +373,9 @@
       "age": 23,
       "nationality": "Italy",
       "club": "Atlético de Madrid",
-      "appearances": 36,
+      "appearances": 20,
       "goals": 0,
-      "assists": 6,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Atalanta",
@@ -294,7 +393,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 4,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcos Llorente",
@@ -302,9 +415,9 @@
       "age": 31,
       "nationality": "Spain",
       "club": "Atlético de Madrid",
-      "appearances": 40,
-      "goals": 4,
-      "assists": 5,
+      "appearances": 25,
+      "goals": 0,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "RM Castilla",
@@ -326,7 +439,21 @@
           "club": "Atlético",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 438,
+        "goals": 41,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nahuel Molina",
@@ -334,9 +461,9 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Atlético de Madrid",
-      "appearances": 36,
+      "appearances": 21,
       "goals": 2,
-      "assists": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Defensa",
@@ -354,7 +481,21 @@
           "club": "Atlético",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 22,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 58,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -364,9 +505,9 @@
       "age": 22,
       "nationality": "Spain",
       "club": "Atlético de Madrid",
-      "appearances": 33,
+      "appearances": 21,
       "goals": 1,
-      "assists": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Atl. Madrileño",
@@ -376,7 +517,21 @@
           "club": "Atlético",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 10,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johnny Cardoso",
@@ -384,8 +539,8 @@
       "age": 24,
       "nationality": "United States",
       "club": "Atlético de Madrid",
-      "appearances": 24,
-      "goals": 1,
+      "appearances": 13,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -400,7 +555,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 13,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Mendoza",
@@ -408,9 +577,9 @@
       "age": 21,
       "nationality": "Spain",
       "club": "Atlético de Madrid",
-      "appearances": 26,
-      "goals": 2,
-      "assists": 1,
+      "appearances": 20,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Elche CF",
@@ -420,7 +589,21 @@
           "club": "Atlético",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Obed Vargas",
@@ -428,7 +611,7 @@
       "age": 20,
       "nationality": "Mexico",
       "club": "Atlético de Madrid",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -444,7 +627,21 @@
           "club": "Atlético",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 8,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Koke",
@@ -452,9 +649,9 @@
       "age": 34,
       "nationality": "Spain",
       "club": "Atlético de Madrid",
-      "appearances": 44,
+      "appearances": 27,
       "goals": 2,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Atl. Madrileño",
@@ -464,7 +661,21 @@
           "club": "Atlético",
           "year": "2011"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 794,
+        "goals": 57,
+        "assists": 122,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -474,7 +685,7 @@
       "age": 24,
       "nationality": "Spain",
       "club": "Atlético de Madrid",
-      "appearances": 34,
+      "appearances": 20,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -494,7 +705,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 252,
+        "goals": 33,
+        "assists": 54,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nico González",
@@ -502,7 +727,7 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Atlético de Madrid",
-      "appearances": 33,
+      "appearances": 21,
       "goals": 3,
       "assists": 0,
       "transfer_history": [
@@ -538,7 +763,21 @@
           "club": "Juventus",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 322,
+        "goals": 80,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Almada",
@@ -546,8 +785,8 @@
       "age": 24,
       "nationality": "Argentina",
       "club": "Atlético de Madrid",
-      "appearances": 30,
-      "goals": 4,
+      "appearances": 20,
+      "goals": 3,
       "assists": 1,
       "transfer_history": [
         {
@@ -574,7 +813,21 @@
           "club": "Atlético",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 259,
+        "goals": 59,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giuliano Simeone",
@@ -582,9 +835,9 @@
       "age": 23,
       "nationality": "Argentina",
       "club": "Atlético de Madrid",
-      "appearances": 43,
-      "goals": 6,
-      "assists": 8,
+      "appearances": 26,
+      "goals": 3,
+      "assists": 6,
       "transfer_history": [
         {
           "club": "Atl. Madrileño",
@@ -610,7 +863,21 @@
           "club": "Atlético",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 24,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ademola Lookman",
@@ -618,9 +885,9 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Atlético de Madrid",
-      "appearances": 33,
-      "goals": 8,
-      "assists": 6,
+      "appearances": 7,
+      "goals": 2,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Charlton",
@@ -666,7 +933,21 @@
           "club": "Atlético",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 95,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antoine Griezmann",
@@ -674,9 +955,9 @@
       "age": 35,
       "nationality": "France",
       "club": "Atlético de Madrid",
-      "appearances": 43,
-      "goals": 13,
-      "assists": 4,
+      "appearances": 26,
+      "goals": 6,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Real Sociedad Y",
@@ -710,7 +991,21 @@
           "club": "Orlando",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 792,
+        "goals": 298,
+        "assists": 132,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 137,
+        "goals": 44,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julián Alvarez",
@@ -718,9 +1013,9 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "Atlético de Madrid",
-      "appearances": 44,
-      "goals": 17,
-      "assists": 9,
+      "appearances": 29,
+      "goals": 8,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "River Plate",
@@ -738,7 +1033,21 @@
           "club": "Atlético",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 326,
+        "goals": 136,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 14,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Sørloth",
@@ -746,9 +1055,9 @@
       "age": 30,
       "nationality": "Norway",
       "club": "Atlético de Madrid",
-      "appearances": 43,
-      "goals": 16,
-      "assists": 1,
+      "appearances": 28,
+      "goals": 10,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "RBK Youth",
@@ -822,7 +1131,21 @@
           "club": "Atlético",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 466,
+        "goals": 171,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 70,
+        "goals": 26,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

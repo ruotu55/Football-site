@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LIB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nejmeh SC",
+          "year": "2020"
+        },
+        {
+          "club": "Ahli Nabatieh",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 8,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmad Taktouk",
@@ -33,7 +62,59 @@
       "club": "Al-Mabarra Club",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nejmeh SC",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Nabi Sheet",
+          "year": "2017"
+        },
+        {
+          "club": "Safa Beirut SC",
+          "year": "2018"
+        },
+        {
+          "club": "Nejmeh SC",
+          "year": "2019"
+        },
+        {
+          "club": "Shabab El-Bourj",
+          "year": "2021"
+        },
+        {
+          "club": "Nejmeh SC",
+          "year": "2022"
+        },
+        {
+          "club": "Sagesse SC",
+          "year": "2022"
+        },
+        {
+          "club": "AC Tripoli",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 97,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Abdelmenhem Sbeity",
@@ -43,7 +124,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Mabarra",
+          "year": "2021"
+        },
+        {
+          "club": "Ahli Nabatieh",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +164,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shabab Al-Sahel",
+          "year": "2018"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kassem Watfa",
@@ -65,7 +202,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tadamon Sour",
+          "year": "2022"
+        },
+        {
+          "club": "Ahli Nabatieh",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gnabré Yves Constant Legré",
@@ -75,7 +240,51 @@
       "club": "Al-Mabarra Club",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Gagnoa",
+          "year": "2013"
+        },
+        {
+          "club": "FC Mouna",
+          "year": "2014"
+        },
+        {
+          "club": "Phosboucraa",
+          "year": "2017"
+        },
+        {
+          "club": "CM Dakhla",
+          "year": "2019"
+        },
+        {
+          "club": "Majees SC",
+          "year": "2021"
+        },
+        {
+          "club": "ASI Abengourou",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Farhat",
@@ -85,7 +294,31 @@
       "club": "Al-Mabarra Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bourj FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qusai Al-Battat",
@@ -95,7 +328,43 @@
       "club": "Al-Mabarra Club",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tubas SC",
+          "year": "2021"
+        },
+        {
+          "club": "Shabab Al-Samu",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Anwar",
+          "year": "2024"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Hoteit",
@@ -105,7 +374,39 @@
       "club": "Al-Mabarra Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ansar FC",
+          "year": "2025"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ansar FC",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Ismail",
@@ -115,7 +416,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Islah Club",
+          "year": "2020"
+        },
+        {
+          "club": "Tadamon Sour",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -127,7 +456,55 @@
       "club": "Al-Mabarra Club",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Akhaa Al-Ahly",
+          "year": "2020"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2021"
+        },
+        {
+          "club": "Tadamon Sour",
+          "year": "2022"
+        },
+        {
+          "club": "Safa Beirut SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Abbassieh",
+          "year": "2024"
+        },
+        {
+          "club": "Safa Beirut SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussein Ibrahim",
@@ -137,7 +514,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ansar FC",
+          "year": "2011"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussein Bajouk",
@@ -147,7 +552,22 @@
       "club": "Al-Mabarra Club",
       "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mustafa Baidoon",
@@ -157,7 +577,55 @@
       "club": "Al-Mabarra Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahed",
+          "year": "2012"
+        },
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Akhaa Al-Ahly",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Sagesse SC",
+          "year": "2021"
+        },
+        {
+          "club": "Sagesse SC",
+          "year": "2024"
+        },
+        {
+          "club": "Chabab Ghazieh",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan Koteich",
@@ -167,7 +635,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bourj FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chabab Ghazieh",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Ayoub",
@@ -177,7 +673,43 @@
       "club": "Al-Mabarra Club",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Nabi Sheet",
+          "year": "2014"
+        },
+        {
+          "club": "AlShabab AlArabi",
+          "year": "2017"
+        },
+        {
+          "club": "Chabab Ghazieh",
+          "year": "2019"
+        },
+        {
+          "club": "BFA Sporting",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan El-Mokdad",
@@ -187,7 +719,31 @@
       "club": "Al-Mabarra Club",
       "appearances": 13,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bourj FC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan Chaito",
@@ -197,7 +753,63 @@
       "club": "Al-Mabarra Club",
       "appearances": 15,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "BFA Sporting",
+          "year": "2008"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2009"
+        },
+        {
+          "club": "Al-Ansar FC",
+          "year": "2013"
+        },
+        {
+          "club": "Terengganu",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Shabab Club",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Ansar FC",
+          "year": "2018"
+        },
+        {
+          "club": "Nejmeh SC",
+          "year": "2021"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 36,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -209,7 +821,39 @@
       "club": "Al-Mabarra Club",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASEC Mimosas",
+          "year": "2018"
+        },
+        {
+          "club": "USC Bassam",
+          "year": "2019"
+        },
+        {
+          "club": "Real",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abbas Mrad",
@@ -219,7 +863,31 @@
       "club": "Al-Mabarra Club",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bourj FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Ibrahim",
@@ -229,7 +897,39 @@
       "club": "Al-Mabarra Club",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akhaa Al-Ahly",
+          "year": "2020"
+        },
+        {
+          "club": "Bourj FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ahli Nabatieh",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bakary Soumare",
@@ -239,7 +939,39 @@
       "club": "Al-Mabarra Club",
       "appearances": 14,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Soliman",
+          "year": "2021"
+        },
+        {
+          "club": "US Tataouine",
+          "year": "2022"
+        },
+        {
+          "club": "SO Armée",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karim Slim",
@@ -249,7 +981,39 @@
       "club": "Al-Mabarra Club",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahed",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Siblini",
@@ -259,7 +1023,51 @@
       "club": "Al-Mabarra Club",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli SC",
+          "year": "2011"
+        },
+        {
+          "club": "Nejmeh SC",
+          "year": "2014"
+        },
+        {
+          "club": "Tadamon Sour",
+          "year": "2017"
+        },
+        {
+          "club": "Nejmeh SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2022"
+        },
+        {
+          "club": "Shabab Al-Sahel",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 20,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ouday Chmouri",
@@ -269,7 +1077,35 @@
       "club": "Al-Mabarra Club",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bourj FC",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Sayed",
@@ -279,7 +1115,51 @@
       "club": "Al-Mabarra Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ansar FC",
+          "year": "2017"
+        },
+        {
+          "club": "AC Tripoli",
+          "year": "2019"
+        },
+        {
+          "club": "Saint-Brice",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ittifaq",
+          "year": "2022"
+        },
+        {
+          "club": "Arm. Hannover",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussein Zeineddine",
@@ -289,7 +1169,31 @@
       "club": "Al-Mabarra Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ahli Nabatieh",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karim Tarhini",
@@ -299,7 +1203,43 @@
       "club": "Al-Mabarra Club",
       "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ahli Nabatieh",
+          "year": "2021"
+        },
+        {
+          "club": "A. Al-Kharayeb",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ansar FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Mabarra",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Ansar FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Rachid",
@@ -309,7 +1249,27 @@
       "club": "Al-Mabarra Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Mabarra",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

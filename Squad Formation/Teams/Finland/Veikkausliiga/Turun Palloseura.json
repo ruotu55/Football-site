@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "FI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 23,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2021"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2022"
+        },
+        {
+          "club": "IFK Mariehamn",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        },
+        {
+          "club": "Sporting Atlco.",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 139,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dan Lauri",
@@ -31,9 +76,29 @@
       "age": 16,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 25,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niklas Harju",
@@ -43,19 +108,83 @@
       "club": "Turun Palloseura",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "VG-62",
+          "year": "2024"
+        },
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 43,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
     {
       "name": "Nikolas Talo",
       "position": "Centre-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC KTP",
+          "year": "2023"
+        },
+        {
+          "club": "FC Haka",
+          "year": "2024"
+        },
+        {
+          "club": "GIF Sundsvall",
+          "year": "2025"
+        },
+        {
+          "club": "FC Haka",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Charlemagne Azongnitode",
@@ -63,9 +192,53 @@
       "age": 24,
       "nationality": "Benin",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASVO Benin",
+          "year": "2021"
+        },
+        {
+          "club": "Dadje FC",
+          "year": "2022"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2022"
+        },
+        {
+          "club": "H. Petah Tikva",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Acre",
+          "year": "2025"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matej Hradecky",
@@ -73,9 +246,65 @@
       "age": 30,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TPS",
+          "year": "2013"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "TPS",
+          "year": "2019"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2020"
+        },
+        {
+          "club": "Helsinki IFK",
+          "year": "2021"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2022"
+        },
+        {
+          "club": "Skalica",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 17,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Atte Sihvonen",
@@ -83,9 +312,53 @@
       "age": 30,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Masku",
+          "year": "2016"
+        },
+        {
+          "club": "SalPa",
+          "year": "2017"
+        },
+        {
+          "club": "Ekenäs IF",
+          "year": "2018"
+        },
+        {
+          "club": "RoPS",
+          "year": "2019"
+        },
+        {
+          "club": "TPS",
+          "year": "2021"
+        },
+        {
+          "club": "FC Haka",
+          "year": "2022"
+        },
+        {
+          "club": "TPS",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 14,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akim Sairinen",
@@ -93,29 +366,73 @@
       "age": 31,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 5,
-      "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Jesper Aitos",
-      "position": "Centre-Back",
-      "age": 18,
-      "nationality": "Finland",
-      "club": "Turun Palloseura",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Tobias Karkulowski",
-      "position": "Left-Back",
-      "age": 21,
-      "nationality": "Finland",
-      "club": "Turun Palloseura",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ekenäs IF",
+          "year": "2016"
+        },
+        {
+          "club": "Gjøvik-Lyn",
+          "year": "2017"
+        },
+        {
+          "club": "JK Tammeka",
+          "year": "2018"
+        },
+        {
+          "club": "Florø SK",
+          "year": "2020"
+        },
+        {
+          "club": "DFK Dainava",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Pargas IF",
+          "year": "2022"
+        },
+        {
+          "club": "Panargiakos",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2024"
+        },
+        {
+          "club": "Mikkelin",
+          "year": "2024"
+        },
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 280,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eetu Turkki",
@@ -123,9 +440,33 @@
       "age": 19,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2026"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oscar Häggström",
@@ -133,9 +474,75 @@
       "age": 21,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Käpylän Pallo",
+          "year": "2021"
+        },
+        {
+          "club": "HJK Klubi 04",
+          "year": "2022"
+        },
+        {
+          "club": "TPS",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Tobias Karkulowski",
+      "position": "Right-Back",
+      "age": 21,
+      "nationality": "Finland",
+      "club": "Turun Palloseura",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JäPS",
+          "year": "2023"
+        },
+        {
+          "club": "FC Lahti",
+          "year": "2024"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +552,37 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "Turun Palloseura",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Heerenveen",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 9,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pau Juvanteny",
@@ -155,9 +590,49 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UE Llagostera",
+          "year": "2020"
+        },
+        {
+          "club": "CF Peralada",
+          "year": "2022"
+        },
+        {
+          "club": "UE Tona",
+          "year": "2022"
+        },
+        {
+          "club": "UE Olot",
+          "year": "2023"
+        },
+        {
+          "club": "PK-35",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aly Coulibaly",
@@ -165,9 +640,77 @@
       "age": 29,
       "nationality": "France",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Huesca",
+          "year": "2015"
+        },
+        {
+          "club": "AD Almudévar",
+          "year": "2015"
+        },
+        {
+          "club": "SD Huesca",
+          "year": "2016"
+        },
+        {
+          "club": "Badalona",
+          "year": "2016"
+        },
+        {
+          "club": "SD Huesca",
+          "year": "2017"
+        },
+        {
+          "club": "Badalona",
+          "year": "2017"
+        },
+        {
+          "club": "Calahorra",
+          "year": "2019"
+        },
+        {
+          "club": "FC Schaffhausen",
+          "year": "2019"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2020"
+        },
+        {
+          "club": "UD Sanse",
+          "year": "2022"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2023"
+        },
+        {
+          "club": "SD Amorebieta",
+          "year": "2024"
+        },
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 190,
+        "goals": 16,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lasse Ikonen",
@@ -175,9 +718,45 @@
       "age": 23,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OLS",
+          "year": "2019"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2020"
+        },
+        {
+          "club": "IF Gnistan",
+          "year": "2022"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2022"
+        },
+        {
+          "club": "TPS",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomi Väkiparta",
@@ -185,9 +764,33 @@
       "age": 18,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Jazz",
+          "year": "2023"
+        },
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marius Könkkölä",
@@ -195,9 +798,41 @@
       "age": 22,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AC Oulu",
+          "year": "2022"
+        },
+        {
+          "club": "FC Lahti",
+          "year": "2023"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 14,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -209,7 +844,43 @@
       "club": "Turun Palloseura",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Youth",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "IF Gnistan",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Anini Jr.",
@@ -217,9 +888,57 @@
       "age": 23,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2019"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2022"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2022"
+        },
+        {
+          "club": "IFK Mariehamn",
+          "year": "2023"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        },
+        {
+          "club": "Ekenäs IF",
+          "year": "2024"
+        },
+        {
+          "club": "Käpylän Pallo",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 34,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miika Kauppila",
@@ -227,9 +946,53 @@
       "age": 25,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Käpylän Pallo",
+          "year": "2018"
+        },
+        {
+          "club": "IF Gnistan",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Käpylän Pallo",
+          "year": "2021"
+        },
+        {
+          "club": "Kokkolan PV",
+          "year": "2022"
+        },
+        {
+          "club": "Käpylän Pallo",
+          "year": "2024"
+        },
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 21,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Albijon Muzaci",
@@ -237,9 +1000,49 @@
       "age": 29,
       "nationality": "TM nationality id 244",
       "club": "Turun Palloseura",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Jazz",
+          "year": "2016"
+        },
+        {
+          "club": "SalPa",
+          "year": "2016"
+        },
+        {
+          "club": "SalPa",
+          "year": "2017"
+        },
+        {
+          "club": "TPS",
+          "year": "2019"
+        },
+        {
+          "club": "SalPa",
+          "year": "2023"
+        },
+        {
+          "club": "TPS",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 294,
+        "goals": 84,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rasmus Harjanne",
@@ -247,9 +1050,29 @@
       "age": 18,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nino Rajamäki",
@@ -257,9 +1080,99 @@
       "age": 18,
       "nationality": "Finland",
       "club": "Turun Palloseura",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TPS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Theodoros Tsirigotis",
+      "position": "Centre-Forward",
+      "age": 25,
+      "nationality": "Greece",
+      "club": "Turun Palloseura",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "D.Vrachneikon",
+          "year": "2018"
+        },
+        {
+          "club": "AO Episkopi",
+          "year": "2019"
+        },
+        {
+          "club": "Levadiakos",
+          "year": "2021"
+        },
+        {
+          "club": "Levadiakos",
+          "year": "2022"
+        },
+        {
+          "club": "AE Larisa",
+          "year": "2023"
+        },
+        {
+          "club": "Levadiakos",
+          "year": "2023"
+        },
+        {
+          "club": "Iraklis",
+          "year": "2024"
+        },
+        {
+          "club": "Górnik Zabrze",
+          "year": "2025"
+        },
+        {
+          "club": "Polonia Bytom",
+          "year": "2025"
+        },
+        {
+          "club": "Górnik Zabrze",
+          "year": "2026"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 54,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luke Ivanovic",
@@ -267,9 +1180,49 @@
       "age": 25,
       "nationality": "Australia",
       "club": "Turun Palloseura",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2019"
+        },
+        {
+          "club": "Brisbane Roar",
+          "year": "2021"
+        },
+        {
+          "club": "Perth Glory",
+          "year": "2022"
+        },
+        {
+          "club": "FC Lahti",
+          "year": "2024"
+        },
+        {
+          "club": "Monterey Bay",
+          "year": "2025"
+        },
+        {
+          "club": "TPS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 23,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

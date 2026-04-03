@@ -1,4 +1,4 @@
-// js/saved-scripts.js — Main Runner - Player stats - Shorts
+// js/saved-scripts.js — Main Runner - Player stats shorts (storage isolated from Career Path)
 import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
@@ -34,7 +34,42 @@ function cloneCareerHistoryForStorage(h) {
     return Array.isArray(raw) ? raw : [];
 }
 
-let savedScripts = JSON.parse(localStorage.getItem(KEY_SCRIPTS) || "[]");
+function loadSavedScriptsWithPlaceholderMigration() {
+    const scripts = JSON.parse(localStorage.getItem(KEY_SCRIPTS) || "[]");
+    let changed = false;
+    const migrated = scripts.map((s) => {
+        const next = { ...s };
+        if (next.landing && typeof next.landing === "object") {
+            const land = { ...next.landing };
+            if (land.gameMode === "placeholder") {
+                land.gameMode = "career";
+                changed = true;
+            }
+            if (land.quizType === "placholder") {
+                land.quizType = "player-by-career-stats";
+                changed = true;
+            }
+            next.landing = land;
+        }
+        if (Array.isArray(next.levels)) {
+            next.levels = next.levels.map((lvl) => {
+                if (!lvl || typeof lvl !== "object") return lvl;
+                if (lvl.gameMode === "placeholder") {
+                    changed = true;
+                    return { ...lvl, gameMode: "career" };
+                }
+                return lvl;
+            });
+        }
+        return next;
+    });
+    if (changed) {
+        localStorage.setItem(KEY_SCRIPTS, JSON.stringify(migrated));
+    }
+    return migrated;
+}
+
+let savedScripts = loadSavedScriptsWithPlaceholderMigration();
 let savedFolders = JSON.parse(localStorage.getItem(KEY_FOLDERS) || "[]");
 let folderStates = JSON.parse(localStorage.getItem(KEY_FOLDER_STATES) || "{}");
 let scriptToDeleteIndex = -1;
@@ -73,7 +108,7 @@ export function initSavedScripts(callbacks) {
             isIntro: lvl.isIntro,
             isBonus: lvl.isBonus,
             isOutro: lvl.isOutro,
-            gameMode: lvl.gameMode || "placeholder",
+            gameMode: lvl.gameMode || "career",
             squadType: lvl.squadType,
             selectedEntry: jsonSafeClone(lvl.selectedEntry),
             currentSquad: jsonSafeClone(lvl.currentSquad),
@@ -126,7 +161,7 @@ export function initSavedScripts(callbacks) {
             name,
             folder: null,
             landing: {
-                gameMode: "placeholder",
+                gameMode: "career",
                 quizType: els.inQuizType.value,
                 specificToggle: els.inSpecificTitleToggle.checked,
                 specificText: els.inSpecificTitleText.value,
@@ -227,14 +262,14 @@ export function renderSavedScripts() {
 
     els.savedScriptsList.innerHTML = "";
 
-    const currentMode = "placeholder";
-    const currentSubType = els.inQuizType.value || "placholder";
+    const currentMode = "career";
+    const currentSubType = els.inQuizType.value || "player-by-career-stats";
 
     savedFolders.forEach((folderName) => {
         const hasScriptsInMode = savedScripts.some(s => 
             s.folder === folderName && 
-            (s.landing?.gameMode || "placeholder") === currentMode && 
-            (s.landing?.quizType || "placholder") === currentSubType
+            (s.landing?.gameMode || "career") === currentMode && 
+            (s.landing?.quizType || "player-by-career-stats") === currentSubType
         );
         const isEmptyGlobally = !savedScripts.some(s => s.folder === folderName);
 
@@ -323,8 +358,8 @@ export function renderSavedScripts() {
     });
 
     savedScripts.forEach((script, index) => {
-        const scriptMode = script.landing?.gameMode || "placeholder";
-        const scriptSubType = script.landing?.quizType || "placholder";
+        const scriptMode = script.landing?.gameMode || "career";
+        const scriptSubType = script.landing?.quizType || "player-by-career-stats";
 
         if (scriptMode !== currentMode || scriptSubType !== currentSubType) return;
 
@@ -421,8 +456,8 @@ async function loadScript(script) {
 
     activeScriptName = script.name;
 
-    const gameMode = (script.landing && script.landing.gameMode) ? script.landing.gameMode : "placeholder";
-    const quizType = (script.landing && script.landing.quizType) ? script.landing.quizType : "placholder";
+    const gameMode = (script.landing && script.landing.gameMode) ? script.landing.gameMode : "career";
+    const quizType = (script.landing && script.landing.quizType) ? script.landing.quizType : "player-by-career-stats";
 
     if(uiCallbacks.populateSubTypes) uiCallbacks.populateSubTypes();
     

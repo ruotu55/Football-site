@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "UZ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,51 @@
       "club": "Navbahor Namangan",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mash'al",
+          "year": "2012"
+        },
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2014"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2016"
+        },
+        {
+          "club": "Kokand 1912",
+          "year": "2018"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2019"
+        },
+        {
+          "club": "Foolad",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 302,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 276,
+        "clean_sheets": 113
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 31,
+        "clean_sheets": 24
+      }
     },
     {
       "name": "Shukron Yuldashev",
@@ -33,7 +78,39 @@
       "club": "Navbahor Namangan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "FC Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Loko Tashkent",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 77,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valizhon Rakhimov",
@@ -43,7 +120,55 @@
       "club": "Navbahor Namangan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lokomotiv BFK",
+          "year": "2017"
+        },
+        {
+          "club": "Sultanorhanspor",
+          "year": "2017"
+        },
+        {
+          "club": "1920 Maras Spor",
+          "year": "2018"
+        },
+        {
+          "club": "Cayirova Spor",
+          "year": "2019"
+        },
+        {
+          "club": "AGMK Olmaliq",
+          "year": "2020"
+        },
+        {
+          "club": "FC Andijon",
+          "year": "2025"
+        },
+        {
+          "club": "Bunyodkor",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 99,
+        "clean_sheets": 20
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 1
+      }
     }
   ],
   "defenders": [
@@ -53,9 +178,57 @@
       "age": 28,
       "nationality": "Georgia",
       "club": "Navbahor Namangan",
-      "appearances": 20,
+      "appearances": 4,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2015"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2020"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2021"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2023"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2023"
+        },
+        {
+          "club": "Chernomorets N.",
+          "year": "2024"
+        },
+        {
+          "club": "Orenburg",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dilshod Komilov",
@@ -65,7 +238,51 @@
       "club": "Navbahor Namangan",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Tashkent",
+          "year": "2020"
+        },
+        {
+          "club": "FC Andijon",
+          "year": "2023"
+        },
+        {
+          "club": "Loko Tashkent",
+          "year": "2024"
+        },
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2024"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Jgerenaia",
@@ -73,9 +290,65 @@
       "age": 32,
       "nationality": "Georgia",
       "club": "Navbahor Namangan",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Illichivets",
+          "year": "2013"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2013"
+        },
+        {
+          "club": "MFC Mykolaiv",
+          "year": "2013"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2014"
+        },
+        {
+          "club": "Dynamo-2 Kyiv",
+          "year": "2016"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2016"
+        },
+        {
+          "club": "Merani Tbilisi",
+          "year": "2018"
+        },
+        {
+          "club": "FC Samtredia",
+          "year": "2018"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2021"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 280,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islombek Mamatkazin",
@@ -83,9 +356,33 @@
       "age": 23,
       "nationality": "Uzbekistan",
       "club": "Navbahor Namangan",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Andijon",
+          "year": "2022"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Umar Adkhamzoda",
@@ -95,7 +392,35 @@
       "club": "Navbahor Namangan",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Neftchi",
+          "year": "2020"
+        },
+        {
+          "club": "Pakhtakor",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 9,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaloliddin Sodikov",
@@ -104,8 +429,40 @@
       "nationality": "Uzbekistan",
       "club": "Navbahor Namangan",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2023"
+        },
+        {
+          "club": "FC Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saidazamat Mirsaidov",
@@ -115,7 +472,35 @@
       "club": "Navbahor Namangan",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "FC Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zafarbek Rakhimjonov",
@@ -125,7 +510,27 @@
       "club": "Navbahor Namangan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -137,7 +542,63 @@
       "club": "Navbahor Namangan",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Gagra",
+          "year": "2012"
+        },
+        {
+          "club": "Guria",
+          "year": "2014"
+        },
+        {
+          "club": "FC Algeti",
+          "year": "2014"
+        },
+        {
+          "club": "FC Imereti",
+          "year": "2015"
+        },
+        {
+          "club": "Merani Martvili",
+          "year": "2016"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2018"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2019"
+        },
+        {
+          "club": "Kazma SC",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 15,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shokhrukh Abdurakhmonov",
@@ -147,7 +608,51 @@
       "club": "Navbahor Namangan",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo",
+          "year": "2019"
+        },
+        {
+          "club": "Energetik-BGU",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo",
+          "year": "2022"
+        },
+        {
+          "club": "Bunyodkor",
+          "year": "2023"
+        },
+        {
+          "club": "Energetik-BGU",
+          "year": "2023"
+        },
+        {
+          "club": "Sogdiana",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 27,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diyor Kholmatov",
@@ -157,7 +662,31 @@
       "club": "Navbahor Namangan",
       "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pakhtakor",
+          "year": "2021"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 8,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shokhmalik Komilov",
@@ -167,7 +696,51 @@
       "club": "Navbahor Namangan",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo",
+          "year": "2022"
+        },
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2022"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2023"
+        },
+        {
+          "club": "FC Buxoro",
+          "year": "2024"
+        },
+        {
+          "club": "Merani Martvili",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 15,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kuvondik Ruziev",
@@ -177,7 +750,55 @@
       "club": "Navbahor Namangan",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Tashkent",
+          "year": "2014"
+        },
+        {
+          "club": "Kokand 1912",
+          "year": "2017"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2021"
+        },
+        {
+          "club": "Kokand 1912",
+          "year": "2022"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2023"
+        },
+        {
+          "club": "Sri Pahang",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 304,
+        "goals": 11,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sherzod Gulomzhonov",
@@ -186,8 +807,56 @@
       "nationality": "Uzbekistan",
       "club": "Navbahor Namangan",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navbahor",
+          "year": "2020"
+        },
+        {
+          "club": "FC Andijon",
+          "year": "2021"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2021"
+        },
+        {
+          "club": "Xorazm FС",
+          "year": "2022"
+        },
+        {
+          "club": "Shurtan",
+          "year": "2022"
+        },
+        {
+          "club": "Navbahor-Farm",
+          "year": "2023"
+        },
+        {
+          "club": "Xorazm FС",
+          "year": "2024"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -199,7 +868,47 @@
       "club": "Navbahor Namangan",
       "appearances": 4,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2023"
+        },
+        {
+          "club": "FC Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2024"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 22,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukhammadali Usmonov",
@@ -207,9 +916,41 @@
       "age": 21,
       "nationality": "Uzbekistan",
       "club": "Navbahor Namangan",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pakhtakor",
+          "year": "2024"
+        },
+        {
+          "club": "FC Andijon",
+          "year": "2025"
+        },
+        {
+          "club": "Pakhtakor",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vanja Ilic",
@@ -217,9 +958,53 @@
       "age": 27,
       "nationality": "Serbia",
       "club": "Navbahor Namangan",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rad",
+          "year": "2018"
+        },
+        {
+          "club": "Zarkovo",
+          "year": "2021"
+        },
+        {
+          "club": "Radnicki Nis",
+          "year": "2021"
+        },
+        {
+          "club": "Zarkovo",
+          "year": "2022"
+        },
+        {
+          "club": "Kolubara",
+          "year": "2022"
+        },
+        {
+          "club": "Radnicki Nis",
+          "year": "2023"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 21,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abbos Gulomov",
@@ -229,7 +1014,43 @@
       "club": "Navbahor Namangan",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navbahor",
+          "year": "2019"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2022"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2022"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2023"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 21,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Fernandes",
@@ -239,7 +1060,47 @@
       "club": "Navbahor Namangan",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cherno More",
+          "year": "2022"
+        },
+        {
+          "club": "Baltika",
+          "year": "2024"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2025"
+        },
+        {
+          "club": "Baltika",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        },
+        {
+          "club": "Baltika",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 23,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khusayin Norchaev",
@@ -247,9 +1108,49 @@
       "age": 24,
       "nationality": "Uzbekistan",
       "club": "Navbahor Namangan",
-      "appearances": 5,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2020"
+        },
+        {
+          "club": "Alania Vl.",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2024"
+        },
+        {
+          "club": "Alania Vl.",
+          "year": "2024"
+        },
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 62,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Katulondi Kati",
@@ -259,7 +1160,39 @@
       "club": "Navbahor Namangan",
       "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DC Motema Pembe",
+          "year": "2021"
+        },
+        {
+          "club": "Hassania",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 20,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukhammadali Giyosov",
@@ -269,17 +1202,113 @@
       "club": "Navbahor Namangan",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Buxoro",
+          "year": "2020"
+        },
+        {
+          "club": "FC Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "FC Buxoro",
+          "year": "2022"
+        },
+        {
+          "club": "FC Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2025"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 21,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zabikhillo Urinboev",
       "position": "Centre-Forward",
-      "age": 30,
+      "age": 31,
       "nationality": "Uzbekistan",
       "club": "Navbahor Namangan",
       "appearances": 4,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bunyodkor",
+          "year": "2014"
+        },
+        {
+          "club": "Olmaliq",
+          "year": "2017"
+        },
+        {
+          "club": "Pakhtakor",
+          "year": "2017"
+        },
+        {
+          "club": "Metallurg Bk.",
+          "year": "2018"
+        },
+        {
+          "club": "Pakhtakor",
+          "year": "2018"
+        },
+        {
+          "club": "Tokushima Vort.",
+          "year": "2019"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2020"
+        },
+        {
+          "club": "Metallurg Bk.",
+          "year": "2022"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 258,
+        "goals": 36,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

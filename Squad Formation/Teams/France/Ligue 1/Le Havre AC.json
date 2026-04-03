@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -64,7 +65,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 368,
+        "clean_sheets": 53
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 3
+      }
     },
     {
       "name": "Lionel Mpasi-Nzau",
@@ -92,7 +107,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 194,
+        "clean_sheets": 51
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 17,
+        "clean_sheets": 11
+      }
     },
     {
       "name": "Paul Argney",
@@ -100,7 +129,7 @@
       "age": 19,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -116,7 +145,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 66,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -126,7 +169,7 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "Le Havre AC",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -134,7 +177,51 @@
           "club": "Le Havre AC",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Stephan Zagadou",
+      "position": "Centre-Back",
+      "age": 17,
+      "nationality": "France",
+      "club": "Le Havre AC",
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Le Havre AC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gautier Lloris",
@@ -142,7 +229,7 @@
       "age": 30,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -166,7 +253,21 @@
           "club": "Le Havre AC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Étienne Youté Kinkoué",
@@ -182,23 +283,21 @@
           "club": "Le Havre AC",
           "year": "2023"
         }
-      ]
-    },
-    {
-      "name": "Stephan Zagadou",
-      "position": "Centre-Back",
-      "age": 17,
-      "nationality": "France",
-      "club": "Le Havre AC",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "Le Havre AC",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yanis Zouaoui",
@@ -234,7 +333,21 @@
           "club": "Le Havre AC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 10,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Koffi",
@@ -242,7 +355,7 @@
       "age": 20,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -250,7 +363,21 @@
           "club": "Le Havre AC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fodé Doucouré",
@@ -278,7 +405,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Timothée Pembélé",
@@ -286,7 +427,7 @@
       "age": 23,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -322,7 +463,21 @@
           "club": "Sunderland",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 14,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Loïc Nego",
@@ -330,7 +485,7 @@
       "age": 35,
       "nationality": "Hungary",
       "club": "Le Havre AC",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -374,7 +529,21 @@
           "club": "Le Havre AC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 488,
+        "goals": 49,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -384,7 +553,7 @@
       "age": 22,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 14,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -416,7 +585,21 @@
           "club": "Salzburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayumu Seko",
@@ -440,7 +623,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulaye Touré",
@@ -480,7 +677,21 @@
           "club": "Le Havre AC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 29,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daren Mosengo",
@@ -488,7 +699,7 @@
       "age": 19,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -500,27 +711,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Yassine Kechta",
-      "position": "Central Midfield",
-      "age": 24,
-      "nationality": "Morocco",
-      "club": "Le Havre AC",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 1,
-      "transfer_history": [
-        {
-          "club": "Le Havre Youth",
-          "year": "2016"
-        },
-        {
-          "club": "Le Havre AC",
-          "year": "2022"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rassoul Ndiaye",
@@ -528,7 +733,7 @@
       "age": 24,
       "nationality": "Senegal",
       "club": "Le Havre AC",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 4,
       "assists": 3,
       "transfer_history": [
@@ -544,7 +749,55 @@
           "club": "Le Havre AC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 204,
+        "goals": 15,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Yassine Kechta",
+      "position": "Central Midfield",
+      "age": 24,
+      "nationality": "Morocco",
+      "club": "Le Havre AC",
+      "appearances": 25,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Le Havre Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 15,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simon Ebonog",
@@ -552,7 +805,7 @@
       "age": 21,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -572,7 +825,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guy-Noël Zohouri",
@@ -588,7 +855,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sofiane Boufal",
@@ -596,9 +877,9 @@
       "age": 32,
       "nationality": "Morocco",
       "club": "Le Havre AC",
-      "appearances": 25,
+      "appearances": 10,
       "goals": 0,
-      "assists": 5,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Angers SCO",
@@ -636,7 +917,21 @@
           "club": "Le Havre AC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 44,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reda Khadra",
@@ -644,7 +939,7 @@
       "age": 24,
       "nationality": "Germany",
       "club": "Le Havre AC",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -676,7 +971,21 @@
           "club": "Stade Reims",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 16,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -686,7 +995,7 @@
       "age": 25,
       "nationality": "Senegal",
       "club": "Le Havre AC",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 6,
       "assists": 2,
       "transfer_history": [
@@ -722,7 +1031,21 @@
           "club": "Le Havre AC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 29,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felix Mambimbi",
@@ -754,7 +1077,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 55,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Godson Kyeremeh",
@@ -762,7 +1099,7 @@
       "age": 25,
       "nationality": "France",
       "club": "Le Havre AC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -782,7 +1119,81 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 35,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Kenny Quetant",
+      "position": "Centre-Forward",
+      "age": 19,
+      "nationality": "France",
+      "club": "Le Havre AC",
+      "appearances": 9,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Le Havre AC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Noam Obougou",
+      "position": "Centre-Forward",
+      "age": 20,
+      "nationality": "France",
+      "club": "Le Havre AC",
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Le Havre AC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ally Samatta",
@@ -846,39 +1257,21 @@
           "club": "Le Havre AC",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Noam Obougou",
-      "position": "Centre-Forward",
-      "age": 20,
-      "nationality": "France",
-      "club": "Le Havre AC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "Le Havre AC",
-          "year": "2026"
-        }
-      ]
-    },
-    {
-      "name": "Kenny Quetant",
-      "position": "Centre-Forward",
-      "age": 19,
-      "nationality": "France",
-      "club": "Le Havre AC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "Le Havre AC",
-          "year": "2026"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 441,
+        "goals": 127,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 79,
+        "goals": 19,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

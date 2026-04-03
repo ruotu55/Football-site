@@ -196,7 +196,7 @@ export function playWelcomeShortsLanding() {
 }
 
 export function playRules(quizType) {
-  if (quizType === "player-by-career" || quizType === "placholder") {
+  if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
     playVoice(paths.guessCareer, 1000);
   } else if (quizType === "club-by-nat") {
     playVoice(paths.guessNat, 1000);

@@ -9,22 +9,13 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "JPL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
-    {
-      "name": "Daveigh Payton",
-      "position": "Goalkeeper",
-      "age": 22,
-      "nationality": "Jamaica",
-      "club": "Portmore United FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Robert Henry",
       "position": "Goalkeeper",
@@ -33,7 +24,47 @@
       "club": "Portmore United FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Daveigh Payton",
+      "position": "Goalkeeper",
+      "age": 22,
+      "nationality": "Jamaica",
+      "club": "Portmore United FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Russell",
@@ -41,9 +72,37 @@
       "age": 25,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 24,
+      "appearances": 28,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Manchester High",
+          "year": "2019"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2022"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 54,
+        "clean_sheets": 30
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +112,24 @@
       "age": 24,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 23,
+      "appearances": 25,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gawain Austin",
@@ -65,7 +139,35 @@
       "club": "Portmore United FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mount Pleasant",
+          "year": "2023"
+        },
+        {
+          "club": "Chapelton",
+          "year": "2024"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emelio Rosseau",
@@ -73,9 +175,29 @@
       "age": 26,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 16,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 11,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akeem Mullings",
@@ -83,9 +205,33 @@
       "age": 26,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 23,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2019"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tarick Ximines",
@@ -93,9 +239,37 @@
       "age": 21,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 16,
-      "goals": 2,
-      "assists": 0
+      "appearances": 20,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mount Pleasant",
+          "year": "2022"
+        },
+        {
+          "club": "Jong Cercle",
+          "year": "2023"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 13,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rogel Wright",
@@ -105,7 +279,22 @@
       "club": "Portmore United FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clayton Peck",
@@ -113,9 +302,24 @@
       "age": 21,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 16,
+      "appearances": 19,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +329,29 @@
       "age": 29,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 14,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Brown",
@@ -135,9 +359,37 @@
       "age": 29,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 27,
+      "appearances": 31,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Reno FC",
+          "year": "2018"
+        },
+        {
+          "club": "Vere United FC",
+          "year": "2019"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 20,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramone Howell",
@@ -145,9 +397,65 @@
       "age": 30,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 23,
+      "appearances": 27,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Crusaders",
+          "year": "2014"
+        },
+        {
+          "club": "Des Moines",
+          "year": "2016"
+        },
+        {
+          "club": "Crusaders",
+          "year": "2016"
+        },
+        {
+          "club": "Nashville SC",
+          "year": "2018"
+        },
+        {
+          "club": "Phoenix Rising",
+          "year": "2019"
+        },
+        {
+          "club": "FC Tucson",
+          "year": "2019"
+        },
+        {
+          "club": "FC Tucson",
+          "year": "2020"
+        },
+        {
+          "club": "Waterhouse",
+          "year": "2021"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2023"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Romario Guthrie",
@@ -155,9 +463,37 @@
       "age": 27,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 19,
+      "appearances": 24,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arnett Gardens",
+          "year": "2019"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2023"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 15,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jahein Rose",
@@ -165,9 +501,24 @@
       "age": 23,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shande James",
@@ -177,7 +528,39 @@
       "club": "Portmore United FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2020"
+        },
+        {
+          "club": "Arnett Gardens",
+          "year": "2022"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2023"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zion Richards",
@@ -187,17 +570,27 @@
       "club": "Portmore United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Markland Burton",
-      "position": "",
-      "age": 21,
-      "nationality": "Jamaica",
-      "club": "Portmore United FC",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marques Reid",
@@ -205,9 +598,37 @@
       "age": 22,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "URSL Visé",
+          "year": "2023"
+        },
+        {
+          "club": "Phoenix Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamari Morrison",
@@ -216,8 +637,44 @@
       "nationality": "Jamaica",
       "club": "Portmore United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Chapelton",
+          "year": "2022"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        },
+        {
+          "club": "Humble Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alphanso Troupe",
@@ -227,7 +684,22 @@
       "club": "Portmore United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rashaun Small",
@@ -235,9 +707,24 @@
       "age": 21,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tedj Bryan",
@@ -245,9 +732,63 @@
       "age": 23,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Markland Burton",
+      "position": "",
+      "age": 21,
+      "nationality": "Jamaica",
+      "club": "Portmore United FC",
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tivoli Gardens",
+          "year": "2023"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nickoy Gayle",
@@ -255,12 +796,100 @@
       "age": 20,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 20,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
+    {
+      "name": "Orlando Russell",
+      "position": "Right Winger",
+      "age": 24,
+      "nationality": "Jamaica",
+      "club": "Portmore United FC",
+      "appearances": 24,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ronaldo Robinson",
+      "position": "Right Winger",
+      "age": 24,
+      "nationality": "Jamaica",
+      "club": "Portmore United FC",
+      "appearances": 28,
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2023"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2024"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 14,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Venton Evans",
       "position": "Right Winger",
@@ -269,27 +898,51 @@
       "club": "Portmore United FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Orlando Russell",
-      "position": "Right Winger",
-      "age": 24,
-      "nationality": "Jamaica",
-      "club": "Portmore United FC",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 0
-    },
-    {
-      "name": "Ronaldo Robinson",
-      "position": "Right Winger",
-      "age": 24,
-      "nationality": "Jamaica",
-      "club": "Portmore United FC",
-      "appearances": 24,
-      "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2017"
+        },
+        {
+          "club": "UWI FC",
+          "year": "2020"
+        },
+        {
+          "club": "Fort Lauderdale",
+          "year": "2021"
+        },
+        {
+          "club": "Greenville",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Fort Wayne",
+          "year": "2025"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Peter McGregor",
@@ -297,9 +950,57 @@
       "age": 25,
       "nationality": "Jamaica",
       "club": "Portmore United FC",
-      "appearances": 22,
+      "appearances": 25,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Djurgården",
+          "year": "2021"
+        },
+        {
+          "club": "Åtvidabergs FF",
+          "year": "2021"
+        },
+        {
+          "club": "Duhaney Park",
+          "year": "2021"
+        },
+        {
+          "club": "Dunbeholden FC",
+          "year": "2022"
+        },
+        {
+          "club": "Valeo Nazaré",
+          "year": "2023"
+        },
+        {
+          "club": "Athlone Town",
+          "year": "2024"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 21,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Reid",
@@ -308,8 +1009,36 @@
       "nationality": "Jamaica",
       "club": "Portmore United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kewayne McLeish",
@@ -318,8 +1047,23 @@
       "nationality": "Jamaica",
       "club": "Portmore United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

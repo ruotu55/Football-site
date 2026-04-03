@@ -51,7 +51,7 @@ export function renderLevelsReorderList() {
         const playerLabel = lvl.careerPlayer && typeof lvl.careerPlayer.name === "string"
             ? lvl.careerPlayer.name.trim()
             : "";
-        name.textContent = playerLabel || `Question ${i - 1}`;
+        name.textContent = playerLabel;
 
         item.append(num, name);
 

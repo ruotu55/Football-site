@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,63 @@
       "club": "Al-Hazem SC",
       "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2007"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2015"
+        },
+        {
+          "club": "Benfica",
+          "year": "2016"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2016"
+        },
+        {
+          "club": "Benfica",
+          "year": "2017"
+        },
+        {
+          "club": "Ajax",
+          "year": "2019"
+        },
+        {
+          "club": "Benfica",
+          "year": "2019"
+        },
+        {
+          "club": "Benfica",
+          "year": "2020"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 415,
+        "clean_sheets": 112
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 13,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Ibrahim Zaied",
@@ -31,9 +88,53 @@
       "age": 36,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Washm",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 179,
+        "clean_sheets": 32
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majed Al-Ghamdi",
@@ -43,7 +144,55 @@
       "club": "Al-Hazem SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Jeel",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2022"
+        },
+        {
+          "club": "Ohod Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Jeel",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +202,69 @@
       "age": 28,
       "nationality": "Morocco",
       "club": "Al-Hazem SC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kénitra",
+          "year": "2017"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2018"
+        },
+        {
+          "club": "Union SG",
+          "year": "2020"
+        },
+        {
+          "club": "SCC Mohammédia",
+          "year": "2020"
+        },
+        {
+          "club": "Union SG",
+          "year": "2021"
+        },
+        {
+          "club": "SCC Mohammédia",
+          "year": "2021"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2022"
+        },
+        {
+          "club": "SCC Mohammédia",
+          "year": "2022"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2022"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sultan Tunkar",
@@ -63,9 +272,61 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shoulla",
+          "year": "2019"
+        },
+        {
+          "club": "Jeddah SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Kawkab",
+          "year": "2020"
+        },
+        {
+          "club": "Jeddah SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        },
+        {
+          "club": "Jeddah SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Al-Dakheel",
@@ -73,9 +334,37 @@
       "age": 29,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hazem",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Taqadom",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Shanqiti",
@@ -83,9 +372,45 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Nassr",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Raed",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Nassr",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Ammar",
@@ -93,9 +418,49 @@
       "age": 32,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 11,
+      "goals": 13,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fateh",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Fateh",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2019"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 10,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Al-Nakhli",
@@ -103,9 +468,37 @@
       "age": 24,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Kholood",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saud Al-Rashid",
@@ -113,9 +506,33 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Kholood",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulaziz Al-Harbi",
@@ -123,9 +540,29 @@
       "age": 22,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Hazem",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,19 +572,75 @@
       "age": 27,
       "nationality": "France",
       "club": "Al-Hazem SC",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estoril",
+          "year": "2020"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 20,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Yami",
       "position": "Defensive Midfield",
-      "age": 23,
+      "age": 24,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Najran SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Al-Khaibary",
@@ -157,7 +650,51 @@
       "club": "Al-Hazem SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shoulla",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Kawkab",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Orobah",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Najma",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssouf Oumarou",
@@ -165,9 +702,85 @@
       "age": 33,
       "nationality": "Niger",
       "club": "Al-Hazem SC",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS FAN",
+          "year": "2013"
+        },
+        {
+          "club": "US Bitam",
+          "year": "2015"
+        },
+        {
+          "club": "AS FAN",
+          "year": "2015"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2017"
+        },
+        {
+          "club": "DRB Tadjenanet",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Kénitra",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "AS GNN",
+          "year": "2020"
+        },
+        {
+          "club": "FC San Pedro",
+          "year": "2020"
+        },
+        {
+          "club": "US Monastir",
+          "year": "2021"
+        },
+        {
+          "club": "Esperance",
+          "year": "2023"
+        },
+        {
+          "club": "Stade Tunisien",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Karma",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 40,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aboubacar Bah",
@@ -175,9 +788,33 @@
       "age": 20,
       "nationality": "Guinea",
       "club": "Al-Hazem SC",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "ES Metlaoui",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Saedi",
@@ -187,7 +824,27 @@
       "club": "Al-Hazem SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Sayoud",
@@ -195,9 +852,97 @@
       "age": 35,
       "nationality": "Algeria",
       "club": "Al-Hazem SC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli (UAE)",
+          "year": "2008"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2009"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2010"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2010"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2011"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2011"
+        },
+        {
+          "club": "MC Algiers",
+          "year": "2012"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2012"
+        },
+        {
+          "club": "Without Club",
+          "year": "2012"
+        },
+        {
+          "club": "Beroe",
+          "year": "2013"
+        },
+        {
+          "club": "CS Sfaxien",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "DRB Tadjenanet",
+          "year": "2015"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2016"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Raed",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 352,
+        "goals": 87,
+        "assists": 65,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Carvalho",
@@ -205,9 +950,45 @@
       "age": 21,
       "nationality": "Spain",
       "club": "Al-Hazem SC",
-      "appearances": 16,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Espanyol Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2025"
+        },
+        {
+          "club": "Mérida AD",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulhadi Al-Harajin",
@@ -215,9 +996,57 @@
       "age": 31,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hajer",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Jabalain",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Riyadh",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulaziz Al-Dwehe",
@@ -225,9 +1054,65 @@
       "age": 25,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Future Falcons",
+          "year": "2019"
+        },
+        {
+          "club": "Future Falcons",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shoulla",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2022"
+        },
+        {
+          "club": "Jeddah SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2023"
+        },
+        {
+          "club": "Jeddah SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1122,85 @@
       "age": 32,
       "nationality": "Portugal",
       "club": "Al-Hazem SC",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 5,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Porto U15",
+          "year": "2006"
+        },
+        {
+          "club": "Desportivo Aves",
+          "year": "2013"
+        },
+        {
+          "club": "Braga",
+          "year": "2015"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2015"
+        },
+        {
+          "club": "Braga",
+          "year": "2016"
+        },
+        {
+          "club": "Chaves",
+          "year": "2016"
+        },
+        {
+          "club": "Braga",
+          "year": "2017"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2019"
+        },
+        {
+          "club": "Braga",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2020"
+        },
+        {
+          "club": "Braga",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 435,
+        "goals": 96,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nawaf Al-Habashi",
@@ -247,9 +1208,49 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 3
+      "appearances": 25,
+      "goals": 4,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Diraiyah FC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Riyadh",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 16,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousef Al-Shammari",
@@ -259,7 +1260,31 @@
       "club": "Al-Hazem SC",
       "appearances": 15,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Batin",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 21,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrazzaq Awaji",
@@ -269,7 +1294,27 @@
       "club": "Al-Hazem SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hazem",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elias Mokwana",
@@ -277,9 +1322,45 @@
       "age": 26,
       "nationality": "South Africa",
       "club": "Al-Hazem SC",
-      "appearances": 18,
+      "appearances": 16,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Platinum City",
+          "year": "2020"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2022"
+        },
+        {
+          "club": "Esperance",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        },
+        {
+          "club": "Esperance",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 15,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Al-Shamrani",
@@ -287,19 +1368,95 @@
       "age": 24,
       "nationality": "Saudi Arabia",
       "club": "Al-Hazem SC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Al-Somah",
       "position": "Centre-Forward",
-      "age": 36,
+      "age": 37,
       "nationality": "Syria",
       "club": "Al-Hazem SC",
-      "appearances": 20,
-      "goals": 7,
-      "assists": 1
+      "appearances": 18,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fotuwa SC",
+          "year": "2008"
+        },
+        {
+          "club": "Qadsia SC",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Orobah",
+          "year": "2025"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 348,
+        "goals": 267,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 22,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

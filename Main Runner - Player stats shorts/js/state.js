@@ -169,7 +169,7 @@ export function initLevels(count) {
       isIntro: i === 1,
       isBonus: i === count + 2,
       isOutro: i === count + 3,
-      gameMode: "placeholder",
+      gameMode: "career",
       squadType: els.squadType ? els.squadType.value : "club",
       selectedEntry: null,
       currentSquad: null,

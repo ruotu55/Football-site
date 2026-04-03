@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 23,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -28,7 +29,21 @@
           "club": "Paris FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 143,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Kevin Trapp",
@@ -68,7 +83,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 598,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 766,
+        "clean_sheets": 177
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 13,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Rémy Riou",
@@ -124,7 +153,21 @@
           "club": "Paris FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 378,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 432,
+        "clean_sheets": 131
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -134,7 +177,7 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Paris FC",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -158,7 +201,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Coppola",
@@ -166,9 +223,9 @@
       "age": 22,
       "nationality": "Italy",
       "club": "Paris FC",
-      "appearances": 16,
+      "appearances": 6,
       "goals": 0,
-      "assists": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Hellas Verona",
@@ -186,7 +243,21 @@
           "club": "Brighton",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moustapha Mbow",
@@ -194,7 +265,7 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "Paris FC",
-      "appearances": 29,
+      "appearances": 26,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -222,7 +293,21 @@
           "club": "Paris FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samir Chergui",
@@ -246,7 +331,21 @@
           "club": "Paris FC",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Timothée Kolodziejczak",
@@ -254,7 +353,7 @@
       "age": 34,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -318,7 +417,21 @@
           "club": "Paris FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 405,
+        "goals": 21,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nhoa Sangui",
@@ -326,7 +439,7 @@
       "age": 20,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -342,7 +455,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thibault De Smet",
@@ -350,7 +477,7 @@
       "age": 27,
       "nationality": "Belgium",
       "club": "Paris FC",
-      "appearances": 18,
+      "appearances": 16,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -386,7 +513,21 @@
           "club": "Stade Reims",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 1,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tuomas Ollila",
@@ -394,7 +535,7 @@
       "age": 25,
       "nationality": "Finland",
       "club": "Paris FC",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -418,7 +559,21 @@
           "club": "Paris FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 202,
+        "goals": 24,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamari Traoré",
@@ -458,7 +613,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 440,
+        "goals": 11,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sofiane Alakouch",
@@ -466,8 +635,8 @@
       "age": 27,
       "nationality": "Morocco",
       "club": "Paris FC",
-      "appearances": 0,
-      "goals": 0,
+      "appearances": 4,
+      "goals": 12,
       "assists": 0,
       "transfer_history": [
         {
@@ -498,7 +667,21 @@
           "club": "Paris FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 2,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -508,7 +691,7 @@
       "age": 28,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
       "assists": 3,
       "transfer_history": [
@@ -540,7 +723,21 @@
           "club": "Paris FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 367,
+        "goals": 17,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pierre Lees-Melou",
@@ -576,7 +773,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 55,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adama Camara",
@@ -584,7 +795,7 @@
       "age": 29,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -604,7 +815,55 @@
           "club": "Paris FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 23,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Rudy Matondo",
+      "position": "Central Midfield",
+      "age": 18,
+      "nationality": "France",
+      "club": "Paris FC",
+      "appearances": 21,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AJ Auxerre",
+          "year": "2025"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marshall Munetsi",
@@ -612,9 +871,9 @@
       "age": 29,
       "nationality": "Zimbabwe",
       "club": "Paris FC",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 2,
+      "appearances": 10,
+      "goals": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "FC Cape Town",
@@ -652,27 +911,21 @@
           "club": "Wolves",
           "year": "2026"
         }
-      ]
-    },
-    {
-      "name": "Rudy Matondo",
-      "position": "Central Midfield",
-      "age": 18,
-      "nationality": "France",
-      "club": "Paris FC",
-      "appearances": 23,
-      "goals": 0,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "AJ Auxerre",
-          "year": "2025"
-        },
-        {
-          "club": "Paris FC",
-          "year": "2026"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 31,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vincent Marchetti",
@@ -680,7 +933,7 @@
       "age": 28,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -700,7 +953,21 @@
           "club": "Paris FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 16,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -742,7 +1009,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 422,
+        "goals": 79,
+        "assists": 72,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 96,
+        "goals": 12,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alimami Gory",
@@ -750,7 +1031,7 @@
       "age": 29,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -782,7 +1063,21 @@
           "club": "Paris FC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 312,
+        "goals": 64,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julien Lopez",
@@ -790,7 +1085,7 @@
       "age": 34,
       "nationality": "Algeria",
       "club": "Paris FC",
-      "appearances": 7,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -814,7 +1109,21 @@
           "club": "Paris FC",
           "year": "2017"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 55,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilan Kebbal",
@@ -822,9 +1131,9 @@
       "age": 27,
       "nationality": "Algeria",
       "club": "Paris FC",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 8,
-      "assists": 5,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Côte Bleue",
@@ -858,7 +1167,63 @@
           "club": "Paris FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 256,
+        "goals": 37,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Luca Koleosho",
+      "position": "Right Winger",
+      "age": 21,
+      "nationality": "Italy",
+      "club": "Paris FC",
+      "appearances": 9,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Burnley",
+          "year": "2023"
+        },
+        {
+          "club": "Espanyol",
+          "year": "2025"
+        },
+        {
+          "club": "Burnley",
+          "year": "2026"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Ikoné",
@@ -866,8 +1231,8 @@
       "age": 27,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 20,
-      "goals": 5,
+      "appearances": 17,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -910,35 +1275,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Luca Koleosho",
-      "position": "Right Winger",
-      "age": 21,
-      "nationality": "Italy",
-      "club": "Paris FC",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "Burnley",
-          "year": "2023"
-        },
-        {
-          "club": "Espanyol",
-          "year": "2025"
-        },
-        {
-          "club": "Burnley",
-          "year": "2026"
-        },
-        {
-          "club": "Paris FC",
-          "year": "2026"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 402,
+        "goals": 53,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathieu Cafaro",
@@ -946,7 +1297,7 @@
       "age": 29,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -982,7 +1333,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 45,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lamine Gueye",
@@ -990,9 +1355,9 @@
       "age": 28,
       "nationality": "Senegal",
       "club": "Paris FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Pau FC",
@@ -1018,7 +1383,21 @@
           "club": "Paris FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 36,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Willem Geubbels",
@@ -1026,9 +1405,9 @@
       "age": 24,
       "nationality": "France",
       "club": "Paris FC",
-      "appearances": 24,
-      "goals": 6,
-      "assists": 1,
+      "appearances": 18,
+      "goals": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Lyon",
@@ -1054,7 +1433,21 @@
           "club": "Paris FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 43,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean-Philippe Krasso",
@@ -1062,7 +1455,7 @@
       "age": 28,
       "nationality": "Ivory Coast",
       "club": "Paris FC",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -1102,7 +1495,21 @@
           "club": "Paris FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 82,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ciro Immobile",
@@ -1110,7 +1517,7 @@
       "age": 36,
       "nationality": "Italy",
       "club": "Paris FC",
-      "appearances": 17,
+      "appearances": 7,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -1198,7 +1605,21 @@
           "club": "Paris FC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 651,
+        "goals": 349,
+        "assists": 80,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 57,
+        "goals": 17,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pierre-Yves Hamel",
@@ -1230,7 +1651,21 @@
           "club": "Paris FC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 293,
+        "goals": 92,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

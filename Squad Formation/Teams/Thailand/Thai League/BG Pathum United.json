@@ -9,21 +9,50 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "THA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Saranon Anuin",
       "position": "Goalkeeper",
-      "age": 31,
+      "age": 32,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 30,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Swat Cat",
+          "year": "2015"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 190,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 215,
+        "clean_sheets": 61
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 5
+      }
     },
     {
       "name": "Nalawich Inthacharoen",
@@ -31,9 +60,49 @@
       "age": 22,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangmai FC",
+          "year": "2020"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Nakhonsi Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Tampines Res.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 22,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pisan Dorkmaikaew",
@@ -41,9 +110,85 @@
       "age": 41,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nakhonpathom",
+          "year": "2005"
+        },
+        {
+          "club": "Suphanburi FC",
+          "year": "2007"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2008"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2014"
+        },
+        {
+          "club": "Saraburi",
+          "year": "2015"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Chainat FC",
+          "year": "2016"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Bangkok Glass",
+          "year": "2017"
+        },
+        {
+          "club": "Air Force",
+          "year": "2018"
+        },
+        {
+          "club": "Customs Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Uthai Thani",
+          "year": "2020"
+        },
+        {
+          "club": "Swat Cat",
+          "year": "2021"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2023"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 262,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 410,
+        "clean_sheets": 61
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chanasorn Kaewyos",
@@ -53,7 +198,27 @@
       "club": "BG Pathum United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +228,57 @@
       "age": 32,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 9,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lunds BK",
+          "year": "2013"
+        },
+        {
+          "club": "FC Rosengård",
+          "year": "2014"
+        },
+        {
+          "club": "Songkhla Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Port FC",
+          "year": "2017"
+        },
+        {
+          "club": "Bali United",
+          "year": "2023"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 17,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Takaki Ose",
@@ -73,9 +286,49 @@
       "age": 30,
       "nationality": "Cambodia",
       "club": "BG Pathum United",
-      "appearances": 27,
+      "appearances": 16,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "HBO Tokyo",
+          "year": "2018"
+        },
+        {
+          "club": "Pietà Hotspurs",
+          "year": "2018"
+        },
+        {
+          "club": "Ahli Sidab",
+          "year": "2019"
+        },
+        {
+          "club": "Angkor Tiger",
+          "year": "2019"
+        },
+        {
+          "club": "Phnom Penh",
+          "year": "2020"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 1,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nika Sandokhadze",
@@ -83,19 +336,119 @@
       "age": 32,
       "nationality": "Georgia",
       "club": "BG Pathum United",
-      "appearances": 32,
-      "goals": 3,
-      "assists": 1
+      "appearances": 23,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2013"
+        },
+        {
+          "club": "FC Locomotive",
+          "year": "2014"
+        },
+        {
+          "club": "FC Samtredia",
+          "year": "2015"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2018"
+        },
+        {
+          "club": "RFS",
+          "year": "2018"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2019"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2020"
+        },
+        {
+          "club": "FC Locomotive",
+          "year": "2020"
+        },
+        {
+          "club": "FC Locomotive",
+          "year": "2021"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2022"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 22,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chanapach Buaphan",
       "position": "Centre-Back",
-      "age": 21,
+      "age": 22,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Rajpracha FC",
+          "year": "2021"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Lamphun Warrior",
+          "year": "2022"
+        },
+        {
+          "club": "Nara Club",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nattawut Wongsawang",
@@ -103,9 +456,29 @@
       "age": 21,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathan James",
@@ -113,19 +486,79 @@
       "age": 21,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sanchai Nonthasila",
       "position": "Left-Back",
-      "age": 29,
+      "age": 30,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 2
+      "appearances": 16,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2014"
+        },
+        {
+          "club": "BCC",
+          "year": "2014"
+        },
+        {
+          "club": "Udon Thani FC",
+          "year": "2016"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2017"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2023"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 6,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Warinthon Jamnongwat",
@@ -133,9 +566,33 @@
       "age": 23,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 22,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chainat FC",
+          "year": "2020"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thanawat Pimyotha",
@@ -143,9 +600,45 @@
       "age": 25,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 1
+      "appearances": 13,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Thai Air Force",
+          "year": "2021"
+        },
+        {
+          "club": "North Bangkok",
+          "year": "2022"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Photthavong Sangvilay",
@@ -153,9 +646,37 @@
       "age": 21,
       "nationality": "Laos",
       "club": "BG Pathum United",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ezra FC",
+          "year": "2020"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Ezra FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 8,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Waris Choolthong",
@@ -163,9 +684,33 @@
       "age": 22,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 32,
+      "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rajpracha FC",
+          "year": "2021"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riku Matsuda",
@@ -173,9 +718,57 @@
       "age": 34,
       "nationality": "Japan",
       "club": "BG Pathum United",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Biwako Seikei",
+          "year": "2010"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2014"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2016"
+        },
+        {
+          "club": "Ventforet Kofu",
+          "year": "2023"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2024"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2024"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 8,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +778,37 @@
       "age": 27,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 34,
-      "goals": 2,
-      "assists": 4
+      "appearances": 20,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Phanthong FC",
+          "year": "2015"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2017"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 262,
+        "goals": 14,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sarach Yooyen",
@@ -195,9 +816,57 @@
       "age": 33,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 29,
+      "appearances": 18,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2010"
+        },
+        {
+          "club": "Phuket",
+          "year": "2011"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2011"
+        },
+        {
+          "club": "Swat Cat",
+          "year": "2013"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2013"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Reno. Yamaguchi",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 20,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 81,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gakuto Notsuda",
@@ -205,9 +874,61 @@
       "age": 31,
       "nationality": "Japan",
       "club": "BG Pathum United",
-      "appearances": 28,
+      "appearances": 19,
       "goals": 1,
-      "assists": 6
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2013"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2016"
+        },
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2017"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2017"
+        },
+        {
+          "club": "Vegalta Sendai",
+          "year": "2017"
+        },
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2019"
+        },
+        {
+          "club": "Ventforet Kofu",
+          "year": "2021"
+        },
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2022"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 406,
+        "goals": 42,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chatmongkol Tongkiri",
@@ -215,9 +936,65 @@
       "age": 28,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 29,
-      "goals": 1,
-      "assists": 2
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bangkok Glass",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2018"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Chainat FC",
+          "year": "2019"
+        },
+        {
+          "club": "Port FC",
+          "year": "2019"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Port FC",
+          "year": "2021"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pongrawit Jantawong",
@@ -225,9 +1002,69 @@
       "age": 25,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 17,
-      "goals": 1,
-      "assists": 2
+      "appearances": 12,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2019"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Sisaket FC",
+          "year": "2021"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2021"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Chanthaburi",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 12,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chanathip Songkrasin",
@@ -235,9 +1072,123 @@
       "age": 32,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 34,
-      "goals": 6,
-      "assists": 11
+      "appearances": 20,
+      "goals": 1,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2012"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2016"
+        },
+        {
+          "club": "H. C. Sapporo",
+          "year": "2017"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "H. C. Sapporo",
+          "year": "2019"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2022"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 389,
+        "goals": 53,
+        "assists": 93,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 74,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Lucas Andersen",
+      "position": "Attacking Midfield",
+      "age": 31,
+      "nationality": "Denmark",
+      "club": "BG Pathum United",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aalborg BK",
+          "year": "2011"
+        },
+        {
+          "club": "Ajax",
+          "year": "2012"
+        },
+        {
+          "club": "Ajax",
+          "year": "2016"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2016"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2018"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2019"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2019"
+        },
+        {
+          "club": "QPR",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 447,
+        "goals": 68,
+        "assists": 58,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yoshiaki Takagi",
@@ -245,9 +1196,57 @@
       "age": 33,
       "nationality": "Japan",
       "club": "BG Pathum United",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 1
+      "appearances": 7,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2011"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2011"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2014"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2015"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2017"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2017"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2018"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 477,
+        "goals": 60,
+        "assists": 73,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1256,81 @@
       "age": 26,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 37,
+      "appearances": 24,
       "goals": 4,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Chiangrai City",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2018"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2019"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Chiangmai Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Chiangrai Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2023"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Ehime FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 26,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Itthimon Tippanet",
@@ -267,9 +1338,29 @@
       "age": 18,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Surachat Sareepim",
@@ -277,9 +1368,33 @@
       "age": 39,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 24,
-      "goals": 6,
-      "assists": 2
+      "appearances": 12,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Police Utd.",
+          "year": "2005"
+        },
+        {
+          "club": "Bangkok Glass",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 66,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pichaya Chaiwarangkun",
@@ -287,9 +1402,29 @@
       "age": 16,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Witthawat Phraothaisong",
@@ -297,9 +1432,33 @@
       "age": 18,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 9,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Tampines Res.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raniel",
@@ -307,9 +1466,65 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "BG Pathum United",
-      "appearances": 8,
-      "goals": 4,
-      "assists": 1
+      "appearances": 6,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cruzeiro",
+          "year": "2016"
+        },
+        {
+          "club": "Santa Cruz-PE",
+          "year": "2016"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2017"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2019"
+        },
+        {
+          "club": "Santos",
+          "year": "2019"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2022"
+        },
+        {
+          "club": "Santos",
+          "year": "2022"
+        },
+        {
+          "club": "QD West Coast",
+          "year": "2023"
+        },
+        {
+          "club": "Khor Fakkan",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 78,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomoyuki Doi",
@@ -317,9 +1532,53 @@
       "age": 28,
       "nationality": "Japan",
       "club": "BG Pathum United",
-      "appearances": 31,
-      "goals": 11,
-      "assists": 2
+      "appearances": 20,
+      "goals": 10,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Albirex N. (S)",
+          "year": "2020"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Fujieda MYFC",
+          "year": "2022"
+        },
+        {
+          "club": "FK Bylis",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Geylang",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 98,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrik Gustavsson",
@@ -327,9 +1586,57 @@
       "age": 24,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Åtvidabergs FF",
+          "year": "2019"
+        },
+        {
+          "club": "IF Sylvia",
+          "year": "2021"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2022"
+        },
+        {
+          "club": "Nara Club",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 24,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matheus Fornazari",
@@ -337,9 +1644,81 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "BG Pathum United",
-      "appearances": 22,
-      "goals": 10,
-      "assists": 1
+      "appearances": 12,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2009"
+        },
+        {
+          "club": "Rio Preto-SP",
+          "year": "2013"
+        },
+        {
+          "club": "Marcílio Dias",
+          "year": "2014"
+        },
+        {
+          "club": "União Beltrão",
+          "year": "2016"
+        },
+        {
+          "club": "AA Francana",
+          "year": "2018"
+        },
+        {
+          "club": "Vilhena",
+          "year": "2019"
+        },
+        {
+          "club": "Flamengo-PI",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Rio Branco-PR",
+          "year": "2021"
+        },
+        {
+          "club": "GD Interclube",
+          "year": "2021"
+        },
+        {
+          "club": "Louletano",
+          "year": "2022"
+        },
+        {
+          "club": "Coimbrões",
+          "year": "2023"
+        },
+        {
+          "club": "Sukhothai FC",
+          "year": "2024"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 25,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ikhsan Fandi",
@@ -347,9 +1726,53 @@
       "age": 26,
       "nationality": "Singapore",
       "club": "BG Pathum United",
-      "appearances": 24,
-      "goals": 17,
-      "assists": 1
+      "appearances": 12,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Home United",
+          "year": "2016"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2017"
+        },
+        {
+          "club": "Raufoss",
+          "year": "2019"
+        },
+        {
+          "club": "Jerv",
+          "year": "2020"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 81,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 22,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siwakorn Ponsan",
@@ -357,9 +1780,29 @@
       "age": 18,
       "nationality": "Thailand",
       "club": "BG Pathum United",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 2
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

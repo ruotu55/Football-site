@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "TDEA"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "CD Los Chankas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unión Huaral",
+          "year": "2020"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2021"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hairo Camacho",
@@ -31,9 +60,61 @@
       "age": 31,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Municipal",
+          "year": "2015"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2017"
+        },
+        {
+          "club": "Unión Huaral",
+          "year": "2018"
+        },
+        {
+          "club": "Dep. Municipal",
+          "year": "2020"
+        },
+        {
+          "club": "Unión Comercio",
+          "year": "2021"
+        },
+        {
+          "club": "Unión Huaral",
+          "year": "2022"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2023"
+        },
+        {
+          "club": "FC San Marcos",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 163,
+        "clean_sheets": 33
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Pretel",
@@ -43,7 +124,43 @@
       "club": "CD Los Chankas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Llacuabamba",
+          "year": "2022"
+        },
+        {
+          "club": "Atlético Verdún",
+          "year": "2023"
+        },
+        {
+          "club": "Def. Porvenir",
+          "year": "2023"
+        },
+        {
+          "club": "Bentín Tacna H.",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 25,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -54,8 +171,76 @@
       "nationality": "Uruguay",
       "club": "CD Los Chankas",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 13,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rentistas",
+          "year": "2015"
+        },
+        {
+          "club": "CA Progreso",
+          "year": "2016"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2016"
+        },
+        {
+          "club": "Rampla Jrs",
+          "year": "2017"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2017"
+        },
+        {
+          "club": "Rampla Jrs",
+          "year": "2018"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2020"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2022"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2023"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 238,
+        "goals": 22,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Kaufman",
@@ -63,9 +248,61 @@
       "age": 24,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univer. Juvenil",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Pirata FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ecosem Pasco",
+          "year": "2022"
+        },
+        {
+          "club": "Comerciantes FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sport Machete",
+          "year": "2024"
+        },
+        {
+          "club": "Bentín Tacna H.",
+          "year": "2025"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Pimienta",
@@ -73,9 +310,57 @@
       "age": 34,
       "nationality": "Uruguay",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CA Progreso",
+          "year": "2013"
+        },
+        {
+          "club": "Universidad O&M",
+          "year": "2016"
+        },
+        {
+          "club": "Miramar",
+          "year": "2017"
+        },
+        {
+          "club": "Cerrito",
+          "year": "2019"
+        },
+        {
+          "club": "CD Águila",
+          "year": "2023"
+        },
+        {
+          "club": "Colón FC",
+          "year": "2024"
+        },
+        {
+          "club": "I. de Barinas",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Héctor González",
@@ -83,9 +368,53 @@
       "age": 33,
       "nationality": "Argentina",
       "club": "CD Los Chankas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Villa Mitre",
+          "year": "2011"
+        },
+        {
+          "club": "San Telmo",
+          "year": "2021"
+        },
+        {
+          "club": "Sarmiento (R)",
+          "year": "2022"
+        },
+        {
+          "club": "Juv. Antoniana",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "San Telmo",
+          "year": "2023"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Cárdenas",
@@ -95,7 +424,27 @@
       "club": "CD Los Chankas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayrthon Quintana",
@@ -103,9 +452,41 @@
       "age": 25,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Carlos Stein",
+          "year": "2017"
+        },
+        {
+          "club": "Cienciano",
+          "year": "2021"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 1,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brayan Guevara",
@@ -115,7 +496,43 @@
       "club": "CD Los Chankas",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UTC",
+          "year": "2018"
+        },
+        {
+          "club": "Carlos Stein",
+          "year": "2020"
+        },
+        {
+          "club": "Unión Huaral",
+          "year": "2021"
+        },
+        {
+          "club": "Alianza UDH",
+          "year": "2022"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 8,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Gonzáles",
@@ -123,9 +540,49 @@
       "age": 29,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Comerciantes",
+          "year": "2018"
+        },
+        {
+          "club": "Alianza Atl.",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2022"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2023"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +592,57 @@
       "age": 27,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Cantolao",
+          "year": "2015"
+        },
+        {
+          "club": "Sport Loreto",
+          "year": "2017"
+        },
+        {
+          "club": "AD Cantolao",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Maristas",
+          "year": "2019"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2020"
+        },
+        {
+          "club": "Unión Comercio",
+          "year": "2022"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Palomino",
@@ -145,9 +650,37 @@
       "age": 30,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2021"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Velarde",
@@ -155,9 +688,53 @@
       "age": 27,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UTC",
+          "year": "2017"
+        },
+        {
+          "club": "Sport Loreto",
+          "year": "2019"
+        },
+        {
+          "club": "Alianza Atl.",
+          "year": "2020"
+        },
+        {
+          "club": "Comerciantes",
+          "year": "2021"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2022"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Quiroz",
@@ -165,9 +742,41 @@
       "age": 26,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Atlético Grau",
+          "year": "2021"
+        },
+        {
+          "club": "Alfonso Ugarte",
+          "year": "2023"
+        },
+        {
+          "club": "Comerciantes FC",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 7,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdiel Ayarza",
@@ -175,9 +784,73 @@
       "age": 33,
       "nationality": "Panama",
       "club": "CD Los Chankas",
-      "appearances": 7,
-      "goals": 4,
-      "assists": 0
+      "appearances": 8,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santa Gema",
+          "year": "2017"
+        },
+        {
+          "club": "Independiente",
+          "year": "2019"
+        },
+        {
+          "club": "Cienciano",
+          "year": "2020"
+        },
+        {
+          "club": "Independiente",
+          "year": "2021"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2022"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2023"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Cienciano",
+          "year": "2024"
+        },
+        {
+          "club": "Independiente",
+          "year": "2024"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 57,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Zarabia",
@@ -187,7 +860,31 @@
       "club": "CD Los Chankas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cusco FC",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Franco Torres",
@@ -195,9 +892,69 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "CD Los Chankas",
-      "appearances": 7,
-      "goals": 5,
-      "assists": 1
+      "appearances": 8,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Fénix",
+          "year": "2018"
+        },
+        {
+          "club": "Acassuso",
+          "year": "2019"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2021"
+        },
+        {
+          "club": "Acassuso",
+          "year": "2021"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2022"
+        },
+        {
+          "club": "Acassuso",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2023"
+        },
+        {
+          "club": "Acassuso",
+          "year": "2023"
+        },
+        {
+          "club": "CA Güemes",
+          "year": "2024"
+        },
+        {
+          "club": "Acassuso",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 18,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +964,61 @@
       "age": 31,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "León de Huánuco",
+          "year": "2015"
+        },
+        {
+          "club": "Juan Aurich",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "AD Cantolao",
+          "year": "2017"
+        },
+        {
+          "club": "Sport Huancayo",
+          "year": "2019"
+        },
+        {
+          "club": "Atlético Grau",
+          "year": "2020"
+        },
+        {
+          "club": "Cienciano",
+          "year": "2021"
+        },
+        {
+          "club": "Carlos Stein",
+          "year": "2022"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 258,
+        "goals": 43,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kenyi Barrios",
@@ -217,9 +1026,61 @@
       "age": 30,
       "nationality": "Peru",
       "club": "CD Los Chankas",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santos FC",
+          "year": "2018"
+        },
+        {
+          "club": "Unión Comercio",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Verdecocha",
+          "year": "2021"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2021"
+        },
+        {
+          "club": "Santos FC",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Coopsol",
+          "year": "2023"
+        },
+        {
+          "club": "Comerciantes",
+          "year": "2024"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2025"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 15,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Félix Espinoza",
@@ -229,7 +1090,47 @@
       "club": "CD Los Chankas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. San Martín",
+          "year": "2019"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Coopsol",
+          "year": "2021"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2021"
+        },
+        {
+          "club": "Alianza UDH",
+          "year": "2022"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Diego Ospina",
@@ -239,7 +1140,51 @@
       "club": "CD Los Chankas",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brown (Adrogué)",
+          "year": "2022"
+        },
+        {
+          "club": "Real Cartagena",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2024"
+        },
+        {
+          "club": "CD Victoria",
+          "year": "2024"
+        },
+        {
+          "club": "CBJ Cali",
+          "year": "2025"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jarlín Quintero",
@@ -247,9 +1192,77 @@
       "age": 32,
       "nationality": "Colombia",
       "club": "CD Los Chankas",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aragua FC",
+          "year": "2014"
+        },
+        {
+          "club": "Cúcuta Dep.",
+          "year": "2015"
+        },
+        {
+          "club": "Carabobo FC",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Deportivo Lara",
+          "year": "2017"
+        },
+        {
+          "club": "Dep. Hualgayoc",
+          "year": "2017"
+        },
+        {
+          "club": "UTC",
+          "year": "2019"
+        },
+        {
+          "club": "AD Cantolao",
+          "year": "2020"
+        },
+        {
+          "club": "Sport Huancayo",
+          "year": "2021"
+        },
+        {
+          "club": "Jaguares FC",
+          "year": "2022"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2023"
+        },
+        {
+          "club": "UTC",
+          "year": "2024"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 98,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marlon Torres",
@@ -257,9 +1270,49 @@
       "age": 23,
       "nationality": "Colombia",
       "club": "CD Los Chankas",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Fortaleza CEIF",
+          "year": "2021"
+        },
+        {
+          "club": "Bogotá FC",
+          "year": "2023"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Binacional",
+          "year": "2025"
+        },
+        {
+          "club": "Bentín Tacna H.",
+          "year": "2025"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Janio Pósito",
@@ -269,7 +1322,91 @@
       "club": "CD Los Chankas",
       "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sport. Cristal",
+          "year": "2007"
+        },
+        {
+          "club": "Cor. Bolognesi",
+          "year": "2009"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2009"
+        },
+        {
+          "club": "José Gálvez",
+          "year": "2011"
+        },
+        {
+          "club": "Los Caimanes",
+          "year": "2012"
+        },
+        {
+          "club": "Comerciantes",
+          "year": "2016"
+        },
+        {
+          "club": "Rosario FC",
+          "year": "2017"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2018"
+        },
+        {
+          "club": "FBC Melgar",
+          "year": "2019"
+        },
+        {
+          "club": "UTC",
+          "year": "2019"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2020"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2021"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Binacional",
+          "year": "2022"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2023"
+        },
+        {
+          "club": "Sport Huancayo",
+          "year": "2025"
+        },
+        {
+          "club": "Los Chankas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 405,
+        "goals": 115,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

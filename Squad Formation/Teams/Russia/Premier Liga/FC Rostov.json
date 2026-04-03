@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "RU1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 27,
       "nationality": "Tajikistan",
       "club": "FC Rostov",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Volga NN",
+          "year": "2016"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2017"
+        },
+        {
+          "club": "Volga NN",
+          "year": "2017"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2018"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 128,
+        "clean_sheets": 53
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 54,
+        "clean_sheets": 18
+      }
     },
     {
       "name": "Daniil Odoevskiy",
@@ -31,9 +68,49 @@
       "age": 23,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2021"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2022"
+        },
+        {
+          "club": "Volgar",
+          "year": "2023"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 94,
+        "clean_sheets": 33
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hidajet Hankic",
@@ -43,7 +120,59 @@
       "club": "FC Rostov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wolfsberg Jgd",
+          "year": "2004"
+        },
+        {
+          "club": "Linz U15",
+          "year": "2009"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2012"
+        },
+        {
+          "club": "A. Salzburg",
+          "year": "2015"
+        },
+        {
+          "club": "Blau Weiss Linz",
+          "year": "2016"
+        },
+        {
+          "club": "FC Wacker",
+          "year": "2018"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2019"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2021"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 258,
+        "clean_sheets": 57
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +182,29 @@
       "age": 22,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 27,
+      "appearances": 20,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rostov",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oumar Sako",
@@ -63,9 +212,65 @@
       "age": 29,
       "nationality": "Niger",
       "club": "FC Rostov",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Tanda",
+          "year": "2017"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Kharaitiyat",
+          "year": "2020"
+        },
+        {
+          "club": "Beroe",
+          "year": "2021"
+        },
+        {
+          "club": "LASK",
+          "year": "2022"
+        },
+        {
+          "club": "Arda Kardzhali",
+          "year": "2022"
+        },
+        {
+          "club": "LASK",
+          "year": "2023"
+        },
+        {
+          "club": "Arda Kardzhali",
+          "year": "2023"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        },
+        {
+          "club": "Arda Kardzhali",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danila Prokhin",
@@ -73,19 +278,57 @@
       "age": 24,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 16,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Dmitriy Chistyakov",
-      "position": "Centre-Back",
-      "age": 32,
-      "nationality": "Russia",
-      "club": "FC Rostov",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2019"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2020"
+        },
+        {
+          "club": "FK Sochi",
+          "year": "2021"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2021"
+        },
+        {
+          "club": "Rostov",
+          "year": "2021"
+        },
+        {
+          "club": "Rostov",
+          "year": "2022"
+        },
+        {
+          "club": "Orenburg",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Semenchuk",
@@ -93,9 +336,115 @@
       "age": 21,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 22,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akademia Rostov",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rostov 2",
+          "year": "2024"
+        },
+        {
+          "club": "Arsenal Tula",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Dmitriy Chistyakov",
+      "position": "Centre-Back",
+      "age": 32,
+      "nationality": "Russia",
+      "club": "FC Rostov",
+      "appearances": 14,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2013"
+        },
+        {
+          "club": "MIKA Ashtarak",
+          "year": "2015"
+        },
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2016"
+        },
+        {
+          "club": "Shinnik Yaroslav",
+          "year": "2016"
+        },
+        {
+          "club": "Tambov",
+          "year": "2018"
+        },
+        {
+          "club": "Rostov",
+          "year": "2019"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2020"
+        },
+        {
+          "club": "Rostov",
+          "year": "2021"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2021"
+        },
+        {
+          "club": "FK Sochi",
+          "year": "2024"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 349,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "German Ignatov",
@@ -103,9 +452,37 @@
       "age": 20,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akademia Rostov",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rostov 2",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikita Babakin",
@@ -113,9 +490,33 @@
       "age": 20,
       "nationality": "Russia",
       "club": "FC Rostov 2",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akademia Rostov",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rostov 2",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eyad El Askalany",
@@ -123,9 +524,33 @@
       "age": 21,
       "nationality": "Egypt",
       "club": "FC Rostov",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2023"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandr Tarasov",
@@ -133,9 +558,33 @@
       "age": 20,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2025"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Evgeniy Chernov",
@@ -143,9 +592,93 @@
       "age": 33,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 16,
+      "goals": 21,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tom Tomsk",
+          "year": "2012"
+        },
+        {
+          "club": "Gazovik Orenburg",
+          "year": "2012"
+        },
+        {
+          "club": "Tom Tomsk",
+          "year": "2013"
+        },
+        {
+          "club": "Khimik",
+          "year": "2013"
+        },
+        {
+          "club": "Tom Tomsk",
+          "year": "2015"
+        },
+        {
+          "club": "Enisey",
+          "year": "2015"
+        },
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2016"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2017"
+        },
+        {
+          "club": "Tosno",
+          "year": "2017"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2018"
+        },
+        {
+          "club": "Rostov",
+          "year": "2019"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2020"
+        },
+        {
+          "club": "Rostov",
+          "year": "2022"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2023"
+        },
+        {
+          "club": "Rostov",
+          "year": "2023"
+        },
+        {
+          "club": "Baltika",
+          "year": "2025"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 398,
+        "goals": 17,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilya Vakhania",
@@ -153,9 +686,37 @@
       "age": 25,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 1
+      "appearances": 21,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2020"
+        },
+        {
+          "club": "Rostov",
+          "year": "2023"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 201,
+        "goals": 6,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrey Langovich",
@@ -163,9 +724,29 @@
       "age": 22,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 16,
+      "appearances": 9,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rostov",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 10,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +756,41 @@
       "age": 26,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 1
+      "appearances": 20,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Loko-Kazanka M.",
+          "year": "2018"
+        },
+        {
+          "club": "Orenburg",
+          "year": "2020"
+        },
+        {
+          "club": "Loko-Kazanka M.",
+          "year": "2022"
+        },
+        {
+          "club": "Rostov",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 31,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniil Shantaliy",
@@ -185,9 +798,37 @@
       "age": 21,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 15,
-      "goals": 3,
-      "assists": 1
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akademia Rostov",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rostov 2",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 38,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilya Zhbanov",
@@ -195,9 +836,41 @@
       "age": 21,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Akron Konoplev",
+          "year": "2017"
+        },
+        {
+          "club": "Akademia KSS",
+          "year": "2018"
+        },
+        {
+          "club": "FC Rostov 2",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 18,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kirill Shchetinin",
@@ -205,9 +878,45 @@
       "age": 24,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 27,
+      "appearances": 21,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Loko M. Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2021"
+        },
+        {
+          "club": "Rostov",
+          "year": "2021"
+        },
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2022"
+        },
+        {
+          "club": "Rostov",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 20,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konstantin Kuchaev",
@@ -215,9 +924,45 @@
       "age": 28,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSKA Moscow",
+          "year": "2017"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2022"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 24,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khoren Bayramyan",
@@ -225,9 +970,57 @@
       "age": 34,
       "nationality": "Armenia",
       "club": "FC Rostov",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MITOS",
+          "year": "2009"
+        },
+        {
+          "club": "Rostov",
+          "year": "2011"
+        },
+        {
+          "club": "Rotor Volgograd",
+          "year": "2013"
+        },
+        {
+          "club": "Rostov",
+          "year": "2014"
+        },
+        {
+          "club": "Volgar",
+          "year": "2014"
+        },
+        {
+          "club": "Rostov",
+          "year": "2015"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2018"
+        },
+        {
+          "club": "Rostov",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 416,
+        "goals": 34,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1030,49 @@
       "age": 27,
       "nationality": "Iran",
       "club": "FC Rostov",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Shahin Bushehr",
+          "year": "2017"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2021"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2022"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2023"
+        },
+        {
+          "club": "Rostov",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 44,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibraheem Mahfus Ajasa",
@@ -247,9 +1080,29 @@
       "age": 20,
       "nationality": "Nigeria",
       "club": "FC Rostov",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronaldo",
@@ -257,9 +1110,37 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "FC Rostov",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "EC Bahia",
+          "year": "2021"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2022"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 190,
+        "goals": 36,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivan Komarov",
@@ -267,9 +1148,37 @@
       "age": 22,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 4
+      "appearances": 19,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Akademia Rostov",
+          "year": "2019"
+        },
+        {
+          "club": "Akademia Rostov",
+          "year": "2020"
+        },
+        {
+          "club": "Rostov",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 22,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stepan Melnikov",
@@ -279,7 +1188,39 @@
       "club": "FC Rostov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartak 2",
+          "year": "2021"
+        },
+        {
+          "club": "Rostov",
+          "year": "2022"
+        },
+        {
+          "club": "Alania Vl.",
+          "year": "2023"
+        },
+        {
+          "club": "Rostov",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 24,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Egor Golenkov",
@@ -287,9 +1228,37 @@
       "age": 26,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 28,
-      "goals": 4,
-      "assists": 3
+      "appearances": 22,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "KS Samara",
+          "year": "2019"
+        },
+        {
+          "club": "Sigma Olomouc",
+          "year": "2021"
+        },
+        {
+          "club": "Rostov",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 83,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Timur Suleymanov",
@@ -297,19 +1266,91 @@
       "age": 26,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 24,
+      "appearances": 20,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko-Kazanka M.",
+          "year": "2019"
+        },
+        {
+          "club": "Nizhny Novgorod",
+          "year": "2020"
+        },
+        {
+          "club": "Loko-Kazanka M.",
+          "year": "2021"
+        },
+        {
+          "club": "Nizhny Novgorod",
+          "year": "2021"
+        },
+        {
+          "club": "Loko Moscow",
+          "year": "2023"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2024"
+        },
+        {
+          "club": "Loko Moscow",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 75,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anton Shamonin",
       "position": "Centre-Forward",
-      "age": 20,
+      "age": 21,
       "nationality": "Russia",
       "club": "FC Rostov",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rostov 2",
+          "year": "2024"
+        },
+        {
+          "club": "Rostov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 45,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

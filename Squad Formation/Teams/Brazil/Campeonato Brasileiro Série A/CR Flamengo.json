@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "BRA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,73 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "CR Flamengo",
-      "appearances": 13,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chacarita Jrs.",
+          "year": "2013"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2015"
+        },
+        {
+          "club": "Defensa",
+          "year": "2016"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2017"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2017"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2019"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2019"
+        },
+        {
+          "club": "Lanús",
+          "year": "2019"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Nassr",
+          "year": "2023"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2023"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 290,
+        "clean_sheets": 167
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrew",
@@ -31,9 +96,45 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 22,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Botafogo",
+          "year": "2018"
+        },
+        {
+          "club": "Maranhão",
+          "year": "2020"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2021"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2021"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 180,
+        "clean_sheets": 49
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dyogo Alves",
@@ -43,7 +144,27 @@
       "club": "CR Flamengo",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 30,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +174,53 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 14,
-      "goals": 0,
-      "assists": 1
+      "appearances": 8,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Internacional",
+          "year": "2017"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2018"
+        },
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "Red Bull",
+          "year": "2019"
+        },
+        {
+          "club": "Internacional",
+          "year": "2019"
+        },
+        {
+          "club": "Bragantino",
+          "year": "2019"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 22,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vitão",
@@ -63,9 +228,49 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palmeiras",
+          "year": "2019"
+        },
+        {
+          "club": "Shakhtar D.",
+          "year": "2019"
+        },
+        {
+          "club": "Internacional",
+          "year": "2022"
+        },
+        {
+          "club": "Shakhtar D.",
+          "year": "2024"
+        },
+        {
+          "club": "Internacional",
+          "year": "2024"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 238,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Léo Pereira",
@@ -73,9 +278,57 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 14,
-      "goals": 2,
-      "assists": 0
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético-PR",
+          "year": "2014"
+        },
+        {
+          "club": "Guaratinguetá",
+          "year": "2015"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2015"
+        },
+        {
+          "club": "Náutico",
+          "year": "2016"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2016"
+        },
+        {
+          "club": "Orlando",
+          "year": "2017"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2017"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 439,
+        "goals": 29,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danilo",
@@ -83,9 +336,57 @@
       "age": 34,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América-MG",
+          "year": "2008"
+        },
+        {
+          "club": "Santos",
+          "year": "2010"
+        },
+        {
+          "club": "Porto",
+          "year": "2011"
+        },
+        {
+          "club": "Santos",
+          "year": "2011"
+        },
+        {
+          "club": "Real Madrid",
+          "year": "2015"
+        },
+        {
+          "club": "Man City",
+          "year": "2017"
+        },
+        {
+          "club": "Juventus",
+          "year": "2019"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 619,
+        "goals": 46,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 68,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Souza",
@@ -93,9 +394,24 @@
       "age": 19,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayrton Lucas",
@@ -103,9 +419,57 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Madureira",
+          "year": "2014"
+        },
+        {
+          "club": "Madureira",
+          "year": "2016"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2017"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2017"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2019"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2022"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 440,
+        "goals": 23,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Sandro",
@@ -113,9 +477,53 @@
       "age": 35,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 14,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético-PR",
+          "year": "2008"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2010"
+        },
+        {
+          "club": "Santos",
+          "year": "2010"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2011"
+        },
+        {
+          "club": "Porto",
+          "year": "2011"
+        },
+        {
+          "club": "Juventus",
+          "year": "2015"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 602,
+        "goals": 23,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emerson Royal",
@@ -123,19 +531,131 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 9,
+      "appearances": 5,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético-MG",
+          "year": "2018"
+        },
+        {
+          "club": "Barcelona",
+          "year": "2019"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2019"
+        },
+        {
+          "club": "Barcelona",
+          "year": "2021"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2021"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2024"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 287,
+        "goals": 12,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guillermo Varela",
       "position": "Right-Back",
-      "age": 32,
+      "age": 33,
       "nationality": "Uruguay",
       "club": "CR Flamengo",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Peñarol",
+          "year": "2012"
+        },
+        {
+          "club": "RM Castilla",
+          "year": "2014"
+        },
+        {
+          "club": "Man Utd",
+          "year": "2015"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2016"
+        },
+        {
+          "club": "Man Utd",
+          "year": "2017"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2017"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2019"
+        },
+        {
+          "club": "Dynamo Moscow",
+          "year": "2020"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2021"
+        },
+        {
+          "club": "Dynamo Moscow",
+          "year": "2021"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2022"
+        },
+        {
+          "club": "Dynamo Moscow",
+          "year": "2023"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 362,
+        "goals": 7,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +665,53 @@
       "age": 32,
       "nationality": "Chile",
       "club": "CR Flamengo",
-      "appearances": 16,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Antofagasta",
+          "year": "2013"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2014"
+        },
+        {
+          "club": "Bologna",
+          "year": "2015"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2019"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2022"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2022"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 401,
+        "goals": 32,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 54,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorginho",
@@ -155,9 +719,53 @@
       "age": 34,
       "nationality": "Italy",
       "club": "CR Flamengo",
-      "appearances": 9,
-      "goals": 2,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hellas Verona",
+          "year": "2010"
+        },
+        {
+          "club": "Sambonifacese",
+          "year": "2010"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2011"
+        },
+        {
+          "club": "Napoli",
+          "year": "2014"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2018"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2023"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 623,
+        "goals": 55,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 57,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Evertton Araújo",
@@ -165,9 +773,71 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flamengo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Caio Garcia",
+      "position": "Defensive Midfield",
+      "age": 22,
+      "nationality": "Brazil",
+      "club": "CR Flamengo",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ferroviária",
+          "year": "2024"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        },
+        {
+          "club": "Botafogo-PB",
+          "year": "2025"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás de la Cruz",
@@ -175,9 +845,37 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "CR Flamengo",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2015"
+        },
+        {
+          "club": "River Plate",
+          "year": "2017"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 52,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saúl Ñíguez",
@@ -185,9 +883,61 @@
       "age": 31,
       "nationality": "Spain",
       "club": "CR Flamengo",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Madrileño",
+          "year": "2010"
+        },
+        {
+          "club": "Atlético",
+          "year": "2013"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2013"
+        },
+        {
+          "club": "Atlético",
+          "year": "2014"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2021"
+        },
+        {
+          "club": "Atlético",
+          "year": "2022"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2024"
+        },
+        {
+          "club": "Atlético",
+          "year": "2025"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 607,
+        "goals": 60,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Paquetá",
@@ -195,9 +945,45 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 31,
-      "goals": 8,
-      "assists": 1
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flamengo",
+          "year": "2016"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2019"
+        },
+        {
+          "club": "Lyon",
+          "year": "2020"
+        },
+        {
+          "club": "West Ham",
+          "year": "2022"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 373,
+        "goals": 67,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgian de Arrascaeta",
@@ -205,9 +991,37 @@
       "age": 31,
       "nationality": "Uruguay",
       "club": "CR Flamengo",
-      "appearances": 13,
-      "goals": 5,
-      "assists": 3
+      "appearances": 6,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Defensor SC",
+          "year": "2012"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2015"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 617,
+        "goals": 168,
+        "assists": 166,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Carrascal",
@@ -215,9 +1029,73 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "CR Flamengo",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 3
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Millonarios",
+          "year": "2016"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2016"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2017"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2018"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2018"
+        },
+        {
+          "club": "River Plate",
+          "year": "2019"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2019"
+        },
+        {
+          "club": "River Plate",
+          "year": "2020"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "River Plate",
+          "year": "2022"
+        },
+        {
+          "club": "Dynamo Moscow",
+          "year": "2023"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 36,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,19 +1105,87 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 16,
-      "goals": 3,
-      "assists": 4
+      "appearances": 8,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "São Bernardo",
+          "year": "2018"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2019"
+        },
+        {
+          "club": "Atlético",
+          "year": "2022"
+        },
+        {
+          "club": "Valencia",
+          "year": "2022"
+        },
+        {
+          "club": "Atlético",
+          "year": "2023"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 55,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Everton",
       "position": "Left Winger",
-      "age": 29,
+      "age": 30,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 17,
-      "goals": 3,
-      "assists": 1
+      "appearances": 6,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Grêmio",
+          "year": "2014"
+        },
+        {
+          "club": "Benfica",
+          "year": "2020"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 553,
+        "goals": 105,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gonzalo Plata",
@@ -247,9 +1193,53 @@
       "age": 25,
       "nationality": "Ecuador",
       "club": "CR Flamengo",
-      "appearances": 14,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Independiente",
+          "year": "2018"
+        },
+        {
+          "club": "Sporting",
+          "year": "2019"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2021"
+        },
+        {
+          "club": "Sporting",
+          "year": "2022"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2023"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 32,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 49,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luiz Araújo",
@@ -257,9 +1247,45 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 12,
+      "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Novorizontino",
+          "year": "2016"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2016"
+        },
+        {
+          "club": "Lille",
+          "year": "2017"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2021"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 70,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro",
@@ -267,9 +1293,45 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 16,
-      "goals": 8,
-      "assists": 2
+      "appearances": 8,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2018"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2019"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2020"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2020"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 418,
+        "goals": 190,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wallace Yan",
@@ -277,9 +1339,29 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flamengo",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 16,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Henrique",
@@ -287,9 +1369,61 @@
       "age": 35,
       "nationality": "Brazil",
       "club": "CR Flamengo",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 2
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Uberlândia",
+          "year": "2012"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2013"
+        },
+        {
+          "club": "Uberlândia",
+          "year": "2013"
+        },
+        {
+          "club": "Itumbiara-GO",
+          "year": "2014"
+        },
+        {
+          "club": "Uberlândia",
+          "year": "2014"
+        },
+        {
+          "club": "Goiás",
+          "year": "2015"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2016"
+        },
+        {
+          "club": "Santos",
+          "year": "2017"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 509,
+        "goals": 144,
+        "assists": 87,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

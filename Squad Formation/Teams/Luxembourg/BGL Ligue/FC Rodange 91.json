@@ -9,21 +9,58 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LUX1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Hugo Wolf",
       "position": "Goalkeeper",
-      "age": 25,
+      "age": 26,
       "nationality": "France",
       "club": "FC Rodange 91",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Halberg Brebach",
+          "year": "2020"
+        },
+        {
+          "club": "Titus Petange",
+          "year": "2022"
+        },
+        {
+          "club": "US Hostert",
+          "year": "2024"
+        },
+        {
+          "club": "Titus Petange",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 157,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Apolinario Xerxa Cruz",
@@ -33,7 +70,39 @@
       "club": "FC Rodange 91",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pfaffenth.-Weim.",
+          "year": "2020"
+        },
+        {
+          "club": "Hamm Benfica",
+          "year": "2021"
+        },
+        {
+          "club": "Weiler",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 143,
+        "clean_sheets": 11
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elvin Sabanovic",
@@ -41,9 +110,37 @@
       "age": 36,
       "nationality": "Montenegro",
       "club": "FC Rodange 91",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kayl-Tétange",
+          "year": "2015"
+        },
+        {
+          "club": "RFCU Luxembourg",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 88,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +150,53 @@
       "age": 28,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Differdange 03",
+          "year": "2014"
+        },
+        {
+          "club": "Titus Petange",
+          "year": "2015"
+        },
+        {
+          "club": "SV Elversberg",
+          "year": "2018"
+        },
+        {
+          "club": "Pr. Niederkorn",
+          "year": "2019"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2022"
+        },
+        {
+          "club": "Hesperange",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Klaïd Leon",
@@ -65,7 +206,27 @@
       "club": "FC Rodange 91",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yohann Torres",
@@ -73,9 +234,33 @@
       "age": 21,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 1,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Titus Petange",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 3,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dinan Amiri",
@@ -84,8 +269,32 @@
       "nationality": "Algeria",
       "club": "FC Rodange 91",
       "appearances": 12,
-      "goals": 2,
-      "assists": 2
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "RFCU Luxembourg",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Mortas",
@@ -93,9 +302,33 @@
       "age": 25,
       "nationality": "France",
       "club": "FC Rodange 91",
-      "appearances": 0,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Canach",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wilson Peprah",
@@ -103,9 +336,37 @@
       "age": 25,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2017"
+        },
+        {
+          "club": "CS Sanem",
+          "year": "2019"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Taveira",
@@ -113,9 +374,37 @@
       "age": 20,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Differdange 03",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        },
+        {
+          "club": "Differdange 03",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tom Battisti",
@@ -125,7 +414,27 @@
       "club": "FC Rodange 91",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Răzvan Bumbar",
@@ -133,9 +442,29 @@
       "age": 19,
       "nationality": "Romania",
       "club": "FC Rodange 91",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +474,45 @@
       "age": 24,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 20,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "E. Ettelbrück",
+          "year": "2018"
+        },
+        {
+          "club": "Differdange 03",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Differdange 03",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 9,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Rakic",
@@ -157,7 +522,39 @@
       "club": "FC Rodange 91",
       "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rodange Youth",
+          "year": "2017"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2020"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yanis Montantin",
@@ -165,9 +562,45 @@
       "age": 26,
       "nationality": "TM nationality id 267",
       "club": "FC Rodange 91",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 4
+      "appearances": 22,
+      "goals": 0,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "US Torcy",
+          "year": "2017"
+        },
+        {
+          "club": "Le Mée SF",
+          "year": "2018"
+        },
+        {
+          "club": "Bourges 18",
+          "year": "2019"
+        },
+        {
+          "club": "FC O.Tourangeau",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 20,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Bojic",
@@ -175,9 +608,69 @@
       "age": 33,
       "nationality": "Croatia",
       "club": "FC Rodange 91",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 2,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NK Sloga Gredelj Zagreb",
+          "year": "2006"
+        },
+        {
+          "club": "NK Trnje Zagreb",
+          "year": "2010"
+        },
+        {
+          "club": "Stinatz",
+          "year": "2013"
+        },
+        {
+          "club": "SV Neuberg",
+          "year": "2014"
+        },
+        {
+          "club": "NK Rudes",
+          "year": "2014"
+        },
+        {
+          "club": "RNK Split",
+          "year": "2016"
+        },
+        {
+          "club": "Titus Petange",
+          "year": "2017"
+        },
+        {
+          "club": "RE Virton",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2020"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 325,
+        "goals": 57,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brandon Lima Lizardo",
@@ -185,9 +678,33 @@
       "age": 22,
       "nationality": "Portugal",
       "club": "FC Rodange 91",
-      "appearances": 0,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CS Fola Esch",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mario Muzhaqi",
@@ -195,9 +712,37 @@
       "age": 22,
       "nationality": "Belgium",
       "club": "FC Rodange 91",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 0
+      "appearances": 20,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Differdange 03",
+          "year": "2023"
+        },
+        {
+          "club": "CS Fola Esch",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Loris Caradonna",
@@ -205,9 +750,29 @@
       "age": 17,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adel Civovic",
@@ -215,9 +780,29 @@
       "age": 20,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 2,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Almin Skrijelj",
@@ -225,9 +810,29 @@
       "age": 18,
       "nationality": "Luxembourg",
       "club": "FC Rodange 91",
-      "appearances": 1,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +844,35 @@
       "club": "FC Rodange 91",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pepingen-Halle",
+          "year": "2022"
+        },
+        {
+          "club": "Pepingen-Halle",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathéo Messuwe",
@@ -247,9 +880,29 @@
       "age": 23,
       "nationality": "France",
       "club": "FC Rodange 91",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 2
+      "appearances": 21,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Rodange 91",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 18,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Correia Mendes",
@@ -259,7 +912,75 @@
       "club": "FC Rodange 91",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Banheirense",
+          "year": "2013"
+        },
+        {
+          "club": "União SC",
+          "year": "2014"
+        },
+        {
+          "club": "Sesimbra",
+          "year": "2015"
+        },
+        {
+          "club": "União SC",
+          "year": "2016"
+        },
+        {
+          "club": "GD Alfarim",
+          "year": "2016"
+        },
+        {
+          "club": "Loures",
+          "year": "2017"
+        },
+        {
+          "club": "Oriental Dragon",
+          "year": "2018"
+        },
+        {
+          "club": "E. Ettelbrück",
+          "year": "2018"
+        },
+        {
+          "club": "Hamm Benfica",
+          "year": "2020"
+        },
+        {
+          "club": "CS Fola Esch",
+          "year": "2021"
+        },
+        {
+          "club": "FC UNA Strassen",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        },
+        {
+          "club": "FC UNA Strassen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 28,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kévin Schur",
@@ -267,9 +988,61 @@
       "age": 35,
       "nationality": "France",
       "club": "FC Rodange 91",
-      "appearances": 20,
-      "goals": 7,
-      "assists": 4
+      "appearances": 18,
+      "goals": 4,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Versailles",
+          "year": "2010"
+        },
+        {
+          "club": "Le Chesnay",
+          "year": "2010"
+        },
+        {
+          "club": "FC Versailles",
+          "year": "2011"
+        },
+        {
+          "club": "US Alençon",
+          "year": "2012"
+        },
+        {
+          "club": "US Avranches",
+          "year": "2013"
+        },
+        {
+          "club": "Le Mans FC",
+          "year": "2017"
+        },
+        {
+          "club": "SC Bastia",
+          "year": "2018"
+        },
+        {
+          "club": "Dijon",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 325,
+        "goals": 64,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yanis Mbombo",
@@ -277,9 +1050,93 @@
       "age": 31,
       "nationality": "Belgium",
       "club": "FC Rodange 91",
-      "appearances": 6,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Standard Liège",
+          "year": "2014"
+        },
+        {
+          "club": "AJ Auxerre",
+          "year": "2014"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2015"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2015"
+        },
+        {
+          "club": "FC Sochaux",
+          "year": "2016"
+        },
+        {
+          "club": "Örebro SK",
+          "year": "2017"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2017"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2019"
+        },
+        {
+          "club": "StadeLO",
+          "year": "2020"
+        },
+        {
+          "club": "Vilafranquense",
+          "year": "2021"
+        },
+        {
+          "club": "Lyon La Duchère",
+          "year": "2021"
+        },
+        {
+          "club": "RE Virton",
+          "year": "2022"
+        },
+        {
+          "club": "FC Brasov-SR",
+          "year": "2022"
+        },
+        {
+          "club": "RANS FC",
+          "year": "2023"
+        },
+        {
+          "club": "RE Virton",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 36,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elias Holbach",
@@ -289,7 +1146,31 @@
       "club": "FC Rodange 91",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lorentzweiler",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rodange 91",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

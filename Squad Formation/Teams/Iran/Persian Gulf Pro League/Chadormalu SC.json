@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IRN1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 33,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mes Kerman",
+          "year": "2011"
+        },
+        {
+          "club": "Paykan FC",
+          "year": "2015"
+        },
+        {
+          "club": "Malavan",
+          "year": "2017"
+        },
+        {
+          "club": "Golreyhan FC",
+          "year": "2019"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 116,
+        "clean_sheets": 62
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Edson Mardden",
@@ -33,7 +78,71 @@
       "club": "Chadormalu SC",
       "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vila Nova FC",
+          "year": "2013"
+        },
+        {
+          "club": "Arapongas-PR",
+          "year": "2014"
+        },
+        {
+          "club": "Icasa",
+          "year": "2014"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2014"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2016"
+        },
+        {
+          "club": "Criciúma",
+          "year": "2016"
+        },
+        {
+          "club": "CRB",
+          "year": "2017"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2021"
+        },
+        {
+          "club": "Pouso Alegre",
+          "year": "2022"
+        },
+        {
+          "club": "São Bento (SP)",
+          "year": "2022"
+        },
+        {
+          "club": "Amazonas",
+          "year": "2023"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 247,
+        "clean_sheets": 88
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amirhossein Asiabanpour",
@@ -43,7 +152,27 @@
       "club": "Chadormalu SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chadormalu SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amirhossein Ahmadsadeghi",
@@ -53,7 +182,35 @@
       "club": "Chadormalu SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Perse. Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +220,49 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Chadormalu SC",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Aruko",
+          "year": "2023"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2023"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2024"
+        },
+        {
+          "club": "Ituano",
+          "year": "2024"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alireza Arta",
@@ -73,9 +270,41 @@
       "age": 29,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mes Kerman",
+          "year": "2017"
+        },
+        {
+          "club": "Gol Gohar",
+          "year": "2020"
+        },
+        {
+          "club": "Tractor",
+          "year": "2024"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seyed Mohammadreza Hosseini",
@@ -85,7 +314,31 @@
       "club": "Chadormalu SC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paykan FC",
+          "year": "2022"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sirous Sadeghian",
@@ -93,9 +346,61 @@
       "age": 33,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shahrdari Fuman",
+          "year": "2013"
+        },
+        {
+          "club": "Niroye Zamini",
+          "year": "2016"
+        },
+        {
+          "club": "Shahrdari Fuman",
+          "year": "2017"
+        },
+        {
+          "club": "Naft Gachsaran",
+          "year": "2018"
+        },
+        {
+          "club": "Navad Urmia",
+          "year": "2019"
+        },
+        {
+          "club": "Machine Sazi",
+          "year": "2020"
+        },
+        {
+          "club": "Mes Shahr Babak",
+          "year": "2021"
+        },
+        {
+          "club": "Havadar SC",
+          "year": "2022"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mobin Ghojoghi",
@@ -105,7 +410,31 @@
       "club": "Chadormalu SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navad Urmia",
+          "year": "2024"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amirreza Shokri",
@@ -115,7 +444,27 @@
       "club": "Chadormalu SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saeed Mohammadifard",
@@ -123,9 +472,37 @@
       "age": 31,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Pars Jam",
+          "year": "2016"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2019"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 203,
+        "goals": 2,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +512,53 @@
       "age": 26,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Niroye Zamini",
+          "year": "2019"
+        },
+        {
+          "club": "Mes Kerman",
+          "year": "2020"
+        },
+        {
+          "club": "Bandar Astara",
+          "year": "2021"
+        },
+        {
+          "club": "Fajr Sepasi",
+          "year": "2022"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Malavan",
+          "year": "2024"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammadtaha Farahani",
@@ -147,7 +568,31 @@
       "club": "Chadormalu SC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ario Eslamshahr",
+          "year": "2023"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reza Dehghan",
@@ -157,7 +602,51 @@
       "club": "Chadormalu SC",
       "appearances": 18,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shahin Bushehr",
+          "year": "2016"
+        },
+        {
+          "club": "Foolad",
+          "year": "2017"
+        },
+        {
+          "club": "Shahin Bushehr",
+          "year": "2018"
+        },
+        {
+          "club": "Arman Gohar",
+          "year": "2021"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2022"
+        },
+        {
+          "club": "Mes Shahr Babak",
+          "year": "2023"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Hosseinzadeh",
@@ -167,7 +656,39 @@
       "club": "Chadormalu SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC KIA",
+          "year": "2022"
+        },
+        {
+          "club": "Pars Jam",
+          "year": "2023"
+        },
+        {
+          "club": "Gol Gohar",
+          "year": "2024"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hadi Habibinejad",
@@ -175,9 +696,65 @@
       "age": 30,
       "nationality": "Iran",
       "club": "Chadormalu SC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 6,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Foolad",
+          "year": "2014"
+        },
+        {
+          "club": "Sorkhpooshan",
+          "year": "2018"
+        },
+        {
+          "club": "Baadraan",
+          "year": "2019"
+        },
+        {
+          "club": "Malavan",
+          "year": "2019"
+        },
+        {
+          "club": "Fajr Sepasi",
+          "year": "2021"
+        },
+        {
+          "club": "Tractor",
+          "year": "2021"
+        },
+        {
+          "club": "Bandar Astara",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Est. Mollasani",
+          "year": "2023"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 29,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Torres",
@@ -187,7 +764,63 @@
       "club": "Chadormalu SC",
       "appearances": 4,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Olimpia",
+          "year": "2020"
+        },
+        {
+          "club": "Celaya",
+          "year": "2021"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2021"
+        },
+        {
+          "club": "Resistencia SC",
+          "year": "2022"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2022"
+        },
+        {
+          "club": "Trinidense",
+          "year": "2024"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2025"
+        },
+        {
+          "club": "Amazonas",
+          "year": "2025"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2026"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 14,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alireza Safari",
@@ -195,9 +828,33 @@
       "age": 22,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saipa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammadhossein Karimi",
@@ -207,7 +864,27 @@
       "club": "Chadormalu SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +894,85 @@
       "age": 29,
       "nationality": "Paraguay",
       "club": "Chadormalu SC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Olimpia",
+          "year": "2018"
+        },
+        {
+          "club": "Sol de América",
+          "year": "2019"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2019"
+        },
+        {
+          "club": "CS San Lorenzo",
+          "year": "2019"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2020"
+        },
+        {
+          "club": "Guaireña FC",
+          "year": "2021"
+        },
+        {
+          "club": "River Plate",
+          "year": "2021"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2021"
+        },
+        {
+          "club": "Colon",
+          "year": "2022"
+        },
+        {
+          "club": "Guaireña FC",
+          "year": "2023"
+        },
+        {
+          "club": "Puerto Montt",
+          "year": "2023"
+        },
+        {
+          "club": "Tacuary FBC",
+          "year": "2023"
+        },
+        {
+          "club": "UTC",
+          "year": "2024"
+        },
+        {
+          "club": "SA Bulo Bulo",
+          "year": "2025"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 20,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammadhossein Fallah",
@@ -229,7 +982,31 @@
       "club": "Chadormalu SC",
       "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Paykan FC",
+          "year": "2021"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reza Mahmoudabadi",
@@ -237,9 +1014,49 @@
       "age": 30,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 2,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Gol Gohar",
+          "year": "2012"
+        },
+        {
+          "club": "FC Nassaji",
+          "year": "2017"
+        },
+        {
+          "club": "Gol Gohar",
+          "year": "2017"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2021"
+        },
+        {
+          "club": "Arman Gohar",
+          "year": "2021"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 21,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reza Mirzaei",
@@ -247,9 +1064,49 @@
       "age": 29,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2015"
+        },
+        {
+          "club": "Foolad",
+          "year": "2018"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2019"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2022"
+        },
+        {
+          "club": "Malavan",
+          "year": "2024"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 11,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sajjad Mashhadi",
@@ -257,9 +1114,29 @@
       "age": 22,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amirreza Eslamtalab",
@@ -267,9 +1144,37 @@
       "age": 23,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC KIA",
+          "year": "2021"
+        },
+        {
+          "club": "Gol Gohar",
+          "year": "2023"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alireza Bayat",
@@ -279,7 +1184,27 @@
       "club": "Chadormalu SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Renny Boboy",
@@ -287,9 +1212,65 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Chadormalu SC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 7,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Azogues SC",
+          "year": "2018"
+        },
+        {
+          "club": "Cuenca FC",
+          "year": "2019"
+        },
+        {
+          "club": "Club La Paz",
+          "year": "2020"
+        },
+        {
+          "club": "Ind. Jrs.",
+          "year": "2021"
+        },
+        {
+          "club": "Táchira",
+          "year": "2022"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2024"
+        },
+        {
+          "club": "Aurora",
+          "year": "2024"
+        },
+        {
+          "club": "Mushuc Runa SC",
+          "year": "2025"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 26,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mauro Caballero",
@@ -297,9 +1278,89 @@
       "age": 31,
       "nationality": "Paraguay",
       "club": "Chadormalu SC",
-      "appearances": 25,
-      "goals": 7,
-      "assists": 2
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libertad",
+          "year": "2011"
+        },
+        {
+          "club": "Penafiel",
+          "year": "2014"
+        },
+        {
+          "club": "Desportivo Aves",
+          "year": "2014"
+        },
+        {
+          "club": "FC Vaduz",
+          "year": "2015"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2016"
+        },
+        {
+          "club": "Palestino",
+          "year": "2017"
+        },
+        {
+          "club": "San Luis",
+          "year": "2017"
+        },
+        {
+          "club": "San Luis",
+          "year": "2018"
+        },
+        {
+          "club": "Union Española",
+          "year": "2019"
+        },
+        {
+          "club": "Arouca",
+          "year": "2021"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2021"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2022"
+        },
+        {
+          "club": "San Luis",
+          "year": "2024"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2025"
+        },
+        {
+          "club": "CD Águila",
+          "year": "2025"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 328,
+        "goals": 81,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iliya Negahdari",
@@ -307,9 +1368,33 @@
       "age": 19,
       "nationality": "TM nationality id 71",
       "club": "Chadormalu SC",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shayan Diesel",
+          "year": "2024"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

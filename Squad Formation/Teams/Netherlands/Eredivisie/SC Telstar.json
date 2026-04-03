@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "NL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 30,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 30,
+      "appearances": 27,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almere City",
+          "year": "2014"
+        },
+        {
+          "club": "FC Oss",
+          "year": "2015"
+        },
+        {
+          "club": "Telstar",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 325,
+        "clean_sheets": 59
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daan Reiziger",
@@ -31,9 +60,45 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Groningen Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Ajax Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2021"
+        },
+        {
+          "club": "SC Cambuur",
+          "year": "2023"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": 149,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tyrick Bodak",
@@ -43,7 +108,27 @@
       "club": "SC Telstar",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Telstar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 8,
+        "clean_sheets": 0
+      }
     }
   ],
   "defenders": [
@@ -53,9 +138,37 @@
       "age": 25,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 32,
-      "goals": 2,
-      "assists": 3
+      "appearances": 27,
+      "goals": 0,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Koninklijke HFC",
+          "year": "2022"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2023"
+        },
+        {
+          "club": "Telstar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 221,
+        "goals": 7,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Neville Ogidi Nwankwo",
@@ -63,9 +176,53 @@
       "age": 23,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 26,
+      "appearances": 22,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Rijnvogels",
+          "year": "2022"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2023"
+        },
+        {
+          "club": "FC Rijnvogels",
+          "year": "2023"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2024"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2025"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Devon Koswal",
@@ -73,9 +230,37 @@
       "age": 22,
       "nationality": "Suriname",
       "club": "SC Telstar",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Excelsior Jeugd",
+          "year": "2011"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2021"
+        },
+        {
+          "club": "Telstar",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danny Bakker",
@@ -83,9 +268,53 @@
       "age": 31,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 27,
-      "goals": 3,
-      "assists": 1
+      "appearances": 24,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "ADO Youth",
+          "year": "2007"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2013"
+        },
+        {
+          "club": "Roda JC",
+          "year": "2020"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2021"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Telstar",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 376,
+        "goals": 33,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dion Malone",
@@ -93,9 +322,61 @@
       "age": 37,
       "nationality": "Suriname",
       "club": "SC Telstar",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almere City FC",
+          "year": "2003"
+        },
+        {
+          "club": "DWS Youth",
+          "year": "2004"
+        },
+        {
+          "club": "FC Omniworld",
+          "year": "2008"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2012"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2017"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2018"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2020"
+        },
+        {
+          "club": "Karmiotissa",
+          "year": "2022"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 479,
+        "goals": 13,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelraffie Benzzine",
@@ -105,7 +386,27 @@
       "club": "SC Telstar",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yamano Olfers",
@@ -115,7 +416,27 @@
       "club": "SC Telstar",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gerald Alders",
@@ -123,9 +444,33 @@
       "age": 20,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 22,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Twente",
+          "year": "2025"
+        },
+        {
+          "club": "Telstar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +480,65 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 16,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sparta Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Ajax Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Sparta Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Alphense B. Jgd",
+          "year": "2019"
+        },
+        {
+          "club": "Feyenoord Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Excelsior",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        },
+        {
+          "club": "Excelsior",
+          "year": "2025"
+        },
+        {
+          "club": "Telstar",
+          "year": "2026"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nils Rossen",
@@ -145,9 +546,33 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 30,
+      "appearances": 25,
       "goals": 3,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NEC Nijmegen",
+          "year": "2022"
+        },
+        {
+          "club": "Telstar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 11,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tyrone Owusu",
@@ -155,9 +580,41 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 2
+      "appearances": 18,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Westlandia",
+          "year": "2019"
+        },
+        {
+          "club": "Scheveningen",
+          "year": "2020"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2022"
+        },
+        {
+          "club": "Telstar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 13,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rojendro Oudsten",
@@ -165,9 +622,29 @@
       "age": 18,
       "nationality": "Suriname",
       "club": "SC Telstar",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tyrese Noslin",
@@ -175,9 +652,33 @@
       "age": 23,
       "nationality": "Curaçao",
       "club": "SC Telstar",
-      "appearances": 32,
-      "goals": 2,
-      "assists": 3
+      "appearances": 28,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Almere City FC",
+          "year": "2012"
+        },
+        {
+          "club": "Telstar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 12,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adil Lechkar",
@@ -185,9 +686,53 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Almere City FC",
+          "year": "2014"
+        },
+        {
+          "club": "DWS Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Argon",
+          "year": "2019"
+        },
+        {
+          "club": "FC Aalsmeer",
+          "year": "2022"
+        },
+        {
+          "club": "TEC",
+          "year": "2023"
+        },
+        {
+          "club": "Telstar",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeff Hardeveld",
@@ -195,9 +740,41 @@
       "age": 31,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 32,
-      "goals": 5,
-      "assists": 7
+      "appearances": 28,
+      "goals": 4,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Utrecht",
+          "year": "2015"
+        },
+        {
+          "club": "Heracles Almelo",
+          "year": "2017"
+        },
+        {
+          "club": "FC Emmen",
+          "year": "2021"
+        },
+        {
+          "club": "Telstar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 18,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nigel Ogidi Nwankwo",
@@ -205,9 +782,41 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Westlandia",
+          "year": "2018"
+        },
+        {
+          "club": "Scheveningen",
+          "year": "2019"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2020"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 12,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jochem Ritmeester van de Kamp",
@@ -215,9 +824,37 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 28,
+      "appearances": 23,
       "goals": 7,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Almere City",
+          "year": "2022"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        },
+        {
+          "club": "Almere City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Brouwer",
@@ -225,9 +862,45 @@
       "age": 25,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 26,
-      "goals": 8,
-      "assists": 4
+      "appearances": 24,
+      "goals": 7,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Sparta R.",
+          "year": "2022"
+        },
+        {
+          "club": "FC Emmen",
+          "year": "2023"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2024"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2024"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 202,
+        "goals": 51,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Mertens",
@@ -235,9 +908,73 @@
       "age": 30,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 24,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Utrecht Youth",
+          "year": "2008"
+        },
+        {
+          "club": "AFC Youth",
+          "year": "2010"
+        },
+        {
+          "club": "FC Volendam",
+          "year": "2014"
+        },
+        {
+          "club": "Telstar",
+          "year": "2018"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Koninklijke HFC",
+          "year": "2020"
+        },
+        {
+          "club": "Tsarsko Selo",
+          "year": "2020"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2021"
+        },
+        {
+          "club": "Fakel Voronezh",
+          "year": "2024"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 31,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +984,57 @@
       "age": 26,
       "nationality": "Iceland",
       "club": "SC Telstar",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 3
+      "appearances": 16,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dalvík/Reynir",
+          "year": "2018"
+        },
+        {
+          "club": "KA Akureyri",
+          "year": "2019"
+        },
+        {
+          "club": "Beerschot VA",
+          "year": "2022"
+        },
+        {
+          "club": "St. Louis CITY",
+          "year": "2023"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2025"
+        },
+        {
+          "club": "St. Louis CITY",
+          "year": "2025"
+        },
+        {
+          "club": "Telstar",
+          "year": "2026"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 238,
+        "goals": 60,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soufiane Hetli",
@@ -257,9 +1042,45 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 0
+      "appearances": 25,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almere City FC",
+          "year": "2015"
+        },
+        {
+          "club": "DWS Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "AFC Amsterdam",
+          "year": "2022"
+        },
+        {
+          "club": "Telstar",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 22,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sem van Duijn",
@@ -267,9 +1088,37 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 30,
-      "goals": 10,
-      "assists": 2
+      "appearances": 8,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sparta Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2021"
+        },
+        {
+          "club": "Telstar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 40,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kay Tejan",
@@ -277,9 +1126,61 @@
       "age": 29,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 28,
+      "appearances": 22,
       "goals": 3,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Quick Boys",
+          "year": "2018"
+        },
+        {
+          "club": "Kozakken Boys",
+          "year": "2019"
+        },
+        {
+          "club": "Quick Boys",
+          "year": "2021"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2021"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2022"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2022"
+        },
+        {
+          "club": "LKS Lodz",
+          "year": "2023"
+        },
+        {
+          "club": "USL Dunkerque",
+          "year": "2024"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 72,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jelani Seedorf",
@@ -287,9 +1188,29 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "SC Telstar",
-      "appearances": 24,
-      "goals": 13,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Telstar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 40,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

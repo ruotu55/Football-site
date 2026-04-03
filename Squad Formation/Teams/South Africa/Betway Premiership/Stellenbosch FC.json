@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SFA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Stellenbosch FC Reserves",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Phoenix Res.",
+          "year": "2024"
+        },
+        {
+          "club": "Wellington",
+          "year": "2024"
+        },
+        {
+          "club": "Stellenbosch R.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 85,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sage Stephens",
@@ -31,9 +60,41 @@
       "age": 34,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 31,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "M. Swallows",
+          "year": "2010"
+        },
+        {
+          "club": "AmaZulu FC",
+          "year": "2015"
+        },
+        {
+          "club": "Cape Town City",
+          "year": "2017"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 207,
+        "clean_sheets": 77
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oscarine Masuluke",
@@ -41,9 +102,41 @@
       "age": 32,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "TS Sporting",
+          "year": "2018"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2020"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 123,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lee Langeveldt",
@@ -53,7 +146,51 @@
       "club": "Stellenbosch FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Fortune",
+          "year": "2004"
+        },
+        {
+          "club": "WP United",
+          "year": "2007"
+        },
+        {
+          "club": "Santos FC",
+          "year": "2007"
+        },
+        {
+          "club": "Milano United",
+          "year": "2014"
+        },
+        {
+          "club": "Golden Arrows",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 84,
+        "clean_sheets": 32
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dejean Ah Shene",
@@ -63,7 +200,22 @@
       "club": "Stellenbosch FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -73,9 +225,41 @@
       "age": 27,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 25,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sundowns Res.",
+          "year": "2018"
+        },
+        {
+          "club": "All Stars",
+          "year": "2020"
+        },
+        {
+          "club": "Maritzburg Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olisa Ndah",
@@ -83,9 +267,45 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Stellenbosch FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Remo Stars",
+          "year": "2019"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2019"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Athenkosi Mcaba",
@@ -93,9 +313,33 @@
       "age": 24,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stellenbosch R.",
+          "year": "0000"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mosa Lebusa",
@@ -103,9 +347,37 @@
       "age": 33,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ajax Cape Town",
+          "year": "2012"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2018"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 361,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henri Stanic",
@@ -113,9 +385,45 @@
       "age": 23,
       "nationality": "Belgium",
       "club": "Stellenbosch FC",
-      "appearances": 26,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2023"
+        },
+        {
+          "club": "Jerv",
+          "year": "2024"
+        },
+        {
+          "club": "Balzan FC",
+          "year": "2024"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siviwe Nkwali",
@@ -123,9 +431,33 @@
       "age": 20,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 9,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cape Town Spurs",
+          "year": "2024"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asekho Tiwani",
@@ -133,9 +465,41 @@
       "age": 20,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sekhukhune",
+          "year": "2022"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2024"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omega Mdaka",
@@ -143,9 +507,29 @@
       "age": 22,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 28,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stellenbosch FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enyinnaya Kazie Godswill",
@@ -153,9 +537,29 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Stellenbosch FC",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Stellenbosch FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 10,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wayde Jooste",
@@ -163,9 +567,61 @@
       "age": 34,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 9,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B.Fontein Celtic",
+          "year": "2013"
+        },
+        {
+          "club": "Golden Arrows",
+          "year": "2016"
+        },
+        {
+          "club": "Highlands Park",
+          "year": "2019"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Maritzburg Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "AmaZulu FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 8,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +631,33 @@
       "age": 27,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 19,
-      "goals": 0,
-      "assists": 0
+      "appearances": 10,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maritzburg Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chumani Butsaka",
@@ -185,9 +665,37 @@
       "age": 24,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 1
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Cape Town",
+          "year": "2020"
+        },
+        {
+          "club": "Cape Town Spurs",
+          "year": "2020"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibraheem Jabaar",
@@ -195,9 +703,41 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Stellenbosch FC",
-      "appearances": 27,
-      "goals": 2,
-      "assists": 4
+      "appearances": 15,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Olisa FC",
+          "year": "2019"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2021"
+        },
+        {
+          "club": "M. Petah Tikva",
+          "year": "2023"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 7,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mthetheleli Mthiyane",
@@ -205,9 +745,33 @@
       "age": 25,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 31,
-      "goals": 1,
-      "assists": 0
+      "appearances": 19,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Milford FC",
+          "year": "2023"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thapelo Mokobodi",
@@ -215,9 +779,33 @@
       "age": 23,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 21,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marumo",
+          "year": "2023"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vuyolwethu Andrieas",
@@ -227,7 +815,27 @@
       "club": "Stellenbosch FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +845,33 @@
       "age": 21,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 30,
-      "goals": 9,
-      "assists": 0
+      "appearances": 19,
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Stellenbosch R.",
+          "year": "2023"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khomotjo Lekoloane",
@@ -247,9 +879,41 @@
       "age": 29,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 20,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FS Stars",
+          "year": "2020"
+        },
+        {
+          "club": "Polokwane City",
+          "year": "2022"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2023"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Devin Titus",
@@ -257,9 +921,29 @@
       "age": 25,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 33,
-      "goals": 3,
-      "assists": 6
+      "appearances": 22,
+      "goals": 1,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Stellenbosch FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 35,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kobamelo Kodisang",
@@ -267,9 +951,65 @@
       "age": 26,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Platinum Stars",
+          "year": "2015"
+        },
+        {
+          "club": "Bidvest Wits FC",
+          "year": "2017"
+        },
+        {
+          "club": "Sanjoanense",
+          "year": "2018"
+        },
+        {
+          "club": "Bidvest Wits FC",
+          "year": "2019"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2022"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2023"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2024"
+        },
+        {
+          "club": "Avs FS",
+          "year": "2025"
+        },
+        {
+          "club": "Sundowns",
+          "year": "2026"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 22,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faiz Abrahams",
@@ -277,9 +1017,45 @@
       "age": 20,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 12,
-      "goals": 3,
-      "assists": 3
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cape Town Spurs",
+          "year": "2022"
+        },
+        {
+          "club": "Stellenbosch R.",
+          "year": "2024"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2025"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shakeel April",
@@ -289,7 +1065,31 @@
       "club": "Stellenbosch FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cape Town City",
+          "year": "2023"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tshegofatso Mabasa",
@@ -297,9 +1097,57 @@
       "age": 29,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 14,
-      "goals": 5,
-      "assists": 1
+      "appearances": 10,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B.Fontein Celtic",
+          "year": "2014"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2019"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2022"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2023"
+        },
+        {
+          "club": "Moroka Swallows",
+          "year": "2023"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2024"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 73,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ashley Cupido",
@@ -307,9 +1155,37 @@
       "age": 24,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 28,
-      "goals": 1,
-      "assists": 2
+      "appearances": 17,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ajax Cape Town",
+          "year": "2020"
+        },
+        {
+          "club": "Cape Town Spurs",
+          "year": "2020"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wonderboy Makhubu",
@@ -317,19 +1193,115 @@
       "age": 29,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Magesi FC",
+          "year": "2015"
+        },
+        {
+          "club": "Tshakhuma",
+          "year": "2018"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2020"
+        },
+        {
+          "club": "U. Pretoria",
+          "year": "2020"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2021"
+        },
+        {
+          "club": "U. Pretoria",
+          "year": "2021"
+        },
+        {
+          "club": "Baroka FC",
+          "year": "2022"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2022"
+        },
+        {
+          "club": "Magesi FC",
+          "year": "2023"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2025"
+        },
+        {
+          "club": "Magesi FC",
+          "year": "2025"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muzomuhle Khanyi",
       "position": "Centre-Forward",
-      "age": 26,
+      "age": 27,
       "nationality": "South Africa",
       "club": "Stellenbosch FC",
-      "appearances": 18,
+      "appearances": 10,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cape Umoya Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Platinum City",
+          "year": "2021"
+        },
+        {
+          "club": "Hungry Lions FC",
+          "year": "2022"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

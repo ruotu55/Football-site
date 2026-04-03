@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MNE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 36,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nacional",
+          "year": "2010"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2013"
+        },
+        {
+          "club": "FK Celik Niksic",
+          "year": "2014"
+        },
+        {
+          "club": "KF Tërbuni",
+          "year": "2014"
+        },
+        {
+          "club": "KS Kastrioti",
+          "year": "2015"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 345,
+        "clean_sheets": 147
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stojan Vukcevic",
@@ -31,9 +72,53 @@
       "age": 25,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mornar Bar",
+          "year": "2019"
+        },
+        {
+          "club": "Kom Podgorica",
+          "year": "2020"
+        },
+        {
+          "club": "FK Drezga",
+          "year": "2020"
+        },
+        {
+          "club": "Mornar Bar",
+          "year": "2021"
+        },
+        {
+          "club": "FK Berane",
+          "year": "2023"
+        },
+        {
+          "club": "Rudar Pljevlja",
+          "year": "2023"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 101,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +128,61 @@
       "age": 31,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 0
+      "appearances": 21,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B. Podgorica",
+          "year": "2012"
+        },
+        {
+          "club": "Hapoel Acre",
+          "year": "2015"
+        },
+        {
+          "club": "FK Mladost",
+          "year": "2016"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2017"
+        },
+        {
+          "club": "BATE Borisov",
+          "year": "2019"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2021"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 305,
+        "goals": 18,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anto Babic",
@@ -53,9 +190,49 @@
       "age": 26,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 3,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2019"
+        },
+        {
+          "club": "OFK Grbalj",
+          "year": "2019"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2020"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2022"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 13,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rados Dedic",
@@ -63,9 +240,49 @@
       "age": 32,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 20,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kom Podgorica",
+          "year": "2016"
+        },
+        {
+          "club": "OFK Titograd",
+          "year": "2019"
+        },
+        {
+          "club": "FK Decic Tuzi",
+          "year": "2019"
+        },
+        {
+          "club": "FK Jezero",
+          "year": "2020"
+        },
+        {
+          "club": "OFK Petrovac",
+          "year": "2023"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 322,
+        "goals": 25,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bojan Damjanović",
@@ -73,9 +290,33 @@
       "age": 19,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 17,
-      "goals": 4,
-      "assists": 1
+      "appearances": 15,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mladost DG",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Djukanovic",
@@ -83,9 +324,69 @@
       "age": 29,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Berane",
+          "year": "2016"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2016"
+        },
+        {
+          "club": "OSK Igalo",
+          "year": "2016"
+        },
+        {
+          "club": "OFK Grbalj",
+          "year": "2019"
+        },
+        {
+          "club": "OSK Igalo",
+          "year": "2019"
+        },
+        {
+          "club": "OSK Igalo",
+          "year": "2020"
+        },
+        {
+          "club": "FK Berane",
+          "year": "2021"
+        },
+        {
+          "club": "Kom Podgorica",
+          "year": "2021"
+        },
+        {
+          "club": "Zeta Golubovac",
+          "year": "2022"
+        },
+        {
+          "club": "OFK Grbalj",
+          "year": "2022"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 21,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrija Raznatovic",
@@ -93,9 +394,49 @@
       "age": 25,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 22,
+      "appearances": 24,
       "goals": 6,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rudar Pljevlja",
+          "year": "2019"
+        },
+        {
+          "club": "OFK Petrovac",
+          "year": "2019"
+        },
+        {
+          "club": "OFK Petrovac",
+          "year": "2020"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2021"
+        },
+        {
+          "club": "Karvina",
+          "year": "2023"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 20,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ognjen Djinovic",
@@ -103,9 +444,41 @@
       "age": 22,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 16,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeta Golubovac",
+          "year": "2021"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost DG",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milos Vracar",
@@ -113,9 +486,45 @@
       "age": 19,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 3,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Podgorica",
+          "year": "2024"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2025"
+        },
+        {
+          "club": "FK Podgorica",
+          "year": "2025"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2026"
+        },
+        {
+          "club": "FK Podgorica",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +534,89 @@
       "age": 31,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 29,
-      "goals": 2,
-      "assists": 2
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teleoptik",
+          "year": "2014"
+        },
+        {
+          "club": "Partizan",
+          "year": "2015"
+        },
+        {
+          "club": "Teleoptik",
+          "year": "2015"
+        },
+        {
+          "club": "Partizan",
+          "year": "2016"
+        },
+        {
+          "club": "FK Bezanija",
+          "year": "2016"
+        },
+        {
+          "club": "Partizan",
+          "year": "2017"
+        },
+        {
+          "club": "FK Zemun",
+          "year": "2017"
+        },
+        {
+          "club": "Borac Cacak",
+          "year": "2017"
+        },
+        {
+          "club": "Suduva",
+          "year": "2018"
+        },
+        {
+          "club": "Taraz",
+          "year": "2020"
+        },
+        {
+          "club": "Kaysar",
+          "year": "2021"
+        },
+        {
+          "club": "Metalac",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Panevezys",
+          "year": "2022"
+        },
+        {
+          "club": "Hamrun Spart.",
+          "year": "2025"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 10,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deni Hocko",
@@ -135,9 +624,69 @@
       "age": 31,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 15,
+      "appearances": 5,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Lovcen",
+          "year": "2012"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2013"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2017"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2019"
+        },
+        {
+          "club": "Pafos",
+          "year": "2021"
+        },
+        {
+          "club": "B. Jerusalem",
+          "year": "2023"
+        },
+        {
+          "club": "Kosice",
+          "year": "2024"
+        },
+        {
+          "club": "Karmiotissa",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Egaleo",
+          "year": "2025"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 14,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandar Scekic",
@@ -145,9 +694,73 @@
       "age": 34,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 25,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Lovcen",
+          "year": "2011"
+        },
+        {
+          "club": "FK Berane",
+          "year": "2011"
+        },
+        {
+          "club": "Jedinstvo",
+          "year": "2013"
+        },
+        {
+          "club": "FK Berane",
+          "year": "2013"
+        },
+        {
+          "club": "FK Bokelj",
+          "year": "2013"
+        },
+        {
+          "club": "Genclerbirligi",
+          "year": "2016"
+        },
+        {
+          "club": "Partizan",
+          "year": "2018"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2022"
+        },
+        {
+          "club": "Dibba Fujairah",
+          "year": "2022"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2023"
+        },
+        {
+          "club": "Partizan",
+          "year": "2023"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 394,
+        "goals": 29,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Igor Pajovic",
@@ -155,9 +768,33 @@
       "age": 23,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 16,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OSK Igalo",
+          "year": "2022"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Simun",
@@ -165,9 +802,57 @@
       "age": 24,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 26,
-      "goals": 4,
-      "assists": 1
+      "appearances": 23,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Studentski Grad",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Pancevo",
+          "year": "2021"
+        },
+        {
+          "club": "FK Feniks",
+          "year": "2022"
+        },
+        {
+          "club": "Stara Pazova",
+          "year": "2022"
+        },
+        {
+          "club": "FK Jezero",
+          "year": "2023"
+        },
+        {
+          "club": "OFK Petrovac",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksa Golubovic",
@@ -175,9 +860,33 @@
       "age": 23,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 25,
+      "appearances": 19,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "OFK Petrovac",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danilo Ćetković",
@@ -185,9 +894,33 @@
       "age": 19,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 16,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Iskra",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -197,9 +930,93 @@
       "age": 32,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 3,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Hønefoss",
+          "year": "2014"
+        },
+        {
+          "club": "Bærum",
+          "year": "2015"
+        },
+        {
+          "club": "Hønefoss",
+          "year": "2015"
+        },
+        {
+          "club": "Dacia",
+          "year": "2016"
+        },
+        {
+          "club": "Anagen.Derynias",
+          "year": "2016"
+        },
+        {
+          "club": "Zeta Golubovac",
+          "year": "2017"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2017"
+        },
+        {
+          "club": "OFK Titograd",
+          "year": "2018"
+        },
+        {
+          "club": "Velez Mostar",
+          "year": "2019"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2020"
+        },
+        {
+          "club": "Zeta Golubovac",
+          "year": "2020"
+        },
+        {
+          "club": "Yverdon Sport",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Vevey-Sports",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Rudar Pljevlja",
+          "year": "2023"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 40,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vasilije Cavor",
@@ -207,9 +1024,37 @@
       "age": 23,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 24,
-      "goals": 4,
-      "assists": 1
+      "appearances": 22,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "OFK Grbalj",
+          "year": "2022"
+        },
+        {
+          "club": "FK Bokelj",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 28,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Medo Jukovic",
@@ -217,9 +1062,37 @@
       "age": 21,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Ibar",
+          "year": "2023"
+        },
+        {
+          "club": "Jedinstvo",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petar Anicic",
@@ -227,9 +1100,29 @@
       "age": 21,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Brnovic",
@@ -239,7 +1132,59 @@
       "club": "FK Sutjeska Niksic",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teleoptik",
+          "year": "2021"
+        },
+        {
+          "club": "Partizan",
+          "year": "2022"
+        },
+        {
+          "club": "Arsenal Tivat",
+          "year": "2023"
+        },
+        {
+          "club": "Partizan",
+          "year": "2023"
+        },
+        {
+          "club": "Rudar Pljevlja",
+          "year": "2023"
+        },
+        {
+          "club": "Sloga Meridian",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sloboda Uzice",
+          "year": "2025"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivan Vukcevic",
@@ -247,9 +1192,53 @@
       "age": 24,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 1
+      "appearances": 17,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zeta Golubovac",
+          "year": "2019"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost GAT",
+          "year": "2023"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2023"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2024"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2025"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 34,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Mrvaljevic",
@@ -257,9 +1246,65 @@
       "age": 24,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B. Podgorica",
+          "year": "2020"
+        },
+        {
+          "club": "OFK Titograd",
+          "year": "2020"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2021"
+        },
+        {
+          "club": "FK Podgorica",
+          "year": "2022"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2022"
+        },
+        {
+          "club": "Veres Rivne",
+          "year": "2024"
+        },
+        {
+          "club": "LKS Lodz",
+          "year": "2025"
+        },
+        {
+          "club": "Veres Rivne",
+          "year": "2025"
+        },
+        {
+          "club": "NS Mura",
+          "year": "2025"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 31,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Balsa Toskovic",
@@ -267,9 +1312,41 @@
       "age": 22,
       "nationality": "Montenegro",
       "club": "FK Sutjeska Niksic",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 1
+      "appearances": 20,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Graficar",
+          "year": "2021"
+        },
+        {
+          "club": "FK Jezero",
+          "year": "2022"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 29,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "EGY1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,65 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Minya",
+          "year": "2013"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2014"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2016"
+        },
+        {
+          "club": "El Raja",
+          "year": "2017"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2018"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2020"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2023"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 200,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amr Shaaban",
@@ -31,9 +88,45 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Dakhlia",
+          "year": "2018"
+        },
+        {
+          "club": "El Raja",
+          "year": "2019"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2020"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 84,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayman Ragab",
@@ -43,7 +136,43 @@
       "club": "Harras El Hodoud",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2019"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2020"
+        },
+        {
+          "club": "Qanah",
+          "year": "2021"
+        },
+        {
+          "club": "Sporting",
+          "year": "2022"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adham Seha",
@@ -53,7 +182,27 @@
       "club": "Harras El Hodoud",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +212,29 @@
       "age": 22,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 23,
+      "appearances": 17,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Abdelghani",
@@ -75,7 +244,51 @@
       "club": "Harras El Hodoud",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Dakhlia",
+          "year": "2012"
+        },
+        {
+          "club": "Sohag FC",
+          "year": "2014"
+        },
+        {
+          "club": "FC Masr",
+          "year": "2017"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2018"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2025"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 220,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islam Abou-Salima",
@@ -83,9 +296,45 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 22,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Sharkia",
+          "year": "2017"
+        },
+        {
+          "club": "El Shorta",
+          "year": "2017"
+        },
+        {
+          "club": "El Masry",
+          "year": "2017"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2023"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 13,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Momen Awad",
@@ -93,9 +342,24 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 17,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moataz Mohamed",
@@ -103,9 +367,29 @@
       "age": 21,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kouassi Kouadja",
@@ -113,9 +397,85 @@
       "age": 30,
       "nationality": "Ivory Coast",
       "club": "Harras El Hodoud",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Saxan",
+          "year": "2014"
+        },
+        {
+          "club": "Astra Giurgiu",
+          "year": "2015"
+        },
+        {
+          "club": "FC Saxan",
+          "year": "2015"
+        },
+        {
+          "club": "FK Slutsk",
+          "year": "2015"
+        },
+        {
+          "club": "Aktobe",
+          "year": "2016"
+        },
+        {
+          "club": "FK Slutsk",
+          "year": "2017"
+        },
+        {
+          "club": "Tambov",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Cape Town City",
+          "year": "2018"
+        },
+        {
+          "club": "Aktobe",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Renaissance FC",
+          "year": "2022"
+        },
+        {
+          "club": "Fovu de Baham",
+          "year": "2022"
+        },
+        {
+          "club": "Power Dynamos",
+          "year": "2023"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Sabra",
@@ -125,7 +485,27 @@
       "club": "Harras El Hodoud",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fawzi El Henawy",
@@ -133,19 +513,83 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 20,
-      "goals": 1,
-      "assists": 6
+      "appearances": 15,
+      "goals": 0,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Ittihad Alex",
+          "year": "2017"
+        },
+        {
+          "club": "Smouha",
+          "year": "2019"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2020"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 7,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud El Badry",
       "position": "Left-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2019"
+        },
+        {
+          "club": "O. Alexandria",
+          "year": "2022"
+        },
+        {
+          "club": "Qanah",
+          "year": "2023"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed El Deghemy",
@@ -153,9 +597,53 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 18,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cleopatra FC",
+          "year": "2019"
+        },
+        {
+          "club": "Baladiya",
+          "year": "2020"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2021"
+        },
+        {
+          "club": "O. Alexandria",
+          "year": "2021"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2022"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2022"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Hassan",
@@ -163,9 +651,29 @@
       "age": 21,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +683,57 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 25,
-      "goals": 5,
-      "assists": 1
+      "appearances": 19,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2013"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2017"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2018"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2019"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2020"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2020"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 20,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emeka Christian Eze",
@@ -187,7 +743,43 @@
       "club": "Harras El Hodoud",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Nasr Tadeen",
+          "year": "2017"
+        },
+        {
+          "club": "Entag El Harby",
+          "year": "2017"
+        },
+        {
+          "club": "El Nasr Tadeen",
+          "year": "2018"
+        },
+        {
+          "club": "El Masry",
+          "year": "2018"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 7,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ikenna Cooper",
@@ -195,9 +787,53 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Harras El Hodoud",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ifeanyi Ubah",
+          "year": "2019"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2020"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2021"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2022"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 8,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Marie",
@@ -207,7 +843,47 @@
       "club": "Harras El Hodoud",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Entag El Harby",
+          "year": "2020"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2020"
+        },
+        {
+          "club": "Pioneers",
+          "year": "2021"
+        },
+        {
+          "club": "Tersana",
+          "year": "2023"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Ouka",
@@ -215,9 +891,41 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 0
+      "appearances": 17,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pyramids FC",
+          "year": "2023"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2024"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Magli",
@@ -227,7 +935,31 @@
       "club": "Harras El Hodoud",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Mokawloon",
+          "year": "2018"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Bayoumi",
@@ -235,9 +967,33 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 20,
-      "goals": 1,
-      "assists": 0
+      "appearances": 13,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2019"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Saviola",
@@ -245,9 +1001,61 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El Mostakbal",
+          "year": "2015"
+        },
+        {
+          "club": "Alassiouty SC",
+          "year": "2018"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2018"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2019"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2021"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2021"
+        },
+        {
+          "club": "Future FC",
+          "year": "2021"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2022"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 13,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Ashraf Marazik",
@@ -257,7 +1065,35 @@
       "club": "Harras El Hodoud",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Dakhlia",
+          "year": "2023"
+        },
+        {
+          "club": "Omon. Aradippou",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Mostafa",
@@ -265,9 +1101,29 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdallah Hafez",
@@ -275,21 +1131,97 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hutnik Krakow",
+          "year": "2020"
+        },
+        {
+          "club": "Gornik Polk.",
+          "year": "2022"
+        },
+        {
+          "club": "Hutnik Krakow",
+          "year": "2022"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2023"
+        },
+        {
+          "club": "Modern Sport",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2026"
+        },
+        {
+          "club": "Modern Sport",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 14,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Aziz Abid",
       "position": "Left Winger",
-      "age": 22,
+      "age": 23,
       "nationality": "Tunisia",
       "club": "Harras El Hodoud",
-      "appearances": 11,
+      "appearances": 4,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Esperance",
+          "year": "2022"
+        },
+        {
+          "club": "Olympique Beja",
+          "year": "2024"
+        },
+        {
+          "club": "US Monastir",
+          "year": "2025"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismail Ashraf",
@@ -297,9 +1229,37 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2021"
+        },
+        {
+          "club": "Eastern Company",
+          "year": "2022"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Nayel",
@@ -307,9 +1267,29 @@
       "age": 20,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Damilola",
@@ -319,7 +1299,27 @@
       "club": "Harras El Hodoud",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziad Tarek",
@@ -327,9 +1327,61 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2021"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Smouha",
+          "year": "2023"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2023"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2024"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Al-Dawoud",
@@ -339,7 +1391,55 @@
       "club": "Harras El Hodoud",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "IFK Eskilstuna",
+          "year": "2019"
+        },
+        {
+          "club": "Södertälje FK",
+          "year": "2020"
+        },
+        {
+          "club": "Värmbols FC",
+          "year": "2021"
+        },
+        {
+          "club": "SV Dessau 05",
+          "year": "2022"
+        },
+        {
+          "club": "MSV Pampow",
+          "year": "2022"
+        },
+        {
+          "club": "FC Eilenburg",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 26,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed El Negely",
@@ -347,9 +1447,41 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 24,
+      "appearances": 18,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "O. Alexandria",
+          "year": "2022"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Watani",
+          "year": "2025"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Hamdi",
@@ -357,9 +1489,81 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 23,
-      "goals": 4,
-      "assists": 1
+      "appearances": 18,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ittihad Alex",
+          "year": "2012"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2015"
+        },
+        {
+          "club": "Smouha",
+          "year": "2016"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2016"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2017"
+        },
+        {
+          "club": "Smouha",
+          "year": "2017"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2019"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2020"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2022"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2024"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2024"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 318,
+        "goals": 60,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amr Gamal",
@@ -367,9 +1571,57 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "Harras El Hodoud",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 3
+      "appearances": 9,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2013"
+        },
+        {
+          "club": "Bidvest Wits FC",
+          "year": "2017"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2018"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2018"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2019"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Pharco FC",
+          "year": "2021"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 312,
+        "goals": 67,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moses Gyabaah Twum",
@@ -377,9 +1629,53 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Harras El Hodoud",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nepal PC",
+          "year": "2023"
+        },
+        {
+          "club": "Thunders",
+          "year": "2023"
+        },
+        {
+          "club": "Citizen",
+          "year": "2024"
+        },
+        {
+          "club": "Church Boys",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Entesar",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Jazeera Club",
+          "year": "2025"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

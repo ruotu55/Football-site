@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MAR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,31 @@
       "club": "FUS Rabat",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rapide Oued Zem",
+          "year": "2020"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 22,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayoub Lakred",
@@ -33,7 +58,39 @@
       "club": "FUS Rabat",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RS Berkane",
+          "year": "2014"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2019"
+        },
+        {
+          "club": "Simba SC",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 112,
+        "clean_sheets": 51
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taha Benrhozil",
@@ -43,7 +100,35 @@
       "club": "FUS Rabat",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AM Football",
+          "year": "2015"
+        },
+        {
+          "club": "FUS Espoirs",
+          "year": "2024"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 14,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,17 +140,69 @@
       "club": "FUS Rabat",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2022"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amine Farhane",
       "position": "Centre-Back",
-      "age": 27,
+      "age": 28,
       "nationality": "Morocco",
       "club": "FUS Rabat",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wydad AC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2024"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernando Chamboco",
@@ -73,9 +210,99 @@
       "age": 27,
       "nationality": "Mozambique",
       "club": "FUS Rabat",
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chibuto",
+          "year": "2018"
+        },
+        {
+          "club": "Black Bulls",
+          "year": "2018"
+        },
+        {
+          "club": "União Madeira",
+          "year": "2018"
+        },
+        {
+          "club": "Peniche",
+          "year": "2019"
+        },
+        {
+          "club": "Chibuto",
+          "year": "2019"
+        },
+        {
+          "club": "Bragança",
+          "year": "2019"
+        },
+        {
+          "club": "Chibuto",
+          "year": "2020"
+        },
+        {
+          "club": "Black Bulls",
+          "year": "2020"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Salaheddine Cofi",
+      "position": "Centre-Back",
+      "age": 22,
+      "nationality": "Morocco",
+      "club": "FUS Rabat",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FUS Espoirs",
+          "year": "2021"
+        },
+        {
+          "club": "Kénitra",
+          "year": "2024"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oussama Soukhane",
@@ -85,7 +312,39 @@
       "club": "FUS Rabat",
       "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2019"
+        },
+        {
+          "club": "Difaâ El Jadida",
+          "year": "2022"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 2,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moncef Amri",
@@ -95,7 +354,39 @@
       "club": "FUS Rabat",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kénitra",
+          "year": "2018"
+        },
+        {
+          "club": "OC Safi",
+          "year": "2020"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hodifa El Mahssani",
@@ -105,7 +396,31 @@
       "club": "FUS Rabat",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2018"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oussama Raoui",
@@ -115,7 +430,27 @@
       "club": "FUS Rabat",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FUS Rabat",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -127,7 +462,47 @@
       "club": "FUS Rabat",
       "appearances": 14,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Difaâ El Jadida",
+          "year": "2018"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2019"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2020"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2022"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 7,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amine El Msane",
@@ -137,7 +512,35 @@
       "club": "FUS Rabat",
       "appearances": 11,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "RAC Casablanca",
+          "year": "2017"
+        },
+        {
+          "club": "JS Soualem",
+          "year": "2019"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anas El Makkaoui",
@@ -147,7 +550,31 @@
       "club": "FUS Rabat",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FUS Espoirs",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdessamad Mahir",
@@ -157,7 +584,31 @@
       "club": "FUS Rabat",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soufiane Tazi",
@@ -167,7 +618,27 @@
       "club": "FUS Rabat",
       "appearances": 12,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Moujahid",
@@ -175,19 +646,49 @@
       "age": 31,
       "nationality": "Morocco",
       "club": "FUS Rabat",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Salaheddine Cofi",
-      "position": "Central Midfield",
-      "age": 22,
-      "nationality": "Morocco",
-      "club": "FUS Rabat",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Berrechid",
+          "year": "2015"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2019"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2022"
+        },
+        {
+          "club": "OC Safi",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 13,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismail Moutaraji",
@@ -197,7 +698,51 @@
       "club": "FUS Rabat",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SCC Mohammédia",
+          "year": "2019"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2020"
+        },
+        {
+          "club": "SCC Mohammédia",
+          "year": "2020"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Dhafra FC",
+          "year": "2024"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2024"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 14,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -209,7 +754,43 @@
       "club": "FUS Rabat",
       "appearances": 6,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FUS Rabat",
+          "year": "2017"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2022"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2022"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 258,
+        "goals": 53,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chouaib Faidi",
@@ -219,7 +800,39 @@
       "club": "FUS Rabat",
       "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wydad AC",
+          "year": "2021"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2022"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2024"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amine Souane",
@@ -229,7 +842,31 @@
       "club": "FUS Rabat",
       "appearances": 14,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Mouloudia",
+          "year": "2021"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 18,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salaheddine Benyachou",
@@ -239,7 +876,43 @@
       "club": "FUS Rabat",
       "appearances": 14,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OC Safi",
+          "year": "2020"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2021"
+        },
+        {
+          "club": "OC Safi",
+          "year": "2023"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 16,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayoub Mouloua",
@@ -249,7 +922,69 @@
       "club": "FUS Rabat",
       "appearances": 14,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FUS Espoirs",
+          "year": "2021"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 17,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Déo Bassinga",
+      "position": "Centre-Forward",
+      "age": 20,
+      "nationality": "Republic of the Congo",
+      "club": "FUS Rabat",
+      "appearances": 5,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Jong KAA Gent",
+          "year": "2023"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2024"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali El Harrak",
@@ -259,17 +994,43 @@
       "club": "FUS Rabat",
       "appearances": 12,
       "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Déo Bassinga",
-      "position": "Centre-Forward",
-      "age": 20,
-      "nationality": "Republic of the Congo",
-      "club": "FUS Rabat",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Tataouine",
+          "year": "2020"
+        },
+        {
+          "club": "Vilassar de Mar",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Ittihad Tanger",
+          "year": "2023"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arthur Gitego",
@@ -279,7 +1040,35 @@
       "club": "FUS Rabat",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AFC Leopards",
+          "year": "2024"
+        },
+        {
+          "club": "Ferr. Beira",
+          "year": "2025"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moctar Diallo",
@@ -287,9 +1076,37 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "FUS Rabat",
-      "appearances": 2,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Casa Sports",
+          "year": "2021"
+        },
+        {
+          "club": "Black Bulls",
+          "year": "2025"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

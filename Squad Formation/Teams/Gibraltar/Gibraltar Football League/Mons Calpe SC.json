@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 30,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Ceuta",
+          "year": "2016"
+        },
+        {
+          "club": "CD San Bernardo",
+          "year": "2019"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2020"
+        },
+        {
+          "club": "Calamocha",
+          "year": "2020"
+        },
+        {
+          "club": "CD San Bernardo",
+          "year": "2021"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2022"
+        },
+        {
+          "club": "AD Taraguilla",
+          "year": "2024"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 34,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manu Caro",
@@ -33,7 +82,43 @@
       "club": "Mons Calpe SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético Zabal",
+          "year": "2019"
+        },
+        {
+          "club": "La Rock FC",
+          "year": "2020"
+        },
+        {
+          "club": "College Reserve",
+          "year": "2022"
+        },
+        {
+          "club": "CD San Bernardo",
+          "year": "2022"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Fraiz",
@@ -43,7 +128,47 @@
       "club": "Mons Calpe SC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Compostela",
+          "year": "2010"
+        },
+        {
+          "club": "Somozas",
+          "year": "2013"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2014"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2016"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2024"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 213,
+        "clean_sheets": 49
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +178,49 @@
       "age": 25,
       "nationality": "Gibraltar",
       "club": "Mons Calpe SC",
-      "appearances": 20,
+      "appearances": 17,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lincoln FC",
+          "year": "2018"
+        },
+        {
+          "club": "Boca Gibraltar",
+          "year": "2020"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2020"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2021"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2021"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cheito",
@@ -63,9 +228,45 @@
       "age": 34,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 1
+      "appearances": 15,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "San Roque Cadiz",
+          "year": "2015"
+        },
+        {
+          "club": "Gibr. Phoenix",
+          "year": "2018"
+        },
+        {
+          "club": "UD Tarifa",
+          "year": "2019"
+        },
+        {
+          "club": "Naval Reinosa",
+          "year": "2020"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Parkinson",
@@ -75,17 +276,113 @@
       "club": "Mons Calpe SC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lions Gibraltar",
+          "year": "2016"
+        },
+        {
+          "club": "Boca Gibraltar",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2021"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2021"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Esteban Montes",
       "position": "Centre-Back",
-      "age": 37,
+      "age": 38,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético Zabal",
+          "year": "2008"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2009"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2012"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2013"
+        },
+        {
+          "club": "CD San Bernardo",
+          "year": "2017"
+        },
+        {
+          "club": "Career break",
+          "year": "2021"
+        },
+        {
+          "club": "CD San Bernardo",
+          "year": "2023"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tayler Carrington",
@@ -93,9 +390,33 @@
       "age": 19,
       "nationality": "Gibraltar",
       "club": "Mons Calpe SC",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lincoln FC",
+          "year": "2025"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reed Wilson",
@@ -103,9 +424,65 @@
       "age": 28,
       "nationality": "England",
       "club": "Mons Calpe SC",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bruno's Magpies",
+          "year": "2017"
+        },
+        {
+          "club": "FC Olympique",
+          "year": "2017"
+        },
+        {
+          "club": "Margate FC",
+          "year": "2018"
+        },
+        {
+          "club": "Greenwich",
+          "year": "2019"
+        },
+        {
+          "club": "East Grinstead",
+          "year": "2019"
+        },
+        {
+          "club": "Whitehawk",
+          "year": "2020"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2021"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2023"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2023"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dani Gallardo",
@@ -113,9 +490,73 @@
       "age": 35,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético Zabal",
+          "year": "2009"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2010"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2011"
+        },
+        {
+          "club": "San Roque Cadiz",
+          "year": "2014"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2016"
+        },
+        {
+          "club": "AD Ceuta",
+          "year": "2017"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2019"
+        },
+        {
+          "club": "Cacereño",
+          "year": "2020"
+        },
+        {
+          "club": "Guadiaro",
+          "year": "2021"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2022"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2025"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ignacio Holgado",
@@ -123,9 +564,37 @@
       "age": 26,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "R. B. Linense",
+          "year": "2020"
+        },
+        {
+          "club": "UD Montijo",
+          "year": "2024"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean-Carlos Garcia",
@@ -135,7 +604,59 @@
       "club": "Mons Calpe SC",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "R. B. Linense",
+          "year": "2011"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2013"
+        },
+        {
+          "club": "Gibr. Phoenix",
+          "year": "2019"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2019"
+        },
+        {
+          "club": "Gibraltar Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2019"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2021"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2022"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 18,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +666,57 @@
       "age": 28,
       "nationality": "Gibraltar",
       "club": "Mons Calpe SC",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lions Gibraltar",
+          "year": "2016"
+        },
+        {
+          "club": "Gibr. Phoenix",
+          "year": "2018"
+        },
+        {
+          "club": "Boca Gibraltar",
+          "year": "2019"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2023"
+        },
+        {
+          "club": "Lions Gibraltar",
+          "year": "2023"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 15,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Alberto Cañas",
@@ -155,9 +724,73 @@
       "age": 38,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Betis C",
+          "year": "2005"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2009"
+        },
+        {
+          "club": "Swansea",
+          "year": "2013"
+        },
+        {
+          "club": "Espanyol",
+          "year": "2014"
+        },
+        {
+          "club": "PAOK",
+          "year": "2016"
+        },
+        {
+          "club": "Red Star",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Baleares",
+          "year": "2021"
+        },
+        {
+          "club": "Ionikos Nikeas",
+          "year": "2021"
+        },
+        {
+          "club": "Kalamata",
+          "year": "2023"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2024"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niels Hartman",
@@ -165,9 +798,61 @@
       "age": 25,
       "nationality": "Gibraltar",
       "club": "Mons Calpe SC",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loughborough",
+          "year": "2020"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2021"
+        },
+        {
+          "club": "HSC",
+          "year": "2021"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2022"
+        },
+        {
+          "club": "Loughborough",
+          "year": "2022"
+        },
+        {
+          "club": "VT Catamounts",
+          "year": "2023"
+        },
+        {
+          "club": "Ventura County",
+          "year": "2024"
+        },
+        {
+          "club": "VT Catamounts",
+          "year": "2024"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javi Moreno",
@@ -175,9 +860,83 @@
       "age": 27,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 10
+      "assists": 9,
+      "transfer_history": [
+        {
+          "club": "Sant Rafel",
+          "year": "2019"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2021"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2023"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 15,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Leon Mason",
+      "position": "Attacking Midfield",
+      "age": 18,
+      "nationality": "Gibraltar",
+      "club": "Mons Calpe SC",
+      "appearances": 18,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Zabal Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Cádiz CF Youth",
+          "year": "2023"
+        },
+        {
+          "club": "FCB Magpies Res",
+          "year": "2024"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chico Rubio",
@@ -185,9 +944,89 @@
       "age": 29,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 2,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Taraguilla Jgd",
+          "year": "2013"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2015"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2016"
+        },
+        {
+          "club": "Gibr. Phoenix",
+          "year": "2017"
+        },
+        {
+          "club": "Gibraltar Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Boca Gibraltar",
+          "year": "2019"
+        },
+        {
+          "club": "At. Porcuna",
+          "year": "2020"
+        },
+        {
+          "club": "Almagro CF",
+          "year": "2020"
+        },
+        {
+          "club": "SD Borja",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2022"
+        },
+        {
+          "club": "Mazarrón FC",
+          "year": "2022"
+        },
+        {
+          "club": "Cabeza del Buey",
+          "year": "2023"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2024"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2025"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 32,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -197,9 +1036,57 @@
       "age": 32,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 2,
-      "assists": 8
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Algeciras CF",
+          "year": "2013"
+        },
+        {
+          "club": "San Roque Cadiz",
+          "year": "2015"
+        },
+        {
+          "club": "FC Vilafranca",
+          "year": "2016"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2016"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2019"
+        },
+        {
+          "club": "San Roque Cadiz",
+          "year": "2019"
+        },
+        {
+          "club": "Guadiaro",
+          "year": "2021"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 15,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Sánchez",
@@ -207,9 +1094,57 @@
       "age": 30,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Europa Point FC",
+          "year": "2014"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2016"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2017"
+        },
+        {
+          "club": "San Roque Cadiz",
+          "year": "2019"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2021"
+        },
+        {
+          "club": "Ittihad Tanger",
+          "year": "2023"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2025"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 24,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernando Cosano",
@@ -217,9 +1152,33 @@
       "age": 26,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manu Toledano",
@@ -227,19 +1186,61 @@
       "age": 23,
       "nationality": "Spain",
       "club": "Mons Calpe SC",
-      "appearances": 23,
-      "goals": 26,
-      "assists": 1
-    },
-    {
-      "name": "Leon Mason",
-      "position": "Centre-Forward",
-      "age": 18,
-      "nationality": "Gibraltar",
-      "club": "Mons Calpe SC",
-      "appearances": 21,
-      "goals": 5,
-      "assists": 2
+      "appearances": 20,
+      "goals": 25,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CU Bluejays",
+          "year": "2021"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2022"
+        },
+        {
+          "club": "CD Estepona FS",
+          "year": "2022"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2023"
+        },
+        {
+          "club": "RSD Alcalá",
+          "year": "2023"
+        },
+        {
+          "club": "RSD Alcalá",
+          "year": "2024"
+        },
+        {
+          "club": "CA Antoniano",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 29,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Gracia",
@@ -247,9 +1248,69 @@
       "age": 24,
       "nationality": "Gibraltar",
       "club": "Mons Calpe SC",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Red Imps Res",
+          "year": "2018"
+        },
+        {
+          "club": "Europa Reserve",
+          "year": "2020"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2020"
+        },
+        {
+          "club": "FC College 1975",
+          "year": "2021"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2021"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2024"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2024"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2024"
+        },
+        {
+          "club": "FC College 1975",
+          "year": "2025"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 74,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Bartkowiak",
@@ -259,7 +1320,55 @@
       "club": "Mons Calpe SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kotwica",
+          "year": "2019"
+        },
+        {
+          "club": "Almagro CF",
+          "year": "2020"
+        },
+        {
+          "club": "Afic. Xerecista",
+          "year": "2020"
+        },
+        {
+          "club": "Silva SD",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2022"
+        },
+        {
+          "club": "FC College 1975",
+          "year": "2023"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 16,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

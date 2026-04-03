@@ -165,7 +165,8 @@ body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.re
 .career-inline-player-picker {
   position: absolute;
   left: 50%;
-  top: 31%;
+  /* Below tall Clubs / stats panel so the menu stays visible with many teams */
+  top: 64%;
   transform: translate(-50%, -50%);
   z-index: 20;
   width: min(22rem, 90%);
@@ -241,12 +242,13 @@ body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.re
   font-size: 0.75rem;
 }
 
+/* Fixed + high z-index: #player-stats-panel is position:fixed;z-index:180 and otherwise covered this control (esp. no-photo). */
 .career-clear-player-btn {
-  position: absolute;
-  left: 50%;
-  top: 31%;
+  position: fixed;
+  left: 0;
+  top: 0;
   transform: translate(-50%, -50%);
-  z-index: 22;
+  z-index: 220;
   width: 2.1rem;
   height: 2.1rem;
   border-radius: 999px;
@@ -271,6 +273,7 @@ body.play-video-active .career-clear-player-btn {
 
 /* Cinematic countdown-finish reveal: soften the background briefly. */
 body.career-cinematic-reveal .career-wrap .career-slots,
+body.career-cinematic-reveal #player-stats-panel,
 body.career-cinematic-reveal .career-wrap .career-path-outer,
 body.career-cinematic-reveal .career-wrap .career-path-inner,
 body.career-cinematic-reveal .career-wrap .career-path-dash,
@@ -397,7 +400,10 @@ body:not(.shorts-mode) .career-reveal-overlay-img {
   object-fit: contain;
   object-position: center bottom;
   transform: translateY(var(--career-reveal-y, -10%))
-    scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
+    scale(
+      calc(var(--career-reveal-scale-x, 1.08) * 0.5),
+      calc(var(--career-reveal-scale-y, 1.08) * 0.5)
+    );
   transform-origin: center bottom;
 }
 
@@ -1005,6 +1011,504 @@ body:not(.shorts-mode) .career-club-placeholder:empty::after {
   background: #0a1118;
   border-radius: 5px;
   border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Regular layout: stats cards float on stage — matrix gaps are transparent so page blue shows between boxes. */
+body:not(.shorts-mode) .player-stats-panel {
+  --player-stat-navy: #002d72;
+  --player-stat-navy-deep: #001f52;
+  --player-stat-navy-highlight: #003b8f;
+  --player-stat-beige: #d2c4ad;
+  --player-stat-beige-mid: #c5b398;
+  --player-stat-beige-deep: #b5a088;
+  --player-stat-ink: #000000;
+  /* Matte grain (tileable SVG fractal noise). */
+  --player-stat-matte-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  /* Headlines smaller than stat values; values stay readable. */
+  --player-stat-head-font: clamp(0.93rem, 2.03vw, 1.32rem);
+  --player-stat-value-font: clamp(1.5rem, 4.13vw, 2.33rem);
+  --player-stat-equal-cell: clamp(3.05rem, 8.2vh, 4.55rem); /* min floor + clubs tile tuning */
+  /* Uniform gap between the six cards (rows + columns), mockup-style. */
+  --player-stats-grid-gap: clamp(0.5rem, 1.35vw, 0.72rem);
+
+  position: fixed;
+  left: 50%;
+  top: 1.5rem;
+  transform: translateX(-50%) scale(0.9);
+  transform-origin: top center;
+  z-index: 180;
+  width: min(94%, 1000px);
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  pointer-events: auto;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Gaps between cards: transparent → full-page blue (html) shows through. */
+body:not(.shorts-mode) .player-stats-panel__matrix {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--player-stats-grid-gap);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: transparent;
+  border-radius: 0.1rem;
+}
+
+/* Main row: [ Games+Position | Clubs | Goals+Assists ] — side columns stay short; Clubs height does not push bottom cards down. */
+body:not(.shorts-mode) .player-stats-panel__row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: stretch;
+  gap: var(--player-stats-grid-gap);
+  width: 100%;
+  min-width: 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--player-stats-grid-gap);
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Main stats row: wider center strip for 4 clubs per row; side columns a bit narrower. */
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stats-panel__column {
+  flex: 0.88 1 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stat-card--clubs-expanded {
+  flex: 1.42 1 0;
+  min-width: 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Fixed height for every card except expanded Clubs. */
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card:not(.player-stat-card--clubs-expanded),
+body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card:not(.player-stat-card--clubs-expanded) {
+  height: calc(2 * var(--player-stat-equal-cell));
+}
+
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card--clubs-expanded {
+  height: auto;
+  /* Navy band (~1 cell) + beige grows one cell per logo row — no inner scroll. */
+  min-height: calc((1 + var(--player-stat-club-rows, 1)) * var(--player-stat-equal-cell));
+  background: transparent;
+}
+
+body:not(.shorts-mode) .player-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 0.12rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+body:not(.shorts-mode) .player-stat-card__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
+  font-weight: 800;
+  font-size: var(--player-stat-head-font);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f8fafc;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  padding: 0.28rem 0.38rem;
+  line-height: 1.12;
+  flex: 1 1 0;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--player-stat-navy-deep);
+  /* Repo root: Logo/stats image.jpg — textured blue header (cover per card). */
+  background-image:
+    var(--player-stat-matte-noise),
+    linear-gradient(
+      180deg,
+      rgba(0, 18, 48, 0.42) 0%,
+      rgba(0, 12, 36, 0.28) 50%,
+      rgba(0, 8, 28, 0.38) 100%
+    ),
+    url("../../../Logo/stats%20image.jpg");
+  background-size: auto, auto, cover;
+  background-position: center, center, center;
+  background-repeat: repeat, no-repeat, no-repeat;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+/* Fixed header band on every stats card (Clubs + sides) — same pixel height as one equal cell. */
+body:not(.shorts-mode) .player-stats-panel .player-stat-card__head {
+  flex: 0 0 var(--player-stat-equal-cell);
+  flex-shrink: 0;
+  min-height: var(--player-stat-equal-cell);
+  height: var(--player-stat-equal-cell);
+  max-height: var(--player-stat-equal-cell);
+}
+
+body:not(.shorts-mode) .player-stat-card__icon {
+  position: absolute;
+  left: calc(0.38rem + 0.2em);
+  top: 50%;
+  transform: translateY(-50%);
+  flex-shrink: 0;
+  width: 1.5em;
+  height: 1.5em;
+  margin-left: 0;
+  color: #fff;
+  opacity: 0.95;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+}
+
+/* Goal glyph sits low in the viewBox; nudge up to align with cap height. */
+body:not(.shorts-mode) .player-stat-card__icon--goal {
+  transform: translateY(calc(-50% - 0.14em));
+}
+
+body:not(.shorts-mode) .player-stat-card__label {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+/* Career Goals: lighter text-only nudge; icons unchanged. */
+body:not(.shorts-mode) .player-stats-panel .player-stat-card__label--nudge-right {
+  box-sizing: border-box;
+  padding-inline-start: 0.55em;
+}
+
+/* Career games & Career assists: stronger text-only nudge (icons stay on the left). */
+body:not(.shorts-mode) .player-stats-panel .player-stat-card__label--nudge-strong {
+  box-sizing: border-box;
+  padding-inline-start: 1.15em;
+}
+
+body:not(.shorts-mode) .player-stat-card__value {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #000000;
+  font-size: var(--player-stat-value-font);
+  font-weight: 900;
+  font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
+  line-height: 1;
+  background-color: #c5c5c5;
+  /* Repo root: Logo/Backgrounds/Light grey background.jfif */
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.06) 100%
+    ),
+    url("../../../Logo/Backgrounds/Light%20grey%20background.jfif");
+  background-size: auto, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs {
+  padding: 0.28rem 0.32rem;
+  align-items: stretch;
+  justify-content: center;
+  color: var(--player-stat-ink);
+  font-size: inherit;
+  /* clip: hidden+visible on the other axis forces overflow-y:auto in browsers → inner scrollbar */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+body:not(.shorts-mode) .player-stat-card--clubs-expanded .player-stat-card__value--clubs {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: max(
+    calc(var(--player-stat-club-rows, 2) * var(--player-stat-equal-cell)),
+    min-content
+  );
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  gap: 0.28rem;
+  width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-x: clip;
+  overflow-y: visible;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-track--expanded {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-content: flex-start;
+  gap: 0.38rem;
+  padding-top: 0.1rem;
+  overflow-y: visible;
+}
+
+/* 8-column grid: 4 logos span 2 cols each; partial rows centered. */
+body:not(.shorts-mode) .player-stat-clubs-row {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  justify-items: center;
+  align-items: start;
+  gap: 0.28rem;
+  width: 100%;
+  min-height: 0;
+  flex-shrink: 0;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row .player-stat-club-item {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(1) {
+  grid-column: 1 / 3;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(2) {
+  grid-column: 3 / 5;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(3) {
+  grid-column: 5 / 7;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(4) {
+  grid-column: 7 / 9;
+}
+
+/* Three logos in one row: centered in 8 cols (each span 2). */
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(1):nth-last-child(3) {
+  grid-column: 2 / 4;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(2):nth-last-child(2) {
+  grid-column: 4 / 6;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(3):nth-last-child(1) {
+  grid-column: 6 / 8;
+}
+
+/* Two logos: centered pair with gutter. */
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(1):nth-last-child(2) {
+  grid-column: 2 / 4;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(2):nth-last-child(1) {
+  grid-column: 6 / 8;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:only-child {
+  grid-column: 4 / 6;
+}
+
+body:not(.shorts-mode) .player-stat-club-item {
+  flex: 0 0 auto;
+  position: relative;
+  max-width: 100%;
+  pointer-events: auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body:not(.shorts-mode) .player-stat-club-item .career-club-slot-inner {
+  animation: none !important;
+}
+
+/* Nudge crests down ~5% of slot height; all rows (stats panel clubs only). */
+body:not(.shorts-mode)
+  .player-stat-card__value--clubs
+  .player-stat-club-item
+  .career-club-slot-inner {
+  transform: translateY(5%);
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  bottom: -0.05rem;
+  top: auto;
+  transform: translateX(-50%) scale(0.62);
+  transform-origin: center bottom;
+  margin: 0;
+  z-index: 2;
+  gap: 0.12rem;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .player-stat-club-item {
+  padding-bottom: 1.5rem; /* room for − / + after crest translateY(5%) + larger logos */
+}
+
+body:not(.shorts-mode).career-hide-slot-controls .player-stat-card__value--clubs .player-stat-club-item {
+  padding-bottom: 0;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder {
+  /* Team crest box in stats panel (+10% vs prior step) */
+  width: clamp(2.772rem, 10.296vw, 4.673rem);
+  height: clamp(2.772rem, 10.296vw, 4.673rem);
+  min-width: 2.772rem;
+  min-height: 2.772rem;
+  max-width: min(4.673rem, 31.68vw);
+  max-height: min(4.673rem, 31.68vw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  line-height: 0;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder:empty {
+  min-width: 2.772rem;
+  min-height: 2.772rem;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-logo-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-edit-btn {
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 0.68rem;
+  top: -4px;
+  right: -4px;
+}
+
+/* Road/career CSS uses position:absolute + 3D transforms on .career-club-slot; stats tiles must stay in-flow. */
+body:not(.shorts-mode) #player-stats-panel .player-stat-club-item.career-club-slot {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  z-index: 1;
+}
+
+/* Missing logo: show club name (pitch-render toggles [hidden] on .career-club-fallback-text after fallbacks exhaust). */
+body:not(.shorts-mode) #player-stats-panel .career-club-fallback-text:not([hidden]) {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--player-stat-ink);
+  font-size: clamp(0.48rem, 1.45vw, 0.7rem);
+  font-weight: 800;
+  line-height: 1.1;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0.08rem 0.12rem;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) #player-stats-panel .career-club-slot-visual,
+body:not(.shorts-mode) #player-stats-panel .career-club-badge-scale,
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-scale {
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-slot {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  justify-content: center;
+}
+
+/* Road rule pins −/+ above the crest; keep bottom-bar layout inside stats panel only. */
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  top: auto;
+  bottom: -0.05rem;
+  transform: translateX(-50%) scale(0.62);
+  transform-origin: center bottom;
+  margin: 0;
 }
 
 /* Main Runner - Player stats: empty question stage */

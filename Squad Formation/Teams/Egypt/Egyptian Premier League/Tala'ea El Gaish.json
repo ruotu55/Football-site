@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "EGY1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2018"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2022"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 98,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Magdy",
@@ -31,9 +60,49 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2016"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2021"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2022"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2022"
+        },
+        {
+          "club": "Modern Sport",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 108,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Radwan",
@@ -41,9 +110,65 @@
       "age": 28,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Sharkia",
+          "year": "2016"
+        },
+        {
+          "club": "El Raja",
+          "year": "2017"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2018"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2019"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2020"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2021"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 152,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emad El-Sayed",
@@ -51,9 +176,77 @@
       "age": 39,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2007"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2010"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2013"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2015"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2016"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2016"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2018"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2019"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 232,
+        "clean_sheets": 68
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Abbas",
@@ -63,7 +256,27 @@
       "club": "Tala'ea El Gaish",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -73,9 +286,57 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 28,
-      "goals": 1,
-      "assists": 1
+      "appearances": 19,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Masr Lel Taamen",
+          "year": "2016"
+        },
+        {
+          "club": "G. Shebin",
+          "year": "2017"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2019"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Jandal",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Alaa",
@@ -83,9 +344,53 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 1
+      "appearances": 18,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El Dakhlia",
+          "year": "2017"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2018"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2019"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "El Masry",
+          "year": "2021"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2022"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moamen Mahmoud",
@@ -95,7 +400,27 @@
       "club": "Tala'ea El Gaish",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amro Tarek",
@@ -103,9 +428,77 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2013"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2015"
+        },
+        {
+          "club": "Columbus Crew",
+          "year": "2016"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2016"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2016"
+        },
+        {
+          "club": "Wadi Degla",
+          "year": "2017"
+        },
+        {
+          "club": "Orlando",
+          "year": "2018"
+        },
+        {
+          "club": "Wadi Degla",
+          "year": "2018"
+        },
+        {
+          "club": "New York",
+          "year": "2018"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2021"
+        },
+        {
+          "club": "El Masry",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 12,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Sotohi",
@@ -113,9 +506,37 @@
       "age": 36,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2016"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2017"
+        },
+        {
+          "club": "Smouha",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamed El Gabry",
@@ -123,9 +544,37 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 17,
+      "appearances": 12,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2019"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Aboziada",
@@ -133,9 +582,33 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Petrojet",
+          "year": "2022"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alpha Boubacar Keita",
@@ -143,9 +616,37 @@
       "age": 22,
       "nationality": "Guinea",
       "club": "Tala'ea El Gaish",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Awad",
@@ -153,9 +654,29 @@
       "age": 22,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 30,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Zola",
@@ -163,9 +684,33 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 20,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Petrojet",
+          "year": "2018"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 4,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan Magdy",
@@ -173,9 +718,33 @@
       "age": 35,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 10,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2016"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +754,29 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 30,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yehia Mostafa",
@@ -195,9 +784,29 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Ahmed Hassan",
@@ -207,7 +816,27 @@
       "club": "Tala'ea El Gaish",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Houssem Eddine Souissi",
@@ -215,9 +844,61 @@
       "age": 28,
       "nationality": "Tunisia",
       "club": "Tala'ea El Gaish",
-      "appearances": 23,
-      "goals": 2,
-      "assists": 0
+      "appearances": 16,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Ben Guerdane",
+          "year": "2018"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2018"
+        },
+        {
+          "club": "AS Rejiche",
+          "year": "2020"
+        },
+        {
+          "club": "Qadsia SC",
+          "year": "2022"
+        },
+        {
+          "club": "Hassania",
+          "year": "2022"
+        },
+        {
+          "club": "Qadsia SC",
+          "year": "2023"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2023"
+        },
+        {
+          "club": "US Ben Guerdane",
+          "year": "2025"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ghaith Al-Madadha",
@@ -225,9 +906,41 @@
       "age": 26,
       "nationality": "Jordan",
       "club": "Tala'ea El Gaish",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 1
+      "appearances": 16,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Faisaly",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Aqaba Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Jazeera Club",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islam Mohareb",
@@ -235,9 +948,65 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 0
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2011"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2013"
+        },
+        {
+          "club": "Smouha",
+          "year": "2015"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2017"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2019"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2020"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 369,
+        "goals": 37,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 3,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mostafa El Khawaga",
@@ -245,9 +1014,49 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 18,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cleopatra FC",
+          "year": "2015"
+        },
+        {
+          "club": "A. Abo Qir",
+          "year": "2019"
+        },
+        {
+          "club": "Smouha",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "Smouha",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Abdelaziz",
@@ -255,9 +1064,37 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 8,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Mahalla",
+          "year": "2023"
+        },
+        {
+          "club": "Nabaroh",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziad El Teihy",
@@ -267,7 +1104,35 @@
       "club": "Tala'ea El Gaish",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nogoom FC",
+          "year": "2019"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2026"
+        },
+        {
+          "club": "Nogoom FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Yasser",
@@ -277,7 +1142,27 @@
       "club": "Tala'ea El Gaish",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karim Ragab",
@@ -287,7 +1172,27 @@
       "club": "Tala'ea El Gaish",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -297,9 +1202,61 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 18,
+      "appearances": 12,
       "goals": 2,
-      "assists": 4
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2014"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2015"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2018"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2020"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2020"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 34,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riga",
@@ -307,9 +1264,65 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 14,
+      "appearances": 5,
       "goals": 1,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Makasa",
+          "year": "2018"
+        },
+        {
+          "club": "Wadi Degla",
+          "year": "2019"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2020"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2022"
+        },
+        {
+          "club": "El Masry",
+          "year": "2023"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2023"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 15,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Tarek",
@@ -317,9 +1330,29 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 16,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Atef",
@@ -327,9 +1360,45 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 24,
-      "goals": 5,
-      "assists": 1
+      "appearances": 16,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Baltim",
+          "year": "2021"
+        },
+        {
+          "club": "Tanta SC",
+          "year": "2022"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Hany",
@@ -337,9 +1406,29 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismaïl Ouro-Agoro",
@@ -347,9 +1436,57 @@
       "age": 30,
       "nationality": "Togo",
       "club": "Tala'ea El Gaish",
-      "appearances": 28,
-      "goals": 4,
-      "assists": 2
+      "appearances": 19,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Omni. Agaza",
+          "year": "2016"
+        },
+        {
+          "club": "AS OTR",
+          "year": "2018"
+        },
+        {
+          "club": "Sara Sport FC",
+          "year": "2019"
+        },
+        {
+          "club": "ASC Kara",
+          "year": "2019"
+        },
+        {
+          "club": "Kidus Giorgis",
+          "year": "2021"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2023"
+        },
+        {
+          "club": "Naft Al-Basra",
+          "year": "2024"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 19,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Khaled",
@@ -357,9 +1494,33 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Petrol Asyut",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fares Hatem",
@@ -367,9 +1528,29 @@
       "age": 23,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohanad Mohamed",
@@ -377,9 +1558,37 @@
       "age": 21,
       "nationality": "Egypt",
       "club": "Tala'ea El Gaish",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Mokawloon",
+          "year": "2025"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2025"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

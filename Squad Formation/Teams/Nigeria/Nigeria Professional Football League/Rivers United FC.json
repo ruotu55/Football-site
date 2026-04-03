@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "NPFL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 37,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wikki Tourists",
+          "year": "2017"
+        },
+        {
+          "club": "Abia Warriors",
+          "year": "2021"
+        },
+        {
+          "club": "Plateau United",
+          "year": "2022"
+        },
+        {
+          "club": "Katsina Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 130,
+        "clean_sheets": 43
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ani Ozoemena Henry",
@@ -33,7 +70,35 @@
       "club": "Rivers United FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2021"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 54,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osagie Onisodumeya",
@@ -41,9 +106,29 @@
       "age": 24,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 31,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 79,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Noble",
@@ -53,7 +138,39 @@
       "club": "Rivers United FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enyimba Aba",
+          "year": "2020"
+        },
+        {
+          "club": "Tabora United",
+          "year": "2023"
+        },
+        {
+          "club": "Fountain Gate",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 40,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +182,22 @@
       "club": "Rivers United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephen Manyo",
@@ -73,9 +205,41 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 33,
-      "goals": 5,
-      "assists": 1
+      "appearances": 24,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Calabar Rovers",
+          "year": "2015"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2017"
+        },
+        {
+          "club": "Katsina Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ogbu Ogechukwu",
@@ -83,9 +247,37 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 22,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enyimba Aba",
+          "year": "2021"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Junior",
@@ -95,7 +287,27 @@
       "club": "Rivers United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sylvester Bell",
@@ -105,7 +317,35 @@
       "club": "Rivers United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abia Warriors",
+          "year": "2019"
+        },
+        {
+          "club": "Niger Tornadoes",
+          "year": "2023"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ohaegbu Chinedu Anthony",
@@ -115,17 +355,64 @@
       "club": "Rivers United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Sholumade",
       "position": "Centre-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 37,
+      "appearances": 29,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akwa United",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Naval 1893",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Temple Emekayi",
@@ -133,9 +420,29 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 15,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taiwo Abdulrafiu",
@@ -143,19 +450,67 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 26,
-      "goals": 0,
-      "assists": 1
+      "appearances": 19,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bayelsa",
+          "year": "2022"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2023"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Ochiobi Elias",
+      "name": "Ochobi Elias",
       "position": "Left-Back",
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Effimi Nsi Edim",
@@ -163,9 +518,33 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 11,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rangers",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac Annor",
@@ -173,9 +552,33 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 33,
+      "appearances": 23,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bendel Ins.",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ebuka Akobundu",
@@ -183,9 +586,41 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Go Round FC",
+          "year": "2018"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2019"
+        },
+        {
+          "club": "Bendel Ins.",
+          "year": "2022"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -196,8 +631,44 @@
       "nationality": "Nigeria",
       "club": "Rivers United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lobi Stars",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Plateau United",
+          "year": "2021"
+        },
+        {
+          "club": "Remo Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephen Gambo",
@@ -207,7 +678,22 @@
       "club": "Rivers United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osimaga Duke",
@@ -215,9 +701,41 @@
       "age": 25,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 18,
+      "appearances": 13,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lobi Stars",
+          "year": "2021"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2022"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2023"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seyi Oguntayo",
@@ -225,9 +743,29 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 19,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Nnaji",
@@ -235,9 +773,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bello Martins",
@@ -247,7 +805,43 @@
       "club": "Rivers United FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akwa United",
+          "year": "2022"
+        },
+        {
+          "club": "Modern Future",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Remo Stars",
+          "year": "2025"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wasiu Falolu",
@@ -255,9 +849,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 35,
-      "goals": 2,
-      "assists": 1
+      "appearances": 27,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Omaka",
@@ -265,9 +879,53 @@
       "age": 30,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sunshine Stars",
+          "year": "2016"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2020"
+        },
+        {
+          "club": "Katsina Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Kwara United",
+          "year": "2022"
+        },
+        {
+          "club": "ASVO Benin",
+          "year": "2024"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2025"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taofeek Otaniyi",
@@ -275,9 +933,29 @@
       "age": 19,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 27,
+      "appearances": 21,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kingdom Confidence",
@@ -287,7 +965,27 @@
       "club": "Rivers United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rivio Ayemwenre",
@@ -295,9 +993,45 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dakkada FC",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Sporting Lagos",
+          "year": "2022"
+        },
+        {
+          "club": "Ikorodu City",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -307,9 +1041,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Friday Ubong",
@@ -317,9 +1071,41 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 27,
+      "appearances": 18,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Akwa United",
+          "year": "2016"
+        },
+        {
+          "club": "Lori Vanadzor",
+          "year": "2019"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2019"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 305,
+        "goals": 55,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chinedu Sunday",
@@ -327,9 +1113,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wisdom Samuel",
@@ -337,9 +1143,37 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Giant Brillars",
+          "year": "0000"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aniekeme Okon",
@@ -347,9 +1181,69 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 34,
-      "goals": 3,
-      "assists": 1
+      "appearances": 27,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Akwa Starlets",
+          "year": "2016"
+        },
+        {
+          "club": "Delta Force",
+          "year": "2016"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2018"
+        },
+        {
+          "club": "Altay SK",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Kano Pillars",
+          "year": "2020"
+        },
+        {
+          "club": "FC One Rocket",
+          "year": "2021"
+        },
+        {
+          "club": "Kano Pillars",
+          "year": "2021"
+        },
+        {
+          "club": "FC One Rocket",
+          "year": "2022"
+        },
+        {
+          "club": "Remo Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 13,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Handsome Surveyor",
@@ -357,9 +1251,24 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 5,
-      "goals": 0,
-      "assists": 0
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mbaoma Chijioke",
@@ -367,9 +1276,57 @@
       "age": 22,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Heartland",
+          "year": "2021"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2022"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 28,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samson Obi",
@@ -377,9 +1334,49 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 27,
+      "appearances": 23,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abia Warriors",
+          "year": "2017"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2021"
+        },
+        {
+          "club": "Abia Warriors",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Anwar",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 35,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Timothy Zachariah",
@@ -387,9 +1384,37 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 35,
-      "goals": 2,
-      "assists": 2
+      "appearances": 27,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Inter Lagos FC",
+          "year": "2024"
+        },
+        {
+          "club": "Lionheart FC",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Douglas Iyowuna",
@@ -397,9 +1422,24 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 3
+      "appearances": 8,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maclyn Biokpo Jenewari",
@@ -407,9 +1447,29 @@
       "age": 22,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 25,
-      "goals": 4,
-      "assists": 0
+      "appearances": 20,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Benjamin",
@@ -417,9 +1477,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Rivers United FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ISR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 27,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Raanana",
+          "year": "2017"
+        },
+        {
+          "club": "Anorthosis",
+          "year": "2020"
+        },
+        {
+          "club": "Hapoel Raanana",
+          "year": "2022"
+        },
+        {
+          "club": "Kiryat Shmona",
+          "year": "2022"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 226,
+        "clean_sheets": 65
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gad Amos",
@@ -33,7 +70,87 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maccabi Haifa",
+          "year": "2008"
+        },
+        {
+          "club": "Hapoel Acre",
+          "year": "2009"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2010"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2010"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2011"
+        },
+        {
+          "club": "M. Ahi Nazareth",
+          "year": "2011"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2012"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2012"
+        },
+        {
+          "club": "M. Ahi Nazareth",
+          "year": "2013"
+        },
+        {
+          "club": "Ironi Nesher",
+          "year": "2014"
+        },
+        {
+          "club": "M. Ahi Nazareth",
+          "year": "2015"
+        },
+        {
+          "club": "Kiryat Shmona",
+          "year": "2018"
+        },
+        {
+          "club": "M. Ahi Nazareth",
+          "year": "2020"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2021"
+        },
+        {
+          "club": "M. Bnei Reineh",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 428,
+        "clean_sheets": 100
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sagi Pinhas",
@@ -43,7 +160,55 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maalot Tarshiha",
+          "year": "2020"
+        },
+        {
+          "club": "H. Umm al-Fahm",
+          "year": "2021"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2021"
+        },
+        {
+          "club": "H Migdal haEmek",
+          "year": "2022"
+        },
+        {
+          "club": "Tzeirei Tayibe",
+          "year": "2022"
+        },
+        {
+          "club": "H. Umm al-Fahm",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Afula",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 24,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dor Benyamini",
@@ -53,7 +218,27 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +248,49 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Hapoel Tel Aviv",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sport Recife",
+          "year": "2019"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2024"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2026"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernand Mayembo",
@@ -73,9 +298,53 @@
       "age": 30,
       "nationality": "TM nationality id 85",
       "club": "Hapoel Tel Aviv",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chamois Niort",
+          "year": "2016"
+        },
+        {
+          "club": "Grenoble",
+          "year": "2017"
+        },
+        {
+          "club": "Chamois Niort",
+          "year": "2017"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2018"
+        },
+        {
+          "club": "AC Ajaccio",
+          "year": "2022"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 241,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shahar Piven",
@@ -83,9 +352,49 @@
       "age": 30,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "M. Tel Aviv",
+          "year": "2015"
+        },
+        {
+          "club": "Beitar TA Ramla",
+          "year": "2015"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2018"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2018"
+        },
+        {
+          "club": "H. Jerusalem",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 269,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziv Morgan",
@@ -93,9 +402,41 @@
       "age": 26,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kiryat Shmona",
+          "year": "2019"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2023"
+        },
+        {
+          "club": "Kiryat Shmona",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tal Archel",
@@ -105,7 +446,35 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2023"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yazen Nassar",
@@ -113,9 +482,45 @@
       "age": 28,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tzeirei Turan",
+          "year": "2016"
+        },
+        {
+          "club": "Hapoel Kaukab",
+          "year": "2017"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2020"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Doron Leidner",
@@ -125,7 +530,59 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 14,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2020"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2022"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2023"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2024"
+        },
+        {
+          "club": "FC Zürich",
+          "year": "2024"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 3,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ofer Gelbard",
@@ -133,9 +590,37 @@
       "age": 20,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        },
+        {
+          "club": "Maccabi Jaffa",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gyorgei Kopraba",
@@ -145,7 +630,22 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcus Coco",
@@ -153,9 +653,41 @@
       "age": 29,
       "nationality": "Guadeloupe",
       "club": "Hapoel Tel Aviv",
-      "appearances": 17,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guingamp",
+          "year": "2015"
+        },
+        {
+          "club": "FC Nantes",
+          "year": "2019"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 336,
+        "goals": 15,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +697,29 @@
       "age": 22,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yarin Shyovitz",
@@ -177,7 +729,22 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrian Kraev",
@@ -185,9 +752,45 @@
       "age": 27,
       "nationality": "Bulgaria",
       "club": "Hapoel Tel Aviv",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Botev Vratsa",
+          "year": "2016"
+        },
+        {
+          "club": "Hebar P.",
+          "year": "2017"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2020"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 17,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Falcão",
@@ -195,9 +798,53 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Hapoel Tel Aviv",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tombense",
+          "year": "2020"
+        },
+        {
+          "club": "Ypiranga-RS",
+          "year": "2022"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2022"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2022"
+        },
+        {
+          "club": "CRB",
+          "year": "2023"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roei Alkukin",
@@ -205,9 +852,33 @@
       "age": 21,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 4,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Herzlya",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amit Lemkin",
@@ -215,9 +886,29 @@
       "age": 20,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 18,
+      "appearances": 16,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noam Nuna",
@@ -227,7 +918,22 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +945,71 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2010"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2015"
+        },
+        {
+          "club": "West Ham",
+          "year": "2018"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2020"
+        },
+        {
+          "club": "West Ham",
+          "year": "2021"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2021"
+        },
+        {
+          "club": "Dijon",
+          "year": "2022"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2023"
+        },
+        {
+          "club": "Dijon",
+          "year": "2023"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2024"
+        },
+        {
+          "club": "St. Louis CITY",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 248,
+        "goals": 32,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mor Buskila",
@@ -249,7 +1019,31 @@
       "club": "Hapoel Tel Aviv",
       "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "H. Ramat Gan",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stav Turiel",
@@ -257,9 +1051,45 @@
       "age": 25,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 19,
-      "goals": 12,
-      "assists": 4
+      "appearances": 18,
+      "goals": 11,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Kabilio Jaffa",
+          "year": "2019"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2020"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2021"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 43,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Loizos Loizou",
@@ -267,9 +1097,41 @@
       "age": 22,
       "nationality": "Cyprus",
       "club": "Hapoel Tel Aviv",
-      "appearances": 28,
-      "goals": 6,
-      "assists": 6
+      "appearances": 19,
+      "goals": 4,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Omonia Nicosia",
+          "year": "2019"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2024"
+        },
+        {
+          "club": "Omonia Nicosia",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 35,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roy Korine",
@@ -277,19 +1139,131 @@
       "age": 23,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 19,
-      "goals": 6,
-      "assists": 1
+      "appearances": 17,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2020"
+        },
+        {
+          "club": "H. Ramat Gan",
+          "year": "2021"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2022"
+        },
+        {
+          "club": "M. Petah Tikva",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 18,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omri Altman",
       "position": "Second Striker",
-      "age": 31,
+      "age": 32,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "M. Tel Aviv",
+          "year": "2013"
+        },
+        {
+          "club": "H. Petah Tikva",
+          "year": "2014"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2015"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2015"
+        },
+        {
+          "club": "Panathinaikos",
+          "year": "2017"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2019"
+        },
+        {
+          "club": "Arouca",
+          "year": "2021"
+        },
+        {
+          "club": "AEK Larnaca",
+          "year": "2022"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2023"
+        },
+        {
+          "club": "Volos NFC",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        },
+        {
+          "club": "M. Bnei Reineh",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 366,
+        "goals": 69,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Boateng",
@@ -297,9 +1271,61 @@
       "age": 29,
       "nationality": "Ghana",
       "club": "Hapoel Tel Aviv",
-      "appearances": 17,
-      "goals": 3,
-      "assists": 1
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rio Ave",
+          "year": "2014"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2015"
+        },
+        {
+          "club": "Levante",
+          "year": "2017"
+        },
+        {
+          "club": "DL Yifang",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Orobah",
+          "year": "2024"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2025"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 61,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Dappa",
@@ -307,9 +1333,33 @@
       "age": 18,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anas Mahamid",
@@ -317,9 +1367,69 @@
       "age": 27,
       "nationality": "Israel",
       "club": "Hapoel Tel Aviv",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kiryat Shmona",
+          "year": "2017"
+        },
+        {
+          "club": "Hapoel Katamon",
+          "year": "2018"
+        },
+        {
+          "club": "Kiryat Shmona",
+          "year": "2018"
+        },
+        {
+          "club": "Hapoel Acre",
+          "year": "2018"
+        },
+        {
+          "club": "Beitar TA Ramla",
+          "year": "2019"
+        },
+        {
+          "club": "FC Winterthur",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Shim. K. Qasem",
+          "year": "2022"
+        },
+        {
+          "club": "H. Umm al-Fahm",
+          "year": "2022"
+        },
+        {
+          "club": "M. Petah Tikva",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 39,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 17,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LUX1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,61 @@
       "age": 36,
       "nationality": "France",
       "club": "Jeunesse Esch",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "R. Strasbourg",
+          "year": "2008"
+        },
+        {
+          "club": "FC Mulhouse",
+          "year": "2010"
+        },
+        {
+          "club": "FC Bleid-Gaume",
+          "year": "2011"
+        },
+        {
+          "club": "Hamm Benfica",
+          "year": "2012"
+        },
+        {
+          "club": "ASC Biesheim",
+          "year": "2013"
+        },
+        {
+          "club": "FC Mulhouse",
+          "year": "2014"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2017"
+        },
+        {
+          "club": "Pr. Niederkorn",
+          "year": "2020"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 315,
+        "clean_sheets": 63
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Englaro",
@@ -31,9 +84,45 @@
       "age": 24,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metz Youth",
+          "year": "2015"
+        },
+        {
+          "club": "F91 Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Pevidém",
+          "year": "2021"
+        },
+        {
+          "club": "E. Ettelbrück",
+          "year": "2022"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 93,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Galhofas Janeiro",
@@ -43,7 +132,27 @@
       "club": "Jeunesse Esch",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +164,27 @@
       "club": "Jeunesse Esch",
       "appearances": 21,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2013"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 26,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tiziano Mancini",
@@ -63,9 +192,37 @@
       "age": 19,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "F91 Dudelange",
+          "year": "2023"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Almir Klica",
@@ -73,9 +230,45 @@
       "age": 27,
       "nationality": "Montenegro",
       "club": "Jeunesse Esch",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 15,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "F91 Dudelange",
+          "year": "2017"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2018"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2019"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2019"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 14,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hénoc Isamene",
@@ -83,9 +276,49 @@
       "age": 29,
       "nationality": "France",
       "club": "Jeunesse Esch",
-      "appearances": 0,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Luxembourg City",
+          "year": "2022"
+        },
+        {
+          "club": "Villerupt-Thil",
+          "year": "2023"
+        },
+        {
+          "club": "CS Fola Esch",
+          "year": "2023"
+        },
+        {
+          "club": "Villerupt-Thil",
+          "year": "2024"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mickaël Borger",
@@ -94,8 +327,64 @@
       "nationality": "France",
       "club": "Jeunesse Esch",
       "appearances": 20,
-      "goals": 3,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Amnéville",
+          "year": "2013"
+        },
+        {
+          "club": "US Boulogne",
+          "year": "2016"
+        },
+        {
+          "club": "CS Sedan",
+          "year": "2017"
+        },
+        {
+          "club": "Amnéville",
+          "year": "2018"
+        },
+        {
+          "club": "Temple Owls",
+          "year": "2019"
+        },
+        {
+          "club": "Long Island RR",
+          "year": "2021"
+        },
+        {
+          "club": "Temple Owls",
+          "year": "2021"
+        },
+        {
+          "club": "US Sarre-Union",
+          "year": "2022"
+        },
+        {
+          "club": "US Thionville",
+          "year": "2022"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christophe Andrade Brites",
@@ -103,9 +392,33 @@
       "age": 18,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 0,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "F91 Dudelange",
+          "year": "2024"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denilson Andrade",
@@ -115,7 +428,35 @@
       "club": "Jeunesse Esch",
       "appearances": 18,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Junglinster",
+          "year": "2020"
+        },
+        {
+          "club": "Junglinster",
+          "year": "2021"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +466,53 @@
       "age": 31,
       "nationality": "France",
       "club": "Jeunesse Esch",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hamm Benfica",
+          "year": "2016"
+        },
+        {
+          "club": "Amnéville",
+          "year": "2017"
+        },
+        {
+          "club": "Thionville",
+          "year": "2019"
+        },
+        {
+          "club": "Gandrange",
+          "year": "2020"
+        },
+        {
+          "club": "US Sarre-Union",
+          "year": "2020"
+        },
+        {
+          "club": "US Thionville",
+          "year": "2022"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roni Klisurica",
@@ -137,7 +522,31 @@
       "club": "Jeunesse Esch",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Borgosesia",
+          "year": "2024"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rony Moreira",
@@ -145,9 +554,29 @@
       "age": 21,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 0,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Teixeira",
@@ -155,9 +584,57 @@
       "age": 29,
       "nationality": "Portugal",
       "club": "Jeunesse Esch",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 21,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "US Sarre-Union",
+          "year": "2016"
+        },
+        {
+          "club": "Sarreguemines",
+          "year": "2017"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2018"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2019"
+        },
+        {
+          "club": "FC Oleksandriya",
+          "year": "2019"
+        },
+        {
+          "club": "Career break",
+          "year": "2020"
+        },
+        {
+          "club": "Hesperange",
+          "year": "2022"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 22,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Costa Bispo De Oliveira",
@@ -167,7 +644,27 @@
       "club": "Jeunesse Esch",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Soares",
@@ -175,9 +672,29 @@
       "age": 30,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2014"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 21,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex de Sousa",
@@ -185,9 +702,37 @@
       "age": 22,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2022"
+        },
+        {
+          "club": "Walferdange",
+          "year": "2024"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louis Weis",
@@ -197,7 +742,27 @@
       "club": "Jeunesse Esch",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +772,37 @@
       "age": 22,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 1
+      "appearances": 7,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Den Bosch",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tim Flick",
@@ -217,9 +810,37 @@
       "age": 20,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 2,
-      "assists": 8
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "CS Fola Esch",
+          "year": "2023"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2024"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 11,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oumar Bella Diallo",
@@ -229,7 +850,31 @@
       "club": "Jeunesse Esch",
       "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RFCU Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrien Scholler",
@@ -239,7 +884,35 @@
       "club": "Jeunesse Esch",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Weiler",
+          "year": "2023"
+        },
+        {
+          "club": "CS Fola Esch",
+          "year": "2024"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrea Deidda",
@@ -247,9 +920,29 @@
       "age": 32,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 19,
+      "goals": 21,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2010"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 26,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Rodrigues",
@@ -257,9 +950,29 @@
       "age": 25,
       "nationality": "France",
       "club": "Jeunesse Esch",
-      "appearances": 0,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leon Elshan",
@@ -267,9 +980,41 @@
       "age": 21,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 23,
-      "goals": 5,
-      "assists": 1
+      "appearances": 22,
+      "goals": 6,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Titus Petange",
+          "year": "2024"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Nürenberg",
@@ -277,9 +1022,37 @@
       "age": 20,
       "nationality": "Luxembourg",
       "club": "Jeunesse Esch",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeunesse Esch",
+          "year": "2024"
+        },
+        {
+          "club": "RFCU Luxembourg",
+          "year": "2025"
+        },
+        {
+          "club": "Jeunesse Esch",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

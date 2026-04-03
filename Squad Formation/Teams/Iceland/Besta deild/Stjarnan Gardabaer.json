@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "IS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 34,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ÍA Akranes",
+          "year": "2009"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 327,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 493,
+        "clean_sheets": 88
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darri Bergmann Gylfason",
@@ -33,7 +58,31 @@
       "club": "Stjarnan Gardabaer",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Augnablik",
+          "year": "2019"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sveinn Sigurdur Jóhannesson",
@@ -43,7 +92,55 @@
       "club": "Stjarnan Gardabaer",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stjarnan",
+          "year": "2014"
+        },
+        {
+          "club": "Fjardabyggd",
+          "year": "2016"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2016"
+        },
+        {
+          "club": "Valur",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Vestri",
+          "year": "2024"
+        },
+        {
+          "club": "Valur",
+          "year": "2025"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 69,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +150,61 @@
       "age": 27,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Breidablik",
+          "year": "2016"
+        },
+        {
+          "club": "Augnablik",
+          "year": "2018"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2018"
+        },
+        {
+          "club": "Augnablik",
+          "year": "2019"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2019"
+        },
+        {
+          "club": "Augnablik",
+          "year": "2020"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2020"
+        },
+        {
+          "club": "Augnablik",
+          "year": "2021"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustav Kjeldsen",
@@ -64,8 +213,44 @@
       "nationality": "Denmark",
       "club": "Stjarnan Gardabaer",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 7,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nyköbing FC",
+          "year": "2018"
+        },
+        {
+          "club": "Skive IK",
+          "year": "2020"
+        },
+        {
+          "club": "HB Tórshavn",
+          "year": "2022"
+        },
+        {
+          "club": "Vestri",
+          "year": "2023"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gudmundur Kristjánsson",
@@ -73,9 +258,57 @@
       "age": 37,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Breidablik",
+          "year": "2006"
+        },
+        {
+          "club": "Haukar",
+          "year": "2008"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2008"
+        },
+        {
+          "club": "IK Start",
+          "year": "2012"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2012"
+        },
+        {
+          "club": "IK Start",
+          "year": "2013"
+        },
+        {
+          "club": "Hafnarfjördur",
+          "year": "2018"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 492,
+        "goals": 39,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Örvar Logi Örvarsson",
@@ -83,9 +316,37 @@
       "age": 22,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KFG",
+          "year": "2021"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2022"
+        },
+        {
+          "club": "Grindavík",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damil Dankerlui",
@@ -93,9 +354,45 @@
       "age": 29,
       "nationality": "Suriname",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2011"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2020"
+        },
+        {
+          "club": "Panserraikos",
+          "year": "2023"
+        },
+        {
+          "club": "Almere City",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 312,
+        "goals": 9,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thorri Mar Thórisson",
@@ -103,9 +400,45 @@
       "age": 26,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 14,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dalvík/Reynir",
+          "year": "2018"
+        },
+        {
+          "club": "KA Akureyri",
+          "year": "2019"
+        },
+        {
+          "club": "Keflavík",
+          "year": "2019"
+        },
+        {
+          "club": "Östers IF",
+          "year": "2023"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 9,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Heidar Aegisson",
@@ -113,9 +446,45 @@
       "age": 30,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 18,
+      "goals": 21,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stjarnan",
+          "year": "2014"
+        },
+        {
+          "club": "Boston Eagles",
+          "year": "2017"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2020"
+        },
+        {
+          "club": "Valur",
+          "year": "2022"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 231,
+        "goals": 6,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bjarki Hauksson",
@@ -123,9 +492,37 @@
       "age": 19,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stjarnan",
+          "year": "2023"
+        },
+        {
+          "club": "KFG",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +532,41 @@
       "age": 26,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 8,
+      "goals": 31,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Stjarnan",
+          "year": "2016"
+        },
+        {
+          "club": "Östers IF",
+          "year": "2021"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 13,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samúel Fridjónsson",
@@ -145,9 +574,61 @@
       "age": 30,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Keflavík",
+          "year": "2011"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2016"
+        },
+        {
+          "club": "Viking FK",
+          "year": "2019"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2019"
+        },
+        {
+          "club": "SC Paderborn",
+          "year": "2020"
+        },
+        {
+          "club": "Viking FK",
+          "year": "2020"
+        },
+        {
+          "club": "Atromitos",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 262,
+        "goals": 27,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gudmundur Baldvin Nökkvason",
@@ -155,9 +636,45 @@
       "age": 21,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stjarnan",
+          "year": "2021"
+        },
+        {
+          "club": "Mjällby AIF",
+          "year": "2023"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2024"
+        },
+        {
+          "club": "Mjällby AIF",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 20,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benedikt Warén",
@@ -165,9 +682,61 @@
       "age": 24,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 9,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Breidablik",
+          "year": "2018"
+        },
+        {
+          "club": "Augnablik",
+          "year": "2019"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2019"
+        },
+        {
+          "club": "Vestri",
+          "year": "2021"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2021"
+        },
+        {
+          "club": "ÍA Akranes",
+          "year": "2022"
+        },
+        {
+          "club": "Breidablik",
+          "year": "2022"
+        },
+        {
+          "club": "Vestri",
+          "year": "2023"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 29,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jóhann Árni Gunnarsson",
@@ -175,9 +744,33 @@
       "age": 24,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fjölnir",
+          "year": "2018"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 28,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daníel Finns Matthíasson",
@@ -185,9 +778,45 @@
       "age": 25,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 10,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KB",
+          "year": "2017"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2017"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2022"
+        },
+        {
+          "club": "Leiknir",
+          "year": "2023"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 24,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Turay",
@@ -195,9 +824,33 @@
       "age": 25,
       "nationality": "Sierra Leone",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bo Rangers FC",
+          "year": "2022"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henrik Máni B. Hilmarsson",
@@ -206,8 +859,48 @@
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KFG",
+          "year": "2022"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2022"
+        },
+        {
+          "club": "ÍBV",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        },
+        {
+          "club": "KFG",
+          "year": "2025"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +910,41 @@
       "age": 27,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Víkingur",
+          "year": "2017"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2020"
+        },
+        {
+          "club": "HK Kópavogs",
+          "year": "2021"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 44,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Birnir Snaer Ingason",
@@ -227,9 +952,53 @@
       "age": 29,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fjölnir",
+          "year": "2013"
+        },
+        {
+          "club": "Valur",
+          "year": "2019"
+        },
+        {
+          "club": "HK Kópavogs",
+          "year": "2019"
+        },
+        {
+          "club": "Víkingur",
+          "year": "2022"
+        },
+        {
+          "club": "Halmstads BK",
+          "year": "2024"
+        },
+        {
+          "club": "KA Akureyri",
+          "year": "2025"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 67,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alpha Conteh",
@@ -237,9 +1006,45 @@
       "age": 25,
       "nationality": "Sierra Leone",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "H. Umm al-Fahm",
+          "year": "2021"
+        },
+        {
+          "club": "H Rishon leZion",
+          "year": "2022"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jón Hrafn Barkarson",
@@ -249,7 +1054,31 @@
       "club": "Stjarnan Gardabaer",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leiknir",
+          "year": "2021"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haukur Örn Brink",
@@ -257,9 +1086,41 @@
       "age": 20,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KFG",
+          "year": "2023"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2024"
+        },
+        {
+          "club": "Dayton Flyers",
+          "year": "2025"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emil Atlason",
@@ -267,9 +1128,61 @@
       "age": 32,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 1,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2012"
+        },
+        {
+          "club": "Pr. Münster",
+          "year": "2015"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2015"
+        },
+        {
+          "club": "Valur",
+          "year": "2015"
+        },
+        {
+          "club": "Thróttur",
+          "year": "2016"
+        },
+        {
+          "club": "KR Reykjavík",
+          "year": "2016"
+        },
+        {
+          "club": "Thróttur",
+          "year": "2017"
+        },
+        {
+          "club": "HK Kópavogs",
+          "year": "2019"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 293,
+        "goals": 110,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andri Rúnar Bjarnason",
@@ -277,9 +1190,69 @@
       "age": 35,
       "nationality": "Iceland",
       "club": "Stjarnan Gardabaer",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 9,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Víkingur",
+          "year": "2015"
+        },
+        {
+          "club": "Grindavík",
+          "year": "2016"
+        },
+        {
+          "club": "Víkingur",
+          "year": "2016"
+        },
+        {
+          "club": "Grindavík",
+          "year": "2017"
+        },
+        {
+          "club": "Helsingborgs IF",
+          "year": "2018"
+        },
+        {
+          "club": "1.FC K'lautern",
+          "year": "2019"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2020"
+        },
+        {
+          "club": "ÍBV",
+          "year": "2022"
+        },
+        {
+          "club": "Valur",
+          "year": "2023"
+        },
+        {
+          "club": "Vestri",
+          "year": "2024"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 346,
+        "goals": 120,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elvar Máni Gudmundsson",
@@ -289,7 +1262,39 @@
       "club": "Stjarnan Gardabaer",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KA Akureyri",
+          "year": "2021"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2023"
+        },
+        {
+          "club": "KFG",
+          "year": "2025"
+        },
+        {
+          "club": "Stjarnan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

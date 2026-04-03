@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IN1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,63 @@
       "club": "PSBS Biak",
       "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Porto",
+          "year": "2013"
+        },
+        {
+          "club": "Varzim",
+          "year": "2015"
+        },
+        {
+          "club": "Trofense",
+          "year": "2016"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2017"
+        },
+        {
+          "club": "Espinho",
+          "year": "2019"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2021"
+        },
+        {
+          "club": "Alverca",
+          "year": "2022"
+        },
+        {
+          "club": "Oliv. Hospital",
+          "year": "2023"
+        },
+        {
+          "club": "Sagrada",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 192,
+        "clean_sheets": 40
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Andika Wisnu",
@@ -33,7 +90,51 @@
       "club": "PSBS Biak",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSIS",
+          "year": "2017"
+        },
+        {
+          "club": "Persitema",
+          "year": "2018"
+        },
+        {
+          "club": "PON Jateng",
+          "year": "2019"
+        },
+        {
+          "club": "PSMS",
+          "year": "2021"
+        },
+        {
+          "club": "Persipura",
+          "year": "2022"
+        },
+        {
+          "club": "PSCS",
+          "year": "2023"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimas Galih",
@@ -43,7 +144,67 @@
       "club": "PSBS Biak",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SAD Indonesia",
+          "year": "2008"
+        },
+        {
+          "club": "Persijap",
+          "year": "2014"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2015"
+        },
+        {
+          "club": "Gresik United",
+          "year": "2016"
+        },
+        {
+          "club": "Persebaya",
+          "year": "2018"
+        },
+        {
+          "club": "Kalteng Putra",
+          "year": "2019"
+        },
+        {
+          "club": "Persik",
+          "year": "2020"
+        },
+        {
+          "club": "Sulut United",
+          "year": "2021"
+        },
+        {
+          "club": "PSMS",
+          "year": "2023"
+        },
+        {
+          "club": "RANS FC",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 89,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Madjar",
@@ -51,9 +212,33 @@
       "age": 22,
       "nationality": "Indonesia",
       "club": "PSBS Biak",
-      "appearances": 7,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toli FC",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +250,83 @@
       "club": "PSBS Biak",
       "appearances": 23,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Alverca U15",
+          "year": "2009"
+        },
+        {
+          "club": "Sporting Sub-15",
+          "year": "2010"
+        },
+        {
+          "club": "Genoa",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Kalev",
+          "year": "2018"
+        },
+        {
+          "club": "Ermis Aradippou",
+          "year": "2018"
+        },
+        {
+          "club": "CD Fátima",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Dulwich Hamlet",
+          "year": "2020"
+        },
+        {
+          "club": "Oly. Lympion",
+          "year": "2021"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Qaisumah",
+          "year": "2023"
+        },
+        {
+          "club": "Persita",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Myung-hyun Hwang",
@@ -75,7 +336,67 @@
       "club": "PSBS Biak",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ko Bong-woo FC",
+          "year": "2013"
+        },
+        {
+          "club": "Jinju FC U15",
+          "year": "2014"
+        },
+        {
+          "club": "Eonnam FC U15",
+          "year": "2015"
+        },
+        {
+          "club": "New Eunpy. U15",
+          "year": "2016"
+        },
+        {
+          "club": "Eonnam HS",
+          "year": "2017"
+        },
+        {
+          "club": "Dongguk Uni",
+          "year": "2020"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonnam Dragons",
+          "year": "2023"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2023"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nurhidayat",
@@ -85,7 +406,71 @@
       "club": "PSBS Biak",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PON Sulsel",
+          "year": "2015"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2017"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2018"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2021"
+        },
+        {
+          "club": "PSG Pati",
+          "year": "2021"
+        },
+        {
+          "club": "PSIM Yogyakarta",
+          "year": "2021"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Persiraja",
+          "year": "2023"
+        },
+        {
+          "club": "United City",
+          "year": "2024"
+        },
+        {
+          "club": "Persibo",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arif Budiyono",
@@ -95,7 +480,59 @@
       "club": "PSBS Biak",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Persibat",
+          "year": "2012"
+        },
+        {
+          "club": "Persekat",
+          "year": "2020"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2021"
+        },
+        {
+          "club": "Persekat",
+          "year": "2022"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2023"
+        },
+        {
+          "club": "Semen Padang",
+          "year": "2024"
+        },
+        {
+          "club": "Persekat",
+          "year": "2024"
+        },
+        {
+          "club": "Semen Padang",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hadi Ardiansyah",
@@ -105,7 +542,47 @@
       "club": "PSBS Biak",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PERSIB Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Persija",
+          "year": "2021"
+        },
+        {
+          "club": "PSKC Cimahi",
+          "year": "2022"
+        },
+        {
+          "club": "Semen Padang",
+          "year": "2023"
+        },
+        {
+          "club": "Persibo",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iqbal Hadi",
@@ -115,7 +592,55 @@
       "club": "PSBS Biak",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Perseru Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Persema",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "NZR Sumbersari",
+          "year": "2021"
+        },
+        {
+          "club": "Persela",
+          "year": "2022"
+        },
+        {
+          "club": "PSCS",
+          "year": "2023"
+        },
+        {
+          "club": "RANS FC",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Andrade",
@@ -125,7 +650,91 @@
       "club": "PSBS Biak",
       "appearances": 24,
       "goals": 1,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Botafogo",
+          "year": "2014"
+        },
+        {
+          "club": "Bangu-RJ",
+          "year": "2016"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2016"
+        },
+        {
+          "club": "Silva SD",
+          "year": "2016"
+        },
+        {
+          "club": "Ourense CF",
+          "year": "2017"
+        },
+        {
+          "club": "Bouzas",
+          "year": "2018"
+        },
+        {
+          "club": "Ourense CF",
+          "year": "2018"
+        },
+        {
+          "club": "Recr. Huelva",
+          "year": "2018"
+        },
+        {
+          "club": "Ourense CF",
+          "year": "2019"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2019"
+        },
+        {
+          "club": "Ourense CF",
+          "year": "2020"
+        },
+        {
+          "club": "Racing",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2022"
+        },
+        {
+          "club": "FC Lahti",
+          "year": "2023"
+        },
+        {
+          "club": "Persija",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Urbanus Lasol",
@@ -135,7 +744,31 @@
       "club": "PSBS Biak",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Persipura",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moses Madjar",
@@ -145,7 +778,31 @@
       "club": "PSBS Biak",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Waanal Brothers",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ians Rumbewas",
@@ -153,9 +810,29 @@
       "age": 20,
       "nationality": "Indonesia",
       "club": "PSBS Biak",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrias Rumere",
@@ -165,7 +842,39 @@
       "club": "PSBS Biak",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSBS Biak",
+          "year": "2010"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Persintan",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucky Oktavianto",
@@ -175,7 +884,63 @@
       "club": "PSBS Biak",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Persijap",
+          "year": "2015"
+        },
+        {
+          "club": "Persipur",
+          "year": "2015"
+        },
+        {
+          "club": "Persibat",
+          "year": "2016"
+        },
+        {
+          "club": "Cilegon Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Persijap",
+          "year": "2018"
+        },
+        {
+          "club": "Persibat",
+          "year": "2019"
+        },
+        {
+          "club": "Mitra Kukar",
+          "year": "2020"
+        },
+        {
+          "club": "Persikabo 1973",
+          "year": "2022"
+        },
+        {
+          "club": "PSIM Yogyakarta",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "George Brown",
@@ -185,7 +950,51 @@
       "club": "PSBS Biak",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ashland Eagles",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Persebaya",
+          "year": "2023"
+        },
+        {
+          "club": "Persipal BU",
+          "year": "2023"
+        },
+        {
+          "club": "Persebaya",
+          "year": "2024"
+        },
+        {
+          "club": "Persita",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Claudio Olivera",
@@ -193,9 +1002,29 @@
       "age": 19,
       "nationality": "Indonesia",
       "club": "PSBS Biak",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -207,7 +1036,59 @@
       "club": "PSBS Biak",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gil Vicente",
+          "year": "2019"
+        },
+        {
+          "club": "Leça",
+          "year": "2019"
+        },
+        {
+          "club": "Valadares Gaia",
+          "year": "2020"
+        },
+        {
+          "club": "SC Ideal",
+          "year": "2020"
+        },
+        {
+          "club": "Sertanense",
+          "year": "2021"
+        },
+        {
+          "club": "Sanjoanense",
+          "year": "2022"
+        },
+        {
+          "club": "Sertanense",
+          "year": "2023"
+        },
+        {
+          "club": "Caldas",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arjuna Agung",
@@ -217,7 +1098,47 @@
       "club": "PSBS Biak",
       "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Persipura Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Garuda Select",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Persipani",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nelson Alom",
@@ -227,7 +1148,55 @@
       "club": "PSBS Biak",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PON Papua",
+          "year": "2009"
+        },
+        {
+          "club": "Persipura",
+          "year": "2012"
+        },
+        {
+          "club": "Persebaya",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Madura United",
+          "year": "2020"
+        },
+        {
+          "club": "Persipura",
+          "year": "2021"
+        },
+        {
+          "club": "Persita",
+          "year": "2022"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eduardo Barbosa",
@@ -237,7 +1206,35 @@
       "club": "PSBS Biak",
       "appearances": 23,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2016"
+        },
+        {
+          "club": "Vilaverdense",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yano Putra",
@@ -247,7 +1244,35 @@
       "club": "PSBS Biak",
       "appearances": 22,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "AS Académica",
+          "year": "2023"
+        },
+        {
+          "club": "Titan Alpha",
+          "year": "2023"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -259,7 +1284,55 @@
       "club": "PSBS Biak",
       "appearances": 24,
       "goals": 6,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Kongsvinger",
+          "year": "2018"
+        },
+        {
+          "club": "IF Gnistan",
+          "year": "2020"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2022"
+        },
+        {
+          "club": "Amazonas",
+          "year": "2024"
+        },
+        {
+          "club": "FC Lahti",
+          "year": "2024"
+        },
+        {
+          "club": "KF Skënderbeu",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 26,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Heri Susanto",
@@ -269,7 +1342,59 @@
       "club": "PSBS Biak",
       "appearances": 20,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Persipasi B.R.",
+          "year": "2015"
+        },
+        {
+          "club": "Persiba",
+          "year": "2016"
+        },
+        {
+          "club": "PON Jateng",
+          "year": "2016"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2018"
+        },
+        {
+          "club": "Persija",
+          "year": "2019"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2021"
+        },
+        {
+          "club": "Persita",
+          "year": "2022"
+        },
+        {
+          "club": "Adhyaksa Farm",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhammad Isa",
@@ -279,7 +1404,55 @@
       "club": "PSBS Biak",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PERSIS",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Persiraja",
+          "year": "2021"
+        },
+        {
+          "club": "Gresik United",
+          "year": "2022"
+        },
+        {
+          "club": "Nusantara Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Persikas Subang",
+          "year": "2024"
+        },
+        {
+          "club": "RANS FC",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilham Armaiyn",
@@ -289,7 +1462,59 @@
       "club": "PSBS Biak",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Surabaya United",
+          "year": "2014"
+        },
+        {
+          "club": "Selangor",
+          "year": "2017"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2019"
+        },
+        {
+          "club": "Barito Putera",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2021"
+        },
+        {
+          "club": "Arema FC",
+          "year": "2022"
+        },
+        {
+          "club": "Malut United",
+          "year": "2023"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 20,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alfan Tri",
@@ -297,9 +1522,33 @@
       "age": 21,
       "nationality": "Indonesia",
       "club": "PSBS Biak",
-      "appearances": 15,
-      "goals": 14,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSMP Mojokerto",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 14,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raja Siregar",
@@ -309,7 +1558,39 @@
       "club": "PSBS Biak",
       "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "PSDS",
+          "year": "2023"
+        },
+        {
+          "club": "Persikas Subang",
+          "year": "2024"
+        },
+        {
+          "club": "RANS FC",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruyery Blanco",
@@ -319,7 +1600,59 @@
       "club": "PSBS Biak",
       "appearances": 21,
       "goals": 10,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Unión Magdalena",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2022"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2023"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2023"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2024"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2024"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 39,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohcine Hassan",
@@ -329,7 +1662,87 @@
       "club": "PSBS Biak",
       "appearances": 16,
       "goals": 1,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Vitória Setúbal",
+          "year": "2013"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2013"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2014"
+        },
+        {
+          "club": "Pinhalnovense",
+          "year": "2014"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2015"
+        },
+        {
+          "club": "Freamunde",
+          "year": "2016"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2017"
+        },
+        {
+          "club": "Olhanense",
+          "year": "2017"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2018"
+        },
+        {
+          "club": "Olhanense",
+          "year": "2018"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2020"
+        },
+        {
+          "club": "Alverca",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Persita",
+          "year": "2023"
+        },
+        {
+          "club": "Anadia",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 29,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tobias Solossa",
@@ -337,9 +1750,53 @@
       "age": 19,
       "nationality": "Indonesia",
       "club": "PSBS Biak",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PPLP Papua",
+          "year": "2021"
+        },
+        {
+          "club": "Football School",
+          "year": "2021"
+        },
+        {
+          "club": "SSB Heijnes",
+          "year": "2023"
+        },
+        {
+          "club": "PON Papua",
+          "year": "2023"
+        },
+        {
+          "club": "Persipura",
+          "year": "2023"
+        },
+        {
+          "club": "Persewar",
+          "year": "2024"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Gwijangge",
@@ -349,7 +1806,47 @@
       "club": "PSBS Biak",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Toli FC",
+          "year": "2021"
+        },
+        {
+          "club": "Persipura",
+          "year": "2022"
+        },
+        {
+          "club": "Persewar",
+          "year": "2024"
+        },
+        {
+          "club": "Persijap",
+          "year": "2025"
+        },
+        {
+          "club": "PSBS Biak",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "NNL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,27 @@
       "club": "Fencibles United AFC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sota Yuasa",
@@ -31,9 +52,29 @@
       "age": null,
       "nationality": "Japan",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -44,8 +85,32 @@
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eastern Suburbs",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Boon",
@@ -53,9 +118,73 @@
       "age": 25,
       "nationality": "England",
       "club": "Fencibles United AFC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bolton",
+          "year": "2019"
+        },
+        {
+          "club": "Northwich Vic",
+          "year": "2019"
+        },
+        {
+          "club": "Bolton",
+          "year": "2020"
+        },
+        {
+          "club": "Atherton Collieries",
+          "year": "2020"
+        },
+        {
+          "club": "IFK Östersund",
+          "year": "2020"
+        },
+        {
+          "club": "Spennymoor Town",
+          "year": "2020"
+        },
+        {
+          "club": "Banyule City",
+          "year": "2021"
+        },
+        {
+          "club": "Wythenshawe",
+          "year": "2022"
+        },
+        {
+          "club": "Atherton Collieries",
+          "year": "2023"
+        },
+        {
+          "club": "Ngaruawahia Utd",
+          "year": "2024"
+        },
+        {
+          "club": "Stalybridge",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jake Moosbally",
@@ -63,29 +192,63 @@
       "age": 23,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "François Hapipi",
-      "position": "Centre-Back",
-      "age": 27,
-      "nationality": "Tahiti",
-      "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eastern Suburbs",
+          "year": "2019"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Finn Wessels",
       "position": "Left-Back",
-      "age": 17,
+      "age": 18,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Fuller",
@@ -93,9 +256,29 @@
       "age": null,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Morris",
@@ -103,9 +286,53 @@
       "age": 27,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Panthers",
+          "year": "2017"
+        },
+        {
+          "club": "Hamilton W.",
+          "year": "2020"
+        },
+        {
+          "club": "Manurewa",
+          "year": "2023"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        },
+        {
+          "club": "Manukau",
+          "year": "2025"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elliott Bentley",
@@ -115,7 +342,39 @@
       "club": "Fencibles United AFC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oakland Uni.",
+          "year": "2018"
+        },
+        {
+          "club": "Detroit City",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harrison Lloyd",
@@ -123,9 +382,29 @@
       "age": null,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brady O'Neill",
@@ -135,7 +414,39 @@
       "club": "Fencibles United AFC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hilo Vulcans",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Capo FC",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +456,33 @@
       "age": 19,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Birkenhead",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Calvin Opperman",
@@ -156,8 +491,98 @@
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
       "appearances": 0,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asia-Pacific FA",
+          "year": "2011"
+        },
+        {
+          "club": "Canterbury Utd.",
+          "year": "2011"
+        },
+        {
+          "club": "Waitakere Y.",
+          "year": "2012"
+        },
+        {
+          "club": "CIN Bearcats",
+          "year": "2013"
+        },
+        {
+          "club": "Eastern Suburbs",
+          "year": "2016"
+        },
+        {
+          "club": "Onehunga Sports",
+          "year": "2017"
+        },
+        {
+          "club": "Auckland Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Bay Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "Eastern Suburbs",
+          "year": "2022"
+        },
+        {
+          "club": "S.A Rangers",
+          "year": "2023"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Liam Wessels",
+      "position": "Central Midfield",
+      "age": 18,
+      "nationality": "New Zealand",
+      "club": "Fencibles United AFC",
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kodie Nicol",
@@ -165,19 +590,83 @@
       "age": 19,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2023"
+        },
+        {
+          "club": "Eastern Suburbs",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Connor Probert",
+      "name": "Ronaldo Muñoz",
       "position": "Attacking Midfield",
-      "age": 27,
-      "nationality": "New Zealand",
+      "age": 26,
+      "nationality": "Chile",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Manurewa",
+          "year": "2023"
+        },
+        {
+          "club": "Bay Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Hamilton W.",
+          "year": "2024"
+        },
+        {
+          "club": "Miramar Rangers",
+          "year": "2025"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 18,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "André Estay",
@@ -186,18 +675,126 @@
       "nationality": "Chile",
       "club": "Fencibles United AFC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Puaikura FC",
+          "year": "2017"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Manukau",
+          "year": "2018"
+        },
+        {
+          "club": "T. Maraerenga",
+          "year": "2020"
+        },
+        {
+          "club": "Manukau",
+          "year": "2020"
+        },
+        {
+          "club": "Manurewa",
+          "year": "2022"
+        },
+        {
+          "club": "Manukau",
+          "year": "2023"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Nicholas Rooney",
-      "position": "",
-      "age": 18,
+      "name": "Connor Probert",
+      "position": "Attacking Midfield",
+      "age": 27,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Western Springs",
+          "year": "2015"
+        },
+        {
+          "club": "UK Wildcats",
+          "year": "2016"
+        },
+        {
+          "club": "CIN Dutch Lions",
+          "year": "2019"
+        },
+        {
+          "club": "UK Wildcats",
+          "year": "2019"
+        },
+        {
+          "club": "NKU Norse",
+          "year": "2019"
+        },
+        {
+          "club": "Western Springs",
+          "year": "2020"
+        },
+        {
+          "club": "Birkenhead",
+          "year": "2021"
+        },
+        {
+          "club": "Hamilton W.",
+          "year": "2021"
+        },
+        {
+          "club": "Manurewa",
+          "year": "2023"
+        },
+        {
+          "club": "Manukau",
+          "year": "2025"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aiden Purkiss",
@@ -205,9 +802,59 @@
       "age": null,
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Nicholas Rooney",
+      "position": "",
+      "age": 19,
+      "nationality": "New Zealand",
+      "club": "Fencibles United AFC",
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Revill",
@@ -217,7 +864,31 @@
       "club": "Fencibles United AFC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland FC Res",
+          "year": "2025"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Braeden O'Neill",
@@ -226,8 +897,70 @@
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Dastgeer Lai-Sai",
+      "position": "",
+      "age": null,
+      "nationality": "South Africa",
+      "club": "Fencibles United AFC",
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Manurewa",
+          "year": "2022"
+        },
+        {
+          "club": "Franklin Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Manukau",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jake Scott Brocklebank",
@@ -236,18 +969,58 @@
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Ethan Holder",
+      "name": "Ryan Clarke",
       "position": "",
       "age": null,
-      "nationality": "New Zealand",
+      "nationality": "Cook Islands",
       "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -259,7 +1032,27 @@
       "club": "Fencibles United AFC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Ramírez",
@@ -269,7 +1062,39 @@
       "club": "Fencibles United AFC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Quintero Un.",
+          "year": "2022"
+        },
+        {
+          "club": "Concón National",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yoichi Kawachi",
@@ -277,9 +1102,49 @@
       "age": 27,
       "nationality": "Japan",
       "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Int Univ.",
+          "year": "2017"
+        },
+        {
+          "club": "V.Ichihara Vert",
+          "year": "2021"
+        },
+        {
+          "club": "Jonava",
+          "year": "2022"
+        },
+        {
+          "club": "FK TransINVEST",
+          "year": "2022"
+        },
+        {
+          "club": "Neptunas",
+          "year": "2025"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darius Palma",
@@ -288,18 +1153,32 @@
       "nationality": "England",
       "club": "Fencibles United AFC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Russell Currie",
-      "position": "Centre-Forward",
-      "age": 24,
-      "nationality": "Scotland",
-      "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ngaruawahia Utd",
+          "year": "2024"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frank Clarke",
@@ -308,8 +1187,48 @@
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Shore Utd",
+          "year": "2017"
+        },
+        {
+          "club": "Onehunga Sports",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "North Shore Utd",
+          "year": "2020"
+        },
+        {
+          "club": "West Coast",
+          "year": "2021"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moh Reynolds",
@@ -318,18 +1237,52 @@
       "nationality": "New Zealand",
       "club": "Fencibles United AFC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Krish Killa",
-      "position": "Centre-Forward",
-      "age": 18,
-      "nationality": "New Zealand",
-      "club": "Fencibles United AFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Melville",
+          "year": "2021"
+        },
+        {
+          "club": "Manukau",
+          "year": "2022"
+        },
+        {
+          "club": "Melville",
+          "year": "2022"
+        },
+        {
+          "club": "Manurewa",
+          "year": "2023"
+        },
+        {
+          "club": "Manukau",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Fencibles",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

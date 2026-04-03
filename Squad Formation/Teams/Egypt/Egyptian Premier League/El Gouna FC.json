@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "EGY1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 42,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Masoud",
@@ -31,9 +52,45 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Masry",
+          "year": "2014"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2015"
+        },
+        {
+          "club": "El Masry",
+          "year": "2018"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 251,
+        "clean_sheets": 89
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan Mahmoud Shahin",
@@ -41,9 +98,37 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Mokawloon",
+          "year": "2014"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 114,
+        "clean_sheets": 30
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Badreldin Walid",
@@ -53,7 +138,27 @@
       "club": "El Gouna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziad Askar",
@@ -63,7 +168,39 @@
       "club": "El Gouna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "La Viena FC",
+          "year": "2020"
+        },
+        {
+          "club": "La Viena FC",
+          "year": "2021"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -73,9 +210,53 @@
       "age": 30,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 0
+      "appearances": 14,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Shorta",
+          "year": "2015"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2016"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2018"
+        },
+        {
+          "club": "Smouha",
+          "year": "2022"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2023"
+        },
+        {
+          "club": "Smouha",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saber El Shimi",
@@ -83,9 +264,37 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 0
+      "appearances": 18,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharkia Dokhan",
+          "year": "2019"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2022"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alpha Turay",
@@ -93,9 +302,45 @@
       "age": 20,
       "nationality": "Sierra Leone",
       "club": "El Gouna FC",
-      "appearances": 16,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kallon FC",
+          "year": "2023"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2024"
+        },
+        {
+          "club": "Dubocica",
+          "year": "2025"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2025"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mostafa Metawea",
@@ -103,9 +348,41 @@
       "age": 22,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Entag El Harby",
+          "year": "2024"
+        },
+        {
+          "club": "Modern Sport",
+          "year": "2025"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2026"
+        },
+        {
+          "club": "Modern Sport",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hesham Wael",
@@ -113,9 +390,29 @@
       "age": 20,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Ahmed",
@@ -123,9 +420,37 @@
       "age": 22,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 21,
+      "appearances": 14,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2024"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alieu Jatta",
@@ -133,9 +458,49 @@
       "age": 30,
       "nationality": "The Gambia",
       "club": "El Gouna FC",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Génération Foot",
+          "year": "2014"
+        },
+        {
+          "club": "Villerupt-Thil",
+          "year": "2017"
+        },
+        {
+          "club": "Casa Sports",
+          "year": "2018"
+        },
+        {
+          "club": "Nogoom FC",
+          "year": "2020"
+        },
+        {
+          "club": "Petrol Asyut",
+          "year": "2021"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelgawad Taalab",
@@ -143,19 +508,59 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Belia",
       "position": "Right-Back",
-      "age": 25,
+      "age": 26,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -167,7 +572,35 @@
       "club": "El Gouna FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Nasr",
+          "year": "2019"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nour El Sayed",
@@ -175,9 +608,45 @@
       "age": 42,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 25,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2012"
+        },
+        {
+          "club": "Difaâ El Jadida",
+          "year": "2014"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2015"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2016"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 444,
+        "goals": 19,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Obinna Okoronkwo",
@@ -187,7 +656,31 @@
       "club": "El Gouna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Calabar Rovers",
+          "year": "2024"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Emad",
@@ -195,9 +688,29 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hafiz Ibrahim",
@@ -205,9 +718,29 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "El Gouna FC",
-      "appearances": 25,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Belal El Sayed",
@@ -215,9 +748,41 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 23,
+      "appearances": 18,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ittihad Alex",
+          "year": "2021"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2023"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reda Salah",
@@ -225,9 +790,41 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 17,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Entag El Harby",
+          "year": "2022"
+        },
+        {
+          "club": "Tersana",
+          "year": "2023"
+        },
+        {
+          "club": "Mansoura",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Mahmoud",
@@ -237,7 +834,47 @@
       "club": "El Gouna FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wadi Degla",
+          "year": "2018"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2019"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2023"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Modern Future",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar El Gazar",
@@ -245,9 +882,41 @@
       "age": 21,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 12,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dayrout SC",
+          "year": "2024"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2025"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2026"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdallah El Said",
@@ -255,9 +924,33 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Amusan",
@@ -265,9 +958,33 @@
       "age": 20,
       "nationality": "Nigeria",
       "club": "El Gouna FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -277,9 +994,33 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 2
+      "appearances": 13,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adham Refai",
@@ -287,9 +1028,29 @@
       "age": 18,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Refaat",
@@ -297,9 +1058,49 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 1
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wadi Degla",
+          "year": "2023"
+        },
+        {
+          "club": "Entag El Harby",
+          "year": "2024"
+        },
+        {
+          "club": "Wadi Degla",
+          "year": "2024"
+        },
+        {
+          "club": "Wadi Degla",
+          "year": "2025"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2026"
+        },
+        {
+          "club": "Wadi Degla",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seif Shika",
@@ -307,9 +1108,49 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zed FC",
+          "year": "2022"
+        },
+        {
+          "club": "El Obour",
+          "year": "2023"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2023"
+        },
+        {
+          "club": "WE SC",
+          "year": "2023"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2024"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali El Zahdi",
@@ -317,9 +1158,53 @@
       "age": 29,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 0
+      "appearances": 19,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2017"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2019"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2020"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2024"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arnaud Randrianantenaina",
@@ -327,9 +1212,33 @@
       "age": 25,
       "nationality": "Madagascar",
       "club": "El Gouna FC",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saint-Pierroise",
+          "year": "2021"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tolulope Samuel Ojo",
@@ -337,9 +1246,33 @@
       "age": 22,
       "nationality": "Nigeria",
       "club": "El Gouna FC",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 1
+      "appearances": 15,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pyramids FC",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amr Khaled",
@@ -349,7 +1282,43 @@
       "club": "El Gouna FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Aarau",
+          "year": "2024"
+        },
+        {
+          "club": "FC Aarau",
+          "year": "2025"
+        },
+        {
+          "club": "FC Wohlen",
+          "year": "2025"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2026"
+        },
+        {
+          "club": "FC Aarau",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed El Nahas",
@@ -357,9 +1326,41 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 25,
-      "goals": 5,
-      "assists": 3
+      "appearances": 18,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2025"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marwan Mohsen",
@@ -367,9 +1368,53 @@
       "age": 37,
       "nationality": "Egypt",
       "club": "El Gouna FC",
-      "appearances": 13,
+      "appearances": 9,
       "goals": 2,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Petrojet",
+          "year": "2009"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2014"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2015"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2016"
+        },
+        {
+          "club": "Future FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 80,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

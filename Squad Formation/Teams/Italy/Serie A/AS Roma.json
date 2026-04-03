@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IT1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 26,
       "nationality": "Serbia",
       "club": "AS Roma",
-      "appearances": 40,
+      "appearances": 30,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -36,7 +37,21 @@
           "club": "Roma",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 219,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 234,
+        "clean_sheets": 77
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Pierluigi Gollini",
@@ -44,7 +59,7 @@
       "age": 31,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -104,7 +119,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 254,
+        "clean_sheets": 64
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Radoslaw Zelezny",
@@ -112,7 +141,7 @@
       "age": 19,
       "nationality": "Poland",
       "club": "AS Roma",
-      "appearances": 12,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -120,7 +149,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 83,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -130,8 +173,8 @@
       "age": 26,
       "nationality": "Ivory Coast",
       "club": "AS Roma",
-      "appearances": 35,
-      "goals": 5,
+      "appearances": 24,
+      "goals": 3,
       "assists": 0,
       "transfer_history": [
         {
@@ -146,7 +189,21 @@
           "club": "Roma",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 341,
+        "goals": 18,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gianluca Mancini",
@@ -154,8 +211,8 @@
       "age": 29,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 38,
-      "goals": 1,
+      "appearances": 29,
+      "goals": 0,
       "assists": 2,
       "transfer_history": [
         {
@@ -190,7 +247,21 @@
           "club": "Roma",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 443,
+        "goals": 30,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniele Ghilardi",
@@ -198,7 +269,7 @@
       "age": 23,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -234,7 +305,21 @@
           "club": "Roma",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Ziolkowski",
@@ -242,9 +327,9 @@
       "age": 20,
       "nationality": "Poland",
       "club": "AS Roma",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 1,
+      "appearances": 13,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Legia Warszawa",
@@ -254,7 +339,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mario Hermoso",
@@ -262,8 +361,8 @@
       "age": 30,
       "nationality": "Spain",
       "club": "AS Roma",
-      "appearances": 27,
-      "goals": 2,
+      "appearances": 19,
+      "goals": 1,
       "assists": 1,
       "transfer_history": [
         {
@@ -306,7 +405,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 18,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Angeliño",
@@ -314,7 +427,7 @@
       "age": 29,
       "nationality": "Spain",
       "club": "AS Roma",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -374,7 +487,21 @@
           "club": "Roma",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 434,
+        "goals": 28,
+        "assists": 84,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konstantinos Tsimikas",
@@ -382,9 +509,9 @@
       "age": 29,
       "nationality": "Greece",
       "club": "AS Roma",
-      "appearances": 23,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Olympiacos",
@@ -414,7 +541,21 @@
           "club": "Liverpool",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 333,
+        "goals": 14,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 49,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wesley",
@@ -422,9 +563,9 @@
       "age": 22,
       "nationality": "Brazil",
       "club": "AS Roma",
-      "appearances": 35,
+      "appearances": 26,
       "goals": 4,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Flamengo",
@@ -434,7 +575,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 10,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zeki Çelik",
@@ -442,9 +597,9 @@
       "age": 29,
       "nationality": "Turkiye",
       "club": "AS Roma",
-      "appearances": 37,
+      "appearances": 26,
       "goals": 1,
-      "assists": 4,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Bursaspor",
@@ -470,7 +625,21 @@
           "club": "Roma",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 390,
+        "goals": 13,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Devyne Rensch",
@@ -478,7 +647,7 @@
       "age": 23,
       "nationality": "Netherlands",
       "club": "AS Roma",
-      "appearances": 25,
+      "appearances": 17,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -494,7 +663,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 17,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -504,9 +687,9 @@
       "age": 31,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 38,
+      "appearances": 29,
       "goals": 2,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "AC Milan Youth",
@@ -560,7 +743,21 @@
           "club": "Roma",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 521,
+        "goals": 45,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manu Koné",
@@ -568,7 +765,7 @@
       "age": 24,
       "nationality": "France",
       "club": "AS Roma",
-      "appearances": 34,
+      "appearances": 26,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -592,7 +789,21 @@
           "club": "Roma",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 18,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Neil El Aynaoui",
@@ -600,8 +811,8 @@
       "age": 24,
       "nationality": "Morocco",
       "club": "AS Roma",
-      "appearances": 28,
-      "goals": 1,
+      "appearances": 19,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
@@ -616,7 +827,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 18,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niccolò Pisilli",
@@ -624,15 +849,29 @@
       "age": 21,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 26,
-      "goals": 3,
+      "appearances": 17,
+      "goals": 1,
       "assists": 2,
       "transfer_history": [
         {
           "club": "Roma",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 42,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lorenzo Pellegrini",
@@ -640,9 +879,9 @@
       "age": 29,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 31,
-      "goals": 6,
-      "assists": 4,
+      "appearances": 22,
+      "goals": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Sassuolo",
@@ -652,7 +891,21 @@
           "club": "Roma",
           "year": "2017"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 467,
+        "goals": 86,
+        "assists": 71,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -662,9 +915,9 @@
       "age": 24,
       "nationality": "Spain",
       "club": "AS Roma",
-      "appearances": 32,
-      "goals": 2,
-      "assists": 5,
+      "appearances": 4,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Recre Granada",
@@ -710,7 +963,21 @@
           "club": "Roma",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 22,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephan El Shaarawy",
@@ -718,8 +985,8 @@
       "age": 33,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 22,
-      "goals": 1,
+      "appearances": 14,
+      "goals": 0,
       "assists": 3,
       "transfer_history": [
         {
@@ -758,7 +1025,21 @@
           "club": "Roma",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 570,
+        "goals": 128,
+        "assists": 70,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Soulé",
@@ -766,9 +1047,9 @@
       "age": 22,
       "nationality": "Argentina",
       "club": "AS Roma",
-      "appearances": 34,
-      "goals": 7,
-      "assists": 7,
+      "appearances": 25,
+      "goals": 6,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Juventus",
@@ -786,7 +1067,21 @@
           "club": "Roma",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 36,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lorenzo Venturino",
@@ -794,9 +1089,9 @@
       "age": 19,
       "nationality": "Italy",
       "club": "AS Roma",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Genoa",
@@ -810,7 +1105,21 @@
           "club": "Genoa",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 19,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paulo Dybala",
@@ -818,9 +1127,9 @@
       "age": 32,
       "nationality": "Argentina",
       "club": "AS Roma",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 4,
+      "appearances": 17,
+      "goals": 2,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Instituto ACC",
@@ -838,7 +1147,21 @@
           "club": "Roma",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 561,
+        "goals": 198,
+        "assists": 95,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Donyell Malen",
@@ -846,9 +1169,9 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "AS Roma",
-      "appearances": 41,
-      "goals": 15,
-      "assists": 3,
+      "appearances": 10,
+      "goals": 7,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Ajax Youth",
@@ -874,7 +1197,21 @@
           "club": "Aston Villa",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 147,
+        "assists": 57,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Evan Ferguson",
@@ -882,8 +1219,8 @@
       "age": 21,
       "nationality": "Republic of Ireland",
       "club": "AS Roma",
-      "appearances": 22,
-      "goals": 5,
+      "appearances": 16,
+      "goals": 3,
       "assists": 2,
       "transfer_history": [
         {
@@ -910,7 +1247,21 @@
           "club": "Brighton",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 41,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robinio Vaz",
@@ -918,9 +1269,9 @@
       "age": 19,
       "nationality": "France",
       "club": "AS Roma",
-      "appearances": 28,
-      "goals": 5,
-      "assists": 4,
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Marseille",
@@ -930,7 +1281,21 @@
           "club": "Roma",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 21,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Artem Dovbyk",
@@ -938,9 +1303,9 @@
       "age": 28,
       "nationality": "Ukraine",
       "club": "AS Roma",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 3,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Cherk. Dnipro",
@@ -982,7 +1347,21 @@
           "club": "Roma",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 287,
+        "goals": 134,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

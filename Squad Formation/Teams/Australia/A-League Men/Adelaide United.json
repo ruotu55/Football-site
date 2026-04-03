@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "AUS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 33,
       "nationality": "Netherlands",
       "club": "Adelaide United",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NEC Nijmegen",
+          "year": "2011"
+        },
+        {
+          "club": "FC Oss",
+          "year": "2013"
+        },
+        {
+          "club": "NEC Nijmegen",
+          "year": "2013"
+        },
+        {
+          "club": "Almere City",
+          "year": "2018"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2020"
+        },
+        {
+          "club": "De Graafschap",
+          "year": "2024"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 282,
+        "clean_sheets": 52
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Cox",
@@ -33,7 +78,27 @@
       "club": "Adelaide United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Max Vartuli",
@@ -43,7 +108,31 @@
       "club": "Adelaide United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aalborg BK",
+          "year": "2023"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 26,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +142,29 @@
       "age": 21,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 18,
-      "goals": 0,
-      "assists": 0
+      "appearances": 19,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bart Vriends",
@@ -63,9 +172,37 @@
       "age": 34,
       "nationality": "Netherlands",
       "club": "Adelaide United",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Go Ahead Eagles",
+          "year": "2013"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2016"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 406,
+        "goals": 24,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sotiri Phillis",
@@ -75,7 +212,27 @@
       "club": "Adelaide United",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vinko Stanisic",
@@ -85,7 +242,27 @@
       "club": "Adelaide United",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Israel Monga",
@@ -95,7 +272,31 @@
       "club": "Adelaide United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malual Nichola",
@@ -105,7 +306,27 @@
       "club": "Adelaide United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Feyzo Kasumovic",
@@ -115,7 +336,27 @@
       "club": "Adelaide United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Kitto",
@@ -123,9 +364,37 @@
       "age": 31,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2015"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 23,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Talladira",
@@ -135,7 +404,27 @@
       "club": "Adelaide United",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bailey O'Neil",
@@ -145,7 +434,27 @@
       "club": "Adelaide United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Pierias",
@@ -155,7 +464,39 @@
       "club": "Adelaide United",
       "appearances": 8,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Melbourne City",
+          "year": "2018"
+        },
+        {
+          "club": "Western United",
+          "year": "2019"
+        },
+        {
+          "club": "Western Sydney",
+          "year": "2023"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 18,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harry Crawford",
@@ -165,7 +506,27 @@
       "club": "Adelaide United",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +536,33 @@
       "age": 25,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Melb. Victory",
+          "year": "2019"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luke Duzel",
@@ -185,9 +570,33 @@
       "age": 24,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Western United",
+          "year": "2019"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anselmo",
@@ -195,9 +604,109 @@
       "age": 37,
       "nationality": "Brazil",
       "club": "Adelaide United",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palmeiras",
+          "year": "2009"
+        },
+        {
+          "club": "Barueri",
+          "year": "2011"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2011"
+        },
+        {
+          "club": "São Caetano",
+          "year": "2012"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2012"
+        },
+        {
+          "club": "Genoa",
+          "year": "2012"
+        },
+        {
+          "club": "US Palermo",
+          "year": "2013"
+        },
+        {
+          "club": "São Caetano",
+          "year": "2013"
+        },
+        {
+          "club": "Joinville-SC",
+          "year": "2014"
+        },
+        {
+          "club": "Internacional",
+          "year": "2016"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2017"
+        },
+        {
+          "club": "Internacional",
+          "year": "2017"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2018"
+        },
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Nassr",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 394,
+        "goals": 36,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Alagich",
@@ -205,9 +714,29 @@
       "age": 22,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 3,
-      "assists": 3
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan White",
@@ -215,9 +744,29 @@
       "age": 20,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Panashe Madanha",
@@ -227,7 +776,27 @@
       "club": "Adelaide United",
       "appearances": 14,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonny Yull",
@@ -235,9 +804,29 @@
       "age": 21,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 4,
-      "assists": 4
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Muñiz",
@@ -245,9 +834,65 @@
       "age": 34,
       "nationality": "Spain",
       "club": "Adelaide United",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 2
+      "appearances": 20,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sporting Gijón",
+          "year": "2012"
+        },
+        {
+          "club": "CD Mirandés",
+          "year": "2013"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2014"
+        },
+        {
+          "club": "Gimnàstic",
+          "year": "2016"
+        },
+        {
+          "club": "CD Lugo",
+          "year": "2018"
+        },
+        {
+          "club": "Volos NFC",
+          "year": "2019"
+        },
+        {
+          "club": "Atromitos",
+          "year": "2020"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 77,
+        "assists": 64,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -259,7 +904,75 @@
       "club": "Adelaide United",
       "appearances": 15,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Melbourne Heart",
+          "year": "2012"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2012"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2014"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2019"
+        },
+        {
+          "club": "Abha",
+          "year": "2020"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2021"
+        },
+        {
+          "club": "Abha",
+          "year": "2022"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2023"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 382,
+        "goals": 90,
+        "assists": 66,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 7,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Folami",
@@ -267,9 +980,41 @@
       "age": 26,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Stevenage",
+          "year": "2020"
+        },
+        {
+          "club": "Melb. Victory",
+          "year": "2020"
+        },
+        {
+          "club": "Melb. Victory",
+          "year": "2021"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 13,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Austin Ayoubi",
@@ -277,9 +1022,45 @@
       "age": 24,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Othellos Athien",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Adelaide City",
+          "year": "2021"
+        },
+        {
+          "club": "MetroStars",
+          "year": "2023"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amlani Tatu",
@@ -289,7 +1070,27 @@
       "club": "Adelaide United",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaya Dukuly",
@@ -297,9 +1098,37 @@
       "age": 23,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 2,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Melbourne City",
+          "year": "2019"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2020"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Jovanovic",
@@ -307,19 +1136,59 @@
       "age": 20,
       "nationality": "Australia",
       "club": "Adelaide United",
-      "appearances": 18,
-      "goals": 7,
-      "assists": 3
+      "appearances": 19,
+      "goals": 9,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 23,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brody Burkitt",
       "position": "Centre-Forward",
-      "age": 19,
+      "age": 20,
       "nationality": "Australia",
       "club": "Adelaide United",
       "appearances": 9,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jake Najdovski",
@@ -329,7 +1198,35 @@
       "club": "Adelaide United",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Western United",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joey Garuccio",
@@ -339,7 +1236,27 @@
       "club": "Adelaide United",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ajak Riak",
@@ -349,7 +1266,59 @@
       "club": "Adelaide United",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stirling Maced.",
+          "year": "2019"
+        },
+        {
+          "club": "Kingsway",
+          "year": "2020"
+        },
+        {
+          "club": "Inglewood Utd",
+          "year": "2021"
+        },
+        {
+          "club": "Bentleigh",
+          "year": "2021"
+        },
+        {
+          "club": "South Melbourne",
+          "year": "2023"
+        },
+        {
+          "club": "PSS Sleman",
+          "year": "2023"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2024"
+        },
+        {
+          "club": "OKMK Olmaliq",
+          "year": "2025"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

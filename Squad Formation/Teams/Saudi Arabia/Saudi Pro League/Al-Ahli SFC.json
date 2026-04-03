@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 34,
       "nationality": "Senegal",
       "club": "Al-Ahli SFC",
-      "appearances": 30,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Cherbourg",
+          "year": "2011"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2016"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2019"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 366,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 357,
+        "clean_sheets": 155
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 28,
+        "clean_sheets": 33
+      }
     },
     {
       "name": "Abdulrahman Al-Sanbi",
@@ -31,9 +72,29 @@
       "age": 25,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 11,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 30,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 3,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Abdullah Abdo",
@@ -43,7 +104,27 @@
       "club": "Al-Ahli SFC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +134,65 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Al-Ahli SFC",
-      "appearances": 36,
-      "goals": 3,
-      "assists": 3
+      "appearances": 22,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sergipe",
+          "year": "2017"
+        },
+        {
+          "club": "PRS FC",
+          "year": "2017"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2017"
+        },
+        {
+          "club": "PRS FC",
+          "year": "2018"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2018"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2019"
+        },
+        {
+          "club": "Roma",
+          "year": "2020"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2021"
+        },
+        {
+          "club": "Roma",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 304,
+        "goals": 24,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Merih Demiral",
@@ -63,9 +200,73 @@
       "age": 28,
       "nationality": "Turkiye",
       "club": "Al-Ahli SFC",
-      "appearances": 25,
+      "appearances": 16,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Alcanenense",
+          "year": "2016"
+        },
+        {
+          "club": "Alcanenense",
+          "year": "2017"
+        },
+        {
+          "club": "Sporting",
+          "year": "2018"
+        },
+        {
+          "club": "Alanyaspor",
+          "year": "2018"
+        },
+        {
+          "club": "Sporting",
+          "year": "2019"
+        },
+        {
+          "club": "Alanyaspor",
+          "year": "2019"
+        },
+        {
+          "club": "Sassuolo",
+          "year": "2019"
+        },
+        {
+          "club": "Juventus",
+          "year": "2019"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2021"
+        },
+        {
+          "club": "Juventus",
+          "year": "2022"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Sulaiman",
@@ -73,9 +274,29 @@
       "age": 21,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 0
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rayan Hamed",
@@ -83,9 +304,37 @@
       "age": 23,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matteo Dams",
@@ -93,9 +342,33 @@
       "age": 22,
       "nationality": "Belgium",
       "club": "Al-Ahli SFC",
-      "appearances": 18,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSV",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zakaria Hawsawi",
@@ -103,9 +376,49 @@
       "age": 25,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 24,
+      "appearances": 18,
       "goals": 1,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ohod Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2022"
+        },
+        {
+          "club": "Ohod Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Raed",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Raed",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 2,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Majrashi",
@@ -113,9 +426,49 @@
       "age": 26,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 35,
+      "appearances": 21,
       "goals": 1,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab",
+          "year": "2019"
+        },
+        {
+          "club": "Future Falcons",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 2,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Abdulrahman",
@@ -123,9 +476,33 @@
       "age": 23,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 30,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ettifaq",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +512,29 @@
       "age": 24,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 29,
-      "goals": 1,
-      "assists": 1
+      "appearances": 19,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eid Al-Muwallad",
@@ -145,9 +542,37 @@
       "age": 24,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Future Falcons",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Okhdood",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Otayf",
@@ -155,9 +580,41 @@
       "age": 33,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 10,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab",
+          "year": "2011"
+        },
+        {
+          "club": "Louletano",
+          "year": "2012"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentin Atangana",
@@ -165,9 +622,33 @@
       "age": 20,
       "nationality": "France",
       "club": "Al-Ahli SFC",
-      "appearances": 29,
-      "goals": 5,
-      "assists": 0
+      "appearances": 18,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stade Reims",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Franck Kessié",
@@ -175,9 +656,61 @@
       "age": 29,
       "nationality": "Ivory Coast",
       "club": "Al-Ahli SFC",
-      "appearances": 33,
-      "goals": 9,
-      "assists": 3
+      "appearances": 21,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Stella Club",
+          "year": "2015"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2015"
+        },
+        {
+          "club": "Cesena",
+          "year": "2015"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2016"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2017"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2019"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2019"
+        },
+        {
+          "club": "Barcelona",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 74,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 99,
+        "goals": 14,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Millot",
@@ -185,9 +718,41 @@
       "age": 23,
       "nationality": "France",
       "club": "Al-Ahli SFC",
-      "appearances": 29,
-      "goals": 8,
-      "assists": 5
+      "appearances": 17,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FC Drouais Jgd.",
+          "year": "2015"
+        },
+        {
+          "club": "Monaco",
+          "year": "2020"
+        },
+        {
+          "club": "Stuttgart",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 33,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -197,9 +762,61 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Al-Ahli SFC",
-      "appearances": 30,
-      "goals": 2,
-      "assists": 9
+      "appearances": 20,
+      "goals": 1,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Anápolis",
+          "year": "2016"
+        },
+        {
+          "club": "Anápolis",
+          "year": "2017"
+        },
+        {
+          "club": "Porto",
+          "year": "2018"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2018"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2018"
+        },
+        {
+          "club": "Porto",
+          "year": "2019"
+        },
+        {
+          "club": "Braga",
+          "year": "2019"
+        },
+        {
+          "club": "Porto",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 427,
+        "goals": 110,
+        "assists": 91,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saleh Abu Al-Shamat",
@@ -207,9 +824,45 @@
       "age": 23,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 35,
-      "goals": 3,
-      "assists": 2
+      "appearances": 22,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Qadsiah",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matheus Gonçalves",
@@ -217,9 +870,37 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "Al-Ahli SFC",
-      "appearances": 27,
-      "goals": 2,
-      "assists": 4
+      "appearances": 16,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Flamengo",
+          "year": "2023"
+        },
+        {
+          "club": "RB Bragantino",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riyad Mahrez",
@@ -227,9 +908,45 @@
       "age": 35,
       "nationality": "Algeria",
       "club": "Al-Ahli SFC",
-      "appearances": 34,
-      "goals": 7,
-      "assists": 13
+      "appearances": 21,
+      "goals": 4,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Quimper FC",
+          "year": "2009"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2011"
+        },
+        {
+          "club": "Leicester",
+          "year": "2014"
+        },
+        {
+          "club": "Man City",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 659,
+        "goals": 197,
+        "assists": 154,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 113,
+        "goals": 38,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaseen Al-Zubaidi",
@@ -237,9 +954,45 @@
       "age": 22,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Okhdood",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Okhdood",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivan Toney",
@@ -247,9 +1000,81 @@
       "age": 30,
       "nationality": "England",
       "club": "Al-Ahli SFC",
-      "appearances": 38,
-      "goals": 34,
-      "assists": 9
+      "appearances": 25,
+      "goals": 25,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Northampton",
+          "year": "2013"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2015"
+        },
+        {
+          "club": "Barnsley",
+          "year": "2015"
+        },
+        {
+          "club": "Barnsley",
+          "year": "2016"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2016"
+        },
+        {
+          "club": "Shrewsbury",
+          "year": "2016"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2017"
+        },
+        {
+          "club": "Scunthorpe Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Wigan",
+          "year": "2017"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2018"
+        },
+        {
+          "club": "Scunthorpe Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Peterborough",
+          "year": "2018"
+        },
+        {
+          "club": "Brentford",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 500,
+        "goals": 233,
+        "assists": 71,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Mathias",
@@ -257,9 +1082,37 @@
       "age": 19,
       "nationality": "Brazil",
       "club": "Al-Ahli SFC",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Inter Youth",
+          "year": "2022"
+        },
+        {
+          "club": "Internacional",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Firas Al-Buraikan",
@@ -267,9 +1120,37 @@
       "age": 25,
       "nationality": "Saudi Arabia",
       "club": "Al-Ahli SFC",
-      "appearances": 39,
-      "goals": 5,
-      "assists": 1
+      "appearances": 26,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Nassr",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Fateh",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 64,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 69,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

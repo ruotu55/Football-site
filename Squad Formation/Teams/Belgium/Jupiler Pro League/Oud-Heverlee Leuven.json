@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Oud-Heverlee Leuven",
       "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KRC Genk Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Genk",
+          "year": "2019"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 164,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maxence Prévot",
@@ -31,9 +60,33 @@
       "age": 28,
       "nationality": "France",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Sochaux",
+          "year": "2016"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 290,
+        "clean_sheets": 96
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Owen Jochmans",
@@ -41,9 +94,33 @@
       "age": 23,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KAA Gent Youth",
+          "year": "2016"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 81,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Théo Radelet",
@@ -51,9 +128,33 @@
       "age": 18,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 16,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 70,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +166,31 @@
       "club": "Oud-Heverlee Leuven",
       "appearances": 19,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Servette FC",
+          "year": "2021"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ewoud Pletinckx",
@@ -73,9 +198,33 @@
       "age": 25,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 31,
+      "appearances": 30,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zulte Waregem",
+          "year": "2018"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 12,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Takuma Ominami",
@@ -83,9 +232,49 @@
       "age": 28,
       "nationality": "Japan",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Júbilo Iwata",
+          "year": "2016"
+        },
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2020"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2023"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2025"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 253,
+        "goals": 7,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noë Dussenne",
@@ -93,9 +282,73 @@
       "age": 33,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 29,
-      "goals": 2,
-      "assists": 2
+      "appearances": 21,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RAEC Mons",
+          "year": "2011"
+        },
+        {
+          "club": "AFC Tubize",
+          "year": "2012"
+        },
+        {
+          "club": "RAEC Mons",
+          "year": "2013"
+        },
+        {
+          "club": "Cercle Brugge",
+          "year": "2014"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2015"
+        },
+        {
+          "club": "Crotone",
+          "year": "2016"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2017"
+        },
+        {
+          "club": "Crotone",
+          "year": "2018"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2018"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2019"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2023"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 375,
+        "goals": 36,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viktor Damjanic",
@@ -103,9 +356,45 @@
       "age": 20,
       "nationality": "Croatia",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Lokomotiva",
+          "year": "2024"
+        },
+        {
+          "club": "Jedinstvo Ub",
+          "year": "2024"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2025"
+        },
+        {
+          "club": "Jedinstvo Ub",
+          "year": "2025"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christ Souanga",
@@ -113,9 +402,29 @@
       "age": 19,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Takahiro Akimoto",
@@ -125,7 +434,43 @@
       "club": "Oud-Heverlee Leuven",
       "appearances": 25,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kokushikan Univ",
+          "year": "2016"
+        },
+        {
+          "club": "Tochigi SC",
+          "year": "2020"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2021"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 18,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Óscar Gil",
@@ -133,9 +478,41 @@
       "age": 27,
       "nationality": "Spain",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Elche Ilicitano",
+          "year": "2016"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2019"
+        },
+        {
+          "club": "Espanyol",
+          "year": "2020"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thibault Vlietinck",
@@ -145,7 +522,39 @@
       "club": "Oud-Heverlee Leuven",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Brugge",
+          "year": "2017"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2020"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2022"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davis Opoku",
@@ -153,9 +562,29 @@
       "age": 18,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +594,41 @@
       "age": 25,
       "nationality": "Poland",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 27,
+      "appearances": 23,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2021"
+        },
+        {
+          "club": "Young Boys",
+          "year": "2023"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        },
+        {
+          "club": "Young Boys",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 25,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Birger Verstraete",
@@ -177,7 +638,75 @@
       "club": "Oud-Heverlee Leuven",
       "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Brugge",
+          "year": "2012"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2014"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2015"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2015"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2017"
+        },
+        {
+          "club": "1.FC Köln",
+          "year": "2019"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2020"
+        },
+        {
+          "club": "1.FC Köln",
+          "year": "2021"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2021"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2022"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2023"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2023"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 354,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siebe Schrijvers",
@@ -185,9 +714,45 @@
       "age": 29,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 2,
-      "assists": 3
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Genk",
+          "year": "2012"
+        },
+        {
+          "club": "Waasland-Beveren",
+          "year": "2016"
+        },
+        {
+          "club": "Genk",
+          "year": "2017"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2018"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 418,
+        "goals": 63,
+        "assists": 56,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wouter George",
@@ -195,9 +760,37 @@
       "age": 24,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "KAA Gent Youth",
+          "year": "2016"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2020"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryang Kayo",
@@ -205,9 +798,73 @@
       "age": 23,
       "nationality": "United States",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loudoun United",
+          "year": "2019"
+        },
+        {
+          "club": "D.C. United Ac.",
+          "year": "2019"
+        },
+        {
+          "club": "Orange County",
+          "year": "2019"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2021"
+        },
+        {
+          "club": "Viktoria Berlin",
+          "year": "2021"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2022"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2023"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2023"
+        },
+        {
+          "club": "VfL Osnabrück",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2025"
+        },
+        {
+          "club": "VfL Osnabrück",
+          "year": "2025"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 16,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Maziz",
@@ -215,19 +872,87 @@
       "age": 27,
       "nationality": "France",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Amnéville Jgd",
+          "year": "2011"
+        },
+        {
+          "club": "US Avranches",
+          "year": "2018"
+        },
+        {
+          "club": "Le Mans FC",
+          "year": "2019"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2020"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2021"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2022"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 60,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathieu Maertens",
       "position": "Attacking Midfield",
-      "age": 30,
+      "age": 31,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
       "appearances": 27,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Cercle Brugge",
+          "year": "2014"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 56,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Balikwisha",
@@ -237,7 +962,43 @@
       "club": "Oud-Heverlee Leuven",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Standard Liège",
+          "year": "2018"
+        },
+        {
+          "club": "Cercle Brugge",
+          "year": "2019"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2020"
+        },
+        {
+          "club": "MVV Maastricht",
+          "year": "2020"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 13,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1008,57 @@
       "age": 26,
       "nationality": "Belgium",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 2,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "St. Pauli",
+          "year": "2018"
+        },
+        {
+          "club": "Stoke City",
+          "year": "2018"
+        },
+        {
+          "club": "Bolton",
+          "year": "2019"
+        },
+        {
+          "club": "Stoke City",
+          "year": "2020"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2021"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2021"
+        },
+        {
+          "club": "Beerschot VA",
+          "year": "2022"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 221,
+        "goals": 24,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henok Teklab",
@@ -257,9 +1066,53 @@
       "age": 27,
       "nationality": "Germany",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RW Frankfurt",
+          "year": "2017"
+        },
+        {
+          "club": "Hessen Dreieich",
+          "year": "2018"
+        },
+        {
+          "club": "VfB Ginsheim",
+          "year": "2019"
+        },
+        {
+          "club": "Bayern Alzenau",
+          "year": "2020"
+        },
+        {
+          "club": "Pr. Münster",
+          "year": "2021"
+        },
+        {
+          "club": "Union SG",
+          "year": "2023"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 231,
+        "goals": 37,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chukwubuikem Ikwuemesi",
@@ -267,9 +1120,49 @@
       "age": 24,
       "nationality": "Nigeria",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vorwärts Steyr",
+          "year": "2021"
+        },
+        {
+          "club": "Giant Brillars",
+          "year": "2021"
+        },
+        {
+          "club": "NK Krsko",
+          "year": "2022"
+        },
+        {
+          "club": "NK Celje",
+          "year": "2022"
+        },
+        {
+          "club": "Salernitana",
+          "year": "2023"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 31,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sory Kaba",
@@ -277,9 +1170,73 @@
       "age": 30,
       "nationality": "Guinea",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 22,
-      "goals": 8,
-      "assists": 1
+      "appearances": 21,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Elche Ilicitano",
+          "year": "2016"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2017"
+        },
+        {
+          "club": "Dijon",
+          "year": "2019"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2019"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2021"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2022"
+        },
+        {
+          "club": "Cardiff",
+          "year": "2023"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2023"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2023"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2024"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2025"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 88,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoul Karim Traoré",
@@ -287,9 +1244,33 @@
       "age": 19,
       "nationality": "Guinea",
       "club": "Oud-Heverlee Leuven",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 0
+      "appearances": 19,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bourg-en-Bresse",
+          "year": "2024"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyan Vaesen",
@@ -299,7 +1280,43 @@
       "club": "Oud-Heverlee Leuven",
       "appearances": 24,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "KVC Westerlo",
+          "year": "2019"
+        },
+        {
+          "club": "Thes Sport",
+          "year": "2020"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2021"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2025"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 23,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

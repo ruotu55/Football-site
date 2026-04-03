@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "GU1C"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 24,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 23,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Lucía C.",
+          "year": "2022"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2022"
+        },
+        {
+          "club": "Deportivo Mixco",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 138,
+        "clean_sheets": 60
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 13,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Braulio Linares",
@@ -31,9 +64,49 @@
       "age": 30,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 22,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chanticleers",
+          "year": "2016"
+        },
+        {
+          "club": "Suchitepéquez",
+          "year": "2017"
+        },
+        {
+          "club": "Cobán Imperial",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Lucía C.",
+          "year": "2020"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2021"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 152,
+        "clean_sheets": 77
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "David Aldana",
@@ -43,7 +116,27 @@
       "club": "CSD Municipal",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +146,45 @@
       "age": 30,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 0
+      "appearances": 11,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "New England",
+          "year": "2018"
+        },
+        {
+          "club": "LV Lights",
+          "year": "2018"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2019"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2023"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 16,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darwin Torres",
@@ -63,9 +192,77 @@
       "age": 35,
       "nationality": "Uruguay",
       "club": "CSD Municipal",
-      "appearances": 20,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nacional",
+          "year": "2011"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2013"
+        },
+        {
+          "club": "Nacional",
+          "year": "2013"
+        },
+        {
+          "club": "Juventud",
+          "year": "2013"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2014"
+        },
+        {
+          "club": "Cimarrones",
+          "year": "2016"
+        },
+        {
+          "club": "Zacatepec",
+          "year": "2017"
+        },
+        {
+          "club": "CA Cerro",
+          "year": "2017"
+        },
+        {
+          "club": "Correcaminos",
+          "year": "2019"
+        },
+        {
+          "club": "Wanderers",
+          "year": "2020"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2021"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2023"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 411,
+        "goals": 11,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Mena",
@@ -73,9 +270,57 @@
       "age": 37,
       "nationality": "Costa Rica",
       "club": "CSD Municipal",
-      "appearances": 32,
-      "goals": 2,
-      "assists": 2
+      "appearances": 12,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saprissa",
+          "year": "2009"
+        },
+        {
+          "club": "Pérez Zeledón",
+          "year": "2012"
+        },
+        {
+          "club": "Bangkok Glass",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "UCR",
+          "year": "2015"
+        },
+        {
+          "club": "Herediano",
+          "year": "2017"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2017"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 521,
+        "goals": 45,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aubrey David",
@@ -83,9 +328,81 @@
       "age": 35,
       "nationality": "Trinidad and Tobago",
       "club": "CSD Municipal",
-      "appearances": 35,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Caledonia AIA",
+          "year": "2012"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2014"
+        },
+        {
+          "club": "Caledonia AIA",
+          "year": "2014"
+        },
+        {
+          "club": "Shakhter K.",
+          "year": "2015"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2016"
+        },
+        {
+          "club": "Dallas",
+          "year": "2016"
+        },
+        {
+          "club": "Kemi Kings",
+          "year": "2017"
+        },
+        {
+          "club": "VPS",
+          "year": "2018"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2019"
+        },
+        {
+          "club": "LD Alajuelense",
+          "year": "2022"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2023"
+        },
+        {
+          "club": "Cartaginés",
+          "year": "2023"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 472,
+        "goals": 16,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Morales",
@@ -93,9 +410,49 @@
       "age": 29,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 2
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2017"
+        },
+        {
+          "club": "CD Petapa",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Siquinalá",
+          "year": "2019"
+        },
+        {
+          "club": "Iztapa",
+          "year": "2020"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 280,
+        "goals": 18,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 54,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Aguilar",
@@ -103,9 +460,33 @@
       "age": 19,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 9,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Malacateco",
+          "year": "2022"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "César Calderón",
@@ -113,9 +494,37 @@
       "age": 31,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 31,
-      "goals": 2,
-      "assists": 1
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sanarate FC",
+          "year": "2019"
+        },
+        {
+          "club": "Cobán Imperial",
+          "year": "2020"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 7,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Jiménez",
@@ -123,9 +532,33 @@
       "age": 30,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 2
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Antigua GFC",
+          "year": "2018"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 429,
+        "goals": 33,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +568,29 @@
       "age": 22,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 27,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yunior Pérez",
@@ -145,9 +598,41 @@
       "age": 25,
       "nationality": "Cuba",
       "club": "CSD Municipal",
-      "appearances": 39,
-      "goals": 4,
-      "assists": 3
+      "appearances": 14,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Santa Lucía C.",
+          "year": "2022"
+        },
+        {
+          "club": "Achuapa",
+          "year": "2023"
+        },
+        {
+          "club": "Malacateco",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 11,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Saravia",
@@ -155,9 +640,69 @@
       "age": 33,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Columbus Crew",
+          "year": "2016"
+        },
+        {
+          "club": "Pittsburgh",
+          "year": "2016"
+        },
+        {
+          "club": "IK Frej Täby",
+          "year": "2017"
+        },
+        {
+          "club": "Columbus Crew",
+          "year": "2017"
+        },
+        {
+          "club": "Swope Park",
+          "year": "2018"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2018"
+        },
+        {
+          "club": "Plaza Colonia",
+          "year": "2022"
+        },
+        {
+          "club": "Monagas SC",
+          "year": "2023"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2023"
+        },
+        {
+          "club": "Pérez Zeledón",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 9,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 66,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rudy Barrientos",
@@ -165,9 +710,33 @@
       "age": 27,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 31,
-      "goals": 3,
-      "assists": 4
+      "appearances": 12,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guastatoya",
+          "year": "2017"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 304,
+        "goals": 24,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Figo Montaño",
@@ -175,9 +744,29 @@
       "age": 21,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Altán",
@@ -185,9 +774,45 @@
       "age": 28,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 28,
-      "goals": 6,
-      "assists": 11
+      "appearances": 15,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2015"
+        },
+        {
+          "club": "Sanarate FC",
+          "year": "2018"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2020"
+        },
+        {
+          "club": "Cobán Imperial",
+          "year": "2020"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 331,
+        "goals": 39,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Hernández",
@@ -195,9 +820,61 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "CSD Municipal",
-      "appearances": 33,
-      "goals": 4,
-      "assists": 4
+      "appearances": 13,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Dep. Rincón",
+          "year": "2016"
+        },
+        {
+          "club": "Huracan",
+          "year": "2017"
+        },
+        {
+          "club": "Sanarate FC",
+          "year": "2018"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2019"
+        },
+        {
+          "club": "Pérez Zeledón",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Iztapa",
+          "year": "2021"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2022"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 60,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhon Méndez",
@@ -205,9 +882,37 @@
       "age": 26,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 41,
-      "goals": 5,
-      "assists": 5
+      "appearances": 16,
+      "goals": 3,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2016"
+        },
+        {
+          "club": "Achuapa",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 34,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jefry Bantes",
@@ -215,9 +920,29 @@
       "age": 22,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 1
+      "appearances": 4,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,19 +952,75 @@
       "age": 21,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 27,
-      "goals": 2,
-      "assists": 3
+      "appearances": 13,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yasniel Matos",
       "position": "Left Winger",
-      "age": 23,
+      "age": 24,
       "nationality": "Cuba",
       "club": "CSD Municipal",
-      "appearances": 31,
-      "goals": 6,
-      "assists": 1
+      "appearances": 13,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2021"
+        },
+        {
+          "club": "Xelajú",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2024"
+        },
+        {
+          "club": "CD Marquense",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 27,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "César Archila",
@@ -247,9 +1028,41 @@
       "age": 32,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 29,
-      "goals": 4,
-      "assists": 3
+      "appearances": 12,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Guastatoya",
+          "year": "2020"
+        },
+        {
+          "club": "Malacateco",
+          "year": "2020"
+        },
+        {
+          "club": "Antigua GFC",
+          "year": "2021"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 22,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yorman Baltazar",
@@ -257,9 +1070,33 @@
       "age": 23,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 11,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Xinabajul",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Salamá",
@@ -267,9 +1104,29 @@
       "age": 19,
       "nationality": "Guatemala",
       "club": "CSD Municipal II",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Achuapa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Erik López",
@@ -277,9 +1134,57 @@
       "age": 24,
       "nationality": "Paraguay",
       "club": "CSD Municipal",
-      "appearances": 6,
-      "goals": 2,
-      "assists": 0
+      "appearances": 10,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpia",
+          "year": "2019"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2020"
+        },
+        {
+          "club": "Banfield",
+          "year": "2022"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2026"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Carlos Martinez",
@@ -287,9 +1192,29 @@
       "age": 28,
       "nationality": "Guatemala",
       "club": "CSD Municipal",
-      "appearances": 35,
-      "goals": 11,
-      "assists": 5
+      "appearances": 9,
+      "goals": 3,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "CSD Municipal",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 102,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alejandro Cabeza",
@@ -297,9 +1222,69 @@
       "age": 29,
       "nationality": "Ecuador",
       "club": "CSD Municipal",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Independiente",
+          "year": "2016"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2020"
+        },
+        {
+          "club": "Independiente",
+          "year": "2020"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2021"
+        },
+        {
+          "club": "Independiente",
+          "year": "2021"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2022"
+        },
+        {
+          "club": "FK Sochi",
+          "year": "2023"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2024"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2024"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2025"
+        },
+        {
+          "club": "CSD Municipal",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 52,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

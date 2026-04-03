@@ -9,31 +9,136 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "TS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
-    {
-      "name": "Vojtech Vorel",
-      "position": "Goalkeeper",
-      "age": 29,
-      "nationality": "Czech Republic",
-      "club": "FK Mlada Boleslav",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Jiri Floder",
       "position": "Goalkeeper",
       "age": 29,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Blansko",
+          "year": "2016"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2017"
+        },
+        {
+          "club": "HS Kromeriz",
+          "year": "2018"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2018"
+        },
+        {
+          "club": "Chrudim",
+          "year": "2022"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2022"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 296,
+        "clean_sheets": 77
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Vojtech Vorel",
+      "position": "Goalkeeper",
+      "age": 29,
+      "nationality": "Czech Republic",
+      "club": "FK Mlada Boleslav",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sparta Prague",
+          "year": "2014"
+        },
+        {
+          "club": "Vlasim",
+          "year": "2015"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2016"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2018"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2020"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2020"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2022"
+        },
+        {
+          "club": "Pardubice",
+          "year": "2025"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2026"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 158,
+        "clean_sheets": 47
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefan Jovanoski",
@@ -41,9 +146,29 @@
       "age": 20,
       "nationality": "North Macedonia",
       "club": "FK Mlada Boleslav B",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 63,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 1
+      }
     }
   ],
   "defenders": [
@@ -53,19 +178,107 @@
       "age": 31,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 11,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2014"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2015"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2016"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2020"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2021"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2022"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2023"
+        },
+        {
+          "club": "1.FC Nuremberg",
+          "year": "2024"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 11,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Kralik",
       "position": "Centre-Back",
-      "age": 30,
+      "age": 31,
       "nationality": "Slovakia",
       "club": "FK Mlada Boleslav",
-      "appearances": 29,
+      "appearances": 25,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MSK Zilina",
+          "year": "2013"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2020"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 386,
+        "goals": 24,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Harustak",
@@ -73,9 +286,45 @@
       "age": 20,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 14,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Frydek-Mistek",
+          "year": "2024"
+        },
+        {
+          "club": "1.SK Prostejov",
+          "year": "2025"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2026"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2026"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Donat",
@@ -83,9 +332,53 @@
       "age": 24,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 18,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hradec Kr. th.",
+          "year": "2016"
+        },
+        {
+          "club": "Hradec Kralove",
+          "year": "2020"
+        },
+        {
+          "club": "Chrudim",
+          "year": "2022"
+        },
+        {
+          "club": "Hradec Kralove",
+          "year": "2022"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2022"
+        },
+        {
+          "club": "Pardubice",
+          "year": "2023"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matej Hybs",
@@ -93,9 +386,85 @@
       "age": 33,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sparta Prague",
+          "year": "2012"
+        },
+        {
+          "club": "Jihlava",
+          "year": "2014"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2015"
+        },
+        {
+          "club": "Jablonec",
+          "year": "2016"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2016"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2017"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2020"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2022"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2022"
+        },
+        {
+          "club": "Teplice",
+          "year": "2022"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2023"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2023"
+        },
+        {
+          "club": "Career break",
+          "year": "2024"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 335,
+        "goals": 15,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Zouhar",
@@ -103,19 +472,29 @@
       "age": 19,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 1
-    },
-    {
-      "name": "Dominik Kostka",
-      "position": "Right-Back",
-      "age": 29,
-      "nationality": "Czech Republic",
-      "club": "FK Mlada Boleslav",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mlada Boleslav",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Matousek",
@@ -123,9 +502,99 @@
       "age": 24,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dukla Prague",
+          "year": "2022"
+        },
+        {
+          "club": "Pribram",
+          "year": "2023"
+        },
+        {
+          "club": "Dukla Prague",
+          "year": "2024"
+        },
+        {
+          "club": "Vlasim",
+          "year": "2025"
+        },
+        {
+          "club": "Dukla Prague",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Dominik Kostka",
+      "position": "Right-Back",
+      "age": 29,
+      "nationality": "Czech Republic",
+      "club": "FK Mlada Boleslav",
+      "appearances": 23,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dobrovice",
+          "year": "2017"
+        },
+        {
+          "club": "Motorlet Prague",
+          "year": "2019"
+        },
+        {
+          "club": "Zbuzany",
+          "year": "2019"
+        },
+        {
+          "club": "Gmünd",
+          "year": "2020"
+        },
+        {
+          "club": "Pardubice",
+          "year": "2021"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 28,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +604,99 @@
       "age": 20,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
+      "appearances": 17,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 24,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Daniel Langhamer",
+      "position": "Central Midfield",
+      "age": 23,
+      "nationality": "Czech Republic",
+      "club": "FK Mlada Boleslav",
       "appearances": 21,
-      "goals": 4,
-      "assists": 0
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Mlada Boleslav",
+          "year": "2020"
+        },
+        {
+          "club": "Pribram",
+          "year": "2021"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2021"
+        },
+        {
+          "club": "Vlasim",
+          "year": "2022"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2022"
+        },
+        {
+          "club": "Viagem Pribram",
+          "year": "2023"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2023"
+        },
+        {
+          "club": "Chrudim",
+          "year": "2023"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        },
+        {
+          "club": "Teplice",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 16,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roman Macek",
@@ -145,29 +704,57 @@
       "age": 28,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 1,
-      "assists": 3
-    },
-    {
-      "name": "Daniel Langhamer",
-      "position": "Central Midfield",
-      "age": 22,
-      "nationality": "Czech Republic",
-      "club": "FK Mlada Boleslav",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 4
-    },
-    {
-      "name": "David Pech",
-      "position": "Central Midfield",
-      "age": 24,
-      "nationality": "Czech Republic",
-      "club": "FK Mlada Boleslav",
-      "appearances": 20,
-      "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bari",
+          "year": "2017"
+        },
+        {
+          "club": "Juventus",
+          "year": "2017"
+        },
+        {
+          "club": "Cremonese",
+          "year": "2017"
+        },
+        {
+          "club": "Juventus",
+          "year": "2018"
+        },
+        {
+          "club": "FC Lugano",
+          "year": "2018"
+        },
+        {
+          "club": "Juventus",
+          "year": "2019"
+        },
+        {
+          "club": "FC Lugano",
+          "year": "2019"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 272,
+        "goals": 7,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Subert",
@@ -175,19 +762,37 @@
       "age": 23,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 27,
+      "appearances": 17,
       "goals": 1,
-      "assists": 1
-    },
-    {
-      "name": "Nicolas Penner",
-      "position": "Central Midfield",
-      "age": 24,
-      "nationality": "Czech Republic",
-      "club": "FK Mlada Boleslav",
-      "appearances": 20,
-      "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Vlasim",
+          "year": "2023"
+        },
+        {
+          "club": "Vlasim",
+          "year": "2024"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 23,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Kozel",
@@ -195,9 +800,121 @@
       "age": 24,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dukla Prague",
+          "year": "2020"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 22,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "David Pech",
+      "position": "Central Midfield",
+      "age": 24,
+      "nationality": "Czech Republic",
+      "club": "FK Mlada Boleslav",
+      "appearances": 17,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Mlada Boleslav",
+          "year": "2019"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2023"
+        },
+        {
+          "club": "Dukla Prague",
+          "year": "2024"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2024"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 22,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Nicolas Penner",
+      "position": "Central Midfield",
+      "age": 24,
+      "nationality": "Czech Republic",
+      "club": "FK Mlada Boleslav",
+      "appearances": 16,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Career break",
+          "year": "2020"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2021"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2023"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 6,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominik Mares",
@@ -205,9 +922,33 @@
       "age": 23,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pardubice",
+          "year": "2022"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michal Sevcik",
@@ -215,9 +956,53 @@
       "age": 23,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 27,
-      "goals": 9,
-      "assists": 2
+      "appearances": 23,
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Jihlava",
+          "year": "2020"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2021"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2023"
+        },
+        {
+          "club": "1.FC Nuremberg",
+          "year": "2024"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 52,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +1012,57 @@
       "age": 24,
       "nationality": "Nigeria",
       "club": "FK Mlada Boleslav",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Remo Stars",
+          "year": "2019"
+        },
+        {
+          "club": "Feirense Sub-23",
+          "year": "2019"
+        },
+        {
+          "club": "Feirense",
+          "year": "2020"
+        },
+        {
+          "club": "Leça",
+          "year": "2020"
+        },
+        {
+          "club": "Feirense",
+          "year": "2021"
+        },
+        {
+          "club": "Simoiben FC",
+          "year": "2021"
+        },
+        {
+          "club": "Vlasim",
+          "year": "2022"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Lehky",
@@ -237,9 +1070,33 @@
       "age": 23,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 24,
+      "appearances": 21,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vlasim",
+          "year": "2024"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 35,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josef Kolarik",
@@ -247,9 +1104,33 @@
       "age": 19,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 1
+      "appearances": 18,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Vlasim",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christophe Kabongo",
@@ -257,9 +1138,49 @@
       "age": 22,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 1
+      "appearances": 17,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lommel SK",
+          "year": "2020"
+        },
+        {
+          "club": "Podbrezova",
+          "year": "2023"
+        },
+        {
+          "club": "Lommel SK",
+          "year": "2024"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2024"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2026"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 18,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Buryan",
@@ -267,9 +1188,37 @@
       "age": 20,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 20,
-      "goals": 7,
-      "assists": 2
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        },
+        {
+          "club": "SILON Taborsko",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 51,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jiri Klima",
@@ -277,9 +1226,57 @@
       "age": 29,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 18,
-      "goals": 3,
-      "assists": 1
+      "appearances": 15,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Jihlava",
+          "year": "2016"
+        },
+        {
+          "club": "1.SC Znojmo",
+          "year": "2016"
+        },
+        {
+          "club": "Jihlava",
+          "year": "2017"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2019"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2021"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2025"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 61,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bolu Ogungbayi",
@@ -289,7 +1286,27 @@
       "club": "FK Mlada Boleslav",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mlada Boleslav",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 24,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matous Krulich",
@@ -297,9 +1314,33 @@
       "age": 20,
       "nationality": "Czech Republic",
       "club": "FK Mlada Boleslav",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jablonec",
+          "year": "2023"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 19,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

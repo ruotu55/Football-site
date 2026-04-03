@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MAR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,43 @@
       "club": "Renaissance Zemamra",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCA Zemamra",
+          "year": "2018"
+        },
+        {
+          "club": "Beni Mellal",
+          "year": "2020"
+        },
+        {
+          "club": "Hassania",
+          "year": "2021"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 111,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Ferni",
@@ -33,7 +70,31 @@
       "club": "Renaissance Zemamra",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O. Khouribga",
+          "year": "2019"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 91,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marouane Fakhr",
@@ -43,7 +104,67 @@
       "club": "Renaissance Zemamra",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FUS Espoirs",
+          "year": "2012"
+        },
+        {
+          "club": "US Témara",
+          "year": "2013"
+        },
+        {
+          "club": "Ittihad Tanger",
+          "year": "2015"
+        },
+        {
+          "club": "CA Khénifra",
+          "year": "2016"
+        },
+        {
+          "club": "O. Khouribga",
+          "year": "2017"
+        },
+        {
+          "club": "Abha",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ansar",
+          "year": "2019"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2020"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2022"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2024"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 137,
+        "clean_sheets": 50
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,37 +176,39 @@
       "club": "Renaissance Zemamra",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Salaheddine Bahi",
-      "position": "Centre-Back",
-      "age": 31,
-      "nationality": "Morocco",
-      "club": "Renaissance Zemamra",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Bilal Soufi",
-      "position": "Centre-Back",
-      "age": 27,
-      "nationality": "Morocco",
-      "club": "Renaissance Zemamra",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Mohamed Abdouramane",
-      "position": "Centre-Back",
-      "age": 24,
-      "nationality": "Niger",
-      "club": "Renaissance Zemamra",
-      "appearances": 12,
-      "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jigawa",
+          "year": "2020"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2021"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2023"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reda Ait Boughima",
@@ -95,7 +218,177 @@
       "club": "Renaissance Zemamra",
       "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KACM Marrakech",
+          "year": "2020"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Salaheddine Bahi",
+      "position": "Centre-Back",
+      "age": 31,
+      "nationality": "Morocco",
+      "club": "Renaissance Zemamra",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ben Guerir",
+          "year": "2015"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2018"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2019"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2020"
+        },
+        {
+          "club": "Arar FC",
+          "year": "2022"
+        },
+        {
+          "club": "Hassania",
+          "year": "2023"
+        },
+        {
+          "club": "Bengaluru FC",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Bilal Soufi",
+      "position": "Centre-Back",
+      "age": 27,
+      "nationality": "Morocco",
+      "club": "Renaissance Zemamra",
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "O. Khouribga",
+          "year": "2020"
+        },
+        {
+          "club": "USM Oujda",
+          "year": "2021"
+        },
+        {
+          "club": "O. Khouribga",
+          "year": "2023"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2023"
+        },
+        {
+          "club": "Ma'an SC",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Mohamed Abdouramane",
+      "position": "Centre-Back",
+      "age": 24,
+      "nationality": "Niger",
+      "club": "Renaissance Zemamra",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Douanes",
+          "year": "2023"
+        },
+        {
+          "club": "AS Gabès",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Aoujdal",
@@ -105,7 +398,47 @@
       "club": "Renaissance Zemamra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AM Football",
+          "year": "2018"
+        },
+        {
+          "club": "MAS Fes Reserve",
+          "year": "2021"
+        },
+        {
+          "club": "RCA Reserve",
+          "year": "2022"
+        },
+        {
+          "club": "Fath Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "CA Khénifra",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soufiane Chakerni",
@@ -115,7 +448,47 @@
       "club": "Renaissance Zemamra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "COD Meknès",
+          "year": "2020"
+        },
+        {
+          "club": "CIS Marrakech",
+          "year": "2022"
+        },
+        {
+          "club": "Beni Mellal",
+          "year": "2023"
+        },
+        {
+          "club": "Rapide Oued Zem",
+          "year": "2024"
+        },
+        {
+          "club": "SCC Mohammédia",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Maid",
@@ -125,7 +498,35 @@
       "club": "Renaissance Zemamra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chippo FC",
+          "year": "2021"
+        },
+        {
+          "club": "AS Salé",
+          "year": "2022"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousmane Diallo",
@@ -135,7 +536,27 @@
       "club": "Renaissance Zemamra",
       "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amine Balich",
@@ -145,7 +566,43 @@
       "club": "Renaissance Zemamra",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oly. Marrakech",
+          "year": "2021"
+        },
+        {
+          "club": "Moul. Missour",
+          "year": "2022"
+        },
+        {
+          "club": "US Bejaad",
+          "year": "2022"
+        },
+        {
+          "club": "Mansouria",
+          "year": "2023"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelilah Madkour",
@@ -155,7 +612,43 @@
       "club": "Renaissance Zemamra",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2019"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2023"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2024"
+        },
+        {
+          "club": "MAS Fès",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 0,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdessamad Badaoui",
@@ -165,7 +658,43 @@
       "club": "Renaissance Zemamra",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JS Soualem",
+          "year": "2019"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2022"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayoub Tine",
@@ -175,7 +704,39 @@
       "club": "Renaissance Zemamra",
       "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SCC Mohammédia",
+          "year": "2016"
+        },
+        {
+          "club": "Beni Mellal",
+          "year": "2021"
+        },
+        {
+          "club": "Rapide Oued Zem",
+          "year": "2022"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -187,7 +748,31 @@
       "club": "Renaissance Zemamra",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fath Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anass El Ghannouj",
@@ -197,7 +782,51 @@
       "club": "Renaissance Zemamra",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mouloudia",
+          "year": "2016"
+        },
+        {
+          "club": "USM Oujda",
+          "year": "2017"
+        },
+        {
+          "club": "Olymp. Dcheira",
+          "year": "2019"
+        },
+        {
+          "club": "CR Al Hoceima",
+          "year": "2020"
+        },
+        {
+          "club": "Youssoufia",
+          "year": "2021"
+        },
+        {
+          "club": "CIS Marrakech",
+          "year": "2022"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdellatif El Bajjani",
@@ -207,17 +836,35 @@
       "club": "Renaissance Zemamra",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Moustapha Chichane",
-      "position": "Defensive Midfield",
-      "age": 34,
-      "nationality": "Morocco",
-      "club": "Renaissance Zemamra",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CIS Marrakech",
+          "year": "2022"
+        },
+        {
+          "club": "CA Khénifra",
+          "year": "2023"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Naoufal Tahiri",
@@ -227,7 +874,81 @@
       "club": "Renaissance Zemamra",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FAR Reserve",
+          "year": "2022"
+        },
+        {
+          "club": "Kénitra",
+          "year": "2024"
+        },
+        {
+          "club": "FAR Reserve",
+          "year": "2025"
+        },
+        {
+          "club": "SCC Mohammédia",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        },
+        {
+          "club": "FAR Reserve",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Moustapha Chichane",
+      "position": "Defensive Midfield",
+      "age": 34,
+      "nationality": "Morocco",
+      "club": "Renaissance Zemamra",
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Difaâ El Jadida",
+          "year": "2018"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Radouani",
@@ -237,7 +958,51 @@
       "club": "Renaissance Zemamra",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benslimane",
+          "year": "2010"
+        },
+        {
+          "club": "Nahdat El-Gara",
+          "year": "2016"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2020"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2022"
+        },
+        {
+          "club": "COD Meknès",
+          "year": "2024"
+        },
+        {
+          "club": "Beni Mellal",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aboubacar Camara",
@@ -247,7 +1012,35 @@
       "club": "Renaissance Zemamra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Difâa Hamrya",
+          "year": "2023"
+        },
+        {
+          "club": "US Bejaad",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayoub Joulale",
@@ -256,8 +1049,52 @@
       "nationality": "Morocco",
       "club": "Renaissance Zemamra",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2017"
+        },
+        {
+          "club": "RCA Reserve",
+          "year": "2018"
+        },
+        {
+          "club": "Kénitra",
+          "year": "2020"
+        },
+        {
+          "club": "JS Soualem",
+          "year": "2021"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2023"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohsine Moutaouali",
@@ -267,7 +1104,75 @@
       "club": "Renaissance Zemamra",
       "appearances": 8,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2006"
+        },
+        {
+          "club": "Emirates Club",
+          "year": "2011"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2012"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Ahli SC",
+          "year": "2018"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        },
+        {
+          "club": "Ittihad Tanger",
+          "year": "2023"
+        },
+        {
+          "club": "Hassania",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Ittihad Tanger",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 95,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad El Fakih",
@@ -277,7 +1182,75 @@
       "club": "Renaissance Zemamra",
       "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JS Massira",
+          "year": "2014"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2015"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2017"
+        },
+        {
+          "club": "Berrechid",
+          "year": "2019"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2019"
+        },
+        {
+          "club": "O. Khouribga",
+          "year": "2020"
+        },
+        {
+          "club": "MAS Fès",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        },
+        {
+          "club": "MAS Fès",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2023"
+        },
+        {
+          "club": "Asswehly",
+          "year": "2023"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 203,
+        "goals": 45,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -289,17 +1262,109 @@
       "club": "Renaissance Zemamra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barça Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Barça Atlètic",
+          "year": "2023"
+        },
+        {
+          "club": "At. Sanluqueño",
+          "year": "2023"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2024"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2025"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelaziz El Hamzaoui",
       "position": "Left Winger",
-      "age": 33,
+      "age": 34,
       "nationality": "Morocco",
       "club": "Renaissance Zemamra",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Beni Mellal",
+          "year": "2017"
+        },
+        {
+          "club": "CA Khénifra",
+          "year": "2018"
+        },
+        {
+          "club": "Ouarzazate",
+          "year": "2019"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2021"
+        },
+        {
+          "club": "Berrechid",
+          "year": "2023"
+        },
+        {
+          "club": "Murooj",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 12,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismail Zeroual",
@@ -309,7 +1374,47 @@
       "club": "Renaissance Zemamra",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Union Assa Zag",
+          "year": "2020"
+        },
+        {
+          "club": "Adrar Souss",
+          "year": "2022"
+        },
+        {
+          "club": "Stade Marocain",
+          "year": "2023"
+        },
+        {
+          "club": "Amal Tiznit",
+          "year": "2024"
+        },
+        {
+          "club": "Wydad Serghini",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Kamal",
@@ -319,17 +1424,59 @@
       "club": "Renaissance Zemamra",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Montassir Lahtimi",
-      "position": "Right Winger",
-      "age": 24,
-      "nationality": "Morocco",
-      "club": "Renaissance Zemamra",
-      "appearances": 11,
-      "goals": 2,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS FAR Rabat",
+          "year": "2016"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2019"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2020"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2020"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2020"
+        },
+        {
+          "club": "Ohod Club",
+          "year": "2023"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 34,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yazid Faffa",
@@ -339,27 +1486,85 @@
       "club": "Renaissance Zemamra",
       "appearances": 13,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Fath Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Zakaria Fatihi",
+      "name": "Montassir Lahtimi",
       "position": "Right Winger",
-      "age": 27,
+      "age": 25,
       "nationality": "Morocco",
       "club": "Renaissance Zemamra",
       "appearances": 11,
-      "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Abdellah Farah",
-      "position": "Right Winger",
-      "age": 24,
-      "nationality": "Morocco",
-      "club": "Renaissance Zemamra",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FUS Espoirs",
+          "year": "2018"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2020"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2022"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2023"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2024"
+        },
+        {
+          "club": "Kazma SC",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 10,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marouane Oujeddou",
@@ -369,7 +1574,127 @@
       "club": "Renaissance Zemamra",
       "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kénitra",
+          "year": "2021"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Zakaria Fatihi",
+      "position": "Right Winger",
+      "age": 27,
+      "nationality": "Morocco",
+      "club": "Renaissance Zemamra",
+      "appearances": 11,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SCC Mohammédia",
+          "year": "2022"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Abdellah Farah",
+      "position": "Right Winger",
+      "age": 24,
+      "nationality": "Morocco",
+      "club": "Renaissance Zemamra",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2021"
+        },
+        {
+          "club": "Difaâ El Jadida",
+          "year": "2022"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2023"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2024"
+        },
+        {
+          "club": "Union Touarga",
+          "year": "2024"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zakaria Bahrou",
@@ -379,7 +1704,35 @@
       "club": "Renaissance Zemamra",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Salé",
+          "year": "2016"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2020"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 19,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salim Akaaba",
@@ -389,7 +1742,55 @@
       "club": "Renaissance Zemamra",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MAT Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Wahda Reserve",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Khaldiya SC",
+          "year": "2021"
+        },
+        {
+          "club": "Um Al-Hassam FC",
+          "year": "2023"
+        },
+        {
+          "club": "Deren FC",
+          "year": "2024"
+        },
+        {
+          "club": "El Buraq",
+          "year": "2024"
+        },
+        {
+          "club": "Amal Al-Aroui",
+          "year": "2025"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

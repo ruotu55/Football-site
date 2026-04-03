@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "BO1A"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,55 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tudu Mighty Jet",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Cochabamba FC",
+          "year": "2020"
+        },
+        {
+          "club": "Aurora",
+          "year": "2021"
+        },
+        {
+          "club": "Enrique Happ",
+          "year": "2022"
+        },
+        {
+          "club": "CD FATIC",
+          "year": "2022"
+        },
+        {
+          "club": "Aurora",
+          "year": "2023"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 138,
+        "clean_sheets": 29
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Martínez",
@@ -33,7 +82,55 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boca Unidos",
+          "year": "2019"
+        },
+        {
+          "club": "Vélez (SR)",
+          "year": "2022"
+        },
+        {
+          "club": "Boca Unidos",
+          "year": "2023"
+        },
+        {
+          "club": "Atenas",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Rincón",
+          "year": "2024"
+        },
+        {
+          "club": "Atenas",
+          "year": "2024"
+        },
+        {
+          "club": "S. Pocitos",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 34,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -44,8 +141,136 @@
       "nationality": "Bolivia",
       "club": "Real Potosí",
       "appearances": 0,
+      "goals": 9,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ind. Petrolero",
+          "year": "2019"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2024"
+        },
+        {
+          "club": "GV San José",
+          "year": "2024"
+        },
+        {
+          "club": "Ind. Petrolero",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Bleiner Agrón",
+      "position": "Centre-Back",
+      "age": 25,
+      "nationality": "Colombia",
+      "club": "Real Potosí",
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter Bogotá",
+          "year": "2020"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2023"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2023"
+        },
+        {
+          "club": "Envigado",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Kevin Villegas",
+      "position": "Centre-Back",
+      "age": 27,
+      "nationality": "Colombia",
+      "club": "Real Potosí",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CDU Cruceña",
+          "year": "2022"
+        },
+        {
+          "club": "Nueva Sta. Cruz",
+          "year": "2023"
+        },
+        {
+          "club": "Ciudad Nueva",
+          "year": "2023"
+        },
+        {
+          "club": "CDU Cruceña",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Rioja",
@@ -53,9 +278,61 @@
       "age": 37,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 19,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Potosí",
+          "year": "2014"
+        },
+        {
+          "club": "Ciclón Tarija",
+          "year": "2016"
+        },
+        {
+          "club": "Universitario",
+          "year": "2016"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2017"
+        },
+        {
+          "club": "Nacional Potosí",
+          "year": "2019"
+        },
+        {
+          "club": "Ind. Petrolero",
+          "year": "2022"
+        },
+        {
+          "club": "Real Tomayapo",
+          "year": "2022"
+        },
+        {
+          "club": "Central",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Revuelta",
@@ -65,7 +342,43 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Blooming",
+          "year": "2021"
+        },
+        {
+          "club": "Desportiva-ES",
+          "year": "2021"
+        },
+        {
+          "club": "Stormers SC",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Chore",
@@ -74,8 +387,32 @@
       "nationality": "Bolivia",
       "club": "Real Potosí",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2019"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gonzalo Añasgo",
@@ -85,7 +422,47 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sp. Italiano",
+          "year": "2018"
+        },
+        {
+          "club": "San Telmo",
+          "year": "2020"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Merlo",
+          "year": "2023"
+        },
+        {
+          "club": "Club Petrolero",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fran Supayabe",
@@ -93,9 +470,37 @@
       "age": 30,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 8,
+      "goals": 26,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Guabirá",
+          "year": "2016"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Fernández",
@@ -105,19 +510,83 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
     {
       "name": "Jairo Thomas",
       "position": "Central Midfield",
-      "age": 25,
+      "age": 26,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 9,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club San José",
+          "year": "2020"
+        },
+        {
+          "club": "Universitario",
+          "year": "2022"
+        },
+        {
+          "club": "Mojocoya",
+          "year": "2022"
+        },
+        {
+          "club": "Oruro Royal",
+          "year": "2023"
+        },
+        {
+          "club": "E.M. Huanuni",
+          "year": "2023"
+        },
+        {
+          "club": "Real Oruro",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Imanol Cárdenas",
@@ -126,8 +595,44 @@
       "nationality": "Bolivia",
       "club": "Real Potosí",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bolívar",
+          "year": "2018"
+        },
+        {
+          "club": "Real Tomayapo",
+          "year": "2021"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2022"
+        },
+        {
+          "club": "Real Santa Cruz",
+          "year": "2022"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anderson Brito",
@@ -137,7 +642,31 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jose Alipaz",
@@ -145,9 +674,37 @@
       "age": 22,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palmaflor",
+          "year": "2022"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2023"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Boris Condori",
@@ -155,9 +712,45 @@
       "age": 28,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Club San José",
+          "year": "2018"
+        },
+        {
+          "club": "Palmaflor",
+          "year": "2021"
+        },
+        {
+          "club": "Wilstermann",
+          "year": "2023"
+        },
+        {
+          "club": "Real Oruro",
+          "year": "2023"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernando Rodríguez",
@@ -165,9 +758,61 @@
       "age": 26,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Santa Cruz",
+          "year": "2020"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2021"
+        },
+        {
+          "club": "SP Villafranca",
+          "year": "2021"
+        },
+        {
+          "club": "Real Santa Cruz",
+          "year": "2022"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2023"
+        },
+        {
+          "club": "Universitario",
+          "year": "2024"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2025"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Igor Soares",
@@ -177,7 +822,59 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "União Luziense",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "São Bento (SP)",
+          "year": "2020"
+        },
+        {
+          "club": "Anápolis",
+          "year": "2021"
+        },
+        {
+          "club": "Palmaflor",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Betim Futebol",
+          "year": "2023"
+        },
+        {
+          "club": "Democrata",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Vargas",
@@ -187,19 +884,153 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cerveceria",
+          "year": "2022"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
+    {
+      "name": "John Méndez",
+      "position": "Left Winger",
+      "age": 21,
+      "nationality": "Colombia",
+      "club": "Real Potosí",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ind. Yumbo",
+          "year": "2021"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Vladimir Castellón",
       "position": "Left Winger",
       "age": 36,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Aurora",
+          "year": "2006"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2014"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2015"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2016"
+        },
+        {
+          "club": "Xelajú",
+          "year": "2018"
+        },
+        {
+          "club": "Aurora",
+          "year": "2018"
+        },
+        {
+          "club": "Nacional Potosí",
+          "year": "2019"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2019"
+        },
+        {
+          "club": "Palmaflor",
+          "year": "2021"
+        },
+        {
+          "club": "Universitario",
+          "year": "2022"
+        },
+        {
+          "club": "Wilstermann",
+          "year": "2022"
+        },
+        {
+          "club": "Real Tomayapo",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 43,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Alí",
@@ -207,9 +1038,85 @@
       "age": 31,
       "nationality": "Bolivia",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 6,
+      "goals": 14,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Erri-Berri",
+          "year": "2014"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2014"
+        },
+        {
+          "club": "Club San José",
+          "year": "2015"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2017"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2017"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2018"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Ind. Petrolero",
+          "year": "2021"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2022"
+        },
+        {
+          "club": "Real Tomayapo",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "GV San José",
+          "year": "2024"
+        },
+        {
+          "club": "Real Oruro",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maximiliano Gómez",
@@ -217,9 +1124,77 @@
       "age": 38,
       "nationality": "Argentina",
       "club": "Real Potosí",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 19,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Huracan TA",
+          "year": "2009"
+        },
+        {
+          "club": "Tiro Federal R",
+          "year": "2011"
+        },
+        {
+          "club": "Gimnasia y Tiro",
+          "year": "2012"
+        },
+        {
+          "club": "Gimnasia (CdU)",
+          "year": "2013"
+        },
+        {
+          "club": "Sp. Belgrano",
+          "year": "2014"
+        },
+        {
+          "club": "Chaco For Ever",
+          "year": "2015"
+        },
+        {
+          "club": "Gimnasia (CdU)",
+          "year": "2016"
+        },
+        {
+          "club": "Juv. Antoniana",
+          "year": "2017"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2017"
+        },
+        {
+          "club": "Palmaflor",
+          "year": "2021"
+        },
+        {
+          "club": "Aurora",
+          "year": "2023"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2023"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 17,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alejandro Cervantes",
@@ -229,7 +1204,31 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club A.B.B.",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeferson Rivas",
@@ -239,7 +1238,67 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tigres FC",
+          "year": "2018"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2018"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2019"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2020"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2021"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2022"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2023"
+        },
+        {
+          "club": "Rionegro Águila",
+          "year": "2023"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2024"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2025"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 29,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabricio Suárez",
@@ -249,7 +1308,61 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Royal Pari",
+          "year": "2024"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jairo Sánchez",
+      "position": "",
+      "age": 20,
+      "nationality": "Bolivia",
+      "club": "Real Potosí",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Cuellar",
@@ -259,7 +1372,27 @@
       "club": "Real Potosí",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Potosí",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

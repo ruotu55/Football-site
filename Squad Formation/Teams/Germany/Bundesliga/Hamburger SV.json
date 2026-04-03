@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "L1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 23,
       "nationality": "Norway",
       "club": "Hamburger SV",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -36,7 +37,21 @@
           "club": "Hamburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 228,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Heuer Fernandes",
@@ -44,7 +59,7 @@
       "age": 33,
       "nationality": "Portugal",
       "club": "Hamburger SV",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -64,7 +79,21 @@
           "club": "Hamburg",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 408,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 559,
+        "clean_sheets": 101
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hannes Hermann",
@@ -72,15 +101,29 @@
       "age": 21,
       "nationality": "Germany",
       "club": "Hamburger SV",
-      "appearances": 23,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hamburg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 165,
+        "clean_sheets": 32
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernando Dickes",
@@ -88,7 +131,7 @@
       "age": 18,
       "nationality": "Germany",
       "club": "Hamburger SV",
-      "appearances": 19,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -96,7 +139,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 134,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -106,7 +163,7 @@
       "age": 19,
       "nationality": "Croatia",
       "club": "Hamburger SV",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 5,
       "assists": 1,
       "transfer_history": [
@@ -142,7 +199,21 @@
           "club": "Tottenham",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 24,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Torunarigha",
@@ -150,7 +221,7 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Hamburger SV",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -170,7 +241,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 353,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Elfadli",
@@ -178,7 +263,7 @@
       "age": 28,
       "nationality": "Libya",
       "club": "Hamburger SV",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -210,7 +295,21 @@
           "club": "Hamburg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 238,
+        "goals": 13,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Warmed Omari",
@@ -218,7 +317,7 @@
       "age": 25,
       "nationality": "Comoros",
       "club": "Hamburger SV",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -246,7 +345,21 @@
           "club": "Hamburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shafiq Nandja",
@@ -254,10 +367,24 @@
       "age": 19,
       "nationality": "Germany",
       "club": "Hamburger SV II",
-      "appearances": 23,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1,
-      "transfer_history": []
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miro Muheim",
@@ -265,9 +392,9 @@
       "age": 28,
       "nationality": "Switzerland",
       "club": "Hamburger SV",
-      "appearances": 29,
+      "appearances": 26,
       "goals": 0,
-      "assists": 6,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "FC Zürich",
@@ -289,7 +416,21 @@
           "club": "Hamburg",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 14,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Katterbach",
@@ -297,9 +438,9 @@
       "age": 24,
       "nationality": "Germany",
       "club": "Hamburger SV",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Without Club",
@@ -325,7 +466,21 @@
           "club": "Hamburg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 9,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Mikelbrencis",
@@ -345,7 +500,21 @@
           "club": "Hamburg",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Gocholeishvili",
@@ -353,7 +522,7 @@
       "age": 25,
       "nationality": "Georgia",
       "club": "Hamburger SV",
-      "appearances": 27,
+      "appearances": 20,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -381,7 +550,21 @@
           "club": "Shakhtar D.",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 10,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -391,7 +574,7 @@
       "age": 25,
       "nationality": "Germany",
       "club": "Hamburger SV",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -411,7 +594,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 35,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Albert Sambi Lokonga",
@@ -459,7 +656,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 10,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Capaldo",
@@ -467,7 +678,7 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Hamburger SV",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -483,7 +694,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 16,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fábio Vieira",
@@ -491,9 +716,9 @@
       "age": 25,
       "nationality": "Portugal",
       "club": "Hamburger SV",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 5,
-      "assists": 6,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "FC Porto U15",
@@ -523,7 +748,21 @@
           "club": "Arsenal",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 38,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Albert Grønbaek",
@@ -531,7 +770,7 @@
       "age": 24,
       "nationality": "Denmark",
       "club": "Hamburger SV",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -567,7 +806,21 @@
           "club": "Hamburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 248,
+        "goals": 53,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Megeed",
@@ -575,9 +828,9 @@
       "age": 20,
       "nationality": "Egypt",
       "club": "Hamburger SV II",
-      "appearances": 21,
+      "appearances": 0,
       "goals": 0,
-      "assists": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Süderelbe Jgd.",
@@ -587,7 +840,21 @@
           "club": "Hamburg",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 10,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -597,9 +864,9 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Hamburger SV",
-      "appearances": 39,
-      "goals": 10,
-      "assists": 5,
+      "appearances": 7,
+      "goals": 1,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Wolviston FC",
@@ -637,7 +904,21 @@
           "club": "Basel",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 61,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Røssing-Lelesiit",
@@ -645,7 +926,7 @@
       "age": 19,
       "nationality": "Norway",
       "club": "Hamburger SV",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -657,7 +938,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean-Luc Dompé",
@@ -665,7 +960,7 @@
       "age": 30,
       "nationality": "France",
       "club": "Hamburger SV",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 3,
       "assists": 0,
       "transfer_history": [
@@ -709,7 +1004,21 @@
           "club": "Hamburg",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 37,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fábio Baldé",
@@ -717,7 +1026,7 @@
       "age": 20,
       "nationality": "Portugal",
       "club": "Hamburger SV",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -725,7 +1034,21 @@
           "club": "Hamburg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 8,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rayan Philippe",
@@ -733,7 +1056,7 @@
       "age": 25,
       "nationality": "France",
       "club": "Hamburger SV",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 5,
       "assists": 0,
       "transfer_history": [
@@ -765,7 +1088,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 79,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bakery Jatta",
@@ -773,15 +1110,29 @@
       "age": 27,
       "nationality": "The Gambia",
       "club": "Hamburger SV",
-      "appearances": 12,
-      "goals": 1,
+      "appearances": 11,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
           "club": "Hamburg",
           "year": "2016"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 50,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damion Downs",
@@ -789,9 +1140,9 @@
       "age": 21,
       "nationality": "United States",
       "club": "Hamburger SV",
-      "appearances": 23,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Schweinfurt Jgd",
@@ -813,7 +1164,21 @@
           "club": "Southampton",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 37,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ransford Königsdörffer",
@@ -821,8 +1186,8 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Hamburger SV",
-      "appearances": 30,
-      "goals": 5,
+      "appearances": 27,
+      "goals": 4,
       "assists": 0,
       "transfer_history": [
         {
@@ -833,7 +1198,21 @@
           "club": "Hamburg",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 63,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Otto Stange",
@@ -841,9 +1220,9 @@
       "age": 19,
       "nationality": "Germany",
       "club": "Hamburger SV",
-      "appearances": 18,
-      "goals": 3,
-      "assists": 2,
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hamburg",
@@ -857,7 +1236,21 @@
           "club": "Hamburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 29,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert Glatzel",
@@ -865,8 +1258,8 @@
       "age": 32,
       "nationality": "Germany",
       "club": "Hamburger SV",
-      "appearances": 16,
-      "goals": 2,
+      "appearances": 14,
+      "goals": 1,
       "assists": 1,
       "transfer_history": [
         {
@@ -893,7 +1286,21 @@
           "club": "Hamburg",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 430,
+        "goals": 164,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yussuf Poulsen",
@@ -901,7 +1308,7 @@
       "age": 31,
       "nationality": "Denmark",
       "club": "Hamburger SV",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -917,7 +1324,21 @@
           "club": "Hamburg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 493,
+        "goals": 118,
+        "assists": 76,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 87,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "J1YV"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,31 @@
       "club": "Shimizu S-Pulse",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kashima Antlers",
+          "year": "2018"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 127,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Togo Umeda",
@@ -31,9 +56,37 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 3,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2019"
+        },
+        {
+          "club": "Fagiano Okayama",
+          "year": "2021"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 81,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kei Ishikawa",
@@ -43,17 +96,93 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vegalta Sendai",
+          "year": "2011"
+        },
+        {
+          "club": "Sony Sendai",
+          "year": "2013"
+        },
+        {
+          "club": "Vegalta Sendai",
+          "year": "2014"
+        },
+        {
+          "club": "Blaublitz Akita",
+          "year": "2014"
+        },
+        {
+          "club": "Vegalta Sendai",
+          "year": "2015"
+        },
+        {
+          "club": "Tochigi SC",
+          "year": "2018"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2019"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2020"
+        },
+        {
+          "club": "Ventforet Kofu",
+          "year": "2025"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 82,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomotaro Sasaki",
       "position": "Goalkeeper",
-      "age": 18,
+      "age": 19,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 65,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +194,59 @@
       "club": "Shimizu S-Pulse",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yangsan Utd U12",
+          "year": "2007"
+        },
+        {
+          "club": "Yangsan MS",
+          "year": "2010"
+        },
+        {
+          "club": "Haksung HS",
+          "year": "2013"
+        },
+        {
+          "club": "Dong-Eui Uni",
+          "year": "2016"
+        },
+        {
+          "club": "Busan Trans. C.",
+          "year": "2019"
+        },
+        {
+          "club": "Pohang Steelers",
+          "year": "2021"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2023"
+        },
+        {
+          "club": "Pohang Steelers",
+          "year": "2025"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateus Brunetti",
@@ -73,9 +254,37 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Shimizu S-Pulse",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Figueirense FC",
+          "year": "2019"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2021"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jelani Reshaun Sumiyoshi",
@@ -83,9 +292,49 @@
       "age": 28,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 7,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kokushikan Univ",
+          "year": "2016"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2020"
+        },
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2021"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        },
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2025"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sodai Hasukawa",
@@ -95,7 +344,59 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2017"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2021"
+        },
+        {
+          "club": "Iwate Grulla M.",
+          "year": "2022"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2023"
+        },
+        {
+          "club": "Ventforet Kofu",
+          "year": "2023"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2025"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sen Takagi",
@@ -103,9 +404,33 @@
       "age": 24,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hannan Univ.",
+          "year": "2020"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuji Takahashi",
@@ -115,7 +440,55 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kyoto Sanga",
+          "year": "2012"
+        },
+        {
+          "club": "Brisbane Roar",
+          "year": "2012"
+        },
+        {
+          "club": "Kyoto Sanga",
+          "year": "2013"
+        },
+        {
+          "club": "Kamatam. Sanuki",
+          "year": "2015"
+        },
+        {
+          "club": "Kyoto Sanga",
+          "year": "2016"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2018"
+        },
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2020"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joo-young Eom",
@@ -125,7 +498,43 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paju Munsan U12",
+          "year": "2019"
+        },
+        {
+          "club": "Paju Munsan U15",
+          "year": "2020"
+        },
+        {
+          "club": "School Team",
+          "year": "2023"
+        },
+        {
+          "club": "Nat. Science HS",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuki Honda",
@@ -133,9 +542,45 @@
       "age": 35,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 12,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hannan Univ.",
+          "year": "2009"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2013"
+        },
+        {
+          "club": "Kyoto Sanga",
+          "year": "2016"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 431,
+        "goals": 6,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yutaka Yoshida",
@@ -143,9 +588,45 @@
       "age": 36,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "appearances": 9,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ventforet Kofu",
+          "year": "2008"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2012"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2015"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2019"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 574,
+        "goals": 9,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kengo Kitazume",
@@ -153,9 +634,45 @@
       "age": 33,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Senshu Univ.",
+          "year": "2011"
+        },
+        {
+          "club": "JEF Utd. Chiba",
+          "year": "2015"
+        },
+        {
+          "club": "Yokohama FC",
+          "year": "2018"
+        },
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2020"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 286,
+        "goals": 16,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haruto Hidaka",
@@ -163,19 +680,58 @@
       "age": 22,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hosei Univ.",
+          "year": "2022"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keigo Iwanaga",
       "position": "",
       "age": 18,
       "nationality": "Japan",
-      "club": "",
+      "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +741,41 @@
       "age": 22,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Machida Zelvia",
+          "year": "2022"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Masaki Yumiba",
@@ -195,9 +783,33 @@
       "age": 23,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oita Trinita",
+          "year": "2021"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keigo Suzuki",
@@ -207,7 +819,31 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RKU",
+          "year": "2022"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matheus Bueno",
@@ -215,9 +851,41 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Shimizu S-Pulse",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Coritiba FC",
+          "year": "2019"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2021"
+        },
+        {
+          "club": "Guarani",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 5,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yudai Shimamoto",
@@ -225,9 +893,29 @@
       "age": 19,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 13,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kai Matsuzaki",
@@ -235,9 +923,49 @@
       "age": 28,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toyo Univ.",
+          "year": "2016"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2020"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2022"
+        },
+        {
+          "club": "Vegalta Sendai",
+          "year": "2023"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 17,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hikaru Nakahara",
@@ -245,9 +973,61 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Roasso Kumamoto",
+          "year": "2019"
+        },
+        {
+          "club": "Monte. Yamagata",
+          "year": "2021"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2022"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2023"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2024"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2026"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 27,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kenta Inoue",
@@ -255,9 +1035,41 @@
       "age": 27,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fukuoka Univ.",
+          "year": "2017"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2021"
+        },
+        {
+          "club": "Yokohama F. M.",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 10,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Motoki Nishihara",
@@ -267,7 +1079,27 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryota Hariu",
@@ -277,7 +1109,27 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kazuki Kozuka",
@@ -285,9 +1137,69 @@
       "age": 31,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Albirex Niigata",
+          "year": "2013"
+        },
+        {
+          "club": "Reno. Yamaguchi",
+          "year": "2014"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2016"
+        },
+        {
+          "club": "Reno. Yamaguchi",
+          "year": "2017"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2018"
+        },
+        {
+          "club": "Ventforet Kofu",
+          "year": "2018"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2019"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2021"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2023"
+        },
+        {
+          "club": "Seoul E-Land",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 285,
+        "goals": 32,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rinsei Ohata",
@@ -295,9 +1207,33 @@
       "age": 22,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hosei Univ.",
+          "year": "2022"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuji Doi",
@@ -307,7 +1243,27 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -317,9 +1273,85 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "Shimizu S-Pulse",
-      "appearances": 7,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Atlético-MG",
+          "year": "2016"
+        },
+        {
+          "club": "Ferroviária",
+          "year": "2017"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2017"
+        },
+        {
+          "club": "América-MG",
+          "year": "2018"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2018"
+        },
+        {
+          "club": "Chapecoense",
+          "year": "2018"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2019"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2019"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2020"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2020"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2020"
+        },
+        {
+          "club": "Juventude",
+          "year": "2020"
+        },
+        {
+          "club": "Juventude",
+          "year": "2021"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 302,
+        "goals": 20,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Koya Kitagawa",
@@ -327,9 +1359,37 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 1
+      "appearances": 8,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2015"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2019"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 352,
+        "goals": 78,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Se-hun Oh",
@@ -337,9 +1397,77 @@
       "age": 27,
       "nationality": "South Korea",
       "club": "Shimizu S-Pulse",
-      "appearances": 12,
-      "goals": 4,
-      "assists": 0
+      "appearances": 8,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Seoknamseo ES",
+          "year": "2011"
+        },
+        {
+          "club": "Ulsan H. U15",
+          "year": "2012"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2018"
+        },
+        {
+          "club": "Asan Mugunghwa",
+          "year": "2019"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2019"
+        },
+        {
+          "club": "Sangju Sangmu",
+          "year": "2019"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2021"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2022"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2026"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 44,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Toshiki Takahashi",
@@ -347,9 +1475,49 @@
       "age": 28,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kokushikan Univ",
+          "year": "2016"
+        },
+        {
+          "club": "Roasso Kumamoto",
+          "year": "2020"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2023"
+        },
+        {
+          "club": "Yokohama FC",
+          "year": "2024"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2025"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 45,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Ahmedov",
@@ -359,7 +1527,59 @@
       "club": "Shimizu S-Pulse",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Burgas",
+          "year": "2014"
+        },
+        {
+          "club": "Pomorie",
+          "year": "2015"
+        },
+        {
+          "club": "Dunav",
+          "year": "2018"
+        },
+        {
+          "club": "CSKA-Sofia",
+          "year": "2020"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2021"
+        },
+        {
+          "club": "CSKA-Sofia",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2022"
+        },
+        {
+          "club": "Spartak Varna",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 318,
+        "goals": 95,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alfredo Stephens",
@@ -369,7 +1589,71 @@
       "club": "Shimizu S-Pulse",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Plaza Amador",
+          "year": "2013"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2014"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2015"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2016"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2018"
+        },
+        {
+          "club": "Universitario",
+          "year": "2019"
+        },
+        {
+          "club": "Independiente",
+          "year": "2020"
+        },
+        {
+          "club": "Aragua FC",
+          "year": "2021"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2022"
+        },
+        {
+          "club": "Puerto Cabello",
+          "year": "2022"
+        },
+        {
+          "club": "Kiryat Shmona",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 84,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kanta Chiba",
@@ -377,9 +1661,57 @@
       "age": 22,
       "nationality": "Japan",
       "club": "Shimizu S-Pulse",
-      "appearances": 7,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2022"
+        },
+        {
+          "club": "FC Imabari",
+          "year": "2022"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2023"
+        },
+        {
+          "club": "Tokushima Vort.",
+          "year": "2023"
+        },
+        {
+          "club": "FC Imabari",
+          "year": "2023"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        },
+        {
+          "club": "Fujieda MYFC",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 32,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riku Gunji",
@@ -389,7 +1721,27 @@
       "club": "Shimizu S-Pulse",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 23,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

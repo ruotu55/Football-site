@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "QSL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 31,
       "nationality": "France",
       "club": "Al-Duhail SC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chamois Niort",
+          "year": "2015"
+        },
+        {
+          "club": "Rodez AF",
+          "year": "2018"
+        },
+        {
+          "club": "Clermont Foot",
+          "year": "2020"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 270,
+        "clean_sheets": 85
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salah Zakaria",
@@ -31,9 +72,45 @@
       "age": 26,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Wakrah Res.",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Gharafa",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 178,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 12,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Bautista Burke",
@@ -41,9 +118,41 @@
       "age": 23,
       "nationality": "Argentina",
       "club": "Al-Duhail SC",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shahania SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 74,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Hassan",
@@ -51,9 +160,41 @@
       "age": 21,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Arabi SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 17,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +204,41 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Al-Duhail SC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Frankfurt",
+          "year": "2019"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2019"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahima Bamba",
@@ -73,9 +246,33 @@
       "age": 23,
       "nationality": "Italy",
       "club": "Al-Duhail SC",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vit. Guimarães",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean-Charles Castelletto",
@@ -83,19 +280,135 @@
       "age": 31,
       "nationality": "Cameroon",
       "club": "Al-Duhail SC",
-      "appearances": 26,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AJ Auxerre",
+          "year": "2013"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2015"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2016"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2016"
+        },
+        {
+          "club": "Red Star FC",
+          "year": "2016"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2017"
+        },
+        {
+          "club": "Stade Brestois",
+          "year": "2017"
+        },
+        {
+          "club": "FC Nantes",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 413,
+        "goals": 13,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Ayman",
       "position": "Centre-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 18,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Duhail SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2018"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Sailiya SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2020"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2021"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sultan Al-Brake",
@@ -103,9 +416,37 @@
       "age": 29,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 24,
+      "appearances": 16,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CyD Leonesa",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 5,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ghanem Al-Minhali",
@@ -113,9 +454,33 @@
       "age": 20,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Duhail Olympic",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssouf Sabaly",
@@ -123,9 +488,65 @@
       "age": 33,
       "nationality": "Senegal",
       "club": "Al-Duhail SC",
-      "appearances": 15,
+      "appearances": 7,
       "goals": 0,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "PSG",
+          "year": "2013"
+        },
+        {
+          "club": "Évian",
+          "year": "2013"
+        },
+        {
+          "club": "PSG",
+          "year": "2015"
+        },
+        {
+          "club": "FC Nantes",
+          "year": "2015"
+        },
+        {
+          "club": "PSG",
+          "year": "2016"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2016"
+        },
+        {
+          "club": "PSG",
+          "year": "2017"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2017"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 403,
+        "goals": 5,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bassam Al-Rawi",
@@ -133,9 +554,49 @@
       "age": 28,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Rayyan",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 7,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 71,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +606,49 @@
       "age": 27,
       "nationality": "France",
       "club": "Al-Duhail SC",
-      "appearances": 25,
+      "appearances": 6,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSG Youth",
+          "year": "2011"
+        },
+        {
+          "club": "Lille",
+          "year": "2017"
+        },
+        {
+          "club": "Leicester",
+          "year": "2021"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2023"
+        },
+        {
+          "club": "Leicester",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 289,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karim Boudiaf",
@@ -155,9 +656,29 @@
       "age": 35,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 18,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lekhwiya SC",
+          "year": "2010"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 380,
+        "goals": 29,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 120,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luiz Ceara",
@@ -165,9 +686,37 @@
       "age": 37,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 13,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lekhwiya SC",
+          "year": "2010"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 14,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelrahman Zaky",
@@ -175,9 +724,33 @@
       "age": 23,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Umm Salal SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Verratti",
@@ -185,9 +758,41 @@
       "age": 33,
       "nationality": "Italy",
       "club": "Al-Duhail SC",
-      "appearances": 15,
+      "appearances": 10,
       "goals": 1,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Pescara",
+          "year": "2008"
+        },
+        {
+          "club": "PSG",
+          "year": "2012"
+        },
+        {
+          "club": "Al-Arabi SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 550,
+        "goals": 18,
+        "assists": 86,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 55,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin Bourigeaud",
@@ -195,9 +800,37 @@
       "age": 32,
       "nationality": "France",
       "club": "Al-Duhail SC",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 7
+      "appearances": 16,
+      "goals": 2,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Lens",
+          "year": "2013"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 510,
+        "goals": 95,
+        "assists": 90,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +840,33 @@
       "age": 22,
       "nationality": "Algeria",
       "club": "Al-Duhail SC",
-      "appearances": 25,
-      "goals": 12,
-      "assists": 6
+      "appearances": 16,
+      "goals": 5,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Paradou AC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 48,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edmílson Junior",
@@ -217,9 +874,37 @@
       "age": 31,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 3
+      "appearances": 17,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sint-Truiden",
+          "year": "2012"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 369,
+        "goals": 94,
+        "assists": 71,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tahsin Mohammed Jamshid",
@@ -227,9 +912,37 @@
       "age": 19,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Duhail Olympic",
+          "year": "2024"
+        },
+        {
+          "club": "Duhail Olympic",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mubarak Shanan Hamza",
@@ -237,9 +950,37 @@
       "age": 22,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Duhail SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismail Mohamad",
@@ -247,9 +988,33 @@
       "age": 35,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 21,
+      "appearances": 13,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El-Jaish",
+          "year": "2009"
+        },
+        {
+          "club": "Lekhwiya SC",
+          "year": "2011"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 372,
+        "goals": 57,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 85,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Krzysztof Piatek",
@@ -257,9 +1022,73 @@
       "age": 30,
       "nationality": "Poland",
       "club": "Al-Duhail SC",
-      "appearances": 29,
-      "goals": 14,
-      "assists": 5
+      "appearances": 19,
+      "goals": 9,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "L. Dzierzoniow",
+          "year": "2012"
+        },
+        {
+          "club": "Zaglebie Lubin",
+          "year": "2014"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2016"
+        },
+        {
+          "club": "Genoa",
+          "year": "2018"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2019"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2020"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2022"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2022"
+        },
+        {
+          "club": "Salernitana",
+          "year": "2022"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2023"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 436,
+        "goals": 171,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Almoez Ali",
@@ -267,9 +1096,41 @@
       "age": 29,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lekhwiya SC Res",
+          "year": "2013"
+        },
+        {
+          "club": "LASK",
+          "year": "2015"
+        },
+        {
+          "club": "CyD Leonesa",
+          "year": "2016"
+        },
+        {
+          "club": "Lekhwiya SC",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 79,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 118,
+        "goals": 55,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rashid Al-Abdulla",
@@ -277,9 +1138,33 @@
       "age": 22,
       "nationality": "Qatar",
       "club": "Al-Duhail SC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Duhail Res.",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

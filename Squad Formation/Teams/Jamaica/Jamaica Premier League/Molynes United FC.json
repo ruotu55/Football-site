@@ -9,31 +9,37 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "JPL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
-      "name": "Jaheim Williams",
-      "position": "Goalkeeper",
-      "age": 23,
-      "nationality": "Jamaica",
-      "club": "Molynes United FC",
-      "appearances": 8,
-      "goals": 0,
-      "assists": 0
-    },
-    {
       "name": "Tyreece Brown",
       "position": "Goalkeeper",
-      "age": 24,
+      "age": 25,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Authur Lamoth",
@@ -41,9 +47,74 @@
       "age": 20,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
+      "appearances": 13,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jaheim Williams",
+      "position": "Goalkeeper",
+      "age": 23,
+      "nationality": "Jamaica",
+      "club": "Molynes United FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Racing United",
+          "year": "2022"
+        },
+        {
+          "club": "Lime Hall",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2026"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 76,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darren Donaie",
@@ -53,29 +124,58 @@
       "club": "Molynes United FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Morv. Cal. Utd",
+          "year": "2024"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 63,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     }
   ],
   "defenders": [
-    {
-      "name": "Gerald Neil Jr.",
-      "position": "Centre-Back",
-      "age": 28,
-      "nationality": "Jamaica",
-      "club": "Molynes United FC",
-      "appearances": 12,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Michael Odupe",
       "position": "Centre-Back",
       "age": 19,
       "nationality": "Nigeria",
       "club": "Molynes United FC",
-      "appearances": 9,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergeni Frankson",
@@ -83,9 +183,75 @@
       "age": 31,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 24,
+      "appearances": 28,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Gerald Neil Jr.",
+      "position": "Centre-Back",
+      "age": 28,
+      "nationality": "Jamaica",
+      "club": "Molynes United FC",
+      "appearances": 14,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2019"
+        },
+        {
+          "club": "Arnett Gardens",
+          "year": "2022"
+        },
+        {
+          "club": "Dunbeholden FC",
+          "year": "2024"
+        },
+        {
+          "club": "Humble Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Romario McPherson",
@@ -95,17 +261,31 @@
       "club": "Molynes United FC",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Jaheem Frazer",
-      "position": "Right-Back",
-      "age": 21,
-      "nationality": "Jamaica",
-      "club": "Molynes United FC",
-      "appearances": 9,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enrique Gordon",
@@ -113,19 +293,67 @@
       "age": 29,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 19,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Anray Scott",
-      "position": "",
-      "age": 20,
+      "name": "Jaheem Frazer",
+      "position": "Right-Back",
+      "age": 22,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 3,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2023"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johni Morgan",
@@ -135,17 +363,31 @@
       "club": "Molynes United FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Leyvan Rigg",
-      "position": "",
-      "age": 26,
-      "nationality": "Jamaica",
-      "club": "Molynes United FC",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitri Edwards",
@@ -155,7 +397,56 @@
       "club": "Molynes United FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Leyvan Rigg",
+      "position": "",
+      "age": 26,
+      "nationality": "Jamaica",
+      "club": "Molynes United FC",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Hutchinson",
@@ -165,7 +456,22 @@
       "club": "Molynes United FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Livinton Mena",
@@ -173,9 +479,54 @@
       "age": 22,
       "nationality": "Colombia",
       "club": "Molynes United FC",
-      "appearances": 24,
+      "appearances": 29,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Anray Scott",
+      "position": "",
+      "age": 20,
+      "nationality": "Jamaica",
+      "club": "Molynes United FC",
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +536,41 @@
       "age": 25,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 15,
+      "appearances": 20,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier SC",
+          "year": "2018"
+        },
+        {
+          "club": "Arnett Gardens",
+          "year": "2024"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        },
+        {
+          "club": "Arnett Gardens",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tyrique Wilson",
@@ -195,19 +578,29 @@
       "age": 27,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 21,
+      "appearances": 25,
       "goals": 3,
-      "assists": 0
-    },
-    {
-      "name": "Daniel Slowly",
-      "position": "Central Midfield",
-      "age": 22,
-      "nationality": "Jamaica",
-      "club": "Molynes United FC",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Watson",
@@ -217,17 +610,73 @@
       "club": "Molynes United FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chapelton",
+          "year": "2024"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2025"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Kemar Mullings",
-      "position": "",
-      "age": 23,
+      "name": "Daniel Slowly",
+      "position": "Central Midfield",
+      "age": 22,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Constant Spring",
+          "year": "2022"
+        },
+        {
+          "club": "Dunbeholden FC",
+          "year": "2025"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Odane Murray",
@@ -235,9 +684,41 @@
       "age": 23,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 26,
+      "appearances": 31,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mount Pleasant",
+          "year": "2022"
+        },
+        {
+          "club": "Vere United FC",
+          "year": "2024"
+        },
+        {
+          "club": "Humble Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mikhail Lumsden",
@@ -246,8 +727,28 @@
       "nationality": "Jamaica",
       "club": "Molynes United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronaldo Oniel Barrett",
@@ -255,9 +756,24 @@
       "age": 23,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lavaughn Gray",
@@ -267,7 +783,69 @@
       "club": "Molynes United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Kemar Mullings",
+      "position": "",
+      "age": 23,
+      "nationality": "Jamaica",
+      "club": "Molynes United FC",
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2023"
+        },
+        {
+          "club": "Vere United FC",
+          "year": "2024"
+        },
+        {
+          "club": "Humble Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Curtel Lawes",
@@ -277,7 +855,22 @@
       "club": "Molynes United FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dhumar McLaughlin",
@@ -285,9 +878,24 @@
       "age": 28,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 23,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shevon Miller",
@@ -295,9 +903,24 @@
       "age": 19,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samson Oke",
@@ -305,9 +928,24 @@
       "age": 20,
       "nationality": "Nigeria",
       "club": "Molynes United FC",
-      "appearances": 16,
+      "appearances": 20,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -317,9 +955,24 @@
       "age": 30,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 24,
+      "appearances": 29,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthew Ellis",
@@ -329,7 +982,51 @@
       "club": "Molynes United FC",
       "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2022"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2023"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2023"
+        },
+        {
+          "club": "Humble Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2025"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Devone Davis",
@@ -337,29 +1034,24 @@
       "age": 20,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 17,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Nicholas Nelson",
-      "position": "Centre-Forward",
-      "age": 27,
-      "nationality": "Jamaica",
-      "club": "Molynes United FC",
-      "appearances": 17,
-      "goals": 9,
-      "assists": 0
-    },
-    {
-      "name": "Wisdom Ubani",
-      "position": "Centre-Forward",
-      "age": 22,
-      "nationality": "Nigeria",
-      "club": "Molynes United FC",
-      "appearances": 14,
-      "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marlon Pennicooke",
@@ -367,9 +1059,161 @@
       "age": 23,
       "nationality": "Jamaica",
       "club": "Molynes United FC",
-      "appearances": 17,
+      "appearances": 19,
       "goals": 6,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Lime Hall",
+          "year": "2024"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 11,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Nicholas Nelson",
+      "position": "Centre-Forward",
+      "age": 28,
+      "nationality": "Jamaica",
+      "club": "Molynes United FC",
+      "appearances": 22,
+      "goals": 10,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Waterhouse",
+          "year": "2015"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2016"
+        },
+        {
+          "club": "Maverley Hugh.",
+          "year": "2017"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2017"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2018"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2019"
+        },
+        {
+          "club": "Xelajú",
+          "year": "2022"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2023"
+        },
+        {
+          "club": "Dunbeholden FC",
+          "year": "2023"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2024"
+        },
+        {
+          "club": "Dunbeholden FC",
+          "year": "2025"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 61,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Wisdom Ubani",
+      "position": "Centre-Forward",
+      "age": 22,
+      "nationality": "Nigeria",
+      "club": "Molynes United FC",
+      "appearances": 16,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Lokomotiva",
+          "year": "2022"
+        },
+        {
+          "club": "NK Jarun",
+          "year": "2022"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2023"
+        },
+        {
+          "club": "NK Kustosija",
+          "year": "2023"
+        },
+        {
+          "club": "Ikorodu City",
+          "year": "2025"
+        },
+        {
+          "club": "Molynes United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zubeiru Suleiman",
@@ -377,9 +1221,24 @@
       "age": 19,
       "nationality": "Nigeria",
       "club": "Molynes United FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

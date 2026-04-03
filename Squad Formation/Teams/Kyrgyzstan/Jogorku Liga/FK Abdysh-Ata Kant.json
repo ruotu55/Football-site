@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "KG1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 25,
       "nationality": "Georgia",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2019"
+        },
+        {
+          "club": "Zvezda S-Pb",
+          "year": "2019"
+        },
+        {
+          "club": "Zenit 2 S-Pb",
+          "year": "2020"
+        },
+        {
+          "club": "Volga Uljanovsk",
+          "year": "2020"
+        },
+        {
+          "club": "Irtysh Omsk",
+          "year": "2021"
+        },
+        {
+          "club": "Volga Uljanovsk",
+          "year": "2022"
+        },
+        {
+          "club": "Samgurali",
+          "year": "2022"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 157,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oskon Baratov",
@@ -33,17 +82,73 @@
       "club": "FK Abdysh-Ata Kant",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2024"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sultan Beyshenaliev",
       "position": "Goalkeeper",
-      "age": 22,
+      "age": 23,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kara-Balta",
+          "year": "2023"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2024"
+        },
+        {
+          "club": "Kyrgyzaltyn",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +158,29 @@
       "age": 20,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chyngyz Subanov",
@@ -63,9 +188,49 @@
       "age": 34,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alay Osh",
+          "year": "2019"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2020"
+        },
+        {
+          "club": "Muras United",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2024"
+        },
+        {
+          "club": "Alay Osh",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dastan Koldoshev",
@@ -73,9 +238,41 @@
       "age": 20,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2023"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Bishkek City",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rauf Asinov",
@@ -85,17 +282,65 @@
       "club": "FK Abdysh-Ata Kant",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2023"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Askhat Kurmanov",
       "position": "Centre-Back",
-      "age": 21,
+      "age": 22,
       "nationality": "Russia",
       "club": "FK Abdysh-Ata Kant",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukhtar Ishenaliev",
@@ -103,9 +348,41 @@
       "age": 21,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pro Direct",
+          "year": "2023"
+        },
+        {
+          "club": "Alba",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Evgeniy Pleshko",
@@ -113,9 +390,69 @@
       "age": 25,
       "nationality": "Russia",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sheriff-2",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo-Auto",
+          "year": "2021"
+        },
+        {
+          "club": "Sheriff-2",
+          "year": "2021"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo-Auto",
+          "year": "2022"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2022"
+        },
+        {
+          "club": "Floresti",
+          "year": "2022"
+        },
+        {
+          "club": "Broke Boys",
+          "year": "2023"
+        },
+        {
+          "club": "Volna Kovernino",
+          "year": "2025"
+        },
+        {
+          "club": "Fankom",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kairatbek Turusbek Uulu",
@@ -123,9 +460,33 @@
       "age": 22,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kara-Balta",
+          "year": "2022"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khasan Mukbilov",
@@ -135,7 +496,22 @@
       "club": "FK Abdysh-Ata Kant II",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +521,61 @@
       "age": 26,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dordoi",
+          "year": "2020"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2020"
+        },
+        {
+          "club": "Dordoi Bishkek",
+          "year": "2020"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2021"
+        },
+        {
+          "club": "Dordoi Bishkek",
+          "year": "2022"
+        },
+        {
+          "club": "Muras United",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2024"
+        },
+        {
+          "club": "Kyrgyzaltyn",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 8,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Azamat Tashbaltaev",
@@ -155,9 +583,49 @@
       "age": 20,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2023"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2024"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2024"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Bishkek City",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaroslav Shapovalov",
@@ -165,9 +633,57 @@
       "age": 22,
       "nationality": "Ukraine",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rustavi",
+          "year": "2022"
+        },
+        {
+          "club": "PS Kemi",
+          "year": "2022"
+        },
+        {
+          "club": "PEPO",
+          "year": "2023"
+        },
+        {
+          "club": "PS Kemi",
+          "year": "2023"
+        },
+        {
+          "club": "Kolkheti Poti",
+          "year": "2023"
+        },
+        {
+          "club": "Atmosfera",
+          "year": "2024"
+        },
+        {
+          "club": "Talant",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Williams Manji",
@@ -175,9 +691,53 @@
       "age": 21,
       "nationality": "Nigeria",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wikki Tourists",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Jigawa",
+          "year": "2021"
+        },
+        {
+          "club": "Pietà Hotspurs",
+          "year": "2023"
+        },
+        {
+          "club": "Senglea Ath.",
+          "year": "2024"
+        },
+        {
+          "club": "Tarxien",
+          "year": "2024"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bayel Satybekov",
@@ -187,7 +747,22 @@
       "club": "FK Abdysh-Ata Kant",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -197,9 +772,29 @@
       "age": 21,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 6,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Suleyman Dzhumabekov",
@@ -207,9 +802,33 @@
       "age": 22,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talant",
+          "year": "2022"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 24,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "André Ferreira",
@@ -217,9 +836,77 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 3
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CF São José",
+          "year": "2014"
+        },
+        {
+          "club": "Campina Grande",
+          "year": "2015"
+        },
+        {
+          "club": "FC Gramozi",
+          "year": "2016"
+        },
+        {
+          "club": "Serrano-PB",
+          "year": "2017"
+        },
+        {
+          "club": "Murici",
+          "year": "2018"
+        },
+        {
+          "club": "Assyr. United",
+          "year": "2019"
+        },
+        {
+          "club": "Campinense-PB",
+          "year": "2020"
+        },
+        {
+          "club": "Colo Colo-BA",
+          "year": "2020"
+        },
+        {
+          "club": "SP Crystal",
+          "year": "2021"
+        },
+        {
+          "club": "SP Falcons",
+          "year": "2022"
+        },
+        {
+          "club": "SP Crystal",
+          "year": "2023"
+        },
+        {
+          "club": "SP Falcons",
+          "year": "2023"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Umar Talantbekov",
@@ -229,7 +916,31 @@
       "club": "FK Abdysh-Ata Kant",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Biymyrza Zhenishbekov",
@@ -237,9 +948,33 @@
       "age": 22,
       "nationality": "Kyrgyzstan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2021"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 7,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kairat Kanatov",
@@ -249,7 +984,31 @@
       "club": "FK Abdysh-Ata Kant",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nodirbek Bobomurodov",
@@ -257,9 +1016,93 @@
       "age": 26,
       "nationality": "Uzbekistan",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sheppey Utd",
+          "year": "2018"
+        },
+        {
+          "club": "FC South Park",
+          "year": "2019"
+        },
+        {
+          "club": "Cheshunt",
+          "year": "2021"
+        },
+        {
+          "club": "Corinthian-Cas",
+          "year": "2021"
+        },
+        {
+          "club": "Hungerford",
+          "year": "2022"
+        },
+        {
+          "club": "Worthing",
+          "year": "2022"
+        },
+        {
+          "club": "Kingstonian FC",
+          "year": "2022"
+        },
+        {
+          "club": "Surkhon",
+          "year": "2023"
+        },
+        {
+          "club": "Chatham",
+          "year": "2023"
+        },
+        {
+          "club": "Bognor Regis",
+          "year": "2023"
+        },
+        {
+          "club": "Littlehampton",
+          "year": "2023"
+        },
+        {
+          "club": "Three Bridges",
+          "year": "2024"
+        },
+        {
+          "club": "Attack Energy",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Cray Wanderers",
+          "year": "2025"
+        },
+        {
+          "club": "Sorkh Poshan",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ademola Shobowale",
@@ -267,9 +1110,45 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "FK Abdysh-Ata Kant",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Mokawloon",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Chrudim",
+          "year": "2024"
+        },
+        {
+          "club": "FK Podkonice",
+          "year": "2025"
+        },
+        {
+          "club": "Abdysh-Ata Kant",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

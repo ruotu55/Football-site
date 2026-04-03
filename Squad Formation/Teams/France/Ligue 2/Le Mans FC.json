@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -48,15 +49,29 @@
           "club": "Le Mans FC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 223,
+        "clean_sheets": 58
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ewan Hatfout",
       "position": "Goalkeeper",
-      "age": 25,
+      "age": 26,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -64,7 +79,21 @@
           "club": "Le Mans FC",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 52,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Augustin Delbecque",
@@ -80,7 +109,21 @@
           "club": "Le Mans FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 38,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -90,7 +133,7 @@
       "age": 19,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 25,
+      "appearances": 20,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -106,7 +149,21 @@
           "club": "Lille",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Théo Eyoum",
@@ -114,7 +171,7 @@
       "age": 24,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -122,7 +179,21 @@
           "club": "Le Mans FC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harold Voyer",
@@ -130,7 +201,7 @@
       "age": 29,
       "nationality": "Martinique",
       "club": "Le Mans FC",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -146,7 +217,21 @@
           "club": "Le Mans FC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noa Boissé",
@@ -154,15 +239,29 @@
       "age": 20,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 8,
-      "goals": 1,
+      "appearances": 6,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Le Mans FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Yohou",
@@ -170,7 +269,7 @@
       "age": 34,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 3,
       "assists": 0,
       "transfer_history": [
@@ -203,14 +302,28 @@
           "year": "2021"
         },
         {
-          "club": "OFI Crete FC",
+          "club": "OFI Crete",
           "year": "2022"
         },
         {
           "club": "Le Mans FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 13,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Calodat",
@@ -218,7 +331,7 @@
       "age": 24,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 29,
+      "appearances": 26,
       "goals": 2,
       "assists": 4,
       "transfer_history": [
@@ -238,7 +351,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 12,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathis Hamdi",
@@ -246,8 +373,8 @@
       "age": 22,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 16,
-      "goals": 2,
+      "appearances": 5,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -258,7 +385,21 @@
           "club": "Le Mans FC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Buades",
@@ -266,9 +407,9 @@
       "age": 28,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 27,
+      "appearances": 21,
       "goals": 3,
-      "assists": 5,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Nîmes Olympique",
@@ -286,7 +427,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 258,
+        "goals": 25,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Ribelin",
@@ -294,7 +449,7 @@
       "age": 29,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -334,7 +489,21 @@
           "club": "Le Mans FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 17,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -344,9 +513,9 @@
       "age": 23,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "US Orléans",
@@ -360,7 +529,21 @@
           "club": "Le Mans FC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandre Lauray",
@@ -368,7 +551,7 @@
       "age": 29,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -396,7 +579,21 @@
           "club": "Le Mans FC",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malang Gomes",
@@ -420,7 +617,21 @@
           "club": "FC Nantes",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 14,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Robin",
@@ -428,8 +639,8 @@
       "age": 26,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 27,
-      "goals": 1,
+      "appearances": 23,
+      "goals": 0,
       "assists": 3,
       "transfer_history": [
         {
@@ -444,7 +655,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 18,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Vercruysse",
@@ -468,7 +693,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 28,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edwin Quarshie",
@@ -476,7 +715,7 @@
       "age": 30,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 31,
+      "appearances": 26,
       "goals": 2,
       "assists": 1,
       "transfer_history": [
@@ -508,7 +747,21 @@
           "club": "Le Mans FC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 17,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Rossignol",
@@ -516,7 +769,7 @@
       "age": 22,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 27,
+      "appearances": 23,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -532,7 +785,21 @@
           "club": "Le Mans FC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adil Bourabaa",
@@ -540,9 +807,9 @@
       "age": 21,
       "nationality": "Algeria",
       "club": "Le Mans FC",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 1,
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "AS Beauvais",
@@ -552,7 +819,21 @@
           "club": "Le Mans FC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Izhak Hammoudi",
@@ -560,7 +841,7 @@
       "age": 21,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 12,
+      "appearances": 7,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -568,7 +849,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -578,7 +873,7 @@
       "age": 28,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 4,
       "assists": 2,
       "transfer_history": [
@@ -594,7 +889,21 @@
           "club": "Le Mans FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 32,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taylor Luvambo",
@@ -602,8 +911,8 @@
       "age": 26,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 13,
-      "goals": 1,
+      "appearances": 9,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -618,7 +927,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 32,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dame Gueye",
@@ -626,7 +949,7 @@
       "age": 30,
       "nationality": "Senegal",
       "club": "Le Mans FC",
-      "appearances": 32,
+      "appearances": 28,
       "goals": 7,
       "assists": 3,
       "transfer_history": [
@@ -666,7 +989,21 @@
           "club": "Le Mans FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 78,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antoine Rabillard",
@@ -674,7 +1011,7 @@
       "age": 30,
       "nationality": "France",
       "club": "Le Mans FC",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 8,
       "assists": 5,
       "transfer_history": [
@@ -702,7 +1039,21 @@
           "club": "Le Mans FC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 326,
+        "goals": 82,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Harhouz",
@@ -726,7 +1077,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 22,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Baptiste Guillaume",
@@ -734,9 +1099,9 @@
       "age": 30,
       "nationality": "Belgium",
       "club": "Le Mans FC",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 1,
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Lens",
@@ -790,7 +1155,21 @@
           "club": "Le Mans FC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 76,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

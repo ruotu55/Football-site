@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 28,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 27,
+      "appearances": 22,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lions Gibraltar",
+          "year": "2013"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2015"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2015"
+        },
+        {
+          "club": "Team Solent",
+          "year": "2016"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2018"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2019"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2021"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 179,
+        "clean_sheets": 72
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 36,
+        "clean_sheets": 5
+      }
     },
     {
       "name": "Gonzalo Paz",
@@ -33,7 +82,59 @@
       "club": "St Joseph's FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sarmiento (R)",
+          "year": "2017"
+        },
+        {
+          "club": "CD Inter Ibiza",
+          "year": "2020"
+        },
+        {
+          "club": "Boca Gibraltar",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2021"
+        },
+        {
+          "club": "Los Andes",
+          "year": "2021"
+        },
+        {
+          "club": "Arg. de Merlo",
+          "year": "2022"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gato Romero",
@@ -43,7 +144,79 @@
       "club": "St Joseph's FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Extremadura",
+          "year": "2010"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2011"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2012"
+        },
+        {
+          "club": "UD Melilla",
+          "year": "2014"
+        },
+        {
+          "club": "River Melilla",
+          "year": "2015"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2016"
+        },
+        {
+          "club": "AD Ceuta",
+          "year": "2020"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2020"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2020"
+        },
+        {
+          "club": "AD Ceuta",
+          "year": "2022"
+        },
+        {
+          "club": "San Roque Lepe",
+          "year": "2023"
+        },
+        {
+          "club": "CF Motril",
+          "year": "2024"
+        },
+        {
+          "club": "UD San Pedro",
+          "year": "2025"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 134,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +226,41 @@
       "age": 26,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 24,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Balón de Cádiz",
+          "year": "2018"
+        },
+        {
+          "club": "Conil CF",
+          "year": "2019"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabri Cardozo",
@@ -63,9 +268,49 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "St Joseph's FC",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Malagueño",
+          "year": "2016"
+        },
+        {
+          "club": "Oviedo Vetusta",
+          "year": "2017"
+        },
+        {
+          "club": "Pobla de Mafumet CF",
+          "year": "2020"
+        },
+        {
+          "club": "UD Montijo",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Santos",
@@ -73,9 +318,61 @@
       "age": 27,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Europa Reserve",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2017"
+        },
+        {
+          "club": "Mons Calpe Res",
+          "year": "2019"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2019"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2022"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2023"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2023"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Geovanni Barba",
@@ -83,9 +380,57 @@
       "age": 24,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 23,
+      "appearances": 18,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cádiz CF Youth",
+          "year": "2013"
+        },
+        {
+          "club": "S. Fernando You",
+          "year": "2014"
+        },
+        {
+          "club": "Málaga CF Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Malagueño",
+          "year": "2021"
+        },
+        {
+          "club": "Eldense",
+          "year": "2022"
+        },
+        {
+          "club": "Xerez CD",
+          "year": "2023"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Will Sanders",
@@ -95,7 +440,35 @@
       "club": "St Joseph's FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Europa Point FC",
+          "year": "2021"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2024"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Erin Barnett",
@@ -103,9 +476,53 @@
       "age": 29,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 35,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lions Gibraltar",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Lions Gibraltar",
+          "year": "2016"
+        },
+        {
+          "club": "Gibraltar Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Boca Gibraltar",
+          "year": "2019"
+        },
+        {
+          "club": "Marine FC",
+          "year": "2020"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jayce Olivero",
@@ -113,9 +530,49 @@
       "age": 27,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lions Gibraltar",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Abingdon United",
+          "year": "2016"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2019"
+        },
+        {
+          "club": "FC Helsingør",
+          "year": "2023"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 6,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 66,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alain Pons",
@@ -123,19 +580,111 @@
       "age": 30,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Taraguilla Jgd",
+          "year": "2011"
+        },
+        {
+          "club": "AD Taraguilla",
+          "year": "2013"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2014"
+        },
+        {
+          "club": "UCLan",
+          "year": "2015"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2016"
+        },
+        {
+          "club": "Gibraltar Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2017"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 6,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Jolley",
       "position": "Right-Back",
-      "age": 28,
+      "age": 29,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 22,
+      "appearances": 18,
       "goals": 0,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "College Europa",
+          "year": "2013"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2015"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2015"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2016"
+        },
+        {
+          "club": "Mons Calpe",
+          "year": "2016"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2017"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 255,
+        "goals": 0,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 42,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -147,7 +696,35 @@
       "club": "St Joseph's FC",
       "appearances": 14,
       "goals": 3,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Bruno's Magpies",
+          "year": "2022"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2023"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manuel Sánchez",
@@ -155,9 +732,81 @@
       "age": 37,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 19,
+      "appearances": 14,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Écija Balompié",
+          "year": "2007"
+        },
+        {
+          "club": "Poli Ejido",
+          "year": "2009"
+        },
+        {
+          "club": "Caravaca CF",
+          "year": "2011"
+        },
+        {
+          "club": "CD Guijuelo",
+          "year": "2012"
+        },
+        {
+          "club": "La Hoya Lorca",
+          "year": "2013"
+        },
+        {
+          "club": "SD Huesca",
+          "year": "2014"
+        },
+        {
+          "club": "CA Osasuna",
+          "year": "2016"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2016"
+        },
+        {
+          "club": "UCAM Murcia",
+          "year": "2017"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2017"
+        },
+        {
+          "club": "Real Ávila",
+          "year": "2020"
+        },
+        {
+          "club": "Career break",
+          "year": "2021"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 403,
+        "goals": 37,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Rosa",
@@ -165,9 +814,53 @@
       "age": 30,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 5,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "San Roque Lepe",
+          "year": "2016"
+        },
+        {
+          "club": "CD Badajoz",
+          "year": "2016"
+        },
+        {
+          "club": "SD Ejea",
+          "year": "2017"
+        },
+        {
+          "club": "Penya Deportiva",
+          "year": "2017"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2019"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2021"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 22,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassane Adamou",
@@ -175,9 +868,53 @@
       "age": 25,
       "nationality": "Niger",
       "club": "St Joseph's FC",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ourense CF",
+          "year": "2020"
+        },
+        {
+          "club": "At. Sanluqueño",
+          "year": "2021"
+        },
+        {
+          "club": "Burgos Promesas",
+          "year": "2022"
+        },
+        {
+          "club": "Lorca Deportiva",
+          "year": "2023"
+        },
+        {
+          "club": "Penya Deportiva",
+          "year": "2024"
+        },
+        {
+          "club": "CD Pozoblanco",
+          "year": "2025"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pirulo",
@@ -185,9 +922,65 @@
       "age": 33,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Atl. Malagueño",
+          "year": "2012"
+        },
+        {
+          "club": "CE L'Hospitalet",
+          "year": "2013"
+        },
+        {
+          "club": "CE Sabadell",
+          "year": "2015"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2016"
+        },
+        {
+          "club": "Cherno More",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2017"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2018"
+        },
+        {
+          "club": "LKS Lodz",
+          "year": "2019"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 69,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juanma",
@@ -195,9 +988,61 @@
       "age": 34,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 4
+      "appearances": 21,
+      "goals": 5,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "San Roque Cadiz",
+          "year": "2013"
+        },
+        {
+          "club": "C. Elblag",
+          "year": "2014"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2014"
+        },
+        {
+          "club": "UD Tesorillo",
+          "year": "2015"
+        },
+        {
+          "club": "San Roque Cadiz",
+          "year": "2016"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2016"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2017"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2017"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 20,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamie Coombes",
@@ -205,9 +1050,81 @@
       "age": 29,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "College Europa",
+          "year": "2013"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Undy",
+          "year": "2017"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2017"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2018"
+        },
+        {
+          "club": "West Didsbury",
+          "year": "2018"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2019"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Rydalmere",
+          "year": "2024"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2024"
+        },
+        {
+          "club": "Coniston FC",
+          "year": "2025"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 21,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +1134,69 @@
       "age": 32,
       "nationality": "Argentina",
       "club": "St Joseph's FC",
-      "appearances": 25,
+      "appearances": 21,
       "goals": 5,
-      "assists": 17
+      "assists": 15,
+      "transfer_history": [
+        {
+          "club": "Dep. Armenio",
+          "year": "2014"
+        },
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Inter RD",
+          "year": "2018"
+        },
+        {
+          "club": "CA Talleres",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "CD Illescas",
+          "year": "2020"
+        },
+        {
+          "club": "Socuéllamos",
+          "year": "2022"
+        },
+        {
+          "club": "Villanovense",
+          "year": "2023"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2024"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 26,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mitch Gibson",
@@ -227,9 +1204,41 @@
       "age": 24,
       "nationality": "Gibraltar",
       "club": "St Joseph's FC",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Europa FC",
+          "year": "2020"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2021"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 29,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álvaro Rey",
@@ -237,9 +1246,101 @@
       "age": 36,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 14,
-      "goals": 8,
-      "assists": 1
+      "appearances": 11,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2007"
+        },
+        {
+          "club": "Betis C",
+          "year": "2008"
+        },
+        {
+          "club": "Pobla de Mafumet CF",
+          "year": "2010"
+        },
+        {
+          "club": "Gimnàstic",
+          "year": "2010"
+        },
+        {
+          "club": "Xerez CD",
+          "year": "2012"
+        },
+        {
+          "club": "Toronto",
+          "year": "2013"
+        },
+        {
+          "club": "Columbus",
+          "year": "2014"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2014"
+        },
+        {
+          "club": "Real Murcia",
+          "year": "2015"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2015"
+        },
+        {
+          "club": "Panetolikos",
+          "year": "2017"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2017"
+        },
+        {
+          "club": "Racing Ferrol",
+          "year": "2018"
+        },
+        {
+          "club": "CD Mirandés",
+          "year": "2018"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Xerez CD",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 378,
+        "goals": 48,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Teté",
@@ -247,9 +1348,61 @@
       "age": 30,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 5,
-      "assists": 8
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "San Roque Lepe",
+          "year": "2017"
+        },
+        {
+          "club": "Tomares",
+          "year": "2018"
+        },
+        {
+          "club": "CD Gerena",
+          "year": "2018"
+        },
+        {
+          "club": "UB Lebrijana",
+          "year": "2019"
+        },
+        {
+          "club": "Algabeño",
+          "year": "2020"
+        },
+        {
+          "club": "La Palma CF",
+          "year": "2021"
+        },
+        {
+          "club": "Xerez Deportivo",
+          "year": "2023"
+        },
+        {
+          "club": "Linares",
+          "year": "2025"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 5,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manuel Torres",
@@ -259,7 +1412,43 @@
       "club": "St Joseph's FC",
       "appearances": 16,
       "goals": 5,
-      "assists": 9
+      "assists": 9,
+      "transfer_history": [
+        {
+          "club": "Karlsruher SC",
+          "year": "2013"
+        },
+        {
+          "club": "Greuther Fürth",
+          "year": "2017"
+        },
+        {
+          "club": "AEL Limassol",
+          "year": "2018"
+        },
+        {
+          "club": "Wieczysta",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 390,
+        "goals": 82,
+        "assists": 84,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Rodríguez",
@@ -267,9 +1456,61 @@
       "age": 28,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 24,
-      "goals": 21,
-      "assists": 6
+      "appearances": 19,
+      "goals": 20,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Atarfe CF",
+          "year": "2016"
+        },
+        {
+          "club": "Guadix CF",
+          "year": "2017"
+        },
+        {
+          "club": "CD Huétor Vega",
+          "year": "2018"
+        },
+        {
+          "club": "Atarfe CF",
+          "year": "2018"
+        },
+        {
+          "club": "Armilla",
+          "year": "2019"
+        },
+        {
+          "club": "UD Maracena",
+          "year": "2019"
+        },
+        {
+          "club": "Vélez CF",
+          "year": "2020"
+        },
+        {
+          "club": "CD Don Benito",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 58,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javi Forján",
@@ -277,9 +1518,85 @@
       "age": 30,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 24,
+      "appearances": 19,
       "goals": 14,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "San Fernando CD",
+          "year": "2014"
+        },
+        {
+          "club": "Arcos CF",
+          "year": "2015"
+        },
+        {
+          "club": "At. Sanluqueño",
+          "year": "2015"
+        },
+        {
+          "club": "Arcos CF",
+          "year": "2016"
+        },
+        {
+          "club": "UB Lebrijana",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Albacete",
+          "year": "2017"
+        },
+        {
+          "club": "Los Barrios",
+          "year": "2018"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2019"
+        },
+        {
+          "club": "Xerez CD",
+          "year": "2021"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2021"
+        },
+        {
+          "club": "Ciudad Lucena",
+          "year": "2021"
+        },
+        {
+          "club": "Torremolinos",
+          "year": "2022"
+        },
+        {
+          "club": "CA Antoniano",
+          "year": "2023"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2024"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 33,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juanfri",
@@ -287,9 +1604,81 @@
       "age": 36,
       "nationality": "Spain",
       "club": "St Joseph's FC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 8,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "UD Fuengirola",
+          "year": "2007"
+        },
+        {
+          "club": "CD Estepona FS",
+          "year": "2008"
+        },
+        {
+          "club": "Atl. Malagueño",
+          "year": "2009"
+        },
+        {
+          "club": "Écija Balompié",
+          "year": "2012"
+        },
+        {
+          "club": "SC de Goa",
+          "year": "2013"
+        },
+        {
+          "club": "Écija Balompié",
+          "year": "2013"
+        },
+        {
+          "club": "UD San Pedro",
+          "year": "2014"
+        },
+        {
+          "club": "Marbella FC",
+          "year": "2015"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2016"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2016"
+        },
+        {
+          "club": "Antequera CF",
+          "year": "2017"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2018"
+        },
+        {
+          "club": "Lincoln FC",
+          "year": "2022"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 166,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 31,
       "nationality": "Panama",
       "club": "Al-Fayha FC",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Miguelito",
+          "year": "2013"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2017"
+        },
+        {
+          "club": "Boluspor",
+          "year": "2020"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2021"
+        },
+        {
+          "club": "Carabobo FC",
+          "year": "2022"
+        },
+        {
+          "club": "Monagas SC",
+          "year": "2023"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 324,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 347,
+        "clean_sheets": 110
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 53,
+        "clean_sheets": 14
+      }
     },
     {
       "name": "Abdulraouf Al-Duqayl",
@@ -33,7 +82,31 @@
       "club": "Al-Fayha FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hajer",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 65,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sattam Al-Shammari",
@@ -43,7 +116,27 @@
       "club": "Al-Fayha FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fayha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osama Al-Thumayri",
@@ -53,7 +146,27 @@
       "club": "Al-Fayha FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +176,53 @@
       "age": 36,
       "nationality": "England",
       "club": "Al-Fayha FC",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maidstone",
+          "year": "2007"
+        },
+        {
+          "club": "Fulham",
+          "year": "2008"
+        },
+        {
+          "club": "Man Utd",
+          "year": "2010"
+        },
+        {
+          "club": "Roma",
+          "year": "2019"
+        },
+        {
+          "club": "Man Utd",
+          "year": "2020"
+        },
+        {
+          "club": "Roma",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 560,
+        "goals": 32,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mikel Villanueva",
@@ -73,9 +230,77 @@
       "age": 32,
       "nationality": "Venezuela",
       "club": "Al-Fayha FC",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Táchira",
+          "year": "2013"
+        },
+        {
+          "club": "Deportivo Lara",
+          "year": "2014"
+        },
+        {
+          "club": "Atl. Malagueño",
+          "year": "2015"
+        },
+        {
+          "club": "Deportivo Lara",
+          "year": "2016"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2016"
+        },
+        {
+          "club": "Cádiz CF",
+          "year": "2017"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2018"
+        },
+        {
+          "club": "Reus Deportiu",
+          "year": "2018"
+        },
+        {
+          "club": "Gimnàstic",
+          "year": "2019"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Clara",
+          "year": "2020"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziyad Al-Sahafi",
@@ -83,9 +308,53 @@
       "age": 31,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ittihad",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2023"
+        },
+        {
+          "club": "Abha",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Riyadh",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Makhir Al-Rashidi",
@@ -95,7 +364,27 @@
       "club": "Al-Fayha FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fayha",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Bamsaud",
@@ -103,9 +392,57 @@
       "age": 30,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ettifaq",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Al-Anazi",
@@ -115,7 +452,39 @@
       "club": "Al-Fayha FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Orobah",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Orobah",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Baqawi",
@@ -123,9 +492,49 @@
       "age": 30,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 219,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Al-Rammah",
@@ -133,9 +542,29 @@
       "age": 20,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Dowaish",
@@ -145,7 +574,27 @@
       "club": "Al-Fayha FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fayha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +604,77 @@
       "age": 28,
       "nationality": "Guinea-Bissau",
       "club": "Al-Fayha FC",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Vilafranquense",
+          "year": "2016"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2017"
+        },
+        {
+          "club": "Benfica",
+          "year": "2018"
+        },
+        {
+          "club": "Espanyol",
+          "year": "2019"
+        },
+        {
+          "club": "Benfica",
+          "year": "2019"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2019"
+        },
+        {
+          "club": "Benfica",
+          "year": "2020"
+        },
+        {
+          "club": "Reading",
+          "year": "2020"
+        },
+        {
+          "club": "Benfica",
+          "year": "2021"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2022"
+        },
+        {
+          "club": "NEOM SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 20,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rakan Kaabi",
@@ -167,7 +684,31 @@
       "club": "Al-Fayha FC",
       "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ettifaq",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stylianos Vrontis",
@@ -175,9 +716,53 @@
       "age": 21,
       "nationality": "Cyprus",
       "club": "Al-Fayha FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "APOEL Nicosia",
+          "year": "2021"
+        },
+        {
+          "club": "PO Xylotymbou",
+          "year": "2022"
+        },
+        {
+          "club": "APOEL Nicosia",
+          "year": "2023"
+        },
+        {
+          "club": "Omon. Aradippou",
+          "year": "2024"
+        },
+        {
+          "club": "APOEL Nicosia",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        },
+        {
+          "club": "APOEL Nicosia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mansor Al-Beshe",
@@ -187,7 +772,47 @@
       "club": "Al-Fayha FC",
       "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Future Falcons",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Raed",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Raed",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nawaf Al-Harthi",
@@ -195,9 +820,45 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wehda",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yassine Benzia",
@@ -205,9 +866,69 @@
       "age": 31,
       "nationality": "Algeria",
       "club": "Al-Fayha FC",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 3,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Lyon",
+          "year": "2012"
+        },
+        {
+          "club": "Lille",
+          "year": "2015"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2018"
+        },
+        {
+          "club": "Lille",
+          "year": "2019"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2019"
+        },
+        {
+          "club": "Lille",
+          "year": "2020"
+        },
+        {
+          "club": "Dijon",
+          "year": "2020"
+        },
+        {
+          "club": "Hatayspor",
+          "year": "2022"
+        },
+        {
+          "club": "Dijon",
+          "year": "2022"
+        },
+        {
+          "club": "Qarabağ",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 387,
+        "goals": 76,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +938,65 @@
       "age": 30,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Batin",
+          "year": "2017"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2019"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 6,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jason Remeseiro",
@@ -227,39 +1004,65 @@
       "age": 31,
       "nationality": "Spain",
       "club": "Al-Fayha FC",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 4,
-      "assists": 8
-    },
-    {
-      "name": "Rayan Enad",
-      "position": "Right Winger",
-      "age": 25,
-      "nationality": "Saudi Arabia",
-      "club": "Al-Fayha FC",
-      "appearances": 23,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Ammar Al-Khaibari",
-      "position": "Right Winger",
-      "age": 21,
-      "nationality": "Saudi Arabia",
-      "club": "Al-Fayha FC",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Sattam Al-Roqi",
-      "position": "Right Winger",
-      "age": 23,
-      "nationality": "Saudi Arabia",
-      "club": "Al-Fayha FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Atl. Levante",
+          "year": "2015"
+        },
+        {
+          "club": "Levante",
+          "year": "2015"
+        },
+        {
+          "club": "Albacete",
+          "year": "2015"
+        },
+        {
+          "club": "Levante",
+          "year": "2016"
+        },
+        {
+          "club": "Valencia",
+          "year": "2019"
+        },
+        {
+          "club": "Getafe",
+          "year": "2019"
+        },
+        {
+          "club": "Valencia",
+          "year": "2020"
+        },
+        {
+          "club": "Alavés",
+          "year": "2022"
+        },
+        {
+          "club": "Arouca",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 385,
+        "goals": 43,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sabri Dahal",
@@ -269,7 +1072,133 @@
       "club": "Al-Fayha FC",
       "appearances": 17,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Rayan Enad",
+      "position": "Right Winger",
+      "age": 25,
+      "nationality": "Saudi Arabia",
+      "club": "Al-Fayha FC",
+      "appearances": 23,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ammar Al-Khaibari",
+      "position": "Right Winger",
+      "age": 21,
+      "nationality": "Saudi Arabia",
+      "club": "Al-Fayha FC",
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Zulfi",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Sattam Al-Roqi",
+      "position": "Right Winger",
+      "age": 24,
+      "nationality": "Saudi Arabia",
+      "club": "Al-Fayha FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Taawoun",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Orobah",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fashion Sakala",
@@ -277,9 +1206,45 @@
       "age": 29,
       "nationality": "Zambia",
       "club": "Al-Fayha FC",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 11,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Zanaco FC",
+          "year": "2016"
+        },
+        {
+          "club": "Spartak 2",
+          "year": "2017"
+        },
+        {
+          "club": "KV Oostende",
+          "year": "2018"
+        },
+        {
+          "club": "Rangers",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 332,
+        "goals": 109,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Silvere Ganvoula",
@@ -287,9 +1252,85 @@
       "age": 29,
       "nationality": "TM nationality id 85",
       "club": "Al-Fayha FC",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2014"
+        },
+        {
+          "club": "Elazigspor",
+          "year": "2015"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2016"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2017"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2017"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2017"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2018"
+        },
+        {
+          "club": "VfL Bochum",
+          "year": "2018"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2019"
+        },
+        {
+          "club": "VfL Bochum",
+          "year": "2019"
+        },
+        {
+          "club": "Cercle Brugge",
+          "year": "2022"
+        },
+        {
+          "club": "VfL Bochum",
+          "year": "2022"
+        },
+        {
+          "club": "Young Boys",
+          "year": "2023"
+        },
+        {
+          "club": "Monza",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 62,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Radif",
@@ -297,9 +1338,61 @@
       "age": 23,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ettifaq",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malek Al-Abdulmenem",
@@ -307,9 +1400,61 @@
       "age": 28,
       "nationality": "Saudi Arabia",
       "club": "Al-Fayha FC",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Zulfi",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Kholood",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Zulfi",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Jabalain",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Kholood",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Taawoun",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "A1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,85 @@
       "age": 33,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SV Ried",
+          "year": "2009"
+        },
+        {
+          "club": "UnionSt.Florian",
+          "year": "2010"
+        },
+        {
+          "club": "SV Ried",
+          "year": "2011"
+        },
+        {
+          "club": "Hannover 96",
+          "year": "2011"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2013"
+        },
+        {
+          "club": "Hannover 96",
+          "year": "2014"
+        },
+        {
+          "club": "1.FC Nuremberg",
+          "year": "2014"
+        },
+        {
+          "club": "Hannover 96",
+          "year": "2015"
+        },
+        {
+          "club": "SK Brann",
+          "year": "2018"
+        },
+        {
+          "club": "Hannover 96",
+          "year": "2018"
+        },
+        {
+          "club": "Barnsley",
+          "year": "2019"
+        },
+        {
+          "club": "SV Ried",
+          "year": "2020"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        },
+        {
+          "club": "Almere City",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 360,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 474,
+        "clean_sheets": 98
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mirko Kos",
@@ -31,9 +108,37 @@
       "age": 28,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NWM KSV",
+          "year": "2009"
+        },
+        {
+          "club": "A. Vienna Res.",
+          "year": "2015"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 186,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lukas Wedl",
@@ -43,7 +148,39 @@
       "club": "Austria Vienna",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gaflenz",
+          "year": "2012"
+        },
+        {
+          "club": "WSG Wattens",
+          "year": "2013"
+        },
+        {
+          "club": "FC Wacker",
+          "year": "2014"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 196,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +190,37 @@
       "age": 18,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2022"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2025"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tin Plavotic",
@@ -63,9 +228,57 @@
       "age": 28,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 23,
-      "goals": 2,
-      "assists": 3
+      "appearances": 18,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Admira Youth",
+          "year": "2010"
+        },
+        {
+          "club": "AKA Admira U15",
+          "year": "2011"
+        },
+        {
+          "club": "Cheltenham",
+          "year": "2017"
+        },
+        {
+          "club": "Barnet",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "FAC",
+          "year": "2018"
+        },
+        {
+          "club": "SV Ried",
+          "year": "2021"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 19,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandar Dragovic",
@@ -73,9 +286,65 @@
       "age": 35,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 24,
+      "appearances": 21,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Austria U15",
+          "year": "2005"
+        },
+        {
+          "club": "A. Vienna Res.",
+          "year": "2008"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2008"
+        },
+        {
+          "club": "Basel",
+          "year": "2011"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2013"
+        },
+        {
+          "club": "Leverkusen",
+          "year": "2016"
+        },
+        {
+          "club": "Leicester",
+          "year": "2017"
+        },
+        {
+          "club": "Leverkusen",
+          "year": "2018"
+        },
+        {
+          "club": "Red Star",
+          "year": "2021"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 684,
+        "goals": 32,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 100,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dejan Radonjic",
@@ -83,9 +352,49 @@
       "age": 20,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Admira Youth",
+          "year": "2013"
+        },
+        {
+          "club": "AKA Austria U15",
+          "year": "2019"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        },
+        {
+          "club": "SV Stripfing",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Philipp Wiesinger",
@@ -93,9 +402,57 @@
       "age": 31,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 23,
-      "goals": 2,
-      "assists": 1
+      "appearances": 21,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Salzburg Youth",
+          "year": "2006"
+        },
+        {
+          "club": "AKA Salzb. U15",
+          "year": "2008"
+        },
+        {
+          "club": "FC Anif",
+          "year": "2012"
+        },
+        {
+          "club": "FC Liefering",
+          "year": "2013"
+        },
+        {
+          "club": "LASK",
+          "year": "2016"
+        },
+        {
+          "club": "FC Liefering",
+          "year": "2016"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2024"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 23,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johannes Handl",
@@ -103,9 +460,37 @@
       "age": 27,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sturm Graz U15",
+          "year": "2012"
+        },
+        {
+          "club": "SV Lafnitz",
+          "year": "2017"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 241,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tae-seok Lee",
@@ -113,9 +498,45 @@
       "age": 23,
       "nationality": "South Korea",
       "club": "Austria Vienna",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Lee Eulyong U12",
+          "year": "2014"
+        },
+        {
+          "club": "FC Seoul U15",
+          "year": "2015"
+        },
+        {
+          "club": "FC Seoul",
+          "year": "2021"
+        },
+        {
+          "club": "Pohang Steelers",
+          "year": "2024"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hakim Guenouche",
@@ -123,9 +544,45 @@
       "age": 25,
       "nationality": "France",
       "club": "Austria Vienna",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Zürich",
+          "year": "2018"
+        },
+        {
+          "club": "KFC Uerdingen",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "A. Lustenau",
+          "year": "2021"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 5,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matteo Schablas",
@@ -133,9 +590,37 @@
       "age": 21,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 17,
+      "appearances": 3,
       "goals": 1,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Liefering",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        },
+        {
+          "club": "SV Stripfing",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziad El Sheiwi",
@@ -143,9 +628,37 @@
       "age": 22,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2018"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2020"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reinhold Ranftl",
@@ -153,9 +666,69 @@
       "age": 34,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fehring Youth",
+          "year": "2005"
+        },
+        {
+          "club": "Fehring",
+          "year": "2008"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2013"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2014"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2014"
+        },
+        {
+          "club": "Wiener Neustadt",
+          "year": "2014"
+        },
+        {
+          "club": "LASK",
+          "year": "2015"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2021"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2022"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 602,
+        "goals": 54,
+        "assists": 64,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +738,37 @@
       "age": 18,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 1
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2021"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2024"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kang-hee Lee",
@@ -175,9 +776,61 @@
       "age": 24,
       "nationality": "South Korea",
       "club": "Austria Vienna",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "D. Gyeseong ES",
+          "year": "2013"
+        },
+        {
+          "club": "Shinpyeong MS",
+          "year": "2014"
+        },
+        {
+          "club": "Shinpyeong HS",
+          "year": "2017"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2020"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2022"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2022"
+        },
+        {
+          "club": "Gyeongnam FC",
+          "year": "2023"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florian Wustinger",
@@ -185,9 +838,37 @@
       "age": 22,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2017"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2020"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abubakr Barry",
@@ -195,9 +876,73 @@
       "age": 25,
       "nationality": "The Gambia",
       "club": "Austria Vienna",
-      "appearances": 27,
+      "appearances": 22,
       "goals": 4,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Superstars",
+          "year": "2019"
+        },
+        {
+          "club": "H. Nof HaGalil",
+          "year": "2019"
+        },
+        {
+          "club": "Superstars",
+          "year": "2020"
+        },
+        {
+          "club": "H. Kfar Shalem",
+          "year": "2020"
+        },
+        {
+          "club": "Superstars",
+          "year": "2021"
+        },
+        {
+          "club": "Ramat haSharon",
+          "year": "2021"
+        },
+        {
+          "club": "Superstars",
+          "year": "2022"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2022"
+        },
+        {
+          "club": "Superstars",
+          "year": "2023"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2023"
+        },
+        {
+          "club": "Superstars",
+          "year": "2024"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 20,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vasilije Markovic",
@@ -205,9 +950,33 @@
       "age": 17,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 15,
-      "goals": 4,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2022"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominik Nisandzic",
@@ -215,9 +984,37 @@
       "age": 19,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 18,
+      "appearances": 1,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2020"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marijan Österreicher",
@@ -225,9 +1022,45 @@
       "age": 20,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 19,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FAC Youth",
+          "year": "2015"
+        },
+        {
+          "club": "SV Donau Youth",
+          "year": "2017"
+        },
+        {
+          "club": "AKA Austria U15",
+          "year": "2020"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sanel Saljic",
@@ -235,9 +1068,45 @@
       "age": 20,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Admira Youth",
+          "year": "2014"
+        },
+        {
+          "club": "AKA Austria U15",
+          "year": "2019"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2022"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        },
+        {
+          "club": "SV Stripfing",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 30,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manfred Fischer",
@@ -245,9 +1114,53 @@
       "age": 30,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 3,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "GAK Youth",
+          "year": "2009"
+        },
+        {
+          "club": "DSV Leoben",
+          "year": "2013"
+        },
+        {
+          "club": "SC Kalsdorf",
+          "year": "2014"
+        },
+        {
+          "club": "Wiener Neustadt",
+          "year": "2015"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2017"
+        },
+        {
+          "club": "SCR Altach",
+          "year": "2018"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 444,
+        "goals": 68,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1170,49 @@
       "age": 27,
       "nationality": "Germany",
       "club": "Austria Vienna",
-      "appearances": 27,
-      "goals": 10,
-      "assists": 7
+      "appearances": 24,
+      "goals": 9,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Werder Bremen",
+          "year": "2016"
+        },
+        {
+          "club": "LASK",
+          "year": "2020"
+        },
+        {
+          "club": "Werder Bremen",
+          "year": "2021"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2021"
+        },
+        {
+          "club": "St. Pauli",
+          "year": "2022"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 348,
+        "goals": 142,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Botic",
@@ -267,9 +1220,33 @@
       "age": 24,
       "nationality": "Australia",
       "club": "Austria Vienna",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 2
+      "appearances": 13,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Western United",
+          "year": "2021"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 36,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manprit Sarkaria",
@@ -277,9 +1254,49 @@
       "age": 29,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 19,
-      "goals": 4,
-      "assists": 4
+      "appearances": 15,
+      "goals": 3,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Großfeld Jgd.",
+          "year": "2007"
+        },
+        {
+          "club": "A. Vienna Res.",
+          "year": "2014"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2017"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2021"
+        },
+        {
+          "club": "SZ Peng City",
+          "year": "2025"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 380,
+        "goals": 101,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konstantin Aleksa",
@@ -287,19 +1304,83 @@
       "age": 18,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 17,
-      "goals": 4,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2021"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2024"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 21,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kelvin Boateng",
       "position": "Centre-Forward",
-      "age": 25,
+      "age": 26,
       "nationality": "Ghana",
       "club": "Austria Vienna",
-      "appearances": 14,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartak Trnava",
+          "year": "2021"
+        },
+        {
+          "club": "Karvina",
+          "year": "2023"
+        },
+        {
+          "club": "Spartak Trnava",
+          "year": "2023"
+        },
+        {
+          "club": "First Vienna FC",
+          "year": "2023"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 49,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Romeo Vucic",
@@ -307,9 +1388,45 @@
       "age": 23,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2017"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2020"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2022"
+        },
+        {
+          "club": "Grazer AK 1902",
+          "year": "2024"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 28,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Raguz",
@@ -317,9 +1434,49 @@
       "age": 27,
       "nationality": "Austria",
       "club": "Austria Vienna",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FAL U15",
+          "year": "2012"
+        },
+        {
+          "club": "Pasching/LASK",
+          "year": "2016"
+        },
+        {
+          "club": "LASK",
+          "year": "2016"
+        },
+        {
+          "club": "Juniors OÖ",
+          "year": "2018"
+        },
+        {
+          "club": "LASK",
+          "year": "2019"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 231,
+        "goals": 78,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulaye Kanté",
@@ -329,7 +1486,39 @@
       "club": "Austria Vienna",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RC Abidjan",
+          "year": "2021"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2024"
+        },
+        {
+          "club": "SV Stripfing",
+          "year": "2025"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

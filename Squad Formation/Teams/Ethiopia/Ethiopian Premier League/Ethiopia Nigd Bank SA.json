@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ETP1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": null,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Insurance Corp.",
+          "year": "2021"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Palak Chole",
@@ -33,7 +58,22 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 15,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amanuel Desta",
@@ -43,19 +83,96 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2024"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 16,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
+    {
+      "name": "Yonas Legesse",
+      "position": "Centre-Back",
+      "age": 27,
+      "nationality": "Ethiopia",
+      "club": "Ethiopia Nigd Bank SA",
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2024"
+        },
+        {
+          "club": "Ethio Electric",
+          "year": "2025"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Endale Yohannes",
       "position": "Centre-Back",
       "age": 34,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Caleb Amankwah",
@@ -63,9 +180,37 @@
       "age": 28,
       "nationality": "Ghana",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2018"
+        },
+        {
+          "club": "Hearts of Oak",
+          "year": "2021"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tesfaye Tamirat",
@@ -73,9 +218,29 @@
       "age": 24,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Melaku Elias",
@@ -83,29 +248,92 @@
       "age": 25,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Yonas Legesse",
-      "position": "Right-Back",
-      "age": 27,
-      "nationality": "Ethiopia",
-      "club": "Ethiopia Nigd Bank SA",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adama Ketema",
+          "year": "2023"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yasin Jemal",
-      "position": "",
+      "position": "Right-Back",
       "age": null,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Adisu Megersa",
+      "position": "Right-Back",
+      "age": null,
+      "nationality": "Ethiopia",
+      "club": "Ethiopia Nigd Bank SA",
+      "appearances": 13,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abenezer Teklu",
@@ -115,17 +343,22 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Adisu Megersa",
-      "position": "",
-      "age": null,
-      "nationality": "Ethiopia",
-      "club": "Ethiopia Nigd Bank SA",
-      "appearances": 13,
-      "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Obsa Kumera",
@@ -135,7 +368,35 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2023"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2024"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +406,24 @@
       "age": 23,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aschenaki Tsegaye",
@@ -155,9 +431,37 @@
       "age": 30,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Insurance Corp.",
+          "year": "2022"
+        },
+        {
+          "club": "Hadia Hosaina",
+          "year": "2023"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Biniyam Kassahun",
@@ -165,9 +469,29 @@
       "age": 36,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 17,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mesfin Washe",
@@ -177,17 +501,27 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 11,
       "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Simon Peter",
-      "position": "Attacking Midfield",
-      "age": 28,
-      "nationality": "Uganda",
-      "club": "Ethiopia Nigd Bank SA",
-      "appearances": 23,
-      "goals": 6,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bezabih Katise",
@@ -197,7 +531,47 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Biruk Bitsuamlak",
+      "position": "Attacking Midfield",
+      "age": null,
+      "nationality": "Ethiopia",
+      "club": "Ethiopia Nigd Bank SA",
+      "appearances": 18,
+      "goals": 0,
+      "assists": 4,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filimon Geberetsadik",
@@ -207,17 +581,27 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Biruk Bitsuamlak",
-      "position": "",
-      "age": null,
-      "nationality": "Ethiopia",
-      "club": "Ethiopia Nigd Bank SA",
-      "appearances": 18,
-      "goals": 0,
-      "assists": 4
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yohannes Kidane",
@@ -227,7 +611,27 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samson Chuhu",
@@ -235,9 +639,49 @@
       "age": null,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Abdulaziz Ahmed",
+      "position": "",
+      "age": null,
+      "nationality": "Ethiopia",
+      "club": "Ethiopia Nigd Bank SA",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samson Dejene",
@@ -247,7 +691,22 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kidus Dawit",
@@ -257,7 +716,22 @@
       "club": "Ethiopia Nigd Bank SA Reserve Team",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +741,29 @@
       "age": 16,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 11,
-      "goals": 2,
-      "assists": 1
+      "appearances": 12,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dawit Yohannes",
@@ -277,9 +771,29 @@
       "age": 22,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Addis Gidey",
@@ -287,9 +801,37 @@
       "age": 30,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 19,
-      "goals": 9,
-      "assists": 4
+      "appearances": 20,
+      "goals": 10,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Sidama Bunna",
+          "year": "2015"
+        },
+        {
+          "club": "Kidus Giorgis",
+          "year": "2020"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 19,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tsegaye Birhanu",
@@ -297,9 +839,37 @@
       "age": 26,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hadia Hosaina",
+          "year": "2021"
+        },
+        {
+          "club": "Wolayta Dicha",
+          "year": "2023"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fuad Fereja",
@@ -307,9 +877,96 @@
       "age": 27,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sebeta",
+          "year": "2020"
+        },
+        {
+          "club": "Bahirdar Ketema",
+          "year": "2021"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Simon Peter",
+      "position": "Centre-Forward",
+      "age": 28,
+      "nationality": "Uganda",
+      "club": "Ethiopia Nigd Bank SA",
+      "appearances": 24,
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Insurance Corp.",
+          "year": "2022"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Natnael Daniel",
+      "position": "Centre-Forward",
+      "age": 23,
+      "nationality": "Ethiopia",
+      "club": "Ethiopia Nigd Bank SA",
+      "appearances": 20,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ephrem Legamo",
@@ -319,17 +976,22 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 9,
       "goals": 1,
-      "assists": 1
-    },
-    {
-      "name": "Natnael Daniel",
-      "position": "",
-      "age": 22,
-      "nationality": "Ethiopia",
-      "club": "Ethiopia Nigd Bank SA",
-      "appearances": 19,
-      "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hiker Dewamu",
@@ -339,7 +1001,22 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dagim Solomon",
@@ -349,7 +1026,27 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tamirat Mekonnen",
@@ -359,7 +1056,27 @@
       "club": "Ethiopia Nigd Bank SA",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henok Ermias",
@@ -367,9 +1084,24 @@
       "age": 19,
       "nationality": "Ethiopia",
       "club": "Ethiopia Nigd Bank SA Reserve Team",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

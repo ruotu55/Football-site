@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "ARG1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,47 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanderers",
+          "year": "2004"
+        },
+        {
+          "club": "Nacional",
+          "year": "2007"
+        },
+        {
+          "club": "Wanderers",
+          "year": "2007"
+        },
+        {
+          "club": "Lazio",
+          "year": "2007"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2011"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 727,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": 785,
+        "clean_sheets": 248
+      },
+      "national_team_career_totals": {
+        "appearances": 134,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 136,
+        "clean_sheets": 54
+      }
     },
     {
       "name": "Fabricio Iacovich",
@@ -33,7 +74,27 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 24,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Borzone",
@@ -41,9 +102,29 @@
       "age": 21,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 31,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +134,53 @@
       "age": 22,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CA Talleres",
+          "year": "2024"
+        },
+        {
+          "club": "Ind. Rivadavia",
+          "year": "2024"
+        },
+        {
+          "club": "Inter",
+          "year": "2024"
+        },
+        {
+          "club": "Monza",
+          "year": "2025"
+        },
+        {
+          "club": "Inter",
+          "year": "2025"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2026"
+        },
+        {
+          "club": "Inter",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Núñez",
@@ -65,7 +190,35 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2022"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leandro González Pírez",
@@ -75,7 +228,75 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "River Plate",
+          "year": "2012"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2013"
+        },
+        {
+          "club": "River Plate",
+          "year": "2014"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2014"
+        },
+        {
+          "club": "Tigre",
+          "year": "2015"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2016"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2017"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2020"
+        },
+        {
+          "club": "Miami",
+          "year": "2020"
+        },
+        {
+          "club": "River Plate",
+          "year": "2022"
+        },
+        {
+          "club": "Miami",
+          "year": "2023"
+        },
+        {
+          "club": "River Plate",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 420,
+        "goals": 21,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valente Pierani",
@@ -83,9 +304,29 @@
       "age": 20,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramiro Funes Mori",
@@ -95,7 +336,51 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "River Plate",
+          "year": "2011"
+        },
+        {
+          "club": "Everton",
+          "year": "2015"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Nassr",
+          "year": "2021"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2022"
+        },
+        {
+          "club": "River Plate",
+          "year": "2023"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Arzamendia",
@@ -104,18 +389,78 @@
       "nationality": "Paraguay",
       "club": "Club Estudiantes de La Plata",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cerro Porteño",
+          "year": "2017"
+        },
+        {
+          "club": "Cádiz CF",
+          "year": "2021"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2023"
+        },
+        {
+          "club": "Cádiz CF",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 256,
+        "goals": 14,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gastón Benedetti",
       "position": "Left-Back",
-      "age": 24,
+      "age": 25,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Guillermo Brown",
+          "year": "2022"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eros Mancuso",
@@ -123,9 +468,41 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2022"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2026"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 10,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric Meza",
@@ -135,7 +512,31 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colon",
+          "year": "2021"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 10,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -147,7 +548,51 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nacional",
+          "year": "2018"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2021"
+        },
+        {
+          "club": "Nacional",
+          "year": "2022"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2023"
+        },
+        {
+          "club": "Independiente",
+          "year": "2024"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 8,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ezequiel Piovi",
@@ -155,9 +600,65 @@
       "age": 33,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Messina",
+          "year": "2013"
+        },
+        {
+          "club": "Lamadrid",
+          "year": "2014"
+        },
+        {
+          "club": "Fénix",
+          "year": "2015"
+        },
+        {
+          "club": "Almagro",
+          "year": "2016"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2019"
+        },
+        {
+          "club": "Almagro",
+          "year": "2020"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2020"
+        },
+        {
+          "club": "Almagro",
+          "year": "2021"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2021"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 294,
+        "goals": 10,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mikel Amondarain",
@@ -166,8 +667,28 @@
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
       "appearances": 9,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Castro",
@@ -177,7 +698,67 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 9,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tigre",
+          "year": "2015"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2017"
+        },
+        {
+          "club": "Defensa",
+          "year": "2019"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2019"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2020"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2020"
+        },
+        {
+          "club": "Colon",
+          "year": "2021"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2021"
+        },
+        {
+          "club": "Tigre",
+          "year": "2022"
+        },
+        {
+          "club": "Nacional",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 305,
+        "goals": 41,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Cornejo",
@@ -185,9 +766,24 @@
       "age": 21,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata II",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 15,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Farías",
@@ -196,8 +792,36 @@
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
       "appearances": 6,
-      "goals": 1,
-      "assists": 1
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colon",
+          "year": "2020"
+        },
+        {
+          "club": "Miami",
+          "year": "2023"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 20,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Sosa",
@@ -207,7 +831,91 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2002"
+        },
+        {
+          "club": "Bayern Munich",
+          "year": "2007"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2009"
+        },
+        {
+          "club": "Bayern Munich",
+          "year": "2010"
+        },
+        {
+          "club": "Napoli",
+          "year": "2010"
+        },
+        {
+          "club": "Metalist Kharkiv",
+          "year": "2011"
+        },
+        {
+          "club": "Atlético",
+          "year": "2014"
+        },
+        {
+          "club": "Metalist Kharkiv",
+          "year": "2014"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2014"
+        },
+        {
+          "club": "Metalist Kharkiv",
+          "year": "2015"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2015"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2016"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2017"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2018"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2018"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2020"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 763,
+        "goals": 80,
+        "assists": 130,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -219,7 +927,39 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Newell's",
+          "year": "2022"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2026"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 9,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edwuin Cetré",
@@ -227,9 +967,49 @@
       "age": 28,
       "nationality": "Colombia",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rocha FC",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2019"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2023"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 57,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joaquín Tobio Burgos",
@@ -237,19 +1017,71 @@
       "age": 21,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tiago Palacios",
       "position": "Right Winger",
-      "age": 24,
+      "age": 25,
       "nationality": "Uruguay",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 3,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Platense",
+          "year": "2020"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2021"
+        },
+        {
+          "club": "Platense",
+          "year": "2021"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 35,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabricio Pérez",
@@ -259,7 +1091,27 @@
       "club": "Club Estudiantes de La Plata",
       "appearances": 10,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adolfo Gaich",
@@ -267,9 +1119,85 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 12,
-      "goals": 0,
-      "assists": 1
+      "appearances": 7,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "San Lorenzo",
+          "year": "2018"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2020"
+        },
+        {
+          "club": "Benevento",
+          "year": "2021"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2021"
+        },
+        {
+          "club": "SD Huesca",
+          "year": "2021"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2023"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2023"
+        },
+        {
+          "club": "C. Rizespor",
+          "year": "2023"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2024"
+        },
+        {
+          "club": "Antalyaspor",
+          "year": "2024"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2025"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2025"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2026"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 43,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guido Carrillo",
@@ -278,8 +1206,64 @@
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
       "appearances": 9,
-      "goals": 2,
-      "assists": 1
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2011"
+        },
+        {
+          "club": "Monaco",
+          "year": "2015"
+        },
+        {
+          "club": "Southampton",
+          "year": "2018"
+        },
+        {
+          "club": "CD Leganés",
+          "year": "2018"
+        },
+        {
+          "club": "Southampton",
+          "year": "2019"
+        },
+        {
+          "club": "CD Leganés",
+          "year": "2019"
+        },
+        {
+          "club": "Southampton",
+          "year": "2020"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2020"
+        },
+        {
+          "club": "HN FC",
+          "year": "2022"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 492,
+        "goals": 111,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Alario",
@@ -287,9 +1271,49 @@
       "age": 33,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colon",
+          "year": "2011"
+        },
+        {
+          "club": "River Plate",
+          "year": "2015"
+        },
+        {
+          "club": "Leverkusen",
+          "year": "2017"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2022"
+        },
+        {
+          "club": "Internacional",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 396,
+        "goals": 117,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Franco Domínguez",
@@ -297,9 +1321,24 @@
       "age": 18,
       "nationality": "Argentina",
       "club": "Club Estudiantes de La Plata II",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

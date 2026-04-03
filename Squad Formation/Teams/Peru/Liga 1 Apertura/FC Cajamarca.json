@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "TDEA"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "FC Cajamarca",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 34,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Mosquera",
@@ -31,9 +60,61 @@
       "age": 31,
       "nationality": "Colombia",
       "club": "FC Cajamarca",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Expreso Rojo",
+          "year": "2015"
+        },
+        {
+          "club": "CD América",
+          "year": "2018"
+        },
+        {
+          "club": "Ind. Yumbo",
+          "year": "2019"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2019"
+        },
+        {
+          "club": "Patriotas",
+          "year": "2020"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2022"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2023"
+        },
+        {
+          "club": "Real Cartagena",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 213,
+        "clean_sheets": 51
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Medina",
@@ -43,7 +124,55 @@
       "club": "FC Cajamarca",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FBC Melgar",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Real Garcilaso",
+          "year": "2017"
+        },
+        {
+          "club": "Comerciantes",
+          "year": "2018"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2019"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2022"
+        },
+        {
+          "club": "UTC",
+          "year": "2023"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 114,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +182,57 @@
       "age": 25,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Tarma",
+          "year": "2020"
+        },
+        {
+          "club": "Pirata FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Colón C-3",
+          "year": "2022"
+        },
+        {
+          "club": "Alfonso Ugarte",
+          "year": "2023"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Binacional",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Rodas",
@@ -63,9 +240,33 @@
       "age": 29,
       "nationality": "Paraguay",
       "club": "FC Cajamarca",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gen. Caballero",
+          "year": "2023"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Almirón",
@@ -73,9 +274,53 @@
       "age": 30,
       "nationality": "Uruguay",
       "club": "FC Cajamarca",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Villa Teresa",
+          "year": "2021"
+        },
+        {
+          "club": "Rampla Jrs",
+          "year": "2022"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2023"
+        },
+        {
+          "club": "Comerciantes",
+          "year": "2024"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brian Bernaola",
@@ -83,9 +328,89 @@
       "age": 31,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sport. Cristal",
+          "year": "2014"
+        },
+        {
+          "club": "Dep. Municipal",
+          "year": "2015"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2015"
+        },
+        {
+          "club": "Rosario FC",
+          "year": "2017"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2017"
+        },
+        {
+          "club": "Rosario FC",
+          "year": "2018"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2018"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Coopsol",
+          "year": "2019"
+        },
+        {
+          "club": "Atlético Grau",
+          "year": "2020"
+        },
+        {
+          "club": "Alianza UDH",
+          "year": "2021"
+        },
+        {
+          "club": "Unión Huaral",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Coopsol",
+          "year": "2023"
+        },
+        {
+          "club": "FC San Marcos",
+          "year": "2024"
+        },
+        {
+          "club": "Santos FC",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Míguez",
@@ -93,9 +418,73 @@
       "age": 38,
       "nationality": "Uruguay",
       "club": "FC Cajamarca",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2007"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2011"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2013"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2014"
+        },
+        {
+          "club": "Olimpo",
+          "year": "2016"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2016"
+        },
+        {
+          "club": "FBC Melgar",
+          "year": "2018"
+        },
+        {
+          "club": "Real Garcilaso",
+          "year": "2019"
+        },
+        {
+          "club": "FBC Melgar",
+          "year": "2020"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2021"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2024"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 511,
+        "goals": 36,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Lagos",
@@ -103,9 +492,41 @@
       "age": 29,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "César Vallejo",
+          "year": "2017"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2018"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2021"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 251,
+        "goals": 24,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Gallardo",
@@ -115,7 +536,47 @@
       "club": "FC Cajamarca",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alianza Lima",
+          "year": "2020"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2020"
+        },
+        {
+          "club": "Unión Comercio",
+          "year": "2022"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Gómez",
@@ -123,9 +584,37 @@
       "age": 21,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alianza Lima",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhan Vega",
@@ -135,7 +624,31 @@
       "club": "FC Cajamarca",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +658,65 @@
       "age": 29,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2014"
+        },
+        {
+          "club": "Atlético Grau",
+          "year": "2020"
+        },
+        {
+          "club": "Universitario",
+          "year": "2020"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2021"
+        },
+        {
+          "club": "Universitario",
+          "year": "2021"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2023"
+        },
+        {
+          "club": "Comerciantes",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 0,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keyvin Paico",
@@ -157,7 +726,47 @@
       "club": "FC Cajamarca",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Cantolao",
+          "year": "2016"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Coopsol",
+          "year": "2021"
+        },
+        {
+          "club": "Alfonso Ugarte",
+          "year": "2022"
+        },
+        {
+          "club": "Comerciantes",
+          "year": "2023"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jefferson Orejuela",
@@ -167,7 +776,91 @@
       "club": "FC Cajamarca",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Independiente",
+          "year": "2012"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2017"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2018"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2019"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2020"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2020"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2021"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Cuniburo FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Huracan Buceo",
+          "year": "2025"
+        },
+        {
+          "club": "CA Fénix",
+          "year": "2025"
+        },
+        {
+          "club": "Paysandú",
+          "year": "2026"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 421,
+        "goals": 6,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomás Andrade",
@@ -175,9 +868,89 @@
       "age": 29,
       "nationality": "Argentina",
       "club": "FC Cajamarca",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Bournemouth",
+          "year": "2015"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2018"
+        },
+        {
+          "club": "River Plate",
+          "year": "2018"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2019"
+        },
+        {
+          "club": "River Plate",
+          "year": "2019"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2020"
+        },
+        {
+          "club": "River Plate",
+          "year": "2021"
+        },
+        {
+          "club": "Sud América",
+          "year": "2021"
+        },
+        {
+          "club": "Audax Italiano",
+          "year": "2022"
+        },
+        {
+          "club": "Botafogo-SP",
+          "year": "2023"
+        },
+        {
+          "club": "Wanderers",
+          "year": "2023"
+        },
+        {
+          "club": "Torreense",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sud América",
+          "year": "2024"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 24,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Lavandeira",
@@ -185,9 +958,113 @@
       "age": 35,
       "nationality": "Uruguay",
       "club": "FC Cajamarca",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tacuarembó",
+          "year": "2008"
+        },
+        {
+          "club": "Huracán",
+          "year": "2010"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2011"
+        },
+        {
+          "club": "Huracán",
+          "year": "2011"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2012"
+        },
+        {
+          "club": "Huracán",
+          "year": "2012"
+        },
+        {
+          "club": "CA Progreso",
+          "year": "2013"
+        },
+        {
+          "club": "Wanderers",
+          "year": "2013"
+        },
+        {
+          "club": "San Luis",
+          "year": "2014"
+        },
+        {
+          "club": "Villa Teresa",
+          "year": "2014"
+        },
+        {
+          "club": "UTC",
+          "year": "2015"
+        },
+        {
+          "club": "Dep. Municipal",
+          "year": "2016"
+        },
+        {
+          "club": "Rosario FC",
+          "year": "2017"
+        },
+        {
+          "club": "Dep. Municipal",
+          "year": "2017"
+        },
+        {
+          "club": "Universitario",
+          "year": "2018"
+        },
+        {
+          "club": "Audax Italiano",
+          "year": "2020"
+        },
+        {
+          "club": "Universitario",
+          "year": "2020"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2021"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2022"
+        },
+        {
+          "club": "FBC Melgar",
+          "year": "2023"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 420,
+        "goals": 74,
+        "assists": 63,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mauricio Arrasco",
@@ -195,9 +1072,41 @@
       "age": 21,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Alianza Lima",
+          "year": "2023"
+        },
+        {
+          "club": "Alianza UDH",
+          "year": "2024"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2024"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Alegría",
@@ -205,21 +1114,113 @@
       "age": 22,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Golden State",
+          "year": "2019"
+        },
+        {
+          "club": "Sunred Beach FC",
+          "year": "2021"
+        },
+        {
+          "club": "Santa Ana Winds",
+          "year": "2023"
+        },
+        {
+          "club": "ECC Warriors",
+          "year": "2023"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Brandon Palacios",
       "position": "Left Winger",
-      "age": 27,
+      "age": 28,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UTC",
+          "year": "2018"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2018"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2019"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2019"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2020"
+        },
+        {
+          "club": "Carlos Stein",
+          "year": "2021"
+        },
+        {
+          "club": "Dep. Binacional",
+          "year": "2023"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2024"
+        },
+        {
+          "club": "UTC",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 30,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Betancourt",
@@ -229,7 +1230,111 @@
       "club": "FC Cajamarca",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Espoli",
+          "year": "2012"
+        },
+        {
+          "club": "Norte América",
+          "year": "2013"
+        },
+        {
+          "club": "Norte América",
+          "year": "2014"
+        },
+        {
+          "club": "Gondomar",
+          "year": "2014"
+        },
+        {
+          "club": "Norte América",
+          "year": "2015"
+        },
+        {
+          "club": "Deportivo Azogues",
+          "year": "2015"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2016"
+        },
+        {
+          "club": "CD América",
+          "year": "2017"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2017"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2018"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2019"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2020"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2020"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2021"
+        },
+        {
+          "club": "Cimarrones",
+          "year": "2021"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2021"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2023"
+        },
+        {
+          "club": "CD La Union",
+          "year": "2024"
+        },
+        {
+          "club": "Chacaritas FC",
+          "year": "2025"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 266,
+        "goals": 24,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernando Ocas",
@@ -239,7 +1344,27 @@
       "club": "FC Cajamarca",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Cajamarca",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Enciso",
@@ -249,7 +1374,43 @@
       "club": "FC Cajamarca",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Llacuabamba",
+          "year": "2023"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2024"
+        },
+        {
+          "club": "Alianza UDH",
+          "year": "2024"
+        },
+        {
+          "club": "Bentín Tacna H.",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Meza",
@@ -257,9 +1418,65 @@
       "age": 23,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CA Mannucci",
+          "year": "2021"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2022"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2022"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2023"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Unión Huaral",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Coopsol",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Binacional",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arley Rodríguez",
@@ -269,7 +1486,79 @@
       "club": "FC Cajamarca",
       "appearances": 7,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Alianza FC",
+          "year": "2015"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2015"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2018"
+        },
+        {
+          "club": "Lobos BUAP",
+          "year": "2018"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2018"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2019"
+        },
+        {
+          "club": "Envigado",
+          "year": "2019"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2020"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2021"
+        },
+        {
+          "club": "Pereira",
+          "year": "2023"
+        },
+        {
+          "club": "Ionikos Nikeas",
+          "year": "2024"
+        },
+        {
+          "club": "César Vallejo",
+          "year": "2024"
+        },
+        {
+          "club": "Real Cartagena",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 50,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Said Peralta",
@@ -279,7 +1568,39 @@
       "club": "FC Cajamarca",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juan Aurich",
+          "year": "2023"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2024"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastien Pineau",
@@ -287,9 +1608,41 @@
       "age": 23,
       "nationality": "Peru",
       "club": "FC Cajamarca",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "César Vallejo",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Recr. Huelva",
+          "year": "2025"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 14,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hernán Barcos",
@@ -297,9 +1650,125 @@
       "age": 41,
       "nationality": "Argentina",
       "club": "FC Cajamarca",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 7,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2003"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2005"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2006"
+        },
+        {
+          "club": "CD Olmedo",
+          "year": "2006"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2007"
+        },
+        {
+          "club": "Red Star",
+          "year": "2007"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2008"
+        },
+        {
+          "club": "Huracán",
+          "year": "2008"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2009"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2009"
+        },
+        {
+          "club": "SZ Ruby",
+          "year": "2009"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2010"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2012"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2013"
+        },
+        {
+          "club": "TJ Teda",
+          "year": "2015"
+        },
+        {
+          "club": "Sporting",
+          "year": "2016"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2016"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2017"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2018"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2020"
+        },
+        {
+          "club": "FC Messina",
+          "year": "2020"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2021"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 659,
+        "goals": 274,
+        "assists": 85,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

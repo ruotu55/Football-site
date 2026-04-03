@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IRN1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -19,11 +20,51 @@
       "name": "Mohammadreza Akhbari",
       "position": "Goalkeeper",
       "age": 33,
-      "nationality": "Iran",
+      "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saipa FC",
+          "year": "2013"
+        },
+        {
+          "club": "Tractor Sazi",
+          "year": "2015"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2017"
+        },
+        {
+          "club": "Tractor Sazi",
+          "year": "2019"
+        },
+        {
+          "club": "Gol Gohar",
+          "year": "2023"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 272,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 250,
+        "clean_sheets": 113
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seyed Hossein Hosseini",
@@ -31,9 +72,45 @@
       "age": 33,
       "nationality": "Iran",
       "club": "Sepahan FC",
-      "appearances": 23,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bargh Shiraz FC",
+          "year": "2010"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2012"
+        },
+        {
+          "club": "Malavan",
+          "year": "2014"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2016"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 230,
+        "clean_sheets": 128
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 11,
+        "clean_sheets": 8
+      }
     },
     {
       "name": "Seyed Pouria Rafiei",
@@ -43,7 +120,27 @@
       "club": "Sepahan FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abolfazl Khalilian",
@@ -53,7 +150,27 @@
       "club": "Sepahan FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amirmehdi Maghsoudi",
@@ -63,7 +180,27 @@
       "club": "Sepahan FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -71,11 +208,43 @@
       "name": "Mohammadamin Hazbavi",
       "position": "Centre-Back",
       "age": 22,
-      "nationality": "Iran",
+      "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 0
+      "appearances": 17,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Foolad Novin",
+          "year": "2020"
+        },
+        {
+          "club": "Foolad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Sadd",
+          "year": "2023"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Daneshgar",
@@ -83,9 +252,45 @@
       "age": 32,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 29,
+      "appearances": 21,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fajr Sepasi",
+          "year": "2012"
+        },
+        {
+          "club": "Naft Tehran",
+          "year": "2015"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2017"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2018"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 22,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Gvelesiani",
@@ -93,9 +298,49 @@
       "age": 34,
       "nationality": "Georgia",
       "club": "Sepahan FC",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2010"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2017"
+        },
+        {
+          "club": "FC Nassaji",
+          "year": "2018"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2019"
+        },
+        {
+          "club": "Persepolis FC",
+          "year": "2022"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 349,
+        "goals": 44,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hadi Mohammadi",
@@ -103,9 +348,53 @@
       "age": 35,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 17,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sanat Naft",
+          "year": "2010"
+        },
+        {
+          "club": "Damash Gilan",
+          "year": "2011"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2014"
+        },
+        {
+          "club": "Tractor Sazi",
+          "year": "2016"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2018"
+        },
+        {
+          "club": "Tractor",
+          "year": "2020"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Amini",
@@ -115,7 +404,27 @@
       "club": "Sepahan FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milad Zakipour",
@@ -123,19 +432,123 @@
       "age": 30,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 0
+      "appearances": 12,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Moghavemat",
+          "year": "2014"
+        },
+        {
+          "club": "Naft Tehran",
+          "year": "2015"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2016"
+        },
+        {
+          "club": "Gol Gohar",
+          "year": "2020"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2022"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2024"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 280,
+        "goals": 7,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ehsan Hajsafi",
       "position": "Left-Back",
       "age": 36,
-      "nationality": "TM nationality id 71",
+      "nationality": "Iran",
       "club": "Sepahan FC",
-      "appearances": 30,
+      "appearances": 21,
       "goals": 3,
-      "assists": 6
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2006"
+        },
+        {
+          "club": "Tractor Sazi",
+          "year": "2011"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2012"
+        },
+        {
+          "club": "FSV Frankfurt",
+          "year": "2015"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2016"
+        },
+        {
+          "club": "Panionios",
+          "year": "2017"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2018"
+        },
+        {
+          "club": "Tractor Sazi",
+          "year": "2018"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2021"
+        },
+        {
+          "club": "AEK Athens",
+          "year": "2021"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 630,
+        "goals": 66,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 141,
+        "goals": 7,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arya Yousefi",
@@ -143,9 +556,29 @@
       "age": 23,
       "nationality": "Iran",
       "club": "Sepahan FC",
-      "appearances": 29,
-      "goals": 2,
-      "assists": 3
+      "appearances": 20,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 8,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vakhdat Khanonov",
@@ -153,9 +586,41 @@
       "age": 25,
       "nationality": "Tajikistan",
       "club": "Sepahan FC",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2018"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2020"
+        },
+        {
+          "club": "Persepolis FC",
+          "year": "2021"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +630,45 @@
       "age": 26,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 27,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saipa FC",
+          "year": "2019"
+        },
+        {
+          "club": "Rayka Babol",
+          "year": "2022"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Aluminium Arak",
+          "year": "2023"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 15,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammadreza Bordbar",
@@ -175,19 +676,123 @@
       "age": 22,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Malavan",
+          "year": "2021"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Alves",
       "position": "Central Midfield",
-      "age": 32,
+      "age": 33,
       "nationality": "Portugal",
       "club": "Sepahan FC",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 3
+      "appearances": 16,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Porto Youth",
+          "year": "2003"
+        },
+        {
+          "club": "FC Porto U15",
+          "year": "2006"
+        },
+        {
+          "club": "Boavista U15",
+          "year": "2007"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2012"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2013"
+        },
+        {
+          "club": "Belenenses",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Rapid Bucharest",
+          "year": "2015"
+        },
+        {
+          "club": "NK Olimpija",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Orenburg",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2021"
+        },
+        {
+          "club": "Kairat Almaty",
+          "year": "2021"
+        },
+        {
+          "club": "Tractor",
+          "year": "2022"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 343,
+        "goals": 39,
+        "assists": 70,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seyed Mohammad Karimi",
@@ -195,9 +800,33 @@
       "age": 29,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Khooneh",
+          "year": "2017"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 10,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omid Noorafkan",
@@ -205,9 +834,61 @@
       "age": 28,
       "nationality": "Iran",
       "club": "Sepahan FC",
-      "appearances": 28,
+      "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Esteghlal FC",
+          "year": "2014"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2018"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2019"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2019"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2019"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2020"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2020"
+        },
+        {
+          "club": "Malavan",
+          "year": "2024"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 297,
+        "goals": 27,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 1,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Karimi",
@@ -215,9 +896,73 @@
       "age": 32,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2012"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2016"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2017"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2017"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2017"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2018"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Duhail SC",
+          "year": "2021"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2021"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 25,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arash Rezavand",
@@ -225,9 +970,49 @@
       "age": 32,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 27,
-      "goals": 6,
-      "assists": 2
+      "appearances": 18,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Naft Tehran",
+          "year": "2013"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2017"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2019"
+        },
+        {
+          "club": "Foolad",
+          "year": "2022"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2022"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 376,
+        "goals": 23,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1022,45 @@
       "age": 26,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 7,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qashqai Shiraz",
+          "year": "2020"
+        },
+        {
+          "club": "Foolad",
+          "year": "2021"
+        },
+        {
+          "club": "Paykan FC",
+          "year": "2022"
+        },
+        {
+          "club": "Aluminium Arak",
+          "year": "2023"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 21,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammadmehdi Lotfi",
@@ -247,9 +1068,41 @@
       "age": 25,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 29,
+      "appearances": 21,
       "goals": 1,
-      "assists": 4
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Niroye Zamini",
+          "year": "2020"
+        },
+        {
+          "club": "Paykan FC",
+          "year": "2022"
+        },
+        {
+          "club": "Aluminium Arak",
+          "year": "2023"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 2,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Khodadadi",
@@ -257,9 +1110,53 @@
       "age": 28,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 1
+      "appearances": 18,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zob Ahan",
+          "year": "2018"
+        },
+        {
+          "club": "Niroye Zamini",
+          "year": "2019"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2021"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2022"
+        },
+        {
+          "club": "Pars Jam",
+          "year": "2023"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 31,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arya Shafiedoust",
@@ -267,9 +1164,29 @@
       "age": 18,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 11,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taha Alemi",
@@ -279,17 +1196,85 @@
       "club": "Sepahan FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fard Alborz",
+          "year": "2024"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammadmehdi Mohebi",
       "position": "Right Winger",
       "age": 26,
-      "nationality": "Iran",
+      "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 16,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Naft M.I.S",
+          "year": "2020"
+        },
+        {
+          "club": "Paykan FC",
+          "year": "2021"
+        },
+        {
+          "club": "Mes Rafsanjan",
+          "year": "2022"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        },
+        {
+          "club": "Kalba FC",
+          "year": "2025"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2026"
+        },
+        {
+          "club": "Kalba FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 19,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iván Sánchez",
@@ -297,9 +1282,73 @@
       "age": 33,
       "nationality": "Spain",
       "club": "Sepahan FC",
-      "appearances": 21,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Real Jaén CF",
+          "year": "2010"
+        },
+        {
+          "club": "Atl. Madrileño",
+          "year": "2011"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2015"
+        },
+        {
+          "club": "Albacete",
+          "year": "2017"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2017"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2017"
+        },
+        {
+          "club": "Albacete",
+          "year": "2018"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2018"
+        },
+        {
+          "club": "Birmingham",
+          "year": "2020"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2022"
+        },
+        {
+          "club": "Birmingham",
+          "year": "2022"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 508,
+        "goals": 39,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Askari",
@@ -307,9 +1356,33 @@
       "age": 20,
       "nationality": "Iran",
       "club": "Sepahan FC",
-      "appearances": 16,
-      "goals": 7,
-      "assists": 0
+      "appearances": 10,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Foolad",
+          "year": "2023"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Kamali",
@@ -317,9 +1390,41 @@
       "age": 21,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2023"
+        },
+        {
+          "club": "Chadormalu SC",
+          "year": "2024"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Crivelli",
@@ -327,9 +1432,73 @@
       "age": 31,
       "nationality": "France",
       "club": "Sepahan FC",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "G. Bordeaux",
+          "year": "2015"
+        },
+        {
+          "club": "SC Bastia",
+          "year": "2016"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2017"
+        },
+        {
+          "club": "Angers SCO",
+          "year": "2017"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2018"
+        },
+        {
+          "club": "Angers SCO",
+          "year": "2018"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2019"
+        },
+        {
+          "club": "Antalyaspor",
+          "year": "2021"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2022"
+        },
+        {
+          "club": "Saint-Étienne",
+          "year": "2022"
+        },
+        {
+          "club": "Servette FC",
+          "year": "2022"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 406,
+        "goals": 78,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majid Aliyari",
@@ -337,9 +1506,53 @@
       "age": 30,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 20,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sabaye Qom",
+          "year": "2016"
+        },
+        {
+          "club": "Pars Jam",
+          "year": "2017"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2019"
+        },
+        {
+          "club": "Mes Rafsanjan",
+          "year": "2021"
+        },
+        {
+          "club": "Foolad",
+          "year": "2022"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2023"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 28,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaveh Rezaei",
@@ -347,9 +1560,77 @@
       "age": 33,
       "nationality": "TM nationality id 71",
       "club": "Sepahan FC",
-      "appearances": 24,
-      "goals": 3,
-      "assists": 2
+      "appearances": 16,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Foolad",
+          "year": "2009"
+        },
+        {
+          "club": "Saipa FC",
+          "year": "2012"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2014"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2016"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2018"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2019"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2020"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2020"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2021"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2021"
+        },
+        {
+          "club": "Tractor",
+          "year": "2022"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 412,
+        "goals": 101,
+        "assists": 54,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

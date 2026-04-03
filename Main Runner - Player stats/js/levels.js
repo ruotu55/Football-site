@@ -137,6 +137,7 @@ export function switchLevel(index) {
     if (els.careerWrap) {
       els.careerWrap.hidden = true;
     }
+    document.getElementById("player-stats-panel")?.remove();
     els.teamHeader.hidden = true;
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");

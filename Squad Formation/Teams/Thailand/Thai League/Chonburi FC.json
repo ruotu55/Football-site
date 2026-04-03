@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "THA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,65 @@
       "age": 31,
       "nationality": "Philippines",
       "club": "Chonburi FC",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Viborg FF",
+          "year": "2011"
+        },
+        {
+          "club": "Kjellerup IF",
+          "year": "2014"
+        },
+        {
+          "club": "Ringköbing IF",
+          "year": "2015"
+        },
+        {
+          "club": "Thisted FC",
+          "year": "2015"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2018"
+        },
+        {
+          "club": "HB Köge",
+          "year": "2019"
+        },
+        {
+          "club": "Vendsyssel FF",
+          "year": "2020"
+        },
+        {
+          "club": "Kuala Lumpur",
+          "year": "2021"
+        },
+        {
+          "club": "PERSIB",
+          "year": "2023"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 349,
+        "clean_sheets": 77
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 24,
+        "clean_sheets": 5
+      }
     },
     {
       "name": "Noppakun Kadtoon",
@@ -31,9 +88,45 @@
       "age": 31,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chiangmai Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2017"
+        },
+        {
+          "club": "Chiangmai Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Rayong FC",
+          "year": "2019"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 130,
+        "clean_sheets": 42
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thanawat Panthong",
@@ -43,7 +136,27 @@
       "club": "Chonburi FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siwat Chomphooviset",
@@ -53,7 +166,27 @@
       "club": "Chonburi FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +196,57 @@
       "age": 27,
       "nationality": "Philippines",
       "club": "Chonburi FC",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kawasaki Front.",
+          "year": "2017"
+        },
+        {
+          "club": "FC Gifu",
+          "year": "2019"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2020"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2020"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2021"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2021"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 9,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kike Linares",
@@ -73,9 +254,57 @@
       "age": 26,
       "nationality": "Philippines",
       "club": "Chonburi FC",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El Palo",
+          "year": "2018"
+        },
+        {
+          "club": "UD Montijo",
+          "year": "2019"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2020"
+        },
+        {
+          "club": "UD San Pedro",
+          "year": "2020"
+        },
+        {
+          "club": "Lamphun Warrior",
+          "year": "2022"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2023"
+        },
+        {
+          "club": "Lamphun Warrior",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nattapong Sayriya",
@@ -83,9 +312,33 @@
       "age": 33,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Swat Cat",
+          "year": "2016"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Fellipe",
@@ -93,9 +346,129 @@
       "age": 37,
       "nationality": "Brazil",
       "club": "Chonburi FC",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Volyn Lutsk",
+          "year": "2009"
+        },
+        {
+          "club": "Juventude",
+          "year": "2009"
+        },
+        {
+          "club": "Tombense",
+          "year": "2010"
+        },
+        {
+          "club": "Figueirense FC",
+          "year": "2010"
+        },
+        {
+          "club": "Náutico",
+          "year": "2011"
+        },
+        {
+          "club": "Tombense",
+          "year": "2011"
+        },
+        {
+          "club": "Paysandu",
+          "year": "2011"
+        },
+        {
+          "club": "Duque de Caxias",
+          "year": "2012"
+        },
+        {
+          "club": "Tombense",
+          "year": "2012"
+        },
+        {
+          "club": "América-RN",
+          "year": "2012"
+        },
+        {
+          "club": "Boavista",
+          "year": "2013"
+        },
+        {
+          "club": "Nova Iguaçu-RJ",
+          "year": "2013"
+        },
+        {
+          "club": "Madureira",
+          "year": "2016"
+        },
+        {
+          "club": "CSA",
+          "year": "2017"
+        },
+        {
+          "club": "Desportivo Aves",
+          "year": "2018"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2019"
+        },
+        {
+          "club": "Farense",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2020"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2021"
+        },
+        {
+          "club": "Santo André",
+          "year": "2022"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2022"
+        },
+        {
+          "club": "Nongbua FC",
+          "year": "2022"
+        },
+        {
+          "club": "Lampang FC",
+          "year": "2022"
+        },
+        {
+          "club": "Trat FC",
+          "year": "2023"
+        },
+        {
+          "club": "Nongbua FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 36,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chatmongkol Rueangthanarot",
@@ -103,19 +476,75 @@
       "age": 23,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Banbueng FC",
+          "year": "2020"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kittipong Sansanit",
       "position": "Left-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 16,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Assumption Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Udon Thani FC",
+          "year": "2020"
+        },
+        {
+          "club": "Samut Prakan C.",
+          "year": "2021"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thanphisit Peanksikum",
@@ -125,7 +554,27 @@
       "club": "Chonburi FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wathanyu Nairatsami",
@@ -135,7 +584,27 @@
       "club": "Chonburi FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiphap Channgom",
@@ -143,9 +612,45 @@
       "age": 29,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 3
+      "appearances": 24,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2017"
+        },
+        {
+          "club": "Air Force",
+          "year": "2017"
+        },
+        {
+          "club": "Police Tero FC",
+          "year": "2017"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 8,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thanaset Sujarit",
@@ -153,9 +658,85 @@
       "age": 31,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2017"
+        },
+        {
+          "club": "Trat FC",
+          "year": "2018"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2018"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2021"
+        },
+        {
+          "club": "Suphanburi FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2022"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2022"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2023"
+        },
+        {
+          "club": "Trat FC",
+          "year": "2023"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2024"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2025"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 4,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Suksan Bunta",
@@ -163,9 +744,41 @@
       "age": 23,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pattaya Dolphin",
+          "year": "2021"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2022"
+        },
+        {
+          "club": "Police Tero FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ratchanon Phoonpatanasab",
@@ -175,7 +788,27 @@
       "club": "Chonburi FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +818,33 @@
       "age": 26,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Swat Cat",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richmond Darko",
@@ -195,9 +852,37 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Chonburi FC",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Samartex",
+          "year": "2023"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pathomchai Seaisakul",
@@ -205,9 +890,53 @@
       "age": 37,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 12,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Trat FC",
+          "year": "2014"
+        },
+        {
+          "club": "Saraburi",
+          "year": "2015"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2016"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2023"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2024"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2025"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 293,
+        "goals": 13,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Queven",
@@ -215,9 +944,77 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Chonburi FC",
-      "appearances": 17,
-      "goals": 3,
-      "assists": 4
+      "appearances": 15,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Mirassol-SP",
+          "year": "2016"
+        },
+        {
+          "club": "AD Guarulhos",
+          "year": "2017"
+        },
+        {
+          "club": "AOK Kerkyra",
+          "year": "2017"
+        },
+        {
+          "club": "AD Guarulhos",
+          "year": "2019"
+        },
+        {
+          "club": "Três Corações",
+          "year": "2019"
+        },
+        {
+          "club": "Monte Azul",
+          "year": "2020"
+        },
+        {
+          "club": "Maringá",
+          "year": "2020"
+        },
+        {
+          "club": "Monte Azul",
+          "year": "2021"
+        },
+        {
+          "club": "Marcílio Dias",
+          "year": "2021"
+        },
+        {
+          "club": "Portuguesa",
+          "year": "2021"
+        },
+        {
+          "club": "FC Shkupi",
+          "year": "2022"
+        },
+        {
+          "club": "FC Ballkani",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 29,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rachata Moraksa",
@@ -225,9 +1022,61 @@
       "age": 26,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 1
+      "appearances": 20,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2018"
+        },
+        {
+          "club": "Banbueng Phuket",
+          "year": "2019"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Udon United",
+          "year": "2021"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2021"
+        },
+        {
+          "club": "Samut Prakan C.",
+          "year": "2022"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2023"
+        },
+        {
+          "club": "Police Tero FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chayathorn Tapsuvanavon",
@@ -235,9 +1084,57 @@
       "age": 26,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bangkok Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2020"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Navy FC",
+          "year": "2022"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Ayutthaya Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 2,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Channarong Promsrikaew",
@@ -245,9 +1142,45 @@
       "age": 24,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 1
+      "appearances": 23,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2018"
+        },
+        {
+          "club": "Banbueng FC",
+          "year": "2020"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Unión Adarve",
+          "year": "2021"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 19,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tanakon Pinkaew",
@@ -257,7 +1190,27 @@
       "club": "Chonburi FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chonburi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +1220,93 @@
       "age": 32,
       "nationality": "Colombia",
       "club": "Chonburi FC",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Uniautónoma",
+          "year": "2013"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2014"
+        },
+        {
+          "club": "Patriotas",
+          "year": "2014"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2015"
+        },
+        {
+          "club": "Cúcuta Dep.",
+          "year": "2015"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2016"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2018"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2018"
+        },
+        {
+          "club": "Rionegro Águila",
+          "year": "2018"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2020"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2021"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2021"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2023"
+        },
+        {
+          "club": "A. Bucaramanga",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Boyacá Chicó",
+          "year": "2025"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 352,
+        "goals": 37,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abo Eisa",
@@ -277,9 +1314,65 @@
       "age": 30,
       "nationality": "Sudan",
       "club": "Chonburi FC",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Wealdstone",
+          "year": "2017"
+        },
+        {
+          "club": "Shrewsbury",
+          "year": "2018"
+        },
+        {
+          "club": "Colchester Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Shrewsbury",
+          "year": "2019"
+        },
+        {
+          "club": "Scunthorpe Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Bradford",
+          "year": "2021"
+        },
+        {
+          "club": "Grimsby Town",
+          "year": "2023"
+        },
+        {
+          "club": "Nongbua FC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 39,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siraphop Wandee",
@@ -287,9 +1380,45 @@
       "age": 22,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Banbueng FC",
+          "year": "2022"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2022"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2023"
+        },
+        {
+          "club": "Suphanburi FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oege-Sietse van Lingen",
@@ -297,9 +1426,53 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "Chonburi FC",
-      "appearances": 25,
-      "goals": 8,
-      "assists": 6
+      "appearances": 24,
+      "goals": 7,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "ONS Sneek",
+          "year": "2019"
+        },
+        {
+          "club": "Katwijk",
+          "year": "2020"
+        },
+        {
+          "club": "Harkemase Boys",
+          "year": "2022"
+        },
+        {
+          "club": "Vict. Rosport",
+          "year": "2023"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2023"
+        },
+        {
+          "club": "Suphanburi FC",
+          "year": "2025"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 82,
+        "assists": 70,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Bolingi",
@@ -309,7 +1482,83 @@
       "club": "Chonburi FC",
       "appearances": 24,
       "goals": 6,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jomo Cosmos",
+          "year": "2013"
+        },
+        {
+          "club": "TP Mazembe",
+          "year": "2014"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2017"
+        },
+        {
+          "club": "TP Mazembe",
+          "year": "2017"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2017"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2018"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2018"
+        },
+        {
+          "club": "KAS Eupen",
+          "year": "2019"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2020"
+        },
+        {
+          "club": "Ankaragücü",
+          "year": "2020"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2021"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2021"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Vojvodina",
+          "year": "2023"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 231,
+        "goals": 57,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 33,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yotsakon Burapha",
@@ -317,9 +1566,45 @@
       "age": 20,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 20,
-      "goals": 9,
-      "assists": 4
+      "appearances": 10,
+      "goals": 4,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Samut Prakan C.",
+          "year": "2022"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2023"
+        },
+        {
+          "club": "PT Prachuap FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2025"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 23,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adisak Kraisorn",
@@ -327,9 +1612,81 @@
       "age": 35,
       "nationality": "Thailand",
       "club": "Chonburi FC",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2009"
+        },
+        {
+          "club": "Phuket",
+          "year": "2009"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2010"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2011"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2015"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Port FC",
+          "year": "2020"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Port FC",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Terengganu FC",
+          "year": "2022"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Kasetsart FC",
+          "year": "2024"
+        },
+        {
+          "club": "Chonburi FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 341,
+        "goals": 89,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 53,
+        "goals": 21,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

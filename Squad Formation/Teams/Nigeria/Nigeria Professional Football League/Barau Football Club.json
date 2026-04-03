@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "NPFL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nnewi United FC",
+          "year": "2020"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2023"
+        },
+        {
+          "club": "Bayelsa",
+          "year": "2025"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 45,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salim Ali",
@@ -33,7 +66,22 @@
       "club": "Barau Football Club",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yusuf Mohammed",
@@ -43,7 +91,43 @@
       "club": "Barau Football Club",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kwara United",
+          "year": "2019"
+        },
+        {
+          "club": "Adamawa United",
+          "year": "2020"
+        },
+        {
+          "club": "Wikki Tourists",
+          "year": "2023"
+        },
+        {
+          "club": "Niger Tornadoes",
+          "year": "2023"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 100,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emeka Nwabulu",
@@ -51,9 +135,45 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Heartland",
+          "year": "2021"
+        },
+        {
+          "club": "Rangers",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Plateau United",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 110,
+        "clean_sheets": 46
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oscar Destiny",
@@ -63,7 +183,22 @@
       "club": "Barau Football Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -73,9 +208,57 @@
       "age": 34,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 24,
+      "appearances": 26,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rangers",
+          "year": "2016"
+        },
+        {
+          "club": "KF Tirana",
+          "year": "2017"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2018"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2019"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2020"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2022"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yusuf Umar",
@@ -85,7 +268,22 @@
       "club": "Barau Football Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moses Tsehuan",
@@ -95,7 +293,47 @@
       "club": "Barau Football Club",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Desert Stars",
+          "year": "2018"
+        },
+        {
+          "club": "Nasarawa United",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2021"
+        },
+        {
+          "club": "Nasarawa United",
+          "year": "2025"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adamu Umar",
@@ -105,7 +343,22 @@
       "club": "Barau Football Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Nura",
@@ -113,9 +366,33 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 24,
+      "appearances": 26,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bismark Duah",
@@ -123,9 +400,24 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 27,
+      "appearances": 29,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sunday Dapma",
@@ -133,9 +425,24 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Uzochukwu Ezeobi",
@@ -145,7 +452,31 @@
       "club": "Barau Football Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Niger Tornadoes",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mike Zaruma",
@@ -153,9 +484,37 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Plateau United",
+          "year": "2019"
+        },
+        {
+          "club": "Sporting Lagos",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aliyu Sugau",
@@ -163,9 +522,24 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chisom Nkwocha",
@@ -175,7 +549,22 @@
       "club": "Barau Football Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Najib Yusuf",
@@ -185,7 +574,22 @@
       "club": "Barau Football Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -195,9 +599,29 @@
       "age": 21,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 18,
+      "appearances": 20,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Okoko",
@@ -207,7 +631,39 @@
       "club": "Barau Football Club",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fremad Amager",
+          "year": "2018"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2021"
+        },
+        {
+          "club": "Katsina Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthew Samuel",
@@ -217,7 +673,39 @@
       "club": "Barau Football Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ifeanyi Ubah",
+          "year": "2020"
+        },
+        {
+          "club": "Doma United",
+          "year": "2022"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jimmy Ambrose",
@@ -225,9 +713,37 @@
       "age": 28,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 30,
+      "appearances": 32,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wikki Tourists",
+          "year": "2020"
+        },
+        {
+          "club": "Plateau United",
+          "year": "2021"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ebuka Nwokorie",
@@ -235,9 +751,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 6,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abraham Nana Kwame",
@@ -245,9 +781,29 @@
       "age": 22,
       "nationality": "TM nationality id 123",
       "club": "Barau Football Club",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saad Tijjani",
@@ -257,7 +813,22 @@
       "club": "Barau Football Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shammasu Mohammed",
@@ -267,7 +838,31 @@
       "club": "Barau Football Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nasarawa United",
+          "year": "2018"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hillary Ekawu",
@@ -275,9 +870,33 @@
       "age": 21,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 29,
+      "appearances": 31,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Rangers",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chukwudi Nwaodu",
@@ -287,7 +906,47 @@
       "club": "Barau Football Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lobi Stars",
+          "year": "2019"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2020"
+        },
+        {
+          "club": "Rangers",
+          "year": "2022"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2024"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2025"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 15,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sunday Anthony",
@@ -295,9 +954,33 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 23,
+      "appearances": 25,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Plateau United",
+          "year": "2019"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 21,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed M Umar",
@@ -305,9 +988,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 28,
+      "appearances": 30,
       "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Mathias",
@@ -317,17 +1020,93 @@
       "club": "Barau Football Club",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kanemi Warriors",
+          "year": "2016"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2018"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2019"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2020"
+        },
+        {
+          "club": "Plateau United",
+          "year": "2021"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Gombe United",
+          "year": "2023"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 31,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulbari Nura",
       "position": "Attacking Midfield",
-      "age": 25,
+      "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Katsina Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -339,7 +1118,43 @@
       "club": "Barau Football Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2019"
+        },
+        {
+          "club": "Warri Wolves FC",
+          "year": "2020"
+        },
+        {
+          "club": "Shooting Stars",
+          "year": "2023"
+        },
+        {
+          "club": "Bendel Ins.",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Atule",
@@ -349,7 +1164,51 @@
       "club": "Barau Football Club",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cleopatra FC",
+          "year": "2021"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2021"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2022"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2022"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2023"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 29,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Uche Moses",
@@ -357,9 +1216,33 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 26,
+      "appearances": 27,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kun Khalifat FC",
+          "year": "2025"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Yahaya",
@@ -367,9 +1250,41 @@
       "age": 22,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 17,
+      "appearances": 18,
       "goals": 5,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Kwara United",
+          "year": "2023"
+        },
+        {
+          "club": "Katsina Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Bayelsa",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 17,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akpo Godwin",
@@ -379,7 +1294,47 @@
       "club": "Barau Football Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JS Agonlin",
+          "year": "2017"
+        },
+        {
+          "club": "Wikki Tourists",
+          "year": "2021"
+        },
+        {
+          "club": "Gombe United",
+          "year": "2022"
+        },
+        {
+          "club": "Attack Energy",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulmajid Aminu",
@@ -389,7 +1344,27 @@
       "club": "Barau Football Club",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henry Ezeonye",
@@ -397,9 +1372,29 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 27,
+      "appearances": 29,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stanley Oganbor",
@@ -407,9 +1402,57 @@
       "age": 27,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 19,
+      "appearances": 21,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Inter Bratislava",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Topflight",
+          "year": "2019"
+        },
+        {
+          "club": "Tulsa",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Flight FC",
+          "year": "2022"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2023"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 9,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saidu Salisu",
@@ -419,7 +1462,47 @@
       "club": "Barau Football Club",
       "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kano Pillars",
+          "year": "2021"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2022"
+        },
+        {
+          "club": "Kano Pillars",
+          "year": "2022"
+        },
+        {
+          "club": "Plateau United",
+          "year": "2023"
+        },
+        {
+          "club": "Sunshine Stars",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amah Chibundu",
@@ -429,7 +1512,51 @@
       "club": "Barau Football Club",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sunshine Stars",
+          "year": "2019"
+        },
+        {
+          "club": "FC Heartland",
+          "year": "2019"
+        },
+        {
+          "club": "Katsina Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Wikki Tourists",
+          "year": "2022"
+        },
+        {
+          "club": "Nasarawa United",
+          "year": "2024"
+        },
+        {
+          "club": "Unknown",
+          "year": "2025"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kabiru Abdullahi",
@@ -439,7 +1566,31 @@
       "club": "Barau Football Club",
       "appearances": 16,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Kemin",
@@ -449,7 +1600,22 @@
       "club": "Barau Football Club",
       "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jude Mamman",
@@ -459,7 +1625,27 @@
       "club": "Barau Football Club",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adamu Ibrahim Falco Musa",
@@ -469,7 +1655,31 @@
       "club": "Barau Football Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kano Pillars",
+          "year": "2024"
+        },
+        {
+          "club": "Barau FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Yunusa Sulaiman",
@@ -479,7 +1689,22 @@
       "club": "Barau Football Club",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adamu Husseini",
@@ -487,9 +1712,24 @@
       "age": null,
       "nationality": "Nigeria",
       "club": "Barau Football Club",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ARM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 24,
       "nationality": "Comoros",
       "club": "FC Ararat Yerevan",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Martigues",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 69,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 9,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Andranik Martirosyan",
@@ -31,9 +56,41 @@
       "age": 23,
       "nationality": "Armenia",
       "club": "FC Ararat Yerevan",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "West Armenia",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Tigranakert",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 71,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +100,45 @@
       "age": 26,
       "nationality": "Armenia",
       "club": "FC Ararat Yerevan",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat-Armenia",
+          "year": "2017"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2019"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Artur Kartashyan",
@@ -55,7 +148,67 @@
       "club": "FC Ararat Yerevan",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2015"
+        },
+        {
+          "club": "FC Sevan",
+          "year": "2021"
+        },
+        {
+          "club": "FC Noah",
+          "year": "2022"
+        },
+        {
+          "club": "Olympiakos N.",
+          "year": "2022"
+        },
+        {
+          "club": "FC Van",
+          "year": "2023"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2023"
+        },
+        {
+          "club": "FC Telavi",
+          "year": "2024"
+        },
+        {
+          "club": "Alashkert FC",
+          "year": "2024"
+        },
+        {
+          "club": "West Armenia",
+          "year": "2024"
+        },
+        {
+          "club": "Alashkert FC",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guy Lima",
@@ -63,9 +216,29 @@
       "age": 19,
       "nationality": "Senegal",
       "club": "FC Ararat Yerevan",
-      "appearances": 10,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aphelele Modolwana",
@@ -73,9 +246,29 @@
       "age": 23,
       "nationality": "South Africa",
       "club": "FC Ararat Yerevan",
-      "appearances": 13,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malick Aziz Berte",
@@ -85,7 +278,31 @@
       "club": "FC Ararat Yerevan",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guidars FC",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aram Aslanyan",
@@ -93,9 +310,33 @@
       "age": 21,
       "nationality": "Armenia",
       "club": "FC Ararat Yerevan",
-      "appearances": 22,
-      "goals": 4,
-      "assists": 1
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Youth",
+          "year": "2021"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Divine Ukadike",
@@ -105,7 +346,31 @@
       "club": "FC Ararat Yerevan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enyimba Aba",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Volodya Samsonyan",
@@ -115,7 +380,35 @@
       "club": "FC Ararat Yerevan",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2018"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2019"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clinton Dombila",
@@ -125,7 +418,27 @@
       "club": "FC Ararat Yerevan",
       "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ernest Kacou",
@@ -133,9 +446,29 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "FC Ararat Yerevan",
-      "appearances": 14,
-      "goals": 4,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souleymane Touré",
@@ -145,7 +478,27 @@
       "club": "FC Ararat Yerevan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +508,29 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "FC Ararat Yerevan",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 1
+      "appearances": 17,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moussa Kante",
@@ -165,9 +538,29 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "FC Ararat Yerevan",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Artur Grigoryan",
@@ -175,19 +568,73 @@
       "age": 32,
       "nationality": "Armenia",
       "club": "FC Ararat Yerevan",
-      "appearances": 18,
-      "goals": 0,
-      "assists": 2
-    },
-    {
-      "name": "Aleksandr Aleksanyan",
-      "position": "Central Midfield",
-      "age": 19,
-      "nationality": "Armenia",
-      "club": "FC Ararat Yerevan",
       "appearances": 17,
-      "goals": 6,
-      "assists": 0
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2012"
+        },
+        {
+          "club": "Ulisses",
+          "year": "2014"
+        },
+        {
+          "club": "MIKA Ashtarak",
+          "year": "2014"
+        },
+        {
+          "club": "Artsakh Erewan",
+          "year": "2017"
+        },
+        {
+          "club": "Gandzasar",
+          "year": "2019"
+        },
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2020"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2021"
+        },
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2022"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2022"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2024"
+        },
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2025"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 314,
+        "goals": 5,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aboubacar Sidick Ouattara",
@@ -195,9 +642,59 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "FC Ararat Yerevan",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Aleksandr Aleksanyan",
+      "position": "Central Midfield",
+      "age": 19,
+      "nationality": "Armenia",
+      "club": "FC Ararat Yerevan",
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Okuchukwu Precious Chukwu",
@@ -207,17 +704,27 @@
       "club": "FC Ararat Yerevan",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Alen Mkrtchyan",
-      "position": "Right Midfield",
-      "age": 19,
-      "nationality": "Armenia",
-      "club": "FC Ararat Yerevan II",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Prince Obinna",
@@ -226,18 +733,53 @@
       "nationality": "Nigeria",
       "club": "FC Ararat Yerevan",
       "appearances": 3,
-      "goals": 0,
-      "assists": 1
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Abdul Karim Djiré",
-      "position": "Attacking Midfield",
-      "age": 20,
-      "nationality": "Mali",
-      "club": "FC Ararat Yerevan",
-      "appearances": 11,
+      "name": "Alen Mkrtchyan",
+      "position": "Right Midfield",
+      "age": 19,
+      "nationality": "Armenia",
+      "club": "FC Ararat Yerevan II",
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gor Lulukyan",
@@ -245,9 +787,71 @@
       "age": 23,
       "nationality": "Armenia",
       "club": "FC Ararat Yerevan",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 0
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Urartu",
+          "year": "2021"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2022"
+        },
+        {
+          "club": "FC Urartu",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 15,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Abdul Karim Djiré",
+      "position": "Attacking Midfield",
+      "age": 20,
+      "nationality": "Mali",
+      "club": "FC Ararat Yerevan",
+      "appearances": 9,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gagik Simonyan",
@@ -255,9 +859,29 @@
       "age": 20,
       "nationality": "Armenia",
       "club": "FC Ararat Yerevan",
-      "appearances": 16,
-      "goals": 3,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +891,37 @@
       "age": 23,
       "nationality": "Ivory Coast",
       "club": "FC Ararat Yerevan",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SO Armée",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adama Méïté",
@@ -277,9 +929,29 @@
       "age": 21,
       "nationality": "Ivory Coast",
       "club": "FC Ararat Yerevan",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Victoire Handzongo",
@@ -287,9 +959,29 @@
       "age": 21,
       "nationality": "Cameroon",
       "club": "FC Ararat Yerevan",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kalifala Mamadou Doumbia",
@@ -297,9 +989,29 @@
       "age": 21,
       "nationality": "Mali",
       "club": "FC Ararat Yerevan",
-      "appearances": 17,
-      "goals": 4,
-      "assists": 0
+      "appearances": 16,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ararat Yerevan",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 15,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

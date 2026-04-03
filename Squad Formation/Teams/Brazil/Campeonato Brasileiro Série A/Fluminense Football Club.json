@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "BRA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cruzeiro",
+          "year": "2018"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2022"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 43,
+        "clean_sheets": 11
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcelo Pitaluga",
@@ -33,7 +62,93 @@
       "club": "Fluminense Football Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool",
+          "year": "2020"
+        },
+        {
+          "club": "Macclesfield",
+          "year": "2022"
+        },
+        {
+          "club": "Liverpool",
+          "year": "2023"
+        },
+        {
+          "club": "St. Pat's",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool",
+          "year": "2024"
+        },
+        {
+          "club": "Livingston FC",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 80,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Gustavo Ramalho",
+      "position": "Goalkeeper",
+      "age": 23,
+      "nationality": "Brazil",
+      "club": "Fluminense Football Club",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2024"
+        },
+        {
+          "club": "Torreense S23",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 15,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fábio",
@@ -41,9 +156,53 @@
       "age": 45,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético-PR",
+          "year": "1998"
+        },
+        {
+          "club": "Bandeirante FC",
+          "year": "1999"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2000"
+        },
+        {
+          "club": "Bandeirante FC",
+          "year": "2000"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2000"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2005"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1286,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1341,
+        "clean_sheets": 478
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,19 +212,119 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "Fluminense Football Club",
-      "appearances": 13,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Newell's",
+          "year": "2021"
+        },
+        {
+          "club": "Ind. Rivadavia",
+          "year": "2021"
+        },
+        {
+          "club": "Newell's",
+          "year": "2022"
+        },
+        {
+          "club": "La Calera",
+          "year": "2023"
+        },
+        {
+          "club": "Newell's",
+          "year": "2023"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2024"
+        },
+        {
+          "club": "Newell's",
+          "year": "2024"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julián Millán",
       "position": "Centre-Back",
-      "age": 27,
+      "age": 28,
       "nationality": "Colombia",
       "club": "Fluminense Football Club",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Llaneros FC",
+          "year": "2018"
+        },
+        {
+          "club": "Inter Palmira",
+          "year": "2018"
+        },
+        {
+          "club": "Patriotas",
+          "year": "2019"
+        },
+        {
+          "club": "Inter Palmira",
+          "year": "2020"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2023"
+        },
+        {
+          "club": "Inter Palmira",
+          "year": "2024"
+        },
+        {
+          "club": "Nacional",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 241,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jemmes",
@@ -73,9 +332,65 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 13,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Capivariano",
+          "year": "2021"
+        },
+        {
+          "club": "União Suzano",
+          "year": "2021"
+        },
+        {
+          "club": "Rio Branco-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2022"
+        },
+        {
+          "club": "Athletic",
+          "year": "2023"
+        },
+        {
+          "club": "Capivariano",
+          "year": "2023"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2024"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2025"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ignácio",
@@ -83,9 +398,61 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 9,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "VOCEM",
+          "year": "2017"
+        },
+        {
+          "club": "Força e Luz",
+          "year": "2018"
+        },
+        {
+          "club": "ASSU-RN",
+          "year": "2018"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2019"
+        },
+        {
+          "club": "CSA",
+          "year": "2020"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2021"
+        },
+        {
+          "club": "Chapecoense",
+          "year": "2021"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2023"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Igor Rabello",
@@ -93,9 +460,45 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Botafogo",
+          "year": "2014"
+        },
+        {
+          "club": "Náutico",
+          "year": "2016"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2016"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2019"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 333,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davi Schuindt",
@@ -103,9 +506,29 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Loiola",
@@ -113,9 +536,24 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "Fluminense FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guilherme Arana",
@@ -123,9 +561,61 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 12,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Corinthians",
+          "year": "2015"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2015"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2018"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2019"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2020"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2020"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2021"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2021"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 401,
+        "goals": 31,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Renê",
@@ -133,9 +623,41 @@
       "age": 33,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 11,
+      "appearances": 6,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sport Recife",
+          "year": "2012"
+        },
+        {
+          "club": "Flamengo",
+          "year": "2017"
+        },
+        {
+          "club": "Internacional",
+          "year": "2022"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 591,
+        "goals": 17,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guga",
@@ -143,19 +665,37 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 11,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Jhonny",
-      "position": "Right-Back",
-      "age": 23,
-      "nationality": "Brazil",
-      "club": "Fluminense Football Club",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Avaí FC",
+          "year": "2018"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2019"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 8,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julio Fidelis",
@@ -163,9 +703,29 @@
       "age": 19,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Xavier",
@@ -173,9 +733,61 @@
       "age": 35,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paulista-SP",
+          "year": "2010"
+        },
+        {
+          "club": "São Caetano",
+          "year": "2012"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2014"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2015"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2018"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2018"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2018"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2019"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 725,
+        "goals": 27,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +797,29 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 15,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Bernal",
@@ -195,9 +827,33 @@
       "age": 22,
       "nationality": "Uruguay",
       "club": "Fluminense Football Club",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Defensor SC",
+          "year": "2021"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Otávio",
@@ -205,9 +861,45 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 8,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlético-PR",
+          "year": "2014"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2017"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2022"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2022"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 454,
+        "goals": 6,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hércules",
@@ -215,9 +907,41 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Crato",
+          "year": "2020"
+        },
+        {
+          "club": "Atlético-CE",
+          "year": "2021"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2022"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 235,
+        "goals": 28,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nonato",
@@ -225,9 +949,77 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "São Caetano",
+          "year": "2017"
+        },
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "São Caetano",
+          "year": "2019"
+        },
+        {
+          "club": "Internacional",
+          "year": "2019"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2021"
+        },
+        {
+          "club": "Internacional",
+          "year": "2022"
+        },
+        {
+          "club": "Ludogorets",
+          "year": "2022"
+        },
+        {
+          "club": "Santos",
+          "year": "2023"
+        },
+        {
+          "club": "Ludogorets",
+          "year": "2024"
+        },
+        {
+          "club": "Santos",
+          "year": "2024"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2024"
+        },
+        {
+          "club": "Santos",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 20,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alisson",
@@ -235,9 +1027,53 @@
       "age": 32,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cruzeiro",
+          "year": "2012"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2013"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2013"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2018"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2022"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 543,
+        "goals": 54,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jefferson Savarino",
@@ -245,9 +1081,53 @@
       "age": 29,
       "nationality": "Venezuela",
       "club": "Fluminense Football Club",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 2
+      "appearances": 7,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Salt Lake",
+          "year": "2017"
+        },
+        {
+          "club": "Zulia FC",
+          "year": "2017"
+        },
+        {
+          "club": "Salt Lake",
+          "year": "2018"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2020"
+        },
+        {
+          "club": "Salt Lake",
+          "year": "2022"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2024"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 428,
+        "goals": 109,
+        "assists": 88,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luciano Acosta",
@@ -255,9 +1135,65 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Fluminense Football Club",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 3,
-      "assists": 5
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Boca Juniors",
+          "year": "2014"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2015"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2015"
+        },
+        {
+          "club": "D.C. United",
+          "year": "2016"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2016"
+        },
+        {
+          "club": "D.C. United",
+          "year": "2017"
+        },
+        {
+          "club": "Atlas",
+          "year": "2020"
+        },
+        {
+          "club": "Cincinnati",
+          "year": "2021"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 448,
+        "goals": 99,
+        "assists": 101,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Terans",
@@ -265,9 +1201,73 @@
       "age": 31,
       "nationality": "Uruguay",
       "club": "Fluminense Football Club",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 12,
+      "goals": 13,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanderers",
+          "year": "2016"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2017"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2017"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2018"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2018"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2020"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2021"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2021"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2023"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2024"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 418,
+        "goals": 104,
+        "assists": 70,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ganso",
@@ -275,9 +1275,49 @@
       "age": 36,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santos",
+          "year": "2008"
+        },
+        {
+          "club": "São Paulo",
+          "year": "2012"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2016"
+        },
+        {
+          "club": "Amiens SC",
+          "year": "2018"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2019"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 722,
+        "goals": 99,
+        "assists": 115,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -287,9 +1327,49 @@
       "age": 27,
       "nationality": "Uruguay",
       "club": "Fluminense Football Club",
-      "appearances": 13,
-      "goals": 4,
-      "assists": 0
+      "appearances": 7,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CA Fénix",
+          "year": "2016"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2018"
+        },
+        {
+          "club": "CA Fénix",
+          "year": "2020"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2021"
+        },
+        {
+          "club": "Athletico-PR",
+          "year": "2022"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 407,
+        "goals": 55,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yeferson Soteldo",
@@ -299,17 +1379,105 @@
       "club": "Fluminense Football Club",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zamora FC",
+          "year": "2013"
+        },
+        {
+          "club": "Huachipato",
+          "year": "2017"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2018"
+        },
+        {
+          "club": "Huachipato",
+          "year": "2018"
+        },
+        {
+          "club": "Santos",
+          "year": "2019"
+        },
+        {
+          "club": "Toronto",
+          "year": "2021"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2022"
+        },
+        {
+          "club": "Santos",
+          "year": "2022"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2023"
+        },
+        {
+          "club": "Santos",
+          "year": "2023"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2024"
+        },
+        {
+          "club": "Santos",
+          "year": "2024"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 379,
+        "goals": 52,
+        "assists": 65,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 54,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matheus Reis",
       "position": "Left Winger",
-      "age": 18,
+      "age": 19,
       "nationality": "Mexico",
       "club": "Fluminense Football Club",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riquelme",
@@ -317,9 +1485,29 @@
       "age": 19,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Serna",
@@ -327,19 +1515,53 @@
       "age": 28,
       "nationality": "Colombia",
       "club": "Fluminense Football Club",
-      "appearances": 15,
-      "goals": 5,
-      "assists": 0
-    },
-    {
-      "name": "Santiago Moreno",
-      "position": "Right Winger",
-      "age": 25,
-      "nationality": "Colombia",
-      "club": "Fluminense Football Club",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Perafita",
+          "year": "2018"
+        },
+        {
+          "club": "Serzedo",
+          "year": "2018"
+        },
+        {
+          "club": "Luqueño",
+          "year": "2019"
+        },
+        {
+          "club": "Santa Rosa",
+          "year": "2021"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2022"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2024"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 50,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Kennedy",
@@ -347,9 +1569,45 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Fluminense Football Club",
-      "appearances": 17,
-      "goals": 5,
-      "assists": 1
+      "appearances": 8,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2021"
+        },
+        {
+          "club": "Ferroviária",
+          "year": "2023"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2023"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 65,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Castillo",
@@ -357,9 +1615,41 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Fluminense Football Club",
-      "appearances": 11,
-      "goals": 4,
-      "assists": 3
+      "appearances": 5,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Madryn",
+          "year": "2022"
+        },
+        {
+          "club": "Gimnasia",
+          "year": "2023"
+        },
+        {
+          "club": "Lanús",
+          "year": "2025"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 41,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Germán Cano",
@@ -367,9 +1657,81 @@
       "age": 38,
       "nationality": "Argentina",
       "club": "Fluminense Football Club",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lanús",
+          "year": "2007"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "year": "2009"
+        },
+        {
+          "club": "Lanús",
+          "year": "2010"
+        },
+        {
+          "club": "Colon",
+          "year": "2011"
+        },
+        {
+          "club": "Lanús",
+          "year": "2011"
+        },
+        {
+          "club": "Pereira",
+          "year": "2011"
+        },
+        {
+          "club": "Nacional",
+          "year": "2012"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2012"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2015"
+        },
+        {
+          "club": "León",
+          "year": "2016"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2017"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2018"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2020"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 674,
+        "goals": 319,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

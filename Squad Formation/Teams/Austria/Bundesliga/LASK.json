@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "A1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 21,
       "nationality": "Austria",
       "club": "LASK",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LASK Youth",
+          "year": "2015"
+        },
+        {
+          "club": "FAL U15",
+          "year": "2018"
+        },
+        {
+          "club": "Juniors OÖ",
+          "year": "2020"
+        },
+        {
+          "club": "LASK",
+          "year": "2023"
+        },
+        {
+          "club": "Admira Wacker",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 166,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Tobias Schützenauer",
@@ -33,7 +74,51 @@
       "club": "LASK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GAK Youth",
+          "year": "2004"
+        },
+        {
+          "club": "Sturm Graz U15",
+          "year": "2010"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2014"
+        },
+        {
+          "club": "SCR Altach",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 141,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Schillinger",
@@ -41,9 +126,37 @@
       "age": 18,
       "nationality": "Austria",
       "club": "LASK Amateure OÖ",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juniors OÖ You",
+          "year": "2020"
+        },
+        {
+          "club": "AKA OÖ U15",
+          "year": "2021"
+        },
+        {
+          "club": "Amateure OÖ",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 96,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      }
     }
   ],
   "defenders": [
@@ -53,9 +166,37 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "LASK",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 3
+      "appearances": 19,
+      "goals": 0,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Amateure OÖ",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrés Andrade",
@@ -63,9 +204,49 @@
       "age": 27,
       "nationality": "Panama",
       "club": "LASK",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 1
+      "appearances": 22,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Juniors OÖ",
+          "year": "2018"
+        },
+        {
+          "club": "LASK",
+          "year": "2020"
+        },
+        {
+          "club": "Arm. Bielefeld",
+          "year": "2021"
+        },
+        {
+          "club": "LASK",
+          "year": "2022"
+        },
+        {
+          "club": "Arm. Bielefeld",
+          "year": "2022"
+        },
+        {
+          "club": "LASK",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 245,
+        "goals": 10,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Tornich",
@@ -73,9 +254,41 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "LASK",
-      "appearances": 20,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portimonense 23",
+          "year": "2023"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xavier Mbuyamba",
@@ -83,9 +296,37 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "LASK",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MVV 19",
+          "year": "2018"
+        },
+        {
+          "club": "FC Volendam",
+          "year": "2022"
+        },
+        {
+          "club": "LASK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 14,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "George Bello",
@@ -93,9 +334,49 @@
       "age": 24,
       "nationality": "United States",
       "club": "LASK",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 4
+      "appearances": 22,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Atlanta",
+          "year": "2018"
+        },
+        {
+          "club": "ATL UTD 2",
+          "year": "2018"
+        },
+        {
+          "club": "ATL UTD 2",
+          "year": "2019"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2019"
+        },
+        {
+          "club": "Arm. Bielefeld",
+          "year": "2022"
+        },
+        {
+          "club": "LASK",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 8,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Michael",
@@ -103,9 +384,41 @@
       "age": 19,
       "nationality": "Nigeria",
       "club": "LASK",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gombe United",
+          "year": "2023"
+        },
+        {
+          "club": "Simoiben FC",
+          "year": "2024"
+        },
+        {
+          "club": "Amateure OÖ",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kasper Jørgensen",
@@ -113,9 +426,45 @@
       "age": 26,
       "nationality": "Denmark",
       "club": "LASK",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 5,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Lyngby BK",
+          "year": "2019"
+        },
+        {
+          "club": "Aalesunds FK",
+          "year": "2020"
+        },
+        {
+          "club": "Lyngby BK",
+          "year": "2020"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 30,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +474,49 @@
       "age": 23,
       "nationality": "Suriname",
       "club": "LASK",
-      "appearances": 24,
+      "appearances": 20,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Hoffenheim",
+          "year": "2020"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2022"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2022"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2022"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 8,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Art Smakaj",
@@ -135,9 +524,37 @@
       "age": 23,
       "nationality": "TM nationality id 244",
       "club": "LASK",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Trnje Zagreb",
+          "year": "2013"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2022"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 9,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adetunji Rasaq Adeshina",
@@ -145,9 +562,33 @@
       "age": 21,
       "nationality": "Nigeria",
       "club": "LASK",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Novi Pazar",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 12,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sascha Horvath",
@@ -155,9 +596,65 @@
       "age": 29,
       "nationality": "Austria",
       "club": "LASK",
-      "appearances": 26,
+      "appearances": 21,
       "goals": 1,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "AKA Austria U15",
+          "year": "2010"
+        },
+        {
+          "club": "A. Vienna Res.",
+          "year": "2012"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2013"
+        },
+        {
+          "club": "A. Vienna Res.",
+          "year": "2013"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2015"
+        },
+        {
+          "club": "Dynamo Dresden",
+          "year": "2017"
+        },
+        {
+          "club": "FC Wacker",
+          "year": "2019"
+        },
+        {
+          "club": "Dynamo Dresden",
+          "year": "2019"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2020"
+        },
+        {
+          "club": "LASK",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 411,
+        "goals": 37,
+        "assists": 62,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismaila Coulibaly",
@@ -165,9 +662,53 @@
       "age": 25,
       "nationality": "Mali",
       "club": "LASK",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sarpsborg 08",
+          "year": "2019"
+        },
+        {
+          "club": "Sheff Utd",
+          "year": "2020"
+        },
+        {
+          "club": "Beerschot VA",
+          "year": "2020"
+        },
+        {
+          "club": "Sheff Utd",
+          "year": "2022"
+        },
+        {
+          "club": "AIK",
+          "year": "2024"
+        },
+        {
+          "club": "Sheff Utd",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Sanogo",
@@ -175,9 +716,37 @@
       "age": 22,
       "nationality": "Mali",
       "club": "LASK",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HNK Gorica",
+          "year": "2022"
+        },
+        {
+          "club": "First Vienna FC",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florian Flecker",
@@ -185,9 +754,57 @@
       "age": 30,
       "nationality": "Austria",
       "club": "LASK",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AKA Kapfenberg",
+          "year": "2010"
+        },
+        {
+          "club": "SV Kapfenberg",
+          "year": "2015"
+        },
+        {
+          "club": "Wolfsberger AC",
+          "year": "2017"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2018"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2019"
+        },
+        {
+          "club": "Würzb. Kickers",
+          "year": "2020"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2021"
+        },
+        {
+          "club": "LASK",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 51,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Krystof Danek",
@@ -195,9 +812,49 @@
       "age": 23,
       "nationality": "Czech Republic",
       "club": "LASK",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 2,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sigma Olomouc",
+          "year": "2020"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2022"
+        },
+        {
+          "club": "Pardubice",
+          "year": "2023"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 37,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christoph Lang",
@@ -205,9 +862,57 @@
       "age": 24,
       "nationality": "Austria",
       "club": "LASK",
-      "appearances": 23,
-      "goals": 5,
-      "assists": 2
+      "appearances": 20,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Stmk.-Sturm U15",
+          "year": "2016"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2021"
+        },
+        {
+          "club": "SV Ried",
+          "year": "2023"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2023"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2024"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 51,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lukas Kacavenda",
@@ -215,9 +920,49 @@
       "age": 23,
       "nationality": "Croatia",
       "club": "LASK",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 2
+      "appearances": 10,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NK Lokomotiva",
+          "year": "2021"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Armin Haider",
@@ -225,9 +970,37 @@
       "age": 20,
       "nationality": "Austria",
       "club": "LASK Amateure OÖ",
-      "appearances": 13,
-      "goals": 5,
-      "assists": 5
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juniors OÖ You",
+          "year": "2019"
+        },
+        {
+          "club": "AKA OÖ U15",
+          "year": "2019"
+        },
+        {
+          "club": "Amateure OÖ",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 33,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1010,41 @@
       "age": 24,
       "nationality": "Nigeria",
       "club": "LASK",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 9,
-      "assists": 8
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Slavia Praha",
+          "year": "2022"
+        },
+        {
+          "club": "LASK",
+          "year": "2023"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 28,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sasa Kalajdzic",
@@ -247,9 +1052,57 @@
       "age": 28,
       "nationality": "Austria",
       "club": "LASK",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 3
+      "appearances": 15,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SR Donaufeld",
+          "year": "2014"
+        },
+        {
+          "club": "Admira Wacker",
+          "year": "2017"
+        },
+        {
+          "club": "Stuttgart",
+          "year": "2019"
+        },
+        {
+          "club": "Wolves",
+          "year": "2022"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2024"
+        },
+        {
+          "club": "Wolves",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        },
+        {
+          "club": "Wolves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 62,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Adeniran",
@@ -257,9 +1110,81 @@
       "age": 27,
       "nationality": "United States",
       "club": "LASK",
-      "appearances": 26,
-      "goals": 9,
-      "assists": 3
+      "appearances": 23,
+      "goals": 7,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "CD Guadalajara",
+          "year": "2018"
+        },
+        {
+          "club": "Castellón",
+          "year": "2019"
+        },
+        {
+          "club": "Kickers Emden",
+          "year": "2019"
+        },
+        {
+          "club": "SVA Delmenhorst",
+          "year": "2020"
+        },
+        {
+          "club": "Tacoma Defiance",
+          "year": "2021"
+        },
+        {
+          "club": "Seattle",
+          "year": "2021"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2022"
+        },
+        {
+          "club": "Seattle",
+          "year": "2022"
+        },
+        {
+          "club": "St. Louis CITY",
+          "year": "2022"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2023"
+        },
+        {
+          "club": "St. Louis CITY",
+          "year": "2023"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2024"
+        },
+        {
+          "club": "LASK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 60,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maximilian Entrup",
@@ -269,7 +1194,75 @@
       "club": "LASK",
       "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enzersfeld Jgd",
+          "year": "2004"
+        },
+        {
+          "club": "AKA Austria U15",
+          "year": "2011"
+        },
+        {
+          "club": "FAC Youth",
+          "year": "2012"
+        },
+        {
+          "club": "FAC",
+          "year": "2016"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2016"
+        },
+        {
+          "club": "SKN St. Pölten",
+          "year": "2017"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "SV Lafnitz",
+          "year": "2018"
+        },
+        {
+          "club": "Traiskirchen",
+          "year": "2020"
+        },
+        {
+          "club": "FC Marchfeld",
+          "year": "2022"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 219,
+        "goals": 94,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

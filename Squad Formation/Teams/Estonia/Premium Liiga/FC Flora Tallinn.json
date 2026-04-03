@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "EST1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 24,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JK Tabasalu",
+          "year": "2021"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 165,
+        "clean_sheets": 59
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaur Kivila",
@@ -31,9 +56,45 @@
       "age": 22,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JK Welco",
+          "year": "2019"
+        },
+        {
+          "club": "Carpi",
+          "year": "2022"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2023"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2024"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 294,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Kristen Lapa",
@@ -41,9 +102,45 @@
       "age": 26,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2018"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2021"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2021"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2022"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 256,
+        "clean_sheets": 73
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andero Tatrik",
@@ -51,9 +148,29 @@
       "age": 14,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 2
+      }
     }
   ],
   "defenders": [
@@ -63,9 +180,29 @@
       "age": 20,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mihhail Kolobov",
@@ -73,9 +210,37 @@
       "age": 21,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Legion Youth",
+          "year": "2016"
+        },
+        {
+          "club": "TJK Legion",
+          "year": "2022"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 21,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andreas Vaher",
@@ -85,7 +250,35 @@
       "club": "FC Flora Tallinn",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nomme United",
+          "year": "2020"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2024"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oscar Pihela",
@@ -93,19 +286,79 @@
       "age": 19,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
-      "goals": 3,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kuressaare",
+          "year": "2023"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2023"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2024"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sander Tovstik",
       "position": "Left-Back",
-      "age": 19,
+      "age": 20,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Viimsi JK",
+          "year": "2023"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Airon Kollo",
@@ -113,9 +366,33 @@
       "age": 18,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kalev",
+          "year": "2025"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matvei Jekimov",
@@ -125,7 +402,39 @@
       "club": "FC Flora Tallinn",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Tallinn",
+          "year": "2022"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2025"
+        },
+        {
+          "club": "FC Tallinn",
+          "year": "2025"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mark Hendrik Kukk",
@@ -133,9 +442,29 @@
       "age": 18,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +474,77 @@
       "age": 33,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Puuma",
+          "year": "2011"
+        },
+        {
+          "club": "Levadia",
+          "year": "2012"
+        },
+        {
+          "club": "SV Horn",
+          "year": "2017"
+        },
+        {
+          "club": "Rudar Velenje",
+          "year": "2017"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2018"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2019"
+        },
+        {
+          "club": "FCI Levadia",
+          "year": "2021"
+        },
+        {
+          "club": "Kalju FC",
+          "year": "2023"
+        },
+        {
+          "club": "Corvinul",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2024"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2025"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 429,
+        "goals": 42,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 52,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Remo Valdmets",
@@ -155,9 +552,29 @@
       "age": 18,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tristan Teeväli",
@@ -165,9 +582,53 @@
       "age": 22,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kalev",
+          "year": "2020"
+        },
+        {
+          "club": "Kuressaare",
+          "year": "2022"
+        },
+        {
+          "club": "Kalev",
+          "year": "2022"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2023"
+        },
+        {
+          "club": "Kalev",
+          "year": "2023"
+        },
+        {
+          "club": "Kalev",
+          "year": "2024"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 251,
+        "goals": 35,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vladislav Kreida",
@@ -175,9 +636,65 @@
       "age": 26,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2018"
+        },
+        {
+          "club": "Helsingborgs IF",
+          "year": "2021"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2021"
+        },
+        {
+          "club": "Veres Rivne",
+          "year": "2022"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2022"
+        },
+        {
+          "club": "Skövde AIK",
+          "year": "2022"
+        },
+        {
+          "club": "St. Pat's",
+          "year": "2023"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2023"
+        },
+        {
+          "club": "Sigma Olomouc",
+          "year": "2025"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 24,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikita Kalmokov",
@@ -185,9 +702,37 @@
       "age": 17,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
-      "goals": 2,
-      "assists": 1
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nomme Youth",
+          "year": "2021"
+        },
+        {
+          "club": "Nomme United",
+          "year": "2025"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maksim Kalimullin",
@@ -195,9 +740,45 @@
       "age": 19,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 3,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Tallinn",
+          "year": "2022"
+        },
+        {
+          "club": "FC Tallinn",
+          "year": "2023"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2024"
+        },
+        {
+          "club": "FC Tallinn",
+          "year": "2024"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 104,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +788,29 @@
       "age": 22,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
-      "goals": 2,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 62,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sander Alamaa",
@@ -217,9 +818,29 @@
       "age": 18,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 10,
-      "goals": 5,
-      "assists": 1
+      "appearances": 3,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 23,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergei Zenjov",
@@ -227,9 +848,61 @@
       "age": 36,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 7,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pärnu Vaprus",
+          "year": "2006"
+        },
+        {
+          "club": "TVMK Tallinn",
+          "year": "2006"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2008"
+        },
+        {
+          "club": "Blackpool",
+          "year": "2014"
+        },
+        {
+          "club": "Torpedo Moskau",
+          "year": "2015"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2015"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2017"
+        },
+        {
+          "club": "Shakhter K.",
+          "year": "2019"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 579,
+        "goals": 143,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 114,
+        "goals": 17,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rauno Sappinen",
@@ -237,9 +910,73 @@
       "age": 30,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 6,
-      "goals": 3,
-      "assists": 2
+      "appearances": 3,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2013"
+        },
+        {
+          "club": "KFCO Beerschot",
+          "year": "2018"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2018"
+        },
+        {
+          "club": "FC Den Bosch",
+          "year": "2018"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2019"
+        },
+        {
+          "club": "NK Domzale",
+          "year": "2019"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2022"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2023"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2023"
+        },
+        {
+          "club": "H. Jerusalem",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 415,
+        "goals": 190,
+        "assists": 68,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 65,
+        "goals": 17,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andero Kaares",
@@ -247,9 +984,29 @@
       "age": 16,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 11,
-      "goals": 7,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 19,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taaniel Usta",
@@ -257,9 +1014,65 @@
       "age": 23,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harju JK Jug.",
+          "year": "2018"
+        },
+        {
+          "club": "FC KTP",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2021"
+        },
+        {
+          "club": "Pärnu Vaprus",
+          "year": "2022"
+        },
+        {
+          "club": "Harju JK",
+          "year": "2023"
+        },
+        {
+          "club": "JK Trans Narva",
+          "year": "2024"
+        },
+        {
+          "club": "Harju JK",
+          "year": "2024"
+        },
+        {
+          "club": "Kalev",
+          "year": "2025"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 46,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tony Varjund",
@@ -267,9 +1080,37 @@
       "age": 18,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kalev Youth",
+          "year": "2017"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2023"
+        },
+        {
+          "club": "FC Flora",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 26,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rauno Alliku",
@@ -277,9 +1118,33 @@
       "age": 36,
       "nationality": "Estonia",
       "club": "FC Flora Tallinn",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Flora",
+          "year": "2009"
+        },
+        {
+          "club": "JK Viljandi",
+          "year": "2009"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 611,
+        "goals": 167,
+        "assists": 109,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

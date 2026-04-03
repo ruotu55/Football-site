@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "MLS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 22,
       "nationality": "United States",
       "club": "Chicago Fire FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chicago",
+          "year": "2020"
+        },
+        {
+          "club": "Forward Madison",
+          "year": "2020"
+        },
+        {
+          "club": "Forward Madison",
+          "year": "2021"
+        },
+        {
+          "club": "Chicago",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 187,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josh Cohen",
@@ -33,7 +66,59 @@
       "club": "Chicago Fire FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Burlingame",
+          "year": "2015"
+        },
+        {
+          "club": "OC Blues FC",
+          "year": "2015"
+        },
+        {
+          "club": "Arizona United",
+          "year": "2016"
+        },
+        {
+          "club": "Sacramento FC",
+          "year": "2018"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 290,
+        "clean_sheets": 103
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeff Gal",
@@ -43,7 +128,63 @@
       "club": "Chicago Fire FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CU Bluejays",
+          "year": "2011"
+        },
+        {
+          "club": "Chicago Inferno",
+          "year": "2013"
+        },
+        {
+          "club": "CU Bluejays",
+          "year": "2013"
+        },
+        {
+          "club": "Virginia Cavs",
+          "year": "2013"
+        },
+        {
+          "club": "Bridges FC",
+          "year": "2014"
+        },
+        {
+          "club": "Lidköpings FK",
+          "year": "2015"
+        },
+        {
+          "club": "BK Forward",
+          "year": "2017"
+        },
+        {
+          "club": "Skövde AIK",
+          "year": "2019"
+        },
+        {
+          "club": "Degerfors",
+          "year": "2019"
+        },
+        {
+          "club": "Chicago",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 130,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +196,39 @@
       "club": "Chicago Fire FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SFL Surf",
+          "year": "2016"
+        },
+        {
+          "club": "WV Mountaineers",
+          "year": "2016"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2017"
+        },
+        {
+          "club": "Chicago",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 314,
+        "goals": 18,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mbekezeli Mbokazi",
@@ -63,9 +236,37 @@
       "age": 20,
       "nationality": "South Africa",
       "club": "Chicago Fire FC",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Orlando P. Res.",
+          "year": "2023"
+        },
+        {
+          "club": "Orlando Pirates",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joel Waterman",
@@ -73,9 +274,53 @@
       "age": 30,
       "nationality": "Canada",
       "club": "Chicago Fire FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitsap Pumas SC",
+          "year": "2016"
+        },
+        {
+          "club": "TWU Spartans",
+          "year": "2016"
+        },
+        {
+          "club": "TSS Rovers",
+          "year": "2017"
+        },
+        {
+          "club": "TWU Spartans",
+          "year": "2017"
+        },
+        {
+          "club": "Cavalry FC",
+          "year": "2019"
+        },
+        {
+          "club": "Montreal",
+          "year": "2020"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 7,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mauricio Pineda",
@@ -85,7 +330,43 @@
       "club": "Chicago Fire FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tar Heels",
+          "year": "2016"
+        },
+        {
+          "club": "Tobacco Road",
+          "year": "2018"
+        },
+        {
+          "club": "Tar Heels",
+          "year": "2018"
+        },
+        {
+          "club": "Tar Heels",
+          "year": "2019"
+        },
+        {
+          "club": "Chicago",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sam Rogers",
@@ -95,7 +376,67 @@
       "club": "Chicago Fire FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sounders FC 2",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Oklahoma City",
+          "year": "2021"
+        },
+        {
+          "club": "HamKam",
+          "year": "2021"
+        },
+        {
+          "club": "HamKam",
+          "year": "2022"
+        },
+        {
+          "club": "Rosenborg BK",
+          "year": "2022"
+        },
+        {
+          "club": "Lillestrøm SK",
+          "year": "2023"
+        },
+        {
+          "club": "HamKam",
+          "year": "2024"
+        },
+        {
+          "club": "Lillestrøm SK",
+          "year": "2024"
+        },
+        {
+          "club": "Aalesunds FK",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Cupps",
@@ -105,7 +446,27 @@
       "club": "Chicago Fire FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viktor Radojević",
@@ -113,9 +474,41 @@
       "age": 21,
       "nationality": "Serbia",
       "club": "Chicago Fire FC",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Graficar",
+          "year": "2022"
+        },
+        {
+          "club": "Red Star",
+          "year": "2024"
+        },
+        {
+          "club": "FK TSC",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrew Gutman",
@@ -123,9 +516,69 @@
       "age": 29,
       "nationality": "United States",
       "club": "Chicago Fire FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Indiana Hoosier",
+          "year": "2015"
+        },
+        {
+          "club": "Chicago FC",
+          "year": "2016"
+        },
+        {
+          "club": "Indiana Hoosier",
+          "year": "2016"
+        },
+        {
+          "club": "Celtic",
+          "year": "2019"
+        },
+        {
+          "club": "Charlotte Ind.",
+          "year": "2019"
+        },
+        {
+          "club": "Cincinnati",
+          "year": "2019"
+        },
+        {
+          "club": "Celtic",
+          "year": "2020"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2021"
+        },
+        {
+          "club": "New York",
+          "year": "2021"
+        },
+        {
+          "club": "Colorado",
+          "year": "2023"
+        },
+        {
+          "club": "Chicago",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 18,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Barroso",
@@ -133,9 +586,33 @@
       "age": 20,
       "nationality": "Portugal",
       "club": "Chicago Fire FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2018"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Dean",
@@ -143,9 +620,41 @@
       "age": 28,
       "nationality": "United States",
       "club": "Chicago Fire FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UCF Knights",
+          "year": "2016"
+        },
+        {
+          "club": "Orlando",
+          "year": "2020"
+        },
+        {
+          "club": "Legion FC",
+          "year": "2020"
+        },
+        {
+          "club": "Chicago",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 6,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +664,53 @@
       "age": 22,
       "nationality": "Ivory Coast",
       "club": "Chicago Fire FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stella Club",
+          "year": "2020"
+        },
+        {
+          "club": "LSAT",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Hilal United",
+          "year": "2021"
+        },
+        {
+          "club": "Leiria",
+          "year": "2022"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2023"
+        },
+        {
+          "club": "Leiria",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anton Salétros",
@@ -165,9 +718,69 @@
       "age": 29,
       "nationality": "Sweden",
       "club": "Chicago Fire FC",
-      "appearances": 9,
-      "goals": 3,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AIK",
+          "year": "2013"
+        },
+        {
+          "club": "Újpest FC",
+          "year": "2017"
+        },
+        {
+          "club": "AIK",
+          "year": "2017"
+        },
+        {
+          "club": "Rostov",
+          "year": "2018"
+        },
+        {
+          "club": "AIK",
+          "year": "2019"
+        },
+        {
+          "club": "Rostov",
+          "year": "2019"
+        },
+        {
+          "club": "Sarpsborg 08",
+          "year": "2020"
+        },
+        {
+          "club": "Rostov",
+          "year": "2020"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2023"
+        },
+        {
+          "club": "AIK",
+          "year": "2023"
+        },
+        {
+          "club": "Chicago",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 35,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Lod",
@@ -175,9 +788,49 @@
       "age": 32,
       "nationality": "Finland",
       "club": "Chicago Fire FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "HJK Helsinki",
+          "year": "2012"
+        },
+        {
+          "club": "VPS",
+          "year": "2012"
+        },
+        {
+          "club": "Panathinaikos",
+          "year": "2015"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2018"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2019"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 83,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 83,
+        "goals": 6,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Oregel",
@@ -187,7 +840,27 @@
       "club": "Chicago Fire FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chicago",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maren Haile-Selassie",
@@ -195,9 +868,73 @@
       "age": 27,
       "nationality": "Switzerland",
       "club": "Chicago Fire FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Zürich",
+          "year": "2017"
+        },
+        {
+          "club": "Rapperswil-Jona",
+          "year": "2019"
+        },
+        {
+          "club": "FC Zürich",
+          "year": "2019"
+        },
+        {
+          "club": "Neuchâtel Xamax",
+          "year": "2019"
+        },
+        {
+          "club": "FC Zürich",
+          "year": "2020"
+        },
+        {
+          "club": "FC Wil 1900",
+          "year": "2020"
+        },
+        {
+          "club": "FC Zürich",
+          "year": "2021"
+        },
+        {
+          "club": "Neuchâtel Xamax",
+          "year": "2021"
+        },
+        {
+          "club": "FC Lugano",
+          "year": "2022"
+        },
+        {
+          "club": "Chicago",
+          "year": "2023"
+        },
+        {
+          "club": "FC Lugano",
+          "year": "2023"
+        },
+        {
+          "club": "Chicago",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 328,
+        "goals": 54,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "André Franco",
@@ -205,9 +942,53 @@
       "age": 27,
       "nationality": "Portugal",
       "club": "Chicago Fire FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2011"
+        },
+        {
+          "club": "Career break",
+          "year": "2017"
+        },
+        {
+          "club": "Estoril",
+          "year": "2019"
+        },
+        {
+          "club": "Porto",
+          "year": "2022"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        },
+        {
+          "club": "Porto",
+          "year": "2025"
+        },
+        {
+          "club": "Chicago",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 21,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Poreba",
@@ -217,7 +998,43 @@
       "club": "Chicago Fire FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stal Mielec",
+          "year": "2021"
+        },
+        {
+          "club": "Crown Legacy FC",
+          "year": "2023"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2023"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 31,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert Turdean",
@@ -225,21 +1042,93 @@
       "age": 16,
       "nationality": "United States",
       "club": "Chicago Fire FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Jonathan Bamba",
       "position": "Left Winger",
-      "age": 29,
+      "age": 30,
       "nationality": "Ivory Coast",
       "club": "Chicago Fire FC",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 4,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saint-Étienne",
+          "year": "2015"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2016"
+        },
+        {
+          "club": "Saint-Étienne",
+          "year": "2016"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2016"
+        },
+        {
+          "club": "Saint-Étienne",
+          "year": "2017"
+        },
+        {
+          "club": "Angers SCO",
+          "year": "2017"
+        },
+        {
+          "club": "Lille",
+          "year": "2018"
+        },
+        {
+          "club": "Celta de Vigo",
+          "year": "2023"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 434,
+        "goals": 71,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Philip Zinckernagel",
@@ -247,9 +1136,85 @@
       "age": 31,
       "nationality": "Denmark",
       "club": "Chicago Fire FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCN Youth",
+          "year": "2010"
+        },
+        {
+          "club": "HB Köge",
+          "year": "2013"
+        },
+        {
+          "club": "FC Helsingør",
+          "year": "2015"
+        },
+        {
+          "club": "SönderjyskE",
+          "year": "2016"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2018"
+        },
+        {
+          "club": "Watford",
+          "year": "2021"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2021"
+        },
+        {
+          "club": "Watford",
+          "year": "2022"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2022"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2022"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2023"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2023"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2024"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 445,
+        "goals": 100,
+        "assists": 93,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Puso Dithejane",
@@ -257,9 +1222,33 @@
       "age": 21,
       "nationality": "South Africa",
       "club": "Chicago Fire FC",
-      "appearances": 16,
-      "goals": 4,
-      "assists": 6
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TS Galaxy FC",
+          "year": "2023"
+        },
+        {
+          "club": "Chicago",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 7,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chris Mueller",
@@ -269,7 +1258,55 @@
       "club": "Chicago Fire FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Badgers",
+          "year": "2014"
+        },
+        {
+          "club": "Des Moines",
+          "year": "2016"
+        },
+        {
+          "club": "Badgers",
+          "year": "2016"
+        },
+        {
+          "club": "Chicago FC",
+          "year": "2017"
+        },
+        {
+          "club": "Badgers",
+          "year": "2017"
+        },
+        {
+          "club": "Orlando",
+          "year": "2018"
+        },
+        {
+          "club": "Hibernian FC",
+          "year": "2022"
+        },
+        {
+          "club": "Chicago",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 29,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Borso",
@@ -277,9 +1314,33 @@
       "age": 19,
       "nationality": "United States",
       "club": "Chicago Fire FC",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wake Forest",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Cuypers",
@@ -287,19 +1348,65 @@
       "age": 29,
       "nationality": "Belgium",
       "club": "Chicago Fire FC",
-      "appearances": 3,
-      "goals": 3,
-      "assists": 0
-    },
-    {
-      "name": "Dean Boltz",
-      "position": "Centre-Forward",
-      "age": 19,
-      "nationality": "United States",
-      "club": "Chicago Fire FC",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Standard Liège",
+          "year": "2016"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2016"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2017"
+        },
+        {
+          "club": "Ergotelis",
+          "year": "2017"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2019"
+        },
+        {
+          "club": "AC Ajaccio",
+          "year": "2019"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2020"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2021"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2022"
+        },
+        {
+          "club": "Chicago",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 134,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jason Shokalook",
@@ -307,9 +1414,95 @@
       "age": 23,
       "nationality": "United States",
       "club": "Chicago Fire FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akron Zips",
+          "year": "2020"
+        },
+        {
+          "club": "United Bantams",
+          "year": "2021"
+        },
+        {
+          "club": "Akron Zips",
+          "year": "2021"
+        },
+        {
+          "club": "Flint City",
+          "year": "2023"
+        },
+        {
+          "club": "Akron Zips",
+          "year": "2023"
+        },
+        {
+          "club": "Chicago",
+          "year": "2023"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 26,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Dean Boltz",
+      "position": "Centre-Forward",
+      "age": 19,
+      "nationality": "United States",
+      "club": "Chicago Fire FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Badgers",
+          "year": "2024"
+        },
+        {
+          "club": "Chicago",
+          "year": "2024"
+        },
+        {
+          "club": "Forward Madison",
+          "year": "2025"
+        },
+        {
+          "club": "Chicago",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

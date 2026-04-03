@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 32,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Nasr",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 37,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Faraj Al-Ruayed",
@@ -33,7 +54,31 @@
       "club": "Al-Nasr SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Murooj",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asil Al Mugassebi",
@@ -43,7 +88,22 @@
       "club": "Al-Nasr SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramadan Al Jali",
@@ -53,7 +113,22 @@
       "club": "Al-Nasr SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +138,53 @@
       "age": 32,
       "nationality": "Tunisia",
       "club": "Al-Nasr SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ES Zarzis",
+          "year": "2013"
+        },
+        {
+          "club": "Stade Tunisien",
+          "year": "2017"
+        },
+        {
+          "club": "CS Sfaxien",
+          "year": "2018"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Quwa Al-Jaw.",
+          "year": "2022"
+        },
+        {
+          "club": "US Ben Guerdane",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Nya",
@@ -73,9 +192,45 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Al-Nasr SC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akwa United",
+          "year": "2017"
+        },
+        {
+          "club": "Plateau United",
+          "year": "2020"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2021"
+        },
+        {
+          "club": "ZESCO United FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al Hasi",
@@ -85,7 +240,22 @@
       "club": "Al-Nasr SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmad Fakroon",
@@ -93,9 +263,37 @@
       "age": 25,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "El Ettihad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khadim Diaw",
@@ -103,9 +301,49 @@
       "age": 27,
       "nationality": "Mauritania",
       "club": "Al-Nasr SC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Génération Foot",
+          "year": "2013"
+        },
+        {
+          "club": "Horoya AC",
+          "year": "2020"
+        },
+        {
+          "club": "Génération Foot",
+          "year": "2021"
+        },
+        {
+          "club": "Horoya AC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moataz Al-Haddar",
@@ -115,7 +353,22 @@
       "club": "Al-Nasr SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Younus Al-Hijazi",
@@ -123,21 +376,93 @@
       "age": 24,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ta'awon",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
     {
       "name": "Muhannad Etoo",
       "position": "Defensive Midfield",
-      "age": 31,
+      "age": 32,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 5,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2017"
+        },
+        {
+          "club": "ES Sahel",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2020"
+        },
+        {
+          "club": "Naft Al-Basra",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Rafik Sorman",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Madina",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alaa El Qajdar",
@@ -145,9 +470,41 @@
       "age": 28,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2023"
+        },
+        {
+          "club": "Asswehly",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nasreddine Al Tawerghi",
@@ -155,9 +512,41 @@
       "age": 32,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ta'awon",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Akhdar",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabrice Ngoma",
@@ -167,7 +556,55 @@
       "club": "Al-Nasr SC",
       "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC MK",
+          "year": "2015"
+        },
+        {
+          "club": "Ifeanyi Ubah",
+          "year": "2017"
+        },
+        {
+          "club": "AS Vita Club",
+          "year": "2017"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Fahaheel SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        },
+        {
+          "club": "Simba SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 15,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sanad Dufan",
@@ -177,7 +614,35 @@
       "club": "Al-Nasr SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almahalla Tripoli",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Dhahra",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Al-Haasy",
@@ -187,7 +652,22 @@
       "club": "Al-Nasr SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hazem Al-Madani",
@@ -197,7 +677,27 @@
       "club": "Al-Nasr SC",
       "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elyas Ben Hussein",
@@ -205,19 +705,79 @@
       "age": 24,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 7,
-      "goals": 2,
-      "assists": 0
+      "appearances": 8,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Khaleej Sirte",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saad Bguir",
       "position": "Attacking Midfield",
-      "age": 31,
+      "age": 32,
       "nationality": "Tunisia",
       "club": "Al-Nasr SC",
       "appearances": 2,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stade Gabèsien",
+          "year": "2012"
+        },
+        {
+          "club": "Esperance",
+          "year": "2015"
+        },
+        {
+          "club": "Abha",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 83,
+        "assists": 58,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Talha Rizaq",
@@ -227,7 +787,47 @@
       "club": "Al-Nasr SC",
       "appearances": 8,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "US Monastir",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Akhdar",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 9,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yahya Al-Zlitni",
@@ -235,9 +835,45 @@
       "age": 31,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Nasr",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Madina",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +883,37 @@
       "age": 25,
       "nationality": "Tanzania",
       "club": "Al-Nasr SC",
-      "appearances": 6,
-      "goals": 2,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mbeya City",
+          "year": "2020"
+        },
+        {
+          "club": "Simba SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aymen Hreibesh",
@@ -257,9 +921,49 @@
       "age": 28,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abu Salim",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Khums",
+          "year": "2022"
+        },
+        {
+          "club": "Asswehly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Khums",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Akhdar",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zakaria Al-Haraish",
@@ -267,9 +971,57 @@
       "age": 27,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ittihad Tanger",
+          "year": "2019"
+        },
+        {
+          "club": "CS Constantine",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2020"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2022"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2022"
+        },
+        {
+          "club": "Asswehly",
+          "year": "2023"
+        },
+        {
+          "club": "Olympic",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Steven Mukwala",
@@ -277,9 +1029,53 @@
       "age": 26,
       "nationality": "Uganda",
       "club": "Al-Nasr SC",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 2,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vipers",
+          "year": "2017"
+        },
+        {
+          "club": "Maroons FC",
+          "year": "2019"
+        },
+        {
+          "club": "Vipers",
+          "year": "2020"
+        },
+        {
+          "club": "URA FC",
+          "year": "2020"
+        },
+        {
+          "club": "Asante Kotoko",
+          "year": "2022"
+        },
+        {
+          "club": "Simba SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 30,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amjad Ben Abdi",
@@ -289,7 +1085,39 @@
       "club": "Al-Nasr SC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Darnes SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Akhdar",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Mekari",
@@ -297,9 +1125,24 @@
       "age": 29,
       "nationality": "Libya",
       "club": "Al-Nasr SC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

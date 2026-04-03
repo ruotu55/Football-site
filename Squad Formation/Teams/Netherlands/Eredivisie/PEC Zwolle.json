@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "NL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,39 @@
       "club": "PEC Zwolle",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AZ Alkmaar",
+          "year": "2018"
+        },
+        {
+          "club": "Telstar",
+          "year": "2020"
+        },
+        {
+          "club": "AZ Alkmaar",
+          "year": "2021"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 354,
+        "clean_sheets": 45
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 3,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Tom de Graaff",
@@ -31,9 +64,41 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2024"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 206,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Duke Verduin",
@@ -41,9 +106,29 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PEC Zwolle",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 86,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +138,41 @@
       "age": 23,
       "nationality": "Republic of Ireland",
       "club": "PEC Zwolle",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wolfsburg",
+          "year": "2021"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2022"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2023"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simon Graves",
@@ -63,9 +180,45 @@
       "age": 26,
       "nationality": "Denmark",
       "club": "PEC Zwolle",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Randers FC",
+          "year": "2018"
+        },
+        {
+          "club": "Palermo",
+          "year": "2023"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        },
+        {
+          "club": "Palermo",
+          "year": "2025"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 6,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tijs Velthuis",
@@ -73,9 +226,57 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Twente Youth",
+          "year": "2012"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2022"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2023"
+        },
+        {
+          "club": "Salernitana",
+          "year": "2024"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2025"
+        },
+        {
+          "club": "Sassuolo",
+          "year": "2025"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2026"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damian van der Haar",
@@ -83,9 +284,33 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PEC Youth",
+          "year": "2015"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sherel Floranus",
@@ -93,9 +318,49 @@
       "age": 27,
       "nationality": "Curaçao",
       "club": "PEC Zwolle",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 1,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Sparta Youth",
+          "year": "2010"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2016"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2018"
+        },
+        {
+          "club": "Antalyaspor",
+          "year": "2021"
+        },
+        {
+          "club": "Almere City",
+          "year": "2023"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 4,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tristan Gooijer",
@@ -105,7 +370,31 @@
       "club": "PEC Zwolle",
       "appearances": 20,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2016"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 9,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olivier Aertssen",
@@ -113,9 +402,37 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sparta Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Ajax Youth",
+          "year": "2019"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Voute",
@@ -123,9 +440,29 @@
       "age": 20,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +472,29 @@
       "age": 16,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Thomas",
@@ -147,7 +504,47 @@
       "club": "PEC Zwolle",
       "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Waikato FC",
+          "year": "2011"
+        },
+        {
+          "club": "Ole FA",
+          "year": "2013"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2013"
+        },
+        {
+          "club": "PSV",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 21,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nick Fichtinger",
@@ -155,9 +552,29 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 20,
-      "goals": 1,
-      "assists": 1
+      "appearances": 17,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "PEC Zwolle",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zico Buurmeester",
@@ -165,9 +582,45 @@
       "age": 23,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AZ Alkmaar",
+          "year": "2022"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2023"
+        },
+        {
+          "club": "AZ Alkmaar",
+          "year": "2024"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        },
+        {
+          "club": "AZ Alkmaar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 23,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamiro Monteiro",
@@ -175,9 +628,73 @@
       "age": 32,
       "nationality": "Cape Verde",
       "club": "PEC Zwolle",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Anker Wismar",
+          "year": "2012"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "SC Cambuur",
+          "year": "2015"
+        },
+        {
+          "club": "Heracles Almelo",
+          "year": "2017"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2018"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2019"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2019"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2020"
+        },
+        {
+          "club": "SJ Earthquakes",
+          "year": "2022"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2024"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 38,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 52,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Givaro Rahajaän",
@@ -185,9 +702,29 @@
       "age": 18,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thijs Oosting",
@@ -195,9 +732,53 @@
       "age": 25,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 29,
-      "goals": 6,
-      "assists": 2
+      "appearances": 28,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Emmen Youth",
+          "year": "2011"
+        },
+        {
+          "club": "AZ Alkmaar",
+          "year": "2020"
+        },
+        {
+          "club": "RKC Waalwijk",
+          "year": "2021"
+        },
+        {
+          "club": "AZ Alkmaar",
+          "year": "2021"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2024"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 76,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Odysseus Velanas",
@@ -205,9 +786,53 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Utrecht Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2017"
+        },
+        {
+          "club": "Helmond Sport",
+          "year": "2019"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2019"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2020"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2021"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 294,
+        "goals": 57,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriël Reiziger",
@@ -215,9 +840,33 @@
       "age": 20,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 17,
-      "goals": 4,
-      "assists": 0
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2014"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 30,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samir Lagsir",
@@ -225,9 +874,41 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2012"
+        },
+        {
+          "club": "PEC Youth",
+          "year": "2016"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2021"
+        },
+        {
+          "club": "Retired",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +918,41 @@
       "age": 22,
       "nationality": "England",
       "club": "PEC Zwolle",
-      "appearances": 27,
-      "goals": 6,
-      "assists": 1
+      "appearances": 24,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bolton",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        },
+        {
+          "club": "PAOK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 46,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaj de Rooij",
@@ -248,8 +961,44 @@
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
       "appearances": 27,
-      "goals": 7,
-      "assists": 5
+      "goals": 6,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "FC Eindhoven",
+          "year": "2019"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 33,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Younes Namli",
@@ -257,9 +1006,89 @@
       "age": 31,
       "nationality": "Denmark",
       "club": "PEC Zwolle",
-      "appearances": 23,
+      "appearances": 11,
       "goals": 2,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Bröndby Youth",
+          "year": "2007"
+        },
+        {
+          "club": "Skovlunde IF",
+          "year": "2009"
+        },
+        {
+          "club": "AB Youth",
+          "year": "2010"
+        },
+        {
+          "club": "Akademisk BK",
+          "year": "2013"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2015"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2017"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2019"
+        },
+        {
+          "club": "Colorado",
+          "year": "2020"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2021"
+        },
+        {
+          "club": "Sparta R.",
+          "year": "2022"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2022"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2025"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 345,
+        "goals": 40,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Faberski",
@@ -267,9 +1096,33 @@
       "age": 19,
       "nationality": "Poland",
       "club": "PEC Zwolle",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Jagiellonia",
+          "year": "2022"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 22,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Koen Kostons",
@@ -277,9 +1130,57 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 29,
-      "goals": 12,
-      "assists": 6
+      "appearances": 28,
+      "goals": 11,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "MVV 19",
+          "year": "2015"
+        },
+        {
+          "club": "MVV Maastricht",
+          "year": "2017"
+        },
+        {
+          "club": "Dalkurd",
+          "year": "2021"
+        },
+        {
+          "club": "MVV Maastricht",
+          "year": "2022"
+        },
+        {
+          "club": "SC Paderborn",
+          "year": "2024"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2025"
+        },
+        {
+          "club": "SC Paderborn",
+          "year": "2025"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 256,
+        "goals": 63,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thomas Buitink",
@@ -287,9 +1188,53 @@
       "age": 25,
       "nationality": "Netherlands",
       "club": "PEC Zwolle",
-      "appearances": 7,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vit./AGOVV Jgd.",
+          "year": "2010"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2018"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2021"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2021"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2023"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2023"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 50,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

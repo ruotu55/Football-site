@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ISR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 24,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "H Rishon leZion",
+          "year": "2019"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2020"
+        },
+        {
+          "club": "Ramat haSharon",
+          "year": "2021"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2022"
+        },
+        {
+          "club": "Zrinjski Mostar",
+          "year": "2023"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 239,
+        "clean_sheets": 48
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomer Tzarfati",
@@ -31,9 +76,29 @@
       "age": 22,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 42,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niv Antman",
@@ -41,9 +106,65 @@
       "age": 33,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Haifa",
+          "year": "2012"
+        },
+        {
+          "club": "H Rishon leZion",
+          "year": "2016"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Ironi Nesher",
+          "year": "2017"
+        },
+        {
+          "club": "Hapoel Raanana",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Ness Ziona",
+          "year": "2022"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2023"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 244,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Cohen",
@@ -53,7 +174,27 @@
       "club": "Maccabi Netanya",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +204,49 @@
       "age": 22,
       "nationality": "Mali",
       "club": "Maccabi Netanya",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vilaverdense 19",
+          "year": "2021"
+        },
+        {
+          "club": "Vilaverdense",
+          "year": "2022"
+        },
+        {
+          "club": "Salgueiros",
+          "year": "2022"
+        },
+        {
+          "club": "Vilaverdense",
+          "year": "2023"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saba Khvadagiani",
@@ -75,7 +256,39 @@
       "club": "Maccabi Netanya",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2021"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Itay Ben Shabat",
@@ -83,9 +296,33 @@
       "age": 25,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kiryat Shmona",
+          "year": "2020"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Kulikov",
@@ -93,9 +330,37 @@
       "age": 21,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2023"
+        },
+        {
+          "club": "Kiryat Shmona",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benny Feldman",
@@ -105,7 +370,27 @@
       "club": "Maccabi Netanya",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rotem Keller",
@@ -113,9 +398,53 @@
       "age": 23,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2021"
+        },
+        {
+          "club": "Diósgyőr",
+          "year": "2022"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2022"
+        },
+        {
+          "club": "Hapoel Hadera",
+          "year": "2023"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2023"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2023"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Li On Mizrahi",
@@ -123,9 +452,33 @@
       "age": 23,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 18,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "B. Jerusalem",
+          "year": "2022"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karem Jaber",
@@ -133,9 +486,29 @@
       "age": 25,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Maccabi Netanya",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 3,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amit Cohen",
@@ -143,9 +516,73 @@
       "age": 27,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hapoel Raanana",
+          "year": "2017"
+        },
+        {
+          "club": "Hapoel Hadera",
+          "year": "2018"
+        },
+        {
+          "club": "Hapoel Raanana",
+          "year": "2019"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2020"
+        },
+        {
+          "club": "Hapoel Raanana",
+          "year": "2021"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2021"
+        },
+        {
+          "club": "B. Jerusalem",
+          "year": "2021"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2022"
+        },
+        {
+          "club": "B. Jerusalem",
+          "year": "2022"
+        },
+        {
+          "club": "Maccabi Jaffa",
+          "year": "2023"
+        },
+        {
+          "club": "Bnei Yehuda",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 201,
+        "goals": 11,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +592,57 @@
       "age": 25,
       "nationality": "Ivory Coast",
       "club": "Maccabi Netanya",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hammarby",
+          "year": "2019"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2019"
+        },
+        {
+          "club": "Hammarby",
+          "year": "2020"
+        },
+        {
+          "club": "IK Frej Täby",
+          "year": "2020"
+        },
+        {
+          "club": "Genk",
+          "year": "2022"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2024"
+        },
+        {
+          "club": "Genk",
+          "year": "2025"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuval Sade",
@@ -165,9 +650,45 @@
       "age": 25,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ramat haSharon",
+          "year": "2019"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2019"
+        },
+        {
+          "club": "Ramat haSharon",
+          "year": "2020"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omri Shamir",
@@ -175,9 +696,33 @@
       "age": 22,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "H. Ramat Gan",
+          "year": "2022"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maor Levi",
@@ -185,9 +730,41 @@
       "age": 25,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 5,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Maccabi Haifa",
+          "year": "2020"
+        },
+        {
+          "club": "M. Petah Tikva",
+          "year": "2023"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 21,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maxim Plakushchenko",
@@ -195,9 +772,49 @@
       "age": 30,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Hapoel Haifa",
+          "year": "2016"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2019"
+        },
+        {
+          "club": "Hapoel Hadera",
+          "year": "2020"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2022"
+        },
+        {
+          "club": "Honvéd",
+          "year": "2022"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 305,
+        "goals": 43,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wylan Cyprien",
@@ -207,7 +824,67 @@
       "club": "Maccabi Netanya",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lens",
+          "year": "2013"
+        },
+        {
+          "club": "Nice",
+          "year": "2016"
+        },
+        {
+          "club": "Parma",
+          "year": "2020"
+        },
+        {
+          "club": "Nice",
+          "year": "2021"
+        },
+        {
+          "club": "Parma",
+          "year": "2021"
+        },
+        {
+          "club": "FC Nantes",
+          "year": "2021"
+        },
+        {
+          "club": "Parma",
+          "year": "2022"
+        },
+        {
+          "club": "FC Sion",
+          "year": "2022"
+        },
+        {
+          "club": "Parma",
+          "year": "2023"
+        },
+        {
+          "club": "CC Yatai",
+          "year": "2025"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 341,
+        "goals": 48,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Basam Zaarura",
@@ -215,9 +892,49 @@
       "age": 23,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 15,
-      "goals": 5,
-      "assists": 0
+      "appearances": 13,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maccabi Haifa",
+          "year": "2021"
+        },
+        {
+          "club": "Hapoel Afula",
+          "year": "2021"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2023"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2023"
+        },
+        {
+          "club": "Ironi Tiberias",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saher Taji",
@@ -227,7 +944,43 @@
       "club": "Maccabi Netanya",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ness Ziona",
+          "year": "2020"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2021"
+        },
+        {
+          "club": "H. Ramat Gan",
+          "year": "2022"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2022"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gontie Junior Diomandé",
@@ -235,9 +988,45 @@
       "age": 22,
       "nationality": "Ivory Coast",
       "club": "Maccabi Netanya",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 0
+      "appearances": 19,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SV Ried",
+          "year": "2021"
+        },
+        {
+          "club": "SKU Amstetten",
+          "year": "2023"
+        },
+        {
+          "club": "SV Ried",
+          "year": "2023"
+        },
+        {
+          "club": "First Vienna FC",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1036,65 @@
       "age": 29,
       "nationality": "Cape Verde",
       "club": "Maccabi Netanya",
-      "appearances": 23,
-      "goals": 5,
-      "assists": 5
+      "appearances": 21,
+      "goals": 4,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2010"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2018"
+        },
+        {
+          "club": "Boavista",
+          "year": "2019"
+        },
+        {
+          "club": "Stade Brestois",
+          "year": "2020"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2021"
+        },
+        {
+          "club": "Stade Brestois",
+          "year": "2021"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2022"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2023"
+        },
+        {
+          "club": "Estoril",
+          "year": "2023"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 309,
+        "goals": 57,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedrinho",
@@ -259,7 +1104,39 @@
       "club": "Maccabi Netanya",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Azuriz",
+          "year": "2022"
+        },
+        {
+          "club": "North Texas SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 19,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Cohen",
@@ -267,9 +1144,24 @@
       "age": 20,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oz Bilu",
@@ -277,9 +1169,37 @@
       "age": 25,
       "nationality": "Israel",
       "club": "Maccabi Netanya",
-      "appearances": 24,
-      "goals": 9,
-      "assists": 3
+      "appearances": 22,
+      "goals": 8,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Ashdod",
+          "year": "2020"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2023"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 17,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Loai Halaf",
@@ -289,7 +1209,47 @@
       "club": "Maccabi Netanya",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ironi Nesher",
+          "year": "2019"
+        },
+        {
+          "club": "Hapoel Acre",
+          "year": "2020"
+        },
+        {
+          "club": "Ironi Nesher",
+          "year": "2021"
+        },
+        {
+          "club": "M. Bnei Reineh",
+          "year": "2021"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matheus Davó",
@@ -297,9 +1257,85 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Maccabi Netanya",
-      "appearances": 21,
-      "goals": 9,
-      "assists": 6
+      "appearances": 20,
+      "goals": 8,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Guarani",
+          "year": "2019"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2020"
+        },
+        {
+          "club": "Guarani",
+          "year": "2021"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2021"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2021"
+        },
+        {
+          "club": "São Bernardo",
+          "year": "2022"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2022"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2022"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2023"
+        },
+        {
+          "club": "Pafos",
+          "year": "2023"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2024"
+        },
+        {
+          "club": "América-MG",
+          "year": "2024"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2025"
+        },
+        {
+          "club": "Remo",
+          "year": "2025"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 37,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wilson Harris",
@@ -307,9 +1343,57 @@
       "age": 26,
       "nationality": "United States",
       "club": "Maccabi Netanya",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Real So Cal",
+          "year": "2016"
+        },
+        {
+          "club": "Swope Park",
+          "year": "2018"
+        },
+        {
+          "club": "Kansas City",
+          "year": "2019"
+        },
+        {
+          "club": "Swope Park",
+          "year": "2019"
+        },
+        {
+          "club": "Kansas City",
+          "year": "2020"
+        },
+        {
+          "club": "Louisville City",
+          "year": "2022"
+        },
+        {
+          "club": "M. Petah Tikva",
+          "year": "2025"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 81,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -39,6 +39,7 @@ from generate_squads_from_transfermarkt import (  # noqa: E402
     _season_hint,
     _serialize_squad,
     fetch_squad_payload,
+    season_context_for_competition,
 )
 from sync_teams_to_season import LEAGUE_COMPETITION, sync_league  # noqa: E402
 
@@ -150,6 +151,9 @@ async def _refresh_one_club_json(
     nt_cache: dict[str, str],
     player_cache: dict[str, Any],
     stats_cache: dict[str, tuple[int, int, int]],
+    transfer_cache: dict[str, list[dict[str, str]]],
+    club_career_cache: dict[str, dict[str, Any]],
+    national_career_cache: dict[str, dict[str, Any]],
     season_meta: dict[str, Any],
     sid: Optional[int],
     sem: asyncio.Semaphore,
@@ -175,8 +179,18 @@ async def _refresh_one_club_json(
         official = official.strip() or f"club-{cid}"
         squads = None
         last_exc: Optional[BaseException] = None
+        sm = season_meta if isinstance(season_meta, dict) else {}
+        cv = sm.get("competitionId")
+        comp_stats = (
+            str(cv).strip().upper() if cv is not None and str(cv).strip() else None
+        )
         for attempt in range(_MAX_STATS_FETCH_ATTEMPTS):
             try:
+                lbl = (
+                    str(sm.get("label")).strip()
+                    if isinstance(sm, dict) and sm.get("label")
+                    else None
+                )
                 squads = await fetch_squad_payload(
                     tmkt,
                     cid,
@@ -186,8 +200,13 @@ async def _refresh_one_club_json(
                     nt_name_cache=nt_cache,
                     player_cache=player_cache,
                     stats_cache=stats_cache,
+                    transfer_cache=transfer_cache,
+                    club_career_cache=club_career_cache,
+                    national_career_cache=national_career_cache,
                     season_id=sid,
                     national_team_squad=False,
+                    season_competition_id=comp_stats,
+                    season_label_hint=lbl,
                 )
                 last_exc = None
                 break
@@ -251,6 +270,9 @@ async def _repair_one_league(
     nt_cache: dict[str, str],
     player_cache: dict[str, Any],
     stats_cache: dict[str, tuple[int, int, int]],
+    transfer_cache: dict[str, list[dict[str, str]]],
+    club_career_cache: dict[str, dict[str, Any]],
+    national_career_cache: dict[str, dict[str, Any]],
     season_meta: dict[str, Any],
     dry_run: bool,
     create_dir: bool,
@@ -283,6 +305,9 @@ async def _repair_one_league(
         nt_cache=nt_cache,
         player_cache=player_cache,
         stats_cache=stats_cache,
+        transfer_cache=transfer_cache,
+        club_career_cache=club_career_cache,
+        national_career_cache=national_career_cache,
         season_meta=season_meta,
         dry_run=dry_run,
     )
@@ -291,11 +316,9 @@ async def _repair_one_league(
     if skip_stats_pass:
         return r, a, 0, 0
 
-    sid = season_meta.get("seasonId")
-    if isinstance(sid, str) and sid.isdigit():
-        sid = int(sid)
-    elif not isinstance(sid, int):
-        sid = None
+    season_meta_league, sid = await season_context_for_competition(
+        tmkt, competition_id, fallback_meta=season_meta
+    )
 
     paths = sorted(league_out.glob("*.json"))
     to_refresh: list[Path] = []
@@ -332,7 +355,10 @@ async def _repair_one_league(
             nt_cache=nt_cache,
             player_cache=player_cache,
             stats_cache=stats_cache,
-            season_meta=season_meta,
+            transfer_cache=transfer_cache,
+            club_career_cache=club_career_cache,
+            national_career_cache=national_career_cache,
+            season_meta=season_meta_league,
             sid=sid,
             sem=sem,
             dry_run=dry_run,
@@ -406,6 +432,9 @@ async def run(args: argparse.Namespace) -> int:
             nt_cache: dict[str, str] = {}
             player_cache: dict[str, Any] = {}
             stats_cache: dict[str, tuple[int, int, int]] = {}
+            transfer_cache: dict[str, list[dict[str, str]]] = {}
+            club_career_cache: dict[str, dict[str, Any]] = {}
+            national_career_cache: dict[str, dict[str, Any]] = {}
             for j, e in enumerate(entries):
                 i = offset + j + 1
                 c = (e.get("countryName") or "").strip()
@@ -425,6 +454,9 @@ async def run(args: argparse.Namespace) -> int:
                     nt_cache=nt_cache,
                     player_cache=player_cache,
                     stats_cache=stats_cache,
+                    transfer_cache=transfer_cache,
+                    club_career_cache=club_career_cache,
+                    national_career_cache=national_career_cache,
                     season_meta=season_meta,
                     dry_run=args.dry_run,
                     create_dir=True,
@@ -460,6 +492,9 @@ async def run(args: argparse.Namespace) -> int:
             nt_cache: dict[str, str] = {}
             player_cache: dict[str, Any] = {}
             stats_cache: dict[str, tuple[int, int, int]] = {}
+            transfer_cache: dict[str, list[dict[str, str]]] = {}
+            club_career_cache: dict[str, dict[str, Any]] = {}
+            national_career_cache: dict[str, dict[str, Any]] = {}
             for j, e in enumerate(entries):
                 i = offset + j + 1
                 c = (e.get("countryName") or "").strip()
@@ -479,6 +514,9 @@ async def run(args: argparse.Namespace) -> int:
                     nt_cache=nt_cache,
                     player_cache=player_cache,
                     stats_cache=stats_cache,
+                    transfer_cache=transfer_cache,
+                    club_career_cache=club_career_cache,
+                    national_career_cache=national_career_cache,
                     season_meta=season_meta,
                     dry_run=args.dry_run,
                     create_dir=True,
@@ -513,6 +551,9 @@ async def run(args: argparse.Namespace) -> int:
             nt_cache: dict[str, str] = {}
             player_cache: dict[str, Any] = {}
             stats_cache: dict[str, tuple[int, int, int]] = {}
+            transfer_cache: dict[str, list[dict[str, str]]] = {}
+            club_career_cache: dict[str, dict[str, Any]] = {}
+            national_career_cache: dict[str, dict[str, Any]] = {}
             for i, (c, lg, co) in enumerate(targets, start=1):
                 print(f"[{i}/{len(targets)}] {c} / {lg} ({co})", file=sys.stderr, flush=True)
                 await _repair_one_league(
@@ -525,6 +566,9 @@ async def run(args: argparse.Namespace) -> int:
                     nt_cache=nt_cache,
                     player_cache=player_cache,
                     stats_cache=stats_cache,
+                    transfer_cache=transfer_cache,
+                    club_career_cache=club_career_cache,
+                    national_career_cache=national_career_cache,
                     season_meta=season_meta,
                     dry_run=args.dry_run,
                     create_dir=True,
@@ -567,6 +611,9 @@ async def run(args: argparse.Namespace) -> int:
         nt_cache: dict[str, str] = {}
         player_cache: dict[str, Any] = {}
         stats_cache: dict[str, tuple[int, int, int]] = {}
+        transfer_cache: dict[str, list[dict[str, str]]] = {}
+        club_career_cache: dict[str, dict[str, Any]] = {}
+        national_career_cache: dict[str, dict[str, Any]] = {}
         await _repair_one_league(
             tmkt,
             country,
@@ -577,6 +624,9 @@ async def run(args: argparse.Namespace) -> int:
             nt_cache=nt_cache,
             player_cache=player_cache,
             stats_cache=stats_cache,
+            transfer_cache=transfer_cache,
+            club_career_cache=club_career_cache,
+            national_career_cache=national_career_cache,
             season_meta=season_meta,
             dry_run=args.dry_run,
             create_dir=args.create,

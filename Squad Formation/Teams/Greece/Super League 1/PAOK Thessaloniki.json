@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 33,
       "nationality": "Czech Republic",
       "club": "PAOK Thessaloniki",
-      "appearances": 24,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Banik Ostrava",
+          "year": "2011"
+        },
+        {
+          "club": "Hlucin",
+          "year": "2011"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2012"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2016"
+        },
+        {
+          "club": "Werder Bremen",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 496,
+        "clean_sheets": 96
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 29,
+        "clean_sheets": 7
+      }
     },
     {
       "name": "Antonis Tsiftsis",
@@ -31,19 +76,71 @@
       "age": 26,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 24,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asteras Tripoli",
+          "year": "2017"
+        },
+        {
+          "club": "Raków",
+          "year": "2023"
+        },
+        {
+          "club": "Asteras Tripoli",
+          "year": "2024"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 137,
+        "clean_sheets": 43
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Dimitrios Monastirlis",
       "position": "Goalkeeper",
-      "age": 21,
+      "age": 22,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 64,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +150,29 @@
       "age": 26,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 35,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 17,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Vogliacco",
@@ -63,9 +180,65 @@
       "age": 27,
       "nationality": "Italy",
       "club": "PAOK Thessaloniki",
-      "appearances": 14,
-      "goals": 2,
-      "assists": 0
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juventus Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Padova",
+          "year": "2018"
+        },
+        {
+          "club": "Pordenone",
+          "year": "2019"
+        },
+        {
+          "club": "Genoa",
+          "year": "2021"
+        },
+        {
+          "club": "Benevento",
+          "year": "2021"
+        },
+        {
+          "club": "Genoa",
+          "year": "2022"
+        },
+        {
+          "club": "Parma",
+          "year": "2025"
+        },
+        {
+          "club": "Genoa",
+          "year": "2025"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        },
+        {
+          "club": "Genoa",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 266,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomasz Kedziora",
@@ -73,9 +246,53 @@
       "age": 31,
       "nationality": "Poland",
       "club": "PAOK Thessaloniki",
-      "appearances": 34,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lech Poznan",
+          "year": "2012"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2017"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2022"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2023"
+        },
+        {
+          "club": "Dynamo Kyiv",
+          "year": "2024"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 490,
+        "goals": 22,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dejan Lovren",
@@ -85,17 +302,89 @@
       "club": "PAOK Thessaloniki",
       "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2006"
+        },
+        {
+          "club": "Inter Zapresic",
+          "year": "2006"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2008"
+        },
+        {
+          "club": "Lyon",
+          "year": "2010"
+        },
+        {
+          "club": "Southampton",
+          "year": "2013"
+        },
+        {
+          "club": "Liverpool",
+          "year": "2014"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2020"
+        },
+        {
+          "club": "Lyon",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 529,
+        "goals": 21,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 78,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitrios Bataoulas",
       "position": "Centre-Back",
-      "age": 18,
+      "age": 19,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 20,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Greg Taylor",
@@ -103,9 +392,37 @@
       "age": 28,
       "nationality": "Scotland",
       "club": "PAOK Thessaloniki",
-      "appearances": 17,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kilmarnock FC",
+          "year": "2016"
+        },
+        {
+          "club": "Celtic",
+          "year": "2019"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 365,
+        "goals": 10,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul Rahman Baba",
@@ -113,9 +430,101 @@
       "age": 31,
       "nationality": "Ghana",
       "club": "PAOK Thessaloniki",
-      "appearances": 39,
-      "goals": 3,
-      "assists": 2
+      "appearances": 19,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2011"
+        },
+        {
+          "club": "Dreams FC",
+          "year": "2012"
+        },
+        {
+          "club": "Greuther Fürth",
+          "year": "2012"
+        },
+        {
+          "club": "Augsburg",
+          "year": "2014"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2015"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2016"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2017"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2018"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2019"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2019"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2019"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2020"
+        },
+        {
+          "club": "PAOK",
+          "year": "2021"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2021"
+        },
+        {
+          "club": "Reading",
+          "year": "2021"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2022"
+        },
+        {
+          "club": "Reading",
+          "year": "2022"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 22,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonjoe Kenny",
@@ -123,9 +532,61 @@
       "age": 29,
       "nationality": "England",
       "club": "PAOK Thessaloniki",
-      "appearances": 38,
+      "appearances": 18,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Wigan",
+          "year": "2015"
+        },
+        {
+          "club": "Oxford United",
+          "year": "2016"
+        },
+        {
+          "club": "Everton",
+          "year": "2017"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2019"
+        },
+        {
+          "club": "Everton",
+          "year": "2020"
+        },
+        {
+          "club": "Celtic",
+          "year": "2021"
+        },
+        {
+          "club": "Everton",
+          "year": "2021"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 353,
+        "goals": 13,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Sánchez",
@@ -133,9 +594,53 @@
       "age": 28,
       "nationality": "Mexico",
       "club": "PAOK Thessaloniki",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 2
+      "appearances": 6,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Santos Laguna",
+          "year": "2016"
+        },
+        {
+          "club": "América",
+          "year": "2018"
+        },
+        {
+          "club": "Ajax",
+          "year": "2022"
+        },
+        {
+          "club": "Porto",
+          "year": "2023"
+        },
+        {
+          "club": "Ajax",
+          "year": "2024"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2024"
+        },
+        {
+          "club": "PAOK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 9,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joan Sastre",
@@ -143,9 +648,37 @@
       "age": 28,
       "nationality": "Spain",
       "club": "PAOK Thessaloniki",
-      "appearances": 11,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCD Mallorca",
+          "year": "2017"
+        },
+        {
+          "club": "PAOK",
+          "year": "2022"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 275,
+        "goals": 11,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +688,101 @@
       "age": 32,
       "nationality": "France",
       "club": "PAOK Thessaloniki",
-      "appearances": 37,
-      "goals": 3,
-      "assists": 1
+      "appearances": 19,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AJ Auxerre",
+          "year": "2011"
+        },
+        {
+          "club": "Lille",
+          "year": "2013"
+        },
+        {
+          "club": "AJ Auxerre",
+          "year": "2013"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2016"
+        },
+        {
+          "club": "Lille",
+          "year": "2017"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2017"
+        },
+        {
+          "club": "Monaco",
+          "year": "2017"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2018"
+        },
+        {
+          "club": "Monaco",
+          "year": "2018"
+        },
+        {
+          "club": "Torino",
+          "year": "2018"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2021"
+        },
+        {
+          "club": "Torino",
+          "year": "2021"
+        },
+        {
+          "club": "Benfica",
+          "year": "2021"
+        },
+        {
+          "club": "Cremonese",
+          "year": "2022"
+        },
+        {
+          "club": "Benfica",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2023"
+        },
+        {
+          "club": "Benfica",
+          "year": "2024"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        },
+        {
+          "club": "Benfica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 462,
+        "goals": 16,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Magomed Ozdoev",
@@ -165,9 +790,61 @@
       "age": 33,
       "nationality": "Russia",
       "club": "PAOK Thessaloniki",
-      "appearances": 42,
-      "goals": 8,
-      "assists": 5
+      "appearances": 24,
+      "goals": 7,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Loko Moskau",
+          "year": "2011"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2014"
+        },
+        {
+          "club": "Loko Moskau",
+          "year": "2015"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2015"
+        },
+        {
+          "club": "Terek Grozny",
+          "year": "2017"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2017"
+        },
+        {
+          "club": "Zenit S-Pb",
+          "year": "2018"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 503,
+        "goals": 44,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konstantinos Thymianis",
@@ -175,9 +852,37 @@
       "age": 25,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AO Xanthi",
+          "year": "2018"
+        },
+        {
+          "club": "Panserraikos",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christos Zafeiris",
@@ -185,9 +890,53 @@
       "age": 23,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 38,
-      "goals": 3,
-      "assists": 2
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grorud",
+          "year": "2020"
+        },
+        {
+          "club": "Haugesund",
+          "year": "2021"
+        },
+        {
+          "club": "Grorud",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2025"
+        },
+        {
+          "club": "PAOK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 22,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mady Camara",
@@ -195,9 +944,45 @@
       "age": 29,
       "nationality": "Guinea",
       "club": "PAOK Thessaloniki",
-      "appearances": 38,
-      "goals": 2,
-      "assists": 0
+      "appearances": 21,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AC Ajaccio",
+          "year": "2016"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2018"
+        },
+        {
+          "club": "Roma",
+          "year": "2022"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 369,
+        "goals": 35,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Bianco",
@@ -205,9 +990,61 @@
       "age": 23,
       "nationality": "Italy",
       "club": "PAOK Thessaloniki",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 0
+      "appearances": 10,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chisola Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Chisola Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2022"
+        },
+        {
+          "club": "Reggiana",
+          "year": "2023"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2024"
+        },
+        {
+          "club": "Monza",
+          "year": "2024"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2025"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 14,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitrios Tsopouroglou",
@@ -215,9 +1052,29 @@
       "age": 23,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 20,
-      "goals": 4,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 12,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giannis Konstantelias",
@@ -225,9 +1082,37 @@
       "age": 23,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 32,
-      "goals": 13,
-      "assists": 8
+      "appearances": 18,
+      "goals": 7,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2020"
+        },
+        {
+          "club": "KAS Eupen",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 201,
+        "goals": 46,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Ivanušec",
@@ -235,9 +1120,45 @@
       "age": 27,
       "nationality": "Croatia",
       "club": "PAOK Thessaloniki",
-      "appearances": 29,
-      "goals": 2,
-      "assists": 4
+      "appearances": 17,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "NK Lokomotiva",
+          "year": "2016"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2019"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 53,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitrios Pelkas",
@@ -245,9 +1166,65 @@
       "age": 32,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 18,
-      "goals": 5,
-      "assists": 1
+      "appearances": 9,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2012"
+        },
+        {
+          "club": "Apol. Kalamarias",
+          "year": "2013"
+        },
+        {
+          "club": "PAOK",
+          "year": "2014"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2014"
+        },
+        {
+          "club": "PAOK",
+          "year": "2015"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2020"
+        },
+        {
+          "club": "Hull City",
+          "year": "2022"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2023"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 427,
+        "goals": 88,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1234,45 @@
       "age": 38,
       "nationality": "Brazil",
       "club": "PAOK Thessaloniki",
-      "appearances": 41,
+      "appearances": 24,
       "goals": 6,
-      "assists": 8
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Internacional",
+          "year": "2008"
+        },
+        {
+          "club": "Metalist Kharkiv",
+          "year": "2010"
+        },
+        {
+          "club": "Shakhtar D.",
+          "year": "2013"
+        },
+        {
+          "club": "Internacional",
+          "year": "2021"
+        },
+        {
+          "club": "PAOK",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 733,
+        "goals": 141,
+        "assists": 147,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitrios Berdos",
@@ -267,9 +1280,24 @@
       "age": 17,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki B",
-      "appearances": 17,
+      "appearances": 1,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrija Zivkovic",
@@ -277,9 +1305,37 @@
       "age": 29,
       "nationality": "Serbia",
       "club": "PAOK Thessaloniki",
-      "appearances": 38,
-      "goals": 6,
-      "assists": 17
+      "appearances": 19,
+      "goals": 2,
+      "assists": 9,
+      "transfer_history": [
+        {
+          "club": "Partizan",
+          "year": "2013"
+        },
+        {
+          "club": "Benfica",
+          "year": "2016"
+        },
+        {
+          "club": "PAOK",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 93,
+        "assists": 102,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 1,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kiril Despodov",
@@ -287,9 +1343,61 @@
       "age": 29,
       "nationality": "Bulgaria",
       "club": "PAOK Thessaloniki",
-      "appearances": 29,
-      "goals": 5,
-      "assists": 4
+      "appearances": 18,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Litex Lovech",
+          "year": "2013"
+        },
+        {
+          "club": "CSKA-Sofia",
+          "year": "2016"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2019"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2019"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2020"
+        },
+        {
+          "club": "Ludogorets",
+          "year": "2020"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2021"
+        },
+        {
+          "club": "Ludogorets",
+          "year": "2021"
+        },
+        {
+          "club": "PAOK",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 420,
+        "goals": 108,
+        "assists": 124,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 60,
+        "goals": 15,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dimitrios Chatsidis",
@@ -297,9 +1405,29 @@
       "age": 19,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 23,
-      "goals": 4,
-      "assists": 5
+      "appearances": 10,
+      "goals": 3,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Georgios Giakoumakis",
@@ -307,9 +1435,81 @@
       "age": 31,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 33,
-      "goals": 15,
-      "assists": 2
+      "appearances": 19,
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Platanias",
+          "year": "2012"
+        },
+        {
+          "club": "AO Episkopi",
+          "year": "2014"
+        },
+        {
+          "club": "Platanias",
+          "year": "2014"
+        },
+        {
+          "club": "AEK Athens",
+          "year": "2017"
+        },
+        {
+          "club": "OFI Crete",
+          "year": "2019"
+        },
+        {
+          "club": "AEK Athens",
+          "year": "2019"
+        },
+        {
+          "club": "Górnik Zabrze",
+          "year": "2020"
+        },
+        {
+          "club": "AEK Athens",
+          "year": "2020"
+        },
+        {
+          "club": "VVV-Venlo",
+          "year": "2020"
+        },
+        {
+          "club": "Celtic",
+          "year": "2021"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2023"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2024"
+        },
+        {
+          "club": "PAOK",
+          "year": "2025"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 359,
+        "goals": 131,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anestis Mythou",
@@ -317,9 +1517,29 @@
       "age": 18,
       "nationality": "Greece",
       "club": "PAOK Thessaloniki",
-      "appearances": 26,
-      "goals": 6,
-      "assists": 1
+      "appearances": 7,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 28,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Jeremejeff",
@@ -327,9 +1547,73 @@
       "age": 32,
       "nationality": "Sweden",
       "club": "PAOK Thessaloniki",
-      "appearances": 21,
+      "appearances": 14,
       "goals": 6,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Örgryte",
+          "year": "2012"
+        },
+        {
+          "club": "Qviding FIF",
+          "year": "2013"
+        },
+        {
+          "club": "Häcken",
+          "year": "2014"
+        },
+        {
+          "club": "Malmö",
+          "year": "2016"
+        },
+        {
+          "club": "Häcken",
+          "year": "2018"
+        },
+        {
+          "club": "Dynamo Dresden",
+          "year": "2019"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2020"
+        },
+        {
+          "club": "Dynamo Dresden",
+          "year": "2020"
+        },
+        {
+          "club": "Häcken",
+          "year": "2021"
+        },
+        {
+          "club": "Panathinaikos",
+          "year": "2023"
+        },
+        {
+          "club": "Levadiakos",
+          "year": "2023"
+        },
+        {
+          "club": "PAOK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 375,
+        "goals": 139,
+        "assists": 57,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }
