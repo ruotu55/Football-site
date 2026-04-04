@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import errno
+import importlib.util
 import io
 import json
 import os
@@ -22,6 +23,19 @@ from urllib.parse import quote, urlparse
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
+
+def _load_runner_saved_scripts():  # noqa: D401
+    path = PROJECT_ROOT / "dev_server_saved_scripts.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_saved_scripts", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_saved_scripts.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_saved_mod = _load_runner_saved_scripts()
+
 _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
 DEFAULT_PORT = 8886
@@ -214,6 +228,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         return body[:index] + snippet + b"\n" + body[index:]
 
     def do_GET(self) -> None:  # noqa: N802
+        if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if self._is_live_reload_endpoint():
             self._send_live_reload_stream()
             return
@@ -258,6 +274,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         return io.BytesIO(body)
 
     def do_POST(self) -> None:  # noqa: N802
+        if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
         if not self._is_size_favorites_endpoint():
             self._send_json(404, {"error": "Not found"})
             return

@@ -5,9 +5,9 @@ import { playerPhotoPaths } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
 import {
     clearPitchWrapTransitionOverride,
+    refreshSwapPlayerListFromSearch,
     renderHeader,
     renderPitch,
-    renderSwapList,
     scheduleTeamHeaderNameCenterShift,
     scheduleShortsTeamNameFit,
     shouldUseVideoQuestionLayout,
@@ -381,10 +381,8 @@ async function init() {
     els.playVideoBtn.onclick = () => startVideoFlow();
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
-    els.swapSearch.oninput = (e) => {
-        const q = e.target.value.toLowerCase();
-        const filtered = appState.swapAvailablePlayers.filter((p) => p.name.toLowerCase().includes(q));
-        renderSwapList(filtered);
+    els.swapSearch.oninput = () => {
+        refreshSwapPlayerListFromSearch();
     };
 
     // Load indexes

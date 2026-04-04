@@ -7,6 +7,7 @@ import {
 } from "./state.js";
 import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
+import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_lineups_shorts_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_lineups_shorts_fcbnew";
@@ -15,6 +16,16 @@ const LEGACY_SCRIPTS = "footballQuizScripts";
 const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
 const FIXED_SHORTS_MODE = true;
+
+const SAVE_SERVER = createSavedScriptsServerSync("lineups_shorts", {
+    KEY_SCRIPTS,
+    KEY_FOLDERS,
+    KEY_FOLDER_STATES,
+});
+
+function persistSaved() {
+    SAVE_SERVER.flushLocalAndServer(savedScripts, savedFolders, folderStates);
+}
 
 function scriptHasCareer(s) {
     if ((s.landing?.gameMode || "lineup") === "career") return true;
@@ -65,7 +76,7 @@ export function initSavedScripts(callbacks) {
         if (!name) return;
         if (!savedFolders.includes(name)) {
             savedFolders.push(name);
-            localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
+            persistSaved();
         }
         els.createFolderModal.hidden = true;
         renderSavedScripts();
@@ -144,7 +155,7 @@ export function initSavedScripts(callbacks) {
         };
 
         savedScripts.push(newScript);
-        localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+        persistSaved();
         activeScriptName = name; 
         els.saveScriptModal.hidden = true;
         renderSavedScripts();
@@ -160,12 +171,34 @@ export function initSavedScripts(callbacks) {
             const deletedScript = savedScripts[scriptToDeleteIndex];
             if (deletedScript.name === activeScriptName) activeScriptName = null;
             savedScripts.splice(scriptToDeleteIndex, 1);
-            localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+            persistSaved();
             renderSavedScripts();
         }
         els.deleteScriptModal.hidden = true;
         scriptToDeleteIndex = -1;
     };
+
+    void SAVE_SERVER.startPull({
+        render: renderSavedScripts,
+        replaceAll(scripts, folders, states) {
+            savedScripts = scripts;
+            savedFolders = folders;
+            folderStates = states;
+            localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+            localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
+            localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+        },
+        hasLocalData() {
+            return (
+                savedScripts.length > 0 ||
+                savedFolders.length > 0 ||
+                Object.keys(folderStates).length > 0
+            );
+        },
+        getSnapshot() {
+            return { scripts: savedScripts, folders: savedFolders, folderStates };
+        },
+    });
 
     renderSavedScripts();
 }
@@ -208,7 +241,7 @@ export function renderSavedScripts() {
             if (e.target.tagName.toLowerCase() === 'button') return;
             folderDiv.classList.toggle("collapsed");
             folderStates[folderName] = folderDiv.classList.contains("collapsed");
-            localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+            persistSaved();
         };
 
         header.ondragover = (e) => {
@@ -224,11 +257,9 @@ export function renderSavedScripts() {
             const draggedIndex = e.dataTransfer.getData("text/plain");
             if (draggedIndex !== "" && savedScripts[draggedIndex]) {
                 savedScripts[draggedIndex].folder = folderName;
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
-                
                 folderDiv.classList.remove("collapsed");
                 folderStates[folderName] = false;
-                localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+                persistSaved();
                 
                 renderSavedScripts();
             }
@@ -247,10 +278,7 @@ export function renderSavedScripts() {
                 savedScripts.forEach(s => { if(s.folder === folderName) s.folder = null; });
                 
                 delete folderStates[folderName];
-                localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
-                
-                localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+                persistSaved();
                 renderSavedScripts();
             }
         };
@@ -325,7 +353,7 @@ export function renderSavedScripts() {
             btnMoveOut.style.fontSize = "0.8rem";
             btnMoveOut.onclick = () => {
                 script.folder = null;
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+                persistSaved();
                 renderSavedScripts();
             };
             actions.appendChild(btnMoveOut);

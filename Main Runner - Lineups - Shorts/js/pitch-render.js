@@ -59,6 +59,43 @@ export function syncTeamHeaderLogoVarsFromLevel() {
   th.style.setProperty("--header-logo-nudge-x", `${n}px`);
 }
 import { projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
+
+const INTERNATIONAL_POOL_URL = "data/international-club-pool-by-nationality.json";
+
+function ensureInternationalClubPoolLoaded() {
+  if (appState.internationalClubPool != null) {
+    return Promise.resolve();
+  }
+  if (appState.internationalClubPoolLoadPromise) {
+    return appState.internationalClubPoolLoadPromise;
+  }
+  appState.internationalClubPoolLoadPromise = fetch(projectAssetUrl(INTERNATIONAL_POOL_URL), {
+    cache: "no-store",
+  })
+    .then((r) => (r.ok ? r.json() : { byNationality: {} }))
+    .then((data) => {
+      appState.internationalClubPool = data.byNationality && typeof data.byNationality === "object"
+        ? data.byNationality
+        : {};
+    })
+    .catch(() => {
+      appState.internationalClubPool = {};
+    })
+    .finally(() => {
+      appState.internationalClubPoolLoadPromise = null;
+    });
+  return appState.internationalClubPoolLoadPromise;
+}
+
+/** Re-apply swap search box filter to `swapAvailablePlayers` and redraw the list. */
+export function refreshSwapPlayerListFromSearch() {
+  const q = (appState.els.swapSearch?.value || "").toLowerCase();
+  const filtered = appState.swapAvailablePlayers.filter((p) =>
+    (p.name || "").toLowerCase().includes(q)
+  );
+  renderSwapList(filtered);
+}
+
 import { pickStartingXI } from "./pick-xi.js";
 import {
   getClubLogoOtherTeamsUrl,
@@ -136,14 +173,35 @@ export function openSwapModal(slotIndex) {
   ];
 
   const currentNames = appState.currentXi.filter((p) => p).map((p) => p.name);
-  appState.swapAvailablePlayers = allPlayers.filter((p) => !currentNames.includes(p.name));
-  appState.swapAvailablePlayers.sort((a, b) => a.name.localeCompare(b.name));
+  const bench = allPlayers.filter((p) => !currentNames.includes(p.name));
+  const benchNameSet = new Set(bench.map((p) => p.name));
+
+  const mergeAndShow = (extraFromClubPool) => {
+    const raw = Array.isArray(extraFromClubPool) ? extraFromClubPool : [];
+    const extra = raw.filter(
+      (p) => p && p.name && !currentNames.includes(p.name) && !benchNameSet.has(p.name)
+    );
+    appState.swapAvailablePlayers = [...bench, ...extra].sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    refreshSwapPlayerListFromSearch();
+  };
 
   appState.els.swapSearch.value = "";
+  appState.swapAvailablePlayers = [...bench].sort((a, b) => a.name.localeCompare(b.name));
   renderSwapList(appState.swapAvailablePlayers);
 
   appState.els.swapModal.hidden = false;
   appState.els.swapSearch.focus();
+
+  if (state.squadType === "national") {
+    const nation = String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
+    ensureInternationalClubPoolLoaded().then(() => {
+      if (appState.swapActiveSlotIndex !== slotIndex) return;
+      const pool = (appState.internationalClubPool && nation && appState.internationalClubPool[nation]) || [];
+      mergeAndShow(pool);
+    });
+  }
 }
 
 export function renderSwapList(players) {
@@ -158,15 +216,19 @@ export function renderSwapList(players) {
 
     const posSpan = document.createElement("span");
     posSpan.className = "pos";
-    posSpan.textContent = p.position || "UNK";
+    const pos = p.position || "UNK";
+    const clubHint = p.club && String(p.club).trim();
+    posSpan.textContent = clubHint ? `${pos} · ${clubHint}` : pos;
 
     btn.append(nameSpan, posSpan);
 
     btn.onclick = () => {
       const state = getState();
+      appState.suppressPitchSlotFlipAnimation = true;
       state.customXi[appState.swapActiveSlotIndex] = p;
       els.swapModal.hidden = true;
       renderPitch();
+      appState.suppressPitchSlotFlipAnimation = false;
     };
 
     els.swapList.appendChild(btn);
@@ -423,12 +485,22 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     slotEl.appendChild(inner);
     slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
     if (shouldFlipToPlayers) {
-      inner.style.transitionDelay = `${slotIndex * SLOT_FLIP_STAGGER_SEC}s`;
-      requestAnimationFrame(() => {
+      if (appState.suppressPitchSlotFlipAnimation) {
+        inner.style.transition = "none";
+        inner.style.transitionDelay = "";
+        inner.classList.add("flipped");
         requestAnimationFrame(() => {
-          inner.classList.add("flipped");
+          inner.style.removeProperty("transition");
+          inner.style.removeProperty("transition-delay");
         });
-      });
+      } else {
+        inner.style.transitionDelay = `${slotIndex * SLOT_FLIP_STAGGER_SEC}s`;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            inner.classList.add("flipped");
+          });
+        });
+      }
     }
     if (state.videoMode) {
       appendSlotBadgeZoomControls(slotEl, slotIndex);

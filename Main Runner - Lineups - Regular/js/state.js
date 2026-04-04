@@ -61,6 +61,9 @@ export const appState = {
     shortsModeBtn: null,
   },
   teamsIndex: { clubs: [], nationalities: [] },
+  /** Map nationality string -> players from club squads with NT caps; null until lazy-loaded. */
+  internationalClubPool: null,
+  internationalClubPoolLoadPromise: null,
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
   totalLevelsCount: 20,
@@ -69,6 +72,8 @@ export const appState = {
   swapActiveSlotIndex: -1,
   careerActiveSlotIndex: -1,
   swapAvailablePlayers: [],
+  /** One-shot: next `renderPitch` skips staggered flip-card transition (swap picker). */
+  suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
   videoInterval: null,
