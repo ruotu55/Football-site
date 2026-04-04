@@ -175,6 +175,23 @@ body.shorts-mode .team-header-title-cluster {
     padding: 0 0.35rem;
 }
 
+/*
+ * "Guess the football team name by players' nationality" (club XI): slight vertical shift for crest + name.
+ * Fly-group Y is cleared here so the whole cluster moves together (no double offset).
+ */
+body.shorts-mode .team-header[data-squad-type="club"] .team-header-title-cluster {
+    transform: translateY(calc(0.012 * 100vh));
+}
+
+body.shorts-mode .team-header[data-squad-type="club"] .team-header-logo-fly-group {
+    transform: translate(-0.45rem, 0);
+}
+
+/* "Guess the national team name by players' club" (national XI): flag + name 1% viewport down */
+body.shorts-mode .team-header[data-squad-type="national"] .team-header-title-cluster {
+    transform: translateY(calc(0.01 * 100vh));
+}
+
 body.shorts-mode .team-header-main-row {
     flex-direction: row;
     justify-content: center;
@@ -217,9 +234,10 @@ body.shorts-mode .team-header-logo {
     flex-shrink: 0;
 }
 
+/* National: flag above country name — ~10% smaller than prior Shorts sizing */
 body.shorts-mode .team-header[data-squad-type="national"] .team-header-logo {
-    height: 4.88rem;
-    width: 6.38rem;
+    height: 4.39rem;
+    width: 5.74rem;
 }
 
 /* One line; JS shrinks font to fit — do not clip with overflow:hidden */
@@ -229,7 +247,7 @@ body.shorts-mode .team-header .team-header-name {
     text-wrap: unset;
     text-align: center;
     line-height: 1.15;
-    margin: -0.12rem 0 0;
+    margin: 0.55rem 0 0;
     padding: 0;
     width: 100%;
     max-width: none;
@@ -292,6 +310,28 @@ body.shorts-mode .pitch-surface {
 body.shorts-mode .player-slot {
     /* +2% vs former 14% — match horizontal bump from Regular pitch.css */
     width: calc(14% * 1.02);
+}
+
+/* Swap control above the player circle (Shorts-only layout; DOM: swap is sibling of avatar / first in .slot-back) */
+@keyframes float-up-down-swap-above-shorts {
+    0%,
+    100% {
+        transform: translate(-50%, calc(-100% - 5px)) translateZ(30px) translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate(-50%, calc(-100% - 5px)) translateZ(30px) translate3d(0, -12px, 0);
+    }
+}
+
+body.shorts-mode .player-slot.has-player > .slot-swap-btn,
+body.shorts-mode .player-slot .slot-back > .slot-swap-btn {
+    left: 50%;
+    right: auto;
+    margin-left: 0;
+    top: 0;
+    bottom: auto;
+    z-index: 15;
+    animation: float-up-down-swap-above-shorts 4s ease-in-out infinite;
 }
 
 body.shorts-mode .slot-name {

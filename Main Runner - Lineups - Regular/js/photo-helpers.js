@@ -32,6 +32,52 @@ export function getClubLogoOtherTeamsUrl(clubField) {
   return projectAssetUrl(`${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`);
 }
 
+/**
+ * Header crest for a loaded squad: canonical `imagePath` (league folder) first, then `(1) Other Teams/<name>.png`
+ * if that URL differs (club squads only). National squads use `imagePath` only.
+ */
+export function getClubSquadHeaderLogoLoadUrls(squad, squadType, selectedEntryName) {
+  const primaryUrl = squad?.imagePath ? projectAssetUrl(squad.imagePath) : null;
+  if (squadType !== "club") {
+    return { primaryUrl, secondaryUrl: null };
+  }
+  const nameForOt = String(squad?.name || selectedEntryName || "").trim();
+  const otherTeamsUrl = nameForOt ? getClubLogoOtherTeamsUrl(nameForOt) : null;
+  const secondaryUrl =
+    otherTeamsUrl && otherTeamsUrl !== primaryUrl ? otherTeamsUrl : null;
+  return { primaryUrl, secondaryUrl };
+}
+
+/** Relative repo path for a PNG in `(1) Other Teams` (basename without `.png`). */
+export function getClubLogoOtherTeamsRelPath(clubField) {
+  if (clubField == null || typeof clubField !== "string") return null;
+  const t = clubField.trim();
+  if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
+  return `${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`;
+}
+
+/**
+ * Header crest load order: optional per-level override (`headerLogoOverrideRelPath`), then league `imagePath`,
+ * then automatic Other Teams fallback for club squads.
+ */
+export function getHeaderLogoUrlChain(state, squad, squadType, selectedEntryName) {
+  const { primaryUrl, secondaryUrl } = getClubSquadHeaderLogoLoadUrls(squad, squadType, selectedEntryName);
+  const chain = [];
+  const ov = state?.headerLogoOverrideRelPath;
+  if (ov && typeof ov === "string") {
+    const t = ov.trim();
+    if (t && !t.includes("..") && !t.includes("\\")) {
+      chain.push(projectAssetUrl(t));
+    }
+  }
+  const pushUnique = (u) => {
+    if (u && !chain.includes(u)) chain.push(u);
+  };
+  pushUnique(primaryUrl);
+  pushUnique(secondaryUrl);
+  return chain;
+}
+
 /** Pitch uses rotateX(~38deg); smaller y = farther away — scale so portrait size matches FUT.GG-style depth */
 export function slotPerspectiveScale(yPercent) {
   const t = 1 - Math.min(100, Math.max(0, yPercent)) / 100;

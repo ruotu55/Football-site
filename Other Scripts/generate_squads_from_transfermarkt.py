@@ -1877,16 +1877,30 @@ async def run(args: argparse.Namespace) -> int:
     OUT_NAT.mkdir(parents=True, exist_ok=True)
 
     team_pngs = sorted(TEAMS_IMAGES.rglob("*.png"))
-    
+
     if args.team:
         team_pngs = [p for p in team_pngs if args.team.lower() in p.stem.lower()]
-        
+
+    club_id_explicit: Optional[int] = getattr(args, "club_id", None)
+    if club_id_explicit is not None:
+        team_pngs = []
+
     nat_pngs_all = sorted(NATIONALITY_IMAGES.rglob("*.png"))
     nat_pngs = list(nat_pngs_all)
     if args.only == "teams":
         nat_pngs = []
     elif args.only == "nationalities":
         team_pngs = []
+
+    if club_id_explicit is not None and args.only != "nationalities":
+        rel_img = (getattr(args, "club_image_relative", "") or "").strip()
+        if not rel_img:
+            print(
+                "error: --club-image-relative is required with --club-id "
+                '(e.g. "Teams Images/France/Ligue 1/Paris Saint-Germain.png")',
+                file=sys.stderr,
+            )
+            return 2
 
     if args.limit:
         team_pngs = team_pngs[: args.limit]
@@ -2120,8 +2134,94 @@ async def run(args: argparse.Namespace) -> int:
             except Exception as exc:  # noqa: BLE001
                 print(f"[club] {png}: {exc}", file=sys.stderr)
 
+        async def one_club_by_id(tid: int) -> None:
+            """Write one club JSON from a known Transfermarkt id (avoids ambiguous logo filename search)."""
+            try:
+                image_rel = (getattr(args, "club_image_relative", "") or "").strip().replace(
+                    "\\", "/"
+                )
+                img_p = Path(image_rel)
+                teams_root = Path("Teams Images")
+                try:
+                    teams_sub = img_p.parent.relative_to(teams_root)
+                except ValueError:
+                    print(
+                        f"[club-id {tid}] image path must be under Teams Images/: {image_rel}",
+                        file=sys.stderr,
+                    )
+                    return
+                cdata = await _get_club_safe(tmkt, tid)
+                official_club = (cdata or {}).get("name") or ""
+                if not official_club:
+                    print(f"[club-id {tid}] could not load club name from tmapi", file=sys.stderr)
+                    return
+                season_meta_club, sid_club = await season_context_for_club(
+                    tmkt,
+                    tid,
+                    club_data=cdata,
+                    fallback_meta=season_meta,
+                )
+                smc = season_meta_club if isinstance(season_meta_club, dict) else {}
+                cv = smc.get("competitionId")
+                comp_stats = (
+                    str(cv).strip().upper()
+                    if cv is not None and str(cv).strip()
+                    else None
+                )
+                lbl = (
+                    str(smc.get("label")).strip()
+                    if isinstance(smc, dict) and smc.get("label")
+                    else None
+                )
+                squads = await fetch_squad_payload(
+                    tmkt,
+                    tid,
+                    official_squad_name=official_club,
+                    nationality_map=nationality_map,
+                    club_name_cache=club_name_cache,
+                    nt_name_cache=nt_name_cache,
+                    player_cache=player_cache,
+                    stats_cache=stats_cache,
+                    transfer_cache=transfer_cache,
+                    club_career_cache=club_career_cache,
+                    national_career_cache=national_career_cache,
+                    season_id=sid_club,
+                    national_team_squad=False,
+                    season_competition_id=comp_stats,
+                    season_label_hint=lbl,
+                )
+                payload = _serialize_squad(
+                    kind="club",
+                    label=official_club,
+                    rel_image=image_rel,
+                    tm_id=tid,
+                    season_meta=season_meta_club,
+                    squads=squads,
+                )
+                out_path = (
+                    OUT_TEAMS
+                    / teams_sub
+                    / f"{_safe_json_filename_stem(payload['name'])}.json"
+                )
+                legacy_slug_path = OUT_TEAMS / teams_sub / f"{img_p.stem}.json"
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                if not args.dry_run:
+                    out_path.write_text(
+                        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+                        encoding="utf-8",
+                    )
+                    if (
+                        legacy_slug_path.is_file()
+                        and legacy_slug_path.resolve() != out_path.resolve()
+                    ):
+                        legacy_slug_path.unlink()
+            except Exception as exc:  # noqa: BLE001
+                print(f"[club-id {tid}] {exc}", file=sys.stderr)
+
         tasks = [asyncio.create_task(one_nationality(p)) for p in nat_pngs]
         tasks += [asyncio.create_task(one_club(p)) for p in team_pngs]
+        if club_id_explicit is not None and args.only != "nationalities":
+            tasks.append(asyncio.create_task(one_club_by_id(club_id_explicit)))
         for c in asyncio.as_completed(tasks):
             await c
 
@@ -2153,6 +2253,27 @@ def main() -> None:
         "--fast",
         action="store_true",
         help="Skip automatic nationality-id map build (may leave numeric TM ids if no map file).",
+    )
+    p.add_argument(
+        "--club-id",
+        type=int,
+        default=None,
+        metavar="ID",
+        help=(
+            "Single Transfermarkt club id (e.g. 583 for Paris Saint-Germain). "
+            "Skips scanning Teams Images; requires --club-image-relative. "
+            "Use when the logo filename would resolve to the wrong club (e.g. PSG.png → PSG Peine)."
+        ),
+    )
+    p.add_argument(
+        "--club-image-relative",
+        type=str,
+        default="",
+        metavar="PATH",
+        help=(
+            'Value for JSON imagePath, e.g. "Teams Images/France/Ligue 1/Paris Saint-Germain.png". '
+            "Required with --club-id."
+        ),
     )
     args = p.parse_args()
     if args.dry_run:

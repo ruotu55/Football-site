@@ -2,6 +2,7 @@ import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderHeader, renderPitch } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -178,6 +179,7 @@ export function switchLevel(index) {
           els.landingPage.classList.remove("landing-content-slide-in");
         }
       }, LOGO_SHIFT_MS + LANDING_SLIDE_MS);
+      refreshSaveTeamButtonUi();
       return;
     }
 
@@ -216,6 +218,7 @@ export function switchLevel(index) {
           });
         });
       }, 820);
+      refreshSaveTeamButtonUi();
       return;
     }
 
@@ -254,4 +257,5 @@ export function switchLevel(index) {
   } else {
     updateDOMContent();
   }
+  refreshSaveTeamButtonUi();
 }

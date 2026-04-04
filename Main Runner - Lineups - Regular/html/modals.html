@@ -1,13 +1,32 @@
 <div id="swap-modal" class="swap-modal" hidden>
   <div class="swap-modal-content">
     <div class="swap-modal-header">
-      <h3>Swap Player</h3>
-      <button id="swap-modal-close" aria-label="Close">&times;</button>
+      <div class="swap-modal-title-row">
+        <h3>Swap Player</h3>
+        <button type="button" class="swap-search-all-btn" id="swap-search-all">Search all players</button>
+      </div>
+      <button type="button" class="swap-modal-close" id="swap-modal-close" aria-label="Close">&times;</button>
     </div>
     <div class="swap-modal-search">
-      <input type="text" id="swap-search" placeholder="Search bench players..." autocomplete="off" />
+      <input type="text" id="swap-search" placeholder="Search (name, club, position)…" autocomplete="off" />
     </div>
     <div id="swap-player-list" class="swap-player-list"></div>
+  </div>
+</div>
+
+<div id="swap-logo-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content swap-modal-content--logo-grid">
+    <div class="swap-modal-header">
+      <div class="swap-modal-title-row">
+        <h3 id="swap-logo-modal-title">Swap logo</h3>
+        <button type="button" class="swap-search-all-btn" id="swap-logo-reset">Use default</button>
+      </div>
+      <button type="button" class="swap-modal-close" id="swap-logo-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="swap-modal-search">
+      <input type="text" id="swap-logo-search" placeholder="Search crests…" autocomplete="off" />
+    </div>
+    <div id="swap-logo-list" class="swap-logo-list"></div>
   </div>
 </div>
 

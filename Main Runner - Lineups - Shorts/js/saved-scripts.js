@@ -122,6 +122,12 @@ export function initSavedScripts(callbacks) {
             silhouetteScaleY: lvl.silhouetteScaleY,
             headerLogoScale: lvl.headerLogoScale ?? 1,
             headerLogoNudgeX: lvl.headerLogoNudgeX ?? 0,
+            headerLogoOverrideRelPath: lvl.headerLogoOverrideRelPath ?? null,
+            slotClubCrestOverrideRelPathBySlot:
+              lvl.slotClubCrestOverrideRelPathBySlot &&
+              typeof lvl.slotClubCrestOverrideRelPathBySlot === "object"
+                ? { ...lvl.slotClubCrestOverrideRelPathBySlot }
+                : {},
             slotFlagScales: Array.isArray(lvl.slotFlagScales)
                 ? [...lvl.slotFlagScales]
                 : Array(11).fill(DEFAULT_SLOT_FLAG_SCALE),
@@ -442,6 +448,12 @@ async function loadScript(script) {
             silhouetteScaleY: lvl.silhouetteScaleY || 1,
             headerLogoScale: lvl.headerLogoScale ?? 1,
             headerLogoNudgeX: lvl.headerLogoNudgeX ?? 0,
+            headerLogoOverrideRelPath: lvl.headerLogoOverrideRelPath ?? null,
+            slotClubCrestOverrideRelPathBySlot:
+              lvl.slotClubCrestOverrideRelPathBySlot &&
+              typeof lvl.slotClubCrestOverrideRelPathBySlot === "object"
+                ? { ...lvl.slotClubCrestOverrideRelPathBySlot }
+                : {},
             slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
         };
         ensureSlotFrontFaceScales(merged);

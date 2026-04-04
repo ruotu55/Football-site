@@ -1,7 +1,10 @@
 """
-Scan Squad Formation/Teams club JSONs and build a pool of players who have at least
-one senior national-team appearance (national_team_career_totals.appearances >= 1),
-grouped by player nationality string (must match national squad `name` in the app).
+Scan Squad Formation/Teams club JSONs and build a pool of every player with a
+nationality string, grouped by that nationality (must match national squad `name`
+in the app). Used by Lineups “Search all players” when editing a national XI.
+
+Deduplicates by (name, nationality); keeps the richer duplicate (more NT caps, then
+more season apps, then more club career apps).
 
 Output: data/international-club-pool-by-nationality.json
 
@@ -102,8 +105,6 @@ def main() -> int:
                 name_k = name.strip()
                 if not nat_k or not name_k:
                     continue
-                if _int_caps(p) < 1:
-                    continue
 
                 key = (name_k.lower(), nat_k)
                 prev = best[nat_k].get(key)
@@ -118,8 +119,8 @@ def main() -> int:
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "version": 1,
-        "source": "Squad Formation/Teams club JSONs; national_team_career_totals.appearances >= 1",
+        "version": 2,
+        "source": "Squad Formation/Teams club JSONs; all players with nationality set",
         "byNationality": by_nationality,
     }
     OUT_PATH.write_text(

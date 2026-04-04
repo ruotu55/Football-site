@@ -18,6 +18,12 @@ export const appState = {
     swapClose: null,
     swapList: null,
     swapSearch: null,
+    swapSearchAll: null,
+    swapLogoModal: null,
+    swapLogoClose: null,
+    swapLogoList: null,
+    swapLogoSearch: null,
+    swapLogoReset: null,
     videoModeToggle: null,
     playVideoBtn: null,
     countdownTimer: null,
@@ -29,6 +35,9 @@ export const appState = {
     panelSetup: null,
     panelSaved: null,
     setupPitchControls: null,
+    btnSaveCurrentTeam: null,
+    btnSaveCurrentTeamFab: null,
+    btnSaveCurrentTeamLanding: null,
     btnSaveScript: null,
     btnCreateFolder: null,
     savedScriptsList: null,
@@ -72,6 +81,12 @@ export const appState = {
   swapActiveSlotIndex: -1,
   careerActiveSlotIndex: -1,
   swapAvailablePlayers: [],
+  /** Latest list for swap-logo modal (refetched when modal opens; live via `run_site.py`). */
+  otherTeamsLogoNames: null,
+  /** Bust browser cache for modal crest thumbnails after folder changes. */
+  swapLogoThumbCacheToken: "0",
+  /** While swap-logo modal is open: `null` = team header crest; `{ kind: "slot", slotIndex }` = national XI slot front. */
+  swapLogoPickContext: null,
   /** One-shot: next `renderPitch` skips staggered flip-card transition (swap picker). */
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
@@ -192,6 +207,9 @@ export function initLevels(count) {
         careerHistory: [],
         headerLogoScale: 1,
         headerLogoNudgeX: 0,
+        headerLogoOverrideRelPath: null,
+        /** National XI + video mode: per-slot club crest PNG rel path from `(1) Other Teams`. Keys: "0".."10". */
+        slotClubCrestOverrideRelPathBySlot: {},
         slotFlagScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_FLAG_SCALE),
         slotTeamLogoScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
       }
@@ -202,6 +220,12 @@ export function initLevels(count) {
     }
     if (last.headerLogoNudgeX === undefined || last.headerLogoNudgeX === null) {
       last.headerLogoNudgeX = 0;
+    }
+    if (last.headerLogoOverrideRelPath === undefined) {
+      last.headerLogoOverrideRelPath = null;
+    }
+    if (!last.slotClubCrestOverrideRelPathBySlot || typeof last.slotClubCrestOverrideRelPathBySlot !== "object") {
+      last.slotClubCrestOverrideRelPathBySlot = {};
     }
     ensureSlotFrontFaceScales(last);
   }

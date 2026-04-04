@@ -4,6 +4,9 @@ import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./pa
 import { playerPhotoPaths } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
 import {
+    applySwapSearchAllNationality,
+    openSwapLogoModal,
+    refreshSwapLogoListFromSearch,
     refreshSwapPlayerListFromSearch,
     renderHeader,
     renderPitch,
@@ -18,6 +21,7 @@ import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
+import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
@@ -92,7 +96,19 @@ function initHeaderLogoZoom() {
     const zoomIn = document.getElementById("team-header-zoom-in");
     const nudgeLeft = document.getElementById("team-header-nudge-left");
     const nudgeRight = document.getElementById("team-header-nudge-right");
+    const swapLogo = document.getElementById("team-header-swap-logo");
+    const pitchSwapLogo = document.getElementById("pitch-swap-logo");
+    if (pitchSwapLogo) {
+        pitchSwapLogo.onclick = () => {
+            openSwapLogoModal();
+        };
+    }
     if (!th || !zoomOut || !zoomIn || !nudgeLeft || !nudgeRight) return;
+    if (swapLogo) {
+        swapLogo.onclick = () => {
+            openSwapLogoModal();
+        };
+    }
     syncTeamHeaderLogoVarsFromLevel();
     zoomOut.onclick = () => {
         applyHeaderLogoScale(currentLevelHeaderLogoScale() - HEADER_LOGO_SCALE_STEP);
@@ -277,6 +293,7 @@ async function init() {
         : 0;
     switchLevel(initialLevelIndex);
     syncShortsModeFab();
+    initSavedTeamLayouts();
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && appState.isVideoPlaying) {
@@ -348,6 +365,7 @@ async function init() {
             }
         }
         syncVideoModeButton(state.videoMode);
+        refreshSaveTeamButtonUi();
         if (!e.target.checked && appState.isVideoPlaying) {
             stopVideoFlow();
         }
@@ -381,6 +399,40 @@ async function init() {
         refreshSwapPlayerListFromSearch();
     };
 
+    if (els.swapSearchAll) {
+        els.swapSearchAll.onclick = () => applySwapSearchAllNationality();
+    }
+
+    if (els.swapLogoClose && els.swapLogoModal) {
+        els.swapLogoClose.onclick = () => {
+            els.swapLogoModal.hidden = true;
+            appState.swapLogoPickContext = null;
+        };
+    }
+    if (els.swapLogoSearch) {
+        els.swapLogoSearch.oninput = () => refreshSwapLogoListFromSearch();
+    }
+    if (els.swapLogoReset) {
+        els.swapLogoReset.onclick = () => {
+            const ctx = appState.swapLogoPickContext;
+            const st = getState();
+            if (ctx?.kind === "slot") {
+                const k = String(ctx.slotIndex);
+                if (st.slotClubCrestOverrideRelPathBySlot) {
+                    delete st.slotClubCrestOverrideRelPathBySlot[k];
+                }
+                els.swapLogoModal.hidden = true;
+                appState.swapLogoPickContext = null;
+                renderPitch();
+                return;
+            }
+            st.headerLogoOverrideRelPath = null;
+            if (els.swapLogoModal) els.swapLogoModal.hidden = true;
+            appState.swapLogoPickContext = null;
+            renderHeader();
+        };
+    }
+
     // Load indexes
     const fetchJsonNoCache = (path) => fetch(projectAssetUrl(path), { cache: "no-store" }).then((r) => r.json());
     const [idx, photos, flags] = await Promise.all([
@@ -391,6 +443,18 @@ async function init() {
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);
     appState.flagcodes = flags.codes || {};
+
+    {
+      const quizIdx = appState.currentLevelIndex;
+      if (
+        quizIdx > 1 &&
+        quizIdx < appState.totalLevelsCount &&
+        getState()?.currentSquad
+      ) {
+        renderPitch();
+        renderHeader();
+      }
+    }
 
     const handleSearchInput = () => {
         els.teamSearch.classList.remove("team-selected");
@@ -426,6 +490,8 @@ async function init() {
         state.searchText = "";
         state.customXi = null;
         state.customNames = {};
+        state.headerLogoOverrideRelPath = null;
+        state.slotClubCrestOverrideRelPathBySlot = {};
 
         els.teamSearch.value = "";
         els.teamSearch.classList.remove("team-selected");
@@ -436,6 +502,7 @@ async function init() {
         renderHeader();
         renderPitch();
         handleSearchInput();
+        refreshSaveTeamButtonUi();
     };
 
     els.formation.onchange = () => {

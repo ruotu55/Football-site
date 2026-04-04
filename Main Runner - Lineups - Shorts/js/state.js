@@ -18,6 +18,12 @@ export const appState = {
     swapClose: null,
     swapList: null,
     swapSearch: null,
+    swapSearchAll: null,
+    swapLogoModal: null,
+    swapLogoClose: null,
+    swapLogoList: null,
+    swapLogoSearch: null,
+    swapLogoReset: null,
     videoModeToggle: null,
     playVideoBtn: null,
     countdownTimer: null,
@@ -29,6 +35,9 @@ export const appState = {
     panelSetup: null,
     panelSaved: null,
     setupPitchControls: null,
+    btnSaveCurrentTeam: null,
+    btnSaveCurrentTeamFab: null,
+    btnSaveCurrentTeamLanding: null,
     btnSaveScript: null,
     btnCreateFolder: null,
     savedScriptsList: null,
@@ -72,6 +81,10 @@ export const appState = {
   swapActiveSlotIndex: -1,
   careerActiveSlotIndex: -1,
   swapAvailablePlayers: [],
+  /** Refetched when swap-logo modal opens (`run_site.py` live list or static JSON fallback). */
+  otherTeamsLogoNames: null,
+  swapLogoThumbCacheToken: "0",
+  swapLogoPickContext: null,
   /** One-shot: next `renderPitch` skips staggered flip-card transition (swap picker). */
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
@@ -192,6 +205,8 @@ export function initLevels(count) {
         careerHistory: [],
         headerLogoScale: 1,
         headerLogoNudgeX: 0,
+        headerLogoOverrideRelPath: null,
+        slotClubCrestOverrideRelPathBySlot: {},
         slotFlagScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_FLAG_SCALE),
         slotTeamLogoScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
       }
@@ -202,6 +217,12 @@ export function initLevels(count) {
     }
     if (last.headerLogoNudgeX === undefined || last.headerLogoNudgeX === null) {
       last.headerLogoNudgeX = 0;
+    }
+    if (last.headerLogoOverrideRelPath === undefined) {
+      last.headerLogoOverrideRelPath = null;
+    }
+    if (!last.slotClubCrestOverrideRelPathBySlot || typeof last.slotClubCrestOverrideRelPathBySlot !== "object") {
+      last.slotClubCrestOverrideRelPathBySlot = {};
     }
     ensureSlotFrontFaceScales(last);
   }

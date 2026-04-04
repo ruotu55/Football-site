@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import errno
 import importlib.util
+import json
 import io
 import os
 import socket
@@ -22,6 +23,7 @@ from urllib.parse import quote, unquote, urlparse
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
+OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Teams Images" / "(1) Other Teams"
 
 def _load_runner_saved_scripts():  # noqa: D401
     path = PROJECT_ROOT / "dev_server_saved_scripts.py"
@@ -34,6 +36,19 @@ def _load_runner_saved_scripts():  # noqa: D401
 
 
 _runner_saved_mod = _load_runner_saved_scripts()
+
+
+def _load_runner_json_blob():  # noqa: D401
+    path = PROJECT_ROOT / "dev_server_runner_blob.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_json_blob", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_runner_blob.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_blob_mod = _load_runner_json_blob()
 
 _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
@@ -163,6 +178,28 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
     def _is_live_reload_endpoint(self) -> bool:
         return urlparse(self.path).path == "/__live-reload"
 
+    def _try_serve_other_teams_logos_json(self) -> bool:
+        """Live list of PNG basenames in `Teams Images/(1) Other Teams` (swap-logo picker)."""
+        path = unquote(urlparse(self.path).path)
+        if path.rstrip("/") != "/__other-teams-logos.json":
+            return False
+        names: list[str] = []
+        if OTHER_TEAMS_LOGOS_DIR.is_dir():
+            for entry in sorted(OTHER_TEAMS_LOGOS_DIR.iterdir()):
+                if entry.is_file() and entry.suffix.lower() == ".png":
+                    names.append(entry.stem)
+        payload = json.dumps(
+            {"dir": "Teams Images/(1) Other Teams", "names": names},
+            ensure_ascii=False,
+        ).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(payload)))
+        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+        self.end_headers()
+        self.wfile.write(payload)
+        return True
+
     def _send_live_reload_stream(self) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -200,7 +237,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         return body[:index] + snippet + b"\n" + body[index:]
 
     def do_GET(self) -> None:  # noqa: N802
+        if _runner_blob_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if self._try_serve_other_teams_logos_json():
             return
         if self._is_live_reload_endpoint():
             self._send_live_reload_stream()
@@ -212,6 +253,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
 
     def do_POST(self) -> None:  # noqa: N802
+        if _runner_blob_mod.try_handle_post(self, PROJECT_ROOT):
+            return
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
             return
         self.send_error(404, "Not found")

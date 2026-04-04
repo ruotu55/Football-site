@@ -39,6 +39,9 @@ function careerWavingNationalityFlagRel(nationalityRaw) {
   if (n === "portugal" || n === "portuguese") {
     return "Nationality images/Waving/Portugal.png";
   }
+  if (n === "england" || n === "english") {
+    return "Nationality images/Europe/England.png";
+  }
   return null;
 }
 

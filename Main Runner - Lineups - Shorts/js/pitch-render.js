@@ -58,11 +58,16 @@ export function syncTeamHeaderLogoVarsFromLevel() {
   th.style.setProperty("--header-logo-scale", String(s));
   th.style.setProperty("--header-logo-nudge-x", `${n}px`);
 }
-import { projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
+import {
+  projectAssetUrl,
+  projectAssetUrlFresh,
+  withProjectAssetCacheBust,
+} from "./paths.js";
+import { normalizeForSearch } from "./search-normalize.js";
 
 const INTERNATIONAL_POOL_URL = "data/international-club-pool-by-nationality.json";
 
-function ensureInternationalClubPoolLoaded() {
+export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
     return Promise.resolve();
   }
@@ -87,19 +92,77 @@ function ensureInternationalClubPoolLoaded() {
   return appState.internationalClubPoolLoadPromise;
 }
 
+function getSwapBenchMergeContext(state) {
+  const allPlayers = [
+    ...(state.currentSquad.goalkeepers || []),
+    ...(state.currentSquad.defenders || []),
+    ...(state.currentSquad.midfielders || []),
+    ...(state.currentSquad.attackers || []),
+  ];
+  const currentNames = appState.currentXi.filter((p) => p).map((p) => p.name);
+  const bench = allPlayers.filter((p) => !currentNames.includes(p.name));
+  const benchNameSet = new Set(bench.map((p) => p.name));
+  return { bench, benchNameSet, currentNames, allPlayers };
+}
+
+function mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, extraFromClubPool) {
+  const raw = Array.isArray(extraFromClubPool) ? extraFromClubPool : [];
+  const extra = raw.filter(
+    (p) => p && p.name && !currentNames.includes(p.name) && !benchNameSet.has(p.name)
+  );
+  appState.swapAvailablePlayers = [...bench, ...extra].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+  refreshSwapPlayerListFromSearch();
+}
+
 /** Re-apply swap search box filter to `swapAvailablePlayers` and redraw the list. */
 export function refreshSwapPlayerListFromSearch() {
-  const q = (appState.els.swapSearch?.value || "").toLowerCase();
-  const filtered = appState.swapAvailablePlayers.filter((p) =>
-    (p.name || "").toLowerCase().includes(q)
-  );
+  const q = normalizeForSearch(appState.els.swapSearch?.value || "");
+  const filtered = appState.swapAvailablePlayers.filter((p) => {
+    if (!q) return true;
+    const name = normalizeForSearch(p.name || "");
+    const club = normalizeForSearch(p.club != null ? String(p.club) : "");
+    const pos = normalizeForSearch(p.position || "");
+    const nat = normalizeForSearch(p.nationality != null ? String(p.nationality) : "");
+    return (
+      name.includes(q) ||
+      club.includes(q) ||
+      pos.includes(q) ||
+      nat.includes(q)
+    );
+  });
   renderSwapList(filtered);
+}
+
+/** Bench + club players from `international-club-pool-by-nationality.json` (same nationality string). */
+export function applySwapSearchAllNationality() {
+  const state = getState();
+  if (!state || !state.currentSquad) return;
+  const slotIndex = appState.swapActiveSlotIndex;
+  if (slotIndex < 0) return;
+  const { bench, benchNameSet, currentNames } = getSwapBenchMergeContext(state);
+  const slotPlayer = appState.currentXi[slotIndex];
+  let nat = (slotPlayer?.nationality && String(slotPlayer.nationality).trim()) || "";
+  if (!nat && state.squadType === "national") {
+    nat = String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
+  }
+  if (!nat) return;
+  ensureInternationalClubPoolLoaded().then(() => {
+    if (appState.swapActiveSlotIndex !== slotIndex) return;
+    appState.els.swapSearch.value = "";
+    const pool =
+      (appState.internationalClubPool && nat && appState.internationalClubPool[nat]) || [];
+    mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, pool);
+  });
 }
 
 import { pickStartingXI } from "./pick-xi.js";
 import {
+  getClubLogoOtherTeamsRelPath,
   getClubLogoOtherTeamsUrl,
   getClubLogoUrl,
+  getHeaderLogoUrlChain,
   playerPhotoPaths,
   slotPerspectiveScale,
 } from "./photo-helpers.js";
@@ -165,27 +228,7 @@ export function openSwapModal(slotIndex) {
 
   appState.swapActiveSlotIndex = slotIndex;
 
-  const allPlayers = [
-    ...(state.currentSquad.goalkeepers || []),
-    ...(state.currentSquad.defenders || []),
-    ...(state.currentSquad.midfielders || []),
-    ...(state.currentSquad.attackers || []),
-  ];
-
-  const currentNames = appState.currentXi.filter((p) => p).map((p) => p.name);
-  const bench = allPlayers.filter((p) => !currentNames.includes(p.name));
-  const benchNameSet = new Set(bench.map((p) => p.name));
-
-  const mergeAndShow = (extraFromClubPool) => {
-    const raw = Array.isArray(extraFromClubPool) ? extraFromClubPool : [];
-    const extra = raw.filter(
-      (p) => p && p.name && !currentNames.includes(p.name) && !benchNameSet.has(p.name)
-    );
-    appState.swapAvailablePlayers = [...bench, ...extra].sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
-    refreshSwapPlayerListFromSearch();
-  };
+  const { bench, benchNameSet, currentNames } = getSwapBenchMergeContext(state);
 
   appState.els.swapSearch.value = "";
   appState.swapAvailablePlayers = [...bench].sort((a, b) => a.name.localeCompare(b.name));
@@ -198,8 +241,9 @@ export function openSwapModal(slotIndex) {
     const nation = String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
     ensureInternationalClubPoolLoaded().then(() => {
       if (appState.swapActiveSlotIndex !== slotIndex) return;
-      const pool = (appState.internationalClubPool && nation && appState.internationalClubPool[nation]) || [];
-      mergeAndShow(pool);
+      const pool =
+        (appState.internationalClubPool && nation && appState.internationalClubPool[nation]) || [];
+      mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, pool);
     });
   }
 }
@@ -225,13 +269,125 @@ export function renderSwapList(players) {
     btn.onclick = () => {
       const state = getState();
       appState.suppressPitchSlotFlipAnimation = true;
-      state.customXi[appState.swapActiveSlotIndex] = p;
+      const si = appState.swapActiveSlotIndex;
+      if (state.slotClubCrestOverrideRelPathBySlot && si >= 0) {
+        delete state.slotClubCrestOverrideRelPathBySlot[String(si)];
+      }
+      state.customXi[si] = p;
       els.swapModal.hidden = true;
       renderPitch();
       appState.suppressPitchSlotFlipAnimation = false;
     };
 
     els.swapList.appendChild(btn);
+  });
+}
+
+const OTHER_TEAMS_LOGOS_LIVE_PATH = "__other-teams-logos.json";
+const OTHER_TEAMS_LOGOS_STATIC_FALLBACK = "data/other-teams-logos.json";
+
+async function loadOtherTeamsLogoNamesForModal() {
+  const fetchNames = async (rel) => {
+    try {
+      const res = await fetch(projectAssetUrl(rel), { cache: "no-store" });
+      if (!res.ok) return null;
+      const data = await res.json();
+      return Array.isArray(data.names) ? data.names : [];
+    } catch {
+      return null;
+    }
+  };
+  let names = await fetchNames(OTHER_TEAMS_LOGOS_LIVE_PATH);
+  if (names == null) {
+    names = await fetchNames(OTHER_TEAMS_LOGOS_STATIC_FALLBACK);
+  }
+  appState.otherTeamsLogoNames = names ?? [];
+}
+
+export function refreshSwapLogoListFromSearch() {
+  const names = appState.otherTeamsLogoNames;
+  if (!names) return;
+  renderSwapLogoList(names);
+}
+
+export async function openSwapLogoModal(pickContext = null) {
+  const state = getState();
+  if (!state.currentSquad) return;
+  if (pickContext?.kind === "slot") {
+    if (state.squadType !== "national") return;
+  } else if (state.squadType !== "club") {
+    return;
+  }
+  appState.swapLogoPickContext = pickContext;
+  appState.swapLogoThumbCacheToken = String(Date.now());
+  await loadOtherTeamsLogoNamesForModal();
+  const { els } = appState;
+  if (!els.swapLogoModal || !els.swapLogoList) return;
+  const titleEl = document.getElementById("swap-logo-modal-title");
+  if (titleEl) {
+    titleEl.textContent =
+      pickContext?.kind === "slot" ? "Slot club crest" : "Team header crest";
+  }
+  if (els.swapLogoReset) {
+    els.swapLogoReset.textContent =
+      pickContext?.kind === "slot" ? "Use player default" : "Use default";
+  }
+  els.swapLogoSearch.value = "";
+  renderSwapLogoList(appState.otherTeamsLogoNames || []);
+  els.swapLogoModal.hidden = false;
+  els.swapLogoSearch.focus();
+}
+
+function renderSwapLogoList(names) {
+  const { els } = appState;
+  els.swapLogoList.replaceChildren();
+  const q = (els.swapLogoSearch?.value || "").trim().toLowerCase();
+  const filtered = names.filter((n) => !q || String(n).toLowerCase().includes(q));
+  filtered.sort((a, b) => String(a).localeCompare(String(b)));
+
+  filtered.forEach((name) => {
+    const rel = getClubLogoOtherTeamsRelPath(name);
+    if (!rel) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "swap-logo-item";
+    const img = document.createElement("img");
+    img.className = "swap-logo-item-img";
+    const baseUrl = projectAssetUrl(rel);
+    const bust = appState.swapLogoThumbCacheToken || "";
+    img.src = bust
+      ? `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}_sb=${encodeURIComponent(bust)}`
+      : baseUrl;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    const span = document.createElement("span");
+    span.className = "swap-logo-item-label";
+    span.textContent = name;
+    btn.append(img, span);
+    btn.onclick = () => {
+      const ctx = appState.swapLogoPickContext;
+      const st = getState();
+      if (ctx?.kind === "slot") {
+        const k = String(ctx.slotIndex);
+        if (
+          !st.slotClubCrestOverrideRelPathBySlot ||
+          typeof st.slotClubCrestOverrideRelPathBySlot !== "object"
+        ) {
+          st.slotClubCrestOverrideRelPathBySlot = {};
+        }
+        st.slotClubCrestOverrideRelPathBySlot[k] = rel;
+        els.swapLogoModal.hidden = true;
+        appState.swapLogoPickContext = null;
+        renderPitch();
+        return;
+      }
+      st.headerLogoOverrideRelPath = rel;
+      els.swapLogoModal.hidden = true;
+      appState.swapLogoPickContext = null;
+      renderHeader();
+    };
+    els.swapLogoList.appendChild(btn);
   });
 }
 
@@ -313,6 +469,20 @@ function appendSlotBadgeZoomControls(slotEl, slotIndex) {
   const growLabel =
     state.squadType === "national" ? "Zoom in club logo" : "Zoom in nationality flag";
   controls.append(makeBtn(-1, shrinkLabel), makeBtn(1, growLabel));
+  if (state.squadType === "national") {
+    const crestPick = document.createElement("button");
+    crestPick.type = "button";
+    crestPick.className = "slot-badge-zoom-btn slot-badge-swap-crest-btn";
+    crestPick.setAttribute("aria-label", "Pick club crest from Other Teams folder");
+    crestPick.title = "Swap crest";
+    crestPick.textContent = "⇄";
+    crestPick.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      openSwapLogoModal({ kind: "slot", slotIndex });
+    });
+    controls.appendChild(crestPick);
+  }
   slotEl.appendChild(controls);
 }
 
@@ -349,9 +519,13 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     if (state.squadType === "club") {
       const code = appState.flagcodes[player.nationality];
+      const natLabel = String(player.nationality || "").trim();
       if (code) {
-        // Higher-resolution PNG keeps flags sharp while remaining performant.
-        const flagUrl = `https://flagcdn.com/w320/${code.toLowerCase()}.png`;
+        // England: repo St George asset (not Union Jack / generic CDN crop).
+        const flagUrl =
+          natLabel === "England"
+            ? projectAssetUrl("Nationality images/Europe/England.png")
+            : `https://flagcdn.com/w320/${code.toLowerCase()}.png`;
         const img = document.createElement("img");
         img.className = "slot-img";
         img.src = flagUrl;
@@ -376,7 +550,17 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       const clubName = player.club || "UNK";
       const primaryLogoUrl = getClubLogoUrl(clubName);
       const otherTeamsLogoUrl = getClubLogoOtherTeamsUrl(player.club);
-      const firstLogoUrl = primaryLogoUrl || otherTeamsLogoUrl;
+      const ovKey = String(slotIndex);
+      const overrideRel = state.slotClubCrestOverrideRelPathBySlot?.[ovKey];
+      const overrideUrl = overrideRel ? projectAssetUrlFresh(overrideRel) : null;
+      const urlChain = [];
+      const pushUrl = (u) => {
+        if (u && !urlChain.includes(u)) urlChain.push(u);
+      };
+      pushUrl(overrideUrl);
+      pushUrl(primaryLogoUrl ? withProjectAssetCacheBust(primaryLogoUrl) : null);
+      pushUrl(otherTeamsLogoUrl ? withProjectAssetCacheBust(otherTeamsLogoUrl) : null);
+      const firstLogoUrl = urlChain[0] || null;
       const clubLabel = player.club?.trim() ? player.club.trim() : "Unknown club";
 
       if (!firstLogoUrl) {
@@ -384,8 +568,8 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       } else {
         const img = document.createElement("img");
         img.className = "slot-img";
-        img.loading = "lazy";
         img.decoding = "async";
+        img.loading = "eager";
 
         /* Same box as flags; +/- adjusts --slot-badge-scale on the wrap (clip stays inside black ring) */
         img.style.width = "100%";
@@ -395,12 +579,12 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         img.style.objectFit = "contain";
         img.style.display = "block";
 
-        let triedOtherTeamsFallback = false;
-        img.src = firstLogoUrl;
+        let chainIndex = 0;
+        img.src = urlChain[chainIndex];
         img.onerror = () => {
-          if (!triedOtherTeamsFallback && primaryLogoUrl && otherTeamsLogoUrl) {
-            triedOtherTeamsFallback = true;
-            img.src = otherTeamsLogoUrl;
+          chainIndex += 1;
+          if (chainIndex < urlChain.length) {
+            img.src = urlChain[chainIndex];
             return;
           }
           img.remove();
@@ -470,6 +654,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     };
 
     const swapBtn = document.createElement("button");
+    swapBtn.type = "button";
     swapBtn.className = "slot-swap-btn";
     swapBtn.innerHTML = "⇄";
     swapBtn.title = "Swap player";
@@ -478,8 +663,8 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       openSwapModal(slotIndex);
     };
 
-    labelContainer.append(label, swapBtn);
-    back.append(backAvatar, labelContainer);
+    labelContainer.appendChild(label);
+    back.append(swapBtn, backAvatar, labelContainer);
 
     inner.append(front, back);
     slotEl.appendChild(inner);
@@ -563,6 +748,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     };
 
     const swapBtn = document.createElement("button");
+    swapBtn.type = "button";
     swapBtn.className = "slot-swap-btn";
     swapBtn.innerHTML = "⇄";
     swapBtn.title = "Swap player";
@@ -571,9 +757,9 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       openSwapModal(slotIndex);
     };
 
-    labelContainer.append(label, swapBtn);
+    labelContainer.appendChild(label);
     slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
-    slotEl.append(avatar, labelContainer);
+    slotEl.append(swapBtn, avatar, labelContainer);
   }
 }
 
@@ -807,6 +993,8 @@ export function renderHeader() {
   const { els } = appState;
   const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
 
+  document.body.classList.toggle("video-mode-on", !!state.videoMode);
+
   if (els.teamHeader) {
     const st = state.squadType;
     els.teamHeader.dataset.squadType = st === "national" ? "national" : "club";
@@ -831,18 +1019,35 @@ export function renderHeader() {
   if (!state.currentSquad) {
     if (els.headerName) els.headerName.textContent = "";
     if (els.headerLogo) els.headerLogo.hidden = true;
-    if (logoBlock) logoBlock.classList.add("team-header-logo-block--empty");
+    if (logoBlock) {
+      logoBlock.classList.add("team-header-logo-block--empty");
+      logoBlock.classList.remove("team-header-show-swap-logo");
+    }
     scheduleTeamHeaderNameCenterShift();
     scheduleShortsTeamNameFit();
     return;
   }
   if (els.headerName) els.headerName.textContent = state.currentSquad.name || state.selectedEntry.name;
   if (els.headerLogo) {
-    if (state.currentSquad.imagePath) {
+    const chain = getHeaderLogoUrlChain(
+      state,
+      state.currentSquad,
+      state.squadType,
+      state.selectedEntry?.name
+    );
+    if (chain.length) {
       const logoImg = els.headerLogo;
+      let chainIndex = 0;
       logoImg.onload = () => scheduleTeamHeaderNameCenterShift();
-      logoImg.onerror = () => scheduleTeamHeaderNameCenterShift();
-      logoImg.src = projectAssetUrl(state.currentSquad.imagePath);
+      logoImg.onerror = () => {
+        chainIndex += 1;
+        if (chainIndex < chain.length) {
+          logoImg.src = chain[chainIndex];
+          return;
+        }
+        scheduleTeamHeaderNameCenterShift();
+      };
+      logoImg.src = chain[0];
       logoImg.hidden = false;
       if (logoImg.complete) {
         scheduleTeamHeaderNameCenterShift();
@@ -851,8 +1056,26 @@ export function renderHeader() {
       els.headerLogo.hidden = true;
     }
   }
+  const swapLogoBtn = document.getElementById("team-header-swap-logo");
+  const pitchSwapBtn = document.getElementById("pitch-swap-logo");
+  /* Club XI ("guess team name by nationality"): do not show header/pitch Swap logo */
+  const showSwapLogo = false;
+  const headerCollapsed =
+    Boolean(els.teamHeader?.classList.contains("video-hidden"));
+  if (swapLogoBtn) {
+    swapLogoBtn.hidden = !showSwapLogo || (state.videoMode && headerCollapsed);
+  }
+  if (pitchSwapBtn) {
+    pitchSwapBtn.hidden =
+      !showSwapLogo || !state.videoMode || !headerCollapsed;
+  }
   if (logoBlock) {
-    logoBlock.classList.toggle("team-header-logo-block--empty", Boolean(els.headerLogo?.hidden));
+    const empty = Boolean(els.headerLogo?.hidden);
+    logoBlock.classList.toggle("team-header-logo-block--empty", empty);
+    logoBlock.classList.toggle(
+      "team-header-show-swap-logo",
+      showSwapLogo && empty
+    );
   }
   scheduleTeamHeaderNameCenterShift();
   scheduleShortsTeamNameFit();

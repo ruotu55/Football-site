@@ -2,6 +2,7 @@
 import { appState, clearSlotPhotoIndices, getState } from "./state.js";
 import { normalizeTeamPath, projectAssetUrl } from "./paths.js";
 import { renderHeader, renderPitch } from "./pitch-render.js";
+import { applySavedTeamLayoutAfterLoad, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
 // Specific team mappings to populate standard large tournament selections natively
 export const SPECIAL_COMPETITIONS = {
@@ -178,9 +179,7 @@ export function showResults(items) {
         state.selectedEntry = item;
         state.currentSquad = squad;
         state.searchText = squad.name || item.name;
-        state.customXi = null;
-        state.customNames = {};
-        clearSlotPhotoIndices();
+        await applySavedTeamLayoutAfterLoad(state, item);
 
         els.teamSearch.value = state.searchText;
         els.teamSearch.classList.add("team-selected");
@@ -188,12 +187,16 @@ export function showResults(items) {
 
         renderHeader();
         renderPitch();
+        refreshSaveTeamButtonUi();
       } catch (e) {
         console.error(e);
         state.currentSquad = null;
+        state.headerLogoOverrideRelPath = null;
+        state.slotClubCrestOverrideRelPathBySlot = {};
         clearSlotPhotoIndices();
         renderHeader();
         renderPitch();
+        refreshSaveTeamButtonUi();
       }
     };
     els.teamResults.appendChild(btn);

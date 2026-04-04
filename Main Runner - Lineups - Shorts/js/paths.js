@@ -49,6 +49,11 @@ export function projectAssetUrlFresh(relativePath) {
   return withCacheBust(projectAssetUrl(relativePath));
 }
 
+/** Same cache-bust as `projectAssetUrlFresh`, for an already-resolved absolute asset URL. */
+export function withProjectAssetCacheBust(absoluteHref) {
+  return withCacheBust(absoluteHref);
+}
+
 /** Relative to project root (Football Channel). PNGs named like "{Player Name}.png" */
 export const CAREER_READY_PHOTOS_DIR = "Player Images No Background/Ready photos";
 

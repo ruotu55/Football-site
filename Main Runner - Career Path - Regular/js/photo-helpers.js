@@ -37,6 +37,22 @@ export function getClubLogoOtherTeamsUrl(clubField) {
   return rel ? projectAssetUrl(rel) : null;
 }
 
+/**
+ * Header crest for a loaded squad: canonical `imagePath` (league folder) first, then `(1) Other Teams/<name>.png`
+ * if that URL differs (club squads only). National squads use `imagePath` only.
+ */
+export function getClubSquadHeaderLogoLoadUrls(squad, squadType, selectedEntryName) {
+  const primaryUrl = squad?.imagePath ? projectAssetUrl(squad.imagePath) : null;
+  if (squadType !== "club") {
+    return { primaryUrl, secondaryUrl: null };
+  }
+  const nameForOt = String(squad?.name || selectedEntryName || "").trim();
+  const otherTeamsUrl = nameForOt ? getClubLogoOtherTeamsUrl(nameForOt) : null;
+  const secondaryUrl =
+    otherTeamsUrl && otherTeamsUrl !== primaryUrl ? otherTeamsUrl : null;
+  return { primaryUrl, secondaryUrl };
+}
+
 /** Pitch uses rotateX(~38deg); smaller y = farther away — scale so portrait size matches FUT.GG-style depth */
 export function slotPerspectiveScale(yPercent) {
   const t = 1 - Math.min(100, Math.max(0, yPercent)) / 100;

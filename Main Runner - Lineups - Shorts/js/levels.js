@@ -2,6 +2,7 @@ import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderHeader, renderPitch } from "./pitch-render.js";
 import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
+import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
 export function switchLevel(index) {
   let idx = index;
@@ -157,4 +158,5 @@ export function switchLevel(index) {
   } else {
     updateDOMContent();
   }
+  refreshSaveTeamButtonUi();
 }

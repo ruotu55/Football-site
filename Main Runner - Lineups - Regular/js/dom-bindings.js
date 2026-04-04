@@ -22,6 +22,12 @@ export function bindDomElements() {
     els.swapClose = document.getElementById("swap-modal-close");
     els.swapList = document.getElementById("swap-player-list");
     els.swapSearch = document.getElementById("swap-search");
+    els.swapSearchAll = document.getElementById("swap-search-all");
+    els.swapLogoModal = document.getElementById("swap-logo-modal");
+    els.swapLogoClose = document.getElementById("swap-logo-modal-close");
+    els.swapLogoList = document.getElementById("swap-logo-list");
+    els.swapLogoSearch = document.getElementById("swap-logo-search");
+    els.swapLogoReset = document.getElementById("swap-logo-reset");
     els.videoModeToggle = document.getElementById("video-mode-toggle");
     els.videoModeBtn = document.getElementById("video-mode-btn");
     els.applyVideoAllBtn = document.getElementById("apply-video-all-btn");
@@ -36,6 +42,9 @@ export function bindDomElements() {
     els.panelSetup = document.getElementById("panel-setup");
     els.panelSaved = document.getElementById("panel-saved");
     els.setupPitchControls = document.getElementById("setup-pitch-controls");
+    els.btnSaveCurrentTeam = document.getElementById("btn-save-current-team");
+    els.btnSaveCurrentTeamFab = document.getElementById("btn-save-current-team-fab");
+    els.btnSaveCurrentTeamLanding = document.getElementById("btn-save-current-team-landing");
     els.btnSaveScript = document.getElementById("btn-save-script");
     els.btnCreateFolder = document.getElementById("btn-create-folder");
     els.savedScriptsList = document.getElementById("saved-scripts-list");
