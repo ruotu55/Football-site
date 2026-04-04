@@ -19,7 +19,7 @@ import time
 import webbrowser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import quote, urlparse
+from urllib.parse import quote, unquote, urlparse
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
@@ -169,12 +169,35 @@ def _watch_for_file_changes(httpd: "RunnerHTTPServer", stop_event: threading.Eve
 
 
 class RunnerRequestHandler(SimpleHTTPRequestHandler):
+    _CACHEABLE_ASSET_SUFFIXES = (
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".webp",
+        ".gif",
+        ".svg",
+        ".ico",
+        ".avif",
+        ".bmp",
+    )
+
+    def _is_cacheable_static_asset_request(self) -> bool:
+        """True for image URLs so repeated <img> loads reuse the browser cache."""
+        path = unquote(urlparse(self.path).path).lower()
+        return path.endswith(self._CACHEABLE_ASSET_SUFFIXES)
+
     def end_headers(self) -> None:  # noqa: D401
-        # Dev runner: always bypass browser cache so reload fetches fresh JS/CSS/HTML.
+        # Dev runner: bypass cache for HTML/JS/CSS/JSON so edits and reloads stay fresh.
+        # Allow caching for images: UI may recreate <img> nodes; without cache headers the
+        # dev server forces a full re-fetch. projectAssetUrlFresh() adds ?v= per page load
+        # so a full refresh still gets new URLs.
         if self.command in {"GET", "HEAD"}:
-            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
-            self.send_header("Pragma", "no-cache")
-            self.send_header("Expires", "0")
+            if self._is_cacheable_static_asset_request():
+                self.send_header("Cache-Control", "public, max-age=86400")
+            else:
+                self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+                self.send_header("Pragma", "no-cache")
+                self.send_header("Expires", "0")
         super().end_headers()
 
     def _is_live_reload_endpoint(self) -> bool:

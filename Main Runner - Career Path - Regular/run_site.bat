@@ -17,5 +17,6 @@ echo.
 exit /b 1
 
 :run
-"%PY%" "%HERE%run_site.py" %*
+rem Listen on all interfaces so other PCs on the LAN can open the site (override with: --host 127.0.0.1)
+"%PY%" "%HERE%run_site.py" --host 0.0.0.0 %*
 exit /b %ERRORLEVEL%
