@@ -1003,8 +1003,11 @@ export function renderHeader() {
   }
   const swapLogoBtn = document.getElementById("team-header-swap-logo");
   const pitchSwapBtn = document.getElementById("pitch-swap-logo");
+  const quizType = appState.els.inQuizType?.value || "nat-by-club";
   const showSwapLogo =
-    state.squadType === "club" && state.currentSquad;
+    state.squadType === "club" &&
+    state.currentSquad &&
+    quizType !== "club-by-nat";
   const headerCollapsed =
     Boolean(els.teamHeader?.classList.contains("video-hidden"));
   if (swapLogoBtn) {

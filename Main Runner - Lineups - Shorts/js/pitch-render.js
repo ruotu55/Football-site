@@ -1058,8 +1058,11 @@ export function renderHeader() {
   }
   const swapLogoBtn = document.getElementById("team-header-swap-logo");
   const pitchSwapBtn = document.getElementById("pitch-swap-logo");
-  /* Club XI ("guess team name by nationality"): do not show header/pitch Swap logo */
-  const showSwapLogo = false;
+  const quizType = appState.els.inQuizType?.value || "nat-by-club";
+  const showSwapLogo =
+    state.squadType === "club" &&
+    state.currentSquad &&
+    quizType !== "club-by-nat";
   const headerCollapsed =
     Boolean(els.teamHeader?.classList.contains("video-hidden"));
   if (swapLogoBtn) {

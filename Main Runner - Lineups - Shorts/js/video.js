@@ -414,14 +414,11 @@ function revealCurrentLevel() {
     if (isLastQuestion) {
       flipDelay = 0;
     } else {
-      let shouldPlayVoice = true;
-      if (!isShorts) {
-        const questionIndex = appState.currentLevelIndex - 2; 
-        if (questionIndex % 3 !== 0) {
-          shouldPlayVoice = false;
-        }
-      }
-      playTheAnswerIs(shouldPlayVoice);
+      const teamDisplayName = String(
+        state?.currentSquad?.name || state?.selectedEntry?.name || ""
+      ).trim();
+      const quizType = els.inQuizType?.value || "nat-by-club";
+      playTheAnswerIs(true, teamDisplayName, quizType);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 4000;

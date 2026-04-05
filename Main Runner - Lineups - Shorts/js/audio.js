@@ -17,7 +17,6 @@ const paths = {
     "../Voices/Ringhton/nra-lab-ukulele-fun-acoustic-background-happy-strings-221183.mp3",
     "../Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
   ],
-  theAnswerIs: "../Voices/the answer is/The answer is.mp3",
   dong: "../Voices/the answer is/dong.wav",
   commentBelow: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../Voices/Ticking sound/ticking sound.mp3"
@@ -202,13 +201,60 @@ export function playRules(quizType) {
   }
 }
 
-export function playTheAnswerIs(includeVoice = true) {
+const TEAM_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
+
+/** Relative to runner; trailing slash. `club-by-nat` = guess the club; else = guess the national team. */
+function revealVoiceDirForQuizType(quizType) {
+  return quizType === "club-by-nat"
+    ? "../Voices/Team names/"
+    : "../Voices/Nationality teams names/";
+}
+
+/** If a clip exists under the quiz-type folder, play it like other reveal voices; otherwise no-op (no BGM duck). */
+function playTeamNameVoiceIfExists(displayName, delayMs, voicesDirRel) {
+  const base = String(displayName || "").trim();
+  if (!base) return;
+  const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
+  let i = 0;
+  const tryNext = () => {
+    if (i >= TEAM_NAME_VOICE_EXTS.length) return;
+    const ext = TEAM_NAME_VOICE_EXTS[i++];
+    const src = `${dir}${encodeURIComponent(base)}${ext}`;
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, delayMs);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
+}
+
+export function playTheAnswerIs(
+  includeVoice = true,
+  teamDisplayName = "",
+  quizType = "nat-by-club"
+) {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
   
   if (includeVoice) {
-    // Dong plays immediately. Meanwhile, BGM fades down for 0.5s, then the voice plays.
-    playVoice(paths.theAnswerIs, 100);
+    // Dong plays immediately. BGM ducks over 0.6s, then the name clip plays if present.
+    playTeamNameVoiceIfExists(teamDisplayName, 600, revealVoiceDirForQuizType(quizType));
   }
 }
 

@@ -326,6 +326,7 @@ async function init() {
         updateSetupUI();
         updateLanding();
         renderSavedScripts();
+        renderHeader();
     };
 
     els.inEasy.oninput = updateLanding;
