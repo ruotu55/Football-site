@@ -18,7 +18,9 @@ const paths = {
     "../Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
   ],
   dong: "../Voices/the answer is/dong.wav",
-  commentBelow: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowLegacy: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowEncodedQ: "../Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../Voices/Ticking sound/ticking sound.mp3"
 };
 
@@ -201,17 +203,17 @@ export function playRules(quizType) {
   }
 }
 
-const TEAM_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
+export const TEAM_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
 
 /** Relative to runner; trailing slash. `club-by-nat` = guess the club; else = guess the national team. */
-function revealVoiceDirForQuizType(quizType) {
+export function revealVoiceDirForQuizType(quizType) {
   return quizType === "club-by-nat"
     ? "../Voices/Team names/"
     : "../Voices/Nationality teams names/";
 }
 
 /** If a clip exists under the quiz-type folder, play it like other reveal voices; otherwise no-op (no BGM duck). */
-function playTeamNameVoiceIfExists(displayName, delayMs, voicesDirRel) {
+function playTeamNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
   const base = String(displayName || "").trim();
   if (!base) return;
   const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
@@ -244,6 +246,18 @@ function playTeamNameVoiceIfExists(displayName, delayMs, voicesDirRel) {
   tryNext();
 }
 
+export function buildTeamNameVoiceSrc(displayName, quizType, ext = ".mp3") {
+  const cleanName = String(displayName || "").trim();
+  if (!cleanName) return "";
+  const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
+  return `${revealVoiceDirForQuizType(quizType)}${encodeURIComponent(cleanName)}${cleanExt}`;
+}
+
+/** Manual preview helper for header controls: try known extensions and play immediately if found. */
+export function playTeamNameVoiceIfExists(displayName, quizType = "nat-by-club", delayMs = 0) {
+  playTeamNameVoiceIfExistsInDir(displayName, delayMs, revealVoiceDirForQuizType(quizType));
+}
+
 export function playTheAnswerIs(
   includeVoice = true,
   teamDisplayName = "",
@@ -254,15 +268,41 @@ export function playTheAnswerIs(
   
   if (includeVoice) {
     // Dong plays immediately. BGM ducks over 0.6s, then the name clip plays if present.
-    playTeamNameVoiceIfExists(teamDisplayName, 600, revealVoiceDirForQuizType(quizType));
+    playTeamNameVoiceIfExistsInDir(teamDisplayName, 600, revealVoiceDirForQuizType(quizType));
   }
 }
 
 export function playCommentBelow() {
   // Removed the dong sound here so it doesn't interrupt the transition.
-  // Delay is strictly set to 600ms to perfectly match the length of the 
-  // CSS page drop transition (`stage-enter-anim`)
-  playVoice(paths.commentBelow, 600);
+  // Delay is set to 100ms so it starts 0.5s earlier than before.
+  // CSS page drop transition (`stage-enter-anim`).
+  const candidates = [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
+  let i = 0;
+  const tryNext = () => {
+    if (i >= candidates.length) return;
+    const src = candidates[i++];
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, 100);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {

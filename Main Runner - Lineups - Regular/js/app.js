@@ -5,6 +5,7 @@ import { playerPhotoPaths } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
 import {
     applySwapSearchAllNationality,
+    applyPlayerPhotoFramingForSourceRelPath,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
     refreshSwapPlayerListFromSearch,
@@ -15,7 +16,7 @@ import {
     shouldUseVideoQuestionLayout,
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
-import { filterTeams, showResults, filterLeagues } from "./teams.js";
+import { filterTeams, showResults } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
@@ -25,6 +26,7 @@ import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layo
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
+import { initTeamVoiceManager } from "./team-voice-manager.js";
 import {
     applyDevLiveReloadControls,
     captureDevLiveReloadSnapshot,
@@ -38,6 +40,7 @@ const HEADER_LOGO_SCALE_MIN_POSITIVE = 0.001;
 
 const HEADER_LOGO_NUDGE_STEP = 6;
 const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
+const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
 
 function sanitizeHeaderLogoScale(n) {
     const x = Number(n);
@@ -90,14 +93,16 @@ function applyHeaderLogoScale(scale) {
     }
 }
 
-function initHeaderLogoZoom() {
+function initHeaderLogoZoom(onClearTeamSelection) {
     const th = appState.els.teamHeader;
     const zoomOut = document.getElementById("team-header-zoom-out");
     const zoomIn = document.getElementById("team-header-zoom-in");
     const nudgeLeft = document.getElementById("team-header-nudge-left");
     const nudgeRight = document.getElementById("team-header-nudge-right");
     const swapLogo = document.getElementById("team-header-swap-logo");
+    const fetchLogo = document.getElementById("team-header-fetch-logo");
     const pitchSwapLogo = document.getElementById("pitch-swap-logo");
+    const clearTeamBtn = document.getElementById("team-header-clear-team");
     if (pitchSwapLogo) {
         pitchSwapLogo.onclick = () => {
             openSwapLogoModal();
@@ -107,6 +112,53 @@ function initHeaderLogoZoom() {
     if (swapLogo) {
         swapLogo.onclick = () => {
             openSwapLogoModal();
+        };
+    }
+    if (clearTeamBtn) {
+        clearTeamBtn.onclick = () => {
+            if (typeof onClearTeamSelection === "function") {
+                onClearTeamSelection();
+            }
+        };
+    }
+    if (fetchLogo) {
+        fetchLogo.onclick = async () => {
+            const st = getState();
+            if (!st?.currentSquad) return;
+            if (fetchLogo.disabled) return;
+            const prevText = fetchLogo.textContent || "Get logo";
+            fetchLogo.disabled = true;
+            fetchLogo.textContent = "...";
+            try {
+                const res = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        squadType: st.squadType || "",
+                        selectedEntry: st.selectedEntry || {},
+                        currentSquadName: st.currentSquad?.name || st.selectedEntry?.name || "",
+                        currentSquadImagePath: st.currentSquad?.imagePath || "",
+                    }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data?.ok) {
+                    throw new Error(data?.error || "Could not fetch team logo.");
+                }
+                if (data?.relativePath) {
+                    const rel = String(data.relativePath);
+                    st.headerLogoOverrideRelPath = `${rel}${rel.includes("?") ? "&" : "?"}_logo=${Date.now()}`;
+                    if (st.currentSquad && typeof st.currentSquad === "object") {
+                        st.currentSquad.imagePath = rel;
+                    }
+                }
+                renderHeader();
+            } catch (err) {
+                const msg = err instanceof Error ? err.message : "Could not fetch team logo.";
+                window.alert(msg);
+            } finally {
+                fetchLogo.disabled = false;
+                fetchLogo.textContent = prevText;
+            }
         };
     }
     syncTeamHeaderLogoVarsFromLevel();
@@ -248,6 +300,7 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    await initTeamVoiceManager();
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;
         els.shortsModeBtn.setAttribute("aria-pressed", els.shortsModeToggle.checked ? "true" : "false");
@@ -274,6 +327,7 @@ async function init() {
         captureDevLiveReloadSnapshot(appState, appState.els);
     };
     window.addEventListener("beforeunload", window.__captureRunnerState);
+    window.addEventListener("pagehide", window.__captureRunnerState);
 
     for (let i = 0; i < 11; i++) {
         const div = document.createElement("div");
@@ -457,31 +511,37 @@ async function init() {
       }
     }
 
+    const clearCurrentTeamSelection = () => {
+        const state = getState();
+        if (!state) return;
+
+        state.currentSquad = null;
+        state.selectedEntry = null;
+        state.searchText = "";
+        state.customXi = null;
+        state.customNames = {};
+        state.headerLogoOverrideRelPath = null;
+        state.slotClubCrestOverrideRelPathBySlot = {};
+
+        els.teamSearch.value = "";
+        els.teamSearch.classList.remove("team-selected");
+        els.teamResults.replaceChildren();
+        clearSlotPhotoIndices();
+
+        renderHeader();
+        renderPitch();
+        refreshSaveTeamButtonUi();
+    };
+
     const handleSearchInput = () => {
         els.teamSearch.classList.remove("team-selected");
-        const mode = els.searchMode.value;
-
-        if (mode === "team") {
-            getState().searchText = els.teamSearch.value;
-            const results = filterTeams(els.teamSearch.value);
-            showResults(results);
-        } else {
-            const results = filterLeagues(els.teamSearch.value);
-            if (typeof showLeagueResults === 'function') {
-                showLeagueResults(results);
-            }
-        }
+        getState().searchText = els.teamSearch.value;
+        const results = filterTeams(els.teamSearch.value);
+        showResults(results);
     };
 
     els.teamSearch.onfocus = handleSearchInput;
     els.teamSearch.oninput = handleSearchInput;
-
-    els.searchMode.onchange = () => {
-        els.teamSearch.value = "";
-        els.teamSearch.classList.remove("team-selected");
-        els.teamResults.replaceChildren();
-        handleSearchInput();
-    };
 
     els.squadType.onchange = () => {
         const state = getState();
@@ -546,6 +606,7 @@ async function init() {
             ? slot.querySelector(".slot-back .slot-avatar .slot-img")
             : slot.querySelector(".slot-avatar .slot-img");
         if (img) {
+            applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
             img.src = projectAssetUrlFresh(paths[next]);
         }
     });
@@ -560,7 +621,7 @@ async function init() {
     updateLanding();
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);
-    initHeaderLogoZoom();
+    initHeaderLogoZoom(clearCurrentTeamSelection);
     document.fonts?.ready?.then(() => scheduleShortsTeamNameFit());
 }
 

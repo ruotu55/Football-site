@@ -505,7 +505,8 @@ function revealCurrentLevel() {
           shouldPlayVoice = false;
         }
       }
-      playTheAnswerIs(shouldPlayVoice);
+      const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+      playTheAnswerIs(shouldPlayVoice, playerDisplayName);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 4000;

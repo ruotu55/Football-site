@@ -200,6 +200,14 @@ body.shorts-mode .team-header-main-row {
     min-width: 0;
 }
 
+/* Keep VOL / X visible on-screen in Shorts, beside the team name. */
+body.shorts-mode .team-voice-controls {
+    right: clamp(0.25rem, 2vw, 1rem);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 6;
+}
+
 body.shorts-mode .team-header-logo-fly-group {
     order: -1;
     display: flex;
@@ -273,13 +281,6 @@ body.shorts-mode.play-video-active .team-header-controls-row {
     pointer-events: none;
 }
 
-/* Video-mode preview when checkbox is OFF: mirror shorts timer-finished header spacing. */
-body.shorts-mode .team-header.video-preview-revealed .team-header-controls-row {
-    display: flex;
-    visibility: hidden;
-    pointer-events: none;
-}
-
 body.shorts-mode .team-header-cluster.team-header-logo-block {
     pointer-events: auto;
 }
@@ -310,28 +311,6 @@ body.shorts-mode .pitch-surface {
 body.shorts-mode .player-slot {
     /* +2% vs former 14% — match horizontal bump from Regular pitch.css */
     width: calc(14% * 1.02);
-}
-
-/* Swap control above the player circle (Shorts-only layout; DOM: swap is sibling of avatar / first in .slot-back) */
-@keyframes float-up-down-swap-above-shorts {
-    0%,
-    100% {
-        transform: translate(-50%, calc(-100% - 5px)) translateZ(30px) translate3d(0, 0, 0);
-    }
-    50% {
-        transform: translate(-50%, calc(-100% - 5px)) translateZ(30px) translate3d(0, -12px, 0);
-    }
-}
-
-body.shorts-mode .player-slot.has-player > .slot-swap-btn,
-body.shorts-mode .player-slot .slot-back > .slot-swap-btn {
-    left: 50%;
-    right: auto;
-    margin-left: 0;
-    top: 0;
-    bottom: auto;
-    z-index: 15;
-    animation: float-up-down-swap-above-shorts 4s ease-in-out infinite;
 }
 
 body.shorts-mode .slot-name {
@@ -497,7 +476,7 @@ body.shorts-mode .stage-enter-anim {
 
 /* Outro only: move logo, headings, and like/subscribe up; quiz bar stays on .stage (sibling). */
 body.shorts-mode #outro-page:not([hidden]) {
-    transform: translateY(-10vh);
+    --outro-float-base-y: -10vh;
 }
 
 body.shorts-mode .outro-top-row .outro-action {

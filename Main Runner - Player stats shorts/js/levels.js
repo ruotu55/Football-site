@@ -222,6 +222,10 @@ export function switchLevel(index) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
     
+    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+      playCommentBelow();
+    }
+
     if (appState.isVideoPlaying) {
       if (isLanding) {
         if (isShorts) {
@@ -232,8 +236,6 @@ export function switchLevel(index) {
           const quizType = document.getElementById("in-quiz-type").value;
           playRules(quizType);
         }
-      } else if (isOutro) {
-        playCommentBelow();
       } else if (
         !isLogo &&
         !isShorts &&

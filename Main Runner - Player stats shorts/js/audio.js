@@ -20,7 +20,9 @@ const paths = {
   ],
   theAnswerIs: "../Voices/the answer is/The answer is.mp3",
   dong: "../Voices/the answer is/dong.wav",
-  commentBelow: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowLegacy: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowEncodedQ: "../Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../Voices/Ticking sound/ticking sound.mp3"
 };
 
@@ -217,9 +219,35 @@ export function playTheAnswerIs(includeVoice = true) {
 
 export function playCommentBelow() {
   // Removed the dong sound here so it doesn't interrupt the transition.
-  // Delay is strictly set to 600ms to perfectly match the length of the 
-  // CSS page drop transition (`stage-enter-anim`)
-  playVoice(paths.commentBelow, 600);
+  // Delay is set to 100ms so it starts 0.5s earlier than before.
+  // CSS page drop transition (`stage-enter-anim`).
+  const candidates = [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
+  let i = 0;
+  const tryNext = () => {
+    if (i >= candidates.length) return;
+    const src = candidates[i++];
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, 100);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {

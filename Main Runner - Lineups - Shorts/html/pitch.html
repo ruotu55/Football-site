@@ -1,5 +1,10 @@
 <div class="pitch-wrap" id="pitch-wrap" hidden>
   <button type="button" id="pitch-swap-logo" class="pitch-swap-logo-btn" hidden aria-label="Swap team crest">Swap logo</button>
+  <div id="lineups-inline-team-picker" class="lineups-inline-team-picker" hidden>
+    <div class="lineups-inline-team-picker-title">No Team Selected</div>
+    <input type="search" id="team-search" class="lineups-inline-team-search" placeholder="Search team..." autocomplete="off" />
+    <div id="team-results" class="team-results lineups-inline-team-results" aria-live="polite"></div>
+  </div>
   <div class="pitch-surface" id="pitch-container">
     <svg id="pitch-svg" class="pitch-svg" viewBox="0 0 160 100" preserveAspectRatio="none" aria-hidden="true">
       <rect x="0" y="0" width="160" height="100" fill="transparent" stroke="rgba(232,244,255,0.28)" stroke-width="0.45" />

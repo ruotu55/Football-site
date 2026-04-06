@@ -21,7 +21,9 @@ const paths = {
   ],
   theAnswerIs: "../Voices/the answer is/The answer is.mp3",
   dong: "../Voices/the answer is/dong.wav",
-  commentBelow: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowLegacy: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowEncodedQ: "../Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../Voices/Ticking sound/ticking sound.mp3"
 };
 
@@ -170,21 +172,98 @@ export function playRules(quizType) {
   }
 }
 
-export function playTheAnswerIs(includeVoice = true) {
+export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
+
+export function revealPlayerVoiceDir() {
+  return "../Voices/Players Names/";
+}
+
+function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
+  const base = String(displayName || "").trim();
+  if (!base) return;
+  const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
+  let i = 0;
+  const tryNext = () => {
+    if (i >= PLAYER_NAME_VOICE_EXTS.length) return;
+    const ext = PLAYER_NAME_VOICE_EXTS[i++];
+    const src = `${dir}${encodeURIComponent(base)}${ext}`;
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, delayMs);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
+}
+
+export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3") {
+  const cleanName = String(displayName || "").trim();
+  if (!cleanName) return "";
+  const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
+  return `${revealPlayerVoiceDir()}${encodeURIComponent(cleanName)}${cleanExt}`;
+}
+
+export function playPlayerNameVoiceIfExists(displayName, delayMs = 0) {
+  playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir());
+}
+
+export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
   
   if (includeVoice) {
-    // Dong plays immediately. Meanwhile, BGM fades down for 0.5s, then the voice plays.
+    // Keep existing reveal phrase, then try a generated player-name clip if available.
     playVoice(paths.theAnswerIs, 100);
+    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
   }
 }
 
 export function playCommentBelow() {
   // Removed the dong sound here so it doesn't interrupt the transition.
-  // Delay is strictly set to 600ms to perfectly match the length of the 
-  // CSS page drop transition (`stage-enter-anim`)
-  playVoice(paths.commentBelow, 600);
+  // Delay is set to 100ms so it starts 0.5s earlier than before.
+  // CSS page drop transition (`stage-enter-anim`).
+  const candidates = [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
+  let i = 0;
+  const tryNext = () => {
+    if (i >= candidates.length) return;
+    const src = candidates[i++];
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, 100);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {

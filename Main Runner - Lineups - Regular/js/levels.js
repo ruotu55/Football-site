@@ -131,12 +131,14 @@ export function switchLevel(index) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
 
+    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+      playCommentBelow();
+    }
+
     if (appState.isVideoPlaying) {
       if (isLanding) {
         const quizType = document.getElementById("in-quiz-type").value;
         playRules(quizType);
-      } else if (isOutro) {
-        playCommentBelow();
       } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
@@ -148,7 +150,7 @@ export function switchLevel(index) {
     const isLogoToLanding = prevIndex === 0 && index === 1 && !isShorts;
     if (isLogoToLanding) {
       const LOGO_SHIFT_MS = 800;
-      const LANDING_SLIDE_MS = 650;
+      const LANDING_SLIDE_MS = 820;
       stageMain.classList.remove(
         "stage-exit-anim",
         "stage-exit-video-anim",

@@ -66,6 +66,11 @@ import {
 import { normalizeForSearch } from "./search-normalize.js";
 
 const INTERNATIONAL_POOL_URL = "data/international-club-pool-by-nationality.json";
+const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
+const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
+const AUTO_365_PHOTO_RE = /(^|\/)auto - 365scores(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
+const AUTO_FUTGG_PHOTO_RE = /(^|\/)auto - fut\.gg(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
+const autoPhotoLastSourceBySlot = new Map();
 
 export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
@@ -165,6 +170,7 @@ import {
   playerPhotoPaths,
   slotPerspectiveScale,
 } from "./photo-helpers.js";
+import { syncTeamVoiceControls } from "./team-voice-manager.js";
 
 export function shouldUseVideoQuestionLayout(state = getState()) {
   if (!state || !state.currentSquad) return false;
@@ -426,6 +432,189 @@ function appendAvatarTeamFallback(avatar, player) {
   avatar.appendChild(el);
 }
 
+function isAuto365PhotoRelPath(relPath) {
+  return AUTO_365_PHOTO_RE.test(String(relPath || "").trim());
+}
+
+function autoPhotoSourceFromRelPath(relPath) {
+  const v = String(relPath || "").trim();
+  if (!v) return "";
+  if (AUTO_FUTGG_PHOTO_RE.test(v)) return "fut.gg";
+  if (AUTO_365_PHOTO_RE.test(v)) return "365scores";
+  return "";
+}
+
+export function applyPlayerPhotoFramingForSourceRelPath(imgEl, relPath) {
+  if (!imgEl) return;
+  void relPath;
+  imgEl.style.removeProperty("object-position");
+  imgEl.style.removeProperty("transform");
+  imgEl.style.removeProperty("transform-origin");
+  imgEl.style.removeProperty("background");
+  imgEl.style.removeProperty("background-color");
+  imgEl.style.removeProperty("border");
+  imgEl.style.removeProperty("box-sizing");
+}
+
+function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
+  const state = getState();
+  if (!containerEl || !player || appState.isVideoPlaying) return;
+  if (containerEl.querySelector(".slot-photo-controls")) return;
+  const controls = document.createElement("div");
+  controls.className = "slot-photo-controls";
+
+  const photoBtn = document.createElement("button");
+  photoBtn.type = "button";
+  photoBtn.className = "slot-photo-fetch-btn";
+  photoBtn.textContent = "PHOTO";
+  photoBtn.title = "Fetch another player photo";
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "button";
+  deleteBtn.className = "slot-photo-delete-btn";
+  deleteBtn.textContent = "X";
+  deleteBtn.title = "Delete current photo";
+
+  const getCurrentSlotPhoto = () => {
+    const st = getState();
+    const paths = playerPhotoPaths(player, st.displayMode);
+    if (!paths.length) return { relPath: "", paths: [] };
+    let idx = st.slotPhotoIndexBySlot.get(slotIndex) ?? 0;
+    idx = ((idx % paths.length) + paths.length) % paths.length;
+    st.slotPhotoIndexBySlot.set(slotIndex, idx);
+    return { relPath: String(paths[idx] || ""), paths };
+  };
+
+  const removeRelPathFromPlayerImagesState = (relPath) => {
+    const rel = String(relPath || "").trim();
+    if (!rel) return;
+    for (const section of ["club", "nationality"]) {
+      const sectionMap = appState.playerImages[section];
+      if (!sectionMap || typeof sectionMap !== "object") continue;
+      for (const key of Object.keys(sectionMap)) {
+        const current = sectionMap[key];
+        if (Array.isArray(current)) {
+          const next = current.filter((x) => String(x || "").trim() && String(x || "").trim() !== rel);
+          if (next.length !== current.length) {
+            if (next.length) sectionMap[key] = next;
+            else delete sectionMap[key];
+          }
+          continue;
+        }
+        if (typeof current === "string" && current.trim() === rel) {
+          delete sectionMap[key];
+        }
+      }
+    }
+  };
+
+  photoBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (photoBtn.disabled) return;
+    const st = getState();
+    if (!st?.selectedEntry) return;
+    const current = getCurrentSlotPhoto();
+    const currentSource = autoPhotoSourceFromRelPath(current.relPath);
+    const lastSource = autoPhotoLastSourceBySlot.get(slotIndex) || currentSource;
+    const preferredSource = lastSource === "fut.gg" ? "365scores" : "fut.gg";
+    photoBtn.disabled = true;
+    deleteBtn.disabled = true;
+    photoBtn.textContent = "...";
+    try {
+      const res = await fetch(AUTO_FETCH_PLAYER_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          playerName: player?.name || "",
+          playerClub: player?.club || "",
+          playerNationality: player?.nationality || "",
+          squadType: st?.squadType || "",
+          selectedEntry: st?.selectedEntry || {},
+          currentSquadName: st?.currentSquad?.name || "",
+          preferredSource,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Image not found.");
+      }
+      const section = data.indexSection;
+      const key = data.indexKey;
+      const rel = data.relativePath;
+      if (!section || !key || !rel) {
+        throw new Error("Invalid image index update payload.");
+      }
+      if (!appState.playerImages[section]) {
+        appState.playerImages[section] = {};
+      }
+      const current = appState.playerImages[section][key];
+      const paths = Array.isArray(current)
+        ? current.filter((x) => typeof x === "string" && x.trim())
+        : typeof current === "string" && current.trim()
+          ? [current.trim()]
+          : [];
+      if (!paths.includes(rel)) {
+        paths.unshift(rel);
+      }
+      appState.playerImages[section][key] = paths;
+      autoPhotoLastSourceBySlot.set(slotIndex, String(data?.source || "").trim().toLowerCase());
+      st.slotPhotoIndexBySlot.set(slotIndex, 0);
+      appState.suppressPitchSlotFlipAnimation = true;
+      renderPitch();
+      appState.suppressPitchSlotFlipAnimation = false;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Image not found.";
+      window.alert(`Could not fetch photo for ${player?.name || "player"}: ${msg}`);
+    } finally {
+      photoBtn.disabled = false;
+      deleteBtn.disabled = false;
+      photoBtn.textContent = "PHOTO";
+    }
+  });
+
+  deleteBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (deleteBtn.disabled) return;
+    const current = getCurrentSlotPhoto();
+    if (!current.relPath) {
+      window.alert("No photo to delete.");
+      return;
+    }
+    photoBtn.disabled = true;
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = "...";
+    try {
+      const res = await fetch(DELETE_PLAYER_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ relPath: current.relPath }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Failed to delete photo.");
+      }
+      removeRelPathFromPlayerImagesState(current.relPath);
+      const st = getState();
+      st.slotPhotoIndexBySlot.set(slotIndex, 0);
+      autoPhotoLastSourceBySlot.delete(slotIndex);
+      appState.suppressPitchSlotFlipAnimation = true;
+      renderPitch();
+      appState.suppressPitchSlotFlipAnimation = false;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to delete photo.";
+      window.alert(msg);
+    } finally {
+      photoBtn.disabled = false;
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = "X";
+    }
+  });
+  controls.append(photoBtn, deleteBtn);
+  containerEl.appendChild(controls);
+}
+
 function getSlotFrontFaceScale(state, slotIndex) {
   ensureSlotFrontFaceScales(state);
   if (state.squadType === "national") {
@@ -625,19 +814,23 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       img.style.borderRadius = "50%"; 
       img.loading = "lazy";
       img.decoding = "async";
-      img.src = projectAssetUrlFresh(rel);
       img.onerror = () => {
         img.remove();
         state.slotPhotoIndexBySlot.delete(slotIndex);
         backAvatar.classList.add("slot-avatar--no-photo");
         appendAvatarTeamFallback(backAvatar, player);
+        appendAutoPhotoFetchButton(back, slotIndex, player);
       };
       backAvatar.appendChild(img);
+      applyPlayerPhotoFramingForSourceRelPath(img, rel);
+      img.src = projectAssetUrlFresh(rel);
     } else {
       state.slotPhotoIndexBySlot.delete(slotIndex);
       backAvatar.classList.add("slot-avatar--no-photo");
       appendAvatarTeamFallback(backAvatar, player);
+      appendAutoPhotoFetchButton(back, slotIndex, player);
     }
+    appendAutoPhotoFetchButton(back, slotIndex, player);
 
     const labelContainer = document.createElement("div");
     labelContainer.className = "slot-label-container";
@@ -692,7 +885,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         });
       }
     }
-    if (state.videoMode) {
+    if (state.videoMode && !appState.isVideoPlaying) {
       appendSlotBadgeZoomControls(slotEl, slotIndex);
     }
   } else {
@@ -719,19 +912,23 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       img.style.borderRadius = "50%"; 
       img.loading = "lazy";
       img.decoding = "async";
-      img.src = projectAssetUrlFresh(rel);
       img.onerror = () => {
         img.remove();
         state.slotPhotoIndexBySlot.delete(slotIndex);
         avatar.classList.add("slot-avatar--no-photo");
         appendAvatarTeamFallback(avatar, player);
+        appendAutoPhotoFetchButton(slotEl, slotIndex, player);
       };
       avatar.appendChild(img);
+      applyPlayerPhotoFramingForSourceRelPath(img, rel);
+      img.src = projectAssetUrlFresh(rel);
     } else {
       state.slotPhotoIndexBySlot.delete(slotIndex);
       avatar.classList.add("slot-avatar--no-photo");
       appendAvatarTeamFallback(avatar, player);
+      appendAutoPhotoFetchButton(slotEl, slotIndex, player);
     }
+    appendAutoPhotoFetchButton(slotEl, slotIndex, player);
 
     const labelContainer = document.createElement("div");
     labelContainer.className = "slot-label-container";
@@ -772,6 +969,10 @@ export function renderPitch() {
   const formation = formationById(state.formationId);
   const displayMode = state.displayMode;
   const useVideoQuestionLayout = shouldUseVideoQuestionLayout(state);
+  const inlineTeamPicker = document.getElementById("lineups-inline-team-picker");
+  if (inlineTeamPicker) {
+    inlineTeamPicker.hidden = !!state.currentSquad;
+  }
 
   let xi;
   if (!state.currentSquad) {
@@ -939,6 +1140,7 @@ export function renderHeader() {
   const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
 
   document.body.classList.toggle("video-mode-on", !!state.videoMode);
+  document.body.classList.toggle("play-video-active", !!appState.isVideoPlaying);
 
   if (els.teamHeader) {
     const st = state.squadType;
@@ -960,10 +1162,20 @@ export function renderHeader() {
   }
 
   const logoBlock = document.getElementById("team-header-logo-block");
+  const fetchLogoBtn = document.getElementById("team-header-fetch-logo");
+  const swapLogoBtn = document.getElementById("team-header-swap-logo");
+  const clearTeamBtn = document.getElementById("team-header-clear-team");
+  const pitchSwapBtn = document.getElementById("pitch-swap-logo");
 
   if (!state.currentSquad) {
     if (els.headerName) els.headerName.textContent = "";
     if (els.headerLogo) els.headerLogo.hidden = true;
+    if (fetchLogoBtn) fetchLogoBtn.hidden = true;
+    if (swapLogoBtn) swapLogoBtn.hidden = true;
+    if (clearTeamBtn) clearTeamBtn.hidden = true;
+    if (pitchSwapBtn) pitchSwapBtn.hidden = true;
+    if (els.teamVoiceControls) els.teamVoiceControls.hidden = true;
+    syncTeamVoiceControls("", appState.els.inQuizType?.value || "nat-by-club");
     if (logoBlock) {
       logoBlock.classList.add("team-header-logo-block--empty");
       logoBlock.classList.remove("team-header-show-swap-logo");
@@ -973,13 +1185,21 @@ export function renderHeader() {
     return;
   }
   if (els.headerName) els.headerName.textContent = state.currentSquad.name || state.selectedEntry.name;
+  if (clearTeamBtn) clearTeamBtn.hidden = false;
+  syncTeamVoiceControls(
+    String(state.currentSquad?.name || state.selectedEntry?.name || ""),
+    appState.els.inQuizType?.value || "nat-by-club"
+  );
+  if (els.teamVoiceControls) {
+    els.teamVoiceControls.hidden = !state.currentSquad || appState.isVideoPlaying;
+  }
   if (els.headerLogo) {
     const chain = getHeaderLogoUrlChain(
       state,
       state.currentSquad,
       state.squadType,
       state.selectedEntry?.name
-    );
+    ).map((u) => withProjectAssetCacheBust(u));
     if (chain.length) {
       const logoImg = els.headerLogo;
       let chainIndex = 0;
@@ -989,6 +1209,13 @@ export function renderHeader() {
         if (chainIndex < chain.length) {
           logoImg.src = chain[chainIndex];
           return;
+        }
+        logoImg.hidden = true;
+        logoImg.removeAttribute("src");
+        const fetchLogoBtn = document.getElementById("team-header-fetch-logo");
+        if (fetchLogoBtn) fetchLogoBtn.hidden = false;
+        if (logoBlock) {
+          logoBlock.classList.add("team-header-logo-block--empty");
         }
         scheduleTeamHeaderNameCenterShift();
       };
@@ -1001,8 +1228,6 @@ export function renderHeader() {
       els.headerLogo.hidden = true;
     }
   }
-  const swapLogoBtn = document.getElementById("team-header-swap-logo");
-  const pitchSwapBtn = document.getElementById("pitch-swap-logo");
   const quizType = appState.els.inQuizType?.value || "nat-by-club";
   const showSwapLogo =
     state.squadType === "club" &&
@@ -1017,6 +1242,10 @@ export function renderHeader() {
   if (pitchSwapBtn) {
     pitchSwapBtn.hidden =
       !showSwapLogo || !state.videoMode || !headerCollapsed;
+  }
+  if (fetchLogoBtn) {
+    const empty = Boolean(els.headerLogo?.hidden);
+    fetchLogoBtn.hidden = !state.currentSquad || !empty;
   }
   if (logoBlock) {
     const empty = Boolean(els.headerLogo?.hidden);

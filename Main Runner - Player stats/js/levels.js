@@ -223,12 +223,14 @@ export function switchLevel(index) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
     
+    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+      playCommentBelow();
+    }
+
     if (appState.isVideoPlaying) {
       if (isLanding) {
         const quizType = document.getElementById("in-quiz-type").value;
         playRules(quizType);
-      } else if (isOutro) {
-        playCommentBelow();
       } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }

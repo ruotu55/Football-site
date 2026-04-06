@@ -15,6 +15,9 @@ export function bindDomElements() {
     els.controlPanel = document.getElementById("control-panel");
     els.headerName = document.getElementById("team-header-name");
     els.headerLogo = document.getElementById("team-header-logo");
+    els.playerVoiceControls = document.getElementById("player-voice-controls");
+    els.playerVoicePlay = document.getElementById("player-voice-play");
+    els.playerVoiceDelete = document.getElementById("player-voice-delete");
     els.quizLevelsInput = document.getElementById("quiz-levels-input");
     els.updateLevelsBtn = document.getElementById("update-levels-btn");
     els.quizProgressScroll = document.getElementById("quiz-progress-scroll");

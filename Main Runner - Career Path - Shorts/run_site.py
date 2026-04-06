@@ -7,22 +7,570 @@
 from __future__ import annotations
 
 import argparse
+import difflib
 import errno
+import hashlib
 import importlib.util
 import io
 import json
 import os
+import re
+import ssl
+import shutil
 import socket
+import subprocess
 import sys
 import threading
 import time
+import unicodedata
+import urllib.error
+import urllib.parse
+import urllib.request
 import webbrowser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import quote, unquote, urlparse
+from xml.sax.saxutils import escape as xml_escape
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
+PLAYER_VOICE_DIR = PROJECT_ROOT / "Voices" / "Players Names"
+PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
+FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
+EDGE_TTS_VOICES = (
+    FIXED_PLAYER_VOICE,
+)
+OPENAI_TO_EDGE_VOICE_MAP = {
+    "en-us-guyneural": FIXED_PLAYER_VOICE,
+    "en-us-andrewneural": FIXED_PLAYER_VOICE,
+}
+EDGE_TTS_VOICE_BY_LOWER = {voice.casefold(): voice for voice in EDGE_TTS_VOICES}
+AZURE_SPEECH_STYLE = "cheerful"
+AZURE_SPEECH_KEY_ENV = "AZURE_SPEECH_KEY"
+AZURE_SPEECH_REGION_ENV = "AZURE_SPEECH_REGION"
+AZURE_SPEECH_OUTPUT_FORMAT = "audio-24khz-48kbitrate-mono-mp3"
+FOOTBALL_LOGOS_AUTOCOMPLETE_URL = "https://football-logos.cc/ac.json"
+HTTP_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
+
+_FOOTBALL_LOGOS_AC_LOCK = threading.Lock()
+_FOOTBALL_LOGOS_AC_CACHE: list[dict] | None = None
+
+
+def _try_certifi() -> ssl.SSLContext:
+    try:
+        import certifi  # type: ignore
+
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        return ssl.create_default_context()
+
+
+SSL_CTX = _try_certifi()
+
+
+def _fetch_text(url: str, *, timeout: float = 35.0) -> str:
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": HTTP_USER_AGENT, "Accept-Language": "en-US,en;q=0.9"},
+        method="GET",
+    )
+    with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as r:
+        return r.read().decode("utf-8", "replace")
+
+
+def _safe_path_component(raw: object) -> str:
+    t = str(raw or "").strip()
+    t = t.replace("/", "").replace("\\", "").replace("..", "")
+    for ch in '<>:"|?*':
+        t = t.replace(ch, "")
+    return t.strip(". ")
+
+
+def _name_key(s: object) -> str:
+    t = unicodedata.normalize("NFKD", str(s or ""))
+    translit = {
+        "ð": "d",
+        "Ð": "d",
+        "þ": "th",
+        "Þ": "th",
+        "ø": "o",
+        "Ø": "o",
+        "ł": "l",
+        "Ł": "l",
+        "đ": "d",
+        "Đ": "d",
+        "ħ": "h",
+        "Ħ": "h",
+        "æ": "ae",
+        "Æ": "ae",
+        "œ": "oe",
+        "Œ": "oe",
+    }
+    t = "".join(translit.get(c, c) for c in t)
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    t = t.casefold().replace("-", " ").replace("'", " ")
+    return " ".join(t.split())
+
+
+def _slugify_name(value: str) -> str:
+    t = unicodedata.normalize("NFKD", value or "")
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    t = t.casefold()
+    out_chars: list[str] = []
+    for ch in t:
+        if ch.isalnum():
+            out_chars.append(ch)
+        else:
+            out_chars.append("-")
+    slug = "".join(out_chars)
+    slug = re.sub(r"-{2,}", "-", slug).strip("-")
+    return slug
+
+
+def _load_football_logos_ac_cached() -> list[dict]:
+    global _FOOTBALL_LOGOS_AC_CACHE
+    with _FOOTBALL_LOGOS_AC_LOCK:
+        if _FOOTBALL_LOGOS_AC_CACHE is not None:
+            return _FOOTBALL_LOGOS_AC_CACHE
+        raw = _fetch_text(FOOTBALL_LOGOS_AUTOCOMPLETE_URL, timeout=45.0)
+        parsed = json.loads(raw)
+        rows = [x for x in parsed if isinstance(x, dict)] if isinstance(parsed, list) else []
+        _FOOTBALL_LOGOS_AC_CACHE = rows
+        return _FOOTBALL_LOGOS_AC_CACHE
+
+
+def _team_name_variants_for_match(value: str) -> set[str]:
+    raw = str(value or "").strip()
+    base = _name_key(raw)
+    out: set[str] = set()
+
+    def _push(v: str) -> None:
+        t = " ".join(str(v or "").split()).strip()
+        if not t:
+            return
+        out.add(t)
+        compact = t.replace(" ", "")
+        if compact:
+            out.add(compact)
+
+    def _trim_noise_tokens(v: str) -> str:
+        tokens = [x for x in str(v or "").split() if x]
+        if not tokens:
+            return ""
+        prefixes = {
+            "fc",
+            "cf",
+            "afc",
+            "ac",
+            "sc",
+            "fk",
+            "if",
+            "sv",
+            "vfb",
+            "cd",
+            "ud",
+            "rc",
+            "real",
+            "club",
+            "deportivo",
+            "athletic",
+            "atletico",
+            "sporting",
+            "team",
+        }
+        suffixes = {
+            "fc",
+            "cf",
+            "afc",
+            "ac",
+            "sc",
+            "fk",
+            "if",
+            "sv",
+            "club",
+            "women",
+            "w",
+            "sad",
+            "national",
+            "team",
+        }
+        while len(tokens) > 1 and tokens[0] in prefixes:
+            tokens = tokens[1:]
+        while len(tokens) > 1 and tokens[-1] in suffixes:
+            tokens = tokens[:-1]
+        return " ".join(tokens).strip()
+
+    if base:
+        _push(base)
+        trimmed = base
+        for suffix in (" national team", " women", " w", " fc", " cf", " afc", " sc"):
+            if trimmed.endswith(suffix):
+                trimmed = trimmed[: -len(suffix)].strip()
+        if trimmed:
+            _push(trimmed)
+        noise_trimmed = _trim_noise_tokens(base)
+        if noise_trimmed:
+            _push(noise_trimmed)
+    slug_like = _slugify_name(raw).replace("-", " ").strip()
+    if slug_like:
+        _push(_name_key(slug_like))
+    return out
+
+
+def _football_logo_entry_values_for_match(row: dict) -> set[str]:
+    values: set[str] = set()
+    values |= _team_name_variants_for_match(str(row.get("name") or ""))
+    values |= _team_name_variants_for_match(str(row.get("nativeName") or ""))
+    for alt in row.get("altNames") if isinstance(row.get("altNames"), list) else []:
+        values |= _team_name_variants_for_match(str(alt or ""))
+    return values
+
+
+def _best_name_similarity_score(wanted: set[str], values: set[str]) -> float:
+    best = 0.0
+    for a in wanted:
+        if not a:
+            continue
+        for b in values:
+            if not b:
+                continue
+            if a == b:
+                return 1.0
+            ratio = difflib.SequenceMatcher(None, a, b).ratio()
+            if ratio > best:
+                best = ratio
+    return best
+
+
+def _looks_like_non_team_logo(row: dict) -> bool:
+    text = " ".join(
+        [
+            str(row.get("name") or ""),
+            str(row.get("nativeName") or ""),
+            str(row.get("categoryName") or ""),
+        ]
+    )
+    k = _name_key(text)
+    return any(
+        token in k
+        for token in (
+            "league",
+            "liga",
+            "cup",
+            "federation",
+            "association",
+            "confederation",
+            "tournament",
+            "world cup",
+            "champions league",
+        )
+    )
+
+
+def _score_football_logo_entry(
+    row: dict,
+    *,
+    wanted: set[str],
+    country_slug: str,
+    country_key: str,
+    league_key: str,
+) -> int:
+    values = _football_logo_entry_values_for_match(row)
+    if not values:
+        return -10_000
+    score = 0
+
+    overlap = wanted & values
+    if overlap:
+        score += 220
+
+    similarity = _best_name_similarity_score(wanted, values)
+    score += int(similarity * 160)
+
+    wanted_compact = {w.replace(" ", "") for w in wanted if w}
+    values_compact = {v.replace(" ", "") for v in values if v}
+    for w in wanted_compact:
+        if not w:
+            continue
+        if any((w in v or v in w) for v in values_compact):
+            score += 30
+            break
+
+    category_id = _slugify_name(str(row.get("categoryId") or ""))
+    category_name_key = _name_key(str(row.get("categoryName") or ""))
+    if country_slug:
+        if category_id == country_slug:
+            score += 90
+        else:
+            score -= 25
+    if country_key and category_name_key == country_key:
+        score += 40
+
+    if league_key:
+        row_text_key = _name_key(
+            " ".join(
+                [
+                    str(row.get("name") or ""),
+                    str(row.get("nativeName") or ""),
+                    " ".join(str(x or "") for x in (row.get("altNames") or []))
+                    if isinstance(row.get("altNames"), list)
+                    else "",
+                ]
+            )
+        )
+        if league_key and league_key in row_text_key:
+            score += 20
+
+    if _looks_like_non_team_logo(row) and not overlap and similarity < 0.92:
+        score -= 45
+
+    return score
+
+
+def _resolve_football_logo_entry(
+    team_name: str,
+    country_hint: str = "",
+    league_hint: str = "",
+) -> dict | None:
+    wanted = _team_name_variants_for_match(team_name)
+    if not wanted:
+        return None
+    country_slug = _slugify_name(country_hint or "")
+    country_key = _name_key(country_hint or "")
+    league_key = _name_key(league_hint or "")
+    rows = _load_football_logos_ac_cached()
+    best_row: dict | None = None
+    best_score = -10_000
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        score = _score_football_logo_entry(
+            row,
+            wanted=wanted,
+            country_slug=country_slug,
+            country_key=country_key,
+            league_key=league_key,
+        )
+        if score > best_score:
+            best_row = row
+            best_score = score
+    if best_row is None:
+        return None
+    return best_row if best_score >= 70 else None
+
+
+def _football_logo_png_candidates(entry: dict, preferred_dim: int = 3000) -> list[str]:
+    category_id = str(entry.get("categoryId") or "").strip()
+    team_id = str(entry.get("id") or "").strip()
+    h = str(entry.get("h") or "").strip()
+    if not category_id or not team_id:
+        return []
+
+    short_hash = h[:8] if len(h) >= 8 else ""
+    dims: list[int] = []
+    png_rows = entry.get("png")
+    if isinstance(png_rows, list):
+        for row in png_rows:
+            if not isinstance(row, dict):
+                continue
+            try:
+                d = int(row.get("dimension") or 0)
+            except (TypeError, ValueError):
+                d = 0
+            if d > 0:
+                dims.append(d)
+    if preferred_dim not in dims:
+        dims.insert(0, preferred_dim)
+    dims = [d for d in dims if d > 0]
+    seen: set[str] = set()
+    urls: list[str] = []
+    for d in dims:
+        for u in (
+            f"https://images.football-logos.cc/{category_id}/{d}/{team_id}.{short_hash}.png" if short_hash else "",
+            f"https://assets.football-logos.cc/logos/{category_id}/{d}x{d}/{team_id}.{short_hash}.png" if short_hash else "",
+        ):
+            if not u or u in seen:
+                continue
+            seen.add(u)
+            urls.append(u)
+    return urls
+
+
+def _try_fetch_football_logo_png_3000(
+    team_name: str,
+    country_hint: str = "",
+    league_hint: str = "",
+) -> tuple[bytes, dict] | None:
+    entry = _resolve_football_logo_entry(
+        team_name,
+        country_hint=country_hint,
+        league_hint=league_hint,
+    )
+    if not entry:
+        return None
+    page_url = (
+        f"https://football-logos.cc/{urllib.parse.quote(str(entry.get('categoryId') or '').strip())}/"
+        f"{urllib.parse.quote(str(entry.get('id') or '').strip())}/"
+    )
+    headers = {
+        "User-Agent": HTTP_USER_AGENT,
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": page_url,
+    }
+    for url in _football_logo_png_candidates(entry, preferred_dim=3000):
+        try:
+            req = urllib.request.Request(url, headers=headers, method="GET")
+            with urllib.request.urlopen(req, timeout=35.0, context=SSL_CTX) as r:
+                data = r.read()
+            if data:
+                return data, entry
+        except Exception:
+            continue
+    return None
+
+
+def _resolve_team_logo_target(body: dict) -> tuple[Path, str]:
+    team_name = _safe_path_component(body.get("teamName") or body.get("currentSquadName"))
+    if not team_name:
+        raise ValueError("Missing team name.")
+
+    image_path_raw = str(body.get("targetRelativePath") or body.get("currentSquadImagePath") or "").strip().replace("\\", "/")
+    if image_path_raw and not image_path_raw.startswith("/") and ".." not in image_path_raw:
+        rel = Path(image_path_raw)
+        target = (PROJECT_ROOT / rel).resolve()
+        project_root_resolved = PROJECT_ROOT.resolve()
+        if project_root_resolved in target.parents:
+            return target, image_path_raw
+
+    country = _safe_path_component(body.get("countryHint"))
+    league = _safe_path_component(body.get("leagueHint"))
+    if country and league:
+        rel = f"Teams Images/{country}/{league}/{team_name}.png"
+        return (PROJECT_ROOT / rel).resolve(), rel
+
+    rel = f"Teams Images/(1) Other Teams/{team_name}.png"
+    return (PROJECT_ROOT / rel).resolve(), rel
+
+
+def _is_valid_windows_filename_stem(stem: str) -> bool:
+    if not stem:
+        return False
+    if stem.endswith(" ") or stem.endswith("."):
+        return False
+    banned = '<>:"/\\|?*'
+    for ch in stem:
+        if ord(ch) < 32 or ch in banned:
+            return False
+    return True
+
+
+def _normalize_player_voice_name(name: str | None) -> str:
+    player_name = (name or "").strip()
+    if not player_name:
+        raise ValueError("Missing player name.")
+    if not _is_valid_windows_filename_stem(player_name):
+        raise ValueError("Player name has unsupported filename characters for Windows.")
+    return player_name
+
+
+def _player_voice_paths_for_name(player_name: str) -> list[Path]:
+    return [PLAYER_VOICE_DIR / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
+
+
+def _project_relative_web_path(path: Path) -> str:
+    rel_parts = path.relative_to(PROJECT_ROOT).parts
+    return "/" + "/".join(quote(p, safe="") for p in rel_parts)
+
+
+def _edge_tts_command() -> list[str]:
+    return [sys.executable, "-m", "edge_tts"]
+
+
+def _edge_tts_available() -> bool:
+    try:
+        result = subprocess.run(
+            _edge_tts_command() + ["--help"],
+            capture_output=True,
+            text=True,
+            timeout=8,
+            check=False,
+        )
+        if result.returncode == 0:
+            return True
+    except Exception:  # noqa: BLE001
+        pass
+    return shutil.which("edge-tts") is not None
+
+
+def _resolve_edge_voice(requested_voice: str) -> str:
+    requested_lower = (requested_voice or "").strip().lower()
+    if requested_lower in OPENAI_TO_EDGE_VOICE_MAP:
+        mapped = OPENAI_TO_EDGE_VOICE_MAP[requested_lower]
+        return EDGE_TTS_VOICE_BY_LOWER.get(mapped.casefold(), FIXED_PLAYER_VOICE)
+    if requested_lower in EDGE_TTS_VOICE_BY_LOWER:
+        return EDGE_TTS_VOICE_BY_LOWER[requested_lower]
+    return FIXED_PLAYER_VOICE
+
+
+def _azure_speech_config() -> tuple[str, str] | None:
+    key = str(os.environ.get(AZURE_SPEECH_KEY_ENV) or "").strip()
+    region = str(os.environ.get(AZURE_SPEECH_REGION_ENV) or "").strip()
+    if not key or not region:
+        return None
+    return key, region
+
+
+def _build_azure_ssml(text: str, voice: str) -> str:
+    escaped_text = xml_escape(str(text or ""))
+    escaped_voice = xml_escape(str(voice or FIXED_PLAYER_VOICE))
+    escaped_style = xml_escape(AZURE_SPEECH_STYLE)
+    return (
+        '<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" '
+        'xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">'
+        f'<voice name="{escaped_voice}"><mstts:express-as style="{escaped_style}">'
+        f"{escaped_text}</mstts:express-as></voice></speak>"
+    )
+
+
+def _generate_azure_speech_mp3(text: str, voice: str, out_path: Path) -> None:
+    cfg = _azure_speech_config()
+    if cfg is None:
+        raise RuntimeError(
+            "Azure Speech is not configured. Set AZURE_SPEECH_KEY and AZURE_SPEECH_REGION "
+            "to use Guy + cheerful style."
+        )
+    key, region = cfg
+    endpoint = f"https://{region}.tts.speech.microsoft.com/cognitiveservices/v1"
+    ssml = _build_azure_ssml(text, voice)
+    req = urllib.request.Request(
+        endpoint,
+        data=ssml.encode("utf-8"),
+        headers={
+            "Ocp-Apim-Subscription-Key": key,
+            "Content-Type": "application/ssml+xml",
+            "X-Microsoft-OutputFormat": AZURE_SPEECH_OUTPUT_FORMAT,
+            "User-Agent": "Football-Channel-Runner",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            audio_bytes = resp.read()
+    except urllib.error.HTTPError as exc:
+        details = ""
+        try:
+            details = exc.read().decode("utf-8", "replace").strip()
+        except Exception:
+            details = ""
+        raise RuntimeError(f"Azure TTS request failed ({exc.code}). {details[:250]}".strip()) from exc
+    except Exception as exc:  # noqa: BLE001
+        raise RuntimeError(f"Azure TTS request failed: {exc}") from exc
+    if not audio_bytes:
+        raise RuntimeError("Azure TTS returned empty audio.")
+    out_path.write_bytes(audio_bytes)
 
 def _load_runner_saved_scripts():  # noqa: D401
     path = PROJECT_ROOT / "dev_server_saved_scripts.py"
@@ -214,6 +762,207 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _read_json_body(self) -> dict:
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError as exc:
+            raise ValueError("Invalid Content-Length header.") from exc
+        if length <= 0:
+            return {}
+        raw = self.rfile.read(length)
+        if not raw:
+            return {}
+        try:
+            data = json.loads(raw.decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+            raise ValueError("Request body must be valid JSON.") from exc
+        if not isinstance(data, dict):
+            raise ValueError("JSON body must be an object.")
+        return data
+
+    def _try_serve_player_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part:
+                continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            player_name = _normalize_player_voice_name(query.get("name"))
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        existing_path = None
+        for file_path in _player_voice_paths_for_name(player_name):
+            if file_path.is_file():
+                existing_path = file_path
+                break
+        self._send_json(
+            200,
+            {
+                "ok": True,
+                "exists": bool(existing_path),
+                "src": _project_relative_web_path(existing_path) if existing_path else "",
+            },
+        )
+        return True
+
+    def _try_generate_player_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = _normalize_player_voice_name(body.get("name"))
+            requested_voice = str(body.get("voice") or FIXED_PLAYER_VOICE).strip()
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        PLAYER_VOICE_DIR.mkdir(parents=True, exist_ok=True)
+        out_path = PLAYER_VOICE_DIR / f"{player_name}.mp3"
+        for old_path in _player_voice_paths_for_name(player_name):
+            if old_path == out_path:
+                continue
+            if old_path.exists():
+                old_path.unlink(missing_ok=True)
+
+        chosen_voice = _resolve_edge_voice(requested_voice)
+        if not _edge_tts_available():
+            self._send_json(
+                500,
+                {
+                    "ok": False,
+                    "error": "edge-tts is not installed. Install it with: pip install edge-tts",
+                },
+            )
+            return True
+        provider = "edge-tts"
+        model = "edge-tts"
+        cmd = _edge_tts_command() + [
+            "--voice",
+            chosen_voice,
+            "--text",
+            player_name,
+            "--volume",
+            "+100%",
+            "--write-media",
+            str(out_path),
+        ]
+        try:
+            proc = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=60,
+                check=False,
+            )
+        except Exception as exc:  # noqa: BLE001
+            self._send_json(502, {"ok": False, "error": str(exc)})
+            return True
+        if proc.returncode != 0 or not out_path.exists() or out_path.stat().st_size <= 0:
+            self._send_json(
+                502,
+                {
+                    "ok": False,
+                    "error": f"edge-tts generation failed. {(proc.stderr or '').strip()[:300]}",
+                },
+            )
+            return True
+
+        self._send_json(
+            200,
+            {
+                "ok": True,
+                "src": _project_relative_web_path(out_path),
+                "voice": chosen_voice,
+                "model": model,
+                "provider": provider,
+            },
+        )
+        return True
+
+    def _try_delete_player_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = _normalize_player_voice_name(body.get("name"))
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        removed = 0
+        for file_path in _player_voice_paths_for_name(player_name):
+            if file_path.exists():
+                file_path.unlink(missing_ok=True)
+                removed += 1
+        self._send_json(200, {"ok": True, "removed": removed})
+        return True
+
+    def _try_fetch_team_logo(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__team-logo/fetch":
+            return False
+        try:
+            body = self._read_json_body()
+            team_name = str(body.get("teamName") or body.get("currentSquadName") or "").strip()
+            if not team_name:
+                raise ValueError("Missing team name.")
+            country_hint = str(body.get("countryHint") or "").strip()
+            league_hint = str(body.get("leagueHint") or "").strip()
+            target_path, rel_path = _resolve_team_logo_target(body)
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            fetched = _try_fetch_football_logo_png_3000(
+                team_name,
+                country_hint=country_hint,
+                league_hint=league_hint,
+            )
+        except Exception:
+            fetched = None
+        if fetched is None:
+            self._send_json(
+                404,
+                {"ok": False, "error": "Could not fetch logo from football-logos.cc."},
+            )
+            return True
+
+        image_bytes, entry = fetched
+        if not image_bytes:
+            self._send_json(
+                404,
+                {"ok": False, "error": "Downloaded team logo is empty."},
+            )
+            return True
+        try:
+            target_path.parent.mkdir(parents=True, exist_ok=True)
+            target_path.write_bytes(image_bytes)
+        except OSError:
+            self._send_json(500, {"ok": False, "error": "Failed to write team logo file."})
+            return True
+
+        self._send_json(
+            200,
+            {
+                "ok": True,
+                "relativePath": rel_path.replace("\\", "/"),
+                "source": "football-logos.cc",
+                "matchedName": str(entry.get("name") or ""),
+                "categoryId": str(entry.get("categoryId") or ""),
+                "teamId": str(entry.get("id") or ""),
+                "sha256": hashlib.sha256(image_bytes).hexdigest(),
+            },
+        )
+        return True
+
     def _send_live_reload_stream(self) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -252,6 +1001,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if self._try_serve_player_voice_status():
             return
         if self._is_live_reload_endpoint():
             self._send_live_reload_stream()
@@ -298,6 +1049,12 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if self._try_generate_player_voice():
+            return
+        if self._try_delete_player_voice():
+            return
+        if self._try_fetch_team_logo():
             return
         if not self._is_size_favorites_endpoint():
             self._send_json(404, {"error": "Not found"})

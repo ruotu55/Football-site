@@ -16,6 +16,74 @@
 }
 .pitch-wrap[hidden] { display: none; }
 
+.lineups-inline-team-picker {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 40;
+  width: min(22rem, 90%);
+  max-height: 18.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(8, 15, 20, 0.8);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+}
+
+.lineups-inline-team-picker[hidden] {
+  display: none;
+}
+
+.lineups-inline-team-picker-title {
+  color: var(--accent);
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.lineups-inline-team-picker .field .label {
+  text-align: left;
+}
+
+.lineups-inline-team-search {
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.lineups-inline-team-search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(255, 202, 40, 0.2);
+  outline: none;
+}
+
+.lineups-inline-team-search.team-selected {
+  background: var(--accent);
+  color: #000;
+  font-weight: 800;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.3);
+}
+
+.lineups-inline-team-results {
+  min-height: 6.2rem;
+  max-height: 12rem;
+}
+
 .pitch-swap-logo-btn {
   position: absolute;
   top: 0.35rem;
@@ -338,6 +406,55 @@ body.play-video-active .slot-swap-btn {
 }
 
 .player-slot.has-player { cursor: pointer; }
+
+.slot-photo-controls {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.18rem);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.18rem;
+  z-index: 32;
+}
+
+.slot-photo-fetch-btn,
+.slot-photo-delete-btn {
+  min-width: 2.15rem;
+  height: 0.95rem;
+  padding: 0 0.28rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  border-radius: 0.24rem;
+  background: rgba(0, 0, 0, 0.62);
+  color: #ffffff;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  font-size: 0.52rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  text-transform: uppercase;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
+}
+
+.slot-photo-delete-btn {
+  min-width: 0.95rem;
+  width: 0.95rem;
+  padding: 0;
+}
+
+.slot-photo-fetch-btn:hover:not(:disabled),
+.slot-photo-delete-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+}
+
+.slot-photo-fetch-btn:disabled,
+.slot-photo-delete-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
 
 /* Animate the avatar to float slowly up and down when a player is in the slot */
 .player-slot.has-player .slot-avatar {
