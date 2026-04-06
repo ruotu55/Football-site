@@ -27,6 +27,7 @@ import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
+import { initSharedBackgroundTheme } from "../../shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -152,6 +153,12 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    initSharedBackgroundTheme(
+        document.getElementById("in-background-color"),
+        document.getElementById("in-background-effect"),
+        document.getElementById("in-background-opacity"),
+        document.getElementById("btn-save-background-opacity"),
+    );
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;
         els.shortsModeBtn.setAttribute("aria-pressed", els.shortsModeToggle.checked ? "true" : "false");

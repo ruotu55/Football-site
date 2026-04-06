@@ -20,7 +20,6 @@ import {
 } from "./pitch-render.js";
 import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
-import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
@@ -28,6 +27,7 @@ import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initPlayerVoiceManager } from "./player-voice-manager.js";
+import { initSharedBackgroundTheme } from "../../shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -151,6 +151,12 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    initSharedBackgroundTheme(
+        document.getElementById("in-background-color"),
+        document.getElementById("in-background-effect"),
+        document.getElementById("in-background-opacity"),
+        document.getElementById("btn-save-background-opacity"),
+    );
     await initPlayerVoiceManager();
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;
@@ -166,7 +172,6 @@ async function init() {
     window.addEventListener("beforeunload", window.__captureRunnerState);
 
     // Call initialized modules
-    initFloatingEmojis();
     initLevelControls();
     initSavedScripts({
         populateSubTypes,

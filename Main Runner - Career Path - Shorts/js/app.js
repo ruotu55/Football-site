@@ -28,6 +28,7 @@ import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initPlayerVoiceManager } from "./player-voice-manager.js";
+import { initSharedBackgroundTheme } from "../../shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -178,6 +179,12 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    initSharedBackgroundTheme(
+        document.getElementById("in-background-color"),
+        document.getElementById("in-background-effect"),
+        document.getElementById("in-background-opacity"),
+        document.getElementById("btn-save-background-opacity"),
+    );
     await initPlayerVoiceManager();
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;

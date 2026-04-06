@@ -2109,6 +2109,26 @@ export function renderCareer() {
   renderCareerPictureControls(wrap, state);
 }
 
+/** Inside `.app` so stacking respects Quiz Controls; body-level siblings beat the whole app when `.app` has z-index (sun-ray background effects). */
+function mountCareerPictureControlsPanel(panel) {
+  const app = document.querySelector(".app");
+  if (!panel || !app) return;
+  const rightPanel = document.getElementById("right-panel");
+  const controlPanel = document.getElementById("control-panel");
+  const anchor =
+    rightPanel && rightPanel.parentElement === app
+      ? rightPanel
+      : controlPanel && controlPanel.parentElement === app
+        ? controlPanel
+        : null;
+  if (!anchor) {
+    if (panel.parentElement !== document.body) document.body.appendChild(panel);
+    return;
+  }
+  if (panel.parentElement === app && panel.previousElementSibling === anchor) return;
+  anchor.insertAdjacentElement("afterend", panel);
+}
+
 function renderCareerPictureControls(wrap, state) {
   if (!wrap) return;
   const isShorts = document.body.classList.contains("shorts-mode");
@@ -2202,8 +2222,10 @@ function renderCareerPictureControls(wrap, state) {
         getCareerRevealCssVarSource(st, layoutShorts),
       );
     });
-    document.body.appendChild(panel);
+    mountCareerPictureControlsPanel(panel);
   }
+
+  mountCareerPictureControlsPanel(panel);
 
   panel.classList.toggle("career-picture-controls--shorts-layout", useShortsPanelLayout);
   if (useShortsPanelLayout) {
