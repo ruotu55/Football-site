@@ -308,23 +308,12 @@ function revealCurrentLevel() {
   let flipDelay = 1000;
   const isShorts = document.body.classList.contains("shorts-mode");
   if (appState.currentLevelIndex > 1) {
-    let isLastQuestion = (appState.currentLevelIndex + 1 === appState.totalLevelsCount);
-    if (isLastQuestion) {
-      flipDelay = 0;
-    } else {
-      let shouldPlayVoice = true;
-      if (!isShorts) {
-        const questionIndex = appState.currentLevelIndex - 2; 
-        if (questionIndex % 3 !== 0) {
-          shouldPlayVoice = false;
-        }
-      }
-      const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
-      playTheAnswerIs(shouldPlayVoice, playerDisplayName);
-      setVideoRevealPostTimerActive(true);
-      refreshCurrentQuestionPreview();
-      flipDelay = 4000;
-    }
+    const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+    // In Play Video mode, always announce the revealed player when a name clip exists.
+    playTheAnswerIs(true, playerDisplayName);
+    setVideoRevealPostTimerActive(true);
+    refreshCurrentQuestionPreview();
+    flipDelay = 4000;
   }
   appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;

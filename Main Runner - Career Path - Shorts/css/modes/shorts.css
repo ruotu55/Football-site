@@ -539,6 +539,7 @@ body.shorts-mode .career-grid-row {
     width: max-content;
     max-width: 100%;
     margin-inline: auto;
+    position: relative;
 }
 
 body.shorts-mode .career-grid-row[data-row-index="1"] {
@@ -724,6 +725,7 @@ body.shorts-mode .career-grid-arrow {
     /* Center between crest images (row item includes extra year-label space below). */
     transform: translateY(calc(var(--shorts-team-label-space, 1rem) * -0.5));
     pointer-events: auto;
+    z-index: 40;
 }
 
 body.shorts-mode .career-order-arrow {
@@ -758,9 +760,10 @@ body.shorts-mode .career-insert-btn--shorts {
     min-width: 1.3rem;
     font-size: 1rem;
     border-width: 1.5px;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
     transition: opacity 0.18s ease;
+    z-index: 41;
 }
 
 body.shorts-mode .career-grid-arrow:hover .career-insert-btn--shorts,
@@ -769,8 +772,57 @@ body.shorts-mode .career-grid-arrow:focus-within .career-insert-btn--shorts {
     pointer-events: auto;
 }
 
-body.shorts-mode .career-grid-arrow:hover .career-insert-btn--shorts {
-    transform: translate(-50%, -50%) scale(1.06);
+/* Edge add buttons (before first / after last): keep + hover-only, no order chevron. */
+body.shorts-mode .career-grid-arrow--edge .career-order-arrow {
+    display: none;
+}
+
+body.shorts-mode .career-grid-arrow--edge {
+    position: absolute;
+    min-width: 1.8rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    top: 50%;
+    transform: translateY(calc(-50% - (var(--shorts-team-label-space, 1rem) * 0.5)));
+    pointer-events: auto;
+}
+
+body.shorts-mode .career-grid-arrow--edge-start {
+    left: calc(-1 * (var(--shorts-team-column-gap, 0.8rem) + 1.1rem));
+}
+
+body.shorts-mode .career-grid-arrow--edge-end {
+    right: calc(-1 * (var(--shorts-team-column-gap, 0.8rem) + 1.1rem));
+}
+
+/* Insert point between consecutive rows (e.g., last item row 1 -> first item row 2). */
+body.shorts-mode .career-grid-break-insert {
+    position: relative;
+    width: 100%;
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 40;
+}
+
+body.shorts-mode .career-grid-break-insert .career-insert-btn--shorts {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: translateY(-50%);
+    pointer-events: auto;
+}
+
+body.shorts-mode .career-insert-btn--side {
+    top: calc(var(--shorts-team-size) * 0.5);
+}
+
+/* Side-only add controls in shorts: hide legacy separator rows/arrows. */
+body.shorts-mode .career-grid-arrow,
+body.shorts-mode .career-grid-break-insert {
+    display: none !important;
 }
 
 /* Play Video in shorts: hide all per-slot controls (+/-/heart/insert/remove/year nudge). */

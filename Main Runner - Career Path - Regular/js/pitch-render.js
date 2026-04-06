@@ -1231,9 +1231,11 @@ export function renderCareer() {
   const insertCareerSlotAfter = (slotIndex) => {
     const safeIndex = Number(slotIndex);
     const list = ensureEditableCareerHistory();
-    if (!Number.isInteger(safeIndex) || safeIndex < -1 || safeIndex >= list.length) return;
-    openCareerInsertTeamPicker(safeIndex);
+    if (!Number.isInteger(safeIndex)) return;
+    const clamped = Math.min(Math.max(-1, safeIndex), Math.max(-1, list.length - 1));
+    openCareerInsertTeamPicker(clamped);
   };
+
 
   const getCareerInsertTeamList = () => {
     const clubs = Array.isArray(appState.teamsIndex?.clubs) ? appState.teamsIndex.clubs : [];
@@ -1565,12 +1567,13 @@ export function renderCareer() {
         }
     }
 
-    const removeBtnHtml = shortsPreviewActive
-      ? ""
-      : `<button class="career-remove-btn" data-index="${index}" title="Remove Team" aria-label="Remove team from path">X</button>`;
-    const editBtnHtml = shortsPreviewActive
-      ? ""
-      : `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`;
+    const hasHistorySlot = !!history[index];
+    const removeBtnHtml = hasHistorySlot
+      ? `<button class="career-remove-btn" data-index="${index}" title="Remove Team" aria-label="Remove team from path">X</button>`
+      : "";
+    const editBtnHtml = hasHistorySlot
+      ? `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`
+      : "";
     const imgOrText = `<div class="career-club-placeholder">
                           ${removeBtnHtml}
                           ${editBtnHtml}
@@ -1593,15 +1596,31 @@ export function renderCareer() {
     `;
   };
 
-  const appendShortsCareerSlot = (rowEl, index, totalCount) => {
+  const appendShortsCareerSlot = (rowEl, index, totalCount, showInsertAfter = true) => {
     const slot = document.createElement("div");
     slot.className = "career-grid-item career-grid-item--split career-club-slot";
     slot.innerHTML = generateSlotContent(index);
+    const leftInsert = document.createElement("button");
+    leftInsert.type = "button";
+    leftInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-left";
+    leftInsert.dataset.insertAfter = String(index - 1);
+    leftInsert.title = "Add Team";
+    leftInsert.setAttribute("aria-label", "Add team before this team");
+    leftInsert.textContent = "+";
+    slot.appendChild(leftInsert);
+    const rightInsert = document.createElement("button");
+    rightInsert.type = "button";
+    rightInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-right";
+    rightInsert.dataset.insertAfter = String(index);
+    rightInsert.title = "Add Team";
+    rightInsert.setAttribute("aria-label", "Add team after this team");
+    rightInsert.textContent = "+";
+    slot.appendChild(rightInsert);
     appendCareerSlotZoomControls(slot, index, totalCount, true);
     appendCareerSlotYearNudgeControls(slot, index, totalCount, true);
     rowEl.appendChild(slot);
 
-    if (index < totalCount - 1) {
+    if (showInsertAfter && index < totalCount - 1) {
       const arrow = document.createElement("div");
       arrow.className = "career-grid-arrow";
       arrow.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${index}" title="Add Team" aria-label="Add team between teams">+</button>`;
@@ -1625,10 +1644,17 @@ export function renderCareer() {
         row.dataset.rowIndex = String(rowIndex);
 
         for (let j = 0; j < rowCount && slotIndex < n; j += 1, slotIndex += 1) {
-          appendShortsCareerSlot(row, slotIndex, n);
+          const showInsertAfter = j < rowCount - 1;
+          appendShortsCareerSlot(row, slotIndex, n, showInsertAfter);
         }
 
         gridContainer.appendChild(row);
+        if (slotIndex < n) {
+          const breakInsert = document.createElement("div");
+          breakInsert.className = "career-grid-break-insert";
+          breakInsert.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${slotIndex - 1}" title="Add Team" aria-label="Add team between teams">+</button>`;
+          gridContainer.appendChild(breakInsert);
+        }
       });
 
       while (slotIndex < n) {
@@ -1636,11 +1662,35 @@ export function renderCareer() {
         overflowRow.className = "career-grid-row";
         overflowRow.dataset.rowSize = "3";
 
-        for (let j = 0; j < 3 && slotIndex < n; j += 1, slotIndex += 1) {
-          appendShortsCareerSlot(overflowRow, slotIndex, n);
+        const overflowRowCount = Math.min(3, n - slotIndex);
+        for (let j = 0; j < overflowRowCount && slotIndex < n; j += 1, slotIndex += 1) {
+          const showInsertAfter = j < overflowRowCount - 1;
+          appendShortsCareerSlot(overflowRow, slotIndex, n, showInsertAfter);
         }
 
         gridContainer.appendChild(overflowRow);
+        if (slotIndex < n) {
+          const breakInsert = document.createElement("div");
+          breakInsert.className = "career-grid-break-insert";
+          breakInsert.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${slotIndex - 1}" title="Add Team" aria-label="Add team between teams">+</button>`;
+          gridContainer.appendChild(breakInsert);
+        }
+      }
+
+      const firstRow = gridContainer.querySelector(".career-grid-row");
+      if (firstRow) {
+        const startArrow = document.createElement("div");
+        startArrow.className = "career-grid-arrow career-grid-arrow--edge career-grid-arrow--edge-start";
+        startArrow.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="-1" title="Add Team" aria-label="Add team before first team">+</button>`;
+        firstRow.insertBefore(startArrow, firstRow.firstChild);
+      }
+      const allRows = gridContainer.querySelectorAll(".career-grid-row");
+      const lastRow = allRows.length ? allRows[allRows.length - 1] : null;
+      if (lastRow) {
+        const endArrow = document.createElement("div");
+        endArrow.className = "career-grid-arrow career-grid-arrow--edge career-grid-arrow--edge-end";
+        endArrow.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${Math.max(-1, n - 1)}" title="Add Team" aria-label="Add team after last team">+</button>`;
+        lastRow.appendChild(endArrow);
       }
 
       wrap.appendChild(gridContainer);
@@ -1782,6 +1832,22 @@ export function renderCareer() {
       slot.style.top = `${(p.y / 400) * 100}%`;
       
       slot.innerHTML = generateSlotContent(i);
+      const leftInsert = document.createElement("button");
+      leftInsert.type = "button";
+      leftInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-left";
+      leftInsert.dataset.insertAfter = String(i - 1);
+      leftInsert.title = "Add Team";
+      leftInsert.setAttribute("aria-label", "Add team before this team");
+      leftInsert.textContent = "+";
+      slot.appendChild(leftInsert);
+      const rightInsert = document.createElement("button");
+      rightInsert.type = "button";
+      rightInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-right";
+      rightInsert.dataset.insertAfter = String(i);
+      rightInsert.title = "Add Team";
+      rightInsert.setAttribute("aria-label", "Add team after this team");
+      rightInsert.textContent = "+";
+      slot.appendChild(rightInsert);
       appendCareerSlotZoomControls(slot, i, n, false);
       appendCareerSlotYearNudgeControls(slot, i, n, false);
 
@@ -1802,6 +1868,34 @@ export function renderCareer() {
       insertBtn.style.left = `${midX}%`;
       insertBtn.style.top = `${midY}%`;
       slotsContainer.appendChild(insertBtn);
+    }
+    if (n > 0) {
+      const clampPct = (v, min, max) => Math.min(max, Math.max(min, v));
+      const edgeOffsetX = 7.5;
+      const first = points[0];
+      const last = points[n - 1];
+
+      const startInsertBtn = document.createElement("button");
+      startInsertBtn.type = "button";
+      startInsertBtn.className = "career-insert-btn career-insert-btn--road";
+      startInsertBtn.dataset.insertAfter = "-1";
+      startInsertBtn.title = "Add Team";
+      startInsertBtn.setAttribute("aria-label", "Add team before first team");
+      startInsertBtn.textContent = "+";
+      startInsertBtn.style.left = `${clampPct((first.x / 1000) * 100 - edgeOffsetX, 2, 98)}%`;
+      startInsertBtn.style.top = `${(first.y / 400) * 100}%`;
+      slotsContainer.appendChild(startInsertBtn);
+
+      const endInsertBtn = document.createElement("button");
+      endInsertBtn.type = "button";
+      endInsertBtn.className = "career-insert-btn career-insert-btn--road";
+      endInsertBtn.dataset.insertAfter = String(n - 1);
+      endInsertBtn.title = "Add Team";
+      endInsertBtn.setAttribute("aria-label", "Add team after last team");
+      endInsertBtn.textContent = "+";
+      endInsertBtn.style.left = `${clampPct((last.x / 1000) * 100 + edgeOffsetX, 2, 98)}%`;
+      endInsertBtn.style.top = `${(last.y / 400) * 100}%`;
+      slotsContainer.appendChild(endInsertBtn);
     }
     const clipD = `M 0,${points[0].y} L ${points[0].x},${points[0].y} ` + d.replace(`M ${points[0].x},${points[0].y} `, "") + ` L 1000,${points[n-1].y} L 1000,-1000 L 0,-1000 Z`;
     clipPathElement.setAttribute("d", clipD);

@@ -18,7 +18,6 @@ const paths = {
     "../Voices/Ringhton/nra-lab-ukulele-fun-acoustic-background-happy-strings-221183.mp3",
     "../Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
   ],
-  theAnswerIs: "../Voices/the answer is/The answer is.mp3",
   dong: "../Voices/the answer is/dong.wav",
   commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowLegacy: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
@@ -262,8 +261,7 @@ export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
   
   if (includeVoice) {
-    // Keep existing reveal phrase, then try a generated player-name clip if available.
-    playVoice(paths.theAnswerIs, 100);
+    // Reveal uses player name clip only.
     playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
   }
 }

@@ -18,7 +18,6 @@ const paths = {
     "../Voices/Ringhton/nra-lab-ukulele-fun-acoustic-background-happy-strings-221183.mp3",
     "../Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
   ],
-  theAnswerIs: "../Voices/the answer is/The answer is.mp3",
   dong: "../Voices/the answer is/dong.wav",
   commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowLegacy: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
@@ -210,11 +209,7 @@ export function playRules(quizType) {
 export function playTheAnswerIs(includeVoice = true) {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
-  
-  if (includeVoice) {
-    // Dong plays immediately. Meanwhile, BGM fades down for 0.5s, then the voice plays.
-    playVoice(paths.theAnswerIs, 100);
-  }
+  void includeVoice;
 }
 
 export function playCommentBelow() {

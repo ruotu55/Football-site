@@ -867,6 +867,11 @@ body:not(.shorts-mode) .career-club-slot {
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: none;
+}
+
+/* Regular road logos should move only while Play Video is active. */
+body.play-video-active:not(.shorts-mode) .career-club-slot-inner {
   animation: float-up-down-career-road 4s ease-in-out infinite;
 }
 
@@ -1078,25 +1083,80 @@ body.play-video-active .career-logo-fetch-btn {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.55);
-  z-index: 80;
+  z-index: 200;
 }
 
 .career-insert-btn:hover {
-  transform: scale(1.1);
+  transform: none;
 }
 
 .career-insert-btn--road {
   position: absolute;
   transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.18s ease, transform 0.18s ease;
   pointer-events: auto;
 }
 
 .career-insert-btn--road:hover {
-  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 1;
+}
+
+.career-insert-btn--road:focus-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.career-grid-arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .career-insert-btn--shorts {
-  transform: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.career-grid-arrow:hover .career-insert-btn--shorts,
+.career-grid-arrow:focus-within .career-insert-btn--shorts {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.career-grid-arrow:hover .career-insert-btn--shorts {
+  transform: translate(-50%, -50%);
+}
+
+.career-insert-btn--side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 210;
+}
+
+.career-insert-btn--side-left {
+  left: calc(-1 * var(--career-side-insert-offset, 1.8rem));
+}
+
+.career-insert-btn--side-right {
+  right: calc(-1 * var(--career-side-insert-offset, 1.8rem));
+}
+
+/* Keep only per-team side add buttons visible. */
+.career-insert-btn:not(.career-insert-btn--side) {
+  display: none !important;
+}
+
+.career-insert-btn--side:hover,
+.career-insert-btn--side:focus-visible {
+  transform: translateY(-50%) !important;
 }
 
 .career-club-placeholder:empty::after {
