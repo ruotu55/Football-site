@@ -7,6 +7,16 @@ const STYLE_TAG_ID = "shared-background-theme-style";
 const ROOT_COLOR_ATTR = "data-shared-background-color";
 const ROOT_EFFECT_ATTR = "data-shared-background-effect";
 const DEFAULT_LINE_OPACITY_PERCENT = 1;
+const EMOJI_EFFECT_CONTAINER_ID = "shared-background-emojis";
+const EMOJI_IMAGES = [
+  "../emojies/active-character-dribbling-removebg-preview.png",
+  "../emojies/positive-character-with-ball-removebg-preview.png",
+  "../emojies/round-characters-playing-football-removebg-preview.png",
+  "../emojies/_Pngtree_soccer_ball_in_goal_net_3581900-removebg-preview.png",
+  "../emojies/5842fe18a6515b1e0ad75b3d-removebg-preview.png",
+  "../emojies/5842fe21a6515b1e0ad75b3e-removebg-preview.png",
+  "../emojies/_Pngtree_mens_sports_red_football_shoes_9097428-removebg-preview.png",
+];
 
 const WHITE_0 = "rgba(255, 255, 255, 0)";
 let opacityProfiles = {};
@@ -24,28 +34,76 @@ function isServerSyncActive() {
   );
 }
 
+function randomEmojiSrc() {
+  return EMOJI_IMAGES[Math.floor(Math.random() * EMOJI_IMAGES.length)];
+}
+
+function ensureEmojiEffectContainer() {
+  let container = document.getElementById(EMOJI_EFFECT_CONTAINER_ID);
+  if (!container) {
+    container = document.createElement("div");
+    container.id = EMOJI_EFFECT_CONTAINER_ID;
+    container.className = "shared-bg-emojis";
+    document.body.appendChild(container);
+  }
+  return container;
+}
+
+function populateEmojiEffectContainer(container) {
+  if (!container || container.childElementCount > 0) return;
+  const numRows = 10;
+  const itemsPerRow = 8;
+  const duration = 90;
+  for (let row = 0; row < numRows; row++) {
+    for (let i = 0; i < itemsPerRow; i++) {
+      const img = document.createElement("img");
+      img.src = randomEmojiSrc();
+      img.alt = "";
+      img.className = "shared-bg-emoji";
+      img.style.width = "75px";
+      img.style.height = "75px";
+      img.style.top = `${5 + (row * (90 / (numRows - 1)))}vh`;
+      img.style.animationDuration = `${duration}s`;
+      const timeSlot = duration / itemsPerRow;
+      const baseDelay = i * timeSlot;
+      const rowOffset = row % 2 === 0 ? 0 : timeSlot / 2;
+      const jitter = Math.random() * 1;
+      img.style.animationDelay = `-${baseDelay + rowOffset + jitter}s`;
+      container.appendChild(img);
+    }
+  }
+}
+
+function syncEmojiEffect(effectId) {
+  const container = document.getElementById(EMOJI_EFFECT_CONTAINER_ID);
+  if (effectId === "floating-emojis") {
+    const activeContainer = container || ensureEmojiEffectContainer();
+    populateEmojiEffectContainer(activeContainer);
+    return;
+  }
+  if (container) {
+    container.remove();
+  }
+}
+
 const COLORS = [
-  { id: "royal-blue", label: "Royal Blue", hex: "#0a3db8" },
-  { id: "ocean-blue", label: "Ocean Blue", hex: "#0c63b5" },
-  { id: "sky-blue", label: "Sky Blue", hex: "#1f6fe5" },
-  { id: "cobalt-blue", label: "Cobalt Blue", hex: "#1e40af" },
-  { id: "navy-blue", label: "Navy Blue", hex: "#1e3a8a" },
-  { id: "teal", label: "Teal", hex: "#0f766e" },
-  { id: "cyan-teal", label: "Cyan Teal", hex: "#0e8b8f" },
-  { id: "emerald", label: "Emerald", hex: "#0f8a5f" },
-  { id: "forest-green", label: "Forest Green", hex: "#166534" },
-  { id: "aqua-green", label: "Aqua Green", hex: "#0f9f7a" },
-  { id: "amber", label: "Amber", hex: "#b9770e" },
-  { id: "gold", label: "Gold", hex: "#a16207" },
-  { id: "crimson", label: "Crimson", hex: "#a31621" },
-  { id: "ruby-red", label: "Ruby Red", hex: "#b91c1c" },
-  { id: "burgundy", label: "Burgundy", hex: "#7f1d1d" },
-  { id: "purple", label: "Purple", hex: "#5b2a86" },
-  { id: "violet", label: "Violet", hex: "#6d28d9" },
-  { id: "indigo", label: "Indigo", hex: "#4338ca" },
-  { id: "deep-pink", label: "Deep Pink", hex: "#9a2f6a" },
-  { id: "magenta", label: "Magenta", hex: "#a21caf" },
-  { id: "plum", label: "Plum", hex: "#7e22ce" },
+  { id: "forest-green", label: "Green - Forest", hex: "#166534" },
+  { id: "aqua-green", label: "Green - Aqua", hex: "#0f9f7a" },
+  { id: "pitch-green", label: "Green - Pitch", hex: "#1b8a46" },
+  { id: "blue-sky", label: "Blue - Sky", hex: "#1f6fe5" },
+  { id: "blue-royal", label: "Blue - Royal", hex: "#0a3db8" },
+  { id: "cyan-teal", label: "Teal - Cyan", hex: "#0e8b8f" },
+  { id: "bright-teal", label: "Teal - Bright", hex: "#14b8a6" },
+  { id: "violet", label: "Purple - Violet", hex: "#6d28d9" },
+  { id: "plum", label: "Purple - Plum", hex: "#7e22ce" },
+  { id: "ruby-red", label: "Red - Ruby", hex: "#b91c1c" },
+  { id: "crimson-red", label: "Red - Crimson", hex: "#dc2626" },
+  { id: "magenta", label: "Pink - Magenta", hex: "#d946ef" },
+  { id: "deep-pink", label: "Pink - Deep", hex: "#ec4899" },
+  { id: "sunset-orange", label: "Orange - Sunset", hex: "#f97316" },
+  { id: "amber-orange", label: "Orange - Amber", hex: "#f59e0b" },
+  { id: "gold-yellow", label: "Yellow - Gold", hex: "#eab308" },
+  { id: "lemon-yellow", label: "Yellow - Lemon", hex: "#facc15" },
 ];
 
 function ensureStyleTag() {
@@ -89,6 +147,56 @@ function normalizeOpacityPercent(value) {
 
 function whiteWithOpacity(opacityPercent) {
   return `rgba(255, 255, 255, ${normalizeOpacityPercent(opacityPercent) / 100})`;
+}
+
+function svgDataUri(svg) {
+  return `url("data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}")`;
+}
+
+function createSunSpiralSvgDataUri(opacityPercent) {
+  const whiteAlpha = normalizeOpacityPercent(opacityPercent) / 100;
+  const cx = 500;
+  const cy = 500;
+  const numArms = 16;
+  const maxR = 780;
+  const twist = Math.PI * 1.55;
+  const halfWidth = (Math.PI / numArms) * 0.5;
+  const steps = 120;
+
+  let paths = "";
+  for (let arm = 0; arm < numArms; arm += 1) {
+    const baseAngle = (arm / numArms) * 2 * Math.PI - Math.PI / 2;
+    const outerEdge = [];
+    const innerEdge = [];
+    for (let s = 0; s <= steps; s += 1) {
+      const r = (s / steps) * maxR;
+      const twistAngle = baseAngle + twist * (r / maxR);
+      outerEdge.push({
+        x: cx + r * Math.cos(twistAngle - halfWidth),
+        y: cy + r * Math.sin(twistAngle - halfWidth),
+      });
+      innerEdge.push({
+        x: cx + r * Math.cos(twistAngle + halfWidth),
+        y: cy + r * Math.sin(twistAngle + halfWidth),
+      });
+    }
+    let d = `M ${cx} ${cy}`;
+    for (const pt of outerEdge) {
+      d += ` L ${pt.x.toFixed(1)} ${pt.y.toFixed(1)}`;
+    }
+    for (const pt of innerEdge.reverse()) {
+      d += ` L ${pt.x.toFixed(1)} ${pt.y.toFixed(1)}`;
+    }
+    d += " Z";
+    paths += `<path d="${d}" fill="#ffffff" fill-opacity="${whiteAlpha}"/>`;
+  }
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      ${paths}
+    </svg>
+  `;
+  return svgDataUri(svg);
 }
 
 function readOpacityProfilesFromLocalStorage() {
@@ -176,7 +284,18 @@ function readSavedOpacityForColor(colorId) {
 }
 
 function normalizeColorId(colorId) {
-  return COLORS.some((color) => color.id === colorId) ? colorId : "royal-blue";
+  const aliasMap = {
+    "royal-blue": "blue-royal",
+    "ocean-blue": "blue-sky",
+    "sky-blue": "blue-sky",
+    "cobalt-blue": "blue-royal",
+    "navy-blue": "blue-royal",
+  };
+  const candidate = aliasMap[colorId] || colorId;
+  if (COLORS.some((color) => color.id === candidate)) {
+    return candidate;
+  }
+  return COLORS[0]?.id || "forest-green";
 }
 
 function normalizeEffectId(effectId) {
@@ -186,9 +305,11 @@ function normalizeEffectId(effectId) {
 
 const EFFECTS = [
   { id: "sun-rays-center", label: "Sun effect middle" },
+  { id: "sun-spiral-center", label: "Sun spiral middle" },
   { id: "sun-rays-top-right", label: "Sun effect top right" },
   { id: "sun-rays-top-left", label: "Sun effect top left" },
   { id: "center-rings", label: "Center circles" },
+  { id: "floating-emojis", label: "Floating emojis" },
   { id: "diagonal-flow", label: "Diagonal flow" },
   { id: "diamond-grid", label: "Diamond grid" },
 ];
@@ -202,15 +323,25 @@ function getEffectBackground(effectId, colorHex, opacityPercent) {
   const color18 = rgbaFromHex(colorHex, 0.18 * opacityPercent);
   const whiteSoft = `rgba(255, 255, 255, ${Math.min(0.08, opacityFactor * 4)})`;
   const whiteMid = `rgba(255, 255, 255, ${Math.min(0.12, opacityFactor * 6)})`;
+  const whiteStrong = `rgba(255, 255, 255, ${Math.min(0.2, opacityFactor * 12)})`;
   const blackSoft = `rgba(0, 0, 0, ${Math.min(0.08, opacityFactor * 4)})`;
   const blackMid = `rgba(0, 0, 0, ${Math.min(0.14, opacityFactor * 7)})`;
   switch (effectId) {
     case "sun-rays-center":
+    case "sun-spiral-center":
     case "sun-rays-top-right":
     case "sun-rays-top-left":
+    case "floating-emojis":
       return `${colorHex}`;
     case "center-rings":
       return `${colorHex}`;
+    case "football-pitch":
+      return `
+    radial-gradient(circle at 50% 50%, ${WHITE_0} 0 10%, ${whiteMid} 10% 10.4%, ${WHITE_0} 10.4% 100%),
+    linear-gradient(to right, ${WHITE_0} 49.85%, ${whiteStrong} 49.85% 50.15%, ${WHITE_0} 50.15%),
+    repeating-linear-gradient(to bottom, ${whiteSoft} 0 2px, ${WHITE_0} 2px 96px),
+    repeating-linear-gradient(to right, rgba(255, 255, 255, 0.03) 0 120px, rgba(0, 0, 0, 0.04) 120px 240px),
+    ${colorHex}`;
     case "diagonal-flow":
       return `
     repeating-linear-gradient(-28deg, ${whiteLine} 0 66px, ${color10} 66px 132px),
@@ -240,11 +371,15 @@ function getEffectBackground(effectId, colorHex, opacityPercent) {
 function getEffectAnimation(effectId) {
   switch (effectId) {
     case "sun-rays-center":
+    case "sun-spiral-center":
     case "sun-rays-top-right":
     case "sun-rays-top-left":
+    case "floating-emojis":
       return "none";
     case "center-rings":
       return "none";
+    case "football-pitch":
+      return "shared-bg-football-pitch 200s linear infinite";
     case "diagonal-flow":
       return "shared-bg-diagonal-flow 170s linear infinite";
     case "wave-bands":
@@ -262,11 +397,15 @@ function getEffectAnimation(effectId) {
 function getEffectBackgroundSize(effectId) {
   switch (effectId) {
     case "sun-rays-center":
+    case "sun-spiral-center":
     case "sun-rays-top-right":
     case "sun-rays-top-left":
+    case "floating-emojis":
       return "100% 100%";
     case "center-rings":
       return "100% 100%";
+    case "football-pitch":
+      return "100% 100%, 100% 100%, 100% 100%, 240% 100%, 100% 100%";
     case "diagonal-flow":
       return "340% 340%, 100% 100%";
     case "wave-bands":
@@ -285,6 +424,23 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
   const whiteLine = whiteWithOpacity(opacityPercent);
   const color10 = rgbaFromHex(colorHex, 0.1 * opacityPercent);
   const color05 = rgbaFromHex(colorHex, 0.05 * opacityPercent);
+  const spiralSvg = createSunSpiralSvgDataUri(opacityPercent);
+  const vignetteOpaque = rgbaFromHex(colorHex, 1);
+  const vignetteTransparent = rgbaFromHex(colorHex, 0);
+  const vignetteCss = (attr) => `
+:root[${ROOT_EFFECT_ATTR}="${attr}"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse farthest-corner at 50% 50%,
+    ${vignetteOpaque} 0%,
+    ${vignetteTransparent} 100%
+  );
+}
+`;
   switch (effectId) {
     case "sun-rays-top-right":
       return `
@@ -309,7 +465,7 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
   transform-origin: calc(100% - 320vmax) 320vmax;
   animation: shared-bg-sun-rays 240s linear infinite;
 }
-
+${vignetteCss("sun-rays-top-right")}
 :root[${ROOT_EFFECT_ATTR}="sun-rays-top-right"] .app {
   position: relative;
   z-index: 1;
@@ -338,8 +494,36 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
   transform-origin: 320vmax 320vmax;
   animation: shared-bg-sun-rays 240s linear infinite;
 }
-
+${vignetteCss("sun-rays-center")}
 :root[${ROOT_EFFECT_ATTR}="sun-rays-center"] .app {
+  position: relative;
+  z-index: 1;
+}
+`;
+    case "sun-spiral-center":
+      return `
+:root[${ROOT_EFFECT_ATTR}="sun-spiral-center"] body {
+  position: relative;
+}
+
+:root[${ROOT_EFFECT_ATTR}="sun-spiral-center"] body::before {
+  content: "";
+  position: fixed;
+  top: calc(50vh - 320vmax);
+  left: calc(50vw - 320vmax);
+  width: 640vmax;
+  height: 640vmax;
+  pointer-events: none;
+  z-index: 0;
+  background-image: ${spiralSvg};
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  transform-origin: 320vmax 320vmax;
+  animation: shared-bg-sun-rays 240s linear infinite;
+}
+${vignetteCss("sun-spiral-center")}
+:root[${ROOT_EFFECT_ATTR}="sun-spiral-center"] .app {
   position: relative;
   z-index: 1;
 }
@@ -367,7 +551,7 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
   transform-origin: 320vmax 320vmax;
   animation: shared-bg-sun-rays 240s linear infinite;
 }
-
+${vignetteCss("sun-rays-top-left")}
 :root[${ROOT_EFFECT_ATTR}="sun-rays-top-left"] .app {
   position: relative;
   z-index: 1;
@@ -392,27 +576,13 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
     ${color05} calc(var(--center-rings-offset) + 58px) calc(var(--center-rings-offset) + 116px)
   );
   -webkit-mask-image: radial-gradient(
-    circle at 50% 50%,
-    rgba(0, 0, 0, 0.26) 0%,
-    rgba(0, 0, 0, 0.39) 12.5%,
-    rgba(0, 0, 0, 0.51) 25%,
-    rgba(0, 0, 0, 0.64) 37.5%,
-    rgba(0, 0, 0, 0.76) 50%,
-    rgba(0, 0, 0, 0.82) 62.5%,
-    rgba(0, 0, 0, 0.89) 75%,
-    rgba(0, 0, 0, 0.95) 87.5%,
+    ellipse farthest-corner at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 1) 100%
   );
   mask-image: radial-gradient(
-    circle at 50% 50%,
-    rgba(0, 0, 0, 0.26) 0%,
-    rgba(0, 0, 0, 0.39) 12.5%,
-    rgba(0, 0, 0, 0.51) 25%,
-    rgba(0, 0, 0, 0.64) 37.5%,
-    rgba(0, 0, 0, 0.76) 50%,
-    rgba(0, 0, 0, 0.82) 62.5%,
-    rgba(0, 0, 0, 0.89) 75%,
-    rgba(0, 0, 0, 0.95) 87.5%,
+    ellipse farthest-corner at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 1) 100%
   );
   opacity: 1;
@@ -420,6 +590,71 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
 }
 
 :root[${ROOT_EFFECT_ATTR}="center-rings"] .app {
+  position: relative;
+  z-index: 1;
+}
+`;
+    case "floating-emojis":
+      return `
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] body {
+  position: relative;
+}
+
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] .shared-bg-emojis {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] .shared-bg-emoji {
+  position: absolute;
+  right: -250px;
+  object-fit: contain;
+  opacity: clamp(0.06, calc(var(--shared-line-opacity, 1) * 0.25), 0.8);
+  filter: grayscale(100%);
+  animation: shared-bg-emoji-float linear infinite;
+}
+
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] .app {
+  position: relative;
+  z-index: 1;
+}
+`;
+    case "diagonal-flow":
+    case "diamond-grid":
+      return `
+:root[${ROOT_EFFECT_ATTR}="${effectId}"] body {
+  position: relative;
+}
+
+:root[${ROOT_EFFECT_ATTR}="${effectId}"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse farthest-corner at 50% 50%,
+    ${vignetteOpaque} 0%,
+    ${vignetteTransparent} 100%
+  );
+}
+
+:root[${ROOT_EFFECT_ATTR}="${effectId}"] .app {
   position: relative;
   z-index: 1;
 }
@@ -442,6 +677,11 @@ function getEffectKeyframesCss() {
 @keyframes shared-bg-sun-rays {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes shared-bg-sun-spiral-center {
+  0% { transform: rotate(0deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(1.08); }
 }
 
 @keyframes shared-bg-center-rings {
@@ -485,6 +725,24 @@ function getEffectKeyframesCss() {
   }
 }
 
+@keyframes shared-bg-football-pitch {
+  0% {
+    background-position: center center, center center, center center, 0 0, center center;
+  }
+  100% {
+    background-position: center center, center center, center center, -240px 0, center center;
+  }
+}
+
+@keyframes shared-bg-emoji-float {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100vw - 420px));
+  }
+}
+
 @keyframes shared-bg-diagonal-flow {
   0% { background-position: 40% 0%, center center; }
   100% { background-position: -40% 0%, center center; }
@@ -517,6 +775,10 @@ function applyTheme(colorId, effectId, opacityPercent = DEFAULT_LINE_OPACITY_PER
   root.setAttribute(ROOT_EFFECT_ATTR, normalizedEffectId);
   root.style.setProperty("--bg-stage", selectedColor.hex);
   root.style.setProperty("--shared-line-opacity", String(normalizedOpacity));
+  root.style.setProperty(
+    "--shared-effect-opacity",
+    String(Math.max(0.08, Math.min(0.45, normalizedOpacity / 10))),
+  );
   const background = getEffectBackground(
     normalizedEffectId,
     selectedColor.hex,
@@ -533,6 +795,7 @@ function applyTheme(colorId, effectId, opacityPercent = DEFAULT_LINE_OPACITY_PER
 ${getEffectKeyframesCss()}
 ${getEffectExtraCss(normalizedEffectId, selectedColor.hex, normalizedOpacity)}
 `;
+  syncEmojiEffect(normalizedEffectId);
   try {
     localStorage.setItem(STORAGE_COLOR_KEY, normalizedColorId);
     localStorage.setItem(STORAGE_EFFECT_KEY, normalizedEffectId);
@@ -542,12 +805,12 @@ ${getEffectExtraCss(normalizedEffectId, selectedColor.hex, normalizedOpacity)}
 }
 
 function readSavedTheme() {
-  let colorId = "royal-blue";
+  let colorId = "blue-royal";
   let effectId = "sun-rays";
   try {
     const legacyPreset = localStorage.getItem(LEGACY_PRESET_KEY);
     if (legacyPreset === "blue-sun") {
-      colorId = "royal-blue";
+      colorId = "blue-royal";
       effectId = "sun-rays";
     }
     colorId = normalizeColorId(localStorage.getItem(STORAGE_COLOR_KEY) || colorId);

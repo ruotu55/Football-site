@@ -18,7 +18,6 @@ import {
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
-import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
@@ -317,7 +316,6 @@ async function init() {
     syncShortsModeFab();
 
     // Call initialized modules
-    initFloatingEmojis();
     initLevelControls();
     initSavedScripts({ populateSubTypes, updateSetupUI, updateLanding });
 
