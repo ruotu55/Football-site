@@ -1201,10 +1201,8 @@ export function renderHeader() {
   }
 
   if (previewPreTimer) {
-    if (!appState.isVideoPlaying || !els.teamHeader.classList.contains("video-revealed")) {
-      els.teamHeader.classList.remove("video-revealed");
-      els.teamHeader.classList.add("video-hidden");
-    }
+    els.teamHeader.classList.remove("video-revealed");
+    els.teamHeader.classList.add("video-hidden");
   } else if (previewPostTimer) {
     els.teamHeader.classList.remove("video-hidden");
     els.teamHeader.classList.add("video-revealed");

@@ -1,8 +1,15 @@
 import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderPitch } from "./pitch-render.js";
+import {
+  clearPitchWrapTransitionOverride,
+  renderHeader,
+  renderPitch,
+} from "./pitch-render.js";
 import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
+
+const STAGE_VIDEO_TRANSITION_MS = 1020;
+const STAGE_VIDEO_ENTER_TRANSITION_MS = STAGE_VIDEO_TRANSITION_MS;
 
 export function switchLevel(index) {
   let idx = index;
@@ -95,10 +102,24 @@ export function switchLevel(index) {
       els.logoPage.hidden = isShorts;
 
       els.teamHeader.hidden = false;
-      els.teamHeader.classList.remove("video-revealed");
+      if (appState.isVideoPlaying && state.videoMode && state.currentSquad) {
+        els.teamHeader.classList.remove("video-revealed");
+        els.teamHeader.classList.add("video-hidden");
+        clearPitchWrapTransitionOverride();
+        els.pitchWrap.classList.add("pitch-wrap-snap-height");
+      } else {
+        els.teamHeader.classList.remove("video-hidden");
+        els.teamHeader.classList.remove("video-revealed");
+      }
       els.pitchWrap.hidden = false;
       renderPitch();
       renderHeader();
+      if (appState.isVideoPlaying && state.videoMode && state.currentSquad && els.pitchWrap) {
+        void els.pitchWrap.offsetHeight;
+        setTimeout(() => {
+          els.pitchWrap?.classList.remove("pitch-wrap-snap-height");
+        }, STAGE_VIDEO_ENTER_TRANSITION_MS);
+      }
     }
 
     const sharedBg = document.getElementById("shared-bg-layer");
@@ -129,8 +150,12 @@ export function switchLevel(index) {
   if (stageMain) {
     const isShorts = document.body.classList.contains("shorts-mode");
     
-    stageMain.classList.remove("stage-enter-anim");
-    stageMain.classList.add("stage-exit-anim");
+    const exitClass = "stage-exit-video-anim";
+    const enterClass = "stage-enter-video-anim";
+    const transitionDelay = STAGE_VIDEO_TRANSITION_MS;
+
+    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+    stageMain.classList.add(exitClass);
 
     if (progressContainer) {
         progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
@@ -141,9 +166,9 @@ export function switchLevel(index) {
       updateDOMContent();
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          stageMain.classList.remove("stage-exit-anim");
+          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
           void stageMain.offsetWidth; 
-          stageMain.classList.add("stage-enter-anim");
+          stageMain.classList.add(enterClass);
           
           if (progressContainer) {
               progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
@@ -152,11 +177,11 @@ export function switchLevel(index) {
           }
 
           setTimeout(() => {
-              stageMain.classList.remove("stage-enter-anim");
-          }, 600);
+              stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+          }, STAGE_VIDEO_ENTER_TRANSITION_MS);
         });
       });
-    }, 580);
+    }, transitionDelay);
   } else {
     updateDOMContent();
   }

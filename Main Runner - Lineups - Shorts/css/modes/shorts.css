@@ -168,13 +168,17 @@ body.shorts-mode .team-header.video-hidden {
     opacity: 0;
 }
 
+body.shorts-mode.play-video-active .team-header.video-hidden {
+    transition: none !important;
+}
+
 body.shorts-mode .team-header.video-revealed {
     height: 20vh !important;
     margin-top: -6.75vh !important;
     margin-bottom: 0.5rem !important;
     overflow: visible;
     opacity: 1;
-    animation: header-slide-in-shorts 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: none;
 }
 
 body.shorts-mode .team-header-logo-block {
@@ -449,11 +453,11 @@ body.shorts-mode .quiz-progress[hidden] {
 }
 
 body.shorts-mode .stage-exit-anim {
-    animation: stage-exit-shorts 0.7s cubic-bezier(0.55, 0.05, 0.22, 0.99) forwards !important;
+    animation: stage-exit-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
 body.shorts-mode .stage-enter-anim {
-    animation: stage-enter-shorts 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+    animation: stage-enter-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
 @keyframes stage-exit-shorts {

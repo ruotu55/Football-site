@@ -27,8 +27,10 @@ const SHORTS_LANDING_PRE_WELCOME_DELAY_MS = 2000;
 /** Shorts: “Add specific title” stamp on landing — show only after Play Video, not on static landing. */
 const SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 500;
 /** Match `levels.js` stage swap before enter anim; enter duration matches `stage-enter-shorts`. */
-const SHORTS_STAGE_CONTENT_SWAP_MS = 580;
+const SHORTS_STAGE_CONTENT_SWAP_MS = 1020;
 const SHORTS_STAGE_ENTER_MS = 800;
+/** Must stay in sync with question-to-question stage transition in `levels.js`. */
+const LEVEL_SWITCH_STAGE_TRANSITION_MS = 1020;
 /** Added to base question countdown (5s shorts / 3s regular) so each tick stays an equal slice of the longer total. */
 const QUESTION_COUNTDOWN_EXTRA_MS = 1500;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
@@ -432,11 +434,17 @@ function revealCurrentLevel() {
       switchLevel(jumpToIndex);
       const nextState = getState();
       const isNextOutro = jumpToIndex === appState.totalLevelsCount;
-      if (appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad)) {
-        runVideoStep();
-      } else {
-        stopVideoFlow();
-      }
+      const shouldContinueVideo =
+        appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad);
+      appState.videoTimeout = setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
+        if (appState.currentLevelIndex !== jumpToIndex) return;
+        if (shouldContinueVideo) {
+          runVideoStep();
+        } else {
+          stopVideoFlow();
+        }
+      }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
     } else {
       stopVideoFlow();
     }
