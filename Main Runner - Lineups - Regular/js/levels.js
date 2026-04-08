@@ -1,11 +1,18 @@
 import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderPitch } from "./pitch-render.js";
+import {
+  clearPitchWrapTransitionOverride,
+  renderHeader,
+  renderPitch,
+} from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
+
+/** Same as video stage enter/exit duration in this file and `LEVEL_SWITCH_STAGE_TRANSITION_MS` in `video.js`. */
+const STAGE_VIDEO_TRANSITION_MS = 820;
 
 export function switchLevel(index) {
   if (index === 0) {
@@ -123,10 +130,27 @@ export function switchLevel(index) {
       els.logoPage.hidden = isShorts;
 
       els.teamHeader.hidden = false;
-      els.teamHeader.classList.remove("video-revealed");
+      if (appState.isVideoPlaying && state.videoMode && state.currentSquad) {
+        /* Start the next video question already in its pre-timer layout so the field
+           does not shift after the fade-in begins. */
+        els.teamHeader.classList.remove("video-revealed");
+        els.teamHeader.classList.add("video-hidden");
+        /* Pitch height was transitioning from stale values / long reveal duration — snap once. */
+        clearPitchWrapTransitionOverride();
+        els.pitchWrap.classList.add("pitch-wrap-snap-height");
+      } else {
+        els.teamHeader.classList.remove("video-hidden");
+        els.teamHeader.classList.remove("video-revealed");
+      }
       els.pitchWrap.hidden = false;
       renderPitch();
       renderHeader();
+      if (appState.isVideoPlaying && state.videoMode && state.currentSquad && els.pitchWrap) {
+        void els.pitchWrap.offsetHeight;
+        setTimeout(() => {
+          els.pitchWrap?.classList.remove("pitch-wrap-snap-height");
+        }, STAGE_VIDEO_TRANSITION_MS);
+      }
     }
 
     const sharedBg = document.getElementById("shared-bg-layer");

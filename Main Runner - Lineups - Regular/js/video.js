@@ -14,6 +14,8 @@ import {
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
+/** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
+const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
@@ -281,11 +283,17 @@ function revealCurrentLevel() {
       switchLevel(jumpToIndex);
       const nextState = getState();
       const isNextOutro = jumpToIndex === appState.totalLevelsCount;
-      if (appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad)) {
-        runVideoStep();
-      } else {
-        stopVideoFlow();
-      }
+      const shouldContinueVideo =
+        appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad);
+      appState.videoTimeout = setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
+        if (appState.currentLevelIndex !== jumpToIndex) return;
+        if (shouldContinueVideo) {
+          runVideoStep();
+        } else {
+          stopVideoFlow();
+        }
+      }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
     } else {
       stopVideoFlow();
     }

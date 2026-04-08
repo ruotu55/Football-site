@@ -15,6 +15,11 @@
   transition: height var(--pitch-wrap-height-duration, 0.6s) cubic-bezier(0.25, 1, 0.5, 1),
     transform var(--pitch-wrap-height-duration, 0.6s) cubic-bezier(0.25, 1, 0.5, 1);
 }
+
+/* One frame / stage-in: land new level at final pitch height with no height animation (Play Video level change). */
+.pitch-wrap.pitch-wrap-snap-height {
+  transition: none !important;
+}
 .pitch-wrap[hidden] { display: none; }
 
 .lineups-inline-team-picker {
@@ -301,6 +306,11 @@ body.play-video-active .slot-badge-controls {
 
 body.play-video-active .slot-swap-btn {
   display: none;
+}
+
+body.play-video-active .slot-photo-controls,
+body.play-video-active .pitch-swap-logo-btn {
+  display: none !important;
 }
 
 .slot-inner {
