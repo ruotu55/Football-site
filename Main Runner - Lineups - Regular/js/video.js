@@ -1,6 +1,6 @@
 import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
-import { startBgMusic, stopAllAudio, playWelcome, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
+import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import {
   applyVideoQuestionPostTimerFlip,
@@ -11,8 +11,9 @@ import {
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
 
-/** After Play Video on the logo page: pause before BGM, welcome, and logo reveal. */
+/** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
+const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
@@ -122,10 +123,17 @@ export function startVideoFlow() {
     els.quizProgressContainer.hidden = false;
   }
   if (els.sideTextRight) {
-    els.sideTextRight.hidden = !(isLogo || isLanding || isOutro);
+    els.sideTextRight.hidden = true;
   }
 
   startBgMusic();
+  if (appState.currentLevelIndex <= 1) {
+    const quizType = els.inQuizType?.value || "nat-by-club";
+    setTimeout(() => {
+      if (!appState.isVideoPlaying) return;
+      playRules(quizType, 0);
+    }, INTRO_GAME_NAME_VOICE_DELAY_MS);
+  }
 
   if (appState.currentLevelIndex === 0) {
     if (isShorts) {
@@ -138,7 +146,6 @@ export function startVideoFlow() {
     }
     appState.videoTimeout = setTimeout(() => {
       if (!appState.isVideoPlaying) return;
-      playWelcome();
       const logoImg = els.logoPage.querySelector(".logo-img-anim");
       if (logoImg && !logoImg.classList.contains("reveal")) {
         logoImg.classList.add("reveal");
@@ -150,9 +157,6 @@ export function startVideoFlow() {
     return;
   }
 
-  if (!isShorts) {
-    playWelcome();
-  }
   runVideoStep();
 }
 

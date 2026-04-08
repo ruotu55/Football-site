@@ -7,6 +7,9 @@ import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 let pendingLogoToLandingContentReveal = false;
 
 export function switchLevel(index) {
+  if (index === 0) {
+    index = 1;
+  }
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = index;
   const state = getState();
@@ -127,7 +130,7 @@ export function switchLevel(index) {
     }
     
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = true;
     }
 
     els.logoPage.hidden = true;
@@ -242,7 +245,7 @@ export function switchLevel(index) {
     if (isLogoToLanding) {
       // First page -> second page: logo shifts to top-right first; landing copy slides in from top after.
       const LOGO_SHIFT_MS = 800;
-      const LANDING_SLIDE_MS = 650;
+      const LANDING_SLIDE_MS = 820;
       stageMain.classList.remove(
         "stage-exit-anim",
         "stage-exit-video-anim",

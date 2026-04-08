@@ -18,7 +18,6 @@ import {
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
-import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
@@ -308,6 +307,7 @@ function applyFixedShortsMode(els) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
         els.shortsModeToggle.disabled = true;
     }
+    document.documentElement.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
 }
 
@@ -333,7 +333,6 @@ async function init() {
     syncShortsModeFab();
 
     // Call initialized modules
-    initFloatingEmojis();
     initLevelControls();
     initSavedScripts({ populateSubTypes, updateSetupUI, updateLanding });
 
@@ -407,6 +406,7 @@ async function init() {
     els.shortsModeToggle.onchange = (e) => {
         if (e.target.checked) document.body.classList.add("shorts-mode");
         else document.body.classList.remove("shorts-mode");
+        document.documentElement.classList.toggle("shorts-mode", e.target.checked);
         updateLanding();
         switchLevel(appState.currentLevelIndex);
         scheduleTeamHeaderNameCenterShift();
@@ -427,6 +427,27 @@ async function init() {
         els.videoModeBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
     }
 
+    function areAllLevelsVideoModeEnabled() {
+        return (appState.levelsData || []).every((lvl) => !!lvl.videoMode);
+    }
+
+    function syncApplyVideoAllButton(isEnabled) {
+        if (!els.applyVideoAllBtn) return;
+        const pressed = !!isEnabled;
+        els.applyVideoAllBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
+        if (pressed) {
+            els.applyVideoAllBtn.style.background = "#22c55e";
+            els.applyVideoAllBtn.style.color = "#001408";
+            els.applyVideoAllBtn.style.boxShadow = "0 2px 5px rgba(34, 197, 94, 0.45)";
+            els.applyVideoAllBtn.style.borderColor = "#22c55e";
+            return;
+        }
+        els.applyVideoAllBtn.style.background = "";
+        els.applyVideoAllBtn.style.color = "";
+        els.applyVideoAllBtn.style.boxShadow = "";
+        els.applyVideoAllBtn.style.borderColor = "";
+    }
+
     els.videoModeToggle.onchange = (e) => {
         const state = getState();
         state.videoMode = e.target.checked;
@@ -443,6 +464,7 @@ async function init() {
             }
         }
         syncVideoModeButton(state.videoMode);
+        syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
         refreshSaveTeamButtonUi();
         if (!e.target.checked && appState.isVideoPlaying) {
             stopVideoFlow();
@@ -465,10 +487,15 @@ async function init() {
 
     if (els.applyVideoAllBtn && els.videoModeToggle) {
         els.applyVideoAllBtn.onclick = () => {
-            const isVideoOn = els.videoModeToggle.checked;
+            const nextVideoMode = !areAllLevelsVideoModeEnabled();
             appState.levelsData.forEach((lvl) => {
-                lvl.videoMode = isVideoOn;
+                lvl.videoMode = nextVideoMode;
             });
+            syncApplyVideoAllButton(nextVideoMode);
+            if (els.videoModeToggle.checked !== nextVideoMode) {
+                els.videoModeToggle.checked = nextVideoMode;
+                els.videoModeToggle.dispatchEvent(new Event("change"));
+            }
         };
     }
 
@@ -646,6 +673,7 @@ async function init() {
     updateLanding();
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);
+    syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
     initHeaderLogoZoom(clearCurrentTeamSelection);
     document.fonts?.ready?.then(() => scheduleShortsTeamNameFit());
 }

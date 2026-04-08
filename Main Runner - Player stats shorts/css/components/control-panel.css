@@ -2,7 +2,9 @@
   width: 22rem;
   flex-shrink: 0; 
   height: 100vh;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   padding: 1.5rem;
   /* Frosted glass effect */
   background: rgba(2, 10, 16, 0.75);
@@ -19,9 +21,11 @@
 .control-panel.collapsed { display: none; }
 
 .right-panel {
-  position: relative;
+  left: auto;
+  right: 0;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 15px 0 40px rgba(0,0,0,0.6);
+  border-right: none;
+  box-shadow: -15px 0 40px rgba(0,0,0,0.6);
   z-index: 99990;
 }
 

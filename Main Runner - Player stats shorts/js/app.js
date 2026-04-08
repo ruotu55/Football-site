@@ -20,7 +20,6 @@ import {
 } from "./pitch-render.js";
 import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
-import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
@@ -169,6 +168,7 @@ function applyFixedShortsMode(els) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
         els.shortsModeToggle.disabled = true;
     }
+    document.documentElement.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
 }
 
@@ -198,7 +198,6 @@ async function init() {
     window.addEventListener("beforeunload", window.__captureRunnerState);
 
     // Call initialized modules
-    initFloatingEmojis();
     initLevelControls();
     initSavedScripts({
         populateSubTypes,
@@ -275,6 +274,7 @@ async function init() {
         persistCareerPictureModeFromActiveState(state, wasShorts);
         if (e.target.checked) document.body.classList.add("shorts-mode");
         else document.body.classList.remove("shorts-mode");
+        document.documentElement.classList.toggle("shorts-mode", e.target.checked);
         applyCareerPictureModeToActiveState(state, e.target.checked);
         updateLanding();
         syncShortsCirclePreviewPanel();
@@ -294,6 +294,27 @@ async function init() {
         if (!els.videoModeBtn) return;
         const pressed = !!isEnabled;
         els.videoModeBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
+    }
+
+    function areAllLevelsVideoModeEnabled() {
+        return (appState.levelsData || []).every((lvl) => !!lvl.videoMode);
+    }
+
+    function syncApplyVideoAllButton(isEnabled) {
+        if (!els.applyVideoAllBtn) return;
+        const pressed = !!isEnabled;
+        els.applyVideoAllBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
+        if (pressed) {
+            els.applyVideoAllBtn.style.background = "#22c55e";
+            els.applyVideoAllBtn.style.color = "#001408";
+            els.applyVideoAllBtn.style.boxShadow = "0 2px 5px rgba(34, 197, 94, 0.45)";
+            els.applyVideoAllBtn.style.borderColor = "#22c55e";
+            return;
+        }
+        els.applyVideoAllBtn.style.background = "";
+        els.applyVideoAllBtn.style.color = "";
+        els.applyVideoAllBtn.style.boxShadow = "";
+        els.applyVideoAllBtn.style.borderColor = "";
     }
 
     function clearVideoModePreviewFx() {
@@ -330,6 +351,7 @@ async function init() {
             }
         }
         syncVideoModeButton(state.videoMode);
+        syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
         syncCareerSlotControlsVisibility();
         clearTimeout(appState.videoModeToggleFxTimeout);
         appState.videoModeToggleFxTimeout = null;
@@ -357,11 +379,15 @@ async function init() {
 
     if (els.applyVideoAllBtn && els.videoModeToggle) {
         els.applyVideoAllBtn.onclick = () => {
+            const nextVideoMode = !areAllLevelsVideoModeEnabled();
             appState.levelsData.forEach((lvl) => {
-                lvl.videoMode = true;
+                lvl.videoMode = nextVideoMode;
             });
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
+            syncApplyVideoAllButton(nextVideoMode);
+            if (els.videoModeToggle.checked !== nextVideoMode) {
+                els.videoModeToggle.checked = nextVideoMode;
+                els.videoModeToggle.dispatchEvent(new Event("change"));
+            }
         };
     }
 
@@ -676,6 +702,7 @@ async function init() {
     updateLanding();
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);
+    syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
 }
 
 function renderPictureControls() {

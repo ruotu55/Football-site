@@ -1107,6 +1107,34 @@ def _primary_lan_ipv4() -> str | None:
     return addr
 
 
+def _enable_windows_ansi_colors() -> None:
+    """Try enabling ANSI escape sequences on Windows consoles."""
+    if os.name != "nt":
+        return
+    try:
+        import ctypes
+
+        kernel32 = ctypes.windll.kernel32
+        handle = kernel32.GetStdHandle(-11)  # STD_OUTPUT_HANDLE
+        if handle in (0, -1):
+            return
+        mode = ctypes.c_uint()
+        if kernel32.GetConsoleMode(handle, ctypes.byref(mode)) == 0:
+            return
+        enable_vt = 0x0004
+        kernel32.SetConsoleMode(handle, mode.value | enable_vt)
+    except Exception:
+        return
+
+
+def _print_lan_url_reminder(lan_url: str) -> None:
+    _enable_windows_ansi_colors()
+    red = "\x1b[31m"
+    reset = "\x1b[0m"
+    for idx in range(10):
+        print(f"{red}[LAN URL {idx + 1}/10] {lan_url}{reset}")
+
+
 def _try_bind_httpd(host: str, start_port: int, *, max_attempts: int) -> tuple[RunnerHTTPServer, int]:
     last_err: OSError | None = None
     for port in range(start_port, start_port + max_attempts):
@@ -1173,7 +1201,9 @@ def main() -> None:
     if args.host == "0.0.0.0":
         lan_ip = _primary_lan_ipv4()
         if lan_ip:
-            print(f"LAN:     http://{lan_ip}:{chosen}{RUNNER_WEB_PREFIX}/index.html  (same Wi‑Fi/Ethernet as this PC)")
+            lan_url = f"http://{lan_ip}:{chosen}{RUNNER_WEB_PREFIX}/index.html"
+            print(f"LAN:     {lan_url}  (same Wi‑Fi/Ethernet as this PC)")
+            _print_lan_url_reminder(lan_url)
         else:
             print(
                 "LAN:     Use http://<this-PC-IPv4>:"

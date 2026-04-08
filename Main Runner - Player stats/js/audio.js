@@ -1,7 +1,6 @@
 import { appState } from "./state.js";
 
 const paths = {
-  welcome: "../Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
   guessNat: "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
   guessClub: "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
   warmUp: "../Voices/Levels/Worm up round dont mess this one .mp3",
@@ -158,16 +157,16 @@ export function stopTicking() {
   }
 }
 
-export function playWelcome() {
-  // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
-  playVoice(paths.welcome, 500);
-}
-
-export function playRules(quizType) {
+export function playRules(quizType, delayMs = 1000) {
   if (quizType === "club-by-nat") {
-    playVoice(paths.guessNat, 1000);
+    playVoice(paths.guessNat, delayMs);
+  } else if (quizType === "nat-by-club") {
+    playVoice(paths.guessClub, delayMs);
+  } else if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
+    // Career runners keep their own quiz types but use the shared intro game-name voice set.
+    playVoice(paths.guessClub, delayMs);
   } else {
-    playVoice(paths.guessClub, 1000);
+    playVoice(paths.guessNat, delayMs);
   }
 }
 

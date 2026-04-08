@@ -14,6 +14,7 @@ export function initFloatingEmojis() {
   const container = document.getElementById("floating-background");
   if (!container) return;
 
+  const isShorts = document.body.classList.contains("shorts-mode");
   const numRows = 10;
   const itemsPerRow = 8;
   const duration = 90; 
@@ -30,8 +31,14 @@ export function initFloatingEmojis() {
       img.style.height = `75px`; 
       img.style.objectFit = 'contain';
 
-      const verticalSpacing = 90 / (numRows - 1); 
-      img.style.top = `${5 + (r * verticalSpacing)}vh`;
+      if (isShorts) {
+        // In shorts mode the effect runs vertically inside the 9:16 window.
+        const horizontalSpacing = 90 / (numRows - 1);
+        img.style.left = `${5 + (r * horizontalSpacing)}%`;
+      } else {
+        const verticalSpacing = 90 / (numRows - 1); 
+        img.style.top = `${5 + (r * verticalSpacing)}vh`;
+      }
 
       img.style.animationDuration = `${duration}s`;
 

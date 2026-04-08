@@ -58,6 +58,30 @@
     rgba(0, 0, 0, 0.03) 50%,
     rgba(0, 0, 0, 0.3) 100%
   );
+  display: none;
+}
+
+:root[data-shared-background-effect="floating-emojis"] .floating-background {
+  display: block;
+}
+
+body.shorts-mode .floating-background {
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(56.25vh, 100vw);
+  height: 100vh;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
 }
 
 .floating-emoji {
@@ -70,6 +94,12 @@
   animation: floatLeft linear infinite;
 }
 
+body.shorts-mode .floating-emoji {
+  right: auto;
+  top: -250px;
+  animation-name: floatDown;
+}
+
 @keyframes floatLeft {
   0% {
     transform: translateX(0);
@@ -77,5 +107,14 @@
   100% {
     /* Move all the way across the screen to the left, plus padding to fully exit */
     transform: translateX(calc(-100vw - 500px));
+  }
+}
+
+@keyframes floatDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(100vh + 500px));
   }
 }

@@ -8,6 +8,9 @@ import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 let pendingLogoToLandingContentReveal = false;
 
 export function switchLevel(index) {
+  if (index === 0) {
+    index = 1;
+  }
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = index;
   const state = getState();
@@ -70,7 +73,7 @@ export function switchLevel(index) {
     }
 
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = true;
     }
 
     els.logoPage.hidden = true;
@@ -149,8 +152,8 @@ export function switchLevel(index) {
     const isShorts = document.body.classList.contains("shorts-mode");
     const isLogoToLanding = prevIndex === 0 && index === 1 && !isShorts;
     if (isLogoToLanding) {
-      const LOGO_SHIFT_MS = 800;
-      const LANDING_SLIDE_MS = 820;
+      const LOGO_SHIFT_MS = 900;
+      const LANDING_SLIDE_MS = 900;
       stageMain.classList.remove(
         "stage-exit-anim",
         "stage-exit-video-anim",

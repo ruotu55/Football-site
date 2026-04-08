@@ -50,7 +50,14 @@ function ensureEmojiEffectContainer() {
 }
 
 function populateEmojiEffectContainer(container) {
-  if (!container || container.childElementCount > 0) return;
+  if (!container) return;
+  const isShorts = document.body.classList.contains("shorts-mode");
+  const flowAxis = isShorts ? "vertical" : "horizontal";
+  if (container.dataset.flowAxis !== flowAxis) {
+    container.replaceChildren();
+    container.dataset.flowAxis = flowAxis;
+  }
+  if (container.childElementCount > 0) return;
   const numRows = 10;
   const itemsPerRow = 8;
   const duration = 90;
@@ -62,7 +69,11 @@ function populateEmojiEffectContainer(container) {
       img.className = "shared-bg-emoji";
       img.style.width = "75px";
       img.style.height = "75px";
-      img.style.top = `${5 + (row * (90 / (numRows - 1)))}vh`;
+      if (isShorts) {
+        img.style.left = `${5 + (row * (90 / (numRows - 1)))}%`;
+      } else {
+        img.style.top = `${5 + (row * (90 / (numRows - 1)))}vh`;
+      }
       img.style.animationDuration = `${duration}s`;
       const timeSlot = duration / itemsPerRow;
       const baseDelay = i * timeSlot;
@@ -394,6 +405,16 @@ function getEffectAnimation(effectId) {
   }
 }
 
+function getShortsEffectAnimation(effectId, defaultAnimation) {
+  switch (effectId) {
+    case "diagonal-flow":
+      // Regular slides horizontally; shorts should slide vertically in the 9:16 frame.
+      return "shared-bg-diagonal-flow-shorts 170s linear infinite";
+    default:
+      return defaultAnimation;
+  }
+}
+
 function getEffectBackgroundSize(effectId) {
   switch (effectId) {
     case "sun-rays-center":
@@ -620,6 +641,27 @@ ${vignetteCss("sun-rays-top-left")}
   );
 }
 
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] body.shorts-mode .shared-bg-emojis {
+  inset: auto;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(56.25vh, 100vw);
+  height: 100vh;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
 :root[${ROOT_EFFECT_ATTR}="floating-emojis"] .shared-bg-emoji {
   position: absolute;
   right: -250px;
@@ -627,6 +669,12 @@ ${vignetteCss("sun-rays-top-left")}
   opacity: clamp(0.06, calc(var(--shared-line-opacity, 1) * 0.25), 0.8);
   filter: grayscale(100%);
   animation: shared-bg-emoji-float linear infinite;
+}
+
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] body.shorts-mode .shared-bg-emoji {
+  right: auto;
+  top: -250px;
+  animation-name: shared-bg-emoji-float-down;
 }
 
 :root[${ROOT_EFFECT_ATTR}="floating-emojis"] .app {
@@ -743,9 +791,23 @@ function getEffectKeyframesCss() {
   }
 }
 
+@keyframes shared-bg-emoji-float-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(100vh + 420px));
+  }
+}
+
 @keyframes shared-bg-diagonal-flow {
   0% { background-position: 40% 0%, center center; }
   100% { background-position: -40% 0%, center center; }
+}
+
+@keyframes shared-bg-diagonal-flow-shorts {
+  0% { background-position: 0% 40%, center center; }
+  100% { background-position: 0% -40%, center center; }
 }
 
 @keyframes shared-bg-wave-bands {
@@ -785,6 +847,7 @@ function applyTheme(colorId, effectId, opacityPercent = DEFAULT_LINE_OPACITY_PER
     normalizedOpacity,
   );
   const animation = getEffectAnimation(normalizedEffectId);
+  const shortsAnimation = getShortsEffectAnimation(normalizedEffectId, animation);
   const backgroundSize = getEffectBackgroundSize(normalizedEffectId);
   ensureStyleTag().textContent = `
 :root[${ROOT_COLOR_ATTR}="${normalizedColorId}"][${ROOT_EFFECT_ATTR}="${normalizedEffectId}"] body {
@@ -792,6 +855,19 @@ function applyTheme(colorId, effectId, opacityPercent = DEFAULT_LINE_OPACITY_PER
   background-size: ${backgroundSize};
   animation: ${animation};
 }
+
+:root[${ROOT_COLOR_ATTR}="${normalizedColorId}"][${ROOT_EFFECT_ATTR}="${normalizedEffectId}"] body.shorts-mode {
+  background: ${background};
+  background-size: ${backgroundSize};
+  animation: ${shortsAnimation};
+}
+
+:root[${ROOT_COLOR_ATTR}="${normalizedColorId}"][${ROOT_EFFECT_ATTR}="${normalizedEffectId}"] body.shorts-mode .stage::before {
+  --shorts-stage-background: ${background};
+  --shorts-stage-background-size: ${backgroundSize};
+  --shorts-stage-background-animation: ${shortsAnimation};
+}
+
 ${getEffectKeyframesCss()}
 ${getEffectExtraCss(normalizedEffectId, selectedColor.hex, normalizedOpacity)}
 `;

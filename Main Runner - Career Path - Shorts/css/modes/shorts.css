@@ -4,9 +4,38 @@
    SHORTS MODE (9:16 Vertical Video)
    ========================================= */
 body.shorts-mode {
-    background: #050505;
+    background: #000000;
     /* Shared with .career-grid band math (siblings, not nested) */
     --shorts-quiz-progress-bottom: 3.5rem;
+}
+
+html.shorts-mode {
+    background: #000000 !important;
+}
+
+html.shorts-mode::before,
+html.shorts-mode::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: max(0px, calc((100vw - min(56.25vh, 100vw)) / 2));
+    background: #000000;
+    pointer-events: none;
+    z-index: 2;
+}
+
+html.shorts-mode::before {
+    left: 0;
+}
+
+html.shorts-mode::after {
+    right: 0;
+}
+
+body.shorts-mode .app {
+    position: relative;
+    z-index: 10 !important;
 }
 
 body.shorts-mode .stage {
@@ -25,10 +54,8 @@ body.shorts-mode .stage::before {
     transform: translateX(-50%);
     width: 56.25vh;
     height: 100vh;
-    background: var(--bg-stage);
-    box-shadow:
-        0 0 100px rgba(255, 255, 255, 0.05),
-        inset 0 0 120px rgba(0, 0, 0, 0.35);
+    background: transparent;
+    box-shadow: none;
     z-index: -1;
     pointer-events: none;
 }

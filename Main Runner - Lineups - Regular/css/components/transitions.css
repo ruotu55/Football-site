@@ -29,36 +29,36 @@
 /* Video reveal transition: move from big-player reveal to next question smoothly. */
 @keyframes stage-exit-video-reveal {
   0% {
-    transform: scale(1) translateY(0);
+    transform: scale(1);
     opacity: 1;
     filter: blur(0);
   }
   100% {
-    transform: scale(1.14) translateY(-1.2vh);
+    transform: scale(1.06);
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(6px);
   }
 }
 
 @keyframes stage-enter-video-reveal {
   0% {
-    transform: scale(1.14) translateY(-1.2vh);
+    transform: scale(1.06);
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(6px);
   }
   100% {
-    transform: scale(1) translateY(0);
+    transform: scale(1);
     opacity: 1;
     filter: blur(0);
   }
 }
 
 .stage-exit-video-anim {
-  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 .stage-enter-video-anim {
-  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
@@ -86,5 +86,5 @@
   100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
-  animation: logo-shift-top-right 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  animation: logo-shift-top-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }

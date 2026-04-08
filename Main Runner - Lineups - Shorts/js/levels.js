@@ -64,7 +64,7 @@ export function switchLevel(index) {
     }
     
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = isLanding || !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
     }
 
     els.logoPage.hidden = true;
