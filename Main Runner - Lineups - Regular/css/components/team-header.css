@@ -54,6 +54,13 @@ body.play-video-active .team-header-logo-nudge {
   display: none;
 }
 
+body.play-video-active .team-header-controls-row,
+body.play-video-active .team-header-fetch-logo-btn,
+body.play-video-active .team-header-swap-logo-btn,
+body.play-video-active .team-header-clear-team-btn {
+  display: none !important;
+}
+
 .team-header.video-preview-revealed .team-header-logo-zoom,
 .team-header.video-preview-revealed .team-header-logo-nudge {
   display: none;
@@ -291,6 +298,12 @@ body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-log
   margin-top: 0;
   margin-bottom: 0;
   overflow: hidden;
+}
+
+/* Play Video: do not animate header height (1s + 0.4s delay). Otherwise the column stays
+   tall briefly and .stage-main flex-centering makes the pitch look low, then it “rises”. */
+body.play-video-active .team-header.video-hidden {
+  transition: none !important;
 }
 
 .team-header.video-hidden .team-header-logo-reveal-stack {
