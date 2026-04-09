@@ -41,6 +41,59 @@ import {
     restoreDevLiveReloadState,
 } from "./dev-live-reload-state.js";
 
+const PERFORMANCE_MODE_SESSION_KEY = "lineups:performance-mode";
+const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
+const PERFORMANCE_MODE_QUERY_VALUES = new Set(["1", "true", "on", "yes"]);
+const PERFORMANCE_MODE_QUERY_OFF_VALUES = new Set(["0", "false", "off", "no"]);
+
+function shouldBypassSessionJsonCache() {
+    return !!window.__RUNNER_LIVE_RELOAD__;
+}
+
+function applyPerformanceModeFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = String(params.get("perf") || "").trim().toLowerCase();
+    let enabled;
+    if (PERFORMANCE_MODE_QUERY_VALUES.has(raw)) {
+        enabled = true;
+    } else if (PERFORMANCE_MODE_QUERY_OFF_VALUES.has(raw)) {
+        enabled = false;
+    } else {
+        enabled = sessionStorage.getItem(PERFORMANCE_MODE_SESSION_KEY) === "1";
+    }
+    sessionStorage.setItem(PERFORMANCE_MODE_SESSION_KEY, enabled ? "1" : "0");
+    document.body.classList.toggle("performance-mode", enabled);
+    return enabled;
+}
+
+async function fetchJsonSessionCached(path, fallbackValue = null) {
+    const cacheKey = `${SESSION_JSON_CACHE_PREFIX}${path}`;
+    const bypass = shouldBypassSessionJsonCache();
+    if (!bypass) {
+        try {
+            const cached = sessionStorage.getItem(cacheKey);
+            if (cached) return JSON.parse(cached);
+        } catch {
+            // Ignore malformed session cache and fetch fresh copy.
+        }
+    }
+    try {
+        const res = await fetch(projectAssetUrl(path), { cache: "default" });
+        const data = await res.json();
+        if (!bypass) {
+            try {
+                sessionStorage.setItem(cacheKey, JSON.stringify(data));
+            } catch {
+                // Ignore quota/storage failures.
+            }
+        }
+        return data;
+    } catch (err) {
+        if (fallbackValue !== null) return fallbackValue;
+        throw err;
+    }
+}
+
 // ==========================================
 // SHARED UI HELPERS (Exported for Sub-Modules)
 // ==========================================
@@ -178,6 +231,7 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    applyPerformanceModeFromUrl();
     initSharedBackgroundTheme(
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
@@ -522,11 +576,10 @@ async function init() {
     }
 
     // Load indexes
-    const fetchJsonNoCache = (path) => fetch(projectAssetUrl(path), { cache: "no-store" }).then((r) => r.json());
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonNoCache("data/teams-index.json"),
-        fetchJsonNoCache("data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
-        fetchJsonNoCache("data/country-to-flagcode.json").catch(() => ({ codes: {} })),
+        fetchJsonSessionCached("data/teams-index.json"),
+        fetchJsonSessionCached("data/player-images.json", { club: {}, nationality: {} }),
+        fetchJsonSessionCached("data/country-to-flagcode.json", { codes: {} }),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);

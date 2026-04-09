@@ -10,6 +10,7 @@ import {
 import { applyCustomSelects } from "./custom-selects.js";
 import { formationById } from "./formations.js";
 import { ensureInternationalClubPoolLoaded } from "./pitch-render.js";
+import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
 import { pickStartingXI } from "./pick-xi.js";
 
 /** Shared across Main Runner - Lineups Shorts and Regular (same team paths = same saves). */
@@ -248,8 +249,7 @@ function buildRehydrationPlayerPool(state, squad) {
         return base;
     }
     const nation = String(squad?.name || "").trim();
-    const extra =
-        (appState.internationalClubPool && nation && appState.internationalClubPool[nation]) || [];
+    const extra = getInternationalClubPlayersForNation(appState.internationalClubPool, nation);
     if (!extra.length) {
         return base;
     }
@@ -466,6 +466,11 @@ export async function applySavedTeamLayoutAfterLoad(state, teamEntry) {
         state.headerLogoOverrideRelPath = null;
         state.slotClubCrestOverrideRelPathBySlot = {};
         clearSlotPhotoIndices();
+        state.formationId = "433";
+        state.lastFormationId = null;
+        const { els } = appState;
+        if (els.formation) els.formation.value = "433";
+        applyCustomSelects();
         return;
     }
     if (state.squadType === "national") {

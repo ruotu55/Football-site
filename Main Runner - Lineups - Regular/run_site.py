@@ -42,6 +42,15 @@ TEAM_VOICE_DIR_BY_QUIZ_TYPE = {
 }
 TEAM_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_TEAM_VOICE = "en-US-AndrewNeural"
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
+    "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
+    "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
+}
+QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
+    "nat-by-club": "Hey everyone, let's start. ... GUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB!!",
+    "club-by-nat": "Hey everyone, let's start. ... GUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY!!",
+}
 EDGE_TTS_VOICES = (
     FIXED_TEAM_VOICE,
 )
@@ -62,6 +71,13 @@ AZURE_SPEECH_STYLE = "cheerful"
 AZURE_SPEECH_KEY_ENV = "AZURE_SPEECH_KEY"
 AZURE_SPEECH_REGION_ENV = "AZURE_SPEECH_REGION"
 AZURE_SPEECH_OUTPUT_FORMAT = "audio-24khz-48kbitrate-mono-mp3"
+ELEVENLABS_API_KEY_ENV = "ELEVENLABS_API_KEY"
+ELEVENLABS_VOICE_ID_ENV = "ELEVENLABS_VOICE_ID"
+ELEVENLABS_MODEL_ID_ENV = "ELEVENLABS_MODEL_ID"
+ELEVENLABS_OUTPUT_FORMAT = "mp3_44100_128"
+DEFAULT_ELEVENLABS_API_KEY = "0f5a57c70ec1b1c8f6d5e121dc257d098997632020d4891bb392feb9e0510700"
+DEFAULT_ELEVENLABS_VOICE_ID = "yl2ZDV1MzN4HbQJbMihG"
+DEFAULT_ELEVENLABS_MODEL_ID = "eleven_v3"
 PLAYER_IMAGES_INDEX_PATH = PROJECT_ROOT / "data" / "player-images.json"
 PLAYER_IMAGE_OVERRIDES_PATH = PROJECT_ROOT / "data" / "player-photo-overrides.json"
 PLAYERS_IMAGES_CLUB_ROOT = PROJECT_ROOT / "Players images" / "Club images"
@@ -1163,9 +1179,97 @@ def _team_voice_paths_for_name(team_name: str, target_dir: Path) -> list[Path]:
     return [target_dir / f"{team_name}{ext}" for ext in TEAM_VOICE_ALLOWED_EXTS]
 
 
+def _normalize_quiz_title_voice_inputs(quiz_type: str | None) -> tuple[str, str, Path]:
+    qt = str(quiz_type or "").strip()
+    if qt not in QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE:
+        raise ValueError("Unsupported quiz type.")
+    filename = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[qt]
+    prompt = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE.get(qt) or filename.removesuffix(".mp3")
+    return qt, prompt, QUIZ_TITLE_VOICE_DIR / filename
+
+
 def _project_relative_web_path(path: Path) -> str:
     rel_parts = path.relative_to(PROJECT_ROOT).parts
     return "/" + "/".join(quote(p, safe="") for p in rel_parts)
+
+
+def _tts_prompt_name(name: str) -> str:
+    base = str(name or "").strip()
+    if not base:
+        return base
+    return base if base.endswith("!") else f"{base}!"
+
+
+def _elevenlabs_api_key() -> str:
+    return str(os.environ.get(ELEVENLABS_API_KEY_ENV) or "").strip() or DEFAULT_ELEVENLABS_API_KEY
+
+
+def _resolve_elevenlabs_voice_id(requested_voice: str) -> str:
+    raw = str(requested_voice or "").strip()
+    # Accept direct ElevenLabs voice IDs from callers that send one.
+    if re.fullmatch(r"[A-Za-z0-9]{20,}", raw):
+        return raw
+    configured = str(os.environ.get(ELEVENLABS_VOICE_ID_ENV) or "").strip()
+    if configured:
+        return configured
+    return DEFAULT_ELEVENLABS_VOICE_ID
+
+
+def _elevenlabs_model_id() -> str:
+    return str(os.environ.get(ELEVENLABS_MODEL_ID_ENV) or "").strip() or DEFAULT_ELEVENLABS_MODEL_ID
+
+
+def _elevenlabs_available() -> bool:
+    return bool(_elevenlabs_api_key())
+
+
+def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: Path) -> tuple[str, str]:
+    api_key = _elevenlabs_api_key()
+    if not api_key:
+        raise RuntimeError(
+            "ElevenLabs is not configured. Set ELEVENLABS_API_KEY (and ELEVENLABS_VOICE_ID) environment variables."
+        )
+    voice_id = _resolve_elevenlabs_voice_id(requested_voice)
+    model_id = _elevenlabs_model_id()
+    endpoint = (
+        "https://api.elevenlabs.io/v1/text-to-speech/"
+        f"{quote(voice_id, safe='')}?output_format={ELEVENLABS_OUTPUT_FORMAT}"
+    )
+    payload = {
+        "text": str(text or ""),
+        "model_id": model_id,
+        "voice_settings": {
+            "stability": 0.4,
+            "similarity_boost": 0.8,
+        },
+    }
+    req = urllib.request.Request(
+        endpoint,
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={
+            "xi-api-key": api_key,
+            "Content-Type": "application/json",
+            "Accept": "audio/mpeg",
+            "User-Agent": "Football-Channel-Runner",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=60, context=SSL_CTX) as resp:
+            audio_bytes = resp.read()
+    except urllib.error.HTTPError as exc:
+        details = ""
+        try:
+            details = exc.read().decode("utf-8", "replace").strip()
+        except Exception:
+            details = ""
+        raise RuntimeError(f"ElevenLabs request failed ({exc.code}). {details[:300]}".strip()) from exc
+    except Exception as exc:  # noqa: BLE001
+        raise RuntimeError(f"ElevenLabs request failed: {exc}") from exc
+    if not audio_bytes:
+        raise RuntimeError("ElevenLabs returned empty audio.")
+    out_path.write_bytes(audio_bytes)
+    return voice_id, model_id
 
 
 def _edge_tts_command() -> list[str] | None:
@@ -1511,9 +1615,13 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         path = unquote(urlparse(self.path).path).rstrip("/")
         if path != "/__team-voice/voices":
             return False
-        provider = "edge-tts" if _edge_tts_available() else "none"
-        voices = list(EDGE_TTS_VOICES)
-        model = "edge-tts"
+        provider = "elevenlabs" if _elevenlabs_available() else "none"
+        model = _elevenlabs_model_id()
+        voices = []
+        try:
+            voices = [_resolve_elevenlabs_voice_id("")]
+        except RuntimeError:
+            voices = []
         self._write_json(
             200,
             {
@@ -1573,7 +1681,6 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return True
 
         target_dir.mkdir(parents=True, exist_ok=True)
-        chosen_voice = _resolve_edge_voice(voice)
         out_path = target_dir / f"{team_name}.mp3"
         for old_path in _team_voice_paths_for_name(team_name, target_dir):
             if old_path == out_path:
@@ -1581,44 +1688,19 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             if old_path.exists():
                 old_path.unlink(missing_ok=True)
 
-        if not _edge_tts_available():
-            self._write_json(
-                500,
-                {
-                    "ok": False,
-                    "error": "edge-tts is not installed. Install it with: pip install edge-tts",
-                },
-            )
-            return True
-        provider = "edge-tts"
-        model = "edge-tts"
-        cmd = _edge_tts_command() + [
-            "--voice",
-            chosen_voice,
-            "--text",
-            team_name,
-            "--volume",
-            "+100%",
-            "--write-media",
-            str(out_path),
-        ]
+        provider = "elevenlabs"
+        prompt_text = _tts_prompt_name(team_name)
         try:
-            proc = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=60,
-                check=False,
-            )
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
-        if proc.returncode != 0 or not out_path.exists() or out_path.stat().st_size <= 0:
+        if not out_path.exists() or out_path.stat().st_size <= 0:
             self._write_json(
                 502,
                 {
                     "ok": False,
-                    "error": f"edge-tts generation failed. {(proc.stderr or '').strip()[:300]}",
+                    "error": "ElevenLabs generation failed.",
                 },
             )
             return True
@@ -1651,6 +1733,84 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             if file_path.exists():
                 file_path.unlink(missing_ok=True)
                 removed += 1
+        self._write_json(200, {"ok": True, "removed": removed})
+        return True
+
+    def _try_serve_quiz_title_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__quiz-title-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part:
+                continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(query.get("quizType"))
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        self._write_json(
+            200,
+            {
+                "ok": True,
+                "exists": out_path.is_file(),
+                "src": _project_relative_web_path(out_path) if out_path.is_file() else "",
+            },
+        )
+        return True
+
+    def _try_generate_quiz_title_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__quiz-title-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            _quiz_type, prompt_text, out_path = _normalize_quiz_title_voice_inputs(body.get("quizType"))
+            voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
+            if not voice:
+                raise ValueError("Unsupported voice.")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        provider = "elevenlabs"
+        try:
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+        except Exception as exc:  # noqa: BLE001
+            self._write_json(502, {"ok": False, "error": str(exc)})
+            return True
+        if not out_path.exists() or out_path.stat().st_size <= 0:
+            self._write_json(502, {"ok": False, "error": "ElevenLabs generation failed."})
+            return True
+        self._write_json(
+            200,
+            {
+                "ok": True,
+                "src": _project_relative_web_path(out_path),
+                "voice": chosen_voice,
+                "model": model,
+                "provider": provider,
+            },
+        )
+        return True
+
+    def _try_delete_quiz_title_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__quiz-title-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(body.get("quizType"))
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        removed = 0
+        if out_path.exists():
+            out_path.unlink(missing_ok=True)
+            removed = 1
         self._write_json(200, {"ok": True, "removed": removed})
         return True
 
@@ -1873,6 +2033,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if self._try_serve_team_voice_status():
             return
+        if self._try_serve_quiz_title_voice_status():
+            return
         if self._try_serve_other_teams_logos_json():
             return
         if self._is_live_reload_endpoint():
@@ -1892,6 +2054,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_generate_team_voice():
             return
         if self._try_delete_team_voice():
+            return
+        if self._try_generate_quiz_title_voice():
+            return
+        if self._try_delete_quiz_title_voice():
             return
         if self._try_fetch_team_logo():
             return

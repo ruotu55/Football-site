@@ -100,6 +100,23 @@ export const FORMATIONS = [
     ],
   },
   {
+    id: "4231",
+    label: "4-2-3-1",
+    slots: [
+      { role: "gk", position: "Goalkeeper", x: 50, y: 100 },
+      { role: "def", position: "Right-Back", x: 88, y: 80 },
+      { role: "def", position: "Centre-Back", x: 63, y: 85 },
+      { role: "def", position: "Centre-Back", x: 37, y: 85 },
+      { role: "def", position: "Left-Back", x: 12, y: 80 },
+      { role: "mid", position: "Defensive Midfield", x: 40, y: 62 },
+      { role: "mid", position: "Defensive Midfield", x: 60, y: 62 },
+      { role: "mid", position: "Left Midfield", x: 18, y: 40 },
+      { role: "mid", position: "Attacking Midfield", x: 50, y: 34 },
+      { role: "mid", position: "Right Midfield", x: 82, y: 40 },
+      { role: "fwd", position: "Centre-Forward", x: 50, y: 22 },
+    ],
+  },
+  {
     id: "442",
     label: "4-4-2",
     slots: [
@@ -206,5 +223,9 @@ export const FORMATIONS = [
 ];
 
 export function formationById(id) {
-  return FORMATIONS.find((f) => f.id === id) || FORMATIONS[0];
+  return (
+    FORMATIONS.find((f) => f.id === id) ||
+    FORMATIONS.find((f) => f.id === "433") ||
+    FORMATIONS[0]
+  );
 }

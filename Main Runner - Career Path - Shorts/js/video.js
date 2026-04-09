@@ -3,8 +3,8 @@ import { switchLevel } from "./levels.js";
 import {
   startBgMusic,
   stopAllAudio,
-  playWelcome,
-  playWelcomeShortsLanding,
+  playRules,
+  playRulesShortsLanding,
   playTheAnswerIs,
   playCommentBelow,
   playTicking,
@@ -272,7 +272,8 @@ export function startVideoFlow() {
     }
     appState.videoTimeout = setTimeout(() => {
       if (!appState.isVideoPlaying) return;
-      playWelcome();
+      const quizType = els.inQuizType?.value || "player-by-career";
+      playRules(quizType, 0);
       const logoImg = els.logoPage?.querySelector(".logo-img-anim");
       if (logoImg && !logoImg.classList.contains("reveal")) {
         logoImg.classList.add("reveal");
@@ -285,7 +286,8 @@ export function startVideoFlow() {
   }
 
   if (!isShorts) {
-    playWelcome();
+    const quizType = els.inQuizType?.value || "player-by-career";
+    playRules(quizType, 0);
   }
   runVideoStep();
   scheduleShortsLandingSpecialBadgeAfterPlayVideo();
@@ -342,9 +344,10 @@ function runVideoStep() {
       return; 
     }
     if (isShorts && appState.currentLevelIndex === 1) {
+      const quizType = els.inQuizType?.value || "player-by-career";
       appState.videoTimeout = setTimeout(() => {
         if (!appState.isVideoPlaying) return;
-        playWelcomeShortsLanding().then(() => {
+        playRulesShortsLanding(quizType).then(() => {
           if (!appState.isVideoPlaying) return;
           revealCurrentLevel();
         });

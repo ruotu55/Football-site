@@ -3,20 +3,21 @@ import { appState } from "./state.js";
 const paths = {
   guessNat: "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
   guessClub: "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+  guessCareer: "../Voices/Game name/Guess the football player by career path !!!.mp3",
   warmUp: "../Voices/Levels/Worm up round dont mess this one .mp3",
   serious: "../Voices/Levels/OK now it's getting serious.mp3",
   nerds: "../Voices/Levels/Only true football nerd know this!!!.mp3",
   genius: "../Voices/Levels/If you get this you are basically a genius!!!.mp3",
   bgmPlaylist: [
-    "../Voices/Ringhton/viacheslavstarostin-upbeat-fun-music-427230.mp3",
-    "../Voices/Ringhton/nesterouk-fun-evening-145960.mp3",
-    "../Voices/Ringhton/paulyudin-fun-fun-fun-fun-fun-152388.mp3",
-    "../Voices/Ringhton/paulyudin-fun-morning-198120.mp3",
-    "../Voices/Ringhton/sunsides-summer-funny-fun-204398.mp3",
-    "../Voices/Ringhton/universfield-bright-piano-fun-270899.mp3",
-    "../Voices/Ringhton/backgroundmusicmaster-quiz-master-382651.mp3",
-    "../Voices/Ringhton/nra-lab-ukulele-fun-acoustic-background-happy-strings-221183.mp3",
-    "../Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
+    "../Voices/Ringhton/Balada Gitana - House of the Gipsies.mp3",
+    "../Voices/Ringhton/Chica Linda - Quincas Moreira.mp3",
+    "../Voices/Ringhton/Delta - TrackTribe.mp3",
+    "../Voices/Ringhton/Los Cabos - House of the Gipsies.mp3",
+    "../Voices/Ringhton/Orquidario - Quincas Moreira.mp3",
+    "../Voices/Ringhton/Swing Haven 1 - Los Angeles - Reed Mathis.mp3",
+    "../Voices/Ringhton/Swing Haven 2 - St. Louis - Reed Mathis.mp3",
+    "../Voices/Ringhton/Swing Haven 6 - New Orleans - Reed Mathis.mp3",
+    "../Voices/Ringhton/Up And At Em - Nathan Moore.mp3"
   ],
   dong: "../Voices/the answer is/dong.wav",
   commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
@@ -35,9 +36,15 @@ let fadeInterval = null;
 let duckingTimeout = null;
 let restoreTimeout = null;
 let progressTimeout = null;
+let bgmCrossfadeInterval = null;
+let isBgmCrossfading = false;
 
-const NORMAL_VOL = 0.4; // Dropped from 0.3 to make it quieter
-const DUCKED_VOL = 0.2; // 50% of normal volume
+const STARTING_VOL = 0.05;
+const NORMAL_VOL = 0.6;
+const DUCKED_VOL = 0.2;
+const BGM_CROSSFADE_MS = 3000;
+const BGM_CROSSFADE_BUFFER_S = 0.15;
+let bgMusicTargetVolume = STARTING_VOL;
 
 function fadeBgm(targetVolume, durationMs) {
   if (!bgMusic) return;
@@ -70,29 +77,119 @@ function fadeBgm(targetVolume, durationMs) {
   }, stepTime);
 }
 
-function playNextBgm() {
-  if (bgMusic) {
-    bgMusic.pause();
-    bgMusic.removeEventListener('ended', playNextBgm);
+function clearBgmEventHandlers(audioEl) {
+  if (!audioEl) return;
+  audioEl.removeEventListener("ended", onBgmEnded);
+  audioEl.removeEventListener("timeupdate", onBgmTimeUpdate);
+}
+
+function bindBgmEventHandlers(audioEl) {
+  if (!audioEl) return;
+  audioEl.addEventListener("ended", onBgmEnded);
+  audioEl.addEventListener("timeupdate", onBgmTimeUpdate);
+}
+
+function onBgmEnded() {
+  queueNextBgm(true);
+}
+
+function onBgmTimeUpdate() {
+  if (!bgMusic || bgMusic !== this || isBgmCrossfading) return;
+  if (!Number.isFinite(bgMusic.duration) || bgMusic.duration <= 0) return;
+  const timeLeft = bgMusic.duration - bgMusic.currentTime;
+  if (timeLeft <= (BGM_CROSSFADE_MS / 1000) + BGM_CROSSFADE_BUFFER_S) {
+    queueNextBgm(false);
   }
+}
+
+function queueNextBgm(forceHardSwitch = false) {
+  if (!bgMusic || isBgmCrossfading) return;
+
+  const outgoing = bgMusic;
+  const outgoingStartVolume = Math.max(0, Math.min(1, outgoing.volume));
+
   currentBgmIndex = (currentBgmIndex + 1) % paths.bgmPlaylist.length;
-  bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
-  bgMusic.volume = NORMAL_VOL; 
-  bgMusic.addEventListener('ended', playNextBgm);
-  bgMusic.play().catch(err => console.warn("BGM play error:", err));
+  const incoming = new Audio(paths.bgmPlaylist[currentBgmIndex]);
+  incoming.volume = forceHardSwitch ? outgoingStartVolume : 0;
+
+  if (forceHardSwitch) {
+    clearBgmEventHandlers(outgoing);
+    outgoing.pause();
+    outgoing.currentTime = 0;
+    bgMusic = incoming;
+    bindBgmEventHandlers(bgMusic);
+    bgMusic.play().catch((err) => console.warn("BGM play error:", err));
+    return;
+  }
+
+  isBgmCrossfading = true;
+  clearBgmEventHandlers(outgoing);
+  clearInterval(bgmCrossfadeInterval);
+
+  bgMusic = incoming;
+  bindBgmEventHandlers(bgMusic);
+
+  const steps = 30;
+  const stepTime = Math.max(10, BGM_CROSSFADE_MS / steps);
+  let currentStep = 0;
+
+  bgMusic.play().catch((err) => {
+    console.warn("BGM play error:", err);
+    clearInterval(bgmCrossfadeInterval);
+    isBgmCrossfading = false;
+    clearBgmEventHandlers(bgMusic);
+    bgMusic = outgoing;
+    bindBgmEventHandlers(bgMusic);
+    queueNextBgm(true);
+  });
+
+  bgmCrossfadeInterval = setInterval(() => {
+    currentStep++;
+    const t = currentStep / steps;
+    outgoing.volume = Math.max(0, outgoingStartVolume * (1 - t));
+    if (bgMusic) {
+      bgMusic.volume = Math.max(0, Math.min(1, outgoingStartVolume * t));
+    }
+
+    if (currentStep >= steps) {
+      clearInterval(bgmCrossfadeInterval);
+      outgoing.pause();
+      outgoing.currentTime = 0;
+      outgoing.volume = outgoingStartVolume;
+      if (bgMusic) {
+        bgMusic.volume = outgoingStartVolume;
+      }
+      isBgmCrossfading = false;
+    }
+  }, stepTime);
 }
 
 export function startBgMusic() {
+  clearInterval(bgmCrossfadeInterval);
+  isBgmCrossfading = false;
   if (bgMusic) {
     bgMusic.pause();
-    bgMusic.removeEventListener('ended', playNextBgm);
+    clearBgmEventHandlers(bgMusic);
   }
   // Start with a random song from the list
   currentBgmIndex = Math.floor(Math.random() * paths.bgmPlaylist.length);
   bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
-  bgMusic.volume = NORMAL_VOL;
-  bgMusic.addEventListener('ended', playNextBgm);
+  bgMusicTargetVolume = STARTING_VOL;
+  bgMusic.volume = bgMusicTargetVolume;
+  bindBgmEventHandlers(bgMusic);
   bgMusic.play().catch(err => console.warn("BGM play error:", err));
+}
+
+export function setBgMusicForLevel(levelIndex) {
+  const nextTargetVolume = levelIndex >= 1 ? NORMAL_VOL : STARTING_VOL;
+  const isRampingUp = nextTargetVolume > bgMusicTargetVolume;
+  bgMusicTargetVolume = nextTargetVolume;
+  if (!bgMusic) return;
+  if (isRampingUp) {
+    fadeBgm(bgMusicTargetVolume, 1800);
+  } else {
+    bgMusic.volume = bgMusicTargetVolume;
+  }
 }
 
 export function stopAllAudio() {
@@ -100,11 +197,15 @@ export function stopAllAudio() {
   clearTimeout(restoreTimeout);
   clearTimeout(progressTimeout);
   clearInterval(fadeInterval);
+  clearInterval(bgmCrossfadeInterval);
+  isBgmCrossfading = false;
   
   if (bgMusic) {
+    clearBgmEventHandlers(bgMusic);
     bgMusic.pause();
     bgMusic.currentTime = 0;
-    bgMusic.volume = NORMAL_VOL; // Reset volume
+    bgMusicTargetVolume = STARTING_VOL;
+    bgMusic.volume = bgMusicTargetVolume;
   }
   if (currentVoice) {
     currentVoice.pause();
@@ -163,8 +264,8 @@ export function playRules(quizType, delayMs = 1000) {
   } else if (quizType === "nat-by-club") {
     playVoice(paths.guessClub, delayMs);
   } else if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
-    // Career runners keep their own quiz types but use the shared intro game-name voice set.
-    playVoice(paths.guessClub, delayMs);
+    // Career quiz types use the career game-name voice clip.
+    playVoice(paths.guessCareer, delayMs);
   } else {
     playVoice(paths.guessNat, delayMs);
   }

@@ -5,7 +5,7 @@ import {
   renderHeader,
   renderPitch,
 } from "./pitch-render.js";
-import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { playRules, playProgressVoice, playCommentBelow, setBgMusicForLevel } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
@@ -20,6 +20,7 @@ export function switchLevel(index) {
   }
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = index;
+  setBgMusicForLevel(appState.currentLevelIndex);
   const state = getState();
   const { els } = appState;
 

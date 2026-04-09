@@ -236,7 +236,7 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 3;
+    let count = isShorts ? 5 : 10;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");

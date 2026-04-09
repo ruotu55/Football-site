@@ -64,6 +64,7 @@ import {
   withProjectAssetCacheBust,
 } from "./paths.js";
 import { normalizeForSearch } from "./search-normalize.js";
+import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
 
 const INTERNATIONAL_POOL_URL = "data/international-club-pool-by-nationality.json";
 const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
@@ -156,8 +157,7 @@ export function applySwapSearchAllNationality() {
   ensureInternationalClubPoolLoaded().then(() => {
     if (appState.swapActiveSlotIndex !== slotIndex) return;
     appState.els.swapSearch.value = "";
-    const pool =
-      (appState.internationalClubPool && nat && appState.internationalClubPool[nat]) || [];
+    const pool = getInternationalClubPlayersForNation(appState.internationalClubPool, nat);
     mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, pool);
   });
 }
@@ -247,8 +247,7 @@ export function openSwapModal(slotIndex) {
     const nation = String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
     ensureInternationalClubPoolLoaded().then(() => {
       if (appState.swapActiveSlotIndex !== slotIndex) return;
-      const pool =
-        (appState.internationalClubPool && nation && appState.internationalClubPool[nation]) || [];
+      const pool = getInternationalClubPlayersForNation(appState.internationalClubPool, nation);
       mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, pool);
     });
   }

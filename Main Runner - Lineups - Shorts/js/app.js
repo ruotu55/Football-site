@@ -37,10 +37,62 @@ import {
 
 const HEADER_LOGO_SCALE_STEP = 0.1;
 const HEADER_LOGO_SCALE_MIN_POSITIVE = 0.001;
+const PERFORMANCE_MODE_SESSION_KEY = "lineups:performance-mode";
+const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
+const PERFORMANCE_MODE_QUERY_VALUES = new Set(["1", "true", "on", "yes"]);
+const PERFORMANCE_MODE_QUERY_OFF_VALUES = new Set(["0", "false", "off", "no"]);
 
 const HEADER_LOGO_NUDGE_STEP = 6;
 const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
 const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
+
+function shouldBypassSessionJsonCache() {
+    return !!window.__RUNNER_LIVE_RELOAD__;
+}
+
+function applyPerformanceModeFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = String(params.get("perf") || "").trim().toLowerCase();
+    let enabled;
+    if (PERFORMANCE_MODE_QUERY_VALUES.has(raw)) {
+        enabled = true;
+    } else if (PERFORMANCE_MODE_QUERY_OFF_VALUES.has(raw)) {
+        enabled = false;
+    } else {
+        enabled = sessionStorage.getItem(PERFORMANCE_MODE_SESSION_KEY) === "1";
+    }
+    sessionStorage.setItem(PERFORMANCE_MODE_SESSION_KEY, enabled ? "1" : "0");
+    document.body.classList.toggle("performance-mode", enabled);
+    return enabled;
+}
+
+async function fetchJsonSessionCached(path, fallbackValue = null) {
+    const cacheKey = `${SESSION_JSON_CACHE_PREFIX}${path}`;
+    const bypass = shouldBypassSessionJsonCache();
+    if (!bypass) {
+        try {
+            const cached = sessionStorage.getItem(cacheKey);
+            if (cached) return JSON.parse(cached);
+        } catch {
+            // Ignore malformed session cache and fetch fresh copy.
+        }
+    }
+    try {
+        const res = await fetch(projectAssetUrl(path), { cache: "default" });
+        const data = await res.json();
+        if (!bypass) {
+            try {
+                sessionStorage.setItem(cacheKey, JSON.stringify(data));
+            } catch {
+                // Ignore quota/storage failures.
+            }
+        }
+        return data;
+    } catch (err) {
+        if (fallbackValue !== null) return fallbackValue;
+        throw err;
+    }
+}
 
 function sanitizeHeaderLogoScale(n) {
     const x = Number(n);
@@ -184,6 +236,198 @@ function initHeaderLogoZoom(onClearTeamSelection) {
 // SHARED UI HELPERS (Exported for Sub-Modules)
 // ==========================================
 
+const QUIZ_TYPE_VOICE_FILES = {
+    "nat-by-club": "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+    "club-by-nat": "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
+};
+const QUIZ_TITLE_VOICE_STATUS_ENDPOINT = "__quiz-title-voice/status";
+const QUIZ_TITLE_VOICE_GENERATE_ENDPOINT = "__quiz-title-voice/generate";
+const QUIZ_TITLE_VOICE_DELETE_ENDPOINT = "__quiz-title-voice/delete";
+const QUIZ_TITLE_FIXED_VOICE = "en-US-AndrewNeural";
+const quizTypeVoiceStatusByType = {};
+
+function getQuizTypeBaseLabel(optionEl) {
+    const savedBase = optionEl?.dataset?.baseLabel;
+    if (savedBase) return savedBase;
+    const current = String(optionEl?.textContent || "").trim();
+    return current.replace(/\s+\[(?:VOL|X)\]$/i, "").trim();
+}
+
+function setQuizTypeOptionLabel(optionEl, hasVoice) {
+    if (!optionEl) return;
+    const baseLabel = getQuizTypeBaseLabel(optionEl);
+    optionEl.dataset.baseLabel = baseLabel;
+    quizTypeVoiceStatusByType[optionEl.value] = !!hasVoice;
+    optionEl.textContent = baseLabel;
+}
+
+function playQuizTypeVoicePreview(quizType) {
+    const relPath = QUIZ_TYPE_VOICE_FILES[quizType];
+    if (!relPath) return;
+    const audio = new Audio(projectAssetUrl(relPath));
+    audio.play().catch(() => {});
+}
+
+function endpointUrl(relPath) {
+    return projectAssetUrl(relPath);
+}
+
+function setQuizTypeVoiceBusy(quizType, isBusy) {
+    const volBtn = document.querySelector(`button[data-quiz-type-voice-vol="${quizType}"]`);
+    const delBtn = document.querySelector(`button[data-quiz-type-voice-del="${quizType}"]`);
+    if (volBtn) {
+        volBtn.disabled = !!isBusy;
+        volBtn.textContent = isBusy ? "..." : "Vol";
+    }
+    if (delBtn) {
+        delBtn.disabled = !!isBusy || !quizTypeVoiceStatusByType[quizType];
+    }
+}
+
+async function fetchQuizTypeVoiceStatus(quizType) {
+    const params = new URLSearchParams({ quizType: String(quizType || "") });
+    const res = await fetch(`${endpointUrl(QUIZ_TITLE_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Status failed (${res.status})`);
+    quizTypeVoiceStatusByType[quizType] = !!body.exists;
+    return !!body.exists;
+}
+
+async function ensureQuizTypeVoiceThenPlay(quizType) {
+    setQuizTypeVoiceBusy(quizType, true);
+    try {
+        const exists = await fetchQuizTypeVoiceStatus(quizType);
+        if (!exists) {
+            const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_GENERATE_ENDPOINT), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ quizType, voice: QUIZ_TITLE_FIXED_VOICE }),
+            });
+            const body = await res.json().catch(() => ({}));
+            if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+            quizTypeVoiceStatusByType[quizType] = true;
+        }
+        renderQuizTypeVoiceStatusPanel();
+        playQuizTypeVoicePreview(quizType);
+    } catch (err) {
+        alert(`Could not generate quiz title voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setQuizTypeVoiceBusy(quizType, false);
+    }
+}
+
+async function deleteQuizTypeVoice(quizType) {
+    if (!quizTypeVoiceStatusByType[quizType]) return;
+    setQuizTypeVoiceBusy(quizType, true);
+    try {
+        const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_DELETE_ENDPOINT), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ quizType }),
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
+        quizTypeVoiceStatusByType[quizType] = false;
+        renderQuizTypeVoiceStatusPanel();
+    } catch (err) {
+        alert(`Could not delete quiz title voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setQuizTypeVoiceBusy(quizType, false);
+    }
+}
+
+function renderQuizTypeVoiceStatusPanel() {
+    const quizTypeSelect = appState?.els?.inQuizType;
+    if (!quizTypeSelect) return;
+    let panel = document.getElementById("quiz-type-voice-status");
+    if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "quiz-type-voice-status";
+        panel.style.marginTop = "0.4rem";
+        panel.style.display = "flex";
+        panel.style.flexDirection = "column";
+        panel.style.gap = "0.25rem";
+        panel.style.fontSize = "0.72rem";
+        panel.style.color = "rgba(255,255,255,0.9)";
+        const anchor = quizTypeSelect.nextElementSibling || quizTypeSelect;
+        anchor.insertAdjacentElement("afterend", panel);
+    }
+    panel.replaceChildren();
+
+    Array.from(quizTypeSelect.options || []).forEach((opt) => {
+        const row = document.createElement("div");
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.gap = "0.5rem";
+        row.style.padding = "0.15rem 0";
+
+        const text = document.createElement("span");
+        text.textContent = getQuizTypeBaseLabel(opt);
+        text.style.opacity = "0.92";
+
+        const controls = document.createElement("div");
+        controls.style.display = "inline-flex";
+        controls.style.alignItems = "center";
+        controls.style.gap = "0.3rem";
+
+        const volBtn = document.createElement("button");
+        volBtn.type = "button";
+        volBtn.textContent = "Vol";
+        volBtn.dataset.quizTypeVoiceVol = opt.value;
+        volBtn.style.padding = "0.12rem 0.4rem";
+        volBtn.style.borderRadius = "999px";
+        volBtn.style.border = "1px solid rgba(255,255,255,0.35)";
+        volBtn.style.background = "rgba(255,255,255,0.08)";
+        volBtn.style.color = "#fff";
+        volBtn.style.fontSize = "0.68rem";
+        volBtn.style.fontWeight = "700";
+        volBtn.onclick = () => { void ensureQuizTypeVoiceThenPlay(opt.value); };
+
+        const xBtn = document.createElement("button");
+        xBtn.type = "button";
+        xBtn.textContent = "X";
+        xBtn.dataset.quizTypeVoiceDel = opt.value;
+        xBtn.style.padding = "0.12rem 0.45rem";
+        xBtn.style.borderRadius = "999px";
+        xBtn.style.border = "1px solid rgba(239,68,68,0.7)";
+        xBtn.style.background = "rgba(239,68,68,0.2)";
+        xBtn.style.color = "#fff";
+        xBtn.style.fontSize = "0.68rem";
+        xBtn.style.fontWeight = "800";
+        xBtn.disabled = !quizTypeVoiceStatusByType[opt.value];
+        xBtn.onclick = () => { void deleteQuizTypeVoice(opt.value); };
+
+        controls.appendChild(volBtn);
+        controls.appendChild(xBtn);
+        row.appendChild(text);
+        row.appendChild(controls);
+        panel.appendChild(row);
+    });
+}
+
+async function refreshQuizTypeVoiceLabels() {
+    const { els } = appState;
+    const quizTypeSelect = els?.inQuizType;
+    if (!quizTypeSelect) return;
+    const options = Array.from(quizTypeSelect.options || []);
+    if (options.length === 0) return;
+
+    await Promise.all(
+        options.map(async (opt) => {
+            let hasVoice = false;
+            try {
+                hasVoice = await fetchQuizTypeVoiceStatus(opt.value);
+            } catch {
+                hasVoice = false;
+            }
+            setQuizTypeOptionLabel(opt, hasVoice);
+        }),
+    );
+
+    applyCustomSelects();
+    renderQuizTypeVoiceStatusPanel();
+}
+
 export function updateSetupUI() {
     const { els } = appState;
     if (!els.setupPitchControls) {
@@ -235,8 +479,14 @@ export function populateSubTypes() {
         els.inQuizType.selectedIndex = 0;
     }
 
+    Array.from(els.inQuizType.options).forEach((opt) => {
+        opt.dataset.baseLabel = String(opt.textContent || "").trim();
+    });
+
     updateSetupUI();
     applyCustomSelects();
+    renderQuizTypeVoiceStatusPanel();
+    void refreshQuizTypeVoiceLabels();
 }
 
 export function updateLanding() {
@@ -258,7 +508,6 @@ export function updateLanding() {
     } else {
         title.innerHTML = "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB";
     }
-
     const landingQCount = document.getElementById("landing-q-count");
     if (landingQCount) landingQCount.textContent = appState.totalLevelsCount - 3;
     const valEasy = document.getElementById("val-easy");
@@ -317,6 +566,7 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    applyPerformanceModeFromUrl();
     initSharedBackgroundTheme(
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
@@ -541,11 +791,10 @@ async function init() {
     }
 
     // Load indexes
-    const fetchJsonNoCache = (path) => fetch(projectAssetUrl(path), { cache: "no-store" }).then((r) => r.json());
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonNoCache("data/teams-index.json"),
-        fetchJsonNoCache("data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
-        fetchJsonNoCache("data/country-to-flagcode.json").catch(() => ({ codes: {} })),
+        fetchJsonSessionCached("data/teams-index.json"),
+        fetchJsonSessionCached("data/player-images.json", { club: {}, nationality: {} }),
+        fetchJsonSessionCached("data/country-to-flagcode.json", { codes: {} }),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);

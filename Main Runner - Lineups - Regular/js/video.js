@@ -18,7 +18,9 @@ const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
 
 function setVideoRevealPostTimerActive(isActive) {
-  appState.videoRevealPostTimerActive = !!isActive;
+  const active = !!isActive;
+  appState.videoRevealPostTimerActive = active;
+  document.body?.classList.toggle("video-reveal-post-timer", active);
 }
 
 function refreshCurrentQuestionPreview() {
@@ -190,7 +192,7 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 3;
+    let count = isShorts ? 5 : 10;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");

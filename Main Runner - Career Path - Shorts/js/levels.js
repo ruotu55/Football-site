@@ -1,7 +1,13 @@
 import { appState, getState, migrateShortsVideoOffLegacyNormalProfile } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers } from "./pitch-render.js";
-import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
+import {
+  playRules,
+  playWelcomeShortsLanding,
+  playProgressVoice,
+  playCommentBelow,
+  setBgMusicForLevel,
+} from "./audio.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -13,6 +19,7 @@ export function switchLevel(index) {
   }
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = idx;
+  setBgMusicForLevel(appState.currentLevelIndex);
   const state = getState();
   const { els } = appState;
   const isQuestionLevel = idx > 1 && idx < appState.totalLevelsCount;

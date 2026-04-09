@@ -190,10 +190,7 @@ export function initLevels(count) {
         selectedEntry: null,
         currentSquad: null,
         slotPhotoIndexBySlot: new Map(),
-        formationId:
-          els.formation && els.formation.options.length > 0
-            ? els.formation.options[0].value
-            : "3421",
+        formationId: "433",
         lastFormationId: null,
         displayMode: els.displayMode ? els.displayMode.value : "club",
         searchText: "",

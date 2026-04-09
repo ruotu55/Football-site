@@ -5,7 +5,13 @@ import {
   renderHeader,
   renderPitch,
 } from "./pitch-render.js";
-import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
+import {
+  playRules,
+  playWelcomeShortsLanding,
+  playProgressVoice,
+  playCommentBelow,
+  setBgMusicForLevel,
+} from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
 const STAGE_VIDEO_TRANSITION_MS = 1020;
@@ -18,6 +24,7 @@ export function switchLevel(index) {
   }
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = idx;
+  setBgMusicForLevel(appState.currentLevelIndex);
   const state = getState();
   const { els } = appState;
 

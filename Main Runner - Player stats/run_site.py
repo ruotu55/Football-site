@@ -12,10 +12,13 @@ import importlib.util
 import io
 import json
 import os
+import re
 import socket
 import sys
 import threading
 import time
+import urllib.error
+import urllib.request
 import webbrowser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -23,6 +26,23 @@ from urllib.parse import quote, unquote, urlparse
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
+    "player-by-career-stats": "Guess the football player by career stats !!!.mp3",
+    "player-by-career": "Guess the football player by career path !!!.mp3",
+}
+QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
+    "player-by-career-stats": "Hey everyone, let's start. ... GUESS THE PLAYER BY CAREER STATS!!",
+    "player-by-career": "Hey everyone, let's start. ... GUESS THE FOOTBALL PLAYER BY CAREER PATH!!",
+}
+ELEVENLABS_API_KEY_ENV = "ELEVENLABS_API_KEY"
+ELEVENLABS_VOICE_ID_ENV = "ELEVENLABS_VOICE_ID"
+ELEVENLABS_MODEL_ID_ENV = "ELEVENLABS_MODEL_ID"
+ELEVENLABS_OUTPUT_FORMAT = "mp3_44100_128"
+DEFAULT_ELEVENLABS_API_KEY = "0f5a57c70ec1b1c8f6d5e121dc257d098997632020d4891bb392feb9e0510700"
+DEFAULT_ELEVENLABS_VOICE_ID = "yl2ZDV1MzN4HbQJbMihG"
+DEFAULT_ELEVENLABS_MODEL_ID = "eleven_v3"
+FIXED_QUIZ_TITLE_VOICE = "en-US-AndrewNeural"
 
 def _load_runner_saved_scripts():  # noqa: D401
     path = PROJECT_ROOT / "dev_server_saved_scripts.py"
@@ -73,6 +93,87 @@ LIVE_RELOAD_SNIPPET = """
 })();
 </script>
 """.strip()
+
+
+def _normalize_quiz_title_voice_inputs(quiz_type: str | None) -> tuple[str, str, Path]:
+    qt = str(quiz_type or "").strip()
+    if qt not in QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE:
+        raise ValueError("Unsupported quiz type.")
+    filename = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[qt]
+    prompt = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE.get(qt) or filename.removesuffix(".mp3")
+    return qt, prompt, QUIZ_TITLE_VOICE_DIR / filename
+
+
+def _project_relative_web_path(path: Path) -> str:
+    rel_parts = path.relative_to(PROJECT_ROOT).parts
+    return "/" + "/".join(quote(p, safe="") for p in rel_parts)
+
+
+def _elevenlabs_api_key() -> str:
+    return str(os.environ.get(ELEVENLABS_API_KEY_ENV) or "").strip() or DEFAULT_ELEVENLABS_API_KEY
+
+
+def _resolve_elevenlabs_voice_id(requested_voice: str) -> str:
+    raw = str(requested_voice or "").strip()
+    if re.fullmatch(r"[A-Za-z0-9]{20,}", raw):
+        return raw
+    configured = str(os.environ.get(ELEVENLABS_VOICE_ID_ENV) or "").strip()
+    if configured:
+        return configured
+    return DEFAULT_ELEVENLABS_VOICE_ID
+
+
+def _elevenlabs_model_id() -> str:
+    return str(os.environ.get(ELEVENLABS_MODEL_ID_ENV) or "").strip() or DEFAULT_ELEVENLABS_MODEL_ID
+
+
+def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: Path) -> tuple[str, str]:
+    api_key = _elevenlabs_api_key()
+    if not api_key:
+        raise RuntimeError("Missing ELEVENLABS_API_KEY.")
+    voice_id = _resolve_elevenlabs_voice_id(requested_voice)
+    model_id = _elevenlabs_model_id()
+    endpoint = (
+        "https://api.elevenlabs.io/v1/text-to-speech/"
+        + quote(voice_id, safe="")
+        + f"?output_format={quote(ELEVENLABS_OUTPUT_FORMAT, safe='')}"
+    )
+    payload = {
+        "text": str(text or ""),
+        "model_id": model_id,
+        "voice_settings": {"stability": 0.45, "similarity_boost": 0.75},
+    }
+    data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(
+        endpoint,
+        data=data,
+        method="POST",
+        headers={
+            "xi-api-key": api_key,
+            "Accept": "audio/mpeg",
+            "Content-Type": "application/json",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            audio_bytes = resp.read()
+    except urllib.error.HTTPError as exc:
+        detail = ""
+        try:
+            detail = exc.read().decode("utf-8", "replace")
+        except Exception:
+            detail = ""
+        if detail:
+            raise RuntimeError(f"ElevenLabs HTTP {exc.code}: {detail}") from exc
+        raise RuntimeError(f"ElevenLabs HTTP {exc.code}") from exc
+    except urllib.error.URLError as exc:
+        raise RuntimeError(f"ElevenLabs request failed: {exc}") from exc
+
+    if not audio_bytes:
+        raise RuntimeError("ElevenLabs returned empty audio.")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_bytes(audio_bytes)
+    return voice_id, model_id
 
 
 def _sanitize_size_favorites(raw: object) -> dict[str, dict[str, float | str]]:
@@ -214,6 +315,98 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _read_json_body(self) -> dict:
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError as exc:
+            raise ValueError("Invalid Content-Length header.") from exc
+        if length <= 0:
+            return {}
+        raw = self.rfile.read(length)
+        if not raw:
+            return {}
+        try:
+            data = json.loads(raw.decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+            raise ValueError("Request body must be valid JSON.") from exc
+        if not isinstance(data, dict):
+            raise ValueError("JSON body must be an object.")
+        return data
+
+    def _try_serve_quiz_title_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__quiz-title-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part:
+                continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(query.get("quizType"))
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        self._send_json(
+            200,
+            {
+                "ok": True,
+                "exists": out_path.is_file(),
+                "src": _project_relative_web_path(out_path) if out_path.is_file() else "",
+            },
+        )
+        return True
+
+    def _try_generate_quiz_title_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__quiz-title-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            _quiz_type, prompt_text, out_path = _normalize_quiz_title_voice_inputs(body.get("quizType"))
+            requested_voice = str(body.get("voice") or FIXED_QUIZ_TITLE_VOICE).strip()
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path)
+        except Exception as exc:  # noqa: BLE001
+            self._send_json(502, {"ok": False, "error": str(exc)})
+            return True
+        if not out_path.exists() or out_path.stat().st_size <= 0:
+            self._send_json(502, {"ok": False, "error": "ElevenLabs generation failed."})
+            return True
+        self._send_json(
+            200,
+            {
+                "ok": True,
+                "src": _project_relative_web_path(out_path),
+                "voice": chosen_voice,
+                "model": model,
+                "provider": "elevenlabs",
+            },
+        )
+        return True
+
+    def _try_delete_quiz_title_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__quiz-title-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(body.get("quizType"))
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        removed = 0
+        if out_path.exists():
+            out_path.unlink(missing_ok=True)
+            removed = 1
+        self._send_json(200, {"ok": True, "removed": removed})
+        return True
+
     def _send_live_reload_stream(self) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -252,6 +445,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if self._try_serve_quiz_title_voice_status():
             return
         if self._is_live_reload_endpoint():
             self._send_live_reload_stream()
@@ -298,6 +493,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if self._try_generate_quiz_title_voice():
+            return
+        if self._try_delete_quiz_title_voice():
             return
         if not self._is_size_favorites_endpoint():
             self._send_json(404, {"error": "Not found"})

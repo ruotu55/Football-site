@@ -10,6 +10,11 @@
 }
 .landing-page[hidden] { display: none; }
 
+/* Keep quiz-title voice controls hidden during play-video flow. */
+body.play-video-active #landing-title-voice-controls {
+  display: none !important;
+}
+
 .landing-title {
   position: relative;
   z-index: 10;

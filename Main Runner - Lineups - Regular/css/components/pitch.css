@@ -484,6 +484,12 @@ body.play-video-active .pitch-swap-logo-btn {
   animation: float-up-down-label 4s ease-in-out infinite;
 }
 
+/* During post-timer reveal, pause float animation to avoid jitter while card-flip and pitch-height transitions run. */
+body.play-video-active.video-reveal-post-timer .player-slot.has-player .slot-avatar,
+body.play-video-active.video-reveal-post-timer .player-slot.has-player .slot-label-container {
+  animation: none;
+}
+
 .slot-img { width: 100%; height: 100%; object-fit: cover; }
 
 .slot-label-container {
