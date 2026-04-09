@@ -180,7 +180,7 @@ export function switchLevel(index) {
         );
       }
     } else if (isOutro) {
-      els.logoPage.hidden = isShorts;
+      els.logoPage.hidden = true;
       els.outroPage.hidden = false;
     } else {
       els.logoPage.hidden = isShorts;

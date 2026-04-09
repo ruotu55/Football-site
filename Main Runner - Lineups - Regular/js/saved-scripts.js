@@ -17,6 +17,22 @@ const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
 const FIXED_SHORTS_MODE = false;
 
+const SPECIFIC_TITLE_ICON_PATH_MAP = {
+    "icons/specific-title/premier-league.png": "icons/specific-title/Premier League.png",
+    "icons/specific-title/la-liga.png": "icons/specific-title/La Liga.png",
+    "icons/specific-title/serie-a.png": "icons/specific-title/Seria A.png",
+    "icons/specific-title/bundesliga.png": "icons/specific-title/Bundesliga.png",
+    "icons/specific-title/ligue-1.png": "icons/specific-title/Ligue 1.png",
+    "icons/specific-title/fifa-world-cup.png": "icons/specific-title/World Cup 2026.png",
+    "icons/specific-title/uefa-champions-league.png": "icons/specific-title/Champions League.png",
+    "icons/specific-title/uefa-europa-league.png": "icons/specific-title/Europa League.png",
+    "icons/specific-title/uefa-conference-league.png": "icons/specific-title/Conference League.png",
+};
+
+function normalizeSpecificTitleIconPath(iconPath) {
+    return SPECIFIC_TITLE_ICON_PATH_MAP[iconPath] || iconPath || "";
+}
+
 const SAVE_SERVER = createSavedScriptsServerSync("lineups_regular", {
     KEY_SCRIPTS,
     KEY_FOLDERS,
@@ -415,7 +431,7 @@ async function loadScript(script) {
     if (script.landing) {
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
         els.inSpecificTitleText.value = script.landing.specificText || "";
-        els.inSpecificTitleIcon.value = script.landing.specificIcon || "";
+        els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;
         els.inHard.value = script.landing.hard || 3;
