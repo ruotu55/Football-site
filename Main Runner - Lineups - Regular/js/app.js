@@ -22,6 +22,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
+import { initThumbnailMaker, syncThumbnailMakerUiForQuizType } from "./thumbnail-maker.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
@@ -602,6 +603,7 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    initThumbnailMaker({ switchLevel });
     applyPerformanceModeFromUrl();
     initSharedBackgroundTheme(
         document.getElementById("in-background-color"),
@@ -669,6 +671,7 @@ async function init() {
     els.inQuizType.onchange = () => {
         updateSetupUI();
         updateLanding();
+        syncThumbnailMakerUiForQuizType();
         renderSavedScripts();
         renderHeader();
     };
@@ -960,6 +963,7 @@ async function init() {
         switchLevel(appState.currentLevelIndex);
     }
     updateLanding();
+    syncThumbnailMakerUiForQuizType();
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);
     syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());

@@ -21,14 +21,28 @@ export function switchLevel(index) {
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = index;
   setBgMusicForLevel(appState.currentLevelIndex);
-  const state = getState();
+  const fallbackState =
+    appState.levelsData[Math.min(appState.totalLevelsCount, appState.levelsData.length - 1)] ||
+    appState.levelsData[1] ||
+    {};
+  const state = getState() || fallbackState;
   const { els } = appState;
 
-  els.squadType.value = state.squadType;
-  els.formation.value = state.formationId;
-  els.displayMode.value = state.displayMode;
-  els.teamSearch.value = state.searchText;
-  els.videoModeToggle.checked = !!state.videoMode;
+  if (els.squadType && state.squadType !== undefined) {
+    els.squadType.value = state.squadType;
+  }
+  if (els.formation && state.formationId !== undefined) {
+    els.formation.value = state.formationId;
+  }
+  if (els.displayMode && state.displayMode !== undefined) {
+    els.displayMode.value = state.displayMode;
+  }
+  if (els.teamSearch) {
+    els.teamSearch.value = state.searchText || "";
+  }
+  if (els.videoModeToggle) {
+    els.videoModeToggle.checked = !!state.videoMode;
+  }
   if (els.videoModeBtn) {
     els.videoModeBtn.setAttribute("aria-pressed", state.videoMode ? "true" : "false");
   }
@@ -67,6 +81,8 @@ export function switchLevel(index) {
     const isLogo = appState.currentLevelIndex === 0;
     const isLanding = appState.currentLevelIndex === 1;
     const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
+    const isThumbnailMaker = appState.currentLevelIndex === appState.totalLevelsCount + 1;
+    document.body.classList.toggle("thumbnail-maker-active", isThumbnailMaker);
     const isShorts = document.body.classList.contains("shorts-mode");
     if (els.landingPage && !isLanding) {
       els.landingPage.classList.remove(
@@ -87,6 +103,9 @@ export function switchLevel(index) {
     els.logoPage.hidden = true;
     els.landingPage.hidden = true;
     els.outroPage.hidden = true;
+    if (els.thumbnailMakerPage) {
+      els.thumbnailMakerPage.hidden = true;
+    }
     els.pitchWrap.hidden = true;
     els.teamHeader.hidden = true;
 
@@ -127,6 +146,16 @@ export function switchLevel(index) {
     } else if (isOutro) {
       els.logoPage.hidden = true;
       els.outroPage.hidden = false;
+    } else if (isThumbnailMaker) {
+      els.logoPage.hidden = true;
+      if (els.outroPage) {
+        els.outroPage.hidden = true;
+      }
+      if (els.thumbnailMakerPage) {
+        els.thumbnailMakerPage.hidden = false;
+      }
+      els.pitchWrap.hidden = false;
+      renderPitch();
     } else {
       els.logoPage.hidden = isShorts;
 
@@ -156,7 +185,7 @@ export function switchLevel(index) {
 
     const sharedBg = document.getElementById("shared-bg-layer");
     if (sharedBg) {
-      sharedBg.hidden = !(isLogo || isLanding || isOutro);
+      sharedBg.hidden = !(isLogo || isLanding || isOutro || isThumbnailMaker);
     }
 
     if (isOutro && prevIndex !== appState.totalLevelsCount) {
@@ -286,6 +315,10 @@ export function switchLevel(index) {
     }, transitionDelay);
   } else {
     updateDOMContent();
+  }
+  if (els.playVideoBtn && !appState.isVideoPlaying) {
+    const isThumbnailMaker = appState.currentLevelIndex === appState.totalLevelsCount + 1;
+    els.playVideoBtn.hidden = isThumbnailMaker;
   }
   refreshSaveTeamButtonUi();
 }

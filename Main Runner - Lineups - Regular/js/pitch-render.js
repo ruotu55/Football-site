@@ -72,7 +72,6 @@ const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
 const AUTO_365_PHOTO_RE = /(^|\/)auto - 365scores(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const AUTO_FUTGG_PHOTO_RE = /(^|\/)auto - fut\.gg(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const autoPhotoLastSourceBySlot = new Map();
-
 export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
     return Promise.resolve();
@@ -884,7 +883,11 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         });
       }
     }
-    if (state.videoMode && !appState.isVideoPlaying) {
+    if (
+      state.videoMode &&
+      !appState.isVideoPlaying &&
+      !document.body.classList.contains("thumbnail-maker-active")
+    ) {
       appendSlotBadgeZoomControls(slotEl, slotIndex);
     }
   } else {
@@ -965,9 +968,11 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
 export function renderPitch() {
   const state = getState();
-  const formation = formationById(state.formationId);
+  const isThumbnailMakerMode = document.body.classList.contains("thumbnail-maker-active");
+  const effectiveFormationId = isThumbnailMakerMode ? "451" : state.formationId;
+  const formation = formationById(effectiveFormationId);
   const displayMode = state.displayMode;
-  const useVideoQuestionLayout = shouldUseVideoQuestionLayout(state);
+  const useVideoQuestionLayout = isThumbnailMakerMode ? true : shouldUseVideoQuestionLayout(state);
   const inlineTeamPicker = document.getElementById("lineups-inline-team-picker");
   if (inlineTeamPicker) {
     inlineTeamPicker.hidden = !!state.currentSquad;
@@ -979,13 +984,13 @@ export function renderPitch() {
   } else if (
     state.customXi &&
     state.customXi.length === formation.slots.length &&
-    state.lastFormationId === state.formationId
+    state.lastFormationId === effectiveFormationId
   ) {
     xi = state.customXi;
   } else {
     xi = pickStartingXI(formation, state.currentSquad);
     state.customXi = [...xi];
-    state.lastFormationId = state.formationId;
+    state.lastFormationId = effectiveFormationId;
   }
 
   appState.currentXi = xi;
@@ -1192,11 +1197,13 @@ export function renderHeader() {
     els.teamVoiceControls.hidden = !state.currentSquad || appState.isVideoPlaying;
   }
   if (els.headerLogo) {
+    const quizType = appState.els.inQuizType?.value || "nat-by-club";
     const chain = getHeaderLogoUrlChain(
       state,
       state.currentSquad,
       state.squadType,
-      state.selectedEntry?.name
+      state.selectedEntry?.name,
+      quizType
     ).map((u) => withProjectAssetCacheBust(u));
     if (chain.length) {
       const logoImg = els.headerLogo;
@@ -1226,7 +1233,6 @@ export function renderHeader() {
       els.headerLogo.hidden = true;
     }
   }
-  const quizType = appState.els.inQuizType?.value || "nat-by-club";
   const showSwapLogo =
     state.squadType === "club" &&
     state.currentSquad &&

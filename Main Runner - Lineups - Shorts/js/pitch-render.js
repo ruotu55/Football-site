@@ -72,7 +72,6 @@ const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
 const AUTO_365_PHOTO_RE = /(^|\/)auto - 365scores(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const AUTO_FUTGG_PHOTO_RE = /(^|\/)auto - fut\.gg(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const autoPhotoLastSourceBySlot = new Map();
-
 export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
     return Promise.resolve();
@@ -1243,11 +1242,13 @@ export function renderHeader() {
     els.teamVoiceControls.hidden = !state.currentSquad || appState.isVideoPlaying;
   }
   if (els.headerLogo) {
+    const quizType = appState.els.inQuizType?.value || "nat-by-club";
     const chain = getHeaderLogoUrlChain(
       state,
       state.currentSquad,
       state.squadType,
-      state.selectedEntry?.name
+      state.selectedEntry?.name,
+      quizType
     ).map((u) => withProjectAssetCacheBust(u));
     if (chain.length) {
       const logoImg = els.headerLogo;
@@ -1277,7 +1278,6 @@ export function renderHeader() {
       els.headerLogo.hidden = true;
     }
   }
-  const quizType = appState.els.inQuizType?.value || "nat-by-club";
   const showSwapLogo =
     state.squadType === "club" &&
     state.currentSquad &&

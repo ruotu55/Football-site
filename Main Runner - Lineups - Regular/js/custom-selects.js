@@ -2,6 +2,13 @@
 
 export function applyCustomSelects() {
   document.querySelectorAll('select').forEach(selectEl => {
+      const forceNative =
+          selectEl.dataset.nativeSelect === "true" ||
+          Number(selectEl.getAttribute("size") || "0") > 1 ||
+          selectEl.hasAttribute("multiple");
+      if (forceNative) {
+          return;
+      }
       let wrapper = selectEl.nextElementSibling;
       if (wrapper && wrapper.classList.contains('custom-select-wrapper')) {
           renderCustomOptions(selectEl, wrapper);

@@ -65,6 +65,18 @@ export const appState = {
     inImpossible: null,
     landingPage: null,
     outroPage: null,
+    thumbnailMakerPage: null,
+    openThumbnailMakerBtn: null,
+    thumbnailMakerBackBtn: null,
+    thumbnailMakerAddBtn: null,
+    thumbnailMakerResetBtn: null,
+    thumbnailMakerCanvas: null,
+    thumbnailPickerModal: null,
+    thumbnailPickerTitle: null,
+    thumbnailPickerSearch: null,
+    thumbnailPickerSelect: null,
+    thumbnailPickerCancel: null,
+    thumbnailPickerApply: null,
     pitchWrap: null,
     logoPage: null, 
     quizProgressContainer: null, 
@@ -101,7 +113,13 @@ export const appState = {
 };
 
 export function getState() {
-  return appState.levelsData[appState.currentLevelIndex];
+  const direct = appState.levelsData[appState.currentLevelIndex];
+  if (direct) return direct;
+  const lastQuizIndex = Math.min(
+    Math.max(1, appState.totalLevelsCount),
+    Math.max(1, appState.levelsData.length - 1),
+  );
+  return appState.levelsData[lastQuizIndex] || appState.levelsData[1] || null;
 }
 
 /** Same step/min as header logo zoom; used for video-mode front-face graphics only. */

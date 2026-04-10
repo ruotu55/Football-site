@@ -343,6 +343,31 @@ body:not(.shorts-mode) .landing-page .shorts-landing-logo {
   display: none; /* Only visible in Shorts Mode */
 }
 
+.outro-thumbnail-maker-btn {
+  margin-top: 1.1rem;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.33);
+  color: #fff;
+  padding: 0.52rem 1.1rem;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.35px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.outro-thumbnail-maker-btn:hover {
+  background: rgba(0, 0, 0, 0.42);
+}
+
+/* Hide thumbnail-maker shortcut while Play Video mode is active. */
+body.play-video-active .outro-thumbnail-maker-btn {
+  display: none !important;
+}
+
 /* Animations triggered when Outro page is visible */
 #outro-page .landing-title,
 #outro-page .landing-subtitle {
