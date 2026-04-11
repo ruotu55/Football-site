@@ -154,10 +154,16 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
 }
 
 /* Video mode: opaque black silhouette so the 3D flag (below .career-svg) never shows through the player (Play Video clears .video-mode-enabled on the wrap). */
-body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed),
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed) {
+  opacity: 1;
+  filter: brightness(0) contrast(1.2);
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+}
+
 body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
   opacity: 1;
   filter: brightness(0) contrast(1.2);
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
 }
 
 .career-photo-missing-label {
@@ -295,7 +301,13 @@ body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-image-group 
 }
 
 body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-silhouette.revealed {
+  animation: none !important;
   opacity: 0 !important;
+}
+
+/* In video mode the full-screen overlay handles the reveal — hide the inline photo to avoid two player images */
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
+  display: none !important;
 }
 
 .career-silhouette.revealed {

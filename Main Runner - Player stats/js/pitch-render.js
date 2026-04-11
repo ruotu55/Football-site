@@ -1085,7 +1085,7 @@ export function renderCareer() {
   if (!wrap) return;
   wrap.classList.toggle(
     "video-mode-enabled",
-    !!state.videoMode && !appState.isVideoPlaying && !previewState.previewPostTimer,
+    !!state.videoMode && !appState.isVideoPlaying,
   );
 
   ensureCareerPictureModeProfiles(state);
