@@ -31,12 +31,17 @@
 </div>
 
 <div id="save-script-modal" class="swap-modal" hidden>
-  <div class="swap-modal-content" style="padding: 1.5rem;">
-    <h3 style="margin-top: 0;">Save Script</h3>
-    <input type="text" id="save-script-name" placeholder="Enter name..." style="width: 100%; padding: 0.6rem; margin: 1rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px;" autocomplete="off" />
-    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-      <button id="save-script-cancel" class="panel-toggle">Cancel</button>
-      <button id="save-script-confirm" class="panel-toggle" style="background: var(--accent); color: #000;">Save</button>
+  <div class="swap-modal-content" style="padding: 0;">
+    <div class="swap-modal-header">
+      <h3>Save Script</h3>
+      <button type="button" class="swap-modal-close" id="save-script-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div style="padding: 1.5rem;">
+      <input type="text" id="save-script-name" placeholder="Enter name..." style="width: 100%; padding: 0.6rem; margin: 0 0 1rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px; box-sizing: border-box;" autocomplete="off" />
+      <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+        <button id="save-script-cancel" class="panel-toggle">Cancel</button>
+        <button id="save-script-confirm" class="panel-toggle" style="background: var(--accent); color: #000;">Save</button>
+      </div>
     </div>
   </div>
 </div>
@@ -59,6 +64,16 @@
     <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
       <button id="delete-script-no" class="panel-toggle">No</button>
       <button id="delete-script-yes" class="panel-toggle" style="background: #ef4444; color: #fff;">Yes</button>
+    </div>
+  </div>
+</div>
+
+<div id="save-discard-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 1.5rem;">
+    <h3 style="margin-top: 0;">Are you sure?</h3>
+    <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+      <button type="button" id="save-discard-no" class="panel-toggle">No</button>
+      <button type="button" id="save-discard-yes" class="panel-toggle" style="background: #ef4444; color: #fff;">Yes</button>
     </div>
   </div>
 </div>

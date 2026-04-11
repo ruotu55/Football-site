@@ -117,6 +117,7 @@ body.play-video-active #landing-title-voice-controls {
 .landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) {
   visibility: hidden;
   pointer-events: none;
+  animation: none;
 }
 .landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden])::after,
 .landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) .landing-special-badge {
@@ -154,7 +155,8 @@ body.play-video-active #landing-title-voice-controls {
 }
 .landing-page.landing-content-slide-in .landing-special-badge-container:not([hidden]) {
   visibility: visible;
-  animation: landing-special-badge-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: landing-special-badge-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down-special-badge 3.2s ease-in-out 0.65s infinite;
   pointer-events: auto;
 }
 
@@ -176,9 +178,10 @@ body:not(.shorts-mode) .landing-page .shorts-landing-logo {
 .landing-special-badge-container {
   position: absolute;
   left: 10rem;
-  top: 60%; 
+  top: 53%; 
   transform: translateY(-50%) rotate(-6deg);
   z-index: 100;
+  animation: float-up-down-special-badge 3.2s ease-in-out infinite;
 }
 .landing-special-badge-container[hidden] { display: none; }
 
@@ -202,26 +205,28 @@ body:not(.shorts-mode) .landing-page .shorts-landing-logo {
 }
 
 .landing-special-badge {
-  background: rgba(0,0,0,0.15);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   color: #ff3b30;
-  padding: 0.5rem 1rem; 
-  border-radius: 8px;
+  padding: 0;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  border: 4px solid #ff3b30;
-  box-shadow: inset 0 0 10px rgba(255, 59, 48, 0.3), 0 8px 20px rgba(0,0,0,0.4);
+  gap: 0.6rem;
+  border: none;
+  box-shadow: none;
   opacity: 0; 
   transform: scale(1.1);
   animation: badge-impression 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   animation-delay: 1.36s; 
-  width: 15rem;
-  height: 6.5rem;
-  overflow: hidden;
+  width: auto;
+  max-width: min(28rem, 92vw);
+  height: auto;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 @keyframes stamper-hit {
@@ -261,30 +266,30 @@ body:not(.shorts-mode) .landing-page .shorts-landing-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 1.8rem;
+  min-height: 8rem;
 }
 .special-icon-img {
   display: block;
-  height: 1.8rem;
+  height: 8rem;
   width: auto;
-  max-width: 5rem;
+  max-width: 26rem;
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
 }
 .special-icon { 
-  font-size: 1.8rem; 
+  font-size: 8rem; 
   line-height: 1; 
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
 }
 .special-text {
   font-family: "Barlow Condensed", sans-serif;
-  font-size: 1.2rem; 
+  font-size: 2.4rem; 
   font-weight: 900;
   text-transform: uppercase;
   text-align: center;
   line-height: 1.1;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  letter-spacing: 2px;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
   white-space: normal;
   width: 100%;
 }

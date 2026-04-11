@@ -49,7 +49,7 @@ body.thumbnail-maker-active .side-text.left {
   height: auto !important;
   background: #e10600;
   border-bottom: none;
-  padding: 1rem 1.25rem 1.35rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,58 +57,24 @@ body.thumbnail-maker-active .side-text.left {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.36);
 }
 
-.thumbnail-maker-season-left {
-  position: absolute;
-  left: 1.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.95);
-  font-family: "Barlow Condensed", sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-  white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1;
-}
-
-.thumbnail-maker-season-year {
-  font-size: clamp(2.025rem, 4.5vw, 3.6rem);
-  color: #ffd54a;
-  font-weight: 900;
-}
-
-.thumbnail-maker-season-label {
-  margin-top: 0.12rem;
-  font-size: clamp(1.425rem, 2.85vw, 2.175rem);
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 800;
-  text-align: center;
-}
-
-.thumbnail-maker-channel-logo {
-  position: absolute;
-  right: 1.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(4.8rem, 9vw, 8.7rem);
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
-}
-
 .thumbnail-maker-title {
   margin: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0.35rem;
   color: #fff;
   text-transform: uppercase;
   font-family: "Barlow Condensed", sans-serif;
-  font-size: clamp(2.86rem, 8.8vw, 5.72rem);
-  letter-spacing: 1px;
-  line-height: 1;
+  /* Fill the red band: cap by bar height (~22.8vh) and viewport width for the long headline */
+  font-size: clamp(2.71rem, min(10.64vw, 16.15vh), 8.79rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 0.92;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.55);
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .thumbnail-maker-actions {

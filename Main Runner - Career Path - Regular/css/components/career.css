@@ -499,7 +499,7 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
 }
 
 body:not(.shorts-mode) .career-reveal-name {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 2.4vh;
   transform: translateX(-50%);
@@ -507,7 +507,7 @@ body:not(.shorts-mode) .career-reveal-name {
   text-align: center;
   pointer-events: none;
   opacity: 0;
-  z-index: 320;
+  z-index: 530;
 }
 
 body:not(.shorts-mode) .career-reveal-name-top {
@@ -518,6 +518,7 @@ body:not(.shorts-mode) .career-reveal-name-top {
   letter-spacing: 0.1em;
   color: #ffffff;
   text-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
 }
 
 body:not(.shorts-mode) .career-reveal-name-bottom {
@@ -528,6 +529,7 @@ body:not(.shorts-mode) .career-reveal-name-bottom {
   letter-spacing: 0.03em;
   color: #ef4444;
   text-shadow: 0 8px 26px rgba(0, 0, 0, 0.9), 0 0 16px rgba(239, 68, 68, 0.36);
+  white-space: nowrap;
 }
 
 body:not(.shorts-mode) .career-reveal-name.show {
@@ -859,9 +861,19 @@ body:not(.shorts-mode) .career-club-slot {
   padding: 0.072rem 0.66rem 0.12rem;
   line-height: 1;
   flex-shrink: 0;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: text;
   transform: scale(var(--career-year-inverse-scale, 1));
   transform-origin: center top;
+}
+
+/* Inline year editor: match pill look; reset native input chrome */
+.career-club-year-stack > .career-club-year.career-club-year-input {
+  box-sizing: border-box;
+  text-align: center;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
 }
 
 .career-club-slot-inner {

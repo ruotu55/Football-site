@@ -55,6 +55,10 @@ export const appState = {
     deleteScriptModal: null,
     deleteScriptNo: null,
     deleteScriptYes: null,
+    saveScriptModalClose: null,
+    saveDiscardModal: null,
+    saveDiscardNo: null,
+    saveDiscardYes: null,
     inQuizType: null,
     inSpecificTitleToggle: null,
     inSpecificTitleText: null,
@@ -106,6 +110,10 @@ export const appState = {
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
+  /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
+  refreshLandingUi: null,
+  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
+  landingSpecialBadgeRevealTimeoutId: null,
   videoInterval: null,
   videoTimeout: null,
   currentXi: [],

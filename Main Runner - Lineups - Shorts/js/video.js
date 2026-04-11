@@ -24,8 +24,7 @@ import {
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 /** Shorts landing: BGM plays; wait before welcome, then full welcome, then level advance. */
 const SHORTS_LANDING_PRE_WELCOME_DELAY_MS = 2000;
-/** Shorts: “Add specific title” stamp on landing — show only after Play Video, not on static landing. */
-const SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 500;
+const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
 /** Match `levels.js` stage swap before enter anim; enter duration matches `stage-enter-shorts`. */
 const SHORTS_STAGE_CONTENT_SWAP_MS = 1020;
 const SHORTS_STAGE_ENTER_MS = 800;
@@ -38,26 +37,6 @@ const TICKING_LEAD_BEFORE_RED_MS = 2000;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
-}
-
-function hideShortsLandingSpecialBadgeIfEnabled() {
-  if (!document.body.classList.contains("shorts-mode")) return;
-  const toggle = document.getElementById("in-specific-title-toggle");
-  const badge = document.getElementById("landing-special-badge");
-  if (toggle?.checked && badge) {
-    badge.hidden = true;
-  }
-}
-
-function scheduleShortsLandingSpecialBadgeAfterPlayVideo() {
-  if (!document.body.classList.contains("shorts-mode")) return;
-  const toggle = document.getElementById("in-specific-title-toggle");
-  if (!toggle?.checked) return;
-  setTimeout(() => {
-    if (!appState.isVideoPlaying) return;
-    const badge = document.getElementById("landing-special-badge");
-    if (badge) badge.hidden = false;
-  }, SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
 }
 
 function refreshCurrentQuestionPreview() {
@@ -100,8 +79,26 @@ function clearShortsQuestionCountdown() {
   appState.els.countdownTimer.classList.remove("countdown-timer-stage-enter");
 }
 
+function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
+  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
+  appState.landingSpecialBadgeRevealTimeoutId = null;
+  if (!appState.els?.inSpecificTitleToggle?.checked) {
+    appState.refreshLandingUi?.();
+    return;
+  }
+  appState.landingSpecialBadgeRevealTimeoutId = setTimeout(() => {
+    appState.landingSpecialBadgeRevealTimeoutId = null;
+    if (!appState.isVideoPlaying) return;
+    appState.refreshLandingUi?.();
+  }, LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
+  appState.refreshLandingUi?.();
+}
+
 export function stopVideoFlow() {
+  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
+  appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
+  appState.refreshLandingUi?.();
   setVideoRevealPostTimerActive(false);
   clearPitchWrapTransitionOverride();
   document.body.classList.remove("play-video-active");
@@ -145,7 +142,6 @@ export function stopVideoFlow() {
     }
   }
   refreshCurrentQuestionPreview();
-  hideShortsLandingSpecialBadgeIfEnabled();
 }
 
 export function startVideoFlow() {
@@ -172,6 +168,8 @@ export function startVideoFlow() {
     return; 
   }
   appState.isVideoPlaying = true;
+  appState.refreshLandingUi?.();
+  scheduleLandingSpecialBadgeRevealAfterPlayVideo();
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   els.playVideoBtn.hidden = true;
@@ -192,7 +190,6 @@ export function startVideoFlow() {
   }
 
   startBgMusic();
-  scheduleShortsLandingSpecialBadgeAfterPlayVideo();
 
   if (appState.currentLevelIndex === 0) {
     if (isShorts) {
@@ -372,7 +369,6 @@ function runVideoStep() {
           clearTimeout(appState.tickingLeadTimeout);
           appState.tickingLeadTimeout = null;
           stopTicking();
-          clearShortsQuestionCountdown();
           els.countdownTimer.hidden = true;
           els.countdownTimer.classList.remove(
             "pulse",
@@ -388,6 +384,31 @@ function runVideoStep() {
             fillEl.style.transition = "";
             fillEl.style.width = "";
           }
+          const skipRevealToOutro =
+            appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+          if (skipRevealToOutro) {
+            setVideoRevealPostTimerActive(false);
+            const jumpToIndex = appState.currentLevelIndex + 1;
+            switchLevel(jumpToIndex);
+            const nextState = getState();
+            const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+            const shouldContinueVideo =
+              appState.currentLevelIndex === 1 ||
+              isNextOutro ||
+              (nextState.videoMode && nextState.currentSquad);
+            clearShortsQuestionCountdown();
+            appState.videoTimeout = setTimeout(() => {
+              if (!appState.isVideoPlaying) return;
+              if (appState.currentLevelIndex !== jumpToIndex) return;
+              if (shouldContinueVideo) {
+                runVideoStep();
+              } else {
+                stopVideoFlow();
+              }
+            }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+            return;
+          }
+          clearShortsQuestionCountdown();
           revealCurrentLevel();
         }
       }, tickMs);
@@ -412,10 +433,9 @@ function revealCurrentLevel() {
     flipDelay = 0;
   }
   if (appState.currentLevelIndex > 1) {
-    let isLastQuestion = (appState.currentLevelIndex + 1 === appState.totalLevelsCount);
-    if (isLastQuestion) {
-      flipDelay = 0;
-    } else {
+    const isLastQuestionBeforeOutro =
+      appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+    if (!isLastQuestionBeforeOutro) {
       const teamDisplayName = String(
         state?.currentSquad?.name || state?.selectedEntry?.name || ""
       ).trim();
@@ -424,6 +444,9 @@ function revealCurrentLevel() {
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 4000;
+    } else {
+      /* Bonus: no answer reveal — go straight to outro after the question timer. */
+      flipDelay = 0;
     }
   }
   appState.videoTimeout = setTimeout(() => {

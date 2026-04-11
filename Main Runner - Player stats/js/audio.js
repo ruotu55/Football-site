@@ -242,22 +242,94 @@ export function stopTicking() {
 }
 
 export function playRules(quizType, delayMs = 1000) {
-  if (quizType === "club-by-nat") {
-    playVoice(paths.guessNat, delayMs);
-  } else if (quizType === "nat-by-club") {
-    playVoice(paths.guessClub, delayMs);
-  } else if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
-    // Career runners keep their own quiz types but use the shared intro game-name voice set.
-    playVoice(paths.guessClub, delayMs);
-  } else {
-    playVoice(paths.guessNat, delayMs);
+  const playFallback = () => {
+    if (quizType === "club-by-nat") {
+      playVoice(paths.guessNat, delayMs);
+    } else if (quizType === "nat-by-club") {
+      playVoice(paths.guessClub, delayMs);
+    } else if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
+      // Career runners keep their own quiz types but use the shared intro game-name voice set.
+      playVoice(paths.guessClub, delayMs);
+    } else {
+      playVoice(paths.guessNat, delayMs);
+    }
+  };
+  const resolver = window.__resolveQuizTitleVoiceSrc;
+  if (typeof resolver !== "function") {
+    playFallback();
+    return;
   }
+  Promise.resolve(resolver(quizType))
+    .then((src) => {
+      const clipSrc = String(src || "").trim();
+      if (clipSrc) {
+        playVoice(clipSrc, delayMs);
+      } else {
+        playFallback();
+      }
+    })
+    .catch(() => {
+      playFallback();
+    });
 }
 
-export function playTheAnswerIs(includeVoice = true) {
+export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
+
+export function revealPlayerVoiceDir() {
+  return "../Voices/Players Names/";
+}
+
+function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
+  const base = String(displayName || "").trim();
+  if (!base) return;
+  const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
+  let i = 0;
+  const tryNext = () => {
+    if (i >= PLAYER_NAME_VOICE_EXTS.length) return;
+    const ext = PLAYER_NAME_VOICE_EXTS[i++];
+    const src = `${dir}${encodeURIComponent(base)}${ext}`;
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, delayMs);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
+}
+
+export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3") {
+  const cleanName = String(displayName || "").trim();
+  if (!cleanName) return "";
+  const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
+  return `${revealPlayerVoiceDir()}${encodeURIComponent(cleanName)}${cleanExt}`;
+}
+
+export function playPlayerNameVoiceIfExists(displayName, delayMs = 0) {
+  playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir());
+}
+
+export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
-  void includeVoice;
+
+  if (includeVoice) {
+    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
+  }
 }
 
 export function playCommentBelow() {

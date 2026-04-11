@@ -496,13 +496,24 @@ def _player_voice_paths_for_name(player_name: str) -> list[Path]:
     return [PLAYER_VOICE_DIR / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
 
 
-def _normalize_quiz_title_voice_inputs(quiz_type: str | None) -> tuple[str, str, Path]:
+def _normalize_quiz_title_voice_inputs(
+    quiz_type: str | None,
+    specific_title: str | None = None,
+) -> tuple[str, str, Path]:
     qt = str(quiz_type or "").strip()
     if qt not in QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE:
         raise ValueError("Unsupported quiz type.")
     filename = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[qt]
-    prompt = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE.get(qt) or filename.removesuffix(".mp3")
-    return qt, prompt, QUIZ_TITLE_VOICE_DIR / filename
+    base_prompt = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE.get(qt) or filename.removesuffix(".mp3")
+    clean_specific = re.sub(r"^\+\s*", "", str(specific_title or "").strip())
+    if clean_specific:
+        prompt = f"{base_prompt} {clean_specific}".strip()
+        safe_specific = _safe_path_component(clean_specific)[:140].strip()
+        out_name = f"{qt} + {safe_specific}.mp3" if safe_specific else filename
+    else:
+        prompt = base_prompt
+        out_name = filename
+    return qt, prompt, QUIZ_TITLE_VOICE_DIR / out_name
 
 
 def _project_relative_web_path(path: Path) -> str:
@@ -993,7 +1004,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             k, _, v = part.partition("=")
             query[unquote(k)] = unquote(v.replace("+", " "))
         try:
-            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(query.get("quizType"))
+            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
+                query.get("quizType"),
+                query.get("specificTitle"),
+            )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
@@ -1013,7 +1027,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            _quiz_type, prompt_text, out_path = _normalize_quiz_title_voice_inputs(body.get("quizType"))
+            _quiz_type, prompt_text, out_path = _normalize_quiz_title_voice_inputs(
+                body.get("quizType"),
+                body.get("specificTitle"),
+            )
             requested_voice = str(body.get("voice") or FIXED_PLAYER_VOICE).strip()
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
@@ -1047,7 +1064,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(body.get("quizType"))
+            _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
+                body.get("quizType"),
+                body.get("specificTitle"),
+            )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True

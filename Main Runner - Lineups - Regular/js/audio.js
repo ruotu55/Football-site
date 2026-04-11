@@ -40,7 +40,7 @@ let isBgmCrossfading = false;
 
 const STARTING_VOL = 0.05;
 const NORMAL_VOL = 0.6;
-const DUCKED_VOL = 0.2;
+const DUCKED_VOL = 0.3; // half of NORMAL_VOL (0.6)
 const BGM_CROSSFADE_MS = 3000;
 const BGM_CROSSFADE_BUFFER_S = 0.15;
 let bgMusicTargetVolume = STARTING_VOL;
@@ -258,11 +258,30 @@ export function stopTicking() {
 }
 
 export function playRules(quizType, delayMs = 1000) {
-  if (quizType === "club-by-nat") {
-    playVoice(paths.guessNat, delayMs);
-  } else {
-    playVoice(paths.guessClub, delayMs);
+  const playFallback = () => {
+    if (quizType === "club-by-nat") {
+      playVoice(paths.guessNat, delayMs);
+    } else {
+      playVoice(paths.guessClub, delayMs);
+    }
+  };
+  const resolver = window.__resolveQuizTitleVoiceSrc;
+  if (typeof resolver !== "function") {
+    playFallback();
+    return;
   }
+  Promise.resolve(resolver(quizType))
+    .then((src) => {
+      const clipSrc = String(src || "").trim();
+      if (clipSrc) {
+        playVoice(clipSrc, delayMs);
+      } else {
+        playFallback();
+      }
+    })
+    .catch(() => {
+      playFallback();
+    });
 }
 
 export const TEAM_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];

@@ -98,6 +98,76 @@ export function initSavedScripts(callbacks) {
     uiCallbacks = callbacks || {};
     const { els } = appState;
 
+    let pendingSaveDiscardAction = null;
+
+    function hideSaveDiscardModal() {
+        pendingSaveDiscardAction = null;
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = true;
+    }
+
+    function hideSaveScriptModal() {
+        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
+        if (els.saveScriptName) els.saveScriptName.value = "";
+    }
+
+    function requestCloseSaveScriptModal() {
+        const raw = els.saveScriptName?.value?.trim() || "";
+        if (!raw) {
+            hideSaveScriptModal();
+            return;
+        }
+        pendingSaveDiscardAction = () => hideSaveScriptModal();
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = false;
+    }
+
+    function requestCloseSaveRightPanel(nameInput) {
+        if (!els.rightPanel) return;
+        const raw = nameInput?.value?.trim() || "";
+        if (!raw) {
+            els.rightPanel.hidden = true;
+            return;
+        }
+        pendingSaveDiscardAction = () => {
+            els.rightPanel.hidden = true;
+        };
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = false;
+    }
+
+    if (els.saveDiscardNo) {
+        els.saveDiscardNo.onclick = () => hideSaveDiscardModal();
+    }
+    if (els.saveDiscardYes) {
+        els.saveDiscardYes.onclick = () => {
+            if (pendingSaveDiscardAction) pendingSaveDiscardAction();
+            hideSaveDiscardModal();
+        };
+    }
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+            if (e.key !== "Escape") return;
+            if (els.saveDiscardModal && !els.saveDiscardModal.hidden) {
+                e.preventDefault();
+                hideSaveDiscardModal();
+                return;
+            }
+            if (els.saveScriptModal && !els.saveScriptModal.hidden) {
+                e.preventDefault();
+                requestCloseSaveScriptModal();
+                return;
+            }
+            if (els.rightPanel && !els.rightPanel.hidden) {
+                const nameInput = document.getElementById("save-settings-panel-name");
+                if (nameInput) {
+                    e.preventDefault();
+                    requestCloseSaveRightPanel(nameInput);
+                }
+            }
+        },
+        true,
+    );
+
     els.btnCreateFolder.onclick = () => {
         els.createFolderName.value = "";
         els.createFolderModal.hidden = false;
@@ -224,10 +294,10 @@ export function initSavedScripts(callbacks) {
 
         const nameInput = document.getElementById("save-settings-panel-name");
         document.getElementById("btn-close-save-right-panel").onclick = () => {
-            els.rightPanel.hidden = true;
+            requestCloseSaveRightPanel(nameInput);
         };
         document.getElementById("save-settings-panel-cancel").onclick = () => {
-            els.rightPanel.hidden = true;
+            requestCloseSaveRightPanel(nameInput);
         };
         document.getElementById("save-settings-panel-confirm").onclick = () => {
             const name = nameInput.value.trim();
@@ -242,15 +312,16 @@ export function initSavedScripts(callbacks) {
         openSaveSettingsRightPanel();
     };
 
-    els.saveScriptCancel.onclick = () => {
-        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
-    };
+    els.saveScriptCancel.onclick = () => requestCloseSaveScriptModal();
+    if (els.saveScriptModalClose) {
+        els.saveScriptModalClose.onclick = () => requestCloseSaveScriptModal();
+    }
 
     els.saveScriptConfirm.onclick = () => {
         const name = els.saveScriptName.value.trim();
         if (!name) return;
         commitSavedScript(name);
-        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
+        hideSaveScriptModal();
     };
 
     els.deleteScriptNo.onclick = () => {

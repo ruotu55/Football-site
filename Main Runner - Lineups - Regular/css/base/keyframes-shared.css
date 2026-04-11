@@ -8,3 +8,15 @@
   0%, 100% { transform: perspective(500px) rotateX(5deg) translate3d(0, 0, 0); }
   50% { transform: perspective(500px) rotateX(5deg) translate3d(0, -12px, 0); }
 }
+
+/* Bob in screen-vertical direction, then tilt (rotate last) so float matches .float-up-down feel. */
+@keyframes float-up-down-special-badge {
+  0%, 100% { transform: translateY(-50%) translate3d(0, 0, 0) rotate(-6deg); }
+  50% { transform: translateY(-50%) translate3d(0, -12px, 0) rotate(-6deg); }
+}
+
+/* Shorts layout: centered badge, no rotation */
+@keyframes float-up-down-special-badge-shorts {
+  0%, 100% { transform: translate(-50%, -50%) translate3d(0, 0, 0); }
+  50% { transform: translate(-50%, -50%) translate3d(0, -12px, 0); }
+}

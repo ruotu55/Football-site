@@ -31,6 +31,71 @@ import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 
 const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
 
+const CAREER_REVEAL_NAME_FIT_ABS_MIN_PX = 11;
+let careerRevealNameFitResizeHooked = false;
+
+function getShortsNineSixteenColumnWidthPx() {
+  const stage = document.getElementById("stage-main") || document.querySelector(".stage-main");
+  const sw = stage?.clientWidth || 0;
+  if (sw > 8) return sw;
+  return Math.min(window.innerWidth, (9 / 16) * window.innerHeight);
+}
+
+function getCareerRevealNameFitBudgetPx(revealNameEl) {
+  const isShorts = document.body.classList.contains("shorts-mode");
+  const cw = Math.max(0, revealNameEl.clientWidth);
+  const rw = Math.max(0, revealNameEl.getBoundingClientRect().width);
+  if (isShorts) {
+    const columnPx = getShortsNineSixteenColumnWidthPx();
+    const fromColumn = Math.max(0, columnPx - 14);
+    const fromEl = Math.max(cw, rw) > 8 ? Math.min(Math.max(cw, rw) - 6, fromColumn) : fromColumn;
+    return Math.max(24, Math.min(fromEl, fromColumn));
+  }
+  const fromCss = Math.min(window.innerWidth * 0.9, 1000);
+  return Math.max(cw, rw, fromCss) - 8;
+}
+
+function hookCareerRevealNameFitOnResize() {
+  if (careerRevealNameFitResizeHooked) return;
+  careerRevealNameFitResizeHooked = true;
+  let tid = 0;
+  window.addEventListener("resize", () => {
+    window.clearTimeout(tid);
+    tid = window.setTimeout(() => {
+      if (!document.body.classList.contains("shorts-mode")) return;
+      const el = document.getElementById("career-reveal-name");
+      if (el) fitCareerRevealNameLines(el);
+    }, 120);
+  });
+}
+
+/** Shrink only lines that overflow the reveal name box (white top / red bottom independent). */
+function fitCareerRevealNameLines(revealNameEl) {
+  if (!revealNameEl) return;
+  const maxW = getCareerRevealNameFitBudgetPx(revealNameEl);
+  if (maxW <= 8) return;
+  const fitLine = (el) => {
+    if (!el || !String(el.textContent || "").trim()) return;
+    el.style.removeProperty("font-size");
+    void el.offsetWidth;
+    const computed = getComputedStyle(el);
+    const maxPx = parseFloat(computed.fontSize);
+    if (!Number.isFinite(maxPx) || maxPx <= CAREER_REVEAL_NAME_FIT_ABS_MIN_PX) return;
+    if (el.scrollWidth <= maxW) return;
+    let lo = CAREER_REVEAL_NAME_FIT_ABS_MIN_PX;
+    let hi = maxPx;
+    for (let i = 0; i < 52 && hi - lo > 0.35; i += 1) {
+      const mid = (lo + hi) / 2;
+      el.style.fontSize = `${mid}px`;
+      if (el.scrollWidth <= maxW) lo = mid;
+      else hi = mid;
+    }
+    el.style.fontSize = `${lo}px`;
+  };
+  fitLine(revealNameEl.querySelector(".career-reveal-name-top"));
+  fitLine(revealNameEl.querySelector(".career-reveal-name-bottom"));
+}
+
 export const CAREER_BADGE_SCALE_MIN = 0.5;
 export const CAREER_BADGE_SCALE_MAX = 2.25;
 export const CAREER_BADGE_SCALE_STEP = 0.08;
@@ -1587,7 +1652,7 @@ export function renderCareer() {
                   <div class="career-club-emblem-scale">
                     <div class="career-club-emblem-slot">${imgOrText}</div>
                     <div class="career-club-year-stack">
-                      <div class="career-club-year">${year}</div>
+                      <div class="career-club-year"${hasHistorySlot ? ` data-career-slot-index="${index}" title="Double-click to edit year"` : ""}>${escapeHtml(year)}</div>
                     </div>
                   </div>
               </div>
@@ -1977,6 +2042,64 @@ export function renderCareer() {
       insertCareerSlotAfter(parseInt(btn.dataset.insertAfter, 10));
     };
   });
+  wrap.querySelectorAll(".career-club-year[data-career-slot-index]").forEach((yearEl) => {
+    yearEl.addEventListener("dblclick", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (yearEl.tagName !== "DIV") return;
+      const slotIndex = Number.parseInt(String(yearEl.getAttribute("data-career-slot-index") || ""), 10);
+      if (!Number.isInteger(slotIndex) || slotIndex < 0) return;
+      const st = getState();
+      const row = Array.isArray(st.careerHistory) ? st.careerHistory[slotIndex] : null;
+      if (!row || typeof row !== "object") return;
+
+      const stack = yearEl.parentElement;
+      if (!stack || !stack.classList.contains("career-club-year-stack")) return;
+
+      const displayVal = String(row.year || "").trim();
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = `${yearEl.className} career-club-year-input`.trim();
+      input.value = displayVal === "YYYY" ? "" : displayVal;
+      input.maxLength = 32;
+      input.setAttribute("aria-label", "Team year");
+      input.style.minWidth = `${Math.max(yearEl.offsetWidth || 0, 40)}px`;
+
+      let done = false;
+      const finishCommit = () => {
+        if (done) return;
+        done = true;
+        const v = input.value.trim();
+        row.year = v || "YYYY";
+        renderCareer();
+        renderHeader();
+      };
+      const finishCancel = () => {
+        if (done) return;
+        done = true;
+        renderCareer();
+      };
+
+      stack.replaceChild(input, yearEl);
+      input.focus();
+      input.select();
+
+      input.addEventListener("blur", () => {
+        if (!done) finishCommit();
+      });
+      input.addEventListener("keydown", (ke) => {
+        if (ke.key === "Enter") {
+          ke.preventDefault();
+          input.blur();
+        } else if (ke.key === "Escape") {
+          ke.preventDefault();
+          done = true;
+          finishCancel();
+        }
+      });
+    });
+  });
+
   wrap.querySelectorAll(".career-logo-fetch-btn").forEach((btn) => {
     btn.onclick = async (e) => {
       e.preventDefault();
@@ -2066,6 +2189,16 @@ export function renderCareer() {
   }
   if (revealName) {
     revealName.classList.toggle("show", previewPostTimer);
+    if (isShorts) {
+      hookCareerRevealNameFitOnResize();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => fitCareerRevealNameLines(revealName));
+      });
+    } else {
+      revealName.querySelectorAll(".career-reveal-name-top, .career-reveal-name-bottom").forEach((el) => {
+        el.style.removeProperty("font-size");
+      });
+    }
   }
   if (!document.body.classList.contains("shorts-mode")) {
     wrap.classList.toggle("cinematic-reveal-active", previewPostTimer);

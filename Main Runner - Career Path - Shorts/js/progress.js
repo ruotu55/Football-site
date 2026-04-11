@@ -40,7 +40,7 @@ export function renderProgressSteps(totalLevels, switchLevel) {
     const isLanding = (i === 1);
     const isOutro = (i === totalLevels);
     const isBonus = (i === totalLevels - 1);
-    if (isShortsLayout && isLogo) {
+    if (isShortsLayout && isLanding) {
       continue;
     }
     if (appState.isVideoPlaying && (isLogo || isLanding || isOutro)) {

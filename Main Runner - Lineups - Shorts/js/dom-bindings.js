@@ -55,6 +55,10 @@ export function bindDomElements() {
     els.saveScriptName = document.getElementById("save-script-name");
     els.saveScriptCancel = document.getElementById("save-script-cancel");
     els.saveScriptConfirm = document.getElementById("save-script-confirm");
+    els.saveScriptModalClose = document.getElementById("save-script-modal-close");
+    els.saveDiscardModal = document.getElementById("save-discard-modal");
+    els.saveDiscardNo = document.getElementById("save-discard-no");
+    els.saveDiscardYes = document.getElementById("save-discard-yes");
     els.createFolderModal = document.getElementById("create-folder-modal");
     els.createFolderName = document.getElementById("create-folder-name");
     els.createFolderCancel = document.getElementById("create-folder-cancel");

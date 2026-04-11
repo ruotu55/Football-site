@@ -238,10 +238,11 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 3;
+    let count = isShorts ? 5 : 5;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");
+    const showNumericCountdown = isShorts;
     const circleEl = document.querySelector(".timer-progress");
     const dashLength = 283; 
     function updateTimerColors(c) {
@@ -262,7 +263,7 @@ function runVideoStep() {
       document.body.classList.add("shorts-question-countdown");
     }
     els.countdownTimer.hidden = false;
-    textEl.textContent = String(count);
+    textEl.textContent = showNumericCountdown ? String(count) : "";
     if (circleEl) {
       circleEl.style.transition = "none"; 
       circleEl.style.strokeDashoffset = 0; 
@@ -273,18 +274,16 @@ function runVideoStep() {
         circleEl.style.strokeDashoffset = dashLength * ratio;
       }, 50);
     }
-    const delayToTick = (count - (isShorts ? 4.0 : 4.5)) * 1000;
+    const delayToTick = (count - (isShorts ? 4.0 : 3.0)) * 1000;
     setTimeout(() => { if (appState.isVideoPlaying) playTicking(); }, delayToTick);
-    if (isShorts) {
-      const stopTickDelay = (totalTime * 1000) - 200;
-      setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
-    }
+    const stopTickDelay = totalTime * 1000;
+    setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
     appState.videoInterval = setInterval(() => {
       count--;
       if (count > 0) {
         updateTimerColors(count); 
         els.countdownTimer.hidden = false;
-        textEl.textContent = String(count);
+        textEl.textContent = showNumericCountdown ? String(count) : "";
         if (circleEl) {
           const nextCount = count - 1; 
           const ratio = (drainTotalTime - nextCount) / drainTotalTime;
@@ -299,36 +298,40 @@ function runVideoStep() {
         }
       } else {
         clearInterval(appState.videoInterval);
-        clearShortsQuestionCountdown();
+        stopTicking();
         els.countdownTimer.hidden = true;
         els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
-        revealCurrentLevel();
+        const skipRevealToOutro =
+          isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+        if (skipRevealToOutro) {
+          setVideoRevealPostTimerActive(false);
+          switchLevel(appState.currentLevelIndex + 1);
+          runVideoStep();
+        } else {
+          clearShortsQuestionCountdown();
+          revealCurrentLevel();
+        }
       }
     }, 1000);
   }
 }
 
 function revealCurrentLevel() {
-  const { els } = appState;
   const state = getState();
   let flipDelay = 1000;
-  const isShorts = document.body.classList.contains("shorts-mode");
   if (appState.currentLevelIndex > 1) {
-    let isLastQuestion = (appState.currentLevelIndex + 1 === appState.totalLevelsCount);
-    if (isLastQuestion) {
-      flipDelay = 0;
-    } else {
-      let shouldPlayVoice = true;
-      if (!isShorts) {
-        const questionIndex = appState.currentLevelIndex - 2; 
-        if (questionIndex % 3 !== 0) {
-          shouldPlayVoice = false;
-        }
-      }
-      playTheAnswerIs(shouldPlayVoice);
+    const isLastQuestionBeforeOutro =
+      appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+    if (!isLastQuestionBeforeOutro) {
+      const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+      // In Play Video mode, always announce the revealed player when a name clip exists.
+      playTheAnswerIs(true, playerDisplayName);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 4000;
+    } else {
+      /* Bonus: no answer reveal — go straight to outro after the question timer. */
+      flipDelay = 0;
     }
   }
   appState.videoTimeout = setTimeout(() => {

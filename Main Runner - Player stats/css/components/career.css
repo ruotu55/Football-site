@@ -17,7 +17,8 @@
   position: fixed;
   left: 15.2rem;
   top: 0.15rem;
-  z-index: 220;
+  /* Above stats / pitch / reveals; below #control-panel (100000) and its open custom-select layers */
+  z-index: 99995;
   width: 13.5rem;
   display: flex;
   flex-direction: column;
@@ -105,7 +106,7 @@
   top: max(0.35rem, env(safe-area-inset-top, 0px));
   transform: translateX(-50%) scale(0.82);
   transform-origin: top center;
-  z-index: 640;
+  z-index: 99995;
 }
 
 .career-wrap[hidden] {
@@ -132,7 +133,8 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   pointer-events: none;
   /* Road + player image share this layer; moved another 5% higher */
   transform: rotateX(15deg) translateY(-20%);
-  z-index: 5;
+  /* Above .player-stats-national-flag (z-index 4) so silhouette + SVG backdrop composite on top of the 3D flag */
+  z-index: 12;
   isolation: isolate;
 }
 
@@ -151,10 +153,11 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   will-change: filter, transform;
 }
 
-/* Video mode: black silhouette at 50% so it reads like a shadow (Play Video clears .video-mode-enabled on the wrap). */
+/* Video mode: opaque black silhouette so the 3D flag (below .career-svg) never shows through the player (Play Video clears .video-mode-enabled on the wrap). */
 body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed),
 body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
-  opacity: 0.5;
+  opacity: 1;
+  filter: brightness(0) contrast(1.2);
 }
 
 .career-photo-missing-label {
@@ -166,8 +169,7 @@ body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.re
 .career-inline-player-picker {
   position: absolute;
   left: 50%;
-  /* Below tall Clubs / stats panel so the menu stays visible with many teams */
-  top: 64%;
+  top: 31%;
   transform: translate(-50%, -50%);
   z-index: 20;
   width: min(22rem, 90%);
@@ -243,13 +245,12 @@ body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.re
   font-size: 0.75rem;
 }
 
-/* Fixed + high z-index: #player-stats-panel is position:fixed;z-index:180 and otherwise covered this control (esp. no-photo). */
 .career-clear-player-btn {
-  position: fixed;
-  left: 0;
-  top: 0;
+  position: absolute;
+  left: 50%;
+  top: 31%;
   transform: translate(-50%, -50%);
-  z-index: 220;
+  z-index: 22;
   width: 2.1rem;
   height: 2.1rem;
   border-radius: 999px;
@@ -272,13 +273,18 @@ body.play-video-active .career-clear-player-btn {
   display: none !important;
 }
 
-/* Cinematic countdown-finish reveal: soften the background briefly. */
+/* Cinematic countdown-finish reveal: soften everything behind the full-screen player photo. */
 body.career-cinematic-reveal .career-wrap .career-slots,
-body.career-cinematic-reveal #player-stats-panel,
 body.career-cinematic-reveal .career-wrap .career-path-outer,
 body.career-cinematic-reveal .career-wrap .career-path-inner,
 body.career-cinematic-reveal .career-wrap .career-path-dash,
-body.career-cinematic-reveal .career-wrap .career-svg {
+body.career-cinematic-reveal .career-wrap .career-svg,
+body.career-cinematic-reveal #player-stats-panel,
+body.career-cinematic-reveal .career-wrap .player-stats-national-flag,
+body.career-cinematic-reveal .quiz-progress,
+body.career-cinematic-reveal .team-header,
+body.career-cinematic-reveal .side-text,
+body.career-cinematic-reveal #floating-background {
   filter: blur(8px);
   opacity: 0.22;
   transition: filter 0.45s ease, opacity 0.45s ease;
@@ -368,7 +374,8 @@ body:not(.shorts-mode) .career-reveal-overlay {
   transform: translateX(-50%) translateY(46%) scale(0.74);
   transform-origin: center bottom;
   filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
-  z-index: 260;
+  /* Above #player-stats-panel (180), quiz progress, header; mounted on .app so not clipped by #career-wrap perspective. */
+  z-index: 520;
   pointer-events: none;
   display: flex;
   align-items: flex-end;
@@ -395,7 +402,6 @@ body:not(.shorts-mode) .career-reveal-overlay::after {
   pointer-events: none;
 }
 
-/* Video mode OFF: match Career Path full-size reveal. */
 body:not(.shorts-mode) .career-reveal-overlay-img {
   width: 100%;
   height: 100%;
@@ -436,23 +442,8 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay {
   overflow: hidden;
 }
 
-/* Video mode ON: original Player stats (half-scale reveal). */
 body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay-img {
   clip-path: inset(0 0 0 0);
-  transform: translateY(var(--career-reveal-y, -10%))
-    scale(
-      calc(var(--career-reveal-scale-x, 1.08) * 0.5),
-      calc(var(--career-reveal-scale-y, 1.08) * 0.5)
-    );
-}
-
-/* Play Video clears .video-mode-enabled on the wrap; keep smaller reveal during playback. */
-body:not(.shorts-mode).play-video-active .career-wrap .career-reveal-overlay-img {
-  transform: translateY(var(--career-reveal-y, -10%))
-    scale(
-      calc(var(--career-reveal-scale-x, 1.08) * 0.5),
-      calc(var(--career-reveal-scale-y, 1.08) * 0.5)
-    );
 }
 
 body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay.show {
@@ -517,7 +508,7 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
 }
 
 body:not(.shorts-mode) .career-reveal-name {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 2.4vh;
   transform: translateX(-50%);
@@ -525,7 +516,7 @@ body:not(.shorts-mode) .career-reveal-name {
   text-align: center;
   pointer-events: none;
   opacity: 0;
-  z-index: 320;
+  z-index: 530;
 }
 
 body:not(.shorts-mode) .career-reveal-name-top {
@@ -536,6 +527,7 @@ body:not(.shorts-mode) .career-reveal-name-top {
   letter-spacing: 0.1em;
   color: #ffffff;
   text-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
 }
 
 body:not(.shorts-mode) .career-reveal-name-bottom {
@@ -546,6 +538,7 @@ body:not(.shorts-mode) .career-reveal-name-bottom {
   letter-spacing: 0.03em;
   color: #ef4444;
   text-shadow: 0 8px 26px rgba(0, 0, 0, 0.9), 0 0 16px rgba(239, 68, 68, 0.36);
+  white-space: nowrap;
 }
 
 body:not(.shorts-mode) .career-reveal-name.show {
@@ -1123,39 +1116,43 @@ body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card {
   min-width: 0;
 }
 
-/* Waving nationality art: directly under Position, same column as Career games (regular mode). */
-body:not(.shorts-mode) .player-stats-waving-flag {
-  flex: 0 0 auto;
+/* Regular nationality flag: fixed, ~15vw left of center; ~10% viewport above vertical center (regular mode). */
+body:not(.shorts-mode) .player-stats-national-flag {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(calc(-50% - 15vw), -50%);
+  /* Below .career-svg (z-index 12) so silhouette + SVG backdrop sit on top; .career-reveal-overlay (260) stays above when shown */
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  min-width: 0;
-  margin-top: -8.25rem;
-  overflow: visible;
+  width: min(134.4vw, 52.8rem);
+  max-width: calc(100vw - 2rem);
+  pointer-events: none;
+  box-sizing: border-box;
   background: transparent;
-  position: relative;
-  z-index: 2;
+  border: none;
+  box-shadow: none;
 }
 
-/*
- * Asset may ship with opaque black; screen compositing knocks pure black to the backdrop.
- * Viewport-sized bitmap + scale() so it can read larger than the stats column / 100vw box.
- */
-body:not(.shorts-mode) .player-stats-waving-flag__img {
+/* Three.js flag: canvas only — no card frame (no shadow / radius / clip). */
+body:not(.shorts-mode) .player-stats-national-flag__canvas-host {
   display: block;
-  width: auto;
-  height: auto;
-  max-width: min(100vw, 234rem);
-  max-height: min(100vh, 144rem);
-  object-fit: contain;
-  pointer-events: none;
-  user-select: none;
+  max-height: min(89.6vh, 35.2rem);
+  margin: 0 auto;
   background: transparent;
-  mix-blend-mode: screen;
-  /* Was 2.15; −30% → ×0.7 ≈ 1.5 */
-  transform: translateY(-5.25rem) scale(1.505);
-  transform-origin: center top;
+  user-select: none;
+  line-height: 0;
+}
+
+body:not(.shorts-mode) .player-stats-national-flag__canvas-host canvas {
+  display: block;
+  vertical-align: top;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
 }
 
 /* Fixed height for every card except expanded Clubs. */
@@ -1456,11 +1453,7 @@ body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-emblem-scale
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs .player-stat-club-item {
-  padding-bottom: 1.5rem; /* room for − / + after crest translateY(5%) + larger logos */
-}
-
-body:not(.shorts-mode).career-hide-slot-controls .player-stat-card__value--clubs .player-stat-club-item {
-  padding-bottom: 0;
+  padding-bottom: 1.5rem; /* room for − / + after crest translateY(5%) + larger logos; same when controls hidden */
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder {

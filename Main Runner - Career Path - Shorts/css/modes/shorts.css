@@ -141,9 +141,10 @@ body.shorts-mode .difficulty-box {
 
 body.shorts-mode .landing-special-badge-container {
     left: 50%;
-    top: 20%;
+    top: 17%;
     margin: 0;
     transform: translate(-50%, -50%) scale(1);
+    animation: float-up-down-special-badge-shorts 3.2s ease-in-out infinite;
 }
 
 body.shorts-mode .team-header {
@@ -1312,14 +1313,18 @@ body.shorts-mode .career-reveal-photo-fallback {
     display: none !important;
 }
 
-/* Shorts: keep the name at the top of the screen above the player image. */
+/* Shorts: keep the name at the top of the screen above the player image.
+   Width is % of .career-wrap (inside .stage-main = 9:16 column), not vw — vw spans black pillarbox and broke text fitting. */
 body.shorts-mode .career-reveal-name {
     position: absolute;
     left: 50%;
     top: max(0.75rem, env(safe-area-inset-top, 0px));
     bottom: auto;
     transform: translateX(-50%);
-    width: min(90vw, 1000px);
+    width: min(92%, 100%);
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 clamp(0.2rem, 1.2vmin, 0.55rem);
     text-align: center;
     pointer-events: none;
     opacity: 0;
@@ -1330,21 +1335,25 @@ body.shorts-mode .career-reveal-name {
 body.shorts-mode .career-reveal-name-top {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 800;
-    font-size: clamp(1.35rem, 3.8vw, 3rem);
+    /* ~5% smaller than legacy; fitCareerRevealNameLines still shrinks to same width budget. */
+    font-size: clamp(1.28rem, 3.61vw, 2.85rem);
     line-height: 0.9;
     letter-spacing: 0.1em;
     color: #ffffff;
     text-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+    white-space: nowrap;
 }
 
 body.shorts-mode .career-reveal-name-bottom {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 900;
-    font-size: clamp(2.9rem, 9vw, 8.4rem);
+    /* White line × ~0.95; red line × another ~0.95 vs previous red (≈10% smaller than old red). */
+    font-size: clamp(2.62rem, 8.12vw, 7.58rem);
     line-height: 0.88;
     letter-spacing: 0.03em;
     color: #ef4444;
     text-shadow: 0 8px 26px rgba(0, 0, 0, 0.9), 0 0 16px rgba(239, 68, 68, 0.36);
+    white-space: nowrap;
 }
 
 body.shorts-mode .career-reveal-name.show {
@@ -1420,11 +1429,11 @@ body.shorts-mode .career-reveal-name.show {
     }
 }
 
-/* Shorts Video Mode OFF: keep the same style, just scale the name block down. */
+/* Shorts Video Mode OFF: slightly smaller than full reveal, still uses most of the shorts width. */
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-name-top {
-    font-size: clamp(0.95rem, 2.6vw, 1.9rem);
+    font-size: clamp(1rem, 2.95vw, 2.09rem);
 }
 
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-name-bottom {
-    font-size: clamp(1.9rem, 6vw, 5.2rem);
+    font-size: clamp(1.9rem, 6.77vw, 5.6rem);
 }

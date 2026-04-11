@@ -36,6 +36,30 @@ body.performance-mode .landing-page.landing-content-slide-in .difficulty-box {
   filter: none !important;
 }
 
-body.performance-mode .landing-page.landing-content-slide-in .landing-special-badge-container:not([hidden]) {
+body.performance-mode .landing-page.landing-content-slide-in .landing-special-badge-container:not([hidden]) .landing-special-badge::after {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+body.performance-mode .landing-page.landing-content-slide-in .landing-special-badge-container:not([hidden]) .landing-special-badge {
+  opacity: 1 !important;
+  transform: rotate(-6deg) !important;
+  filter: none !important;
+  animation: none !important;
+}
+
+body.performance-mode.shorts-mode.play-video-active .landing-page:not([hidden]) .landing-special-badge-container:not([hidden]) .landing-special-badge::after {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+body.performance-mode.shorts-mode.play-video-active .landing-page:not([hidden]) .landing-special-badge-container:not([hidden]) .landing-special-badge {
+  opacity: 1 !important;
+  transform: rotate(-6deg) !important;
+  filter: none !important;
+  animation: none !important;
+}
+
+body.performance-mode .landing-special-badge-container:not([hidden]) {
   animation: none !important;
 }

@@ -108,6 +108,8 @@ const QUIZ_TITLE_VOICE_GENERATE_ENDPOINT = "__quiz-title-voice/generate";
 const QUIZ_TITLE_VOICE_DELETE_ENDPOINT = "__quiz-title-voice/delete";
 const QUIZ_TITLE_FIXED_VOICE = "en-US-AndrewNeural";
 const quizTypeVoiceStatusByType = {};
+let quizTypePreviewAudioEl = null;
+let quizTypePreviewAudioSrc = "";
 
 function getQuizTypeBaseLabel(optionEl) {
     const savedBase = optionEl?.dataset?.baseLabel;
@@ -124,15 +126,52 @@ function setQuizTypeOptionLabel(optionEl, hasVoice) {
     optionEl.textContent = baseLabel;
 }
 
-function playQuizTypeVoicePreview(quizType) {
-    const relPath = QUIZ_TYPE_VOICE_FILES[quizType];
-    if (!relPath) return;
-    const audio = new Audio(projectAssetUrl(relPath));
+function normalizeVoiceSrc(src) {
+    try {
+        return new URL(String(src || ""), window.location.href).href;
+    } catch {
+        return String(src || "").trim();
+    }
+}
+
+function stopQuizTypeVoicePreview() {
+    if (!quizTypePreviewAudioEl) return;
+    quizTypePreviewAudioEl.pause();
+    quizTypePreviewAudioEl.currentTime = 0;
+    quizTypePreviewAudioEl = null;
+    quizTypePreviewAudioSrc = "";
+}
+
+function playQuizTypeVoicePreview(src) {
+    const clipSrc = String(src || "").trim();
+    if (!clipSrc) return;
+    stopQuizTypeVoicePreview();
+    const audio = new Audio(clipSrc);
+    quizTypePreviewAudioEl = audio;
+    quizTypePreviewAudioSrc = clipSrc;
+    audio.addEventListener(
+        "ended",
+        () => {
+            if (quizTypePreviewAudioEl === audio) {
+                quizTypePreviewAudioEl = null;
+                quizTypePreviewAudioSrc = "";
+            }
+        },
+        { once: true },
+    );
     audio.play().catch(() => {});
 }
 
 function endpointUrl(relPath) {
     return projectAssetUrl(relPath);
+}
+
+function getSpecificTitleForQuizType(quizType) {
+    const { els } = appState;
+    const selectedType = String(els?.inQuizType?.value || "");
+    if (selectedType !== String(quizType || "")) return "";
+    if (!els?.inSpecificTitleToggle?.checked) return "";
+    return String(els?.inSpecificTitleText?.value || "").trim();
 }
 
 function setQuizTypeVoiceBusy(quizType, isBusy) {
@@ -147,32 +186,43 @@ function setQuizTypeVoiceBusy(quizType, isBusy) {
     });
 }
 
-async function fetchQuizTypeVoiceStatus(quizType) {
-    const params = new URLSearchParams({ quizType: String(quizType || "") });
+async function fetchQuizTypeVoiceStatus(quizType, specificTitle = "") {
+    const params = new URLSearchParams({
+        quizType: String(quizType || ""),
+        specificTitle: String(specificTitle || ""),
+    });
     const res = await fetch(`${endpointUrl(QUIZ_TITLE_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
     if (!res.ok || !body?.ok) throw new Error(body?.error || `Status failed (${res.status})`);
-    quizTypeVoiceStatusByType[quizType] = !!body.exists;
-    return !!body.exists;
+    const exists = !!body.exists;
+    quizTypeVoiceStatusByType[quizType] = exists;
+    return { exists, src: String(body?.src || "") };
 }
 
 async function ensureQuizTypeVoiceThenPlay(quizType) {
     setQuizTypeVoiceBusy(quizType, true);
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
     try {
-        const exists = await fetchQuizTypeVoiceStatus(quizType);
-        if (!exists) {
+        const status = await fetchQuizTypeVoiceStatus(quizType, specificTitleText);
+        let previewSrc = status.src;
+        if (!status.exists) {
             const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_GENERATE_ENDPOINT), {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ quizType, voice: QUIZ_TITLE_FIXED_VOICE }),
+                body: JSON.stringify({
+                    quizType,
+                    voice: QUIZ_TITLE_FIXED_VOICE,
+                    specificTitle: specificTitleText,
+                }),
             });
             const body = await res.json().catch(() => ({}));
             if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
             quizTypeVoiceStatusByType[quizType] = true;
+            previewSrc = String(body?.src || "");
         }
         renderQuizTypeVoiceStatusPanel();
         renderLandingTitleVoiceControls();
-        playQuizTypeVoicePreview(quizType);
+        playQuizTypeVoicePreview(previewSrc);
     } catch (err) {
         alert(`Could not generate quiz title voice.\n${err instanceof Error ? err.message : String(err)}`);
     } finally {
@@ -180,14 +230,39 @@ async function ensureQuizTypeVoiceThenPlay(quizType) {
     }
 }
 
+async function resolveQuizTitleVoiceSrcForPlayback(quizType) {
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
+    const status = await fetchQuizTypeVoiceStatus(quizType, specificTitleText).catch(() => ({ exists: false, src: "" }));
+    if (status.exists && status.src) {
+        return String(status.src || "");
+    }
+    const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_GENERATE_ENDPOINT), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            quizType,
+            voice: QUIZ_TITLE_FIXED_VOICE,
+            specificTitle: specificTitleText,
+        }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+    quizTypeVoiceStatusByType[quizType] = true;
+    return String(body?.src || "");
+}
+
+window.__resolveQuizTitleVoiceSrc = resolveQuizTitleVoiceSrcForPlayback;
+
 async function deleteQuizTypeVoice(quizType) {
     if (!quizTypeVoiceStatusByType[quizType]) return;
     setQuizTypeVoiceBusy(quizType, true);
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
     try {
+        stopQuizTypeVoicePreview();
         const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_DELETE_ENDPOINT), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ quizType }),
+            body: JSON.stringify({ quizType, specificTitle: specificTitleText }),
         });
         const body = await res.json().catch(() => ({}));
         if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
@@ -331,7 +406,8 @@ async function refreshQuizTypeVoiceLabels() {
         options.map(async (opt) => {
             let hasVoice = false;
             try {
-                hasVoice = await fetchQuizTypeVoiceStatus(opt.value);
+                const status = await fetchQuizTypeVoiceStatus(opt.value, getSpecificTitleForQuizType(opt.value));
+                hasVoice = !!status.exists;
             } catch {
                 hasVoice = false;
             }

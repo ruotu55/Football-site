@@ -13,16 +13,12 @@ import {
 let pendingLogoToLandingContentReveal = false;
 
 export function switchLevel(index) {
-  let idx = index;
-  if (document.body.classList.contains("shorts-mode") && idx === 0) {
-    idx = 1;
-  }
   const prevIndex = appState.currentLevelIndex;
-  appState.currentLevelIndex = idx;
+  appState.currentLevelIndex = index;
   setBgMusicForLevel(appState.currentLevelIndex);
   const state = getState();
   const { els } = appState;
-  const isQuestionLevel = idx > 1 && idx < appState.totalLevelsCount;
+  const isQuestionLevel = index > 1 && index < appState.totalLevelsCount;
   if (isQuestionLevel && !state.careerPlayer) {
     const baselineQuestionState = appState.levelsData[2];
     if (baselineQuestionState && baselineQuestionState !== state) {
@@ -176,14 +172,15 @@ export function switchLevel(index) {
         }
       }
     } else if (isLanding) {
-      els.logoPage.hidden = isShorts;
-      els.landingPage.hidden = false;
+      if (isShorts) {
+        els.logoPage.hidden = false;
+        els.landingPage.hidden = true;
+      } else {
+        els.logoPage.hidden = true;
+        els.landingPage.hidden = false;
+      }
       if (isShorts && appState.isVideoPlaying) {
-        import("./video.js").then((mod) => {
-          if (typeof mod.scheduleShortsLandingSpecialBadgeAfterPlayVideo === "function") {
-            mod.scheduleShortsLandingSpecialBadgeAfterPlayVideo();
-          }
-        });
+        appState.refreshLandingUi?.();
       }
       if (pendingLogoToLandingContentReveal) {
         els.landingPage.classList.add("landing-content-awaiting-shift");
@@ -329,6 +326,42 @@ export function switchLevel(index) {
           });
         });
       }, 820);
+      return;
+    }
+
+    const isShortsFromLogoToFirstQuestion =
+      isShorts &&
+      prevIndex === 0 &&
+      index >= 2 &&
+      index < appState.totalLevelsCount &&
+      appState.isVideoPlaying;
+    if (isShortsFromLogoToFirstQuestion) {
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim"
+      );
+      updateDOMContent();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          void stageMain.offsetWidth;
+          stageMain.classList.add("stage-enter-video-anim");
+          if (progressContainer) {
+            progressContainer.classList.remove(
+              "progress-out-reg",
+              "progress-out-shorts",
+              "progress-in-reg",
+              "progress-in-shorts"
+            );
+            void progressContainer.offsetWidth;
+            progressContainer.classList.add("progress-in-shorts");
+          }
+          setTimeout(() => {
+            stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+          }, 820);
+        });
+      });
       return;
     }
 

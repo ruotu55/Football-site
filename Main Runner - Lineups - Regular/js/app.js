@@ -22,7 +22,11 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
-import { initThumbnailMaker, syncThumbnailMakerUiForQuizType } from "./thumbnail-maker.js";
+import {
+    initThumbnailMaker,
+    syncThumbnailMakerSpecificTitle,
+    syncThumbnailMakerUiForQuizType,
+} from "./thumbnail-maker.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
@@ -246,6 +250,8 @@ const QUIZ_TITLE_VOICE_GENERATE_ENDPOINT = "__quiz-title-voice/generate";
 const QUIZ_TITLE_VOICE_DELETE_ENDPOINT = "__quiz-title-voice/delete";
 const QUIZ_TITLE_FIXED_VOICE = "en-US-AndrewNeural";
 const quizTypeVoiceStatusByType = {};
+let quizTypePreviewAudioEl = null;
+let quizTypePreviewAudioSrc = "";
 
 function getQuizTypeBaseLabel(optionEl) {
     const savedBase = optionEl?.dataset?.baseLabel;
@@ -262,15 +268,52 @@ function setQuizTypeOptionLabel(optionEl, hasVoice) {
     optionEl.textContent = baseLabel;
 }
 
-function playQuizTypeVoicePreview(quizType) {
-    const relPath = QUIZ_TYPE_VOICE_FILES[quizType];
-    if (!relPath) return;
-    const audio = new Audio(projectAssetUrl(relPath));
+function normalizeVoiceSrc(src) {
+    try {
+        return new URL(String(src || ""), window.location.href).href;
+    } catch {
+        return String(src || "").trim();
+    }
+}
+
+function stopQuizTypeVoicePreview() {
+    if (!quizTypePreviewAudioEl) return;
+    quizTypePreviewAudioEl.pause();
+    quizTypePreviewAudioEl.currentTime = 0;
+    quizTypePreviewAudioEl = null;
+    quizTypePreviewAudioSrc = "";
+}
+
+function playQuizTypeVoicePreview(src) {
+    const clipSrc = String(src || "").trim();
+    if (!clipSrc) return;
+    stopQuizTypeVoicePreview();
+    const audio = new Audio(clipSrc);
+    quizTypePreviewAudioEl = audio;
+    quizTypePreviewAudioSrc = clipSrc;
+    audio.addEventListener(
+        "ended",
+        () => {
+            if (quizTypePreviewAudioEl === audio) {
+                quizTypePreviewAudioEl = null;
+                quizTypePreviewAudioSrc = "";
+            }
+        },
+        { once: true },
+    );
     audio.play().catch(() => {});
 }
 
 function endpointUrl(relPath) {
     return projectAssetUrl(relPath);
+}
+
+function getSpecificTitleForQuizType(quizType) {
+    const { els } = appState;
+    const selectedType = String(els?.inQuizType?.value || "");
+    if (selectedType !== String(quizType || "")) return "";
+    if (!els?.inSpecificTitleToggle?.checked) return "";
+    return String(els?.inSpecificTitleText?.value || "").trim();
 }
 
 function setQuizTypeVoiceBusy(quizType, isBusy) {
@@ -285,31 +328,42 @@ function setQuizTypeVoiceBusy(quizType, isBusy) {
     });
 }
 
-async function fetchQuizTypeVoiceStatus(quizType) {
-    const params = new URLSearchParams({ quizType: String(quizType || "") });
+async function fetchQuizTypeVoiceStatus(quizType, specificTitle = "") {
+    const params = new URLSearchParams({
+        quizType: String(quizType || ""),
+        specificTitle: String(specificTitle || ""),
+    });
     const res = await fetch(`${endpointUrl(QUIZ_TITLE_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
     if (!res.ok || !body?.ok) throw new Error(body?.error || `Status failed (${res.status})`);
-    quizTypeVoiceStatusByType[quizType] = !!body.exists;
-    return !!body.exists;
+    const exists = !!body.exists;
+    quizTypeVoiceStatusByType[quizType] = exists;
+    return { exists, src: String(body?.src || "") };
 }
 
 async function ensureQuizTypeVoiceThenPlay(quizType) {
     setQuizTypeVoiceBusy(quizType, true);
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
     try {
-        const exists = await fetchQuizTypeVoiceStatus(quizType);
-        if (!exists) {
+        const status = await fetchQuizTypeVoiceStatus(quizType, specificTitleText);
+        let previewSrc = status.src;
+        if (!status.exists) {
             const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_GENERATE_ENDPOINT), {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ quizType, voice: QUIZ_TITLE_FIXED_VOICE }),
+                body: JSON.stringify({
+                    quizType,
+                    voice: QUIZ_TITLE_FIXED_VOICE,
+                    specificTitle: specificTitleText,
+                }),
             });
             const body = await res.json().catch(() => ({}));
             if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
             quizTypeVoiceStatusByType[quizType] = true;
+            previewSrc = String(body?.src || "");
         }
         renderQuizTypeVoiceStatusPanel();
-        playQuizTypeVoicePreview(quizType);
+        playQuizTypeVoicePreview(previewSrc);
     } catch (err) {
         alert(`Could not generate quiz title voice.\n${err instanceof Error ? err.message : String(err)}`);
     } finally {
@@ -317,14 +371,39 @@ async function ensureQuizTypeVoiceThenPlay(quizType) {
     }
 }
 
+async function resolveQuizTitleVoiceSrcForPlayback(quizType) {
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
+    const status = await fetchQuizTypeVoiceStatus(quizType, specificTitleText).catch(() => ({ exists: false, src: "" }));
+    if (status.exists && status.src) {
+        return String(status.src || "");
+    }
+    const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_GENERATE_ENDPOINT), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            quizType,
+            voice: QUIZ_TITLE_FIXED_VOICE,
+            specificTitle: specificTitleText,
+        }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+    quizTypeVoiceStatusByType[quizType] = true;
+    return String(body?.src || "");
+}
+
+window.__resolveQuizTitleVoiceSrc = resolveQuizTitleVoiceSrcForPlayback;
+
 async function deleteQuizTypeVoice(quizType) {
     if (!quizTypeVoiceStatusByType[quizType]) return;
     setQuizTypeVoiceBusy(quizType, true);
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
     try {
+        stopQuizTypeVoicePreview();
         const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_DELETE_ENDPOINT), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ quizType }),
+            body: JSON.stringify({ quizType, specificTitle: specificTitleText }),
         });
         const body = await res.json().catch(() => ({}));
         if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
@@ -467,7 +546,8 @@ async function refreshQuizTypeVoiceLabels() {
         options.map(async (opt) => {
             let hasVoice = false;
             try {
-                hasVoice = await fetchQuizTypeVoiceStatus(opt.value);
+                const status = await fetchQuizTypeVoiceStatus(opt.value, getSpecificTitleForQuizType(opt.value));
+                hasVoice = !!status.exists;
             } catch {
                 hasVoice = false;
             }
@@ -542,6 +622,52 @@ export function populateSubTypes() {
     void refreshQuizTypeVoiceLabels();
 }
 
+function computeLandingDifficultyDistribution(totalQuestions) {
+    const total = Math.max(0, Number(totalQuestions) || 0);
+    if (total === 0) {
+        return { easy: 0, medium: 0, hard: 0, impossible: 0 };
+    }
+
+    const targetEasy = total * 0.4;
+    const targetMedium = total * 0.3;
+    const targetHard = total * 0.2;
+    const targetImpossible = total * 0.1;
+
+    let bestStrict = null;
+    let bestRelaxed = null;
+
+    for (let impossible = 0; impossible <= total; impossible += 1) {
+        for (let hard = impossible; hard <= total - impossible; hard += 1) {
+            for (let medium = hard; medium <= total - impossible - hard; medium += 1) {
+                const easy = total - impossible - hard - medium;
+                if (easy < medium) continue;
+
+                const score =
+                    Math.abs(easy - targetEasy) +
+                    Math.abs(medium - targetMedium) +
+                    Math.abs(hard - targetHard) +
+                    Math.abs(impossible - targetImpossible);
+                const candidate = { easy, medium, hard, impossible, score };
+                const isStrict = easy > medium && medium > hard && hard > impossible;
+
+                if (isStrict) {
+                    if (!bestStrict || candidate.score < bestStrict.score) bestStrict = candidate;
+                } else if (!bestRelaxed || candidate.score < bestRelaxed.score) {
+                    bestRelaxed = candidate;
+                }
+            }
+        }
+    }
+
+    const best = bestStrict || bestRelaxed || { easy: total, medium: 0, hard: 0, impossible: 0 };
+    return {
+        easy: best.easy,
+        medium: best.medium,
+        hard: best.hard,
+        impossible: best.impossible,
+    };
+}
+
 export function updateLanding() {
     const { els } = appState;
     const type = els.inQuizType.value;
@@ -558,7 +684,8 @@ export function updateLanding() {
             : "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB";
     }
     renderLandingTitleVoiceControls();
-    document.getElementById("landing-q-count").textContent = appState.totalLevelsCount - 3;
+    const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
+    document.getElementById("landing-q-count").textContent = totalQuestions;
     document.getElementById("val-easy").textContent = els.inEasy.value;
     document.getElementById("val-medium").textContent = els.inMedium.value;
     document.getElementById("val-hard").textContent = els.inHard.value;
@@ -566,7 +693,13 @@ export function updateLanding() {
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
-    document.getElementById("landing-special-badge").hidden = !showSpecial;
+    const levelState = getState();
+    const isWaitingForLandingSpecialBadgeReveal =
+        appState.isVideoPlaying && appState.landingSpecialBadgeRevealTimeoutId != null;
+    const hideSpecificTitleUntilPlayVideo =
+        !!levelState?.videoMode && (!appState.isVideoPlaying || isWaitingForLandingSpecialBadgeReveal);
+    document.getElementById("landing-special-badge").hidden =
+        !showSpecial || hideSpecificTitleUntilPlayVideo;
     document.getElementById("landing-special-text").textContent = els.inSpecificTitleText.value;
 
     const iconVal = els.inSpecificTitleIcon.value;
@@ -581,6 +714,8 @@ export function updateLanding() {
         iconSpan.hidden = false;
         iconImg.hidden = true;
     }
+
+    syncThumbnailMakerSpecificTitle();
 }
 
 // ==========================================
@@ -688,6 +823,12 @@ async function init() {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 20;
         initLevels(levels);
+        const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
+        const { easy, medium, hard, impossible } = computeLandingDifficultyDistribution(totalQuestions);
+        els.inEasy.value = String(easy);
+        els.inMedium.value = String(medium);
+        els.inHard.value = String(hard);
+        els.inImpossible.value = String(impossible);
         updateLanding();
         switchLevel(appState.currentLevelIndex);
     };
@@ -765,6 +906,7 @@ async function init() {
         }
         renderHeader();
         renderLandingTitleVoiceControls();
+        updateLanding();
     };
 
     if (els.videoModeBtn && els.videoModeToggle) {
@@ -969,6 +1111,7 @@ async function init() {
     syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
     initHeaderLogoZoom(clearCurrentTeamSelection);
     document.fonts?.ready?.then(() => scheduleShortsTeamNameFit());
+    appState.refreshLandingUi = updateLanding;
 }
 
 // START

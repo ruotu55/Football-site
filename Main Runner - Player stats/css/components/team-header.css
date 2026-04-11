@@ -72,13 +72,21 @@ body:not(.shorts-mode) .team-header.video-hidden {
 /* FIXED: Setting the hidden state to -100vh so they are ready at the top, not the middle */
 .team-header.video-hidden .team-header-name {
   opacity: 0;
-  transform: translateY(-100vh);
+  transform: translateY(0);
   transition: none;
 }
 .team-header.video-hidden .team-header-logo {
   opacity: 0;
-  transform: translateY(-100vh) scale(0);
+  transform: translateY(0) scale(1);
   transition: none;
+}
+
+/* Keep logo fixed when Video Mode is only toggled on (not playing yet). */
+body.play-video-active .team-header.video-hidden .team-header-name {
+  transform: translateY(-100vh);
+}
+body.play-video-active .team-header.video-hidden .team-header-logo {
+  transform: translateY(-100vh) scale(0);
 }
 
 .team-header.video-revealed {
@@ -142,6 +150,15 @@ body:not(.shorts-mode) .team-header.video-hidden {
   /* Synced to start at 0.4s with the name and uses animation-fill-mode: both to lock the start position */
   animation: logo-fly-in 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s both;
   transform-origin: center;
+}
+
+/* Freeze header elements unless Play Video is active. */
+body:not(.play-video-active) .team-header.video-revealed .team-header-name {
+  transition: none;
+}
+body:not(.play-video-active) .team-header.video-revealed .team-header-logo {
+  animation: none;
+  transform: translateY(0) scale(1);
 }
 
 /* In active video flow, avoid logo pop/fly-in between questions. */

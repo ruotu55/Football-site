@@ -454,7 +454,6 @@ function runVideoStep() {
           clearTimeout(appState.tickingLeadTimeout);
           appState.tickingLeadTimeout = null;
           stopTicking();
-          clearShortsQuestionCountdown();
           els.countdownTimer.hidden = true;
           els.countdownTimer.classList.remove(
             "pulse",
@@ -470,6 +469,15 @@ function runVideoStep() {
             fillEl.style.transition = "";
             fillEl.style.width = "";
           }
+          const skipRevealToOutro =
+            appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+          if (skipRevealToOutro) {
+            setVideoRevealPostTimerActive(false);
+            switchLevel(appState.currentLevelIndex + 1);
+            runVideoStep();
+            return;
+          }
+          clearShortsQuestionCountdown();
           revealCurrentLevel();
         }
       }, tickMs);
@@ -494,13 +502,12 @@ function revealCurrentLevel() {
     flipDelay = 0;
   }
   if (appState.currentLevelIndex > 1) {
-    let isLastQuestion = (appState.currentLevelIndex + 1 === appState.totalLevelsCount);
-    if (isLastQuestion) {
-      flipDelay = 0;
-    } else {
+    const isLastQuestionBeforeOutro =
+      appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+    if (!isLastQuestionBeforeOutro) {
       let shouldPlayVoice = true;
       if (!isShorts) {
-        const questionIndex = appState.currentLevelIndex - 2; 
+        const questionIndex = appState.currentLevelIndex - 2;
         if (questionIndex % 3 !== 0) {
           shouldPlayVoice = false;
         }
@@ -509,6 +516,9 @@ function revealCurrentLevel() {
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 4000;
+    } else {
+      /* Bonus: no answer reveal — go straight to outro after the question timer. */
+      flipDelay = 0;
     }
   }
   appState.videoTimeout = setTimeout(() => {

@@ -77,6 +77,55 @@ export function initSavedScripts(callbacks) {
     uiCallbacks = callbacks || {};
     const { els } = appState;
 
+    let pendingSaveDiscardAction = null;
+
+    function hideSaveDiscardModal() {
+        pendingSaveDiscardAction = null;
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = true;
+    }
+
+    function hideSaveScriptModal() {
+        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
+        if (els.saveScriptName) els.saveScriptName.value = "";
+    }
+
+    function requestCloseSaveScriptModal() {
+        const raw = els.saveScriptName?.value?.trim() || "";
+        if (!raw) {
+            hideSaveScriptModal();
+            return;
+        }
+        pendingSaveDiscardAction = () => hideSaveScriptModal();
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = false;
+    }
+
+    if (els.saveDiscardNo) {
+        els.saveDiscardNo.onclick = () => hideSaveDiscardModal();
+    }
+    if (els.saveDiscardYes) {
+        els.saveDiscardYes.onclick = () => {
+            if (pendingSaveDiscardAction) pendingSaveDiscardAction();
+            hideSaveDiscardModal();
+        };
+    }
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+            if (e.key !== "Escape") return;
+            if (els.saveDiscardModal && !els.saveDiscardModal.hidden) {
+                e.preventDefault();
+                hideSaveDiscardModal();
+                return;
+            }
+            if (els.saveScriptModal && !els.saveScriptModal.hidden) {
+                e.preventDefault();
+                requestCloseSaveScriptModal();
+            }
+        },
+        true,
+    );
+
     els.btnCreateFolder.onclick = () => {
         els.createFolderName.value = "";
         els.createFolderModal.hidden = false;
@@ -104,9 +153,10 @@ export function initSavedScripts(callbacks) {
         els.saveScriptName.focus();
     };
 
-    els.saveScriptCancel.onclick = () => {
-        els.saveScriptModal.hidden = true;
-    };
+    els.saveScriptCancel.onclick = () => requestCloseSaveScriptModal();
+    if (els.saveScriptModalClose) {
+        els.saveScriptModalClose.onclick = () => requestCloseSaveScriptModal();
+    }
 
     els.saveScriptConfirm.onclick = () => {
         const name = els.saveScriptName.value.trim();
@@ -178,8 +228,8 @@ export function initSavedScripts(callbacks) {
 
         savedScripts.push(newScript);
         persistSaved();
-        activeScriptName = name; 
-        els.saveScriptModal.hidden = true;
+        activeScriptName = name;
+        hideSaveScriptModal();
         renderSavedScripts();
     };
 

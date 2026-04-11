@@ -28,6 +28,8 @@ const paths = {
 let bgMusic = null;
 let currentBgmIndex = 0;
 let currentVoice = null;
+/** Resolves `playRulesShortsLanding` when the clip ends or `stopAllAudio` interrupts. */
+let pendingShortsRulesVoiceFinish = null;
 /** Single ticking track for countdown red phase (no overlapping clips). */
 let tickingAudioEl = null;
 
@@ -41,7 +43,7 @@ let isBgmCrossfading = false;
 
 const STARTING_VOL = 0.05;
 const NORMAL_VOL = 0.6;
-const DUCKED_VOL = 0.2;
+const DUCKED_VOL = 0.3; // half of NORMAL_VOL (0.6)
 const BGM_CROSSFADE_MS = 3000;
 const BGM_CROSSFADE_BUFFER_S = 0.15;
 let bgMusicTargetVolume = STARTING_VOL;
@@ -207,6 +209,11 @@ export function stopAllAudio() {
     bgMusicTargetVolume = STARTING_VOL;
     bgMusic.volume = bgMusicTargetVolume;
   }
+  if (pendingShortsRulesVoiceFinish) {
+    const finish = pendingShortsRulesVoiceFinish;
+    pendingShortsRulesVoiceFinish = null;
+    finish();
+  }
   if (currentVoice) {
     currentVoice.pause();
     currentVoice.currentTime = 0;
@@ -306,32 +313,81 @@ function getRulesVoicePath(quizType) {
   return paths.guessClub;
 }
 
-export function playRulesShortsLanding(quizType) {
+export function playRulesShortsLanding(quizType, options = {}) {
   if (!document.body.classList.contains("shorts-mode")) {
     return Promise.resolve();
   }
-  return new Promise((resolve) => {
-    if (currentVoice) {
-      currentVoice.pause();
-      currentVoice.currentTime = 0;
-    }
-    currentVoice = new Audio(getRulesVoicePath(quizType));
-    currentVoice.addEventListener(
-      "ended",
-      () => {
+  const onPlaybackStart =
+    typeof options.onPlaybackStart === "function" ? options.onPlaybackStart : null;
+  const notifyPlaybackStart = () => {
+    if (onPlaybackStart) onPlaybackStart();
+  };
+  const playClip = (src) =>
+    new Promise((resolve) => {
+      const clipSrc = String(src || "").trim();
+      if (!clipSrc) {
+        notifyPlaybackStart();
         resolve();
-      },
-      { once: true }
-    );
-    currentVoice.play().catch((err) => {
-      console.warn("Voice play error:", err);
-      resolve();
+        return;
+      }
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        if (pendingShortsRulesVoiceFinish === finish) {
+          pendingShortsRulesVoiceFinish = null;
+        }
+        resolve();
+      };
+      pendingShortsRulesVoiceFinish = finish;
+      if (currentVoice) {
+        currentVoice.pause();
+        currentVoice.currentTime = 0;
+      }
+      currentVoice = new Audio(clipSrc);
+      currentVoice.addEventListener("playing", notifyPlaybackStart, { once: true });
+      currentVoice.addEventListener("ended", finish, { once: true });
+      currentVoice.play().catch((err) => {
+        console.warn("Voice play error:", err);
+        notifyPlaybackStart();
+        finish();
+      });
     });
-  });
+  const playFallback = () => playClip(getRulesVoicePath(quizType));
+  const resolver = window.__resolveQuizTitleVoiceSrc;
+  if (typeof resolver !== "function") {
+    return playFallback();
+  }
+  return Promise.resolve(resolver(quizType))
+    .then((src) => {
+      const clipSrc = String(src || "").trim();
+      if (clipSrc) return playClip(clipSrc);
+      return playFallback();
+    })
+    .catch(() => playFallback());
 }
 
 export function playRules(quizType, delayMs = 1000) {
-  playVoice(getRulesVoicePath(quizType), delayMs);
+  const playFallback = () => {
+    playVoice(getRulesVoicePath(quizType), delayMs);
+  };
+  const resolver = window.__resolveQuizTitleVoiceSrc;
+  if (typeof resolver !== "function") {
+    playFallback();
+    return;
+  }
+  Promise.resolve(resolver(quizType))
+    .then((src) => {
+      const clipSrc = String(src || "").trim();
+      if (clipSrc) {
+        playVoice(clipSrc, delayMs);
+      } else {
+        playFallback();
+      }
+    })
+    .catch(() => {
+      playFallback();
+    });
 }
 
 export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];

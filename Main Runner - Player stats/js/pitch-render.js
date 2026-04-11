@@ -29,20 +29,29 @@ import {
 } from "./career-size-favorites.js";
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 
-/** Repo-root `Nationality images/Waving/{file}` for pre-rendered waving flags (regular layout stats panel). */
-function careerWavingNationalityFlagRel(nationalityRaw) {
-  const n = String(nationalityRaw || "")
-    .trim()
+/** Map demonyms / variants to `data/country-to-flagcode.json` keys (same idea as Lineups club slots). */
+function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
+  const raw = String(nationalityRaw || "").trim();
+  if (!raw) return "";
+  const n = raw
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
-  if (n === "portugal" || n === "portuguese") {
-    return "Nationality images/Waving/Portugal.png";
+  if (n === "portuguese") return "Portugal";
+  if (n === "english") return "England";
+  return raw;
+}
+
+/** Regular flag image URL: repo England asset or flagcdn (regular layout, centered overlay). */
+function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
+  const natLabel = playerStatsNationalityLabelForFlagcode(nationalityRaw);
+  if (!natLabel) return null;
+  if (natLabel === "England") {
+    return projectAssetUrl("Nationality images/Europe/England.png");
   }
-  if (n === "england" || n === "english") {
-    return "Nationality images/Europe/England.png";
-  }
-  return null;
+  const code = appState.flagcodes[natLabel];
+  if (!code) return null;
+  return `https://flagcdn.com/w320/${String(code).toLowerCase()}.png`;
 }
 
 export const CAREER_BADGE_SCALE_MIN = 0.5;
@@ -57,29 +66,7 @@ export function clampCareerBadgeScale(v) {
 
 export const CAREER_YEAR_NUDGE_STEP = 2;
 const appliedFavoritePictureKeyByState = new WeakMap();
-const careerClearPlayerBtnResizeObservers = new WeakMap();
 
-function syncCareerClearPlayerBtnLayout(wrap, clearBtn) {
-  if (!wrap || !clearBtn || wrap.hidden || clearBtn.hidden) return;
-  const r = wrap.getBoundingClientRect();
-  if (r.width <= 0 && r.height <= 0) return;
-  clearBtn.style.position = "fixed";
-  clearBtn.style.zIndex = "220";
-  clearBtn.style.left = `${Math.round(r.left + r.width / 2)}px`;
-  clearBtn.style.top = `${Math.round(r.top + r.height * 0.44)}px`;
-  clearBtn.style.transform = "translate(-50%, -50%)";
-}
-
-function attachCareerClearPlayerBtnLayoutSync(wrap, clearBtn) {
-  const sync = () => syncCareerClearPlayerBtnLayout(wrap, clearBtn);
-  sync();
-  requestAnimationFrame(sync);
-  const prev = careerClearPlayerBtnResizeObservers.get(wrap);
-  if (prev) prev.disconnect();
-  const ro = new ResizeObserver(sync);
-  ro.observe(wrap);
-  careerClearPlayerBtnResizeObservers.set(wrap, ro);
-}
 const CAREER_IMAGE_REFRESH_TOKEN = String(Date.now());
 const careerResolvedClubLogoSrcByKey = new Map();
 function freshenCareerImageUrl(url) {
@@ -267,10 +254,19 @@ const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
 const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500;
 const CAREER_REVEAL_BASE_Y = -10;
 const CAREER_REVEAL_BASE_SCALE = 1.08;
+/** Same units as Adjust Picture ▼/▲ (one tick = ±1 on `silhouetteYOffset`). */
+const PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS = 15;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
 const CAREER_PLAYER_TRIM_ALPHA_THRESHOLD = 12;
 const CAREER_PLAYER_TRIM_MARGIN_PX = 8;
+
+/** Regular: compact “video edit” caps only while Video Mode is on and not during Play Video. Shorts: follow Video Mode whenever it is on. */
+function useCareerSilhouetteVideoOnCapsForRender(isShorts, state) {
+  if (!state?.videoMode) return false;
+  if (isShorts) return true;
+  return !appState.isVideoPlaying;
+}
 
 function getCareerSilhouetteSizingCaps(isShorts, videoMode) {
   if (!videoMode) {
@@ -301,7 +297,11 @@ function applyCareerSilhouetteSvgImageRect(imageEl, isShorts, videoMode = false)
   const rh = svg?.clientHeight || 0;
   if (!rw || !rh) {
     requestAnimationFrame(() =>
-      applyCareerSilhouetteSvgImageRect(imageEl, isShorts, !!getState()?.videoMode)
+      applyCareerSilhouetteSvgImageRect(
+        imageEl,
+        isShorts,
+        useCareerSilhouetteVideoOnCapsForRender(isShorts, getState()),
+      )
     );
     return;
   }
@@ -325,19 +325,29 @@ function applyCareerSilhouetteSvgImageRect(imageEl, isShorts, videoMode = false)
   const hUx = (screenH * 400) / rh;
   const bottomY = isShorts ? CAREER_SILHOUETTE_BOTTOM_SHORTS : CAREER_SILHOUETTE_BOTTOM_REGULAR;
   const x = Math.round(centerX - wUx / 2);
-  let y;
-  if (!videoMode) {
-    y = Math.round(bottomY - hUx);
-  } else {
-    y = Math.round(bottomY - hUx * (1 + CAREER_SILHOUETTE_VERTICAL_UP_FRAC));
-    if (isShorts) {
-      y += CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE;
-    }
+  let y = Math.round(bottomY - hUx);
+  if (isShorts && getState()?.videoMode) {
+    y += CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE;
   }
   imageEl.setAttribute("x", String(x));
   imageEl.setAttribute("y", String(y));
   imageEl.setAttribute("width", String(Math.round(wUx)));
   imageEl.setAttribute("height", String(Math.round(hUx)));
+}
+
+/**
+ * Player stats: nudge the portrait down (Video Mode off on questions, and Play Video after the timer)
+ * without changing saved Adjust Picture values.
+ */
+function getPlayerStatsExtraSilhouetteDownTicks(state) {
+  if (!shouldUseVideoQuestionLayout(state)) return 0;
+  if (!state.videoMode && !appState.isVideoPlaying) {
+    return PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS;
+  }
+  if (appState.isVideoPlaying && appState.videoRevealPostTimerActive) {
+    return PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS;
+  }
+  return 0;
 }
 
 function applyCareerSilhouetteAdjustments(silhouetteEl, st) {
@@ -350,8 +360,9 @@ function applyCareerSilhouetteAdjustments(silhouetteEl, st) {
   const safeScaleX = Number.isFinite(scaleX) ? scaleX : DEFAULT_PLAYER_SILHOUETTE_SCALE_X;
   const safeScaleY = Number.isFinite(scaleY) ? scaleY : DEFAULT_PLAYER_SILHOUETTE_SCALE_Y;
 
+  const extraDownTicks = getPlayerStatsExtraSilhouetteDownTicks(st);
   /* Width/height are absolute multipliers (1 = 100%); do not divide by DEFAULT or 0.85 would look like 1. */
-  const finalY = CAREER_SHADOW_UNIFORM_Y + safeYOffset * 2;
+  const finalY = CAREER_SHADOW_UNIFORM_Y + (safeYOffset + extraDownTicks) * 2;
   const finalScaleX = CAREER_SHADOW_UNIFORM_SCALE * safeScaleX;
   const finalScaleY = CAREER_SHADOW_UNIFORM_SCALE * safeScaleY;
 
@@ -368,12 +379,24 @@ function applyCareerRevealAdjustments(wrapEl, st) {
   const safeYOffset = Number.isFinite(yOffset) ? yOffset : DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET;
   const safeScaleX = Number.isFinite(scaleX) ? scaleX : DEFAULT_PLAYER_SILHOUETTE_SCALE_X;
   const safeScaleY = Number.isFinite(scaleY) ? scaleY : DEFAULT_PLAYER_SILHOUETTE_SCALE_Y;
-  const revealY = CAREER_REVEAL_BASE_Y + safeYOffset * 1.4;
+  const extraDownTicks = getPlayerStatsExtraSilhouetteDownTicks(st);
+  const revealY = CAREER_REVEAL_BASE_Y + (safeYOffset + extraDownTicks) * 1.4;
   const revealScaleX = CAREER_REVEAL_BASE_SCALE * safeScaleX;
   const revealScaleY = CAREER_REVEAL_BASE_SCALE * safeScaleY;
-  wrapEl.style.setProperty("--career-reveal-y", `${revealY}%`);
-  wrapEl.style.setProperty("--career-reveal-scale-x", String(revealScaleX));
-  wrapEl.style.setProperty("--career-reveal-scale-y", String(revealScaleY));
+  const applyVars = (el) => {
+    el.style.setProperty("--career-reveal-y", `${revealY}%`);
+    el.style.setProperty("--career-reveal-scale-x", String(revealScaleX));
+    el.style.setProperty("--career-reveal-scale-y", String(revealScaleY));
+  };
+  applyVars(wrapEl);
+  /* Overlay is mounted on `.app` so fixed positioning is viewport-anchored (not trapped by #career-wrap perspective). */
+  const overlay = document.getElementById("career-reveal-overlay");
+  if (overlay && overlay !== wrapEl) applyVars(overlay);
+}
+
+function appendPlayerStatsRegularRevealToApp(node) {
+  const root = document.querySelector(".app") || document.body;
+  root.appendChild(node);
 }
 
 function ensureCareerPictureModeProfiles(st) {
@@ -435,7 +458,7 @@ export function applyCareerPictureModeToActiveState(st, isShortsLayout) {
     }
     return;
   }
-  if (st.videoMode) {
+  if (st.videoMode && !appState.isVideoPlaying) {
     st.silhouetteYOffset = Number(st.silhouetteVideoYOffset);
     st.silhouetteScaleX = Number(st.silhouetteVideoScaleX);
     st.silhouetteScaleY = Number(st.silhouetteVideoScaleY);
@@ -1050,9 +1073,16 @@ export function renderCareer() {
   );
   const wrap = document.getElementById("career-wrap");
   document.getElementById("player-stats-panel")?.remove();
+  document.getElementById("career-reveal-overlay")?.remove();
+  document.getElementById("career-reveal-name")?.remove();
+  {
+    const prevFlag = document.getElementById("player-stats-national-flag");
+    if (typeof prevFlag?._playerStatsThreeFlagCleanup === "function") {
+      prevFlag._playerStatsThreeFlagCleanup();
+    }
+    prevFlag?.remove();
+  }
   if (!wrap) return;
-  careerClearPlayerBtnResizeObservers.get(wrap)?.disconnect();
-  careerClearPlayerBtnResizeObservers.delete(wrap);
   wrap.classList.toggle(
     "video-mode-enabled",
     !!state.videoMode && !appState.isVideoPlaying && !previewState.previewPostTimer,
@@ -1229,7 +1259,8 @@ export function renderCareer() {
   const imageGroup = document.createElementNS(svgNamespace, "g");
   const image = document.createElementNS(svgNamespace, "image");
 
-  if (!state.videoMode) {
+  const useVideoOnSilhouetteCaps = useCareerSilhouetteVideoOnCapsForRender(isShorts, state);
+  if (!useVideoOnSilhouetteCaps) {
     if (isShorts) {
       image.setAttribute("x", "210");
       image.setAttribute("y", "-80");
@@ -1295,7 +1326,11 @@ export function renderCareer() {
   };
 
   const syncSilhouetteFromLoadedBitmap = () => {
-    applyCareerSilhouetteSvgImageRect(image, isShorts, !!state.videoMode);
+    applyCareerSilhouetteSvgImageRect(
+      image,
+      isShorts,
+      useCareerSilhouetteVideoOnCapsForRender(isShorts, state),
+    );
     applyCareerSilhouetteAdjustments(image, state);
   };
 
@@ -1335,7 +1370,11 @@ export function renderCareer() {
   if (typeof ResizeObserver !== "undefined") {
     const ro = new ResizeObserver(() => {
       if (!image.isConnected || !image.naturalWidth) return;
-      applyCareerSilhouetteSvgImageRect(image, isShorts, !!getState()?.videoMode);
+      applyCareerSilhouetteSvgImageRect(
+        image,
+        isShorts,
+        useCareerSilhouetteVideoOnCapsForRender(isShorts, getState()),
+      );
       applyCareerSilhouetteAdjustments(image, getState());
     });
     ro.observe(svg);
@@ -1381,7 +1420,6 @@ export function renderCareer() {
       renderHeader();
     });
     wrap.appendChild(clearBtn);
-    attachCareerClearPlayerBtnLayoutSync(wrap, clearBtn);
   }
 
   const knownClubImageFolders = Array.from(
@@ -1783,24 +1821,10 @@ export function renderCareer() {
     rowMain.className = "player-stats-panel__row player-stats-panel__row--main";
     const colLeft = document.createElement("div");
     colLeft.className = "player-stats-panel__column";
-    const wavingFlagRel = careerWavingNationalityFlagRel(statPlayer?.nationality);
-    const colLeftChildren = [
+    colLeft.append(
       mkStatCard("Career games", careerGamesStr, { icon: "pitch", nudgeLabelStrong: true }),
       mkStatCard("Position", positionStr, { icon: "position" }),
-    ];
-    if (wavingFlagRel) {
-      const waveWrap = document.createElement("div");
-      waveWrap.className = "player-stats-waving-flag";
-      const waveImg = document.createElement("img");
-      waveImg.className = "player-stats-waving-flag__img";
-      waveImg.alt = "National flag";
-      waveImg.decoding = "async";
-      waveImg.loading = "lazy";
-      waveImg.src = projectAssetUrl(wavingFlagRel);
-      waveWrap.appendChild(waveImg);
-      colLeftChildren.push(waveWrap);
-    }
-    colLeft.append(...colLeftChildren);
+    );
     const colRight = document.createElement("div");
     colRight.className = "player-stats-panel__column";
     colRight.append(
@@ -1851,7 +1875,7 @@ export function renderCareer() {
 
     revealOverlay.appendChild(revealOverlayImg);
     revealOverlay.appendChild(revealOverlayFallback);
-    wrap.appendChild(revealOverlay);
+    appendPlayerStatsRegularRevealToApp(revealOverlay);
 
     const revealName = document.createElement("div");
     revealName.id = "career-reveal-name";
@@ -1864,7 +1888,30 @@ export function renderCareer() {
       <div class="career-reveal-name-top">${topName}</div>
       <div class="career-reveal-name-bottom">${bottomName}</div>
     `;
-    wrap.appendChild(revealName);
+    appendPlayerStatsRegularRevealToApp(revealName);
+
+    applyCareerRevealAdjustments(wrap, state);
+
+    const flagUrl = hasRealPlayer ? resolvePlayerStatsNationalityFlagUrl(statPlayer?.nationality) : null;
+    if (flagUrl) {
+      const natForAlt = playerStatsNationalityLabelForFlagcode(statPlayer?.nationality);
+      const flagWrap = document.createElement("div");
+      flagWrap.id = "player-stats-national-flag";
+      flagWrap.className = "player-stats-national-flag";
+      wrap.appendChild(flagWrap);
+      void import("./player-stats-flag-three.js")
+        .then((m) => {
+          if (!flagWrap.isConnected) return;
+          m.mountPlayerStatsThreeFlag(
+            flagWrap,
+            flagUrl,
+            natForAlt ? `${natForAlt} flag` : "National flag",
+          );
+        })
+        .catch(() => {
+          flagWrap.remove();
+        });
+    }
   }
 
   bindCareerLogoYearAlignment(wrap);
@@ -1890,8 +1937,8 @@ export function renderCareer() {
   }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
   const careerGrid = wrap.querySelector(".career-grid");
-  const revealOverlay = wrap.querySelector("#career-reveal-overlay");
-  const revealName = wrap.querySelector("#career-reveal-name");
+  const revealOverlay = document.getElementById("career-reveal-overlay");
+  const revealName = document.getElementById("career-reveal-name");
   if (revealPhoto) {
     revealPhoto.classList.toggle("show", previewPostTimer || (isShorts && previewPreTimer));
   }
