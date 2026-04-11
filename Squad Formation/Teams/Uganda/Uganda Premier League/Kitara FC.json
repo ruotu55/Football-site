@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "UGL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Kitara FC",
       "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tooro United FC",
+          "year": "2019"
+        },
+        {
+          "club": "SC Villa Jogoo",
+          "year": "2020"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Alitho",
@@ -33,7 +62,47 @@
       "club": "Kitara FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vipers",
+          "year": "2013"
+        },
+        {
+          "club": "URA FC",
+          "year": "2018"
+        },
+        {
+          "club": "Zanaco FC",
+          "year": "2020"
+        },
+        {
+          "club": "URA FC",
+          "year": "2021"
+        },
+        {
+          "club": "Wakiso Giants",
+          "year": "2024"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 22,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Saleh Azizi",
@@ -43,7 +112,22 @@
       "club": "Kitara FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +139,39 @@
       "club": "Kitara FC",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Masavu FC",
+          "year": "2019"
+        },
+        {
+          "club": "Vipers",
+          "year": "2019"
+        },
+        {
+          "club": "URA FC",
+          "year": "2019"
+        },
+        {
+          "club": "Kitara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Murushid Juuko",
@@ -65,7 +181,63 @@
       "club": "Kitara FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bunamwaya",
+          "year": "2011"
+        },
+        {
+          "club": "Unknown",
+          "year": "2012"
+        },
+        {
+          "club": "Victoria Univ.",
+          "year": "2013"
+        },
+        {
+          "club": "Simba SC",
+          "year": "2014"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Express",
+          "year": "2020"
+        },
+        {
+          "club": "Vipers",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jasper Aheebwa",
@@ -75,7 +247,27 @@
       "club": "Kitara FC",
       "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sadiq Ssekyembe",
@@ -85,7 +277,35 @@
       "club": "Kitara FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mbarara City",
+          "year": "2024"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isa Muzeeyi Lumu",
@@ -95,7 +315,27 @@
       "club": "Kitara FC",
       "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nemeyimana Kato",
@@ -105,17 +345,65 @@
       "club": "Kitara FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bugesera FC",
+          "year": "2021"
+        },
+        {
+          "club": "Bright Stars FC",
+          "year": "2023"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Muyomba Henry Musisi",
+      "name": "Henry Musisi",
       "position": "Right-Back",
       "age": 34,
       "nationality": "Uganda",
       "club": "Kitara FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frank Kasumba",
@@ -125,7 +413,27 @@
       "club": "Kitara FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edward Namaasa",
@@ -135,7 +443,27 @@
       "club": "Kitara FC",
       "appearances": 19,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric Tumwine",
@@ -145,7 +473,22 @@
       "club": "Kitara FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -157,7 +500,35 @@
       "club": "Kitara FC",
       "appearances": 16,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FS Stars",
+          "year": "2024"
+        },
+        {
+          "club": "Lugazi",
+          "year": "2025"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Byamukama",
@@ -167,7 +538,43 @@
       "club": "Kitara FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Express",
+          "year": "2020"
+        },
+        {
+          "club": "Gaddafi",
+          "year": "2022"
+        },
+        {
+          "club": "Tusker FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Wasswa",
@@ -177,7 +584,47 @@
       "club": "Kitara FC",
       "appearances": 15,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Villa Jogoo",
+          "year": "2019"
+        },
+        {
+          "club": "KCCA FC",
+          "year": "2021"
+        },
+        {
+          "club": "Express",
+          "year": "2023"
+        },
+        {
+          "club": "KCCA FC",
+          "year": "2024"
+        },
+        {
+          "club": "Express",
+          "year": "2024"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac Doka Mweru",
@@ -187,7 +634,43 @@
       "club": "Kitara FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Express",
+          "year": "2019"
+        },
+        {
+          "club": "Western Stima",
+          "year": "2021"
+        },
+        {
+          "club": "Busoga Utd. FC",
+          "year": "2022"
+        },
+        {
+          "club": "Mendiola FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Kakomo",
@@ -197,7 +680,43 @@
       "club": "Kitara FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Villa Jogoo",
+          "year": "2018"
+        },
+        {
+          "club": "Gaddafi",
+          "year": "2021"
+        },
+        {
+          "club": "Mbarara City",
+          "year": "2023"
+        },
+        {
+          "club": "NEC FC",
+          "year": "2024"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yunusu Sibira",
@@ -207,7 +726,55 @@
       "club": "Kitara FC",
       "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Busoga Utd. FC",
+          "year": "2014"
+        },
+        {
+          "club": "BUL Jinja",
+          "year": "2015"
+        },
+        {
+          "club": "Royal Leopards",
+          "year": "2019"
+        },
+        {
+          "club": "Onduparaka FC",
+          "year": "2020"
+        },
+        {
+          "club": "Gaddafi",
+          "year": "2021"
+        },
+        {
+          "club": "Mbarara City",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frank Tumwesigye",
@@ -217,7 +784,43 @@
       "club": "Kitara FC",
       "appearances": 17,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Express",
+          "year": "2019"
+        },
+        {
+          "club": "Police",
+          "year": "2019"
+        },
+        {
+          "club": "Police",
+          "year": "2020"
+        },
+        {
+          "club": "Vipers",
+          "year": "2022"
+        },
+        {
+          "club": "Kitara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gadafi Wahab",
@@ -227,7 +830,47 @@
       "club": "Kitara FC",
       "appearances": 13,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hope Doves FC",
+          "year": "2018"
+        },
+        {
+          "club": "Onduparaka FC",
+          "year": "2018"
+        },
+        {
+          "club": "Wakiso Giants",
+          "year": "2020"
+        },
+        {
+          "club": "Arua Hill",
+          "year": "2021"
+        },
+        {
+          "club": "NEC FC",
+          "year": "2024"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Byaruhanga",
@@ -237,7 +880,27 @@
       "club": "Kitara FC",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eddy Ssebandeke",
@@ -247,7 +910,27 @@
       "club": "Kitara FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Collins Alinitwe",
@@ -257,7 +940,27 @@
       "club": "Kitara FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -269,7 +972,39 @@
       "club": "Kitara FC",
       "appearances": 14,
       "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "URA FC",
+          "year": "2021"
+        },
+        {
+          "club": "Kitara",
+          "year": "2022"
+        },
+        {
+          "club": "URA FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kitara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Kaddu",
@@ -279,7 +1014,79 @@
       "club": "Kitara FC",
       "appearances": 17,
       "goals": 7,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Maroons FC",
+          "year": "2011"
+        },
+        {
+          "club": "Kiira Young FC",
+          "year": "2014"
+        },
+        {
+          "club": "Maroons FC",
+          "year": "2015"
+        },
+        {
+          "club": "KCCA FC",
+          "year": "2017"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2019"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2020"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2020"
+        },
+        {
+          "club": "Berrechid",
+          "year": "2020"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "KCCA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Kitara",
+          "year": "2022"
+        },
+        {
+          "club": "Gor Mahia FC",
+          "year": "2023"
+        },
+        {
+          "club": "Kitara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhammad Shaban",
@@ -287,9 +1094,65 @@
       "age": 29,
       "nationality": "Uganda",
       "club": "Kitara FC",
-      "appearances": 11,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Onduparaka FC",
+          "year": "2015"
+        },
+        {
+          "club": "KCCA FC",
+          "year": "2017"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2018"
+        },
+        {
+          "club": "Vipers",
+          "year": "2019"
+        },
+        {
+          "club": "Onduparaka FC",
+          "year": "2021"
+        },
+        {
+          "club": "KCCA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Anwar",
+          "year": "2025"
+        },
+        {
+          "club": "Ethiopia Bunna",
+          "year": "2025"
+        },
+        {
+          "club": "Kitara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "George Senkaaba",
@@ -299,7 +1162,31 @@
       "club": "Kitara FC",
       "appearances": 9,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "URA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Kitara",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jimmy Kalema",
@@ -309,7 +1196,27 @@
       "club": "Kitara FC",
       "appearances": 12,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edson Agondeze",
@@ -319,7 +1226,31 @@
       "club": "Kitara FC",
       "appearances": 19,
       "goals": 7,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Buhimba United",
+          "year": "2021"
+        },
+        {
+          "club": "Kitara",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac Amutuhaire",
@@ -329,7 +1260,27 @@
       "club": "Kitara FC",
       "appearances": 8,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chrispus Asiki",
@@ -339,7 +1290,31 @@
       "club": "Kitara FC",
       "appearances": 10,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Busoga Utd. FC",
+          "year": "2023"
+        },
+        {
+          "club": "Kitara",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Monday",
@@ -349,7 +1324,31 @@
       "club": "Kitara FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Kitara",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

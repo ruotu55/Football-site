@@ -9,12 +9,43 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ARM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
+    {
+      "name": "Lyova Karapetyan",
+      "position": "Goalkeeper",
+      "age": 25,
+      "nationality": "Armenia",
+      "club": "FC Shirak Gyumri",
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 147,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Sokrat Hovhannisyan",
       "position": "Goalkeeper",
@@ -23,17 +54,27 @@
       "club": "FC Shirak Gyumri",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Lyova Karapetyan",
-      "position": "Goalkeeper",
-      "age": 25,
-      "nationality": "Armenia",
-      "club": "FC Shirak Gyumri",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 206,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +84,29 @@
       "age": 23,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksa Vidic",
@@ -53,9 +114,61 @@
       "age": 31,
       "nationality": "Serbia",
       "club": "FC Shirak Gyumri",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sloboda Uzice",
+          "year": "2013"
+        },
+        {
+          "club": "Macva",
+          "year": "2013"
+        },
+        {
+          "club": "Sloboda Uzice",
+          "year": "2014"
+        },
+        {
+          "club": "Smolevichi",
+          "year": "2018"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2019"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2020"
+        },
+        {
+          "club": "Zlatibor",
+          "year": "2020"
+        },
+        {
+          "club": "Radnicki Srem",
+          "year": "2021"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tigran Sumbulyan",
@@ -65,7 +178,27 @@
       "club": "FC Shirak Gyumri",
       "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 11,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruben Karagulyan",
@@ -73,9 +206,57 @@
       "age": 22,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartak Youth",
+          "year": "2011"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "ZOV",
+          "year": "2021"
+        },
+        {
+          "club": "Medialiga",
+          "year": "2022"
+        },
+        {
+          "club": "Artsakh",
+          "year": "2023"
+        },
+        {
+          "club": "FC Syunik",
+          "year": "2023"
+        },
+        {
+          "club": "Gandzasar",
+          "year": "2025"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tigran Khachiyan",
@@ -85,7 +266,39 @@
       "club": "FC Shirak Gyumri",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Khimki 2",
+          "year": "2023"
+        },
+        {
+          "club": "FC Bentonit",
+          "year": "2024"
+        },
+        {
+          "club": "Spartak Tambov",
+          "year": "2025"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Suren Tsarukyan",
@@ -93,9 +306,37 @@
       "age": 20,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2023"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2024"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hovhannes Pahlevanyan",
@@ -105,7 +346,27 @@
       "club": "FC Shirak Gyumri",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gagik Akulyan",
@@ -113,9 +374,29 @@
       "age": 21,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mher Tarloyan",
@@ -125,7 +406,35 @@
       "club": "FC Shirak Gyumri",
       "appearances": 16,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2022"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2024"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samvel Ghukasyan",
@@ -133,9 +442,29 @@
       "age": 23,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +474,29 @@
       "age": 26,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 19,
-      "goals": 5,
-      "assists": 0
+      "appearances": 18,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 24,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rudik Mkrtchyan",
@@ -155,9 +504,37 @@
       "age": 27,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 1
+      "appearances": 17,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2017"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2021"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Levon Darbinyan",
@@ -165,9 +542,37 @@
       "age": 24,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2019"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2020"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vazgen Sargsyan",
@@ -175,19 +580,59 @@
       "age": 21,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 17,
-      "goals": 2,
-      "assists": 0
+      "appearances": 14,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 14,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergey Manukyan",
       "position": "Right Midfield",
-      "age": 21,
+      "age": 22,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vardan Tovmasyan",
@@ -195,9 +640,33 @@
       "age": 21,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 11,
-      "goals": 2,
-      "assists": 0
+      "appearances": 10,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BKMA Yerevan",
+          "year": "2024"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 21,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Narek Janoyan",
@@ -205,9 +674,37 @@
       "age": 20,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 16,
-      "goals": 2,
-      "assists": 1
+      "appearances": 12,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2023"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2024"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Grigor Ghumashyan",
@@ -215,9 +712,41 @@
       "age": 22,
       "nationality": "Russia",
       "club": "FC Shirak Gyumri",
-      "appearances": 15,
-      "goals": 2,
-      "assists": 1
+      "appearances": 14,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Akademia Rostov",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Stroitel",
+          "year": "2024"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 14,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +756,33 @@
       "age": 23,
       "nationality": "Ivory Coast",
       "club": "FC Shirak Gyumri",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ness Ziona",
+          "year": "2021"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 13,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lyova Mryan",
@@ -237,9 +790,29 @@
       "age": 25,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 28,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jesse Akila",
@@ -249,7 +822,43 @@
       "club": "FC Shirak Gyumri",
       "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Plateau United",
+          "year": "2018"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2022"
+        },
+        {
+          "club": "AS Trencin",
+          "year": "2023"
+        },
+        {
+          "club": "FC Van",
+          "year": "2024"
+        },
+        {
+          "club": "Shirak Gyumri",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 24,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emil Papikyan",
@@ -257,9 +866,29 @@
       "age": 19,
       "nationality": "Armenia",
       "club": "FC Shirak Gyumri",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shirak Gyumri",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

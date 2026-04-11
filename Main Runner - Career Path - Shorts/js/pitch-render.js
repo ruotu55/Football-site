@@ -7,7 +7,9 @@ import {
   DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
   DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
   getDefaultPlayerPictureValues,
+  getDefaultPlayerPictureValuesForCareerMode,
   getState,
+  migrateShortsVideoOffLegacyNormalProfile,
 } from "./state.js";
 import {
   projectAssetUrlFresh,
@@ -15,6 +17,7 @@ import {
   CAREER_NO_PHOTO_LABEL,
   CAREER_NO_PLAYER_LABEL,
 } from "./paths.js";
+import { syncPlayerVoiceControls } from "./player-voice-manager.js";
 import {
   clearCareerClubFavorite,
   clearCareerPictureFavorite,
@@ -26,6 +29,73 @@ import {
   saveCareerClubFavorite,
   saveCareerPictureFavorite,
 } from "./career-size-favorites.js";
+import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
+
+const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
+
+const CAREER_REVEAL_NAME_FIT_ABS_MIN_PX = 11;
+let careerRevealNameFitResizeHooked = false;
+
+function getShortsNineSixteenColumnWidthPx() {
+  const stage = document.getElementById("stage-main") || document.querySelector(".stage-main");
+  const sw = stage?.clientWidth || 0;
+  if (sw > 8) return sw;
+  return Math.min(window.innerWidth, (9 / 16) * window.innerHeight);
+}
+
+function getCareerRevealNameFitBudgetPx(revealNameEl) {
+  const isShorts = document.body.classList.contains("shorts-mode");
+  const cw = Math.max(0, revealNameEl.clientWidth);
+  const rw = Math.max(0, revealNameEl.getBoundingClientRect().width);
+  if (isShorts) {
+    const columnPx = getShortsNineSixteenColumnWidthPx();
+    const fromColumn = Math.max(0, columnPx - 14);
+    const fromEl = Math.max(cw, rw) > 8 ? Math.min(Math.max(cw, rw) - 6, fromColumn) : fromColumn;
+    return Math.max(24, Math.min(fromEl, fromColumn));
+  }
+  const fromCss = Math.min(window.innerWidth * 0.9, 1000);
+  return Math.max(cw, rw, fromCss) - 8;
+}
+
+function hookCareerRevealNameFitOnResize() {
+  if (careerRevealNameFitResizeHooked) return;
+  careerRevealNameFitResizeHooked = true;
+  let tid = 0;
+  window.addEventListener("resize", () => {
+    window.clearTimeout(tid);
+    tid = window.setTimeout(() => {
+      const el = document.getElementById("career-reveal-name");
+      if (el) fitCareerRevealNameLines(el);
+    }, 120);
+  });
+}
+
+/** Shrink only lines that overflow the reveal name box (white top / red bottom independent). */
+function fitCareerRevealNameLines(revealNameEl) {
+  if (!revealNameEl) return;
+  const maxW = getCareerRevealNameFitBudgetPx(revealNameEl);
+  if (maxW <= 8) return;
+  const fitLine = (el) => {
+    if (!el || !String(el.textContent || "").trim()) return;
+    el.style.removeProperty("font-size");
+    void el.offsetWidth;
+    const computed = getComputedStyle(el);
+    const maxPx = parseFloat(computed.fontSize);
+    if (!Number.isFinite(maxPx) || maxPx <= CAREER_REVEAL_NAME_FIT_ABS_MIN_PX) return;
+    if (el.scrollWidth <= maxW) return;
+    let lo = CAREER_REVEAL_NAME_FIT_ABS_MIN_PX;
+    let hi = maxPx;
+    for (let i = 0; i < 52 && hi - lo > 0.35; i += 1) {
+      const mid = (lo + hi) / 2;
+      el.style.fontSize = `${mid}px`;
+      if (el.scrollWidth <= maxW) lo = mid;
+      else hi = mid;
+    }
+    el.style.fontSize = `${lo}px`;
+  };
+  fitLine(revealNameEl.querySelector(".career-reveal-name-top"));
+  fitLine(revealNameEl.querySelector(".career-reveal-name-bottom"));
+}
 
 export const CAREER_BADGE_SCALE_MIN = 0.5;
 export const CAREER_BADGE_SCALE_MAX = 2.25;
@@ -312,6 +382,20 @@ function applyCareerRevealAdjustments(wrapEl, st) {
   wrapEl.style.setProperty("--career-reveal-scale-y", String(revealScaleY));
 }
 
+/** Post-countdown answer beat during Play Video: drive reveal portrait vars from shorts "Video Mode off" profile so size/position match static video-off. */
+function getCareerRevealCssVarSource(st, isShortsLayout) {
+  if (!st) return st;
+  const preview = getVideoQuestionPreviewState(st);
+  if (isShortsLayout && appState.isVideoPlaying && preview.previewPostTimer) {
+    return {
+      silhouetteYOffset: Number(st.silhouetteShortsNormalYOffset),
+      silhouetteScaleX: Number(st.silhouetteShortsNormalScaleX),
+      silhouetteScaleY: Number(st.silhouetteShortsNormalScaleY),
+    };
+  }
+  return st;
+}
+
 function ensureCareerPictureModeProfiles(st) {
   if (!st) return;
   const regularDefaults = getDefaultPlayerPictureValues(false);
@@ -348,11 +432,12 @@ function ensureCareerPictureModeProfiles(st) {
   if (!Number.isFinite(Number(st.silhouetteShortsNormalYOffset))) {
     st.silhouetteShortsNormalYOffset = Number(shortsDefaults.silhouetteYOffset);
   }
+  const shortsVideoOffDefaults = getDefaultPlayerPictureValuesForCareerMode(true, false);
   if (!Number.isFinite(Number(st.silhouetteShortsNormalScaleX))) {
-    st.silhouetteShortsNormalScaleX = Number(shortsDefaults.silhouetteScaleX);
+    st.silhouetteShortsNormalScaleX = Number(shortsVideoOffDefaults.silhouetteScaleX);
   }
   if (!Number.isFinite(Number(st.silhouetteShortsNormalScaleY))) {
-    st.silhouetteShortsNormalScaleY = Number(shortsDefaults.silhouetteScaleY);
+    st.silhouetteShortsNormalScaleY = Number(shortsVideoOffDefaults.silhouetteScaleY);
   }
 }
 
@@ -385,7 +470,7 @@ export function applyCareerPictureModeToActiveState(st, isShortsLayout) {
 /** Persist active `silhouette*` into the profile for the given layout (shorts vs regular road). */
 export function persistCareerPictureModeFromActiveState(st, isShortsLayout) {
   if (!st) return;
-  const pictureDefaults = getDefaultPlayerPictureValues(isShortsLayout);
+  const pictureDefaults = getDefaultPlayerPictureValuesForCareerMode(isShortsLayout, !!st.videoMode);
   const y = Number(st.silhouetteYOffset ?? pictureDefaults.silhouetteYOffset);
   const x = Number(st.silhouetteScaleX ?? pictureDefaults.silhouetteScaleX);
   const ys = Number(st.silhouetteScaleY ?? pictureDefaults.silhouetteScaleY);
@@ -501,10 +586,21 @@ function applyCareerLogoYearSlackFromImg(img) {
 
 function bindCareerLogoYearAlignment(root) {
   root.querySelectorAll(".career-club-logo-img").forEach((img) => {
+    const syncMissingUi = () => {
+      const fallbackText = img.nextElementSibling;
+      const fetchBtn = img.parentElement?.querySelector(".career-logo-fetch-btn");
+      const hasSrc = String(img.getAttribute("src") || "").trim().length > 0;
+      const hasPixels = !!(img.naturalWidth && img.naturalHeight);
+      const missing = !hasSrc || img.hidden || !hasPixels;
+      if (fallbackText) fallbackText.hidden = !missing;
+      if (fetchBtn) fetchBtn.hidden = !missing;
+    };
     const run = () => applyCareerLogoYearSlackFromImg(img);
     const runAfterLayout = () => {
       const fallbackText = img.nextElementSibling;
       if (fallbackText) fallbackText.hidden = true;
+      const fetchBtn = img.parentElement?.querySelector(".career-logo-fetch-btn");
+      if (fetchBtn) fetchBtn.hidden = true;
       run();
       requestAnimationFrame(run);
       const cacheKey = String(img.dataset.logoCacheKey || "").trim();
@@ -533,7 +629,10 @@ function bindCareerLogoYearAlignment(root) {
       img.hidden = true;
       const f = img.nextElementSibling;
       if (f) f.hidden = false;
+      const fetchBtn = img.parentElement?.querySelector(".career-logo-fetch-btn");
+      if (fetchBtn) fetchBtn.hidden = false;
     });
+    syncMissingUi();
     const ro = new ResizeObserver(() => run());
     ro.observe(img);
   });
@@ -746,8 +845,12 @@ export function cleanCareerHistory(history) {
              /\breserves?\b/.test(n) ||
              n.endsWith(" b");
   };
+  const isWithoutClub = (name) => {
+      const n = String(name || "").toLowerCase().replace(/\s+/g, " ").trim();
+      return n.includes("without club");
+  };
 
-  let h1 = history.filter(item => !isYouth(item.club));
+  let h1 = history.filter(item => !isYouth(item.club) && !isWithoutClub(item.club));
 
   let h2 = [];
   for (let i = 0; i < h1.length; i++) {
@@ -799,6 +902,23 @@ export function syncCareerSlotControlsVisibility() {
   document.body.classList.toggle("career-hide-slot-controls", hide);
 }
 
+/** Shorts: re-apply preview layer classes after Play Video (no renderCareer — avoids DOM wipe flash). */
+export function syncShortsCareerVideoPreviewLayers() {
+  if (!document.body.classList.contains("shorts-mode")) return;
+  const state = getState();
+  const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
+  const silhouette = document.querySelector(".career-silhouette");
+  if (silhouette) {
+    silhouette.classList.toggle("revealed", previewPostTimer);
+  }
+  const revealPhoto = document.getElementById("career-reveal-photo");
+  const careerGrid = document.querySelector(".career-grid");
+  if (revealPhoto) {
+    revealPhoto.classList.toggle("show", previewPostTimer || previewPreTimer);
+    if (careerGrid) careerGrid.classList.toggle("reveal-active", previewPostTimer);
+  }
+}
+
 export function renderHeader() {
   const state = getState();
   const { els } = appState;
@@ -824,6 +944,7 @@ export function renderHeader() {
   if (els.headerName) {
     els.headerName.textContent = nm ? nm.toUpperCase() : CAREER_NO_PLAYER_LABEL;
   }
+  syncPlayerVoiceControls(nm || "");
   if (els.headerLogo) els.headerLogo.hidden = true;
 
   syncCareerSlotControlsVisibility();
@@ -849,8 +970,9 @@ export function renderCareer() {
   );
 
   ensureCareerPictureModeProfiles(state);
+  if (isShorts) migrateShortsVideoOffLegacyNormalProfile(state);
   applyCareerPictureModeToActiveState(state, isShorts);
-  applyCareerRevealAdjustments(wrap, state);
+  applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
 
   const favoriteKey = getCareerPictureFavoriteKey(state);
   if (favoriteKey && appliedFavoritePictureKeyByState.get(state) !== favoriteKey) {
@@ -876,7 +998,7 @@ export function renderCareer() {
     state.silhouetteScaleX = DEFAULT_PLAYER_SILHOUETTE_SCALE_X;
     state.silhouetteScaleY = DEFAULT_PLAYER_SILHOUETTE_SCALE_Y;
     persistCareerPictureModeFromActiveState(state, isShorts);
-    applyCareerRevealAdjustments(wrap, state);
+    applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
   }
 
   /* Old regular defaults used 0 / 0.85 / 1. Move those untouched profiles to 0 / 1 / 1. */
@@ -925,7 +1047,7 @@ export function renderCareer() {
 
     if (migratedRegularDefaults) {
       applyCareerPictureModeToActiveState(state, false);
-      applyCareerRevealAdjustments(wrap, state);
+      applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
     }
   }
 
@@ -938,7 +1060,15 @@ export function renderCareer() {
     ? Math.min(24, Math.max(1, Math.round(Number(previewCfg.count))))
     : 0;
 
-  const history = state.careerHistory || [];
+  const isWithoutClub = (name) => {
+    const n = String(name || "").toLowerCase().replace(/\s+/g, " ").trim();
+    return n.includes("without club");
+  };
+  const historySource = Array.isArray(state.careerHistory) ? state.careerHistory : [];
+  const history = historySource.filter((item) => !isWithoutClub(item?.club));
+  if (history.length !== historySource.length) {
+    state.careerHistory = history;
+  }
   let n = history.length > 0 ? history.length : (state.careerClubsCount || 5);
   if (shortsPreviewActive) n = previewClubCount;
 
@@ -957,6 +1087,9 @@ export function renderCareer() {
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
   const showShortsCareerGrid = hasRealPlayer || shortsPreviewActive;
+  if (!hasRealPlayer && !shortsPreviewActive) {
+    n = 0;
+  }
   wrap.classList.toggle("career-no-player", !hasRealPlayer && !shortsPreviewActive);
   const readyRel = careerReadyPhotoRelPath(playerName);
   const readyUrl = readyRel ? projectAssetUrlFresh(readyRel) : "";
@@ -1169,6 +1302,186 @@ export function renderCareer() {
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
 
+  const ensureEditableCareerHistory = () => {
+    if (!Array.isArray(state.careerHistory)) {
+      state.careerHistory = [];
+    }
+    return state.careerHistory;
+  };
+
+  const removeCareerSlotAt = (slotIndex) => {
+    const safeIndex = Number(slotIndex);
+    const list = ensureEditableCareerHistory();
+    if (!Number.isInteger(safeIndex) || safeIndex < 0 || safeIndex >= list.length) return;
+    list.splice(safeIndex, 1);
+    state.careerClubsCount = list.length;
+    renderCareer();
+    renderHeader();
+  };
+
+  const insertCareerSlotAfter = (slotIndex) => {
+    const safeIndex = Number(slotIndex);
+    const list = ensureEditableCareerHistory();
+    if (!Number.isInteger(safeIndex)) return;
+    const clamped = Math.min(Math.max(-1, safeIndex), Math.max(-1, list.length - 1));
+    openCareerInsertTeamPicker(clamped);
+  };
+
+
+  const getCareerInsertTeamList = () => {
+    const clubs = Array.isArray(appState.teamsIndex?.clubs) ? appState.teamsIndex.clubs : [];
+    const nationalities = Array.isArray(appState.teamsIndex?.nationalities)
+      ? appState.teamsIndex.nationalities
+      : [];
+    const map = new Map();
+    [...clubs, ...nationalities].forEach((team) => {
+      const name = String(team?.name || "").trim();
+      if (!name || isWithoutClub(name)) return;
+      const key = name.toLowerCase();
+      if (!map.has(key)) map.set(key, team);
+    });
+    return Array.from(map.values()).sort((a, b) =>
+      String(a?.name || "").localeCompare(String(b?.name || ""))
+    );
+  };
+
+  const resolveInsertTeamCustomImage = (team) => {
+    if (!team) return "";
+    if (team.country && team.league) {
+      return projectAssetUrl(`Teams Images/${team.country}/${team.league}/${team.name}.png`);
+    }
+    if (team.region) {
+      return projectAssetUrl(`Nationality images/${team.region}/${team.name}.png`);
+    }
+    const other = getClubLogoOtherTeamsUrl(team.name);
+    return other || "";
+  };
+
+  const openCareerInsertTeamPicker = (insertAfterIndex) => {
+    const existing = document.getElementById("career-insert-team-picker");
+    if (existing) existing.remove();
+
+    const picker = document.createElement("div");
+    picker.id = "career-insert-team-picker";
+    picker.style.position = "absolute";
+    picker.style.left = "50%";
+    picker.style.top = "52%";
+    picker.style.transform = "translate(-50%, -50%)";
+    picker.style.width = "min(26rem, 90%)";
+    picker.style.maxHeight = "22rem";
+    picker.style.display = "flex";
+    picker.style.flexDirection = "column";
+    picker.style.gap = "0.45rem";
+    picker.style.padding = "0.7rem";
+    picker.style.borderRadius = "10px";
+    picker.style.border = "1px solid rgba(255,255,255,0.2)";
+    picker.style.background = "rgba(0,0,0,0.9)";
+    picker.style.backdropFilter = "blur(3px)";
+    picker.style.zIndex = "1200";
+    picker.style.pointerEvents = "auto";
+    picker.addEventListener("click", (e) => e.stopPropagation());
+
+    const head = document.createElement("div");
+    head.style.display = "flex";
+    head.style.alignItems = "center";
+    head.style.justifyContent = "space-between";
+    head.style.gap = "0.5rem";
+
+    const title = document.createElement("div");
+    title.textContent = "Add Team";
+    title.style.fontWeight = "800";
+    title.style.color = "#fff";
+    title.style.fontSize = "1rem";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.textContent = "Close";
+    closeBtn.style.border = "1px solid rgba(255,255,255,0.35)";
+    closeBtn.style.borderRadius = "6px";
+    closeBtn.style.background = "rgba(255,255,255,0.08)";
+    closeBtn.style.color = "#fff";
+    closeBtn.style.cursor = "pointer";
+    closeBtn.style.padding = "0.22rem 0.48rem";
+    closeBtn.onclick = () => picker.remove();
+
+    head.appendChild(title);
+    head.appendChild(closeBtn);
+
+    const search = document.createElement("input");
+    search.type = "text";
+    search.placeholder = "Search team name...";
+    search.autocomplete = "off";
+    search.style.width = "100%";
+    search.style.padding = "0.55rem";
+    search.style.borderRadius = "7px";
+    search.style.border = "1px solid rgba(255,255,255,0.25)";
+    search.style.background = "rgba(255,255,255,0.08)";
+    search.style.color = "#fff";
+    search.style.outline = "none";
+
+    const listEl = document.createElement("div");
+    listEl.style.display = "grid";
+    listEl.style.gap = "0.32rem";
+    listEl.style.maxHeight = "15rem";
+    listEl.style.overflowY = "auto";
+    listEl.style.paddingRight = "0.2rem";
+
+    const allTeams = getCareerInsertTeamList();
+    const drawList = (query) => {
+      const q = String(query || "").toLowerCase().trim();
+      listEl.innerHTML = "";
+      const filtered = allTeams
+        .filter((team) => String(team?.name || "").toLowerCase().includes(q))
+        .slice(0, 80);
+      if (filtered.length === 0) {
+        const hint = document.createElement("div");
+        hint.textContent = "No teams found.";
+        hint.style.color = "#bbb";
+        hint.style.fontSize = "0.9rem";
+        listEl.appendChild(hint);
+        return;
+      }
+      filtered.forEach((team) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = team.name;
+        btn.style.padding = "0.55rem";
+        btn.style.background = "rgba(255,255,255,0.06)";
+        btn.style.border = "1px solid rgba(255,255,255,0.15)";
+        btn.style.color = "#fff";
+        btn.style.textAlign = "left";
+        btn.style.cursor = "pointer";
+        btn.style.borderRadius = "6px";
+        btn.onmouseover = () => (btn.style.background = "rgba(255,202,40,0.2)");
+        btn.onmouseout = () => (btn.style.background = "rgba(255,255,255,0.06)");
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const editable = ensureEditableCareerHistory();
+          const item = { club: team.name, year: "YYYY" };
+          try {
+            const imageUrl = resolveInsertTeamCustomImage(team);
+            if (imageUrl) item.customImage = imageUrl;
+          } catch (_) {}
+          editable.splice(insertAfterIndex + 1, 0, item);
+          state.careerClubsCount = editable.length;
+          picker.remove();
+          renderCareer();
+          renderHeader();
+        });
+        listEl.appendChild(btn);
+      });
+    };
+
+    search.addEventListener("input", () => drawList(search.value));
+    picker.appendChild(head);
+    picker.appendChild(search);
+    picker.appendChild(listEl);
+    wrap.appendChild(picker);
+    drawList("");
+    search.focus();
+  };
+
   const buildClubLogoCandidatesRel = (names, foundClubEntry) => {
     const out = [];
     const uniqueNames = Array.from(
@@ -1180,7 +1493,8 @@ export function renderCareer() {
     );
 
     uniqueNames.forEach((name) => {
-      out.push(`Teams Images/(1) Other Teams/${name}.png`);
+      const rel = getClubLogoOtherTeamsRelPath(name);
+      if (rel) out.push(rel);
     });
 
     if (foundClubEntry && foundClubEntry.country && foundClubEntry.league) {
@@ -1241,6 +1555,9 @@ export function renderCareer() {
     let isCustomImage = false;
     let foundClub = null;
     let searchName = "";
+    let targetRelativePath = "";
+    let fetchCountryHint = "";
+    let fetchLeagueHint = "";
 
     if (history && history[index]) {
         clubName = history[index].club || "";
@@ -1259,10 +1576,22 @@ export function renderCareer() {
                 logoUrl = foundClub.path.replace('Squad Formation/Teams/', 'Teams Images/').replace('.json', '.png');
             }
         }
+        if (foundClub?.country && foundClub?.league) {
+          fetchCountryHint = String(foundClub.country || "").trim();
+          fetchLeagueHint = String(foundClub.league || "").trim();
+        }
     }
 
     let innerContent = "";
     const displayClubName = String(foundClub?.name || clubName || searchName || "").trim();
+    const safeFileName = String(displayClubName || clubName || "").replace(/[<>:"/\\|?*\u0000-\u001F]+/g, "").trim();
+    if (safeFileName) {
+      if (fetchCountryHint && fetchLeagueHint) {
+        targetRelativePath = `Teams Images/${fetchCountryHint}/${fetchLeagueHint}/${safeFileName}.png`;
+      } else {
+        targetRelativePath = `Teams Images/(1) Other Teams/${safeFileName}.png`;
+      }
+    }
     const fileNameCandidates = [
       displayClubName,
       clubName,
@@ -1295,6 +1624,16 @@ export function renderCareer() {
             innerContent = `
                 <img class="career-club-logo-img" src="${firstUrl}" data-fallback-list="${fallbackList}" data-fallback-index="0" data-logo-cache-key="${escapeHtml(logoCacheKey)}" alt="" loading="eager" decoding="async" />
                 <div class="career-club-fallback-text" hidden>${escapeHtml(displayClubName || clubName)}</div>
+                <button
+                  type="button"
+                  class="career-logo-fetch-btn"
+                  data-index="${index}"
+                  data-team-name="${escapeHtml(displayClubName || clubName)}"
+                  data-country-hint="${escapeHtml(fetchCountryHint)}"
+                  data-league-hint="${escapeHtml(fetchLeagueHint)}"
+                  data-target-rel-path="${escapeHtml(targetRelativePath)}"
+                  hidden
+                >Logo</button>
             `;
         } else {
             const candidateUrls = Array.from(
@@ -1305,14 +1644,29 @@ export function renderCareer() {
             innerContent = `
                 <img class="career-club-logo-img" src="${firstFallbackUrl}" data-fallback-list="${remainingFallbacks}" data-fallback-index="0" data-logo-cache-key="${escapeHtml(logoCacheKey)}" alt="" loading="eager" decoding="async" />
                 <div class="career-club-fallback-text career-club-fallback-text--solo" hidden>${escapeHtml(displayClubName || clubName)}</div>
+                <button
+                  type="button"
+                  class="career-logo-fetch-btn"
+                  data-index="${index}"
+                  data-team-name="${escapeHtml(displayClubName || clubName)}"
+                  data-country-hint="${escapeHtml(fetchCountryHint)}"
+                  data-league-hint="${escapeHtml(fetchLeagueHint)}"
+                  data-target-rel-path="${escapeHtml(targetRelativePath)}"
+                  hidden
+                >Logo</button>
             `;
         }
     }
 
-    const editBtnHtml = shortsPreviewActive
-      ? ""
-      : `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`;
+    const hasHistorySlot = !!history[index];
+    const removeBtnHtml = hasHistorySlot
+      ? `<button class="career-remove-btn" data-index="${index}" title="Remove Team" aria-label="Remove team from path">X</button>`
+      : "";
+    const editBtnHtml = hasHistorySlot
+      ? `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`
+      : "";
     const imgOrText = `<div class="career-club-placeholder">
+                          ${removeBtnHtml}
                           ${editBtnHtml}
                           ${innerContent}
                        </div>`;
@@ -1324,7 +1678,7 @@ export function renderCareer() {
                   <div class="career-club-emblem-scale">
                     <div class="career-club-emblem-slot">${imgOrText}</div>
                     <div class="career-club-year-stack">
-                      <div class="career-club-year">${year}</div>
+                      <div class="career-club-year"${hasHistorySlot ? ` data-career-slot-index="${index}" title="Double-click to edit year"` : ""}>${escapeHtml(year)}</div>
                     </div>
                   </div>
               </div>
@@ -1333,18 +1687,37 @@ export function renderCareer() {
     `;
   };
 
-  const appendShortsCareerSlot = (rowEl, index, totalCount, isLastInRow) => {
+  const appendShortsCareerSlot = (rowEl, index, totalCount, showInsertAfter = true) => {
     const slot = document.createElement("div");
     slot.className = "career-grid-item career-grid-item--split career-club-slot";
     slot.innerHTML = generateSlotContent(index);
+    const leftInsert = document.createElement("button");
+    leftInsert.type = "button";
+    leftInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-left";
+    leftInsert.dataset.insertAfter = String(index - 1);
+    leftInsert.title = "Add Team";
+    leftInsert.setAttribute("aria-label", "Add team before this team");
+    leftInsert.textContent = "+";
+    slot.appendChild(leftInsert);
+    const rightInsert = document.createElement("button");
+    rightInsert.type = "button";
+    rightInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-right";
+    rightInsert.dataset.insertAfter = String(index);
+    rightInsert.title = "Add Team";
+    rightInsert.setAttribute("aria-label", "Add team after this team");
+    rightInsert.textContent = "+";
+    slot.appendChild(rightInsert);
     appendCareerSlotZoomControls(slot, index, totalCount, true);
     appendCareerSlotYearNudgeControls(slot, index, totalCount, true);
     rowEl.appendChild(slot);
 
-    if (!isLastInRow) {
+    if (showInsertAfter && index < totalCount - 1) {
       const arrow = document.createElement("div");
       arrow.className = "career-grid-arrow";
-      arrow.textContent = ">>";
+      arrow.innerHTML = `
+        <span class="career-order-arrow" aria-hidden="true">»</span>
+        <button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${index}" title="Add Team" aria-label="Add team between teams">+</button>
+      `;
       rowEl.appendChild(arrow);
     }
   };
@@ -1365,10 +1738,17 @@ export function renderCareer() {
         row.dataset.rowIndex = String(rowIndex);
 
         for (let j = 0; j < rowCount && slotIndex < n; j += 1, slotIndex += 1) {
-          appendShortsCareerSlot(row, slotIndex, n, j === rowCount - 1 || slotIndex === n - 1);
+          const showInsertAfter = j < rowCount - 1;
+          appendShortsCareerSlot(row, slotIndex, n, showInsertAfter);
         }
 
         gridContainer.appendChild(row);
+        if (slotIndex < n) {
+          const breakInsert = document.createElement("div");
+          breakInsert.className = "career-grid-break-insert";
+          breakInsert.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${slotIndex - 1}" title="Add Team" aria-label="Add team between teams">+</button>`;
+          gridContainer.appendChild(breakInsert);
+        }
       });
 
       while (slotIndex < n) {
@@ -1376,11 +1756,35 @@ export function renderCareer() {
         overflowRow.className = "career-grid-row";
         overflowRow.dataset.rowSize = "3";
 
-        for (let j = 0; j < 3 && slotIndex < n; j += 1, slotIndex += 1) {
-          appendShortsCareerSlot(overflowRow, slotIndex, n, j === 2 || slotIndex === n - 1);
+        const overflowRowCount = Math.min(3, n - slotIndex);
+        for (let j = 0; j < overflowRowCount && slotIndex < n; j += 1, slotIndex += 1) {
+          const showInsertAfter = j < overflowRowCount - 1;
+          appendShortsCareerSlot(overflowRow, slotIndex, n, showInsertAfter);
         }
 
         gridContainer.appendChild(overflowRow);
+        if (slotIndex < n) {
+          const breakInsert = document.createElement("div");
+          breakInsert.className = "career-grid-break-insert";
+          breakInsert.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${slotIndex - 1}" title="Add Team" aria-label="Add team between teams">+</button>`;
+          gridContainer.appendChild(breakInsert);
+        }
+      }
+
+      const firstRow = gridContainer.querySelector(".career-grid-row");
+      if (firstRow) {
+        const startArrow = document.createElement("div");
+        startArrow.className = "career-grid-arrow career-grid-arrow--edge career-grid-arrow--edge-start";
+        startArrow.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="-1" title="Add Team" aria-label="Add team before first team">+</button>`;
+        firstRow.insertBefore(startArrow, firstRow.firstChild);
+      }
+      const allRows = gridContainer.querySelectorAll(".career-grid-row");
+      const lastRow = allRows.length ? allRows[allRows.length - 1] : null;
+      if (lastRow) {
+        const endArrow = document.createElement("div");
+        endArrow.className = "career-grid-arrow career-grid-arrow--edge career-grid-arrow--edge-end";
+        endArrow.innerHTML = `<button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${Math.max(-1, n - 1)}" title="Add Team" aria-label="Add team after last team">+</button>`;
+        lastRow.appendChild(endArrow);
       }
 
       wrap.appendChild(gridContainer);
@@ -1449,6 +1853,7 @@ export function renderCareer() {
     wrap.appendChild(revealName);
 
   } else {
+    if (n > 0) {
     const defs = document.createElementNS(svgNamespace, "defs");
     const clipPath = document.createElementNS(svgNamespace, "clipPath");
     clipPath.setAttribute("id", "road-clip");
@@ -1521,10 +1926,70 @@ export function renderCareer() {
       slot.style.top = `${(p.y / 400) * 100}%`;
       
       slot.innerHTML = generateSlotContent(i);
+      const leftInsert = document.createElement("button");
+      leftInsert.type = "button";
+      leftInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-left";
+      leftInsert.dataset.insertAfter = String(i - 1);
+      leftInsert.title = "Add Team";
+      leftInsert.setAttribute("aria-label", "Add team before this team");
+      leftInsert.textContent = "+";
+      slot.appendChild(leftInsert);
+      const rightInsert = document.createElement("button");
+      rightInsert.type = "button";
+      rightInsert.className = "career-insert-btn career-insert-btn--side career-insert-btn--side-right";
+      rightInsert.dataset.insertAfter = String(i);
+      rightInsert.title = "Add Team";
+      rightInsert.setAttribute("aria-label", "Add team after this team");
+      rightInsert.textContent = "+";
+      slot.appendChild(rightInsert);
       appendCareerSlotZoomControls(slot, i, n, false);
       appendCareerSlotYearNudgeControls(slot, i, n, false);
 
       slotsContainer.appendChild(slot);
+    }
+    for (let i = 0; i < n - 1; i++) {
+      const current = points[i];
+      const next = points[i + 1];
+      const insertBtn = document.createElement("button");
+      insertBtn.type = "button";
+      insertBtn.className = "career-insert-btn career-insert-btn--road";
+      insertBtn.dataset.insertAfter = String(i);
+      insertBtn.title = "Add Team";
+      insertBtn.setAttribute("aria-label", "Add team between teams");
+      insertBtn.textContent = "+";
+      const midX = ((current.x + next.x) / 2 / 1000) * 100;
+      const midY = ((current.y + next.y) / 2 / 400) * 100;
+      insertBtn.style.left = `${midX}%`;
+      insertBtn.style.top = `${midY}%`;
+      slotsContainer.appendChild(insertBtn);
+    }
+    if (n > 0) {
+      const clampPct = (v, min, max) => Math.min(max, Math.max(min, v));
+      const edgeOffsetX = 7.5;
+      const first = points[0];
+      const last = points[n - 1];
+
+      const startInsertBtn = document.createElement("button");
+      startInsertBtn.type = "button";
+      startInsertBtn.className = "career-insert-btn career-insert-btn--road";
+      startInsertBtn.dataset.insertAfter = "-1";
+      startInsertBtn.title = "Add Team";
+      startInsertBtn.setAttribute("aria-label", "Add team before first team");
+      startInsertBtn.textContent = "+";
+      startInsertBtn.style.left = `${clampPct((first.x / 1000) * 100 - edgeOffsetX, 2, 98)}%`;
+      startInsertBtn.style.top = `${(first.y / 400) * 100}%`;
+      slotsContainer.appendChild(startInsertBtn);
+
+      const endInsertBtn = document.createElement("button");
+      endInsertBtn.type = "button";
+      endInsertBtn.className = "career-insert-btn career-insert-btn--road";
+      endInsertBtn.dataset.insertAfter = String(n - 1);
+      endInsertBtn.title = "Add Team";
+      endInsertBtn.setAttribute("aria-label", "Add team after last team");
+      endInsertBtn.textContent = "+";
+      endInsertBtn.style.left = `${clampPct((last.x / 1000) * 100 + edgeOffsetX, 2, 98)}%`;
+      endInsertBtn.style.top = `${(last.y / 400) * 100}%`;
+      slotsContainer.appendChild(endInsertBtn);
     }
     const clipD = `M 0,${points[0].y} L ${points[0].x},${points[0].y} ` + d.replace(`M ${points[0].x},${points[0].y} `, "") + ` L 1000,${points[n-1].y} L 1000,-1000 L 0,-1000 Z`;
     clipPathElement.setAttribute("d", clipD);
@@ -1580,6 +2045,7 @@ export function renderCareer() {
       <div class="career-reveal-name-bottom">${bottomName}</div>
     `;
     wrap.appendChild(revealName);
+    }
   }
 
   bindCareerLogoYearAlignment(wrap);
@@ -1590,6 +2056,145 @@ export function renderCareer() {
           e.stopPropagation();
           openCareerEditModal(parseInt(btn.dataset.index, 10));
       };
+  });
+  wrap.querySelectorAll(".career-remove-btn").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      removeCareerSlotAt(parseInt(btn.dataset.index, 10));
+    };
+  });
+  wrap.querySelectorAll(".career-insert-btn").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      insertCareerSlotAfter(parseInt(btn.dataset.insertAfter, 10));
+    };
+  });
+  wrap.querySelectorAll(".career-club-year[data-career-slot-index]").forEach((yearEl) => {
+    yearEl.addEventListener("dblclick", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (yearEl.tagName !== "DIV") return;
+      const slotIndex = Number.parseInt(String(yearEl.getAttribute("data-career-slot-index") || ""), 10);
+      if (!Number.isInteger(slotIndex) || slotIndex < 0) return;
+      const st = getState();
+      const row = Array.isArray(st.careerHistory) ? st.careerHistory[slotIndex] : null;
+      if (!row || typeof row !== "object") return;
+
+      const stack = yearEl.parentElement;
+      if (!stack || !stack.classList.contains("career-club-year-stack")) return;
+
+      const displayVal = String(row.year || "").trim();
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = `${yearEl.className} career-club-year-input`.trim();
+      input.value = displayVal === "YYYY" ? "" : displayVal;
+      input.maxLength = 32;
+      input.setAttribute("aria-label", "Team year");
+      input.style.minWidth = `${Math.max(yearEl.offsetWidth || 0, 40)}px`;
+
+      let done = false;
+      const finishCommit = () => {
+        if (done) return;
+        done = true;
+        const v = input.value.trim();
+        row.year = v || "YYYY";
+        renderCareer();
+        renderHeader();
+      };
+      const finishCancel = () => {
+        if (done) return;
+        done = true;
+        renderCareer();
+      };
+
+      stack.replaceChild(input, yearEl);
+      input.focus();
+      input.select();
+
+      input.addEventListener("blur", () => {
+        if (!done) finishCommit();
+      });
+      input.addEventListener("keydown", (ke) => {
+        if (ke.key === "Enter") {
+          ke.preventDefault();
+          input.blur();
+        } else if (ke.key === "Escape") {
+          ke.preventDefault();
+          done = true;
+          finishCancel();
+        }
+      });
+    });
+  });
+
+  wrap.querySelectorAll(".career-logo-fetch-btn").forEach((btn) => {
+    btn.onclick = async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (btn.disabled) return;
+      const teamName = String(btn.dataset.teamName || "").trim();
+      const slotIndex = Number.parseInt(String(btn.dataset.index || "-1"), 10);
+      if (!teamName || !Number.isInteger(slotIndex) || slotIndex < 0) {
+        window.alert("Missing team name for this slot.");
+        return;
+      }
+      const st = getState();
+      const row = Array.isArray(st?.careerHistory) ? st.careerHistory[slotIndex] : null;
+      if (!row || typeof row !== "object") {
+        window.alert("Could not resolve this team slot.");
+        return;
+      }
+
+      const prevText = btn.textContent || "Logo";
+      btn.disabled = true;
+      btn.textContent = "...";
+      try {
+        const res = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            teamName,
+            countryHint: String(btn.dataset.countryHint || "").trim(),
+            leagueHint: String(btn.dataset.leagueHint || "").trim(),
+            targetRelativePath: String(btn.dataset.targetRelPath || "").trim(),
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.ok || !data?.relativePath) {
+          throw new Error(data?.error || "Could not fetch team logo.");
+        }
+        const relPath = String(data.relativePath);
+        const baseFreshUrl = projectAssetUrlFresh(relPath);
+        const freshJoiner = baseFreshUrl.includes("?") ? "&" : "?";
+        const freshUrl = `${baseFreshUrl}${freshJoiner}logoDl=${Date.now()}`;
+        row.customImage = freshUrl;
+        const slotRoot = btn.closest(".career-club-emblem-slot");
+        const slotImg = slotRoot?.querySelector(".career-club-logo-img");
+        const slotFallback = slotRoot?.querySelector(".career-club-fallback-text");
+        if (slotImg) {
+          const logoCacheKey = String(slotImg.dataset.logoCacheKey || "").trim();
+          if (logoCacheKey) {
+            careerResolvedClubLogoSrcByKey.delete(logoCacheKey);
+          }
+          slotImg.hidden = false;
+          slotImg.dataset.fallbackIndex = "0";
+          slotImg.src = freshUrl;
+        }
+        if (slotFallback) slotFallback.hidden = true;
+        btn.hidden = true;
+        renderCareer();
+        renderHeader();
+        window.alert(`Logo downloaded: ${String(data.matchedName || teamName)}`);
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Could not fetch team logo.";
+        window.alert(msg);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = prevText;
+      }
+    };
   });
 
   // Keep direct renders (e.g. selecting a player) aligned with video preview states.
@@ -1613,6 +2218,10 @@ export function renderCareer() {
   }
   if (revealName) {
     revealName.classList.toggle("show", previewPostTimer);
+    hookCareerRevealNameFitOnResize();
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => fitCareerRevealNameLines(revealName));
+    });
   }
   if (!document.body.classList.contains("shorts-mode")) {
     wrap.classList.toggle("cinematic-reveal-active", previewPostTimer);
@@ -1624,6 +2233,26 @@ export function renderCareer() {
 
   syncCareerSlotControlsVisibility();
   renderCareerPictureControls(wrap, state);
+}
+
+/** Inside `.app` so stacking respects Quiz Controls; body-level siblings beat the whole app when `.app` has z-index (sun-ray background effects). */
+function mountCareerPictureControlsPanel(panel) {
+  const app = document.querySelector(".app");
+  if (!panel || !app) return;
+  const rightPanel = document.getElementById("right-panel");
+  const controlPanel = document.getElementById("control-panel");
+  const anchor =
+    rightPanel && rightPanel.parentElement === app
+      ? rightPanel
+      : controlPanel && controlPanel.parentElement === app
+        ? controlPanel
+        : null;
+  if (!anchor) {
+    if (panel.parentElement !== document.body) document.body.appendChild(panel);
+    return;
+  }
+  if (panel.parentElement === app && panel.previousElementSibling === anchor) return;
+  anchor.insertAdjacentElement("afterend", panel);
 }
 
 function renderCareerPictureControls(wrap, state) {
@@ -1692,7 +2321,7 @@ function renderCareerPictureControls(wrap, state) {
         else saveCareerPictureFavorite(st);
       }
       if (action === "reset") {
-        const pictureDefaults = getDefaultPlayerPictureValues(layoutShorts);
+        const pictureDefaults = getDefaultPlayerPictureValuesForCareerMode(layoutShorts, !!st.videoMode);
         st.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
         st.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
         st.silhouetteScaleY = pictureDefaults.silhouetteScaleY;
@@ -1714,10 +2343,15 @@ function renderCareerPictureControls(wrap, state) {
       if (silhouette) {
         applyCareerSilhouetteAdjustments(silhouette, st);
       }
-      applyCareerRevealAdjustments(activeWrap, st);
+      applyCareerRevealAdjustments(
+        activeWrap,
+        getCareerRevealCssVarSource(st, layoutShorts),
+      );
     });
-    document.body.appendChild(panel);
+    mountCareerPictureControlsPanel(panel);
   }
+
+  mountCareerPictureControlsPanel(panel);
 
   panel.classList.toggle("career-picture-controls--shorts-layout", useShortsPanelLayout);
   if (useShortsPanelLayout) {

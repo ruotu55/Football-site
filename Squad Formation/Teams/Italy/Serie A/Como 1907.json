@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IT1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 30,
       "nationality": "France",
       "club": "Como 1907",
-      "appearances": 35,
+      "appearances": 30,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -48,7 +49,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 365,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 409,
+        "clean_sheets": 126
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noel Törnqvist",
@@ -84,7 +99,21 @@
           "club": "Mjällby AIF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 116,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Cavlina",
@@ -120,7 +149,21 @@
           "club": "Dinamo Zagreb",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 152,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henrique Menke",
@@ -128,7 +171,7 @@
       "age": 19,
       "nationality": "Brazil",
       "club": "Como 1907",
-      "appearances": 20,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -140,7 +183,21 @@
           "club": "Internacional",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 41,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mauro Vigorito",
@@ -212,7 +269,21 @@
           "club": "Como",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 349,
+        "clean_sheets": 79
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -222,7 +293,7 @@
       "age": 21,
       "nationality": "Spain",
       "club": "Como 1907",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -234,7 +305,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Carlos",
@@ -242,9 +327,9 @@
       "age": 33,
       "nationality": "Brazil",
       "club": "Como 1907",
-      "appearances": 24,
+      "appearances": 21,
       "goals": 1,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Paulista-SP",
@@ -286,7 +371,21 @@
           "club": "Fenerbahçe",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 390,
+        "goals": 14,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Oliver Kempf",
@@ -294,7 +393,7 @@
       "age": 31,
       "nationality": "Germany",
       "club": "Como 1907",
-      "appearances": 30,
+      "appearances": 27,
       "goals": 4,
       "assists": 0,
       "transfer_history": [
@@ -318,7 +417,21 @@
           "club": "Como",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 47,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edoardo Goldaniga",
@@ -326,7 +439,7 @@
       "age": 32,
       "nationality": "Italy",
       "club": "Como 1907",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -390,7 +503,21 @@
           "club": "Como",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 359,
+        "goals": 22,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álex Valle",
@@ -398,7 +525,7 @@
       "age": 21,
       "nationality": "Spain",
       "club": "Como 1907",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 0,
       "assists": 4,
       "transfer_history": [
@@ -442,7 +569,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alberto Moreno",
@@ -450,7 +591,7 @@
       "age": 33,
       "nationality": "Spain",
       "club": "Como 1907",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -474,15 +615,29 @@
           "club": "Como",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 419,
+        "goals": 22,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ignace Van der Brempt",
       "position": "Right-Back",
-      "age": 23,
+      "age": 24,
       "nationality": "Belgium",
       "club": "Como 1907",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -514,7 +669,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mërgim Vojvoda",
@@ -522,9 +691,9 @@
       "age": 31,
       "nationality": "Kosovo",
       "club": "Como 1907",
-      "appearances": 29,
+      "appearances": 25,
       "goals": 2,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Sint-Truiden",
@@ -550,7 +719,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 9,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 73,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivan Smolcic",
@@ -558,9 +741,9 @@
       "age": 25,
       "nationality": "Croatia",
       "club": "Como 1907",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "HNK Rijeka Jgd",
@@ -586,7 +769,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 8,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -596,7 +793,7 @@
       "age": 23,
       "nationality": "Argentina",
       "club": "Como 1907",
-      "appearances": 32,
+      "appearances": 28,
       "goals": 3,
       "assists": 4,
       "transfer_history": [
@@ -628,7 +825,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 6,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Da Cunha",
@@ -636,8 +847,8 @@
       "age": 24,
       "nationality": "France",
       "club": "Como 1907",
-      "appearances": 33,
-      "goals": 4,
+      "appearances": 28,
+      "goals": 3,
       "assists": 4,
       "transfer_history": [
         {
@@ -668,7 +879,21 @@
           "club": "Como",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 203,
+        "goals": 32,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maxence Caqueret",
@@ -676,9 +901,9 @@
       "age": 26,
       "nationality": "France",
       "club": "Como 1907",
-      "appearances": 29,
+      "appearances": 24,
       "goals": 2,
-      "assists": 4,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Lyon",
@@ -688,7 +913,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 17,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrian Lahdo",
@@ -696,8 +935,8 @@
       "age": 18,
       "nationality": "Sweden",
       "club": "Como 1907",
-      "appearances": 3,
-      "goals": 1,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -720,7 +959,21 @@
           "club": "Como",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergi Roberto",
@@ -728,8 +981,8 @@
       "age": 34,
       "nationality": "Spain",
       "club": "Como 1907",
-      "appearances": 19,
-      "goals": 1,
+      "appearances": 15,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -744,7 +997,21 @@
           "club": "Como",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 511,
+        "goals": 27,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nico Paz",
@@ -752,8 +1019,8 @@
       "age": 21,
       "nationality": "Argentina",
       "club": "Como 1907",
-      "appearances": 33,
-      "goals": 11,
+      "appearances": 29,
+      "goals": 10,
       "assists": 6,
       "transfer_history": [
         {
@@ -764,7 +1031,21 @@
           "club": "Como",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 35,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Baturina",
@@ -772,9 +1053,9 @@
       "age": 23,
       "nationality": "Croatia",
       "club": "Como 1907",
-      "appearances": 25,
-      "goals": 7,
-      "assists": 4,
+      "appearances": 21,
+      "goals": 6,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Dinamo Zagreb",
@@ -784,7 +1065,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 30,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -794,9 +1089,9 @@
       "age": 20,
       "nationality": "Spain",
       "club": "Como 1907",
-      "appearances": 30,
-      "goals": 3,
-      "assists": 8,
+      "appearances": 26,
+      "goals": 1,
+      "assists": 7,
       "transfer_history": [
         {
           "club": "Betis Deportivo",
@@ -810,7 +1105,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 15,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Assane Diao",
@@ -818,7 +1127,7 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "Como 1907",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -842,7 +1151,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 21,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jayden Addai",
@@ -850,7 +1173,7 @@
       "age": 20,
       "nationality": "Netherlands",
       "club": "Como 1907",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 3,
       "assists": 0,
       "transfer_history": [
@@ -862,7 +1185,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 62,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Kühn",
@@ -870,9 +1207,9 @@
       "age": 26,
       "nationality": "Germany",
       "club": "Como 1907",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Erzgebirge Aue",
@@ -890,7 +1227,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 86,
+        "assists": 57,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anastasios Douvikas",
@@ -898,9 +1249,9 @@
       "age": 26,
       "nationality": "Greece",
       "club": "Como 1907",
-      "appearances": 35,
-      "goals": 14,
-      "assists": 2,
+      "appearances": 30,
+      "goals": 11,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Asteras Tripoli",
@@ -922,7 +1273,21 @@
           "club": "Como",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 294,
+        "goals": 90,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álvaro Morata",
@@ -930,8 +1295,8 @@
       "age": 33,
       "nationality": "Spain",
       "club": "Como 1907",
-      "appearances": 22,
-      "goals": 1,
+      "appearances": 19,
+      "goals": 0,
       "assists": 2,
       "transfer_history": [
         {
@@ -998,7 +1363,21 @@
           "club": "AC Milan",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 652,
+        "goals": 230,
+        "assists": 90,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 87,
+        "goals": 37,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

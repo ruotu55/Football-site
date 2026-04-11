@@ -1,6 +1,66 @@
 import { appState, getState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 
+/** Loose crests: drop a PNG named exactly like the squad JSON `club` string (e.g. Atlético de Madrid.png). */
+const TEAMS_IMAGES_OTHER_TEAMS_DIR = "Teams Images/(1) Other Teams";
+const NATIONAL_TEAM_LOGOS_DIR = "National Team Logos";
+
+const NATIONALITY_TO_TEAM_LOGO_NAME = {
+  american: "United States",
+  bosnian: "Bosnia and Herzegovina",
+  "bosnia herzegovina": "Bosnia and Herzegovina",
+  "bosnia-herzegovina": "Bosnia and Herzegovina",
+  czechia: "Czech Republic",
+  czech: "Czech Republic",
+  english: "England",
+  ivorian: "Ivory Coast",
+  "cote d ivoire": "Ivory Coast",
+  mexican: "Mexico",
+  portuguese: "Portugal",
+  saudi: "Saudi Arabia",
+  scottish: "Scotland",
+  turkiye: "Turkey",
+  turkish: "Turkey",
+  usa: "United States",
+  "u s a": "United States",
+  "u s": "United States",
+  uruguayan: "Uruguay",
+};
+
+function normalizeNationalityLogoKey(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function toTitleCaseWords(value) {
+  return String(value || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function getNationalTeamLogoLoadUrls(teamNameRaw) {
+  const natLabel = String(teamNameRaw || "").trim();
+  const normalizedKey = normalizeNationalityLogoKey(natLabel);
+  const aliased = NATIONALITY_TO_TEAM_LOGO_NAME[normalizedKey] || "";
+  const normalizedTitle = toTitleCaseWords(normalizedKey);
+  const names = [];
+  const pushUniqueName = (name) => {
+    const t = String(name || "").trim();
+    if (t && !names.includes(t)) names.push(t);
+  };
+  pushUniqueName(natLabel);
+  pushUniqueName(aliased);
+  pushUniqueName(normalizedTitle);
+  return names.map((name) => projectAssetUrl(`${NATIONAL_TEAM_LOGOS_DIR}/${name}.png`));
+}
+
 export function generateMonogram(name) {
   if (!name) return "?";
   const words = name.trim().split(/\s+/);
@@ -16,6 +76,68 @@ export function getClubLogoUrl(clubName) {
     return projectAssetUrl(`Teams Images/${clubEntry.country}/${clubEntry.league}/${clubEntry.name}.png`);
   }
   return null;
+}
+
+/**
+ * Fallback crest path when the canonical country/league file is missing or the name does not match the index.
+ * File name must match the player JSON `club` field (including accents/spacing).
+ */
+export function getClubLogoOtherTeamsUrl(clubField) {
+  if (clubField == null || typeof clubField !== "string") return null;
+  const t = clubField.trim();
+  if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
+  return projectAssetUrl(`${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`);
+}
+
+/**
+ * Header crest for a loaded squad: canonical `imagePath` (league folder) first, then `(1) Other Teams/<name>.png`
+ * if that URL differs (club squads only). National squads use `imagePath` only.
+ */
+export function getClubSquadHeaderLogoLoadUrls(squad, squadType, selectedEntryName) {
+  const primaryUrl = squad?.imagePath ? projectAssetUrl(squad.imagePath) : null;
+  if (squadType !== "club") {
+    return { primaryUrl, secondaryUrl: null };
+  }
+  const nameForOt = String(squad?.name || selectedEntryName || "").trim();
+  const otherTeamsUrl = nameForOt ? getClubLogoOtherTeamsUrl(nameForOt) : null;
+  const secondaryUrl =
+    otherTeamsUrl && otherTeamsUrl !== primaryUrl ? otherTeamsUrl : null;
+  return { primaryUrl, secondaryUrl };
+}
+
+/** Relative repo path for a PNG in `(1) Other Teams` (basename without `.png`). */
+export function getClubLogoOtherTeamsRelPath(clubField) {
+  if (clubField == null || typeof clubField !== "string") return null;
+  const t = clubField.trim();
+  if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
+  return `${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`;
+}
+
+/**
+ * Header crest load order: optional per-level override (`headerLogoOverrideRelPath`), then league `imagePath`,
+ * then automatic Other Teams fallback for club squads.
+ */
+export function getHeaderLogoUrlChain(state, squad, squadType, selectedEntryName, quizType = "nat-by-club") {
+  const { primaryUrl, secondaryUrl } = getClubSquadHeaderLogoLoadUrls(squad, squadType, selectedEntryName);
+  const chain = [];
+  const ov = state?.headerLogoOverrideRelPath;
+  if (ov && typeof ov === "string") {
+    const t = ov.trim();
+    if (t && !t.includes("..") && !t.includes("\\")) {
+      chain.push(projectAssetUrl(t));
+    }
+  }
+  const pushUnique = (u) => {
+    if (u && !chain.includes(u)) chain.push(u);
+  };
+  if (quizType === "nat-by-club") {
+    const teamName = String(squad?.name || selectedEntryName || "").trim();
+    getNationalTeamLogoLoadUrls(teamName).forEach(pushUnique);
+    return chain;
+  }
+  pushUnique(primaryUrl);
+  pushUnique(secondaryUrl);
+  return chain;
 }
 
 /** Pitch uses rotateX(~38deg); smaller y = farther away — scale so portrait size matches FUT.GG-style depth */

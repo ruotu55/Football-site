@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 25,
       "nationality": "Turkiye",
       "club": "LOSC Lille",
-      "appearances": 38,
+      "appearances": 25,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -56,7 +57,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 226,
+        "clean_sheets": 65
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Arnaud Bodart",
@@ -64,7 +79,7 @@
       "age": 28,
       "nationality": "Belgium",
       "club": "LOSC Lille",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -80,7 +95,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 285,
+        "clean_sheets": 53
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc-Aurèle Caillard",
@@ -112,17 +141,65 @@
           "club": "Lille",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 221,
+        "clean_sheets": 45
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
+    {
+      "name": "Nathan Ngoy",
+      "position": "Centre-Back",
+      "age": 22,
+      "nationality": "Belgium",
+      "club": "LOSC Lille",
+      "appearances": 23,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Standard Liège",
+          "year": "2021"
+        },
+        {
+          "club": "Lille",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Alexsandro",
       "position": "Centre-Back",
       "age": 26,
       "nationality": "Brazil",
       "club": "LOSC Lille",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -142,27 +219,21 @@
           "club": "Lille",
           "year": "2022"
         }
-      ]
-    },
-    {
-      "name": "Nathan Ngoy",
-      "position": "Centre-Back",
-      "age": 22,
-      "nationality": "Belgium",
-      "club": "LOSC Lille",
-      "appearances": 32,
-      "goals": 3,
-      "assists": 2,
-      "transfer_history": [
-        {
-          "club": "Standard Liège",
-          "year": "2021"
-        },
-        {
-          "club": "Lille",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chancel Mbemba",
@@ -170,9 +241,9 @@
       "age": 31,
       "nationality": "Democratic Republic of the Congo",
       "club": "LOSC Lille",
-      "appearances": 20,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "RSC Anderlecht",
@@ -194,7 +265,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 391,
+        "goals": 32,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 104,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aïssa Mandi",
@@ -202,7 +287,7 @@
       "age": 34,
       "nationality": "Algeria",
       "club": "LOSC Lille",
-      "appearances": 33,
+      "appearances": 22,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -222,7 +307,21 @@
           "club": "Lille",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 487,
+        "goals": 26,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 116,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Fernandes",
@@ -230,7 +329,7 @@
       "age": 23,
       "nationality": "Portugal",
       "club": "LOSC Lille",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -254,7 +353,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousmane Touré",
@@ -278,7 +391,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Romain Perraud",
@@ -286,7 +413,7 @@
       "age": 28,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 34,
+      "appearances": 23,
       "goals": 2,
       "assists": 3,
       "transfer_history": [
@@ -326,7 +453,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 26,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Calvin Verdonk",
@@ -334,9 +475,9 @@
       "age": 28,
       "nationality": "Indonesia",
       "club": "LOSC Lille",
-      "appearances": 25,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Feyenoord",
@@ -386,7 +527,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 326,
+        "goals": 14,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tiago Santos",
@@ -394,9 +549,9 @@
       "age": 23,
       "nationality": "Portugal",
       "club": "LOSC Lille",
-      "appearances": 26,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Sporting Sub-15",
@@ -418,7 +573,21 @@
           "club": "Lille",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 5,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thomas Meunier",
@@ -426,9 +595,9 @@
       "age": 34,
       "nationality": "Belgium",
       "club": "LOSC Lille",
-      "appearances": 29,
+      "appearances": 19,
       "goals": 1,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "RE Virton",
@@ -454,7 +623,21 @@
           "club": "Lille",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 512,
+        "goals": 41,
+        "assists": 63,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 78,
+        "goals": 10,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -464,8 +647,8 @@
       "age": 21,
       "nationality": "Democratic Republic of the Congo",
       "club": "LOSC Lille",
-      "appearances": 35,
-      "goals": 2,
+      "appearances": 23,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -484,7 +667,21 @@
           "club": "Lille",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nabil Bentaleb",
@@ -492,7 +689,7 @@
       "age": 31,
       "nationality": "Algeria",
       "club": "LOSC Lille",
-      "appearances": 33,
+      "appearances": 22,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -536,7 +733,21 @@
           "club": "Lille",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 345,
+        "goals": 34,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 57,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin André",
@@ -544,9 +755,9 @@
       "age": 35,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 30,
-      "goals": 4,
-      "assists": 2,
+      "appearances": 20,
+      "goals": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "AC Ajaccio",
@@ -560,7 +771,21 @@
           "club": "Lille",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 668,
+        "goals": 36,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayyoub Bouaddi",
@@ -568,7 +793,7 @@
       "age": 18,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 36,
+      "appearances": 24,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -576,7 +801,21 @@
           "club": "Lille",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hákon Arnar Haraldsson",
@@ -584,9 +823,9 @@
       "age": 22,
       "nationality": "Iceland",
       "club": "LOSC Lille",
-      "appearances": 39,
-      "goals": 7,
-      "assists": 6,
+      "appearances": 25,
+      "goals": 6,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "ÍA Akranes",
@@ -604,7 +843,21 @@
           "club": "Lille",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 39,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -614,9 +867,9 @@
       "age": 21,
       "nationality": "Spain",
       "club": "LOSC Lille",
-      "appearances": 34,
+      "appearances": 22,
       "goals": 5,
-      "assists": 6,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "KAA Gent Youth",
@@ -630,7 +883,21 @@
           "club": "Lille",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 23,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osame Sahraoui",
@@ -638,7 +905,7 @@
       "age": 24,
       "nationality": "Morocco",
       "club": "LOSC Lille",
-      "appearances": 23,
+      "appearances": 16,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -654,7 +921,21 @@
           "club": "Lille",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 227,
+        "goals": 29,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Félix Correia",
@@ -662,9 +943,9 @@
       "age": 25,
       "nationality": "Portugal",
       "club": "LOSC Lille",
-      "appearances": 41,
-      "goals": 4,
-      "assists": 6,
+      "appearances": 27,
+      "goals": 3,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Sporting Sub-15",
@@ -698,7 +979,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 32,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soriba Diaoune",
@@ -706,15 +1001,29 @@
       "age": 18,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 3,
+      "appearances": 10,
+      "goals": 1,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Lille",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Mbappé",
@@ -722,7 +1031,7 @@
       "age": 19,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 3,
       "assists": 1,
       "transfer_history": [
@@ -734,7 +1043,21 @@
           "club": "Lille",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 17,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marius Broholm",
@@ -742,8 +1065,8 @@
       "age": 21,
       "nationality": "Norway",
       "club": "LOSC Lille",
-      "appearances": 14,
-      "goals": 2,
+      "appearances": 11,
+      "goals": 1,
       "assists": 1,
       "transfer_history": [
         {
@@ -766,7 +1089,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 45,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gaëtan Perrin",
@@ -774,9 +1111,9 @@
       "age": 29,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 28,
-      "goals": 3,
-      "assists": 4,
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Lyon",
@@ -806,7 +1143,21 @@
           "club": "Lille",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 70,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Edjouma",
@@ -814,7 +1165,7 @@
       "age": 20,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -826,7 +1177,21 @@
           "club": "Lille",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 17,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Igamane",
@@ -834,9 +1199,9 @@
       "age": 23,
       "nationality": "Morocco",
       "club": "LOSC Lille",
-      "appearances": 21,
-      "goals": 9,
-      "assists": 2,
+      "appearances": 13,
+      "goals": 5,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "FAR Reserve",
@@ -854,7 +1219,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 41,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olivier Giroud",
@@ -862,8 +1241,8 @@
       "age": 39,
       "nationality": "France",
       "club": "LOSC Lille",
-      "appearances": 38,
-      "goals": 10,
+      "appearances": 24,
+      "goals": 6,
       "assists": 1,
       "transfer_history": [
         {
@@ -906,7 +1285,21 @@
           "club": "Lille",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 794,
+        "goals": 301,
+        "assists": 103,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 137,
+        "goals": 57,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

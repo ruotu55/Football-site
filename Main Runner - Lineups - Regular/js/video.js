@@ -1,24 +1,86 @@
 import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
-import { startBgMusic, stopAllAudio, playWelcome, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
+import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderPitch } from "./pitch-render.js";
+import {
+  applyVideoQuestionPostTimerFlip,
+  clearPitchWrapTransitionOverride,
+  renderHeader,
+  renderPitch,
+  shouldUseVideoQuestionLayout,
+  syncPitchWrapTransitionToVideoReveal,
+} from "./pitch-render.js";
+
+/** After Play Video on the logo page: pause before logo reveal + next step. */
+const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
+const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
+const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
+/** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
+const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
 
 function setVideoRevealPostTimerActive(isActive) {
-  appState.videoRevealPostTimerActive = !!isActive;
+  const active = !!isActive;
+  appState.videoRevealPostTimerActive = active;
+  document.body?.classList.toggle("video-reveal-post-timer", active);
 }
 
 function refreshCurrentQuestionPreview() {
   if (appState.currentLevelIndex <= 1 || appState.currentLevelIndex >= appState.totalLevelsCount) {
     return;
   }
+  const state = getState();
+  const useVideoQ = shouldUseVideoQuestionLayout(state);
+  const postReveal = appState.videoRevealPostTimerActive;
+
+  if (postReveal && useVideoQ) {
+    const pitchSlots = appState.els.pitchSlots;
+    const occupied = pitchSlots?.querySelectorAll(".player-slot.has-player") ?? [];
+    const flipReady =
+      occupied.length > 0 &&
+      [...occupied].every((el) => el.querySelector(".slot-inner"));
+
+    if (!flipReady) {
+      renderPitch();
+      const filled = pitchSlots?.querySelectorAll(".player-slot.has-player");
+      const n = filled?.length ?? 0;
+      syncPitchWrapTransitionToVideoReveal(n);
+      renderHeader();
+      applyVideoQuestionPostTimerFlip();
+      return;
+    }
+    syncPitchWrapTransitionToVideoReveal(occupied.length);
+    renderHeader();
+    applyVideoQuestionPostTimerFlip();
+    return;
+  }
+
+  clearPitchWrapTransitionOverride();
   renderPitch();
   renderHeader();
 }
 
+function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
+  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
+  appState.landingSpecialBadgeRevealTimeoutId = null;
+  if (!appState.els?.inSpecificTitleToggle?.checked) {
+    appState.refreshLandingUi?.();
+    return;
+  }
+  appState.landingSpecialBadgeRevealTimeoutId = setTimeout(() => {
+    appState.landingSpecialBadgeRevealTimeoutId = null;
+    if (!appState.isVideoPlaying) return;
+    appState.refreshLandingUi?.();
+  }, LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
+  appState.refreshLandingUi?.();
+}
+
 export function stopVideoFlow() {
+  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
+  appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
+  appState.refreshLandingUi?.();
   setVideoRevealPostTimerActive(false);
+  clearPitchWrapTransitionOverride();
   document.body.classList.remove("play-video-active");
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
@@ -68,6 +130,8 @@ export function startVideoFlow() {
     return; 
   }
   appState.isVideoPlaying = true;
+  appState.refreshLandingUi?.();
+  scheduleLandingSpecialBadgeRevealAfterPlayVideo();
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   els.playVideoBtn.hidden = true;
@@ -84,28 +148,40 @@ export function startVideoFlow() {
     els.quizProgressContainer.hidden = false;
   }
   if (els.sideTextRight) {
-    els.sideTextRight.hidden = !(isLogo || isLanding || isOutro);
+    els.sideTextRight.hidden = true;
   }
+
   startBgMusic();
-  if (!isShorts) {
-    playWelcome();
+  if (appState.currentLevelIndex <= 1) {
+    const quizType = els.inQuizType?.value || "nat-by-club";
+    setTimeout(() => {
+      if (!appState.isVideoPlaying) return;
+      playRules(quizType, 0);
+    }, INTRO_GAME_NAME_VOICE_DELAY_MS);
   }
+
   if (appState.currentLevelIndex === 0) {
-    if (isShorts) { 
-      switchLevel(1); 
-      runVideoStep(); 
-      return; 
-    } else {
-      const logoImg = els.logoPage.querySelector('.logo-img-anim');
-      if (logoImg && !logoImg.classList.contains('reveal')) {
-        logoImg.classList.add('reveal');
-        appState.videoTimeout = setTimeout(() => { 
-          if (appState.isVideoPlaying) runVideoStep(); 
-        }, 1200); 
-        return;
-      }
+    if (isShorts) {
+      appState.videoTimeout = setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
+        switchLevel(1);
+        runVideoStep();
+      }, LOGO_PAGE_PLAY_VIDEO_DELAY_MS);
+      return;
     }
+    appState.videoTimeout = setTimeout(() => {
+      if (!appState.isVideoPlaying) return;
+      const logoImg = els.logoPage.querySelector(".logo-img-anim");
+      if (logoImg && !logoImg.classList.contains("reveal")) {
+        logoImg.classList.add("reveal");
+      }
+      appState.videoTimeout = setTimeout(() => {
+        if (appState.isVideoPlaying) runVideoStep();
+      }, 1200);
+    }, LOGO_PAGE_PLAY_VIDEO_DELAY_MS);
+    return;
   }
+
   runVideoStep();
 }
 
@@ -119,6 +195,7 @@ function runVideoStep() {
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
   if (isQuestionLevel && els.teamHeader) {
+    clearPitchWrapTransitionOverride();
     els.teamHeader.classList.remove("video-revealed");
     els.teamHeader.classList.add("video-hidden");
   }
@@ -128,18 +205,19 @@ function runVideoStep() {
     if (isOutro) {
       return; 
     }
-    let delay = appState.currentLevelIndex === 0 ? 2000 : 5000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
     if (isShorts && appState.currentLevelIndex === 1) {
-      delay = 2000; 
+      delay = 1000;
     }
     appState.videoTimeout = setTimeout(() => { 
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 3;
+    let count = isShorts ? 5 : 12;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");
+    const showNumericCountdown = isShorts;
     const circleEl = document.querySelector(".timer-progress");
     const dashLength = 283; 
     function updateTimerColors(c) {
@@ -157,7 +235,7 @@ function runVideoStep() {
     updateTimerColors(count);
     els.countdownTimer.classList.remove("pulse");
     els.countdownTimer.hidden = false;
-    textEl.textContent = String(count);
+    textEl.textContent = showNumericCountdown ? String(count) : "";
     if (circleEl) {
       circleEl.style.transition = "none"; 
       circleEl.style.strokeDashoffset = 0; 
@@ -168,18 +246,16 @@ function runVideoStep() {
         circleEl.style.strokeDashoffset = dashLength * ratio;
       }, 50);
     }
-    const delayToTick = (count - (isShorts ? 4.0 : 4.5)) * 1000;
+    const delayToTick = (count - (isShorts ? 4.0 : 3.0)) * 1000;
     setTimeout(() => { if (appState.isVideoPlaying) playTicking(); }, delayToTick);
-    if (isShorts) {
-      const stopTickDelay = (totalTime * 1000) - 200;
-      setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
-    }
+    const stopTickDelay = totalTime * 1000;
+    setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
     appState.videoInterval = setInterval(() => {
       count--;
       if (count > 0) {
         updateTimerColors(count); 
         els.countdownTimer.hidden = false;
-        textEl.textContent = String(count);
+        textEl.textContent = showNumericCountdown ? String(count) : "";
         if (circleEl) {
           const nextCount = count - 1; 
           const ratio = (drainTotalTime - nextCount) / drainTotalTime;
@@ -193,10 +269,34 @@ function runVideoStep() {
           els.countdownTimer.classList.remove("pulse");
         }
       } else {
-        clearInterval(appState.videoInterval); 
+        clearInterval(appState.videoInterval);
+        stopTicking();
         els.countdownTimer.hidden = true;
         els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
-        revealCurrentLevel();
+        const skipRevealToOutro =
+          isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+        if (skipRevealToOutro) {
+          setVideoRevealPostTimerActive(false);
+          const jumpToIndex = appState.currentLevelIndex + 1;
+          switchLevel(jumpToIndex);
+          const nextState = getState();
+          const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+          const shouldContinueVideo =
+            appState.currentLevelIndex === 1 ||
+            isNextOutro ||
+            (nextState.videoMode && nextState.currentSquad);
+          appState.videoTimeout = setTimeout(() => {
+            if (!appState.isVideoPlaying) return;
+            if (appState.currentLevelIndex !== jumpToIndex) return;
+            if (shouldContinueVideo) {
+              runVideoStep();
+            } else {
+              stopVideoFlow();
+            }
+          }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+        } else {
+          revealCurrentLevel();
+        }
       }
     }, 1000);
   }
@@ -206,23 +306,21 @@ function revealCurrentLevel() {
   const { els } = appState;
   const state = getState();
   let flipDelay = 1000;
-  const isShorts = document.body.classList.contains("shorts-mode");
   if (appState.currentLevelIndex > 1) {
-    let isLastQuestion = (appState.currentLevelIndex + 1 === appState.totalLevelsCount);
-    if (isLastQuestion) {
-      flipDelay = 0;
-    } else {
-      let shouldPlayVoice = true;
-      if (!isShorts) {
-        const questionIndex = appState.currentLevelIndex - 2; 
-        if (questionIndex % 3 !== 0) {
-          shouldPlayVoice = false;
-        }
-      }
-      playTheAnswerIs(shouldPlayVoice);
+    const isLastQuestionBeforeOutro =
+      appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+    if (!isLastQuestionBeforeOutro) {
+      const teamDisplayName = String(
+        state?.currentSquad?.name || state?.selectedEntry?.name || ""
+      ).trim();
+      const quizType = els.inQuizType?.value || "nat-by-club";
+      playTheAnswerIs(true, teamDisplayName, quizType);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 4000;
+    } else {
+      /* Bonus: no answer reveal — go straight to outro after the question timer. */
+      flipDelay = 0;
     }
   }
   appState.videoTimeout = setTimeout(() => {
@@ -233,11 +331,17 @@ function revealCurrentLevel() {
       switchLevel(jumpToIndex);
       const nextState = getState();
       const isNextOutro = jumpToIndex === appState.totalLevelsCount;
-      if (appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad)) {
-        runVideoStep();
-      } else {
-        stopVideoFlow();
-      }
+      const shouldContinueVideo =
+        appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad);
+      appState.videoTimeout = setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
+        if (appState.currentLevelIndex !== jumpToIndex) return;
+        if (shouldContinueVideo) {
+          runVideoStep();
+        } else {
+          stopVideoFlow();
+        }
+      }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
     } else {
       stopVideoFlow();
     }

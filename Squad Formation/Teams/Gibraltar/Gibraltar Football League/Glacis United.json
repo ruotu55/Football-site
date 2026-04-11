@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 21,
       "nationality": "Spain",
       "club": "Glacis United",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harry Victor",
@@ -31,9 +52,57 @@
       "age": 22,
       "nationality": "Gibraltar",
       "club": "Glacis United",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "St Joseph's Res",
+          "year": "2020"
+        },
+        {
+          "club": "St Joseph's FC",
+          "year": "2021"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2022"
+        },
+        {
+          "club": "Hartpury College",
+          "year": "2023"
+        },
+        {
+          "club": "Tuffley Rovers",
+          "year": "2023"
+        },
+        {
+          "club": "Oldland",
+          "year": "2024"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 73,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Kulas",
@@ -41,9 +110,49 @@
       "age": 23,
       "nationality": "Croatia",
       "club": "Glacis United",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HNK Zadar",
+          "year": "2020"
+        },
+        {
+          "club": "NK Dugopolje",
+          "year": "2022"
+        },
+        {
+          "club": "NK Primorac (B)",
+          "year": "2022"
+        },
+        {
+          "club": "NK Dubrava ZG",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 13,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +162,65 @@
       "age": 23,
       "nationality": "Gibraltar",
       "club": "Glacis United",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 0
+      "appearances": 14,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boca Gibraltar",
+          "year": "2019"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2020"
+        },
+        {
+          "club": "Lions Gib Res",
+          "year": "2022"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2022"
+        },
+        {
+          "club": "Härnösand FC",
+          "year": "2023"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2023"
+        },
+        {
+          "club": "Manchester 62",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaylan van Schooneveld",
@@ -63,9 +228,37 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "Glacis United",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bennekom Y.",
+          "year": "2015"
+        },
+        {
+          "club": "Telstar",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gideon Lloyd",
@@ -73,9 +266,29 @@
       "age": null,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Evan Allen",
@@ -83,9 +296,29 @@
       "age": 19,
       "nationality": "Australia",
       "club": "Glacis United",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 1,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Knox",
@@ -93,9 +326,49 @@
       "age": 25,
       "nationality": "Gibraltar",
       "club": "Glacis United",
-      "appearances": 16,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Manch. 62 Res",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Europa Reserve",
+          "year": "2023"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Lions Gibraltar",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luke Sowerby",
@@ -103,9 +376,45 @@
       "age": 25,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Missouri Valley",
+          "year": "2021"
+        },
+        {
+          "club": "Cougars",
+          "year": "2023"
+        },
+        {
+          "club": "AFC Ann Arbor",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Krasniqi",
@@ -113,9 +422,29 @@
       "age": null,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 9,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +454,49 @@
       "age": 25,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 2,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Erith&Belvedere",
+          "year": "2020"
+        },
+        {
+          "club": "Phoenix Sports",
+          "year": "2021"
+        },
+        {
+          "club": "FC Kent United",
+          "year": "2023"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sven Rüschenschmidt-Sickmann",
@@ -135,9 +504,37 @@
       "age": 25,
       "nationality": "Germany",
       "club": "Glacis United",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "1.FC Gievenbeck",
+          "year": "2022"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haitham Tarrak",
@@ -145,9 +542,45 @@
       "age": 24,
       "nationality": "Gibraltar",
       "club": "Glacis United",
-      "appearances": 15,
-      "goals": 1,
-      "assists": 1
+      "appearances": 12,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mons Calpe Res",
+          "year": "2018"
+        },
+        {
+          "club": "Boca Gibraltar",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Lynx Reserve",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vincent Folléa",
@@ -155,9 +588,49 @@
       "age": 29,
       "nationality": "France",
       "club": "Glacis United",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Bedford Town",
+          "year": "2024"
+        },
+        {
+          "club": "Basildon Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julian Brinkman",
@@ -165,9 +638,53 @@
       "age": 23,
       "nationality": "Gibraltar",
       "club": "Glacis United",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 2
+      "appearances": 15,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2019"
+        },
+        {
+          "club": "Europa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Didcot",
+          "year": "2023"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        },
+        {
+          "club": "Abingdon United",
+          "year": "2024"
+        },
+        {
+          "club": "Europa Reserve",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 15,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathan Okome",
@@ -175,9 +692,73 @@
       "age": 24,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "1874 Northwich",
+          "year": "2019"
+        },
+        {
+          "club": "Hanley Town",
+          "year": "2020"
+        },
+        {
+          "club": "Chorley",
+          "year": "2021"
+        },
+        {
+          "club": "Witton Albion",
+          "year": "2021"
+        },
+        {
+          "club": "Matlock",
+          "year": "2021"
+        },
+        {
+          "club": "Chorley",
+          "year": "2022"
+        },
+        {
+          "club": "Glossop NE",
+          "year": "2023"
+        },
+        {
+          "club": "Chorley",
+          "year": "2023"
+        },
+        {
+          "club": "Nantwich Town",
+          "year": "2023"
+        },
+        {
+          "club": "Leek Town FC",
+          "year": "2024"
+        },
+        {
+          "club": "Bamber Bridge",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tobi Harley",
@@ -185,9 +766,37 @@
       "age": 19,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "East Manchester",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamal Lubanga",
@@ -195,9 +804,49 @@
       "age": 22,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eastb. Town",
+          "year": "2024"
+        },
+        {
+          "club": "Hastings Utd",
+          "year": "2024"
+        },
+        {
+          "club": "Bexhill",
+          "year": "2025"
+        },
+        {
+          "club": "Hastings Utd",
+          "year": "2025"
+        },
+        {
+          "club": "Eastb. Town",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Freddie Miller",
@@ -205,21 +854,61 @@
       "age": 20,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Joe Balumuene",
       "position": "Left Winger",
-      "age": 20,
+      "age": 21,
       "nationality": "Democratic Republic of the Congo",
       "club": "Glacis United",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edvinas Valatka",
@@ -227,9 +916,85 @@
       "age": 29,
       "nationality": "Lithuania",
       "club": "Glacis United",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Selkirk FC",
+          "year": "2016"
+        },
+        {
+          "club": "Tooting & Mitcham FC",
+          "year": "2018"
+        },
+        {
+          "club": "Northern Star",
+          "year": "2018"
+        },
+        {
+          "club": "Türkmenköy FC",
+          "year": "2020"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Linköping City",
+          "year": "2022"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2022"
+        },
+        {
+          "club": "Ytterhogdals IK",
+          "year": "2023"
+        },
+        {
+          "club": "NK Zupanja 77",
+          "year": "2023"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2024"
+        },
+        {
+          "club": "Lions Gibraltar",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Hound Dogs",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Baris Polatkan",
@@ -237,9 +1002,33 @@
       "age": 21,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Carty",
@@ -247,9 +1036,77 @@
       "age": 32,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tooting & Mitcham FC",
+          "year": "2019"
+        },
+        {
+          "club": "Institute",
+          "year": "2020"
+        },
+        {
+          "club": "Bangor City",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Cowdenbeath",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2023"
+        },
+        {
+          "club": "Pontypridd",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Welling Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Olymp. Volou",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aniss Bilal Abdalliche",
@@ -257,9 +1114,33 @@
       "age": 21,
       "nationality": "France",
       "club": "Glacis United",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Union Kroton",
+          "year": "2021"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Abudiore",
@@ -267,9 +1148,33 @@
       "age": 23,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Broadbridge",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Avelin Nganga",
@@ -279,7 +1184,51 @@
       "club": "Glacis United",
       "appearances": 7,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Fisher FC",
+          "year": "2020"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2023"
+        },
+        {
+          "club": "CSO Turceni",
+          "year": "2024"
+        },
+        {
+          "club": "Pegia 2014",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arturo Sanchez",
@@ -287,9 +1236,41 @@
       "age": 21,
       "nationality": "Colombia",
       "club": "Glacis United",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Nikarm",
+          "year": "2021"
+        },
+        {
+          "club": "Bruno's Magpies",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Bakare",
@@ -297,9 +1278,161 @@
       "age": 39,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Waltham Forest",
+          "year": "2007"
+        },
+        {
+          "club": "Welwyn GC",
+          "year": "2007"
+        },
+        {
+          "club": "Leyton Orient",
+          "year": "2008"
+        },
+        {
+          "club": "Welling Utd.",
+          "year": "2009"
+        },
+        {
+          "club": "Thurrock",
+          "year": "2010"
+        },
+        {
+          "club": "Bishop's St.",
+          "year": "2010"
+        },
+        {
+          "club": "Chelmsford",
+          "year": "2011"
+        },
+        {
+          "club": "Macclesfield",
+          "year": "2012"
+        },
+        {
+          "club": "Southport",
+          "year": "2012"
+        },
+        {
+          "club": "Droylsden",
+          "year": "2012"
+        },
+        {
+          "club": "Chelmsford",
+          "year": "2013"
+        },
+        {
+          "club": "Dover Athletic",
+          "year": "2013"
+        },
+        {
+          "club": "Tonbridge",
+          "year": "2014"
+        },
+        {
+          "club": "Braintree",
+          "year": "2014"
+        },
+        {
+          "club": "Bury Town",
+          "year": "2015"
+        },
+        {
+          "club": "Braintree",
+          "year": "2015"
+        },
+        {
+          "club": "VCD Athletic FC",
+          "year": "2015"
+        },
+        {
+          "club": "Witham Town",
+          "year": "2015"
+        },
+        {
+          "club": "Welling Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Wrexham",
+          "year": "2016"
+        },
+        {
+          "club": "Billericay",
+          "year": "2016"
+        },
+        {
+          "club": "Warrington",
+          "year": "2017"
+        },
+        {
+          "club": "Connah's Quay",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Hereford",
+          "year": "2021"
+        },
+        {
+          "club": "Fjölnir",
+          "year": "2021"
+        },
+        {
+          "club": "Leatherhead FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Arbroath",
+          "year": "2022"
+        },
+        {
+          "club": "Helsinki IFK",
+          "year": "2022"
+        },
+        {
+          "club": "Enfield Town",
+          "year": "2023"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 71,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryce Gomez",
@@ -307,9 +1440,33 @@
       "age": 20,
       "nationality": "Gibraltar",
       "club": "Glacis United",
-      "appearances": 10,
-      "goals": 3,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "St Joseph's Res",
+          "year": "2022"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gori Arroyo",
@@ -317,9 +1474,33 @@
       "age": 20,
       "nationality": "Spain",
       "club": "Glacis United",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "THOI Lakatamias",
+          "year": "2025"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Beau Cook-Bartholomew",
@@ -327,9 +1508,41 @@
       "age": 20,
       "nationality": "England",
       "club": "Glacis United",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bearsted",
+          "year": "2023"
+        },
+        {
+          "club": "Bridon Ropes",
+          "year": "2024"
+        },
+        {
+          "club": "Sheppey Sports",
+          "year": "2024"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

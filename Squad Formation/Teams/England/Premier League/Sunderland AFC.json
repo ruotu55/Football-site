@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 23,
       "nationality": "Netherlands",
       "club": "Sunderland AFC",
-      "appearances": 30,
+      "appearances": 28,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -32,7 +33,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 168,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Melker Ellborg",
@@ -40,7 +55,7 @@
       "age": 22,
       "nationality": "Sweden",
       "club": "Sunderland AFC",
-      "appearances": 12,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -76,7 +91,21 @@
           "club": "Sunderland",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 92,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simon Moore",
@@ -128,7 +157,21 @@
           "club": "Sunderland",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 235,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 291,
+        "clean_sheets": 59
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -138,7 +181,7 @@
       "age": 26,
       "nationality": "Northern Ireland",
       "club": "Sunderland AFC",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -158,7 +201,21 @@
           "club": "Sunderland",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 245,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 33,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Alderete",
@@ -166,7 +223,7 @@
       "age": 29,
       "nationality": "Paraguay",
       "club": "Sunderland AFC",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -218,7 +275,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luke O'Nien",
@@ -226,7 +297,7 @@
       "age": 31,
       "nationality": "England",
       "club": "Sunderland AFC",
-      "appearances": 14,
+      "appearances": 8,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -242,7 +313,21 @@
           "club": "Sunderland",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 449,
+        "goals": 40,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dennis Cirkin",
@@ -250,15 +335,29 @@
       "age": 23,
       "nationality": "Latvia",
       "club": "Sunderland AFC",
-      "appearances": 15,
-      "goals": 1,
-      "assists": 2,
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Sunderland",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 13,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reinildo Mandava",
@@ -302,7 +401,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 275,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Trai Hume",
@@ -310,7 +423,7 @@
       "age": 24,
       "nationality": "Northern Ireland",
       "club": "Sunderland AFC",
-      "appearances": 33,
+      "appearances": 31,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -334,7 +447,21 @@
           "club": "Sunderland",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 14,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lutsharel Geertruida",
@@ -342,7 +469,7 @@
       "age": 25,
       "nationality": "Netherlands",
       "club": "Sunderland AFC",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -370,7 +497,21 @@
           "club": "Leipzig",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 40,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nordi Mukiele",
@@ -378,7 +519,7 @@
       "age": 28,
       "nationality": "France",
       "club": "Sunderland AFC",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 1,
       "assists": 4,
       "transfer_history": [
@@ -410,7 +551,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 366,
+        "goals": 16,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -420,7 +575,7 @@
       "age": 33,
       "nationality": "Switzerland",
       "club": "Sunderland AFC",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 1,
       "assists": 5,
       "transfer_history": [
@@ -444,7 +599,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 678,
+        "goals": 56,
+        "assists": 58,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 144,
+        "goals": 16,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Habib Diarra",
@@ -452,8 +621,8 @@
       "age": 22,
       "nationality": "Senegal",
       "club": "Sunderland AFC",
-      "appearances": 16,
-      "goals": 3,
+      "appearances": 14,
+      "goals": 2,
       "assists": 1,
       "transfer_history": [
         {
@@ -464,7 +633,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 17,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Sadiki",
@@ -472,7 +655,7 @@
       "age": 21,
       "nationality": "Democratic Republic of the Congo",
       "club": "Sunderland AFC",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -488,7 +671,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 2,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Le Fée",
@@ -496,8 +693,8 @@
       "age": 26,
       "nationality": "France",
       "club": "Sunderland AFC",
-      "appearances": 33,
-      "goals": 5,
+      "appearances": 29,
+      "goals": 4,
       "assists": 4,
       "transfer_history": [
         {
@@ -520,7 +717,21 @@
           "club": "Roma",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 259,
+        "goals": 15,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoullah Ba",
@@ -528,8 +739,8 @@
       "age": 22,
       "nationality": "France",
       "club": "Sunderland AFC",
-      "appearances": 3,
-      "goals": 2,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -548,7 +759,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 12,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chris Rigg",
@@ -556,7 +781,7 @@
       "age": 18,
       "nationality": "England",
       "club": "Sunderland AFC",
-      "appearances": 16,
+      "appearances": 13,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -564,7 +789,21 @@
           "club": "Sunderland",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Aleksic",
@@ -572,9 +811,9 @@
       "age": 20,
       "nationality": "Serbia",
       "club": "Sunderland AFC",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Radnicki 1923",
@@ -592,7 +831,21 @@
           "club": "Sunderland",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 21,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harrison Jones",
@@ -600,15 +853,29 @@
       "age": 21,
       "nationality": "England",
       "club": "Sunderland AFC",
-      "appearances": 14,
-      "goals": 5,
-      "assists": 4,
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 17,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -618,9 +885,9 @@
       "age": 22,
       "nationality": "Ecuador",
       "club": "Sunderland AFC",
-      "appearances": 36,
-      "goals": 7,
-      "assists": 8,
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Atlético Kin",
@@ -638,7 +905,21 @@
           "club": "Sunderland",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 26,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Romaine Mundle",
@@ -646,8 +927,8 @@
       "age": 22,
       "nationality": "England",
       "club": "Sunderland AFC",
-      "appearances": 17,
-      "goals": 1,
+      "appearances": 14,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -658,7 +939,21 @@
           "club": "Sunderland",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 21,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chemsdine Talbi",
@@ -666,7 +961,7 @@
       "age": 20,
       "nationality": "Morocco",
       "club": "Sunderland AFC",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 4,
       "assists": 2,
       "transfer_history": [
@@ -682,7 +977,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 19,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bertrand Traoré",
@@ -690,7 +999,7 @@
       "age": 30,
       "nationality": "Burkina Faso",
       "club": "Sunderland AFC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -742,7 +1051,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 98,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 86,
+        "goals": 21,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jocelin Ta Bi",
@@ -750,9 +1073,9 @@
       "age": 21,
       "nationality": "Ivory Coast",
       "club": "Sunderland AFC",
-      "appearances": 14,
-      "goals": 2,
-      "assists": 2,
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Maccabi Netanya",
@@ -770,7 +1093,21 @@
           "club": "Sunderland",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brian Brobbey",
@@ -778,8 +1115,8 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "Sunderland AFC",
-      "appearances": 26,
-      "goals": 7,
+      "appearances": 24,
+      "goals": 6,
       "assists": 1,
       "transfer_history": [
         {
@@ -802,7 +1139,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 310,
+        "goals": 148,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eliezer Mayenda",
@@ -810,9 +1161,9 @@
       "age": 20,
       "nationality": "Spain",
       "club": "Sunderland AFC",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 2,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Sochaux Jugend",
@@ -834,7 +1185,21 @@
           "club": "Sunderland",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 24,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wilson Isidor",
@@ -842,7 +1207,7 @@
       "age": 25,
       "nationality": "Haiti",
       "club": "Sunderland AFC",
-      "appearances": 30,
+      "appearances": 26,
       "goals": 4,
       "assists": 0,
       "transfer_history": [
@@ -894,7 +1259,21 @@
           "club": "Sunderland",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 65,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Abdullahi",
@@ -902,8 +1281,8 @@
       "age": 21,
       "nationality": "Nigeria",
       "club": "Sunderland AFC",
-      "appearances": 4,
-      "goals": 6,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -918,7 +1297,21 @@
           "club": "Sunderland",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 27,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

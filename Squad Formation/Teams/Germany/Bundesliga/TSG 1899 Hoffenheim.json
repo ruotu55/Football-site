@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "L1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 35,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -32,7 +33,21 @@
           "club": "Hoffenheim",
           "year": "2014"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 651,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 997,
+        "clean_sheets": 150
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 10,
+        "clean_sheets": 6
+      }
     },
     {
       "name": "Luca Philipp",
@@ -40,7 +55,7 @@
       "age": 25,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -48,7 +63,21 @@
           "club": "Hoffenheim",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 141,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lúkas Petersson",
@@ -56,7 +85,7 @@
       "age": 22,
       "nationality": "Iceland",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 25,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -64,7 +93,21 @@
           "club": "Hoffenheim",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 111,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -74,7 +117,7 @@
       "age": 22,
       "nationality": "Kosovo",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -98,7 +141,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Hranac",
@@ -106,7 +163,7 @@
       "age": 26,
       "nationality": "Czech Republic",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -130,7 +187,21 @@
           "club": "Hoffenheim",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ozan Kabak",
@@ -138,7 +209,7 @@
       "age": 26,
       "nationality": "Turkiye",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 4,
       "assists": 0,
       "transfer_history": [
@@ -174,7 +245,21 @@
           "club": "Hoffenheim",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 18,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Koki Machida",
@@ -182,7 +267,7 @@
       "age": 28,
       "nationality": "Japan",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -206,7 +291,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Akpoguma",
@@ -214,7 +313,7 @@
       "age": 30,
       "nationality": "Nigeria",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -242,7 +341,21 @@
           "club": "Hoffenheim",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kelven Frees",
@@ -250,15 +363,29 @@
       "age": 21,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 1,
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 12,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bernardo",
@@ -266,7 +393,7 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -314,7 +441,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentin Gendrey",
@@ -322,7 +463,7 @@
       "age": 25,
       "nationality": "France",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -338,7 +479,21 @@
           "club": "Hoffenheim",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 6,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vladimír Coufal",
@@ -346,7 +501,7 @@
       "age": 33,
       "nationality": "Czech Republic",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 1,
       "assists": 7,
       "transfer_history": [
@@ -374,7 +529,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 483,
+        "goals": 15,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 2,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -384,7 +553,7 @@
       "age": 22,
       "nationality": "TM nationality id 244",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -396,7 +565,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wouter Burger",
@@ -404,9 +587,9 @@
       "age": 25,
       "nationality": "Netherlands",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 9,
+      "appearances": 24,
+      "goals": 4,
+      "assists": 8,
       "transfer_history": [
         {
           "club": "Feyenoord Youth",
@@ -444,7 +627,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 324,
+        "goals": 44,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Engelns",
@@ -452,8 +649,8 @@
       "age": 19,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 27,
-      "goals": 1,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -464,7 +661,21 @@
           "club": "Hoffenheim",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 23,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Grischa Prömel",
@@ -472,8 +683,8 @@
       "age": 31,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 28,
-      "goals": 8,
+      "appearances": 27,
+      "goals": 7,
       "assists": 2,
       "transfer_history": [
         {
@@ -492,7 +703,21 @@
           "club": "Hoffenheim",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 42,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Duric",
@@ -500,15 +725,29 @@
       "age": 22,
       "nationality": "TM nationality id 24",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 24,
-      "goals": 7,
-      "assists": 9,
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 30,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Prass",
@@ -516,7 +755,7 @@
       "age": 24,
       "nationality": "Austria",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 3,
       "assists": 2,
       "transfer_history": [
@@ -548,7 +787,21 @@
           "club": "Hoffenheim",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 316,
+        "goals": 46,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhammed Damar",
@@ -556,9 +809,9 @@
       "age": 21,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hoffenheim",
@@ -580,7 +833,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 32,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrej Kramaric",
@@ -588,9 +855,9 @@
       "age": 34,
       "nationality": "Croatia",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 29,
-      "goals": 11,
-      "assists": 7,
+      "appearances": 27,
+      "goals": 10,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Dinamo Zagreb",
@@ -620,7 +887,21 @@
           "club": "Leicester",
           "year": "2016"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 538,
+        "goals": 244,
+        "assists": 94,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 114,
+        "goals": 36,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -630,7 +911,7 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 2,
       "assists": 10,
       "transfer_history": [
@@ -642,7 +923,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 11,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cole Campbell",
@@ -650,9 +945,9 @@
       "age": 20,
       "nationality": "United States",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Dortmund",
@@ -666,7 +961,21 @@
           "club": "Dortmund",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 21,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fisnik Asllani",
@@ -674,9 +983,9 @@
       "age": 23,
       "nationality": "Kosovo",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 28,
-      "goals": 9,
-      "assists": 8,
+      "appearances": 26,
+      "goals": 8,
+      "assists": 7,
       "transfer_history": [
         {
           "club": "Hoffenheim",
@@ -698,7 +1007,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 88,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tim Lemperle",
@@ -706,7 +1029,7 @@
       "age": 24,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 7,
       "assists": 2,
       "transfer_history": [
@@ -730,7 +1053,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 60,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Hlozek",
@@ -754,7 +1091,21 @@
           "club": "Hoffenheim",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 73,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Max Moerstedt",
@@ -762,15 +1113,29 @@
       "age": 20,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 21,
-      "goals": 4,
+      "appearances": 18,
+      "goals": 2,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Hoffenheim",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 64,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yannick Eduardo",
@@ -778,9 +1143,9 @@
       "age": 20,
       "nationality": "Czech Republic",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 30,
-      "goals": 12,
-      "assists": 5,
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "NEC Youth",
@@ -818,7 +1183,21 @@
           "club": "Hoffenheim",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 63,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deniz Zeitler",
@@ -826,9 +1205,9 @@
       "age": 19,
       "nationality": "Germany",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 30,
-      "goals": 12,
-      "assists": 2,
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "FC Ingolstadt",
@@ -838,7 +1217,21 @@
           "club": "Hoffenheim",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 31,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ihlas Bebou",
@@ -846,7 +1239,7 @@
       "age": 31,
       "nationality": "Togo",
       "club": "TSG 1899 Hoffenheim",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -862,7 +1255,21 @@
           "club": "Hoffenheim",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 336,
+        "goals": 74,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

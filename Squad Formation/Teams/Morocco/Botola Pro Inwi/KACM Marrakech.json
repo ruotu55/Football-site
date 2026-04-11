@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MAR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "KACM Marrakech",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CIS Marrakech",
+          "year": "2021"
+        },
+        {
+          "club": "SCCM Reserve",
+          "year": "2022"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Baayou",
@@ -33,7 +62,51 @@
       "club": "KACM Marrakech",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JS Massira",
+          "year": "2015"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2017"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2019"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "JS Soualem",
+          "year": "2024"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 123,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Naoufal Ait Oubna",
@@ -43,7 +116,31 @@
       "club": "KACM Marrakech",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CIS Marrakech",
+          "year": "2023"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anass Rachak",
@@ -53,7 +150,27 @@
       "club": "KACM Marrakech",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +182,47 @@
       "club": "KACM Marrakech",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mathare United",
+          "year": "2018"
+        },
+        {
+          "club": "Wazito FC",
+          "year": "2019"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2022"
+        },
+        {
+          "club": "Abha",
+          "year": "2024"
+        },
+        {
+          "club": "Kapaz PFK",
+          "year": "2025"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jad Assouab",
@@ -74,8 +231,48 @@
       "nationality": "Morocco",
       "club": "KACM Marrakech",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 9,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Beni Mellal",
+          "year": "2017"
+        },
+        {
+          "club": "AS FAR Rabat",
+          "year": "2020"
+        },
+        {
+          "club": "Berrechid",
+          "year": "2022"
+        },
+        {
+          "club": "SCC Mohammédia",
+          "year": "2023"
+        },
+        {
+          "club": "JS Soualem",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akram El Hamdaoui",
@@ -85,7 +282,39 @@
       "club": "KACM Marrakech",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SCCM Reserve",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Bidda SC",
+          "year": "2018"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Redouane Mennioui",
@@ -95,7 +324,35 @@
       "club": "KACM Marrakech",
       "appearances": 11,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ouarzazate",
+          "year": "2021"
+        },
+        {
+          "club": "USM Oujda",
+          "year": "2022"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Adam Benhita",
@@ -105,7 +362,27 @@
       "club": "KACM Marrakech",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismail El Alami",
@@ -115,7 +392,39 @@
       "club": "KACM Marrakech",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ittihad Tanger",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Sadaqa SC",
+          "year": "2023"
+        },
+        {
+          "club": "Union Touarga",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Massoudi Salifou",
@@ -125,7 +434,27 @@
       "club": "KACM Marrakech",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Welé",
@@ -135,7 +464,35 @@
       "club": "KACM Marrakech",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2021"
+        },
+        {
+          "club": "Pikine",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Elabdi",
@@ -145,7 +502,39 @@
       "club": "KACM Marrakech",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Najah Souss",
+          "year": "2021"
+        },
+        {
+          "club": "Ait Melloul",
+          "year": "2021"
+        },
+        {
+          "club": "OC Safi",
+          "year": "2022"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jawad Khalouk",
@@ -153,9 +542,45 @@
       "age": 28,
       "nationality": "Morocco",
       "club": "KACM Marrakech",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Difaâ El Jadida",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "COD Meknès",
+          "year": "2022"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Battah",
@@ -165,7 +590,27 @@
       "club": "KACM Marrakech",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KACM Marrakech",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soulaimane Anrar",
@@ -175,7 +620,35 @@
       "club": "KACM Marrakech",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        },
+        {
+          "club": "CA Khénifra",
+          "year": "2025"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nadir Lougmani",
@@ -185,7 +658,35 @@
       "club": "KACM Marrakech",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda",
+          "year": "2021"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2022"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Fassoukh",
@@ -195,7 +696,35 @@
       "club": "KACM Marrakech",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "KACM Reserve",
+          "year": "2018"
+        },
+        {
+          "club": "Chabab Houara",
+          "year": "2022"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -207,7 +736,51 @@
       "club": "KACM Marrakech",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Africa Sports",
+          "year": "2022"
+        },
+        {
+          "club": "Stade d'Abidjan",
+          "year": "2022"
+        },
+        {
+          "club": "Africa Sports",
+          "year": "2023"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2023"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2025"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Habib Allah Dahmani",
@@ -217,7 +790,79 @@
       "club": "KACM Marrakech",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mouloudia",
+          "year": "2009"
+        },
+        {
+          "club": "Al-Orouba SC",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2013"
+        },
+        {
+          "club": "MAS Fès",
+          "year": "2014"
+        },
+        {
+          "club": "CA Khénifra",
+          "year": "2016"
+        },
+        {
+          "club": "Kénitra",
+          "year": "2017"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2017"
+        },
+        {
+          "club": "FUS Rabat",
+          "year": "2018"
+        },
+        {
+          "club": "Beni Mellal",
+          "year": "2020"
+        },
+        {
+          "club": "Muaither SC",
+          "year": "2020"
+        },
+        {
+          "club": "Ittihad Tanger",
+          "year": "2021"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Yarmouk SC",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oussama Mahrous",
@@ -227,7 +872,51 @@
       "club": "KACM Marrakech",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fath Casablanca",
+          "year": "2016"
+        },
+        {
+          "club": "Olymp. Dcheira",
+          "year": "2017"
+        },
+        {
+          "club": "JS Soualem",
+          "year": "2018"
+        },
+        {
+          "club": "OC Safi",
+          "year": "2020"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Muharraq",
+          "year": "2025"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Raiani",
@@ -237,7 +926,39 @@
       "club": "KACM Marrakech",
       "appearances": 9,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "TAS Casablanca",
+          "year": "2020"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2022"
+        },
+        {
+          "club": "Beni Mellal",
+          "year": "2023"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalil Tamrani",
@@ -247,7 +968,39 @@
       "club": "KACM Marrakech",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCA Reserve",
+          "year": "2020"
+        },
+        {
+          "club": "JS Soualem",
+          "year": "2023"
+        },
+        {
+          "club": "Malkiya Club",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelilah Hafidi",
@@ -257,7 +1010,47 @@
       "club": "KACM Marrakech",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Hazem",
+          "year": "2022"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2023"
+        },
+        {
+          "club": "Moghreb Tétouan",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 60,
+        "assists": 76,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Rafaa",
@@ -267,17 +1060,56 @@
       "club": "KACM Marrakech",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Smaali",
       "position": "",
-      "age": 26,
+      "age": 27,
       "nationality": "Morocco",
       "club": "KACM Marrakech",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stade Marocain",
+          "year": "2022"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -289,7 +1121,39 @@
       "club": "KACM Marrakech",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OC Safi",
+          "year": "2020"
+        },
+        {
+          "club": "Rapide Oued Zem",
+          "year": "2022"
+        },
+        {
+          "club": "Berrechid",
+          "year": "2023"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oussama Haffari",
@@ -299,7 +1163,51 @@
       "club": "KACM Marrakech",
       "appearances": 10,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RCA Reserve",
+          "year": "2018"
+        },
+        {
+          "club": "Berrechid",
+          "year": "2019"
+        },
+        {
+          "club": "O. Khouribga",
+          "year": "2021"
+        },
+        {
+          "club": "OC Safi",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Wefaq Ly",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 16,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza El Janati",
@@ -309,7 +1217,35 @@
       "club": "KACM Marrakech",
       "appearances": 14,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MAS Fès",
+          "year": "2019"
+        },
+        {
+          "club": "Asswehly",
+          "year": "2025"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 22,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismail Mihrab",
@@ -319,7 +1255,35 @@
       "club": "KACM Marrakech",
       "appearances": 10,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "SCC Mohammédia",
+          "year": "2022"
+        },
+        {
+          "club": "COD Meknès",
+          "year": "2024"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef Zghoudi",
@@ -329,7 +1293,35 @@
       "club": "KACM Marrakech",
       "appearances": 14,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RAC Casablanca",
+          "year": "2017"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2019"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 220,
+        "goals": 20,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Younes El Bahraoui",
@@ -339,17 +1331,39 @@
       "club": "KACM Marrakech",
       "appearances": 11,
       "goals": 3,
-      "assists": 1
-    },
-    {
-      "name": "Khalid Boutaïb",
-      "position": "Centre-Forward",
-      "age": 38,
-      "nationality": "Morocco",
-      "club": "KACM Marrakech",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "KACM Marrakech",
+          "year": "2023"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2025"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        },
+        {
+          "club": "RS Berkane",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souleymane Cissé",
@@ -359,7 +1373,125 @@
       "club": "KACM Marrakech",
       "appearances": 14,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "ASC La Linguère",
+          "year": "2018"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2023"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Khalid Boutaïb",
+      "position": "Centre-Forward",
+      "age": 38,
+      "nationality": "Morocco",
+      "club": "KACM Marrakech",
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ES Uzès PdG",
+          "year": "2007"
+        },
+        {
+          "club": "FC Bagnols Pont",
+          "year": "2010"
+        },
+        {
+          "club": "ES Uzès PdG",
+          "year": "2011"
+        },
+        {
+          "club": "FC Istres",
+          "year": "2012"
+        },
+        {
+          "club": "ES Uzès PdG",
+          "year": "2012"
+        },
+        {
+          "club": "FC Istres",
+          "year": "2013"
+        },
+        {
+          "club": "Luzenac AP",
+          "year": "2013"
+        },
+        {
+          "club": "G. Ajaccio",
+          "year": "2014"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2016"
+        },
+        {
+          "club": "Y. Malatyaspor",
+          "year": "2017"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2020"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2022"
+        },
+        {
+          "club": "Pau FC",
+          "year": "2023"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 372,
+        "goals": 107,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Zagmouzi",
@@ -369,7 +1501,39 @@
       "club": "KACM Marrakech",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saint Mary",
+          "year": "2020"
+        },
+        {
+          "club": "Young Harris",
+          "year": "2023"
+        },
+        {
+          "club": "KACM Marrakech",
+          "year": "2024"
+        },
+        {
+          "club": "Ben Guerir",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

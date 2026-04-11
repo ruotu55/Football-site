@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Damac FC",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bragantino",
+          "year": "2019"
+        },
+        {
+          "club": "Red Bull",
+          "year": "2019"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2020"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2020"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2021"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2021"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 190,
+        "clean_sheets": 44
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moataz Al-Baqaawi",
@@ -33,7 +78,35 @@
       "club": "Damac FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Taawoun",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2022"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 78,
+        "clean_sheets": 17
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Naser Al-Ghamdi",
@@ -43,7 +116,35 @@
       "club": "Damac FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Career break",
+          "year": "2023"
+        },
+        {
+          "club": "HASK Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,19 +154,83 @@
       "age": 30,
       "nationality": "Morocco",
       "club": "Damac FC",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mouloudia",
+          "year": "2015"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2021"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 10,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelkader Bedrane",
       "position": "Centre-Back",
-      "age": 33,
+      "age": 34,
       "nationality": "Algeria",
       "club": "Damac FC",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "USM Blida",
+          "year": "2012"
+        },
+        {
+          "club": "ES Sétif",
+          "year": "2016"
+        },
+        {
+          "club": "Esperance",
+          "year": "2019"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 19,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan Rabei",
@@ -75,7 +240,35 @@
       "club": "Damac FC",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Taawoun",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2024"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noor Al-Rashidi",
@@ -85,7 +278,35 @@
       "club": "Damac FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ansar",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2019"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dhari Al-Anazi",
@@ -93,9 +314,29 @@
       "age": 25,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Damac FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Al-Obaid",
@@ -105,7 +346,47 @@
       "club": "Damac FC",
       "appearances": 18,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Qadsiah",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Nassr",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ettifaq",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 5,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Al-Khaibre",
@@ -113,9 +394,53 @@
       "age": 26,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Dahab Club",
+          "year": "2020"
+        },
+        {
+          "club": "Ohod Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ula",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Jubail",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ula",
+          "year": "2025"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ula",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sanousi Al-Hawsawi",
@@ -123,9 +448,33 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 1,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ettifaq",
+          "year": "2020"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jawad Al-Hassan",
@@ -135,7 +484,31 @@
       "club": "Damac FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Future Falcons",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -147,7 +520,43 @@
       "club": "Damac FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ittihad",
+          "year": "2017"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riyadh Sharahili",
@@ -155,9 +564,65 @@
       "age": 32,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Nassr",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Fateh",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Tai",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Adalah",
+          "year": "2019"
+        },
+        {
+          "club": "Abha",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2023"
+        },
+        {
+          "club": "NEOM SC",
+          "year": "2024"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        },
+        {
+          "club": "NEOM SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Al-Sumairi",
@@ -165,9 +630,53 @@
       "age": 29,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ittihad",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Omar",
@@ -177,7 +686,31 @@
       "club": "Damac FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ohod Club",
+          "year": "2024"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentín Vada",
@@ -185,9 +718,61 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Damac FC",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 9,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "G. Bordeaux",
+          "year": "2014"
+        },
+        {
+          "club": "Saint-Étienne",
+          "year": "2019"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2019"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2019"
+        },
+        {
+          "club": "CD Tenerife",
+          "year": "2020"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2021"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2021"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 372,
+        "goals": 46,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amidou Traoré",
@@ -197,7 +782,31 @@
       "club": "Damac FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Haugesund",
+          "year": "2024"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nabil Alioui",
@@ -205,9 +814,49 @@
       "age": 27,
       "nationality": "Morocco",
       "club": "Damac FC",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Toulon Jgd.",
+          "year": "2010"
+        },
+        {
+          "club": "Monaco Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Cercle Brugge",
+          "year": "2018"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2020"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2024"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 39,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Qahtani",
@@ -215,9 +864,53 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Faisaly",
+          "year": "2019"
+        },
+        {
+          "club": "Abha",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2020"
+        },
+        {
+          "club": "Abha",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -229,7 +922,39 @@
       "club": "Damac FC",
       "appearances": 24,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CO Coyah",
+          "year": "2018"
+        },
+        {
+          "club": "Horoya AC",
+          "year": "2019"
+        },
+        {
+          "club": "Arouca",
+          "year": "2022"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 12,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Okita",
@@ -237,9 +962,65 @@
       "age": 29,
       "nationality": "Democratic Republic of the Congo",
       "club": "Damac FC",
-      "appearances": 9,
+      "appearances": 5,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AFC Tubize",
+          "year": "2013"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2016"
+        },
+        {
+          "club": "KSV Roeselare",
+          "year": "2016"
+        },
+        {
+          "club": "Union SG",
+          "year": "2017"
+        },
+        {
+          "club": "MVV Maastricht",
+          "year": "2017"
+        },
+        {
+          "club": "NEC Nijmegen",
+          "year": "2018"
+        },
+        {
+          "club": "FC Zürich",
+          "year": "2022"
+        },
+        {
+          "club": "Bodrum FK",
+          "year": "2025"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2026"
+        },
+        {
+          "club": "Bodrum FK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 78,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hazzaa Al-Ghamdi",
@@ -247,9 +1028,33 @@
       "age": 25,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 0
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wehda",
+          "year": "2021"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Kaiki",
@@ -257,9 +1062,37 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "Damac FC",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Água Santa-SP",
+          "year": "2023"
+        },
+        {
+          "club": "Torreense S23",
+          "year": "2024"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Al-Salkhadi",
@@ -267,9 +1100,41 @@
       "age": 24,
       "nationality": "Syria",
       "club": "Damac FC",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tvååkers IF",
+          "year": "2021"
+        },
+        {
+          "club": "Sandvikens IF",
+          "year": "2023"
+        },
+        {
+          "club": "Värnamo",
+          "year": "2024"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 19,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nawaf Al-Saadi",
@@ -279,7 +1144,39 @@
       "club": "Damac FC",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abha",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yahya Naji",
@@ -287,9 +1184,41 @@
       "age": 27,
       "nationality": "Saudi Arabia",
       "club": "Damac FC",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Nassr U15",
+          "year": "2014"
+        },
+        {
+          "club": "Future Falcons",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2021"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yakou Méïté",
@@ -299,7 +1228,43 @@
       "club": "Damac FC",
       "appearances": 15,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Reading",
+          "year": "2016"
+        },
+        {
+          "club": "FC Sochaux",
+          "year": "2017"
+        },
+        {
+          "club": "Reading",
+          "year": "2018"
+        },
+        {
+          "club": "Cardiff",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 367,
+        "goals": 81,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arielson",
@@ -307,9 +1272,45 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "Damac FC",
-      "appearances": 23,
-      "goals": 4,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Polissya",
+          "year": "2023"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2024"
+        },
+        {
+          "club": "Torreense S23",
+          "year": "2024"
+        },
+        {
+          "club": "Torreense",
+          "year": "2025"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 27,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

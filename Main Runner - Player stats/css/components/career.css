@@ -1,0 +1,1583 @@
+/* css/components/career.css */
+
+.career-wrap {
+  width: 100%;
+  height: 66vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0;
+  transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.career-picture-controls {
+  position: fixed;
+  left: 15.2rem;
+  top: 0.15rem;
+  /* Above stats / pitch / reveals; below #control-panel (100000) and its open custom-select layers */
+  z-index: 99995;
+  width: 13.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.6rem;
+  border-radius: 0.55rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+  transform: scale(0.75);
+  transform-origin: top left;
+}
+
+.career-picture-controls-title {
+  margin: 0 0 0.1rem;
+  font-size: 0.88rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.career-picture-controls-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.career-picture-controls-actions {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.career-picture-controls-actions--favorite {
+  grid-template-columns: 1fr auto 1fr auto;
+}
+
+.career-picture-controls-actions button,
+.career-picture-controls-reset {
+  height: 1.6rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.career-picture-controls-actions button:hover,
+.career-picture-controls-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.career-picture-controls-favorite.is-active,
+#pic-favorite.is-active {
+  color: #ff4d6d;
+  border-color: rgba(255, 77, 109, 0.7);
+  background: rgba(255, 77, 109, 0.2);
+}
+
+.career-picture-controls-actions strong {
+  min-width: 2.4rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.career-picture-controls-reset {
+  margin-top: 0.15rem;
+  background: rgba(239, 68, 68, 0.2);
+  color: #ff6b6b;
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+/* Shorts: same floating Adjust Picture panel, top-centered (road layout keeps top-left). */
+.career-picture-controls.career-picture-controls--shorts-layout {
+  left: 50%;
+  right: auto;
+  top: max(0.35rem, env(safe-area-inset-top, 0px));
+  transform: translateX(-50%) scale(0.82);
+  transform-origin: top center;
+  z-index: 99995;
+}
+
+.career-wrap[hidden] {
+  display: none !important;
+}
+
+body:not(.shorts-mode) .career-wrap {
+  height: 72.6vh;
+}
+
+.team-header.video-hidden ~ .career-wrap {
+  height: 72.6vh;
+}
+
+body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
+  height: 72.6vh;
+}
+
+.career-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  /* Road + player image share this layer; moved another 5% higher */
+  transform: rotateX(15deg) translateY(-20%);
+  /* Above .player-stats-national-flag (z-index 4) so silhouette + SVG backdrop composite on top of the 3D flag */
+  z-index: 12;
+  isolation: isolate;
+}
+
+.career-silhouette {
+  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1)); 
+  transform-origin: 50% 100%; 
+  opacity: 1;
+  pointer-events: none;
+  filter:
+    url("#career-silhouette-aura")
+    brightness(0)
+    contrast(1.35)
+    drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
+    drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
+    drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
+  will-change: filter, transform;
+}
+
+/* Video mode: opaque black silhouette so the 3D flag (below .career-svg) never shows through the player (Play Video clears .video-mode-enabled on the wrap). */
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed) {
+  opacity: 1;
+  filter: brightness(0) contrast(1.2);
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+}
+
+body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
+  opacity: 1;
+  filter: brightness(0) contrast(1.2);
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+}
+
+.career-photo-missing-label {
+  paint-order: stroke fill;
+  stroke: #0a1118;
+  stroke-width: 0.12em;
+}
+
+.career-inline-player-picker {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: min(22rem, 90%);
+  max-height: 18.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(8, 15, 20, 0.8);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+}
+
+.career-inline-player-picker-title {
+  color: var(--accent);
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.career-inline-player-search {
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.career-inline-player-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  overflow-y: auto;
+  min-height: 6.2rem;
+  max-height: 12rem;
+}
+
+.career-inline-player-hint {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 0.55rem;
+  font-size: 0.82rem;
+}
+
+.career-inline-player-result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  width: 100%;
+  padding: 0.38rem 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.career-inline-player-result:hover {
+  background: rgba(255, 202, 40, 0.22);
+}
+
+.career-inline-player-result small {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
+}
+
+.career-clear-player-btn {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(8, 15, 20, 0.88);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.career-clear-player-btn:hover {
+  background: rgba(255, 202, 40, 0.88);
+  color: #000;
+}
+
+body.play-video-active .career-clear-player-btn {
+  display: none !important;
+}
+
+/* Cinematic countdown-finish reveal: soften everything behind the full-screen player photo. */
+body.career-cinematic-reveal .career-wrap .career-slots,
+body.career-cinematic-reveal .career-wrap .career-path-outer,
+body.career-cinematic-reveal .career-wrap .career-path-inner,
+body.career-cinematic-reveal .career-wrap .career-path-dash,
+body.career-cinematic-reveal .career-wrap .career-svg,
+body.career-cinematic-reveal #player-stats-panel,
+body.career-cinematic-reveal .career-wrap .player-stats-national-flag,
+body.career-cinematic-reveal .quiz-progress,
+body.career-cinematic-reveal .team-header,
+body.career-cinematic-reveal .side-text,
+body.career-cinematic-reveal #floating-background {
+  filter: blur(8px);
+  opacity: 0.22;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-image-group {
+  clip-path: none !important;
+}
+
+body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-silhouette.revealed {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+/* In video mode the full-screen overlay handles the reveal — hide the inline photo to avoid two player images */
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
+  display: none !important;
+}
+
+.career-silhouette.revealed {
+  animation: epic-reveal 1.55s cubic-bezier(0.2, 0.95, 0.25, 1) forwards;
+  opacity: 1; 
+}
+
+.career-silhouette.drop-away {
+  animation: silhouette-drop-away 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes silhouette-drop-away {
+  0% {
+    opacity: 1;
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0)
+      contrast(1.35)
+      drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
+      drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
+      drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+  }
+  100% {
+    opacity: 0;
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0)
+      blur(3px)
+      drop-shadow(0 0 22px rgba(184, 247, 232, 0.42));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 26%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+  }
+}
+
+@keyframes epic-reveal {
+  0% {
+    filter: brightness(0.2) saturate(0.6) blur(8px) drop-shadow(0 0 0 transparent);
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 38%)) scale(calc(var(--sil-scale-x, 1) * 0.88), calc(var(--sil-scale-y, 1) * 0.88));
+    opacity: 0;
+  }
+  62% {
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0.9)
+      saturate(1)
+      blur(0)
+      drop-shadow(0 9px 20px rgba(0, 0, 0, 0.75))
+      drop-shadow(0 0 38px rgba(184, 247, 232, 0.44))
+      drop-shadow(0 0 78px rgba(120, 214, 192, 0.22));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) - 2.4%)) scale(calc(var(--sil-scale-x, 1) * 1.02), calc(var(--sil-scale-y, 1) * 1.02));
+    opacity: 1;
+  }
+  100% {
+    filter:
+      url("#career-silhouette-aura")
+      brightness(1)
+      saturate(1.05)
+      blur(0)
+      drop-shadow(0 16px 32px rgba(0, 0, 0, 0.8))
+      drop-shadow(0 0 28px rgba(204, 255, 243, 0.48))
+      drop-shadow(0 0 72px rgba(120, 214, 192, 0.26));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+    opacity: 1;
+  }
+}
+
+body:not(.shorts-mode) .career-reveal-overlay {
+  --career-player-box-top: 5.5rem;
+  position: fixed;
+  left: 50%;
+  top: var(--career-player-box-top);
+  bottom: 0;
+  width: 100vw;
+  height: calc(100vh - var(--career-player-box-top));
+  opacity: 0;
+  transform: translateX(-50%) translateY(46%) scale(0.74);
+  transform-origin: center bottom;
+  filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+  /* Above #player-stats-panel (180), quiz progress, header; mounted on .app so not clipped by #career-wrap perspective. */
+  z-index: 520;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2.5%;
+  width: min(60vw, 640px);
+  height: 2.3rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  transform: translateX(-50%) translateY(-42px) scale(0.72);
+  filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: translateY(var(--career-reveal-y, -10%))
+    scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
+  transform-origin: center bottom;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay-fallback {
+  width: min(38rem, 92%);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.55rem;
+  text-align: center;
+  background: rgba(10, 17, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #f8fafc;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.4vw, 1.55rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.career-reveal-sync-drop:not(.shorts-mode) .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay {
+  top: var(--career-player-box-top);
+  bottom: 0;
+  height: calc(100vh - var(--career-player-box-top));
+  overflow: hidden;
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay-img {
+  clip-path: inset(0 0 0 0);
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise-safe 1.15s cubic-bezier(0.2, 1, 0.25, 1) forwards;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay.show::after {
+  animation: career-reveal-shadow-drop 0.42s cubic-bezier(0.12, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes career-reveal-overlay-rise {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  /* Opacity/blur only: keeps a quick “materialize” without a second scale leg on transform. */
+  20% {
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.16);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+@keyframes career-reveal-overlay-rise-safe {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  18% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  28% {
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+@keyframes career-reveal-shadow-drop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-28px) scale(1);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(6px);
+  }
+}
+
+body:not(.shorts-mode) .career-reveal-name {
+  position: fixed;
+  left: 50%;
+  bottom: 2.4vh;
+  transform: translateX(-50%);
+  width: min(90vw, 1000px);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 530;
+}
+
+body:not(.shorts-mode) .career-reveal-name-top {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.35rem, 3.8vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+}
+
+body:not(.shorts-mode) .career-reveal-name-bottom {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.9rem, 9vw, 8.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.03em;
+  color: #ef4444;
+  text-shadow: 0 8px 26px rgba(0, 0, 0, 0.9), 0 0 16px rgba(239, 68, 68, 0.36);
+  white-space: nowrap;
+}
+
+body:not(.shorts-mode) .career-reveal-name.show {
+  animation: career-reveal-name-pop 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+@keyframes career-reveal-name-pop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(56px) scale(0.9);
+    filter: blur(10px);
+  }
+  18% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Video question-to-question: animate incoming road/player layer (avoid pop-in). */
+body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-svg,
+body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
+  animation: career-question-surface-enter 0.82s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+@keyframes career-question-surface-enter {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: rotateX(15deg) translateY(-14.5%) scale(1.14);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: rotateX(15deg) translateY(-20%) scale(1);
+  }
+}
+
+.career-path-outer {
+  fill: none;
+  stroke: #e2e8f0; 
+  stroke-width: 26;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-path-inner {
+  fill: none;
+  stroke: #0a1118;
+  stroke-width: 18;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-path-dash {
+  fill: none;
+  stroke: #ffffff; 
+  stroke-width: 4;
+  stroke-dasharray: 20 20;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  animation: dash-flow 1.5s linear infinite;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+@keyframes dash-flow { to { stroke-dashoffset: -40; } }
+
+.career-slots {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  transform: rotateX(15deg) translateY(-20%);
+  z-index: 10;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-club-slot {
+  position: absolute;
+  /* Counter-rotate the slot by -15deg so it faces straight to the camera */
+  transform: translate(-50%, -50%) rotateX(-15deg);
+  pointer-events: auto;
+  z-index: 10;
+  overflow: visible;
+}
+
+/* Video Mode / Play Video: hide in-slot controls (see syncCareerSlotControlsVisibility in pitch-render.js) */
+body.career-hide-slot-controls .career-badge-controls,
+body.career-hide-slot-controls .career-year-nudge-controls,
+body.career-hide-slot-controls .career-edit-btn {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Always hide floating Adjust Picture panel during Play Video flow. */
+body.play-video-active .career-picture-controls {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* − / + and ↑ / ↓ on one top row above each badge */
+.career-club-emblem-scale > .career-badge-controls {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  flex-shrink: 0;
+  margin-bottom: 0.12rem;
+  pointer-events: auto;
+}
+
+/* Regular road view: pin -/+ directly above each club symbol. */
+body:not(.shorts-mode) .career-club-emblem-scale {
+  position: relative;
+}
+
+body:not(.shorts-mode) .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, calc(-100% - 0.2rem));
+  margin: 0;
+}
+
+.career-badge-zoom-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-badge-zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-badge-zoom-btn:active {
+  transform: scale(0.94);
+}
+
+/* Legacy (kept harmless): old container under year, no longer used */
+.career-club-year-stack > .career-year-nudge-controls {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.career-year-nudge-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-year-nudge-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-year-nudge-btn:active {
+  transform: scale(0.94);
+}
+
+.career-slot-favorite-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-slot-favorite-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-slot-favorite-btn:active {
+  transform: scale(0.94);
+}
+
+.career-slot-favorite-btn.is-active {
+  color: #ff4d6d;
+  border-color: rgba(255, 77, 109, 0.9);
+  background: rgba(255, 77, 109, 0.24);
+}
+
+/* Fine-tune stack vs road anchor (smaller offset = slightly higher on screen) */
+body:not(.shorts-mode) .career-club-slot {
+  transform: translate(-50%, calc(-50% + 4px)) rotateX(-15deg);
+}
+
+/* Road view: 12px total motion, centered on anchor (not biased upward like global float-up-down) */
+@keyframes float-up-down-career-road {
+  0%,
+  100% {
+    transform: translate3d(0, 6px, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.career-club-slot-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+/* Outer shell only holds CSS vars; scaled cluster = zoom + crest + year (↑↓) so spacing scales together. */
+.career-club-badge-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+}
+
+.career-club-emblem-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  line-height: 0;
+  transform: scale(var(--career-badge-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* z-index + pass-through: when the year stack moves up over the crest, clicks must hit ↑/↓ (not the PNG). */
+.career-club-emblem-slot {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Year + nudge buttons share one translate so ↓ moves the controls with the pill (transform on year alone did not shift layout siblings). */
+.career-club-year-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateY(var(--career-year-nudge, 0px));
+  transform-origin: center top;
+}
+
+/* Year stays unscaled (crest scales in .career-club-emblem-scale only).
+   --career-img-bottom-slack: layout px of transparent padding under the crest (set from canvas scan in pitch-render.js). */
+.career-club-year-stack > .career-club-year {
+  margin: 0;
+  margin-top: calc(-3px - var(--career-img-bottom-slack, 0px));
+  padding: 0.06rem 0.55rem 0.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  pointer-events: none;
+  transform: scale(var(--career-year-inverse-scale, 1));
+  transform-origin: center top;
+}
+
+.career-club-slot-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: float-up-down-career-road 4s ease-in-out infinite;
+}
+
+/* Shorts grid keeps the shared global float (up from rest only) */
+body.shorts-mode .career-club-slot-inner {
+  animation: float-up-down 4s ease-in-out infinite;
+}
+
+.career-club-placeholder {
+  width: 195px;
+  height: 195px;
+  background: #ffffff; 
+  border: 4px solid #000; /* Fixed: Thick Black border added */
+  border-radius: 50%;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  position: relative;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Regular (road): box hugs the crest (no fixed square) so the year sits flush under every PNG */
+body:not(.shorts-mode) .career-club-placeholder {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  line-height: 0;
+  width: auto;
+  height: auto;
+  min-width: 3.75rem;
+  min-height: 3.75rem;
+  max-width: 195px;
+  max-height: 195px;
+}
+
+body:not(.shorts-mode) .career-club-placeholder:empty {
+  min-width: 4.875rem;
+  min-height: 4.875rem;
+}
+
+body:not(.shorts-mode) .career-club-logo-img {
+  display: block;
+  max-width: 195px;
+  max-height: 195px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-fallback-text {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  max-width: min(34vw, 360px);
+  padding: 0.25rem;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  line-height: 1.15;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+body:not(.shorts-mode) .career-club-fallback-text--solo {
+  display: none;
+  color: #000;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-fallback-text:not([hidden]) {
+  display: flex;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-placeholder:empty::after {
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+/* Edit button styling - hidden until hover */
+.career-edit-btn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: var(--accent);
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  display: none; 
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  transition: transform 0.2s;
+}
+
+.career-edit-btn:hover {
+  transform: scale(1.15);
+}
+
+.career-club-emblem-slot:hover .career-edit-btn {
+  display: flex;
+}
+
+.career-club-placeholder:empty::after {
+  content: '?';
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.8rem;
+  color: rgba(0,0,0,0.5);
+  font-weight: 800;
+}
+
+.career-club-year {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  background: #0a1118;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Regular layout: stats cards float on stage — matrix gaps are transparent so page blue shows between boxes. */
+body:not(.shorts-mode) .player-stats-panel {
+  --player-stat-navy: #002d72;
+  --player-stat-navy-deep: #001f52;
+  --player-stat-navy-highlight: #003b8f;
+  --player-stat-beige: #d2c4ad;
+  --player-stat-beige-mid: #c5b398;
+  --player-stat-beige-deep: #b5a088;
+  --player-stat-ink: #000000;
+  /* Matte grain (tileable SVG fractal noise). */
+  --player-stat-matte-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  /* Headlines smaller than stat values; values stay readable. */
+  --player-stat-head-font: clamp(0.93rem, 2.03vw, 1.32rem);
+  --player-stat-value-font: clamp(1.5rem, 4.13vw, 2.33rem);
+  --player-stat-equal-cell: clamp(3.05rem, 8.2vh, 4.55rem); /* min floor + clubs tile tuning */
+  /* Uniform gap between the six cards (rows + columns), mockup-style. */
+  --player-stats-grid-gap: clamp(0.5rem, 1.35vw, 0.72rem);
+
+  position: fixed;
+  left: 50%;
+  top: 1.5rem;
+  transform: translateX(-50%) scale(0.9);
+  transform-origin: top center;
+  z-index: 180;
+  width: min(94%, 1000px);
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  pointer-events: auto;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+/* Gaps between cards: transparent → full-page blue (html) shows through. */
+body:not(.shorts-mode) .player-stats-panel__matrix {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--player-stats-grid-gap);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: transparent;
+  border-radius: 0.1rem;
+  overflow: visible;
+}
+
+/* Main row: [ Games+Position | Clubs | Goals+Assists ] — side columns stay short; Clubs height does not push bottom cards down. */
+body:not(.shorts-mode) .player-stats-panel__row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: stretch;
+  gap: var(--player-stats-grid-gap);
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+body:not(.shorts-mode) .player-stats-panel__column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--player-stats-grid-gap);
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: visible;
+}
+
+/* Main stats row: wider center strip for 4 clubs per row; side columns a bit narrower. */
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stats-panel__column {
+  flex: 0.88 1 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stat-card--clubs-expanded {
+  flex: 1.42 1 0;
+  min-width: 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Regular nationality flag: fixed, ~15vw left of center; ~10% viewport above vertical center (regular mode). */
+body:not(.shorts-mode) .player-stats-national-flag {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(calc(-50% - 15vw), -50%);
+  /* Below .career-svg (z-index 12) so silhouette + SVG backdrop sit on top; .career-reveal-overlay (260) stays above when shown */
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(134.4vw, 52.8rem);
+  max-width: calc(100vw - 2rem);
+  pointer-events: none;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Three.js flag: canvas only — no card frame (no shadow / radius / clip). */
+body:not(.shorts-mode) .player-stats-national-flag__canvas-host {
+  display: block;
+  max-height: min(89.6vh, 35.2rem);
+  margin: 0 auto;
+  background: transparent;
+  user-select: none;
+  line-height: 0;
+}
+
+body:not(.shorts-mode) .player-stats-national-flag__canvas-host canvas {
+  display: block;
+  vertical-align: top;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Fixed height for every card except expanded Clubs. */
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card:not(.player-stat-card--clubs-expanded),
+body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card:not(.player-stat-card--clubs-expanded) {
+  height: calc(2 * var(--player-stat-equal-cell));
+}
+
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card--clubs-expanded {
+  height: auto;
+  /* Navy band (~1 cell) + beige grows one cell per logo row — no inner scroll. */
+  min-height: calc((1 + var(--player-stat-club-rows, 1)) * var(--player-stat-equal-cell));
+  background: transparent;
+}
+
+body:not(.shorts-mode) .player-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 0.12rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+body:not(.shorts-mode) .player-stat-card__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
+  font-weight: 800;
+  font-size: var(--player-stat-head-font);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f8fafc;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  padding: 0.28rem 0.38rem;
+  line-height: 1.12;
+  flex: 1 1 0;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--player-stat-navy-deep);
+  /* Repo root: Logo/stats image.jpg — textured blue header (cover per card). */
+  background-image:
+    var(--player-stat-matte-noise),
+    linear-gradient(
+      180deg,
+      rgba(0, 18, 48, 0.42) 0%,
+      rgba(0, 12, 36, 0.28) 50%,
+      rgba(0, 8, 28, 0.38) 100%
+    ),
+    url("../../../Logo/stats%20image.jpg");
+  background-size: auto, auto, cover;
+  background-position: center, center, center;
+  background-repeat: repeat, no-repeat, no-repeat;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+/* Fixed header band on every stats card (Clubs + sides) — same pixel height as one equal cell. */
+body:not(.shorts-mode) .player-stats-panel .player-stat-card__head {
+  flex: 0 0 var(--player-stat-equal-cell);
+  flex-shrink: 0;
+  min-height: var(--player-stat-equal-cell);
+  height: var(--player-stat-equal-cell);
+  max-height: var(--player-stat-equal-cell);
+}
+
+body:not(.shorts-mode) .player-stat-card__icon {
+  position: absolute;
+  left: calc(0.38rem + 0.2em);
+  top: 50%;
+  transform: translateY(-50%);
+  flex-shrink: 0;
+  width: 1.5em;
+  height: 1.5em;
+  margin-left: 0;
+  color: #fff;
+  opacity: 0.95;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+}
+
+/* Goal glyph sits low in the viewBox; nudge up to align with cap height. */
+body:not(.shorts-mode) .player-stat-card__icon--goal {
+  transform: translateY(calc(-50% - 0.14em));
+}
+
+body:not(.shorts-mode) .player-stat-card__label {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+/* Career Goals: lighter text-only nudge; icons unchanged. */
+body:not(.shorts-mode) .player-stats-panel .player-stat-card__label--nudge-right {
+  box-sizing: border-box;
+  padding-inline-start: 0.55em;
+}
+
+/* Career games & Career assists: stronger text-only nudge (icons stay on the left). */
+body:not(.shorts-mode) .player-stats-panel .player-stat-card__label--nudge-strong {
+  box-sizing: border-box;
+  padding-inline-start: 1.15em;
+}
+
+body:not(.shorts-mode) .player-stat-card__value {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #000000;
+  font-size: var(--player-stat-value-font);
+  font-weight: 900;
+  font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
+  line-height: 1;
+  background-color: #c5c5c5;
+  /* Repo root: Logo/Backgrounds/Light grey background.jfif */
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.06) 100%
+    ),
+    url("../../../Logo/Backgrounds/Light%20grey%20background.jfif");
+  background-size: auto, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs {
+  padding: 0.28rem 0.32rem;
+  align-items: stretch;
+  justify-content: center;
+  color: var(--player-stat-ink);
+  font-size: inherit;
+  /* clip: hidden+visible on the other axis forces overflow-y:auto in browsers → inner scrollbar */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+body:not(.shorts-mode) .player-stat-card--clubs-expanded .player-stat-card__value--clubs {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: max(
+    calc(var(--player-stat-club-rows, 2) * var(--player-stat-equal-cell)),
+    min-content
+  );
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  gap: 0.28rem;
+  width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-x: clip;
+  overflow-y: visible;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-track--expanded {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-content: flex-start;
+  gap: 0.38rem;
+  padding-top: 0.1rem;
+  overflow-y: visible;
+}
+
+/* 8-column grid: 4 logos span 2 cols each; partial rows centered. */
+body:not(.shorts-mode) .player-stat-clubs-row {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  justify-items: center;
+  align-items: start;
+  gap: 0.28rem;
+  width: 100%;
+  min-height: 0;
+  flex-shrink: 0;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row .player-stat-club-item {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(1) {
+  grid-column: 1 / 3;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(2) {
+  grid-column: 3 / 5;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(3) {
+  grid-column: 5 / 7;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(4) {
+  grid-column: 7 / 9;
+}
+
+/* Three logos in one row: centered in 8 cols (each span 2). */
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(1):nth-last-child(3) {
+  grid-column: 2 / 4;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(2):nth-last-child(2) {
+  grid-column: 4 / 6;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(3):nth-last-child(1) {
+  grid-column: 6 / 8;
+}
+
+/* Two logos: centered pair with gutter. */
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(1):nth-last-child(2) {
+  grid-column: 2 / 4;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:nth-child(2):nth-last-child(1) {
+  grid-column: 6 / 8;
+}
+
+body:not(.shorts-mode)
+  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
+  .player-stat-club-item:only-child {
+  grid-column: 4 / 6;
+}
+
+body:not(.shorts-mode) .player-stat-club-item {
+  flex: 0 0 auto;
+  position: relative;
+  max-width: 100%;
+  pointer-events: auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body:not(.shorts-mode) .player-stat-club-item .career-club-slot-inner {
+  animation: none !important;
+}
+
+/* Nudge crests down ~5% of slot height; all rows (stats panel clubs only). */
+body:not(.shorts-mode)
+  .player-stat-card__value--clubs
+  .player-stat-club-item
+  .career-club-slot-inner {
+  transform: translateY(5%);
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  bottom: -0.05rem;
+  top: auto;
+  transform: translateX(-50%) scale(0.62);
+  transform-origin: center bottom;
+  margin: 0;
+  z-index: 2;
+  gap: 0.12rem;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .player-stat-club-item {
+  padding-bottom: 1.5rem; /* room for − / + after crest translateY(5%) + larger logos; same when controls hidden */
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder {
+  /* Team crest box in stats panel (+10% vs prior step) */
+  width: clamp(2.772rem, 10.296vw, 4.673rem);
+  height: clamp(2.772rem, 10.296vw, 4.673rem);
+  min-width: 2.772rem;
+  min-height: 2.772rem;
+  max-width: min(4.673rem, 31.68vw);
+  max-height: min(4.673rem, 31.68vw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  line-height: 0;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder:empty {
+  min-width: 2.772rem;
+  min-height: 2.772rem;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-logo-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-edit-btn {
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 0.68rem;
+  top: -4px;
+  right: -4px;
+}
+
+/* Road/career CSS uses position:absolute + 3D transforms on .career-club-slot; stats tiles must stay in-flow. */
+body:not(.shorts-mode) #player-stats-panel .player-stat-club-item.career-club-slot {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  z-index: 1;
+}
+
+/* Missing logo: show club name (pitch-render toggles [hidden] on .career-club-fallback-text after fallbacks exhaust). */
+body:not(.shorts-mode) #player-stats-panel .career-club-fallback-text:not([hidden]) {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--player-stat-ink);
+  font-size: clamp(0.48rem, 1.45vw, 0.7rem);
+  font-weight: 800;
+  line-height: 1.1;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0.08rem 0.12rem;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) #player-stats-panel .career-club-slot-visual,
+body:not(.shorts-mode) #player-stats-panel .career-club-badge-scale,
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-scale {
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-slot {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  justify-content: center;
+}
+
+/* Road rule pins −/+ above the crest; keep bottom-bar layout inside stats panel only. */
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  top: auto;
+  bottom: -0.05rem;
+  transform: translateX(-50%) scale(0.62);
+  transform-origin: center bottom;
+  margin: 0;
+}
+
+/* Main Runner - Player stats: empty question stage */
+.placeholder-question-label {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.42);
+  font-weight: 800;
+  font-size: clamp(1rem, 3.5vw, 1.6rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.placeholder-question-stage {
+  display: none;
+}

@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "J1YV"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Tokyo Verdy",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Corinthians",
+          "year": "2012"
+        },
+        {
+          "club": "Figueirense FC",
+          "year": "2019"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 270,
+        "clean_sheets": 87
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuya Nagasawa",
@@ -31,9 +60,37 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2015"
+        },
+        {
+          "club": "a. cl. Numazu",
+          "year": "2019"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 62,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hiroki Mawatari",
@@ -43,7 +100,63 @@
       "club": "Tokyo Verdy",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "N.I.F.S. Kanoya",
+          "year": "2013"
+        },
+        {
+          "club": "Ehime FC",
+          "year": "2017"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2019"
+        },
+        {
+          "club": "Ehime FC",
+          "year": "2020"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2020"
+        },
+        {
+          "club": "Fagiano Okayama",
+          "year": "2020"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2022"
+        },
+        {
+          "club": "Fagiano Okayama",
+          "year": "2023"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keisuke Nakamura",
@@ -53,7 +166,27 @@
       "club": "Tokyo Verdy",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 58,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +198,43 @@
       "club": "Tokyo Verdy",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Osaka Uni H&SS",
+          "year": "2017"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2021"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2023"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2025"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaito Suzuki",
@@ -73,9 +242,41 @@
       "age": 23,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Júbilo Iwata",
+          "year": "2020"
+        },
+        {
+          "club": "Tochigi SC",
+          "year": "2022"
+        },
+        {
+          "club": "Júbilo Iwata",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryota Inoue",
@@ -83,9 +284,41 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rissho Univ.",
+          "year": "2019"
+        },
+        {
+          "club": "Zweig. Kanazawa",
+          "year": "2023"
+        },
+        {
+          "club": "Blaublitz Akita",
+          "year": "2025"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maaya Sako",
@@ -95,7 +328,51 @@
       "club": "Tokyo Verdy",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2021"
+        },
+        {
+          "club": "Fujieda MYFC",
+          "year": "2021"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2022"
+        },
+        {
+          "club": "Nagano Parceiro",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2024"
+        },
+        {
+          "club": "Iwate Grulla M.",
+          "year": "2024"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daiki Fukazawa",
@@ -103,9 +380,33 @@
       "age": 27,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chuo University",
+          "year": "2017"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taiju Yoshida",
@@ -113,19 +414,83 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yamanashi Gak.",
+          "year": "2019"
+        },
+        {
+          "club": "Monte. Yamagata",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kazuya Miyahara",
       "position": "Right-Back",
-      "age": 29,
+      "age": 30,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2013"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2017"
+        },
+        {
+          "club": "Sanf. Hiroshima",
+          "year": "2019"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2019"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 344,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shuto Tanabe",
@@ -135,7 +500,39 @@
       "club": "Tokyo Verdy",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kawasaki Front.",
+          "year": "2021"
+        },
+        {
+          "club": "JEF Utd. Chiba",
+          "year": "2022"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yosuke Uchida",
@@ -143,9 +540,33 @@
       "age": 23,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2021"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riku Matsuda",
@@ -155,7 +576,39 @@
       "club": "Tokyo Verdy",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gamba Osaka",
+          "year": "2018"
+        },
+        {
+          "club": "Zweig. Kanazawa",
+          "year": "2021"
+        },
+        {
+          "club": "JEF Utd. Chiba",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 3,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +618,29 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 242,
+        "goals": 11,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tetsuyuki Inami",
@@ -177,7 +650,31 @@
       "club": "Tokyo Verdy",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2018"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joi Yamamoto",
@@ -187,7 +684,27 @@
       "club": "Tokyo Verdy",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuan Matsuhashi",
@@ -195,9 +712,45 @@
       "age": 24,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2020"
+        },
+        {
+          "club": "SC Sagamihara",
+          "year": "2021"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2023"
+        },
+        {
+          "club": "Reno. Yamaguchi",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuya Fukuda",
@@ -205,19 +758,67 @@
       "age": 26,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gamba Osaka",
+          "year": "2018"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 16,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuta Arai",
       "position": "Left Midfield",
-      "age": 22,
+      "age": 23,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
       "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Toyo Univ.",
+          "year": "2021"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kosuke Saito",
@@ -225,9 +826,33 @@
       "age": 28,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yokohama FC",
+          "year": "2016"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 20,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rei Hirakawa",
@@ -235,9 +860,57 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Tokyo",
+          "year": "2018"
+        },
+        {
+          "club": "Kagoshima Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2020"
+        },
+        {
+          "club": "Matsumoto Yama.",
+          "year": "2021"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2022"
+        },
+        {
+          "club": "Roasso Kumamoto",
+          "year": "2022"
+        },
+        {
+          "club": "Júbilo Iwata",
+          "year": "2024"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 14,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kento Imai",
@@ -247,7 +920,27 @@
       "club": "Tokyo Verdy",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +950,45 @@
       "age": 26,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kwansei Gakuin",
+          "year": "2018"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2022"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2024"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2025"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 20,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Issei Kumatoriya",
@@ -269,7 +998,31 @@
       "club": "Tokyo Verdy",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2021"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shion Nakayama",
@@ -279,7 +1032,27 @@
       "club": "Tokyo Verdy",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 16,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gakuto Kawamura",
@@ -289,7 +1062,27 @@
       "club": "Tokyo Verdy",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Itsuki Someno",
@@ -297,9 +1090,49 @@
       "age": 24,
       "nationality": "Japan",
       "club": "Tokyo Verdy",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kashima Antlers",
+          "year": "2020"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2022"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2023"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2025"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 35,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Goki Yamada",
@@ -309,7 +1142,31 @@
       "club": "Tokyo Verdy",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kwansei Gakuin",
+          "year": "2019"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shimon Teranuma",
@@ -319,7 +1176,35 @@
       "club": "Tokyo Verdy",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toin Univ.",
+          "year": "2019"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 15,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryosuke Shirai",
@@ -329,7 +1214,27 @@
       "club": "Tokyo Verdy",
       "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hayato Hirao",
@@ -339,7 +1244,31 @@
       "club": "Tokyo Verdy",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nihon Uni",
+          "year": "2023"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sota Ofuji",
@@ -349,7 +1278,27 @@
       "club": "Tokyo Verdy",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

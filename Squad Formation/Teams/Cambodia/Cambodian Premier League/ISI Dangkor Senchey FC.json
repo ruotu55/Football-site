@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "KHM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,24 @@
       "age": 22,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 52,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phannith Neang",
@@ -33,7 +49,31 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "M. of Interior",
+          "year": "2023"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Savin Chea",
@@ -43,7 +83,51 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Soltilo",
+          "year": "2020"
+        },
+        {
+          "club": "Phnom Penh",
+          "year": "2023"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Phnom Penh",
+          "year": "2024"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 14,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sovitu Pen",
@@ -53,7 +137,22 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rithvirakvathana Soeun",
@@ -63,7 +162,35 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Visakha FC",
+          "year": "2024"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 29,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -73,9 +200,37 @@
       "age": 26,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2023"
+        },
+        {
+          "club": "Nagaworld FC",
+          "year": "2023"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sarath Keo",
@@ -85,7 +240,27 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Rodrigues",
@@ -95,7 +270,47 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 21,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Estoril Y",
+          "year": "2013"
+        },
+        {
+          "club": "Sporting Sub-15",
+          "year": "2016"
+        },
+        {
+          "club": "1º Dezembro",
+          "year": "2021"
+        },
+        {
+          "club": "PO Xylotymbou",
+          "year": "2021"
+        },
+        {
+          "club": "1.SC Znojmo",
+          "year": "2023"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chanpraseth Sek",
@@ -105,7 +320,27 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seavleng Phork",
@@ -113,9 +348,24 @@
       "age": 20,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sokhay Chhom",
@@ -123,9 +373,37 @@
       "age": 24,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2023"
+        },
+        {
+          "club": "Phnom Penh",
+          "year": "2024"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sokkosal Voeurn",
@@ -133,9 +411,33 @@
       "age": 20,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ISI DSC (B)",
+          "year": "2023"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Math Ya",
@@ -143,9 +445,24 @@
       "age": 24,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thavisiv Sonn",
@@ -153,9 +470,29 @@
       "age": 19,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sovannara Sarun",
@@ -165,7 +502,22 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +527,29 @@
       "age": 27,
       "nationality": "Sierra Leone",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sotherith Un",
@@ -185,9 +557,24 @@
       "age": 25,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhon Frith",
@@ -195,9 +582,45 @@
       "age": 23,
       "nationality": "Timor-Leste",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boavista FC",
+          "year": "2020"
+        },
+        {
+          "club": "Lalenok Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Assalam FC",
+          "year": "2022"
+        },
+        {
+          "club": "SLB Laulara",
+          "year": "2023"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sonosuke Onda",
@@ -205,9 +628,53 @@
       "age": 28,
       "nationality": "Japan",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Amateur (JP)",
+          "year": "2020"
+        },
+        {
+          "club": "FC Ise-shima",
+          "year": "2020"
+        },
+        {
+          "club": "SPG Pregarten",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "FavAC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seyla Chan",
@@ -217,7 +684,22 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tina Sam Ol",
@@ -227,7 +709,31 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 22,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Phnom Penh",
+          "year": "2019"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 8,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tharin Om",
@@ -237,7 +743,22 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +768,61 @@
       "age": 29,
       "nationality": "Japan",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Tokushima",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Siegburger SV",
+          "year": "2022"
+        },
+        {
+          "club": "Blanc. Hirosaki",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Khangarid FC",
+          "year": "2024"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2025"
+        },
+        {
+          "club": "Life FC",
+          "year": "2025"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Makara Soun",
@@ -257,9 +830,29 @@
       "age": 20,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bunthab Morn",
@@ -267,9 +860,24 @@
       "age": 20,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Long",
@@ -277,9 +885,29 @@
       "age": 18,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soknet Hav",
@@ -289,7 +917,35 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 17,
       "goals": 5,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Asia Euro Utd",
+          "year": "2022"
+        },
+        {
+          "club": "Électricité",
+          "year": "2023"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 17,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Ernandes",
@@ -297,9 +953,73 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 21,
-      "goals": 6,
-      "assists": 3
+      "appearances": 22,
+      "goals": 7,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "EC São Bernardo",
+          "year": "2018"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2019"
+        },
+        {
+          "club": "Azuriz",
+          "year": "2020"
+        },
+        {
+          "club": "Girnyk-Sport",
+          "year": "2021"
+        },
+        {
+          "club": "UR Trabalhadore",
+          "year": "2022"
+        },
+        {
+          "club": "Gonçalo-RJ",
+          "year": "2022"
+        },
+        {
+          "club": "Desp. Brasil",
+          "year": "2023"
+        },
+        {
+          "club": "Independente-AP",
+          "year": "2023"
+        },
+        {
+          "club": "Shkumbini Peqin",
+          "year": "2023"
+        },
+        {
+          "club": "Porto Velho",
+          "year": "2025"
+        },
+        {
+          "club": "Dom Bosco",
+          "year": "2025"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Menghav Long",
@@ -309,7 +1029,47 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bati Youth FA",
+          "year": "2013"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2019"
+        },
+        {
+          "club": "Angkor Tiger",
+          "year": "2021"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sen Kang",
@@ -319,7 +1079,22 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sokleng Mov",
@@ -329,7 +1104,22 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lancine Diakite",
@@ -337,19 +1127,49 @@
       "age": 15,
       "nationality": "Guinea",
       "club": "ISI Dangkor Senchey FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 2,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reaksa Rom",
       "position": "",
-      "age": 19,
+      "age": 20,
       "nationality": "Cambodia",
       "club": "ISI Dangkor Senchey FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yongche Veoung",
@@ -359,7 +1179,22 @@
       "club": "ISI Dangkor Senchey FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

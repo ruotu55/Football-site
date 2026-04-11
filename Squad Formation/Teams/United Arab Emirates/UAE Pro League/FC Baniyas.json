@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "UAE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 34,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda",
+          "year": "2012"
+        },
+        {
+          "club": "Dibba Fujairah",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2017"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 273,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 432,
+        "clean_sheets": 61
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Adel Abubaker",
@@ -31,9 +64,65 @@
       "age": 33,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda",
+          "year": "2013"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2021"
+        },
+        {
+          "club": "Hatta Club",
+          "year": "2023"
+        },
+        {
+          "club": "Shabab Al-Ahli",
+          "year": "2023"
+        },
+        {
+          "club": "Hatta Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dibba Al-Hisn",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 68,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Khalaf",
@@ -43,7 +132,35 @@
       "club": "FC Baniyas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2007"
+        },
+        {
+          "club": "Al-Shaab",
+          "year": "2016"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 91,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +170,41 @@
       "age": 22,
       "nationality": "Serbia",
       "club": "FC Baniyas",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 0
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jedinstvo",
+          "year": "2021"
+        },
+        {
+          "club": "Napredak",
+          "year": "2022"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        },
+        {
+          "club": "Napredak",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalid Hashemi",
@@ -63,9 +212,37 @@
       "age": 29,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 1
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2023"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahamadou Camara",
@@ -73,9 +250,41 @@
       "age": 24,
       "nationality": "Mali",
       "club": "FC Baniyas",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC Jaraaf",
+          "year": "2023"
+        },
+        {
+          "club": "FC Nouadhibou",
+          "year": "2023"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khamis Al-Mansoori",
@@ -85,7 +294,27 @@
       "club": "FC Baniyas",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hasan Al-Muharrami",
@@ -93,19 +322,59 @@
       "age": 29,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Victor",
       "position": "Left-Back",
-      "age": 25,
+      "age": 26,
       "nationality": "Brazil",
       "club": "FC Baniyas",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 0
+      "appearances": 12,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamdan Abdulrahman",
@@ -115,7 +384,39 @@
       "club": "FC Baniyas",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hatta Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mackenzie Hunt",
@@ -123,9 +424,37 @@
       "age": 24,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Everton Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Fleetwood",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 10,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Solomon Sosu",
@@ -135,7 +464,39 @@
       "club": "FC Baniyas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ain",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2026"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adham Khalid",
@@ -143,9 +504,33 @@
       "age": 24,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ain Reserve",
+          "year": "2021"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khamis Saleh",
@@ -153,9 +538,29 @@
       "age": 27,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mubarak Zamah",
@@ -165,7 +570,31 @@
       "club": "FC Baniyas",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Jazira",
+          "year": "2022"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalifa Hussain",
@@ -175,7 +604,22 @@
       "club": "FC Baniyas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +629,33 @@
       "age": 27,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ain",
+          "year": "2018"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 4,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kayque",
@@ -195,9 +663,57 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "FC Baniyas",
-      "appearances": 9,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Botafogo",
+          "year": "2020"
+        },
+        {
+          "club": "Nova Iguaçu-RJ",
+          "year": "2022"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2022"
+        },
+        {
+          "club": "RWDM",
+          "year": "2023"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2024"
+        },
+        {
+          "club": "Guarani",
+          "year": "2024"
+        },
+        {
+          "club": "Spartak",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fawaz Awana",
@@ -205,9 +721,33 @@
       "age": 37,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 23,
+      "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Nasr",
+          "year": "2016"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 20,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacob Awoute",
@@ -215,9 +755,33 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "FC Baniyas",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        },
+        {
+          "club": "Accra Lions",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Otabek Shukurov",
@@ -225,9 +789,53 @@
       "age": 29,
       "nationality": "Uzbekistan",
       "club": "FC Baniyas",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bunyodkor",
+          "year": "2015"
+        },
+        {
+          "club": "FK Buxoro",
+          "year": "2015"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2018"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2022"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 325,
+        "goals": 20,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 87,
+        "goals": 9,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lionel Verde",
@@ -235,9 +843,41 @@
       "age": 21,
       "nationality": "Argentina",
       "club": "FC Baniyas",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unión Santa Fe",
+          "year": "2024"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2025"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2026"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alassane Diallo",
@@ -245,9 +885,29 @@
       "age": 20,
       "nationality": "Mali",
       "club": "FC Baniyas",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saif Al-Menhali",
@@ -257,17 +917,57 @@
       "club": "FC Baniyas",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mater Al-Hosani",
       "position": "",
-      "age": 21,
+      "age": 22,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -277,9 +977,53 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "FC Baniyas",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "KV Oostende",
+          "year": "2015"
+        },
+        {
+          "club": "El-Kadme Acad.",
+          "year": "2016"
+        },
+        {
+          "club": "KSV Roeselare",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Okhdood",
+          "year": "2023"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 62,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alhassan Koroma",
@@ -287,9 +1031,49 @@
       "age": 25,
       "nationality": "Sierra Leone",
       "club": "FC Baniyas",
-      "appearances": 17,
+      "appearances": 10,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "East End Lions",
+          "year": "2019"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2019"
+        },
+        {
+          "club": "East End Lions",
+          "year": "2020"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shahania SC",
+          "year": "2023"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 26,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Suhail Al-Noobi",
@@ -297,9 +1081,29 @@
       "age": 30,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 20,
+      "appearances": 17,
       "goals": 1,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "FC Baniyas",
+          "year": "2014"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 255,
+        "goals": 25,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nassim Chadli",
@@ -307,9 +1111,73 @@
       "age": 24,
       "nationality": "Morocco",
       "club": "FC Baniyas",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 0
+      "appearances": 16,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Troyes",
+          "year": "2021"
+        },
+        {
+          "club": "Lommel SK",
+          "year": "2022"
+        },
+        {
+          "club": "Troyes",
+          "year": "2023"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2023"
+        },
+        {
+          "club": "Concarneau",
+          "year": "2023"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2024"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2025"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2025"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 16,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalfan Mubarak",
@@ -317,9 +1185,33 @@
       "age": 30,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Jazira",
+          "year": "2013"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 40,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssoufou Niakaté",
@@ -327,9 +1219,69 @@
       "age": 33,
       "nationality": "Mali",
       "club": "FC Baniyas",
-      "appearances": 23,
-      "goals": 9,
-      "assists": 2
+      "appearances": 20,
+      "goals": 7,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "US Lusitanos",
+          "year": "2011"
+        },
+        {
+          "club": "Aubervilliers",
+          "year": "2012"
+        },
+        {
+          "club": "US Avranches",
+          "year": "2014"
+        },
+        {
+          "club": "US Créteil-L",
+          "year": "2016"
+        },
+        {
+          "club": "US Boulogne",
+          "year": "2017"
+        },
+        {
+          "club": "Union SG",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ettifaq",
+          "year": "2022"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 341,
+        "goals": 130,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Munas Dabbur",
@@ -337,9 +1289,69 @@
       "age": 33,
       "nationality": "Israel",
       "club": "FC Baniyas",
-      "appearances": 18,
+      "appearances": 12,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "M. Ahi Nazareth",
+          "year": "2009"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2011"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2014"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2016"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2017"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2017"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2019"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2020"
+        },
+        {
+          "club": "Shabab Al-Ahli",
+          "year": "2023"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2026"
+        },
+        {
+          "club": "Shabab Al-Ahli",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 513,
+        "goals": 215,
+        "assists": 97,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 15,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonel Wamba",
@@ -347,9 +1359,49 @@
       "age": 23,
       "nationality": "Cameroon",
       "club": "FC Baniyas",
-      "appearances": 20,
+      "appearances": 17,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dragon Club",
+          "year": "2020"
+        },
+        {
+          "club": "Spartaks",
+          "year": "2020"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 46,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bernard Faye",
@@ -359,7 +1411,43 @@
       "club": "FC Baniyas",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CNEPS Excel.",
+          "year": "2021"
+        },
+        {
+          "club": "AS Soliman",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Waab SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Bidda SC",
+          "year": "2024"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 18,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Fawzi",
@@ -367,19 +1455,83 @@
       "age": 24,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Dhafra FC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2023"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mansoor Al-Menhali",
       "position": "Centre-Forward",
-      "age": 22,
+      "age": 23,
       "nationality": "United Arab Emirates",
       "club": "FC Baniyas",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda",
+          "year": "2024"
+        },
+        {
+          "club": "Wahda Reserve",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2025"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

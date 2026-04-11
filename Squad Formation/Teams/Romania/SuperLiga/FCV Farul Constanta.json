@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "RO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,39 @@
       "club": "FCV Farul Constanta",
       "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2009"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2012"
+        },
+        {
+          "club": "Gaz Metan",
+          "year": "2020"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 291,
+        "clean_sheets": 43
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Munteanu",
@@ -31,9 +64,41 @@
       "age": 20,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 9,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2018"
+        },
+        {
+          "club": "CSA Steaua",
+          "year": "2024"
+        },
+        {
+          "club": "Campulung",
+          "year": "2025"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 30,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,19 +108,33 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "FCV Farul Constanta",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2
-    },
-    {
-      "name": "Bogdan Țîru",
-      "position": "Centre-Back",
-      "age": 32,
-      "nationality": "Romania",
-      "club": "FCV Farul Constanta",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "São Luiz",
+          "year": "2021"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Pellegrini",
@@ -63,9 +142,123 @@
       "age": 25,
       "nationality": "France",
       "club": "FCV Farul Constanta",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AC Ajaccio",
+          "year": "2019"
+        },
+        {
+          "club": "Le Puy Foot",
+          "year": "2020"
+        },
+        {
+          "club": "AC Ajaccio",
+          "year": "2021"
+        },
+        {
+          "club": "Bastia-Borgo",
+          "year": "2021"
+        },
+        {
+          "club": "AC Ajaccio",
+          "year": "2022"
+        },
+        {
+          "club": "Titus Petange",
+          "year": "2022"
+        },
+        {
+          "club": "AS Nancy",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Bogdan Țîru",
+      "position": "Centre-Back",
+      "age": 32,
+      "nationality": "Romania",
+      "club": "FCV Farul Constanta",
+      "appearances": 27,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2009"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2012"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2013"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2013"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2016"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2016"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2023"
+        },
+        {
+          "club": "Warta Poznan",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 15,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ștefan Duțu",
@@ -73,9 +266,37 @@
       "age": 22,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2016"
+        },
+        {
+          "club": "CS Afumati",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Dănuleasă",
@@ -83,9 +304,41 @@
       "age": 22,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCV Farul",
+          "year": "2023"
+        },
+        {
+          "club": "CS Afumati",
+          "year": "2025"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        },
+        {
+          "club": "Metalul Buzau",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ionuț Larie",
@@ -93,9 +346,73 @@
       "age": 39,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 29,
+      "appearances": 30,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Farul Constanta",
+          "year": "2006"
+        },
+        {
+          "club": "Rm. Valcea",
+          "year": "2008"
+        },
+        {
+          "club": "Farul Constanta",
+          "year": "2008"
+        },
+        {
+          "club": "Delta Tulcea",
+          "year": "2008"
+        },
+        {
+          "club": "Delta Tulcea",
+          "year": "2009"
+        },
+        {
+          "club": "Farul Constanta",
+          "year": "2010"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2010"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2014"
+        },
+        {
+          "club": "FCSB",
+          "year": "2017"
+        },
+        {
+          "club": "Tobol Kostanay",
+          "year": "2018"
+        },
+        {
+          "club": "Gaz Metan",
+          "year": "2019"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 537,
+        "goals": 35,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rareș Fotin",
@@ -103,9 +420,33 @@
       "age": 18,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Girona FC Youth",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Ganea",
@@ -113,9 +454,85 @@
       "age": 33,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 25,
+      "appearances": 26,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CE Santanyi",
+          "year": "2011"
+        },
+        {
+          "club": "FCM Targu Mures",
+          "year": "2013"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2013"
+        },
+        {
+          "club": "Sageata Navodar",
+          "year": "2014"
+        },
+        {
+          "club": "FC Brasov",
+          "year": "2015"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2015"
+        },
+        {
+          "club": "Athletic Club",
+          "year": "2018"
+        },
+        {
+          "club": "CD Numancia",
+          "year": "2019"
+        },
+        {
+          "club": "Athletic Club",
+          "year": "2019"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2020"
+        },
+        {
+          "club": "Athletic Club",
+          "year": "2020"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2020"
+        },
+        {
+          "club": "Panathinaikos",
+          "year": "2022"
+        },
+        {
+          "club": "FCSB",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 26,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandru Telehoi",
@@ -125,7 +542,27 @@
       "club": "FCV Farul",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dan Sîrbu",
@@ -133,9 +570,37 @@
       "age": 22,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metalosport",
+          "year": "2016"
+        },
+        {
+          "club": "Academia Hagi",
+          "year": "2018"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Maftei",
@@ -145,7 +610,55 @@
       "club": "FCV Farul Constanta",
       "appearances": 23,
       "goals": 1,
-      "assists": 3
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2018"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        },
+        {
+          "club": "Unirea Dej",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2023"
+        },
+        {
+          "club": "CSA Steaua",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2024"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 6,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Steve Furtado",
@@ -153,9 +666,53 @@
       "age": 31,
       "nationality": "Cape Verde",
       "club": "FCV Farul Constanta",
-      "appearances": 15,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Créteil-L",
+          "year": "2016"
+        },
+        {
+          "club": "US Orléans",
+          "year": "2017"
+        },
+        {
+          "club": "Albacete",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Beroe",
+          "year": "2020"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 7,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +722,57 @@
       "age": 25,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Damila Maciuca",
+          "year": "2009"
+        },
+        {
+          "club": "Rm. Valcea",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Metalurg. Cugir",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "U Cluj",
+          "year": "2019"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 227,
+        "goals": 21,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Banu",
@@ -175,9 +780,33 @@
       "age": 21,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2017"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ionuț Vînă",
@@ -187,7 +816,59 @@
       "club": "FCV Farul Constanta",
       "appearances": 29,
       "goals": 7,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2009"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2011"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2014"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2015"
+        },
+        {
+          "club": "D. Calarasi",
+          "year": "2016"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2016"
+        },
+        {
+          "club": "FCSB",
+          "year": "2019"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2021"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 311,
+        "goals": 25,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eduard Radaslavescu",
@@ -195,9 +876,41 @@
       "age": 21,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 33,
+      "appearances": 32,
       "goals": 2,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2018"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2021"
+        },
+        {
+          "club": "FCSB",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 11,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramalho",
@@ -205,9 +918,61 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "FCV Farul Constanta",
-      "appearances": 32,
+      "appearances": 31,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marinhas S15",
+          "year": "2012"
+        },
+        {
+          "club": "Marinhas S17",
+          "year": "2014"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2018"
+        },
+        {
+          "club": "Mirandela",
+          "year": "2020"
+        },
+        {
+          "club": "Leça",
+          "year": "2021"
+        },
+        {
+          "club": "Varzim",
+          "year": "2022"
+        },
+        {
+          "club": "Vianense",
+          "year": "2023"
+        },
+        {
+          "club": "SC Covilhã",
+          "year": "2024"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +982,41 @@
       "age": 22,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 33,
-      "goals": 6,
-      "assists": 2
+      "appearances": 31,
+      "goals": 5,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        },
+        {
+          "club": "Gloria Bistrita",
+          "year": "2022"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 14,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Sima",
@@ -227,9 +1024,33 @@
       "age": 19,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FCV Farul Youth",
+          "year": "2019"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ionuț Cojocaru",
@@ -239,17 +1060,77 @@
       "club": "FCV Farul Constanta",
       "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2016"
+        },
+        {
+          "club": "FCV Farul Youth",
+          "year": "2016"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Răzvan Mărincean",
+      "name": "Răzvan Marincean",
       "position": "Left Winger",
       "age": 17,
       "nationality": "Romania",
       "club": "FCV Farul",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2021"
+        },
+        {
+          "club": "FCV Farul Youth",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Narek Grigoryan",
@@ -259,7 +1140,47 @@
       "club": "FCV Farul Constanta",
       "appearances": 28,
       "goals": 2,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Banants",
+          "year": "2018"
+        },
+        {
+          "club": "BKMA Yerevan",
+          "year": "2019"
+        },
+        {
+          "club": "FC Urartu",
+          "year": "2021"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2022"
+        },
+        {
+          "club": "FC Urartu",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 50,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iustin Doicaru",
@@ -267,9 +1188,37 @@
       "age": 19,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 1,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2018"
+        },
+        {
+          "club": "FCV Farul Youth",
+          "year": "2019"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandru Ișfan",
@@ -279,7 +1228,117 @@
       "club": "FCV Farul Constanta",
       "appearances": 31,
       "goals": 10,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "FC D. Coman",
+          "year": "2016"
+        },
+        {
+          "club": "Unirea Bascov",
+          "year": "2018"
+        },
+        {
+          "club": "CS Mioveni",
+          "year": "2019"
+        },
+        {
+          "club": "FC Arges",
+          "year": "2021"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2023"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2024"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2024"
+        },
+        {
+          "club": "FC Buzau",
+          "year": "2024"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2025"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 238,
+        "goals": 28,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jovan Marković",
+      "position": "Centre-Forward",
+      "age": 25,
+      "nationality": "Romania",
+      "club": "FCV Farul Constanta",
+      "appearances": 15,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Un. Craiova",
+          "year": "2017"
+        },
+        {
+          "club": "Academica Clince",
+          "year": "2020"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2021"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2024"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2025"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2025"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 39,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Alibec",
@@ -287,19 +1346,101 @@
       "age": 35,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 20,
-      "goals": 4,
-      "assists": 3
-    },
-    {
-      "name": "Jovan Marković",
-      "position": "Centre-Forward",
-      "age": 24,
-      "nationality": "Romania",
-      "club": "FCV Farul Constanta",
-      "appearances": 21,
-      "goals": 5,
-      "assists": 1
+      "appearances": 13,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Farul Constanta",
+          "year": "2008"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2011"
+        },
+        {
+          "club": "Inter",
+          "year": "2012"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2012"
+        },
+        {
+          "club": "Inter",
+          "year": "2013"
+        },
+        {
+          "club": "Bologna",
+          "year": "2013"
+        },
+        {
+          "club": "Inter",
+          "year": "2014"
+        },
+        {
+          "club": "Astra Giurgiu",
+          "year": "2014"
+        },
+        {
+          "club": "Steaua Bucharest",
+          "year": "2017"
+        },
+        {
+          "club": "Astra Giurgiu",
+          "year": "2018"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2020"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2021"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2022"
+        },
+        {
+          "club": "Atromitos",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        },
+        {
+          "club": "Muaither SC",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        },
+        {
+          "club": "FCSB",
+          "year": "2025"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 462,
+        "goals": 155,
+        "assists": 90,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 45,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Iancu",
@@ -307,9 +1448,93 @@
       "age": 31,
       "nationality": "Romania",
       "club": "FCV Farul Constanta",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2006"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2011"
+        },
+        {
+          "club": "Steaua Bucharest",
+          "year": "2013"
+        },
+        {
+          "club": "Karabükspor",
+          "year": "2015"
+        },
+        {
+          "club": "Steaua Bucharest",
+          "year": "2016"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2016"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2017"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2018"
+        },
+        {
+          "club": "D. Calarasi",
+          "year": "2019"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2019"
+        },
+        {
+          "club": "Akhmat Grozny",
+          "year": "2021"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2022"
+        },
+        {
+          "club": "Akhmat Grozny",
+          "year": "2022"
+        },
+        {
+          "club": "FC U Craiova",
+          "year": "2022"
+        },
+        {
+          "club": "Akhmat Grozny",
+          "year": "2023"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 336,
+        "goals": 78,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Vojtus",
@@ -317,9 +1542,101 @@
       "age": 32,
       "nationality": "Slovakia",
       "club": "FCV Farul Constanta",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter Youth",
+          "year": "2010"
+        },
+        {
+          "club": "NK Zagreb",
+          "year": "2012"
+        },
+        {
+          "club": "Chievo Verona",
+          "year": "2013"
+        },
+        {
+          "club": "Olhanense",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Spartak Trnava",
+          "year": "2015"
+        },
+        {
+          "club": "U Cluj",
+          "year": "2016"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2016"
+        },
+        {
+          "club": "GKS Tychy",
+          "year": "2018"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2018"
+        },
+        {
+          "club": "Academica Clince",
+          "year": "2019"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2020"
+        },
+        {
+          "club": "Mezőkövesd",
+          "year": "2021"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2022"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2023"
+        },
+        {
+          "club": "Mumbai City",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Unirea Slobozia",
+          "year": "2025"
+        },
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 336,
+        "goals": 60,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Constantinescu",
@@ -329,7 +1646,27 @@
       "club": "FCV Farul Constanta",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCV Farul",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

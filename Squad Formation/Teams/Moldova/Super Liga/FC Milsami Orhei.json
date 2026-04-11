@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MOP2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,65 @@
       "age": 27,
       "nationality": "TM nationality id 24",
       "club": "FC Milsami Orhei",
-      "appearances": 8,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Mladost Kakanj",
+          "year": "2020"
+        },
+        {
+          "club": "Spartak",
+          "year": "2020"
+        },
+        {
+          "club": "Radnicki Nis",
+          "year": "2022"
+        },
+        {
+          "club": "FC Dinamo",
+          "year": "2022"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        },
+        {
+          "club": "Struga",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 156,
+        "clean_sheets": 42
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Vornic",
@@ -31,9 +88,37 @@
       "age": 21,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2022"
+        },
+        {
+          "club": "FC Zimbru-2",
+          "year": "2022"
+        },
+        {
+          "club": "Milsami",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +128,53 @@
       "age": 25,
       "nationality": "Belgium",
       "club": "FC Milsami Orhei",
-      "appearances": 24,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hednesford",
+          "year": "2019"
+        },
+        {
+          "club": "Derry City",
+          "year": "2020"
+        },
+        {
+          "club": "King's Lynn",
+          "year": "2020"
+        },
+        {
+          "club": "Derry City",
+          "year": "2021"
+        },
+        {
+          "club": "Kalamata",
+          "year": "2021"
+        },
+        {
+          "club": "RE Virton",
+          "year": "2023"
+        },
+        {
+          "club": "Milsami",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dehninio Muringen",
@@ -53,9 +182,65 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "FC Milsami Orhei",
-      "appearances": 13,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2008"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2019"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2020"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Roda JC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Paide",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Veaceslav Posmac",
@@ -63,9 +248,53 @@
       "age": 35,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dacia",
+          "year": "2012"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2017"
+        },
+        {
+          "club": "Tuzlaspor",
+          "year": "2021"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2022"
+        },
+        {
+          "club": "Boluspor",
+          "year": "2022"
+        },
+        {
+          "club": "Petrocub",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 365,
+        "goals": 27,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 74,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frederick Takyi",
@@ -73,9 +302,61 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "FC Milsami Orhei",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Charity Stars",
+          "year": "2019"
+        },
+        {
+          "club": "Arouca",
+          "year": "2020"
+        },
+        {
+          "club": "Pedras Rubras",
+          "year": "2021"
+        },
+        {
+          "club": "Arouca",
+          "year": "2021"
+        },
+        {
+          "club": "Mirandela",
+          "year": "2021"
+        },
+        {
+          "club": "Molelos",
+          "year": "2021"
+        },
+        {
+          "club": "Pevidém",
+          "year": "2022"
+        },
+        {
+          "club": "Vila Real",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ion Ghimp",
@@ -83,9 +364,57 @@
       "age": 29,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sfintul Gheor.",
+          "year": "2018"
+        },
+        {
+          "club": "Foresta Suceava",
+          "year": "2018"
+        },
+        {
+          "club": "CSM Pascani",
+          "year": "2019"
+        },
+        {
+          "club": "CSF Speranta",
+          "year": "2019"
+        },
+        {
+          "club": "Milsami",
+          "year": "2020"
+        },
+        {
+          "club": "Dacia Buiucani",
+          "year": "2022"
+        },
+        {
+          "club": "Spartanii",
+          "year": "2023"
+        },
+        {
+          "club": "Milsami",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hennos Asmelash",
@@ -93,41 +422,167 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "FC Milsami Orhei",
-      "appearances": 27,
+      "appearances": 3,
       "goals": 0,
-      "assists": 3
-    },
-    {
-      "name": "Igor Arhirii",
-      "position": "Right-Back",
-      "age": 29,
-      "nationality": "Moldova",
-      "club": "FC Milsami Orhei",
-      "appearances": 13,
-      "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ADO Youth",
+          "year": "2013"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2017"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2018"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2019"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2019"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Ingulets",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Wieczysta",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Scheveningen",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 3,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
     {
       "name": "Daniel Lisu",
       "position": "Defensive Midfield",
-      "age": 23,
+      "age": 24,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartanii",
+          "year": "2020"
+        },
+        {
+          "club": "Floresti",
+          "year": "2021"
+        },
+        {
+          "club": "Sfintul Gheor.",
+          "year": "2022"
+        },
+        {
+          "club": "Milsami",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Simba",
       "position": "Defensive Midfield",
-      "age": 24,
+      "age": 25,
       "nationality": "Belgium",
       "club": "FC Milsami Orhei",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mouscron",
+          "year": "2021"
+        },
+        {
+          "club": "Club NXT",
+          "year": "2022"
+        },
+        {
+          "club": "Patro Eisden",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Fonkeu",
@@ -135,9 +590,61 @@
       "age": 26,
       "nationality": "Belgium",
       "club": "FC Milsami Orhei",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kosova Schaerb.",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "UR La Louvière",
+          "year": "2022"
+        },
+        {
+          "club": "Mandel United",
+          "year": "2022"
+        },
+        {
+          "club": "C. Balchik",
+          "year": "2023"
+        },
+        {
+          "club": "Hebar P.",
+          "year": "2024"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vasile Jardan",
@@ -145,9 +652,57 @@
       "age": 32,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 24,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ac. Chisinau",
+          "year": "2015"
+        },
+        {
+          "club": "Dacia",
+          "year": "2016"
+        },
+        {
+          "club": "Dinamo-Auto",
+          "year": "2017"
+        },
+        {
+          "club": "Dacia",
+          "year": "2017"
+        },
+        {
+          "club": "Milsami",
+          "year": "2017"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2021"
+        },
+        {
+          "club": "Petrocub",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 264,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonard Bulmaga",
@@ -155,9 +710,33 @@
       "age": 18,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartanii",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vasile Luchita",
@@ -165,9 +744,33 @@
       "age": 21,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartanii",
+          "year": "2023"
+        },
+        {
+          "club": "Milsami",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoul Yoda",
@@ -175,9 +778,45 @@
       "age": 25,
       "nationality": "Burkina Faso",
       "club": "FC Milsami Orhei",
-      "appearances": 28,
-      "goals": 1,
-      "assists": 2
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "USFA",
+          "year": "2018"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2020"
+        },
+        {
+          "club": "Hobro IK",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olivier Rommens",
@@ -185,9 +824,53 @@
       "age": 31,
       "nationality": "Belgium",
       "club": "FC Milsami Orhei",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NAC Breda",
+          "year": "2016"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2019"
+        },
+        {
+          "club": "Suduva",
+          "year": "2021"
+        },
+        {
+          "club": "Kalju FC",
+          "year": "2023"
+        },
+        {
+          "club": "Balzan FC",
+          "year": "2024"
+        },
+        {
+          "club": "Vancouver FC",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 18,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vitus Amougui",
@@ -196,8 +879,32 @@
       "nationality": "Cameroon",
       "club": "FC Milsami Orhei",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UMS de Loum",
+          "year": "2016"
+        },
+        {
+          "club": "Milsami",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dmitri Galeamov",
@@ -207,7 +914,22 @@
       "club": "FC Milsami Orhei",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sibiry Keita",
@@ -215,9 +937,41 @@
       "age": 25,
       "nationality": "Mali",
       "club": "FC Milsami Orhei",
-      "appearances": 27,
-      "goals": 7,
-      "assists": 5
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KAS Eupen",
+          "year": "2019"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Radu Ginsari",
@@ -225,9 +979,65 @@
       "age": 34,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 9,
-      "goals": 4,
-      "assists": 3
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ac. Chisinau",
+          "year": "2010"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2013"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2014"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2017"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2019"
+        },
+        {
+          "club": "Kiryat Shmona",
+          "year": "2020"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2020"
+        },
+        {
+          "club": "Milsami",
+          "year": "2021"
+        },
+        {
+          "club": "AO Xanthi",
+          "year": "2021"
+        },
+        {
+          "club": "Milsami",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 344,
+        "goals": 94,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Philip Odubia",
@@ -237,7 +1047,35 @@
       "club": "FC Milsami Orhei",
       "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Lagos",
+          "year": "2024"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1085,33 @@
       "age": 22,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 3
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartanii",
+          "year": "2023"
+        },
+        {
+          "club": "Milsami",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marius Iosipoi",
@@ -257,9 +1119,49 @@
       "age": 25,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 24,
-      "goals": 3,
-      "assists": 2
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dacia Buiucani",
+          "year": "2019"
+        },
+        {
+          "club": "Veles Moscow",
+          "year": "2021"
+        },
+        {
+          "club": "Dacia Buiucani",
+          "year": "2021"
+        },
+        {
+          "club": "Petrocub",
+          "year": "2021"
+        },
+        {
+          "club": "SKA Khabarovsk",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 15,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samouil Izountouemoi",
@@ -269,7 +1171,47 @@
       "club": "FC Milsami Orhei",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "IK Frej Täby",
+          "year": "2019"
+        },
+        {
+          "club": "Dalkurd",
+          "year": "2021"
+        },
+        {
+          "club": "Brage",
+          "year": "2022"
+        },
+        {
+          "club": "Gefle",
+          "year": "2024"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 18,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandru Antoniuc",
@@ -277,9 +1219,53 @@
       "age": 36,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2007"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2010"
+        },
+        {
+          "club": "KamAZ",
+          "year": "2012"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2012"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2013"
+        },
+        {
+          "club": "FC Veris",
+          "year": "2013"
+        },
+        {
+          "club": "Milsami",
+          "year": "2014"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 385,
+        "goals": 59,
+        "assists": 65,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 3,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kabamba Kalabatama",
@@ -287,9 +1273,53 @@
       "age": 24,
       "nationality": "Norway",
       "club": "FC Milsami Orhei",
-      "appearances": 17,
-      "goals": 3,
-      "assists": 2
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TPS",
+          "year": "2020"
+        },
+        {
+          "club": "Moss",
+          "year": "2022"
+        },
+        {
+          "club": "Kvik Halden",
+          "year": "2023"
+        },
+        {
+          "club": "Moss",
+          "year": "2023"
+        },
+        {
+          "club": "Ullensaker/Kisa",
+          "year": "2023"
+        },
+        {
+          "club": "Skeid",
+          "year": "2024"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 40,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Justice Ohajunwa",
@@ -297,9 +1327,45 @@
       "age": 24,
       "nationality": "Nigeria",
       "club": "FC Milsami Orhei",
-      "appearances": 9,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kolding IF",
+          "year": "2021"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2023"
+        },
+        {
+          "club": "NK Osijek",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        },
+        {
+          "club": "NK Osijek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 14,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrei Cobet",
@@ -307,9 +1373,53 @@
       "age": 29,
       "nationality": "Moldova",
       "club": "FC Milsami Orhei",
-      "appearances": 24,
-      "goals": 10,
-      "assists": 5
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Sheriff",
+          "year": "2017"
+        },
+        {
+          "club": "Dinamo-Auto",
+          "year": "2019"
+        },
+        {
+          "club": "Floresti",
+          "year": "2020"
+        },
+        {
+          "club": "Slavia",
+          "year": "2022"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2024"
+        },
+        {
+          "club": "Slavia",
+          "year": "2025"
+        },
+        {
+          "club": "Milsami",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 41,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Igor Souza",
@@ -317,9 +1427,24 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "FC Milsami Orhei",
-      "appearances": 8,
-      "goals": 3,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

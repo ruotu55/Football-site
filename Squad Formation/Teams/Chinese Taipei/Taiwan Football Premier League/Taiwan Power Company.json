@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "TFPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,17 +24,65 @@
       "club": "Taiwan Power Company",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hang Yuan FC",
+          "year": "2017"
+        },
+        {
+          "club": "Taipower",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 102,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 27,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Hsiang-Chun Chang",
       "position": "Goalkeeper",
-      "age": 21,
+      "age": 22,
       "nationality": "Chinese Taipei",
       "club": "Taiwan Power Company",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2022"
+        },
+        {
+          "club": "Taipower",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 13,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chih-Yu Liu",
@@ -43,7 +92,35 @@
       "club": "Taiwan Power Company",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kaohsiung Uni",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Taipower",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -51,21 +128,77 @@
       "name": "Tzu-Ming Huang",
       "position": "Centre-Back",
       "age": 25,
-      "nationality": "TM nationality id 164",
+      "nationality": "Chinese Taipei",
       "club": "Taiwan Power Company",
       "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2019"
+        },
+        {
+          "club": "Brew Kashima",
+          "year": "2023"
+        },
+        {
+          "club": "Taipower",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ming-Hsiu Chao",
       "position": "Centre-Back",
       "age": 28,
-      "nationality": "Chinese Taipei",
+      "nationality": "TM nationality id 164",
       "club": "Taiwan Power Company",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2016"
+        },
+        {
+          "club": "Taichung Futuro",
+          "year": "2019"
+        },
+        {
+          "club": "Taipower",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jie-Yang Liao",
@@ -75,7 +208,31 @@
       "club": "Taiwan Power Company",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Taichung Rock",
+          "year": "2025"
+        },
+        {
+          "club": "Taipower",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cheng-Yang Chang",
@@ -85,7 +242,27 @@
       "club": "Taiwan Power Company",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Taipower",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ho-Shen Yen",
@@ -95,7 +272,43 @@
       "club": "Taiwan Power Company",
       "appearances": 2,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HASUS TSU",
+          "year": "2011"
+        },
+        {
+          "club": "NSTC football",
+          "year": "2013"
+        },
+        {
+          "club": "Taipower",
+          "year": "2014"
+        },
+        {
+          "club": "Career break",
+          "year": "2025"
+        },
+        {
+          "club": "Taipower",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Po-An Hsieh",
@@ -105,7 +318,31 @@
       "club": "Taiwan Power Company",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2017"
+        },
+        {
+          "club": "Taipower",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jian-Liang Lee",
@@ -115,7 +352,31 @@
       "club": "Taiwan Power Company",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HASUS TSU",
+          "year": "2010"
+        },
+        {
+          "club": "Taipower",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Li-Peng Fang",
@@ -125,7 +386,31 @@
       "club": "Taiwan Power Company",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hang Yuan FC",
+          "year": "2018"
+        },
+        {
+          "club": "Taipower",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chun-Chia Lee",
@@ -135,7 +420,35 @@
       "club": "Taiwan Power Company",
       "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2011"
+        },
+        {
+          "club": "NSTC football",
+          "year": "2015"
+        },
+        {
+          "club": "Taipower",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -147,7 +460,35 @@
       "club": "Taiwan Power Company",
       "appearances": 14,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2019"
+        },
+        {
+          "club": "Taichung Futuro",
+          "year": "2021"
+        },
+        {
+          "club": "Taipower",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 7,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yong-Jyun Hong",
@@ -157,7 +498,27 @@
       "club": "Taiwan Power Company",
       "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Taipower",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chih-Hsuan Lai",
@@ -167,7 +528,31 @@
       "club": "Taiwan Power Company",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Taichung City",
+          "year": "2013"
+        },
+        {
+          "club": "Taipower",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chen Lin",
@@ -177,7 +562,35 @@
       "club": "Taiwan Power Company",
       "appearances": 11,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Fu Jen Catholic",
+          "year": "2022"
+        },
+        {
+          "club": "Hang Yuan",
+          "year": "2022"
+        },
+        {
+          "club": "Taipower",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Po-Chieh Hsu",
@@ -187,7 +600,31 @@
       "club": "Taiwan Power Company",
       "appearances": 14,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2022"
+        },
+        {
+          "club": "Taipower",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Po-Hsun Chen",
@@ -197,7 +634,31 @@
       "club": "Taiwan Power Company",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2020"
+        },
+        {
+          "club": "Taipower",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -209,7 +670,31 @@
       "club": "Taiwan Power Company",
       "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2020"
+        },
+        {
+          "club": "Taipower",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Po-Jui Chiu",
@@ -219,7 +704,35 @@
       "club": "Taiwan Power Company",
       "appearances": 12,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2019"
+        },
+        {
+          "club": "Taichung Futuro",
+          "year": "2021"
+        },
+        {
+          "club": "Taipower",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chih-Wei Tseng",
@@ -229,7 +742,27 @@
       "club": "Taiwan Power Company",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Taipower",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chao-An Chen",
@@ -239,7 +772,59 @@
       "club": "Taiwan Power Company",
       "appearances": 12,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "HN Billows",
+          "year": "2015"
+        },
+        {
+          "club": "HN Billows Res.",
+          "year": "2016"
+        },
+        {
+          "club": "HN Billows",
+          "year": "2016"
+        },
+        {
+          "club": "NSTC football",
+          "year": "2017"
+        },
+        {
+          "club": "HN Billows",
+          "year": "2018"
+        },
+        {
+          "club": "HN Billows Res.",
+          "year": "2018"
+        },
+        {
+          "club": "NSTC football",
+          "year": "2018"
+        },
+        {
+          "club": "Taichung Futuro",
+          "year": "2019"
+        },
+        {
+          "club": "Taipower",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 32,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yi-Han Huang",
@@ -249,7 +834,27 @@
       "club": "Taiwan Power Company",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Taipower",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu-Fan Wu",
@@ -259,7 +864,27 @@
       "club": "Taiwan Power Company",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Taipower",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ching-Chun Yeh",
@@ -269,7 +894,27 @@
       "club": "Taiwan Power Company",
       "appearances": 13,
       "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Taipower",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wei-Jie Gao",
@@ -279,7 +924,31 @@
       "club": "Taiwan Power Company",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2016"
+        },
+        {
+          "club": "Taipower",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 24,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chen-Ying Yang",
@@ -289,7 +958,31 @@
       "club": "Taiwan Power Company",
       "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NCKU",
+          "year": "2024"
+        },
+        {
+          "club": "Taipower",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hsiang-Wei Lee",
@@ -299,7 +992,35 @@
       "club": "Taiwan Power Company",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tainan City",
+          "year": "2018"
+        },
+        {
+          "club": "Taichung Futuro",
+          "year": "2019"
+        },
+        {
+          "club": "Taipower",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 24,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wei Lai",
@@ -309,7 +1030,31 @@
       "club": "Taiwan Power Company",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NTUS",
+          "year": "2020"
+        },
+        {
+          "club": "Taipower",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

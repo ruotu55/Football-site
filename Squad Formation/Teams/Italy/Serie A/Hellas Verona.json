@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IT1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 30,
       "nationality": "Italy",
       "club": "Hellas Verona",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -68,7 +69,21 @@
           "club": "Hellas Verona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 388,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 547,
+        "clean_sheets": 93
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simone Perilli",
@@ -76,7 +91,7 @@
       "age": 31,
       "nationality": "Italy",
       "club": "Hellas Verona",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -120,12 +135,26 @@
           "club": "Hellas Verona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 258,
+        "clean_sheets": 59
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giacomo Toniolo",
       "position": "Goalkeeper",
-      "age": 21,
+      "age": 22,
       "nationality": "Italy",
       "club": "Hellas Verona",
       "appearances": 0,
@@ -144,7 +173,21 @@
           "club": "Lumezzane",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 140,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arthur Borghi",
@@ -160,7 +203,21 @@
           "club": "Hellas Verona",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -202,7 +259,21 @@
           "club": "Galatasaray",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 369,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Armel Bella-Kotchap",
@@ -210,7 +281,7 @@
       "age": 24,
       "nationality": "Germany",
       "club": "Hellas Verona",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -246,7 +317,21 @@
           "club": "Hellas Verona",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Valentini",
@@ -254,7 +339,7 @@
       "age": 24,
       "nationality": "Argentina",
       "club": "Hellas Verona",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -282,7 +367,21 @@
           "club": "Fiorentina",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tobias Slotsager",
@@ -290,7 +389,7 @@
       "age": 20,
       "nationality": "Denmark",
       "club": "Hellas Verona",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -302,7 +401,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrias Edmundsson",
@@ -310,8 +423,8 @@
       "age": 25,
       "nationality": "Faroe Islands",
       "club": "Hellas Verona",
-      "appearances": 26,
-      "goals": 1,
+      "appearances": 7,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -330,7 +443,21 @@
           "club": "Hellas Verona",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Frese",
@@ -338,7 +465,7 @@
       "age": 28,
       "nationality": "Denmark",
       "club": "Hellas Verona",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -354,7 +481,21 @@
           "club": "Hellas Verona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 190,
+        "goals": 21,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Domagoj Bradarić",
@@ -362,8 +503,8 @@
       "age": 26,
       "nationality": "Croatia",
       "club": "Hellas Verona",
-      "appearances": 24,
-      "goals": 1,
+      "appearances": 23,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -390,7 +531,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 8,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafik Belghali",
@@ -398,7 +553,7 @@
       "age": 23,
       "nationality": "Algeria",
       "club": "Hellas Verona",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -422,7 +577,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 12,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pol Lirola",
@@ -430,7 +599,7 @@
       "age": 28,
       "nationality": "Spain",
       "club": "Hellas Verona",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -490,7 +659,21 @@
           "club": "Hellas Verona",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 15,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fallou Cham",
@@ -498,7 +681,7 @@
       "age": 20,
       "nationality": "The Gambia",
       "club": "Hellas Verona",
-      "appearances": 9,
+      "appearances": 6,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -510,7 +693,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Oyegoke",
@@ -518,7 +715,7 @@
       "age": 23,
       "nationality": "England",
       "club": "Hellas Verona",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -542,7 +739,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -552,7 +763,7 @@
       "age": 29,
       "nationality": "Libya",
       "club": "Hellas Verona",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -600,7 +811,21 @@
           "club": "Besiktas",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 21,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cheikh Niasse",
@@ -608,7 +833,7 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "Hellas Verona",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -636,15 +861,29 @@
           "club": "Young Boys",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sandi Lovrić",
       "position": "Central Midfield",
-      "age": 27,
+      "age": 28,
       "nationality": "Slovenia",
       "club": "Hellas Verona",
-      "appearances": 11,
+      "appearances": 8,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -676,7 +915,21 @@
           "club": "Udinese",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 347,
+        "goals": 26,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Suat Serdar",
@@ -684,7 +937,7 @@
       "age": 28,
       "nationality": "Germany",
       "club": "Hellas Verona",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -712,7 +965,21 @@
           "club": "Hellas Verona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 356,
+        "goals": 42,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antoine Bernede",
@@ -720,7 +987,7 @@
       "age": 26,
       "nationality": "France",
       "club": "Hellas Verona",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -752,7 +1019,21 @@
           "club": "Lausanne-Sport",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 11,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdou Harroui",
@@ -792,7 +1073,21 @@
           "club": "Hellas Verona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 43,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roberto Gagliardini",
@@ -852,7 +1147,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 360,
+        "goals": 25,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean-Daniel Akpa Akpro",
@@ -912,7 +1221,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 357,
+        "goals": 13,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomas Suslov",
@@ -940,7 +1263,21 @@
           "club": "Hellas Verona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 22,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 42,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -950,7 +1287,7 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Hellas Verona",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 7,
       "assists": 3,
       "transfer_history": [
@@ -982,7 +1319,21 @@
           "club": "Hoffenheim",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 71,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kieron Bowie",
@@ -990,9 +1341,9 @@
       "age": 23,
       "nationality": "Scotland",
       "club": "Hellas Verona",
-      "appearances": 37,
-      "goals": 10,
-      "assists": 4,
+      "appearances": 7,
+      "goals": 1,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Fife Elite FA",
@@ -1018,7 +1369,21 @@
           "club": "Hellas Verona",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 60,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amin Sarr",
@@ -1026,7 +1391,7 @@
       "age": 25,
       "nationality": "Sweden",
       "club": "Hellas Verona",
-      "appearances": 31,
+      "appearances": 29,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -1070,7 +1435,21 @@
           "club": "Hellas Verona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 26,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Mosquera",
@@ -1078,7 +1457,7 @@
       "age": 26,
       "nationality": "Colombia",
       "club": "Hellas Verona",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -1110,7 +1489,21 @@
           "club": "Hellas Verona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 31,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac",
@@ -1138,7 +1531,21 @@
           "club": "Hellas Verona",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 13,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junior Ajayi",
@@ -1146,7 +1553,7 @@
       "age": 21,
       "nationality": "Ivory Coast",
       "club": "Hellas Verona",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -1154,7 +1561,21 @@
           "club": "Hellas Verona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 9,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

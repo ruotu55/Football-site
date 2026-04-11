@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PRC1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 28,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 24,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NDC Falcons",
+          "year": "2016"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2021"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 50,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonangel Colón",
@@ -31,31 +60,51 @@
       "age": 17,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
-    {
-      "name": "Jeriel Meléndez",
-      "position": "Centre-Back",
-      "age": 27,
-      "nationality": "Puerto Rico",
-      "club": "Caguas Sporting FC",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Caleb Marchany",
       "position": "Centre-Back",
       "age": 23,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 1
+      "appearances": 10,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emanuel Monge",
@@ -63,9 +112,24 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 14,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric Nieves",
@@ -73,9 +137,59 @@
       "age": 31,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 17,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jeriel Meléndez",
+      "position": "Centre-Back",
+      "age": 27,
+      "nationality": "Puerto Rico",
+      "club": "Caguas Sporting FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amani Williams",
@@ -85,7 +199,31 @@
       "club": "Caguas Sporting FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mali Mihaljevec",
+          "year": "2024"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Fonseca",
@@ -95,7 +233,35 @@
       "club": "Caguas Sporting FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MK Elite SA",
+          "year": "2024"
+        },
+        {
+          "club": "Club de Lyon FC",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Velazquez",
@@ -103,9 +269,29 @@
       "age": 26,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 15,
-      "goals": 1,
-      "assists": 1
+      "appearances": 9,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edward Sáez",
@@ -113,9 +299,29 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tyrese Carrión",
@@ -123,9 +329,24 @@
       "age": 18,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Rodríguez",
@@ -133,9 +354,29 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +386,41 @@
       "age": 24,
       "nationality": "United States",
       "club": "Caguas Sporting FC",
-      "appearances": 23,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tadcaster",
+          "year": "2024"
+        },
+        {
+          "club": "FBK Balkan",
+          "year": "2024"
+        },
+        {
+          "club": "Spojnia Osiek-Zimnodol",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Correa",
@@ -155,9 +428,45 @@
       "age": 25,
       "nationality": "Colombia",
       "club": "Caguas Sporting FC",
-      "appearances": 7,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hill Country",
+          "year": "2021"
+        },
+        {
+          "club": "Barry Bucs",
+          "year": "2022"
+        },
+        {
+          "club": "FIU Panthers",
+          "year": "2024"
+        },
+        {
+          "club": "Hickory FC",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Polizzi",
@@ -165,9 +474,33 @@
       "age": 22,
       "nationality": "United States",
       "club": "Caguas Sporting FC",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 2
+      "appearances": 9,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Carrús-Ilicit.",
+          "year": "2023"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Torres",
@@ -175,9 +508,33 @@
       "age": 21,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 2,
+      "appearances": 5,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sterling",
+          "year": "2023"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Amarilla",
@@ -185,9 +542,41 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Caguas Sporting FC",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "appearances": 6,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acassuso",
+          "year": "2019"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2021"
+        },
+        {
+          "club": "Career break",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 14,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Urayoan Reyes",
@@ -195,19 +584,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Collin Scarbrough",
-      "position": "",
-      "age": 20,
-      "nationality": "United States",
-      "club": "Caguas Sporting FC",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marlon López",
@@ -215,9 +609,29 @@
       "age": 18,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +641,29 @@
       "age": 26,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 24,
-      "goals": 30,
-      "assists": 2
+      "appearances": 10,
+      "goals": 9,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 45,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julián Terrón",
@@ -237,9 +671,33 @@
       "age": 21,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 21,
-      "goals": 8,
-      "assists": 4
+      "appearances": 8,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2023"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lisandro Núñez",
@@ -247,9 +705,49 @@
       "age": 27,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 23,
-      "goals": 7,
-      "assists": 0
+      "appearances": 10,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GrifoneGiall.",
+          "year": "2021"
+        },
+        {
+          "club": "Puerto Rico Sol",
+          "year": "2022"
+        },
+        {
+          "club": "Bayamón FC",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Bayamón FC",
+          "year": "2023"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 21,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Laboy",
@@ -257,9 +755,33 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Dotson",
@@ -267,9 +789,37 @@
       "age": 24,
       "nationality": "United States",
       "club": "Caguas Sporting FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Yoogali",
+          "year": "2024"
+        },
+        {
+          "club": "Playford City",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yulian Rodriguez",
@@ -277,19 +827,93 @@
       "age": 25,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 10,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Luna",
       "position": "Centre-Forward",
-      "age": 18,
+      "age": 19,
       "nationality": "Puerto Rico",
       "club": "Caguas Sporting FC",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Collin Scarbrough",
+      "position": "",
+      "age": 20,
+      "nationality": "United States",
+      "club": "Caguas Sporting FC",
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

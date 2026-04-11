@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ALG1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 31,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 29,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Algiers",
+          "year": "2015"
+        },
+        {
+          "club": "USM El Harrach",
+          "year": "2015"
+        },
+        {
+          "club": "MC Algiers",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Najma",
+          "year": "2023"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 239,
+        "clean_sheets": 92
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 4
+      }
     },
     {
       "name": "Tarek Bousseder",
@@ -31,9 +68,41 @@
       "age": 25,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "ES Ben Aknoun",
+          "year": "2023"
+        },
+        {
+          "club": "ES Sétif",
+          "year": "2024"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 67,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Anes Mokhtar",
@@ -41,9 +110,29 @@
       "age": 21,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +142,45 @@
       "age": 31,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 26,
-      "goals": 1,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2015"
+        },
+        {
+          "club": "RC Rélizane",
+          "year": "2016"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2016"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2016"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abderrahmane Bekkour",
@@ -63,9 +188,29 @@
       "age": 22,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 23,
-      "goals": 1,
-      "assists": 1
+      "appearances": 13,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Younes Abdelhak Ouassa",
@@ -73,9 +218,45 @@
       "age": 26,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ES Sétif",
+          "year": "2021"
+        },
+        {
+          "club": "MC El Bayadh",
+          "year": "2022"
+        },
+        {
+          "club": "ES el Ghozlane",
+          "year": "2023"
+        },
+        {
+          "club": "Olympique Akbou",
+          "year": "2023"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Naoufel Khacef",
@@ -83,9 +264,45 @@
       "age": 28,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 8
+      "appearances": 16,
+      "goals": 0,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "NA Hussein Dey",
+          "year": "2016"
+        },
+        {
+          "club": "NA Hussein Dey",
+          "year": "2020"
+        },
+        {
+          "club": "Tondela",
+          "year": "2020"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2023"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 13,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youcef Amine Laouafi",
@@ -93,9 +310,41 @@
       "age": 30,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 30,
-      "goals": 5,
-      "assists": 1
+      "appearances": 19,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "MC El Eulma",
+          "year": "2015"
+        },
+        {
+          "club": "ES Sétif",
+          "year": "2018"
+        },
+        {
+          "club": "ES Sahel",
+          "year": "2021"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 231,
+        "goals": 16,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Houcine Benayada",
@@ -103,9 +352,53 @@
       "age": 33,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 28,
+      "appearances": 17,
       "goals": 1,
-      "assists": 9
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "ASM Oran",
+          "year": "2011"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2015"
+        },
+        {
+          "club": "CS Constantine",
+          "year": "2016"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2020"
+        },
+        {
+          "club": "ES Sahel",
+          "year": "2021"
+        },
+        {
+          "club": "Wydad AC",
+          "year": "2022"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 328,
+        "goals": 11,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oussama Benkihoul",
@@ -115,7 +408,27 @@
       "club": "CR Belouizdad",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +438,77 @@
       "age": 34,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 14,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NA Hussein Dey",
+          "year": "2014"
+        },
+        {
+          "club": "CA Batna",
+          "year": "2016"
+        },
+        {
+          "club": "NA Hussein Dey",
+          "year": "2016"
+        },
+        {
+          "club": "O Médéa",
+          "year": "2016"
+        },
+        {
+          "club": "JS Kabylie",
+          "year": "2017"
+        },
+        {
+          "club": "MO Béjaïa",
+          "year": "2018"
+        },
+        {
+          "club": "JS Kabylie",
+          "year": "2019"
+        },
+        {
+          "club": "ES Sahel",
+          "year": "2019"
+        },
+        {
+          "club": "Abha",
+          "year": "2020"
+        },
+        {
+          "club": "ES Sahel",
+          "year": "2020"
+        },
+        {
+          "club": "JS Kabylie",
+          "year": "2022"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2024"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 23,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelraouf Benguit",
@@ -135,9 +516,53 @@
       "age": 29,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 27,
-      "goals": 5,
-      "assists": 3
+      "appearances": 18,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paradou AC",
+          "year": "2014"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2016"
+        },
+        {
+          "club": "Paradou AC",
+          "year": "2019"
+        },
+        {
+          "club": "Esperance",
+          "year": "2019"
+        },
+        {
+          "club": "MC Algiers",
+          "year": "2022"
+        },
+        {
+          "club": "Raja Casablanca",
+          "year": "2022"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 34,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Necer Marouane Benzid",
@@ -145,19 +570,57 @@
       "age": 25,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 1,
-      "assists": 4
-    },
-    {
-      "name": "Djaber Kaassis",
-      "position": "Central Midfield",
-      "age": 26,
-      "nationality": "Algeria",
-      "club": "CR Belouizdad",
-      "appearances": 20,
-      "goals": 0,
-      "assists": 0
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2022"
+        },
+        {
+          "club": "MC El Bayadh",
+          "year": "2022"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2023"
+        },
+        {
+          "club": "MC El Bayadh",
+          "year": "2023"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2024"
+        },
+        {
+          "club": "US Biskra",
+          "year": "2024"
+        },
+        {
+          "club": "MB Rouissat",
+          "year": "2025"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 5,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bilal Boukerchaoui",
@@ -165,9 +628,63 @@
       "age": 23,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 28,
+      "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Djaber Kaassis",
+      "position": "Central Midfield",
+      "age": 26,
+      "nationality": "Algeria",
+      "club": "CR Belouizdad",
+      "appearances": 13,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paradou AC",
+          "year": "2020"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islam Abbaci",
@@ -175,9 +692,29 @@
       "age": 20,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelmalek Kelaleche",
@@ -185,9 +722,41 @@
       "age": 20,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Algiers",
+          "year": "2024"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2024"
+        },
+        {
+          "club": "MC Algiers",
+          "year": "2025"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Charles Ahoua",
@@ -195,9 +764,41 @@
       "age": 24,
       "nationality": "Ivory Coast",
       "club": "CR Belouizdad",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Séwé Sports",
+          "year": "2020"
+        },
+        {
+          "club": "Stella Club",
+          "year": "2022"
+        },
+        {
+          "club": "Simba SC",
+          "year": "2024"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +808,45 @@
       "age": 28,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 20,
-      "goals": 3,
-      "assists": 0
+      "appearances": 10,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paradou AC",
+          "year": "2016"
+        },
+        {
+          "club": "Angers SCO",
+          "year": "2018"
+        },
+        {
+          "club": "Pau FC",
+          "year": "2022"
+        },
+        {
+          "club": "Angers SCO",
+          "year": "2022"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 27,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abderrahmane Meziane",
@@ -217,9 +854,53 @@
       "age": 32,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 1
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "USM Alger",
+          "year": "2014"
+        },
+        {
+          "club": "RC Arbaa",
+          "year": "2015"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2019"
+        },
+        {
+          "club": "Esperance",
+          "year": "2020"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2021"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 333,
+        "goals": 59,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Islam Belkhir",
@@ -227,9 +908,29 @@
       "age": 25,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 25,
+      "appearances": 14,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 27,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdennour Iheb Belhocini",
@@ -237,9 +938,49 @@
       "age": 29,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 25,
-      "goals": 6,
-      "assists": 3
+      "appearances": 15,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "USM Bel Abbès",
+          "year": "2017"
+        },
+        {
+          "club": "Umm Salal SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2021"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2021"
+        },
+        {
+          "club": "CS Constantine",
+          "year": "2023"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 41,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Ali Ben Hammouda",
@@ -247,9 +988,49 @@
       "age": 27,
       "nationality": "Tunisia",
       "club": "CR Belouizdad",
-      "appearances": 27,
-      "goals": 9,
-      "assists": 0
+      "appearances": 16,
+      "goals": 7,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Esperance",
+          "year": "2020"
+        },
+        {
+          "club": "AS Soliman",
+          "year": "2021"
+        },
+        {
+          "club": "Esperance",
+          "year": "2022"
+        },
+        {
+          "club": "AS Soliman",
+          "year": "2022"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2024"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 58,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lofti Boussouar",
@@ -257,9 +1038,29 @@
       "age": 21,
       "nationality": "Algeria",
       "club": "CR Belouizdad",
-      "appearances": 25,
-      "goals": 7,
-      "assists": 1
+      "appearances": 15,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chafai Guergour",
@@ -269,7 +1070,27 @@
       "club": "CR Belouizdad",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CR Belouizdad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

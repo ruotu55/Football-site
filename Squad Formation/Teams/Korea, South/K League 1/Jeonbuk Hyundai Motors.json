@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "RSK1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,51 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shinyongsan ES",
+          "year": "2008"
+        },
+        {
+          "club": "S.Bluewings U15",
+          "year": "2010"
+        },
+        {
+          "club": "Seil MS",
+          "year": "2012"
+        },
+        {
+          "club": "Korea University",
+          "year": "2016"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2018"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 302,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 300,
+        "clean_sheets": 112
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Ju-hyeon Lee",
@@ -33,7 +78,55 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2011"
+        },
+        {
+          "club": "Gimpo FA U15",
+          "year": "2012"
+        },
+        {
+          "club": "Tongjin HS",
+          "year": "2014"
+        },
+        {
+          "club": "Chung-Ang Uni",
+          "year": "2017"
+        },
+        {
+          "club": "Bucheon FC",
+          "year": "2019"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2024"
+        },
+        {
+          "club": "Bucheon FC",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 38,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Si-hyeon Gong",
@@ -43,7 +136,27 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 34,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ji-wan Jeon",
@@ -53,7 +166,39 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanju MS",
+          "year": "2017"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2022"
+        },
+        {
+          "club": "FC Ryukyu",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 42,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Han-gyeol Lee",
@@ -61,9 +206,29 @@
       "age": 18,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dae-young Chung",
@@ -73,7 +238,39 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Joongdong MS",
+          "year": "2019"
+        },
+        {
+          "club": "Hanyang THS",
+          "year": "2022"
+        },
+        {
+          "club": "Kyungmin Univ.",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -83,9 +280,69 @@
       "age": 31,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Incheon Utd.",
+          "year": "2013"
+        },
+        {
+          "club": "FC Uijeongbu",
+          "year": "2014"
+        },
+        {
+          "club": "Gyeongnam FC",
+          "year": "2015"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2019"
+        },
+        {
+          "club": "Suwon FC",
+          "year": "2021"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2021"
+        },
+        {
+          "club": "Suwon FC",
+          "year": "2022"
+        },
+        {
+          "club": "GuaZ FC",
+          "year": "2022"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2023"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 12,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Young-bin Kim",
@@ -95,7 +352,47 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gwangju Uni",
+          "year": "2010"
+        },
+        {
+          "club": "Gwangju FC",
+          "year": "2014"
+        },
+        {
+          "club": "Sangju Sangmu",
+          "year": "2018"
+        },
+        {
+          "club": "Gwangju FC",
+          "year": "2019"
+        },
+        {
+          "club": "Gangwon FC",
+          "year": "2020"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 16,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wi-je Cho",
@@ -103,9 +400,41 @@
       "age": 24,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Busan IPark U15",
+          "year": "2014"
+        },
+        {
+          "club": "Yong In Univ.",
+          "year": "2020"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Je-woon Yeon",
@@ -115,7 +444,47 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sun Moon Uni.",
+          "year": "2013"
+        },
+        {
+          "club": "Seongnam FC",
+          "year": "2016"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2021"
+        },
+        {
+          "club": "Seongnam FC",
+          "year": "2022"
+        },
+        {
+          "club": "Jeju United",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ha-jun Kim",
@@ -125,7 +494,51 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ahyeon MS",
+          "year": "2015"
+        },
+        {
+          "club": "Yeouido HS",
+          "year": "2018"
+        },
+        {
+          "club": "Calvin Univ.",
+          "year": "2021"
+        },
+        {
+          "club": "FC Anyang",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        },
+        {
+          "club": "Seoul E-Land",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sang-myung Lee",
@@ -135,7 +548,47 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Y. Suji ES",
+          "year": "2015"
+        },
+        {
+          "club": "Pungsaeng MS",
+          "year": "2016"
+        },
+        {
+          "club": "Samil THS",
+          "year": "2019"
+        },
+        {
+          "club": "Chosun Univ.",
+          "year": "2022"
+        },
+        {
+          "club": "Cheonan City",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jin-woong Choi",
@@ -143,9 +596,45 @@
       "age": 21,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. Haksung MS",
+          "year": "2017"
+        },
+        {
+          "club": "Osang HS",
+          "year": "2020"
+        },
+        {
+          "club": "Gwangju Uni",
+          "year": "2023"
+        },
+        {
+          "club": "Cheonan City",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Su-hyung Kim",
@@ -155,7 +644,31 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2020"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tae-hyeon Kim",
@@ -163,9 +676,69 @@
       "age": 29,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Joongdong MS",
+          "year": "2009"
+        },
+        {
+          "club": "Joongdong HS",
+          "year": "2012"
+        },
+        {
+          "club": "Yong In Univ.",
+          "year": "2015"
+        },
+        {
+          "club": "Ansan Greeners",
+          "year": "2018"
+        },
+        {
+          "club": "Seoul E-Land",
+          "year": "2019"
+        },
+        {
+          "club": "Ansan Greeners",
+          "year": "2020"
+        },
+        {
+          "club": "Jeonnam Dragons",
+          "year": "2021"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonnam Dragons",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 5,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Woo-jin Choi",
@@ -173,9 +746,37 @@
       "age": 21,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cheonan Jeil HS",
+          "year": "2020"
+        },
+        {
+          "club": "Incheon Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jun-yeong Kim",
@@ -183,9 +784,45 @@
       "age": 21,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "G. Buksung MS",
+          "year": "2017"
+        },
+        {
+          "club": "Mokpo THS",
+          "year": "2021"
+        },
+        {
+          "club": "Chosun Univ.",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        },
+        {
+          "club": "Hwaseong FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeong-hyeok Seo",
@@ -193,9 +830,33 @@
       "age": 20,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2019"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tae-hwan Kim",
@@ -205,7 +866,55 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kumho HS (-10)",
+          "year": "2005"
+        },
+        {
+          "club": "Ulsan Univ.",
+          "year": "2008"
+        },
+        {
+          "club": "FC Seoul",
+          "year": "2010"
+        },
+        {
+          "club": "Seongnam FC",
+          "year": "2013"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2015"
+        },
+        {
+          "club": "Sangju Sangmu",
+          "year": "2016"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2018"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 540,
+        "goals": 25,
+        "assists": 70,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seung-jun Hwang",
@@ -213,9 +922,37 @@
       "age": 20,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2018"
+        },
+        {
+          "club": "Yong In Univ.",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ju-hyeong Kim",
@@ -223,9 +960,33 @@
       "age": 18,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Soongsil MS",
+          "year": "2020"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -235,9 +996,57 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Figueirense FC",
+          "year": "2021"
+        },
+        {
+          "club": "Cascavel-PR",
+          "year": "2021"
+        },
+        {
+          "club": "Figueirense FC",
+          "year": "2022"
+        },
+        {
+          "club": "Cascavel-PR",
+          "year": "2022"
+        },
+        {
+          "club": "Pohang Steelers",
+          "year": "2023"
+        },
+        {
+          "club": "Figueirense FC",
+          "year": "2023"
+        },
+        {
+          "club": "Pohang Steelers",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 22,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Gamboa",
@@ -247,7 +1056,75 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rio Ave Sub-15",
+          "year": "2009"
+        },
+        {
+          "club": "Varzim Sub-15",
+          "year": "2010"
+        },
+        {
+          "club": "Varzim Sub-17",
+          "year": "2010"
+        },
+        {
+          "club": "Braga",
+          "year": "2017"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2017"
+        },
+        {
+          "club": "Chaves",
+          "year": "2019"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2020"
+        },
+        {
+          "club": "Estoril",
+          "year": "2020"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2022"
+        },
+        {
+          "club": "Estoril",
+          "year": "2023"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2023"
+        },
+        {
+          "club": "Pogon Szczecin",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 345,
+        "goals": 11,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nam-ung Jang",
@@ -255,9 +1132,37 @@
       "age": 22,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2017"
+        },
+        {
+          "club": "Sangji Uni",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jin-gyu Kim",
@@ -267,7 +1172,43 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Busan IPark U15",
+          "year": "2009"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2015"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2022"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 297,
+        "goals": 41,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seong-ung Maeng",
@@ -277,7 +1218,47 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paichai HS",
+          "year": "2013"
+        },
+        {
+          "club": "Yeungnam Uni",
+          "year": "2016"
+        },
+        {
+          "club": "FC Anyang",
+          "year": "2019"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2022"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 6,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sang-yun Kang",
@@ -285,9 +1266,49 @@
       "age": 21,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2017"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2022"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2023"
+        },
+        {
+          "club": "Suwon FC",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yeong-jae Lee",
@@ -297,17 +1318,113 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Janghoon HS",
+          "year": "2010"
+        },
+        {
+          "club": "Hanam FC",
+          "year": "2012"
+        },
+        {
+          "club": "Yong In Univ.",
+          "year": "2013"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2015"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2016"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2016"
+        },
+        {
+          "club": "Gyeongnam FC",
+          "year": "2019"
+        },
+        {
+          "club": "Gangwon FC",
+          "year": "2019"
+        },
+        {
+          "club": "Suwon FC",
+          "year": "2021"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2021"
+        },
+        {
+          "club": "Suwon FC",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 345,
+        "goals": 44,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Young-whan Kim",
       "position": "Central Midfield",
-      "age": 23,
+      "age": 24,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Seoul U15",
+          "year": "2015"
+        },
+        {
+          "club": "Incheon Uni.",
+          "year": "2021"
+        },
+        {
+          "club": "Cheongju FC",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seok-jin Han",
@@ -315,19 +1432,67 @@
       "age": 18,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2020"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hyun-min Park",
       "position": "Central Midfield",
-      "age": 18,
+      "age": 19,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2020"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tae-ho Jin",
@@ -335,9 +1500,71 @@
       "age": 20,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "G. Sinhwa YFC",
+          "year": "2018"
+        },
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2019"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ye-geon Kim",
+      "position": "Attacking Midfield",
+      "age": 17,
+      "nationality": "South Korea",
+      "club": "Jeonbuk Hyundai Motors",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2021"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hyun-seok Yoon",
@@ -345,9 +1572,49 @@
       "age": 22,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "S. Jamjeon ES",
+          "year": "2014"
+        },
+        {
+          "club": "Dongbuk MS",
+          "year": "2016"
+        },
+        {
+          "club": "Shincheon MS",
+          "year": "2018"
+        },
+        {
+          "club": "Janghoon HS",
+          "year": "2019"
+        },
+        {
+          "club": "Hongik Uni",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jun-hyuk Moon",
@@ -355,9 +1622,37 @@
       "age": 20,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2018"
+        },
+        {
+          "club": "Jeonju Uni",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hyun-soo Woo",
@@ -365,9 +1660,41 @@
       "age": 22,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boin MS",
+          "year": "2016"
+        },
+        {
+          "club": "Joongdong HS",
+          "year": "2019"
+        },
+        {
+          "club": "Kwangwoon Univ.",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Geon-hee Lee",
@@ -375,9 +1702,29 @@
       "age": 18,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hee-byeok Kwak",
@@ -387,7 +1734,43 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Andong MS",
+          "year": "2018"
+        },
+        {
+          "club": "Yeongdeungpo HS",
+          "year": "2022"
+        },
+        {
+          "club": "Yale Medit. HS",
+          "year": "2022"
+        },
+        {
+          "club": "Dankook Univ",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -399,7 +1782,51 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eonnam HS",
+          "year": "2012"
+        },
+        {
+          "club": "Kyung Hee Univ.",
+          "year": "2015"
+        },
+        {
+          "club": "Daejeon Citizen",
+          "year": "2018"
+        },
+        {
+          "club": "Jeju United",
+          "year": "2023"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2024"
+        },
+        {
+          "club": "Jeju SK",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 31,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seung-woo Lee",
@@ -409,7 +1836,55 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barça Youth",
+          "year": "2011"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2017"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2019"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2021"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Suwon FC",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 219,
+        "goals": 48,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chang-hoon Kim",
@@ -417,9 +1892,29 @@
       "age": 21,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 23,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dong-jun Lee",
@@ -428,8 +1923,52 @@
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
-      "goals": 2,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Soongsil Univ.",
+          "year": "2015"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2017"
+        },
+        {
+          "club": "Ulsan Hyundai",
+          "year": "2021"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2023"
+        },
+        {
+          "club": "Gimcheon Sangmu",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 54,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Twumasi",
@@ -437,9 +1976,89 @@
       "age": 31,
       "nationality": "Ghana",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartaks",
+          "year": "2012"
+        },
+        {
+          "club": "FC Astana",
+          "year": "2013"
+        },
+        {
+          "club": "Spartaks",
+          "year": "2013"
+        },
+        {
+          "club": "Amkar Perm",
+          "year": "2014"
+        },
+        {
+          "club": "Spartaks",
+          "year": "2014"
+        },
+        {
+          "club": "FC Astana",
+          "year": "2014"
+        },
+        {
+          "club": "FC Astana",
+          "year": "2015"
+        },
+        {
+          "club": "Alavés",
+          "year": "2018"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2019"
+        },
+        {
+          "club": "Alavés",
+          "year": "2020"
+        },
+        {
+          "club": "Hannover 96",
+          "year": "2020"
+        },
+        {
+          "club": "Maccabi Netanya",
+          "year": "2022"
+        },
+        {
+          "club": "Pafos",
+          "year": "2023"
+        },
+        {
+          "club": "B. Jerusalem",
+          "year": "2024"
+        },
+        {
+          "club": "Pafos",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 122,
+        "assists": 55,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ju-yeong Park",
@@ -448,8 +2067,48 @@
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yeongdeungpo HS",
+          "year": "2019"
+        },
+        {
+          "club": "Kyung Hee Univ.",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        },
+        {
+          "club": "Jeju SK",
+          "year": "2024"
+        },
+        {
+          "club": "Hwaseong FC",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seung-min Um",
@@ -457,9 +2116,45 @@
       "age": 22,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk H. U15",
+          "year": "2016"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2022"
+        },
+        {
+          "club": "Seongnam FC",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2023"
+        },
+        {
+          "club": "FC Mokpo",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 19,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrea Compagno",
@@ -468,8 +2163,68 @@
       "nationality": "Italy",
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Due Torri",
+          "year": "2015"
+        },
+        {
+          "club": "Pinerolo",
+          "year": "2015"
+        },
+        {
+          "club": "Pinerolo",
+          "year": "2016"
+        },
+        {
+          "club": "Argentina",
+          "year": "2016"
+        },
+        {
+          "club": "Borgosesia",
+          "year": "2017"
+        },
+        {
+          "club": "Nuorese",
+          "year": "2018"
+        },
+        {
+          "club": "Tre Fiori",
+          "year": "2018"
+        },
+        {
+          "club": "FC U Craiova",
+          "year": "2020"
+        },
+        {
+          "club": "FCSB",
+          "year": "2022"
+        },
+        {
+          "club": "TJ Jinmen Tiger",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 336,
+        "goals": 135,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tiago Orobó",
@@ -478,8 +2233,104 @@
       "nationality": "Brazil",
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
-      "goals": 1,
-      "assists": 1
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Porto-PE",
+          "year": "2013"
+        },
+        {
+          "club": "Socorrense-SE",
+          "year": "2014"
+        },
+        {
+          "club": "Porto-PE",
+          "year": "2014"
+        },
+        {
+          "club": "Socorrense-SE",
+          "year": "2015"
+        },
+        {
+          "club": "Coruripe",
+          "year": "2015"
+        },
+        {
+          "club": "Jacuipense-BA",
+          "year": "2016"
+        },
+        {
+          "club": "Confiança",
+          "year": "2016"
+        },
+        {
+          "club": "Campinense-PB",
+          "year": "2016"
+        },
+        {
+          "club": "Qadsia SC",
+          "year": "2017"
+        },
+        {
+          "club": "Maringá",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "América-RN",
+          "year": "2019"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2020"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2020"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2021"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Jabalain",
+          "year": "2021"
+        },
+        {
+          "club": "Gyeongnam FC",
+          "year": "2022"
+        },
+        {
+          "club": "Daejeon Hana C.",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 78,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Mota",
@@ -488,18 +2339,122 @@
       "nationality": "Brazil",
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 5,
-      "goals": 3,
-      "assists": 0
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Goianésia (GO)",
+          "year": "2019"
+        },
+        {
+          "club": "Osvaldo-SP",
+          "year": "2019"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2019"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2019"
+        },
+        {
+          "club": "Osvaldo-SP",
+          "year": "2020"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2020"
+        },
+        {
+          "club": "Ituano",
+          "year": "2020"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2021"
+        },
+        {
+          "club": "Brusque",
+          "year": "2021"
+        },
+        {
+          "club": "EC São José",
+          "year": "2021"
+        },
+        {
+          "club": "Camboriú",
+          "year": "2022"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2022"
+        },
+        {
+          "club": "Cheonan City",
+          "year": "2022"
+        },
+        {
+          "club": "FC Anyang",
+          "year": "2025"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        },
+        {
+          "club": "FC Anyang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 65,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sang-woon Jeong",
       "position": "Centre-Forward",
-      "age": 22,
+      "age": 23,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sangji Uni",
+          "year": "2022"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tae-hun An",
@@ -507,9 +2462,37 @@
       "age": 18,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bokyeong FC U15",
+          "year": "2022"
+        },
+        {
+          "club": "Bupyeong HS",
+          "year": "2023"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Du-hyun Kim",
@@ -517,9 +2500,29 @@
       "age": 19,
       "nationality": "South Korea",
       "club": "Jeonbuk Hyundai Motors",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jun-hwi Lim",
@@ -529,7 +2532,39 @@
       "club": "Jeonbuk Hyundai Motors",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jeonnam D. U15",
+          "year": "2018"
+        },
+        {
+          "club": "Yuseong BST HS",
+          "year": "2023"
+        },
+        {
+          "club": "Sun Moon Uni.",
+          "year": "2024"
+        },
+        {
+          "club": "Jeonbuk Hyundai",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -43,14 +43,15 @@ function deserializeLevel(raw) {
 export function consumeDevLiveReloadSnapshot() {
     if (!isLiveReloadSession()) return null;
     const parsed = safeJsonParse(sessionStorage.getItem(SNAPSHOT_KEY));
-    sessionStorage.removeItem(SNAPSHOT_KEY);
     if (!parsed || parsed.version !== 1) return null;
     return parsed;
 }
 
 export function captureDevLiveReloadSnapshot(appState, els) {
     if (!isLiveReloadSession()) return;
-    if (!appState || !Array.isArray(appState.levelsData)) return;
+    if (!appState || !Array.isArray(appState.levelsData) || appState.levelsData.length === 0) return;
+    if (!Number.isFinite(appState.totalLevelsCount) || appState.totalLevelsCount < 4) return;
+    if (!Number.isFinite(appState.currentLevelIndex)) return;
     const payload = {
         version: 1,
         totalLevelsCount: appState.totalLevelsCount,

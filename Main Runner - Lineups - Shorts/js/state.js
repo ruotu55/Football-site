@@ -11,6 +11,9 @@ export const appState = {
     controlPanel: null,
     headerName: null,
     headerLogo: null,
+    teamVoiceControls: null,
+    teamVoicePlay: null,
+    teamVoiceDelete: null,
     quizLevelsInput: null,
     updateLevelsBtn: null,
     quizProgressScroll: null,
@@ -18,6 +21,12 @@ export const appState = {
     swapClose: null,
     swapList: null,
     swapSearch: null,
+    swapSearchAll: null,
+    swapLogoModal: null,
+    swapLogoClose: null,
+    swapLogoList: null,
+    swapLogoSearch: null,
+    swapLogoReset: null,
     videoModeToggle: null,
     playVideoBtn: null,
     countdownTimer: null,
@@ -29,6 +38,9 @@ export const appState = {
     panelSetup: null,
     panelSaved: null,
     setupPitchControls: null,
+    btnSaveCurrentTeam: null,
+    btnSaveCurrentTeamFab: null,
+    btnSaveCurrentTeamLanding: null,
     btnSaveScript: null,
     btnCreateFolder: null,
     savedScriptsList: null,
@@ -43,6 +55,10 @@ export const appState = {
     deleteScriptModal: null,
     deleteScriptNo: null,
     deleteScriptYes: null,
+    saveScriptModalClose: null,
+    saveDiscardModal: null,
+    saveDiscardNo: null,
+    saveDiscardYes: null,
     inQuizType: null,
     inSpecificTitleToggle: null,
     inSpecificTitleText: null,
@@ -61,6 +77,9 @@ export const appState = {
     shortsModeBtn: null,
   },
   teamsIndex: { clubs: [], nationalities: [] },
+  /** Map nationality string -> players from club squads with NT caps; null until lazy-loaded. */
+  internationalClubPool: null,
+  internationalClubPoolLoadPromise: null,
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
   totalLevelsCount: 20,
@@ -69,10 +88,21 @@ export const appState = {
   swapActiveSlotIndex: -1,
   careerActiveSlotIndex: -1,
   swapAvailablePlayers: [],
+  /** Refetched when swap-logo modal opens (`run_site.py` live list or static JSON fallback). */
+  otherTeamsLogoNames: null,
+  swapLogoThumbCacheToken: "0",
+  swapLogoPickContext: null,
+  /** One-shot: next `renderPitch` skips staggered flip-card transition (swap picker). */
+  suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
+  /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
+  refreshLandingUi: null,
+  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
+  landingSpecialBadgeRevealTimeoutId: null,
   videoInterval: null,
   videoTimeout: null,
+  tickingLeadTimeout: null,
   currentXi: [],
   allGlobalPlayers: null,
 };
@@ -139,6 +169,15 @@ export function ensureSlotFrontFaceScales(state) {
       );
     }
   }
+
+  const teamScales = state.slotTeamLogoScales;
+  const uniform = (v) =>
+    teamScales.slice(0, SLOT_BADGE_SLOT_COUNT).every(
+      (s) => sanitizeSlotBadgeScale(s) === v
+    );
+  if (uniform(1) || uniform(1.05) || uniform(1.25) || uniform(1.5)) {
+    state.slotTeamLogoScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE);
+  }
 }
 
 export function initLevels(count) {
@@ -157,10 +196,7 @@ export function initLevels(count) {
         selectedEntry: null,
         currentSquad: null,
         slotPhotoIndexBySlot: new Map(),
-        formationId:
-          els.formation && els.formation.options.length > 0
-            ? els.formation.options[0].value
-            : "3421",
+        formationId: "433",
         lastFormationId: null,
         displayMode: els.displayMode ? els.displayMode.value : "club",
         searchText: "",
@@ -177,6 +213,8 @@ export function initLevels(count) {
         careerHistory: [],
         headerLogoScale: 1,
         headerLogoNudgeX: 0,
+        headerLogoOverrideRelPath: null,
+        slotClubCrestOverrideRelPathBySlot: {},
         slotFlagScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_FLAG_SCALE),
         slotTeamLogoScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
       }
@@ -187,6 +225,12 @@ export function initLevels(count) {
     }
     if (last.headerLogoNudgeX === undefined || last.headerLogoNudgeX === null) {
       last.headerLogoNudgeX = 0;
+    }
+    if (last.headerLogoOverrideRelPath === undefined) {
+      last.headerLogoOverrideRelPath = null;
+    }
+    if (!last.slotClubCrestOverrideRelPathBySlot || typeof last.slotClubCrestOverrideRelPathBySlot !== "object") {
+      last.slotClubCrestOverrideRelPathBySlot = {};
     }
     ensureSlotFrontFaceScales(last);
   }

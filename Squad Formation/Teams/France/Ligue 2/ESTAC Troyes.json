@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -44,7 +45,21 @@
           "club": "Troyes",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 219,
+        "clean_sheets": 76
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hillel Konaté",
@@ -52,7 +67,7 @@
       "age": 31,
       "nationality": "Burkina Faso",
       "club": "ESTAC Troyes",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -80,7 +95,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 233,
+        "clean_sheets": 42
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 3,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Zacharie Boucher",
@@ -132,7 +161,21 @@
           "club": "SC Bastia",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 297,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 359,
+        "clean_sheets": 92
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -142,7 +185,7 @@
       "age": 23,
       "nationality": "Central African Republic",
       "club": "ESTAC Troyes",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -166,7 +209,21 @@
           "club": "KAA Gent",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paolo Gozzi",
@@ -174,7 +231,7 @@
       "age": 24,
       "nationality": "Italy",
       "club": "ESTAC Troyes",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -214,7 +271,21 @@
           "club": "Troyes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 190,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sankhoun Diawara",
@@ -222,15 +293,29 @@
       "age": 20,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 18,
-      "goals": 1,
+      "appearances": 8,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrien Monfray",
@@ -238,7 +323,7 @@
       "age": 35,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -262,7 +347,21 @@
           "club": "Troyes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 441,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tom Akpakoun",
@@ -270,7 +369,7 @@
       "age": 20,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -278,7 +377,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismaël Boura",
@@ -286,7 +399,7 @@
       "age": 25,
       "nationality": "Comoros",
       "club": "ESTAC Troyes",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -306,7 +419,21 @@
           "club": "Troyes",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 6,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anis Ouzenadji",
@@ -314,7 +441,7 @@
       "age": 19,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 22,
+      "appearances": 17,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -322,7 +449,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yvann Titi",
@@ -330,7 +471,7 @@
       "age": 19,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
       "assists": 3,
       "transfer_history": [
@@ -350,7 +491,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Maronnier",
@@ -358,9 +513,9 @@
       "age": 26,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Guingamp",
@@ -370,7 +525,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thierno Baldé",
@@ -402,7 +571,21 @@
           "club": "Troyes",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -412,7 +595,7 @@
       "age": 26,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -436,7 +619,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roman Murcy",
@@ -444,15 +641,29 @@
       "age": 20,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 14,
-      "goals": 1,
+      "appearances": 4,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mouhamed Diop",
@@ -460,9 +671,9 @@
       "age": 25,
       "nationality": "Senegal",
       "club": "ESTAC Troyes",
-      "appearances": 30,
-      "goals": 4,
-      "assists": 3,
+      "appearances": 26,
+      "goals": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Kocaelispor",
@@ -480,7 +691,21 @@
           "club": "Troyes",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 20,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antoine Mille",
@@ -488,9 +713,9 @@
       "age": 28,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 2,
-      "assists": 5,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "US Colomiers",
@@ -512,7 +737,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 20,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xavier Chavalerin",
@@ -520,7 +759,7 @@
       "age": 35,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -540,7 +779,21 @@
           "club": "Troyes",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 488,
+        "goals": 33,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Adeline",
@@ -548,9 +801,9 @@
       "age": 22,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 31,
-      "goals": 8,
-      "assists": 11,
+      "appearances": 27,
+      "goals": 7,
+      "assists": 9,
       "transfer_history": [
         {
           "club": "Stade Reims",
@@ -576,7 +829,21 @@
           "club": "Troyes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 17,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -586,15 +853,29 @@
       "age": 18,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 32,
-      "goals": 4,
-      "assists": 7,
+      "appearances": 27,
+      "goals": 2,
+      "assists": 6,
       "transfer_history": [
         {
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elijah Odede",
@@ -602,8 +883,8 @@
       "age": 19,
       "nationality": "Nigeria",
       "club": "ESTAC Troyes",
-      "appearances": 26,
-      "goals": 8,
+      "appearances": 9,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
@@ -614,7 +895,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kandet Diawara",
@@ -622,9 +917,9 @@
       "age": 26,
       "nationality": "Guinea",
       "club": "ESTAC Troyes",
-      "appearances": 13,
+      "appearances": 7,
       "goals": 2,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Without Club",
@@ -674,7 +969,21 @@
           "club": "Troyes",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 15,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Merwan Ifnaoui",
@@ -682,9 +991,9 @@
       "age": 27,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 25,
+      "appearances": 20,
       "goals": 3,
-      "assists": 4,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Gennevilliers",
@@ -706,7 +1015,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 21,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amadou Diakité",
@@ -714,15 +1037,29 @@
       "age": 20,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 15,
-      "goals": 2,
+      "appearances": 3,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tawfik Bentayeb",
@@ -730,8 +1067,8 @@
       "age": 24,
       "nationality": "Morocco",
       "club": "ESTAC Troyes",
-      "appearances": 25,
-      "goals": 17,
+      "appearances": 22,
+      "goals": 15,
       "assists": 2,
       "transfer_history": [
         {
@@ -754,7 +1091,21 @@
           "club": "Union Touarga",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 43,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mounaïm El Idrissy",
@@ -762,8 +1113,8 @@
       "age": 27,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 24,
-      "goals": 5,
+      "appearances": 21,
+      "goals": 4,
       "assists": 1,
       "transfer_history": [
         {
@@ -778,7 +1129,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 30,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Renaud Ripart",
@@ -786,8 +1151,8 @@
       "age": 33,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 20,
-      "goals": 8,
+      "appearances": 15,
+      "goals": 5,
       "assists": 0,
       "transfer_history": [
         {
@@ -814,7 +1179,21 @@
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 388,
+        "goals": 85,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Traoré",
@@ -822,15 +1201,29 @@
       "age": 20,
       "nationality": "France",
       "club": "ESTAC Troyes",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 2,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Troyes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

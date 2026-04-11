@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "URU1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,43 @@
       "club": "Liverpool FC Montevideo",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2023"
+        },
+        {
+          "club": "Nacional",
+          "year": "2023"
+        },
+        {
+          "club": "Magallanes",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 78,
+        "clean_sheets": 42
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martín Campaña",
@@ -31,9 +68,85 @@
       "age": 36,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Maldonado",
+          "year": "2007"
+        },
+        {
+          "club": "CA Atenas",
+          "year": "2007"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2008"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2010"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2011"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2013"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2013"
+        },
+        {
+          "club": "Independiente",
+          "year": "2016"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2016"
+        },
+        {
+          "club": "Independiente",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Batin",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Riyadh",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 490,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 580,
+        "clean_sheets": 159
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 12,
+        "clean_sheets": 2
+      }
     }
   ],
   "defenders": [
@@ -43,9 +156,41 @@
       "age": 25,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "La Luz",
+          "year": "2020"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Strasorier",
@@ -53,9 +198,53 @@
       "age": 25,
       "nationality": "Argentina",
       "club": "Liverpool FC Montevideo",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CA Las Palmas",
+          "year": "2021"
+        },
+        {
+          "club": "Juv. Antoniana",
+          "year": "2023"
+        },
+        {
+          "club": "CA Las Palmas",
+          "year": "2023"
+        },
+        {
+          "club": "Sp. Las Parejas",
+          "year": "2024"
+        },
+        {
+          "club": "Colegiales",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        },
+        {
+          "club": "Colegiales",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Laquidaín",
@@ -63,9 +252,41 @@
       "age": 24,
       "nationality": "Argentina",
       "club": "Liverpool FC Montevideo",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aldosivi",
+          "year": "2022"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2024"
+        },
+        {
+          "club": "Aldosivi",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Romero",
@@ -73,9 +294,49 @@
       "age": 26,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Boston River",
+          "year": "2020"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2022"
+        },
+        {
+          "club": "Nacional",
+          "year": "2025"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 6,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Lewis",
@@ -83,9 +344,53 @@
       "age": 27,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 16,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Peñarol",
+          "year": "2020"
+        },
+        {
+          "club": "Sud América",
+          "year": "2021"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2021"
+        },
+        {
+          "club": "Albion FC",
+          "year": "2022"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2023"
+        },
+        {
+          "club": "OFI Crete",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Agustín Cayetano",
@@ -93,9 +398,33 @@
       "age": 26,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sud América",
+          "year": "2018"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Amaro",
@@ -103,9 +432,29 @@
       "age": 22,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 2,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 2,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Perdomo",
@@ -113,9 +462,49 @@
       "age": 26,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "A. Vienna Res.",
+          "year": "2017"
+        },
+        {
+          "club": "Young Violets",
+          "year": "2022"
+        },
+        {
+          "club": "Central Español",
+          "year": "2022"
+        },
+        {
+          "club": "Sud América",
+          "year": "2023"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2023"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 0,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Rosso",
@@ -123,9 +512,37 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2017"
+        },
+        {
+          "club": "Sarmiento Junin",
+          "year": "2022"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -137,7 +554,39 @@
       "club": "Liverpool FC Montevideo",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mvd City Torque",
+          "year": "2022"
+        },
+        {
+          "club": "Bella Vista",
+          "year": "2023"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2023"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Garayalde",
@@ -147,7 +596,39 @@
       "club": "Liverpool FC Montevideo",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2021"
+        },
+        {
+          "club": "Gimnasia",
+          "year": "2024"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martín Rabuñal",
@@ -155,9 +636,57 @@
       "age": 31,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Defensor SC",
+          "year": "2014"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2020"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2020"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2021"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2022"
+        },
+        {
+          "club": "La Luz",
+          "year": "2023"
+        },
+        {
+          "club": "CA Cerro",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 293,
+        "goals": 25,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ezequiel Olivera",
@@ -165,9 +694,41 @@
       "age": 22,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cerro Largo",
+          "year": "2023"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Mir",
@@ -177,7 +738,39 @@
       "club": "Liverpool FC Montevideo",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Maldonado",
+          "year": "2022"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2023"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Acosta",
@@ -187,7 +780,65 @@
       "club": "Liverpool FC Montevideo",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tacuarembó",
+          "year": "2023"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Gonzalo de Mello",
+      "position": "Attacking Midfield",
+      "age": 20,
+      "nationality": "Uruguay",
+      "club": "Liverpool FC Montevideo",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -197,9 +848,73 @@
       "age": 30,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2015"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2020"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2020"
+        },
+        {
+          "club": "Independiente",
+          "year": "2020"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2021"
+        },
+        {
+          "club": "León",
+          "year": "2022"
+        },
+        {
+          "club": "Nacional",
+          "year": "2023"
+        },
+        {
+          "club": "León",
+          "year": "2023"
+        },
+        {
+          "club": "CD Everton",
+          "year": "2024"
+        },
+        {
+          "club": "León",
+          "year": "2024"
+        },
+        {
+          "club": "Atlético-GO",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 64,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramiro Degregorio",
@@ -209,7 +924,35 @@
       "club": "Liverpool FC Montevideo",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Zabala",
@@ -217,9 +960,65 @@
       "age": 34,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2011"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2016"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2017"
+        },
+        {
+          "club": "Unión Santa Fe",
+          "year": "2017"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Nacional",
+          "year": "2022"
+        },
+        {
+          "club": "Amazonas",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 438,
+        "goals": 55,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alfonso de Luca",
@@ -229,7 +1028,31 @@
       "club": "Liverpool FC Montevideo",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cerro Largo",
+          "year": "2024"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Renzo Machado",
@@ -237,19 +1060,127 @@
       "age": 20,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 16,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Barceló",
       "position": "Centre-Forward",
-      "age": 32,
+      "age": 33,
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 1
+      "appearances": 6,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2013"
+        },
+        {
+          "club": "Tanque Sisley",
+          "year": "2015"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2015"
+        },
+        {
+          "club": "Juventud",
+          "year": "2016"
+        },
+        {
+          "club": "San Martín (SJ)",
+          "year": "2016"
+        },
+        {
+          "club": "Juventud",
+          "year": "2018"
+        },
+        {
+          "club": "Patronato",
+          "year": "2018"
+        },
+        {
+          "club": "Atlas",
+          "year": "2019"
+        },
+        {
+          "club": "Juventud",
+          "year": "2019"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2020"
+        },
+        {
+          "club": "Juventud",
+          "year": "2021"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2022"
+        },
+        {
+          "club": "Juventud",
+          "year": "2022"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2023"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2024"
+        },
+        {
+          "club": "Goiás",
+          "year": "2025"
+        },
+        {
+          "club": "CRB",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 362,
+        "goals": 99,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rubén Bentancourt",
@@ -258,8 +1189,92 @@
       "nationality": "Uruguay",
       "club": "Liverpool FC Montevideo",
       "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atalanta",
+          "year": "2014"
+        },
+        {
+          "club": "Bologna",
+          "year": "2014"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2015"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2015"
+        },
+        {
+          "club": "Arezzo",
+          "year": "2015"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2016"
+        },
+        {
+          "club": "Defensa",
+          "year": "2016"
+        },
+        {
+          "club": "Paraná",
+          "year": "2017"
+        },
+        {
+          "club": "Sud América",
+          "year": "2017"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2018"
+        },
+        {
+          "club": "Atlante",
+          "year": "2019"
+        },
+        {
+          "club": "Boston River",
+          "year": "2020"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2021"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2023"
+        },
+        {
+          "club": "Nacional",
+          "year": "2024"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 346,
+        "goals": 77,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felipe Barrenechea",
@@ -267,9 +1282,29 @@
       "age": 18,
       "nationality": "Lithuania",
       "club": "Liverpool FC Montevideo",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

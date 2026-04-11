@@ -31,7 +31,9 @@ from typing import Any, Optional
 from urllib.parse import urlparse
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = _SCRIPT_DIR.parent.parent
+PROJECT_ROOT = _SCRIPT_DIR.parent
+if not (PROJECT_ROOT / "Squad Formation" / "Teams").is_dir():
+    PROJECT_ROOT = _SCRIPT_DIR.parent.parent
 
 DEFAULT_CSV = (
     "https://raw.githubusercontent.com/ismailoksuz/EAFC26-DataHub/"

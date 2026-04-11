@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GHPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,22 @@
       "club": "Hohoe United Football Club",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kwesi Nketia",
@@ -33,7 +49,27 @@
       "club": "Hohoe United Football Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Amissah",
@@ -41,9 +77,33 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 7,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +113,29 @@
       "age": 28,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 22,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hohoe United FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alkassim Mohammed Haruna",
@@ -63,9 +143,24 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Solomon Adomako",
@@ -75,7 +170,114 @@
       "club": "Hohoe United Football Club",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Y. Apostles FC",
+          "year": "2020"
+        },
+        {
+          "club": "Great Olympics",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Prince Amevor",
+      "position": "Centre-Back",
+      "age": 20,
+      "nationality": "Ghana",
+      "club": "Hohoe United Football Club",
+      "appearances": 12,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Justice Dikro-Adiabo",
+      "position": "Centre-Back",
+      "age": 23,
+      "nationality": "Ghana",
+      "club": "Hohoe United Football Club",
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Yussif Salifu",
+      "position": "Centre-Back",
+      "age": 20,
+      "nationality": "Ghana",
+      "club": "Hohoe United Football Club",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Kyeremeh",
@@ -83,9 +285,29 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hohoe United FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maxwell Agyemang",
@@ -93,9 +315,45 @@
       "age": 29,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2021"
+        },
+        {
+          "club": "Karela United",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Bangoura",
@@ -105,7 +363,67 @@
       "club": "Hohoe United Football Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Satellite FC",
+          "year": "2013"
+        },
+        {
+          "club": "Horoya AC",
+          "year": "2014"
+        },
+        {
+          "club": "Kaloum",
+          "year": "2016"
+        },
+        {
+          "club": "Satellite FC",
+          "year": "2017"
+        },
+        {
+          "club": "Santoba FC",
+          "year": "2018"
+        },
+        {
+          "club": "CI Kamsar",
+          "year": "2020"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2021"
+        },
+        {
+          "club": "ASM Sangarédi",
+          "year": "2023"
+        },
+        {
+          "club": "Milo FC",
+          "year": "2024"
+        },
+        {
+          "club": "ASM Sangarédi",
+          "year": "2025"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Amartey",
@@ -113,9 +431,33 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 7,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Steadfast FC",
+          "year": "2023"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kekeli Attor",
@@ -123,9 +465,29 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Safianu Usman",
@@ -133,9 +495,24 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 24,
+      "appearances": 26,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "John Alossode",
@@ -145,37 +522,22 @@
       "club": "Hohoe United Football Club",
       "appearances": 19,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Prince Amevor",
-      "position": "",
-      "age": 20,
-      "nationality": "Ghana",
-      "club": "Hohoe United Football Club",
-      "appearances": 12,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Justice Dikro-Adiabo",
-      "position": "",
-      "age": 23,
-      "nationality": "Ghana",
-      "club": "Hohoe United Football Club",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Yussif Salifu",
-      "position": "",
-      "age": 20,
-      "nationality": "Ghana",
-      "club": "Hohoe United Football Club",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Courage Gbeve",
@@ -185,7 +547,22 @@
       "club": "Hohoe United Football Club",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -195,9 +572,29 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Yeboah",
@@ -205,9 +602,37 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LV Lights",
+          "year": "2021"
+        },
+        {
+          "club": "Great Olympics",
+          "year": "2021"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sena Ati",
@@ -215,9 +640,24 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Obeng Richard",
@@ -227,7 +667,22 @@
       "club": "Hohoe United Football Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bernard Okine",
@@ -237,7 +692,31 @@
       "club": "Hohoe United Football Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kwadwo Boamah",
@@ -245,9 +724,24 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 15,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francis Odoom",
@@ -255,9 +749,29 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 19,
+      "appearances": 21,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hohoe United FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamidu Abdulai",
@@ -267,7 +781,22 @@
       "club": "Hohoe United Football Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Mccharthy",
@@ -277,7 +806,22 @@
       "club": "Hohoe United Football Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Osei Senior",
@@ -285,9 +829,24 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 22,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -297,9 +856,33 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sahel SC",
+          "year": "2025"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 12,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ganiu Abass",
@@ -307,9 +890,37 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Samartex",
+          "year": "2022"
+        },
+        {
+          "club": "Eleven Wonders",
+          "year": "2023"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lawson Bekui",
@@ -317,9 +928,69 @@
       "age": 31,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dhofar Club",
+          "year": "2016"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2018"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2018"
+        },
+        {
+          "club": "AC Kajaani",
+          "year": "2019"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2019"
+        },
+        {
+          "club": "Muscat Club",
+          "year": "2019"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Sahel Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Entesar",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Rawdah SC",
+          "year": "2024"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Gadze",
@@ -329,17 +1000,162 @@
       "club": "Hohoe United Football Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Delhi Dynamos",
+          "year": "2015"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2016"
+        },
+        {
+          "club": "Delhi Dynamos",
+          "year": "2016"
+        },
+        {
+          "club": "Zira FC",
+          "year": "2017"
+        },
+        {
+          "club": "Delhi Dynamos",
+          "year": "2017"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Zira FC",
+          "year": "2019"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2020"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Sumgayit",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Rajasthan Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Paro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Persiku",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Hohoe United FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 57,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alhassan Adamu",
-      "position": "",
+      "position": "Centre-Forward",
       "age": 26,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hohoe United FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Anane Keke David",
+      "position": "Centre-Forward",
+      "age": 17,
+      "nationality": "Ghana",
+      "club": "Hohoe United Football Club",
+      "appearances": 16,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Oduro",
@@ -347,9 +1163,24 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Osafo",
@@ -357,19 +1188,24 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Hohoe United Football Club",
-      "appearances": 14,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Anane Keke David",
-      "position": "",
-      "age": 17,
-      "nationality": "Ghana",
-      "club": "Hohoe United Football Club",
       "appearances": 15,
-      "goals": 3,
-      "assists": 0
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

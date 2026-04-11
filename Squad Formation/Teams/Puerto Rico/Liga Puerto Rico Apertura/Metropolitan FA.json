@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PRC1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 31,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2014"
+        },
+        {
+          "club": "Don Bosco",
+          "year": "2017"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2018"
+        },
+        {
+          "club": "Don Bosco",
+          "year": "2019"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Ernesto Márquez",
@@ -31,9 +68,29 @@
       "age": 24,
       "nationality": "United States",
       "club": "Metropolitan FA",
-      "appearances": 23,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 28,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,19 +100,75 @@
       "age": 29,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2018"
+        },
+        {
+          "club": "Don Bosco",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Orlando Solís",
       "position": "Centre-Back",
-      "age": 21,
+      "age": 22,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Combine Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yariel Mercado",
@@ -65,7 +178,27 @@
       "club": "Metropolitan FA",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Valkenburg",
@@ -73,9 +206,29 @@
       "age": 21,
       "nationality": "United States",
       "club": "Metropolitan FA",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 1
+      "appearances": 10,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Maroni",
@@ -83,9 +236,41 @@
       "age": 41,
       "nationality": "United States",
       "club": "Metropolitan FA",
-      "appearances": 23,
-      "goals": 7,
-      "assists": 4
+      "appearances": 9,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Comunicaciones",
+          "year": "2007"
+        },
+        {
+          "club": "River Plate PR",
+          "year": "2009"
+        },
+        {
+          "club": "Without Club",
+          "year": "2011"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 15,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabián Martínez",
@@ -93,19 +278,70 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 18,
+      "appearances": 10,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcos Martínez",
       "position": "Right-Back",
-      "age": 33,
+      "age": 34,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CA Fajardo",
+          "year": "2016"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2017"
+        },
+        {
+          "club": "Guayama FC",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Martínez",
@@ -113,9 +349,24 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "Metropolitan FA",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivan Giménez",
@@ -123,9 +374,69 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Metropolitan FA",
-      "appearances": 5,
-      "goals": 0,
-      "assists": 0
+      "appearances": 8,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Comun. Mercedes",
+          "year": "2013"
+        },
+        {
+          "club": "Tigres",
+          "year": "2015"
+        },
+        {
+          "club": "San Martín (B)",
+          "year": "2015"
+        },
+        {
+          "club": "Atlas",
+          "year": "2017"
+        },
+        {
+          "club": "San Martín (B)",
+          "year": "2019"
+        },
+        {
+          "club": "FC Gareji",
+          "year": "2021"
+        },
+        {
+          "club": "Atl. Toronto",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Argentino (L)",
+          "year": "2025"
+        },
+        {
+          "club": "Arsenal L.",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +446,33 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guillermo Ocampo",
@@ -145,9 +480,49 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Metropolitan FA",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 2
+      "appearances": 10,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Almirante Brown",
+          "year": "2014"
+        },
+        {
+          "club": "Los Andes",
+          "year": "2022"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "CSD Liniers",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Suárez",
@@ -157,7 +532,63 @@
       "club": "Metropolitan FA",
       "appearances": 6,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cimarrones",
+          "year": "2018"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2018"
+        },
+        {
+          "club": "Pumas Tabasco",
+          "year": "2020"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2021"
+        },
+        {
+          "club": "Orlando",
+          "year": "2021"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2021"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "CADU (Zarate)",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 16,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Lozada",
@@ -165,19 +596,49 @@
       "age": 20,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 1
+      "appearances": 6,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Fermín Millaci",
+      "name": "Evan Vargas",
       "position": "Central Midfield",
-      "age": 21,
-      "nationality": "Argentina",
+      "age": null,
+      "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Derek Rivera",
@@ -185,9 +646,29 @@
       "age": 24,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 20,
-      "goals": 6,
-      "assists": 1
+      "appearances": 8,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeymer Díaz",
@@ -197,7 +678,39 @@
       "club": "Metropolitan FA",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Puerto Rico Sol",
+          "year": "2021"
+        },
+        {
+          "club": "GV San José",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Loinaz",
@@ -205,9 +718,29 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Byron Ortiz",
@@ -215,19 +748,33 @@
       "age": 30,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 11,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Evan Vargas",
-      "position": "",
-      "age": null,
-      "nationality": "Puerto Rico",
-      "club": "Metropolitan FA",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +784,29 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 23,
-      "goals": 11,
-      "assists": 3
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 22,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jheyron Ocasio",
@@ -247,29 +814,83 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 20,
-      "goals": 5,
-      "assists": 3
-    },
-    {
-      "name": "Diego Cancel",
-      "position": "Right Winger",
-      "age": null,
-      "nationality": "Puerto Rico",
-      "club": "Metropolitan FA",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "appearances": 9,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Rivera",
       "position": "Right Winger",
-      "age": 29,
+      "age": 30,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 22,
-      "goals": 30,
-      "assists": 4
+      "appearances": 8,
+      "goals": 6,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Guayama FC",
+          "year": "2015"
+        },
+        {
+          "club": "Puerto Rico FC",
+          "year": "2016"
+        },
+        {
+          "club": "Penn FC",
+          "year": "2018"
+        },
+        {
+          "club": "Don Bosco",
+          "year": "2019"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2021"
+        },
+        {
+          "club": "Bayamón FC",
+          "year": "2022"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 57,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karlos Ferrer",
@@ -277,9 +898,29 @@
       "age": 28,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 20,
-      "goals": 7,
-      "assists": 2
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lautaro Torres",
@@ -287,9 +928,37 @@
       "age": 22,
       "nationality": "Argentina",
       "club": "Metropolitan FA",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 8,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "San Martín (B)",
+          "year": "2025"
+        },
+        {
+          "club": "A. Mascherano",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joel Burgos",
@@ -297,9 +966,61 @@
       "age": 26,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 8,
-      "goals": 7,
-      "assists": 0
+      "appearances": 10,
+      "goals": 12,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Cañoneros",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Verdes FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dothan United",
+          "year": "2024"
+        },
+        {
+          "club": "Melicucco",
+          "year": "2024"
+        },
+        {
+          "club": "Verdes FC",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 14,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Loinaz",
@@ -307,9 +1028,67 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Fermín Millaci",
+      "position": "Centre-Forward",
+      "age": 22,
+      "nationality": "Argentina",
+      "club": "Metropolitan FA",
+      "appearances": 10,
+      "goals": 3,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Pioraco",
+          "year": "2023"
+        },
+        {
+          "club": "Apecchio",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Héctor Ramos",
@@ -317,9 +1096,93 @@
       "age": 35,
       "nationality": "Puerto Rico",
       "club": "Metropolitan FA",
-      "appearances": 23,
-      "goals": 9,
-      "assists": 5
+      "appearances": 10,
+      "goals": 7,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Nejapa",
+          "year": "2009"
+        },
+        {
+          "club": "River Plate PR",
+          "year": "2011"
+        },
+        {
+          "club": "Islanders",
+          "year": "2011"
+        },
+        {
+          "club": "Acad. Quintana",
+          "year": "2013"
+        },
+        {
+          "club": "ADI Metapán",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "CD Águila",
+          "year": "2016"
+        },
+        {
+          "club": "Puerto Rico FC",
+          "year": "2016"
+        },
+        {
+          "club": "Sabah FA",
+          "year": "2018"
+        },
+        {
+          "club": "Don Bosco",
+          "year": "2019"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2019"
+        },
+        {
+          "club": "Sabah FA",
+          "year": "2020"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2020"
+        },
+        {
+          "club": "Xinabajul",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Metropolitan FA",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 95,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 18,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

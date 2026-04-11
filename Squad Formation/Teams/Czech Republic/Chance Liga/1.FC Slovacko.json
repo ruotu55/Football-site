@@ -9,21 +9,50 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "TS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Milan Heca",
       "position": "Goalkeeper",
-      "age": 34,
+      "age": 35,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2010"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2018"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 401,
+        "clean_sheets": 82
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandr Urban",
@@ -31,9 +60,33 @@
       "age": 21,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko B",
-      "appearances": 18,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "1.SK Prostejov",
+          "year": "2025"
+        },
+        {
+          "club": "Stara Lubovna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 127,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomas Frystak",
@@ -41,9 +94,61 @@
       "age": 38,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caslav",
+          "year": "2010"
+        },
+        {
+          "club": "Sezimovo Usti",
+          "year": "2011"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2014"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2015"
+        },
+        {
+          "club": "Banik Sokolov",
+          "year": "2020"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2020"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2020"
+        },
+        {
+          "club": "AS Trencin",
+          "year": "2021"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 322,
+        "clean_sheets": 64
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,19 +158,45 @@
       "age": 22,
       "nationality": "North Macedonia",
       "club": "1.FC Slovacko",
-      "appearances": 25,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Filip Vasko",
-      "position": "Centre-Back",
-      "age": 26,
-      "nationality": "Slovakia",
-      "club": "1.FC Slovacko",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vardar",
+          "year": "2020"
+        },
+        {
+          "club": "AP Brera",
+          "year": "2021"
+        },
+        {
+          "club": "MSK Zilina",
+          "year": "2022"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        },
+        {
+          "club": "MSK Zilina",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomas Huk",
@@ -73,19 +204,141 @@
       "age": 31,
       "nationality": "Slovakia",
       "club": "1.FC Slovacko",
-      "appearances": 15,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MFK Kosice",
+          "year": "2012"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2016"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2019"
+        },
+        {
+          "club": "Sigma Olomouc",
+          "year": "2025"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2026"
+        },
+        {
+          "club": "Sigma Olomouc",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 334,
+        "goals": 15,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Filip Vasko",
+      "position": "Centre-Back",
+      "age": 26,
+      "nationality": "Slovakia",
+      "club": "1.FC Slovacko",
+      "appearances": 20,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Michalovce",
+          "year": "2020"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Rundic",
       "position": "Centre-Back",
-      "age": 33,
+      "age": 34,
       "nationality": "Serbia",
       "club": "1.FC Slovacko",
-      "appearances": 17,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kolubara",
+          "year": "2011"
+        },
+        {
+          "club": "Inter Zapresic",
+          "year": "2013"
+        },
+        {
+          "club": "AS Trencin",
+          "year": "2013"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2016"
+        },
+        {
+          "club": "Karvina",
+          "year": "2019"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2020"
+        },
+        {
+          "club": "Raków",
+          "year": "2021"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 344,
+        "goals": 16,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Mulder",
@@ -93,9 +346,45 @@
       "age": 24,
       "nationality": "Israel",
       "club": "1.FC Slovacko",
-      "appearances": 22,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ADO Den Haag",
+          "year": "2021"
+        },
+        {
+          "club": "Telstar",
+          "year": "2022"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2023"
+        },
+        {
+          "club": "Hegelmann",
+          "year": "2025"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gigli Ndefe",
@@ -105,7 +394,59 @@
       "club": "1.FC Slovacko",
       "appearances": 24,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Eendracht Aalst",
+          "year": "2011"
+        },
+        {
+          "club": "FC Oss",
+          "year": "2013"
+        },
+        {
+          "club": "Eendracht Aalst",
+          "year": "2014"
+        },
+        {
+          "club": "RKC Waalwijk",
+          "year": "2015"
+        },
+        {
+          "club": "Karvina",
+          "year": "2019"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2021"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2023"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2023"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 4,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Koscelník",
@@ -113,9 +454,45 @@
       "age": 31,
       "nationality": "Slovakia",
       "club": "1.FC Slovacko",
-      "appearances": 18,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Michalovce",
+          "year": "2014"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2018"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2022"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2023"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 38,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petr Reinberk",
@@ -123,9 +500,37 @@
       "age": 36,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2008"
+        },
+        {
+          "club": "Vitkovice",
+          "year": "2009"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2010"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 449,
+        "goals": 21,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +540,87 @@
       "age": 30,
       "nationality": "North Macedonia",
       "club": "1.FC Slovacko",
-      "appearances": 23,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teteks Tetovo",
+          "year": "2015"
+        },
+        {
+          "club": "Banska Bystrica",
+          "year": "2015"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2016"
+        },
+        {
+          "club": "Ruzomberok",
+          "year": "2017"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2022"
+        },
+        {
+          "club": "Sigma Olomouc",
+          "year": "2025"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2026"
+        },
+        {
+          "club": "Sigma Olomouc",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 23,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Paul Ndubuisi",
+      "position": "Defensive Midfield",
+      "age": 20,
+      "nationality": "Nigeria",
+      "club": "1.FC Slovacko",
+      "appearances": 4,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vlastimil Danicek",
@@ -145,19 +628,37 @@
       "age": 34,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 1,
-      "assists": 1
-    },
-    {
-      "name": "Paul Ndubuisi",
-      "position": "Defensive Midfield",
-      "age": 20,
-      "nationality": "Nigeria",
-      "club": "1.FC Slovacko B",
-      "appearances": 15,
-      "goals": 3,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2010"
+        },
+        {
+          "club": "Karvina",
+          "year": "2014"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2015"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 424,
+        "goals": 44,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marek Havlík",
@@ -165,9 +666,37 @@
       "age": 30,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "HS Kromeriz",
+          "year": "2011"
+        },
+        {
+          "club": "HS Kromeriz",
+          "year": "2013"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2013"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 436,
+        "goals": 46,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roman Horak",
@@ -175,9 +704,29 @@
       "age": 21,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 18,
+      "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michal Travnik",
@@ -185,9 +734,57 @@
       "age": 31,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2012"
+        },
+        {
+          "club": "Jablonec",
+          "year": "2015"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2019"
+        },
+        {
+          "club": "Kasimpasa",
+          "year": "2021"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2022"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2022"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2023"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 412,
+        "goals": 31,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Svidersky",
@@ -195,9 +792,37 @@
       "age": 23,
       "nationality": "Slovakia",
       "club": "1.FC Slovacko",
-      "appearances": 18,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Man Utd Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Real Murcia",
+          "year": "2024"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Tetour",
@@ -205,9 +830,45 @@
       "age": 31,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 16,
+      "appearances": 13,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dukla Prague",
+          "year": "2015"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2020"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2024"
+        },
+        {
+          "club": "Ethnikos",
+          "year": "2024"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 29,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrik Blahut",
@@ -215,9 +876,41 @@
       "age": 28,
       "nationality": "Slovakia",
       "club": "1.FC Slovacko",
-      "appearances": 29,
-      "goals": 4,
-      "assists": 0
+      "appearances": 26,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pohronie",
+          "year": "2015"
+        },
+        {
+          "club": "Podbrezova",
+          "year": "2023"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2024"
+        },
+        {
+          "club": "Podbrezova",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 323,
+        "goals": 49,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pavel Juroska",
@@ -225,9 +918,29 @@
       "age": 24,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 20,
-      "goals": 1,
-      "assists": 0
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 35,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Petrzela",
@@ -235,9 +948,73 @@
       "age": 42,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 20,
+      "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Drnovice",
+          "year": "2003"
+        },
+        {
+          "club": "Synot",
+          "year": "2003"
+        },
+        {
+          "club": "Jablonec 97",
+          "year": "2006"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2007"
+        },
+        {
+          "club": "Jablonec 97",
+          "year": "2007"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2008"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2008"
+        },
+        {
+          "club": "Augsburg",
+          "year": "2012"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2013"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2019"
+        },
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2025"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 714,
+        "goals": 81,
+        "assists": 94,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrian Fiala",
@@ -245,9 +1022,37 @@
       "age": 20,
       "nationality": "Slovakia",
       "club": "1.FC Slovacko",
-      "appearances": 13,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Trencin",
+          "year": "2024"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2026"
+        },
+        {
+          "club": "AS Trencin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 18,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Suchan",
@@ -255,9 +1060,101 @@
       "age": 30,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 2,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UMBRO Praha 3",
+          "year": "2006"
+        },
+        {
+          "club": "Pribram",
+          "year": "2015"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2015"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2016"
+        },
+        {
+          "club": "Pribram",
+          "year": "2017"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2017"
+        },
+        {
+          "club": "Teplice",
+          "year": "2017"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2018"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2018"
+        },
+        {
+          "club": "Karvina",
+          "year": "2018"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2019"
+        },
+        {
+          "club": "Vitkovice",
+          "year": "2019"
+        },
+        {
+          "club": "Vysehrad",
+          "year": "2020"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2020"
+        },
+        {
+          "club": "Vlasim",
+          "year": "2022"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2023"
+        },
+        {
+          "club": "Jablonec",
+          "year": "2024"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2026"
+        },
+        {
+          "club": "Jablonec",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 82,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stepan Beran",
@@ -265,9 +1162,37 @@
       "age": 22,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vlasim",
+          "year": "2023"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        },
+        {
+          "club": "Vlasim",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 23,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -277,9 +1202,61 @@
       "age": 26,
       "nationality": "Argentina",
       "club": "1.FC Slovacko",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 2
+      "appearances": 17,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Rosario Central",
+          "year": "2019"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2022"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2022"
+        },
+        {
+          "club": "Sarmiento Junin",
+          "year": "2023"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2023"
+        },
+        {
+          "club": "Platense",
+          "year": "2024"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2024"
+        },
+        {
+          "club": "Académico Viseu",
+          "year": "2024"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 13,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Barat",
@@ -287,9 +1264,29 @@
       "age": 19,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 26,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adonija Ouanda",
@@ -297,9 +1294,41 @@
       "age": 20,
       "nationality": "Canada",
       "club": "1.FC Slovacko",
-      "appearances": 29,
-      "goals": 8,
-      "assists": 5
+      "appearances": 7,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metalac",
+          "year": "2023"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2024"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2026"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 11,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zan Medved",
@@ -309,7 +1338,87 @@
       "club": "1.FC Slovacko",
       "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NK Fuzinar",
+          "year": "2018"
+        },
+        {
+          "club": "NK Olimpija",
+          "year": "2019"
+        },
+        {
+          "club": "Vis Pesaro",
+          "year": "2019"
+        },
+        {
+          "club": "NK Fuzinar",
+          "year": "2019"
+        },
+        {
+          "club": "NK Olimpija",
+          "year": "2020"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2020"
+        },
+        {
+          "club": "Wisla Kraków",
+          "year": "2021"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2021"
+        },
+        {
+          "club": "NK Celje",
+          "year": "2021"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2022"
+        },
+        {
+          "club": "Skalica",
+          "year": "2023"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2023"
+        },
+        {
+          "club": "Kosice",
+          "year": "2023"
+        },
+        {
+          "club": "Nyíregyháza",
+          "year": "2025"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2025"
+        },
+        {
+          "club": "Nyíregyháza",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 202,
+        "goals": 68,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Krmencik",
@@ -317,9 +1426,97 @@
       "age": 33,
       "nationality": "Czech Republic",
       "club": "1.FC Slovacko",
-      "appearances": 25,
+      "appearances": 21,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2011"
+        },
+        {
+          "club": "Banik Sokolov",
+          "year": "2012"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2012"
+        },
+        {
+          "club": "Caslav",
+          "year": "2012"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2013"
+        },
+        {
+          "club": "Graffin Vlasim",
+          "year": "2013"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2014"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2014"
+        },
+        {
+          "club": "Dukla Prague",
+          "year": "2014"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2015"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2020"
+        },
+        {
+          "club": "PAOK",
+          "year": "2021"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2021"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2022"
+        },
+        {
+          "club": "Persija",
+          "year": "2022"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2023"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 387,
+        "goals": 119,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousman Ceesay",
@@ -327,9 +1524,33 @@
       "age": 20,
       "nationality": "The Gambia",
       "club": "1.FC Slovacko B",
-      "appearances": 11,
-      "goals": 5,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nomme United",
+          "year": "2024"
+        },
+        {
+          "club": "Falcons FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 19,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

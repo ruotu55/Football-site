@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "SE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 34,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nyköpings BIS",
+          "year": "2012"
+        },
+        {
+          "club": "Örebro SK",
+          "year": "2016"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 314,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 375,
+        "clean_sheets": 102
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "André Bernardini",
@@ -33,7 +62,47 @@
       "club": "Västerås SK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Hohenstein-E.",
+          "year": "2018"
+        },
+        {
+          "club": "Career break",
+          "year": "2019"
+        },
+        {
+          "club": "IFK Haninge",
+          "year": "2020"
+        },
+        {
+          "club": "Brage",
+          "year": "2022"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 163,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elis Jäger",
@@ -41,9 +110,37 @@
       "age": 20,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nyköpings BIS",
+          "year": "2024"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        },
+        {
+          "club": "Nyköpings BIS",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +150,49 @@
       "age": 30,
       "nationality": "Burundi",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AO Bujumbura",
+          "year": "2012"
+        },
+        {
+          "club": "Jomo Cosmos",
+          "year": "2013"
+        },
+        {
+          "club": "Chippa United",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Jomo Cosmos",
+          "year": "2022"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Philip Bonde",
@@ -63,9 +200,41 @@
       "age": 22,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arameisk SIF",
+          "year": "2022"
+        },
+        {
+          "club": "IF Sylvia",
+          "year": "2023"
+        },
+        {
+          "club": "Östersund",
+          "year": "2024"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Herman Magnusson",
@@ -73,9 +242,37 @@
       "age": 28,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karlbergs BK",
+          "year": "2018"
+        },
+        {
+          "club": "Sollentuna FK",
+          "year": "2021"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Victor Wernersson",
@@ -83,19 +280,65 @@
       "age": 30,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Liiban Abdirahman Abadid",
-      "position": "Centre-Back",
-      "age": 23,
-      "nationality": "Norway",
-      "club": "Västerås SK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Syrianska FC",
+          "year": "2015"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2017"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2018"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2020"
+        },
+        {
+          "club": "Stabæk",
+          "year": "2021"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2021"
+        },
+        {
+          "club": "Stabæk",
+          "year": "2022"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2022"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2023"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 344,
+        "goals": 10,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jack Tagesson",
@@ -105,7 +348,31 @@
       "club": "Västerås SK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nordic Utd. FC",
+          "year": "2025"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcus Baggesen",
@@ -113,9 +380,83 @@
       "age": 22,
       "nationality": "Denmark",
       "club": "Västerås SK",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Norrköping",
+          "year": "2023"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jonathan Karlsson",
+      "position": "Right-Back",
+      "age": 22,
+      "nationality": "Sweden",
+      "club": "Västerås SK",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Stockholm",
+          "year": "2023"
+        },
+        {
+          "club": "Sandvikens IF",
+          "year": "2024"
+        },
+        {
+          "club": "Hammarby",
+          "year": "2025"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2026"
+        },
+        {
+          "club": "Hammarby",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +466,45 @@
       "age": 25,
       "nationality": "TM nationality id 244",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AFC Eskilstuna",
+          "year": "2019"
+        },
+        {
+          "club": "IFK Eskilstuna",
+          "year": "2019"
+        },
+        {
+          "club": "Varbergs BoIS",
+          "year": "2022"
+        },
+        {
+          "club": "Norrköping",
+          "year": "2024"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karl Gunnarsson",
@@ -135,9 +512,33 @@
       "age": 20,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ängelholms FF",
+          "year": "2023"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mamadou Ousmane Diagne",
@@ -145,9 +546,41 @@
       "age": 22,
       "nationality": "Senegal",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BK Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Malmö",
+          "year": "2024"
+        },
+        {
+          "club": "Skövde AIK",
+          "year": "2024"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 18,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Ring",
@@ -155,9 +588,61 @@
       "age": 34,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Värnamo",
+          "year": "2010"
+        },
+        {
+          "club": "Kalmar FF",
+          "year": "2013"
+        },
+        {
+          "club": "Genclerbirligi",
+          "year": "2017"
+        },
+        {
+          "club": "Kalmar FF",
+          "year": "2017"
+        },
+        {
+          "club": "Djurgården",
+          "year": "2018"
+        },
+        {
+          "club": "Kalmar FF",
+          "year": "2021"
+        },
+        {
+          "club": "Jeju United",
+          "year": "2022"
+        },
+        {
+          "club": "Kalmar FF",
+          "year": "2024"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 405,
+        "goals": 62,
+        "assists": 63,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mattias Hellisdal",
@@ -165,9 +650,33 @@
       "age": 20,
       "nationality": "Faroe Islands",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B36 Tórshavn",
+          "year": "2023"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 15,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Levi Hansas",
@@ -177,7 +686,27 @@
       "club": "Västerås SK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Sibelius",
@@ -185,9 +714,33 @@
       "age": 23,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Falkenbergs FF",
+          "year": "2021"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 11,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taonsa Axel",
@@ -195,9 +748,33 @@
       "age": 22,
       "nationality": "Ivory Coast",
       "club": "Västerås SK",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Belasitsa",
+          "year": "2023"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 18,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jens Magnusson",
@@ -205,9 +782,33 @@
       "age": 21,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ängelholms FF",
+          "year": "2023"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musab Abdi Mohamud",
@@ -215,9 +816,29 @@
       "age": 19,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,19 +848,95 @@
       "age": 26,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Norrby",
+          "year": "2017"
+        },
+        {
+          "club": "Degerfors",
+          "year": "2021"
+        },
+        {
+          "club": "Hammarby",
+          "year": "2022"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2024"
+        },
+        {
+          "club": "Hammarby",
+          "year": "2024"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2025"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2026"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 44,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simon Gefvert",
       "position": "Right Winger",
-      "age": 28,
+      "age": 29,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karlslunds IF",
+          "year": "2019"
+        },
+        {
+          "club": "Sirius",
+          "year": "2020"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 11,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Melvin Ljungqvist",
@@ -247,9 +944,45 @@
       "age": 18,
       "nationality": "Sweden",
       "club": "Västerås SK",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Bromölla",
+          "year": "2023"
+        },
+        {
+          "club": "Kristianstad FC",
+          "year": "2024"
+        },
+        {
+          "club": "Hässleholms IF",
+          "year": "2025"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mikkel Ladefoged",
@@ -259,17 +992,81 @@
       "club": "Västerås SK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sönderjyske",
+          "year": "2022"
+        },
+        {
+          "club": "Naestved BK",
+          "year": "2023"
+        },
+        {
+          "club": "Sönderjyske",
+          "year": "2024"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2024"
+        },
+        {
+          "club": "Sönderjyske",
+          "year": "2025"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 79,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moussa Diallo",
       "position": "Centre-Forward",
-      "age": 18,
+      "age": 19,
       "nationality": "Senegal",
       "club": "Västerås SK",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wally Daan",
+          "year": "2024"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

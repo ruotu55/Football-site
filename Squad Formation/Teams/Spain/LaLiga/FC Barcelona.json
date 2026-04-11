@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ES1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 24,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 36,
+      "appearances": 23,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -36,7 +37,21 @@
           "club": "Barcelona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 129,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Wojciech Szczęsny",
@@ -44,7 +59,7 @@
       "age": 35,
       "nationality": "Poland",
       "club": "FC Barcelona",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -80,7 +95,21 @@
           "club": "Barcelona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 588,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 612,
+        "clean_sheets": 225
+      },
+      "national_team_career_totals": {
+        "appearances": 84,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 83,
+        "clean_sheets": 34
+      }
     },
     {
       "name": "Diego Kochen",
@@ -88,7 +117,7 @@
       "age": 20,
       "nationality": "United States",
       "club": "FC Barcelona Atlètic",
-      "appearances": 15,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -100,7 +129,21 @@
           "club": "Barça Atlètic",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 50,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -110,7 +153,7 @@
       "age": 19,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 40,
+      "appearances": 24,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -126,7 +169,21 @@
           "club": "Barcelona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric García",
@@ -134,7 +191,7 @@
       "age": 25,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 42,
+      "appearances": 27,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -154,7 +211,21 @@
           "club": "Barcelona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 273,
+        "goals": 18,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronald Araujo",
@@ -162,8 +233,8 @@
       "age": 27,
       "nationality": "Uruguay",
       "club": "FC Barcelona",
-      "appearances": 30,
-      "goals": 4,
+      "appearances": 18,
+      "goals": 3,
       "assists": 0,
       "transfer_history": [
         {
@@ -178,7 +249,21 @@
           "club": "Barcelona",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 297,
+        "goals": 27,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andreas Christensen",
@@ -186,8 +271,8 @@
       "age": 29,
       "nationality": "Denmark",
       "club": "FC Barcelona",
-      "appearances": 17,
-      "goals": 1,
+      "appearances": 12,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -210,7 +295,21 @@
           "club": "Barcelona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 408,
+        "goals": 18,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 80,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alejandro Balde",
@@ -218,15 +317,29 @@
       "age": 22,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 34,
+      "appearances": 21,
       "goals": 0,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Barcelona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 3,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gerard Martín",
@@ -234,9 +347,9 @@
       "age": 24,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 41,
+      "appearances": 24,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "UE Cornellà",
@@ -250,7 +363,21 @@
           "club": "Barcelona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 1,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jules Koundé",
@@ -258,9 +385,9 @@
       "age": 27,
       "nationality": "France",
       "club": "FC Barcelona",
-      "appearances": 40,
-      "goals": 3,
-      "assists": 4,
+      "appearances": 25,
+      "goals": 1,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "G. Bordeaux",
@@ -274,7 +401,21 @@
           "club": "Barcelona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 415,
+        "goals": 24,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Cancelo",
@@ -282,9 +423,9 @@
       "age": 31,
       "nationality": "Portugal",
       "club": "FC Barcelona",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 6,
+      "appearances": 7,
+      "goals": 1,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Benfica U15",
@@ -350,7 +491,21 @@
           "club": "Al-Hilal",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 480,
+        "goals": 26,
+        "assists": 90,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 66,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -360,8 +515,8 @@
       "age": 18,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 27,
-      "goals": 5,
+      "appearances": 16,
+      "goals": 2,
       "assists": 1,
       "transfer_history": [
         {
@@ -376,7 +531,21 @@
           "club": "Barcelona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Casadó",
@@ -384,7 +553,7 @@
       "age": 22,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 29,
+      "appearances": 19,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -400,7 +569,21 @@
           "club": "Barcelona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 1,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedri",
@@ -408,9 +591,9 @@
       "age": 23,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 33,
+      "appearances": 21,
       "goals": 2,
-      "assists": 10,
+      "assists": 7,
       "transfer_history": [
         {
           "club": "UD Las Palmas",
@@ -424,7 +607,21 @@
           "club": "Barcelona",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 272,
+        "goals": 32,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frenkie de Jong",
@@ -432,9 +629,9 @@
       "age": 28,
       "nationality": "Netherlands",
       "club": "FC Barcelona",
-      "appearances": 31,
+      "appearances": 19,
       "goals": 1,
-      "assists": 7,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Ajax",
@@ -444,7 +641,21 @@
           "club": "Barcelona",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 457,
+        "goals": 40,
+        "assists": 56,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 64,
+        "goals": 2,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gavi",
@@ -464,7 +675,21 @@
           "club": "Barcelona",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 10,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fermín López",
@@ -472,9 +697,9 @@
       "age": 22,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 39,
-      "goals": 12,
-      "assists": 16,
+      "appearances": 23,
+      "goals": 5,
+      "assists": 8,
       "transfer_history": [
         {
           "club": "Barça Youth",
@@ -496,7 +721,21 @@
           "club": "Barcelona",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 43,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dani Olmo",
@@ -504,9 +743,9 @@
       "age": 27,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 38,
-      "goals": 8,
-      "assists": 7,
+      "appearances": 24,
+      "goals": 7,
+      "assists": 6,
       "transfer_history": [
         {
           "club": "Barça Youth",
@@ -524,7 +763,21 @@
           "club": "Barcelona",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 388,
+        "goals": 87,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 12,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -534,9 +787,9 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "FC Barcelona",
-      "appearances": 31,
-      "goals": 19,
-      "assists": 8,
+      "appearances": 20,
+      "goals": 11,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Vit. Guimarães",
@@ -558,7 +811,21 @@
           "club": "Barcelona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 421,
+        "goals": 135,
+        "assists": 97,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 11,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcus Rashford",
@@ -566,9 +833,9 @@
       "age": 28,
       "nationality": "England",
       "club": "FC Barcelona",
-      "appearances": 39,
-      "goals": 10,
-      "assists": 13,
+      "appearances": 24,
+      "goals": 4,
+      "assists": 8,
       "transfer_history": [
         {
           "club": "Man Utd",
@@ -590,7 +857,21 @@
           "club": "Man Utd",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 496,
+        "goals": 157,
+        "assists": 98,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 70,
+        "goals": 18,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lamine Yamal",
@@ -598,9 +879,9 @@
       "age": 18,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 40,
-      "goals": 21,
-      "assists": 16,
+      "appearances": 25,
+      "goals": 14,
+      "assists": 10,
       "transfer_history": [
         {
           "club": "Barça Youth",
@@ -610,7 +891,21 @@
           "club": "Barcelona",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 46,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 6,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roony Bardghji",
@@ -618,9 +913,9 @@
       "age": 20,
       "nationality": "Sweden",
       "club": "FC Barcelona",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 4,
+      "appearances": 16,
+      "goals": 1,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "FCK Youth",
@@ -634,7 +929,21 @@
           "club": "Barcelona",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 25,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ferran Torres",
@@ -642,8 +951,8 @@
       "age": 26,
       "nationality": "Spain",
       "club": "FC Barcelona",
-      "appearances": 40,
-      "goals": 16,
+      "appearances": 26,
+      "goals": 12,
       "assists": 1,
       "transfer_history": [
         {
@@ -658,7 +967,21 @@
           "club": "Barcelona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 86,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 55,
+        "goals": 23,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert Lewandowski",
@@ -666,9 +989,9 @@
       "age": 37,
       "nationality": "Poland",
       "club": "FC Barcelona",
-      "appearances": 37,
-      "goals": 16,
-      "assists": 3,
+      "appearances": 24,
+      "goals": 11,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Delta Warszawa",
@@ -694,7 +1017,21 @@
           "club": "Barcelona",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 860,
+        "goals": 626,
+        "assists": 158,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 165,
+        "goals": 89,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

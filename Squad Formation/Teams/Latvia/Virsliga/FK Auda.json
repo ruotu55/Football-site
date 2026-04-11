@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "LET1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 27,
       "nationality": "Latvia",
       "club": "FK Auda",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Riga",
+          "year": "2018"
+        },
+        {
+          "club": "Super Nova",
+          "year": "2025"
+        },
+        {
+          "club": "Riga",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 79,
+        "clean_sheets": 58
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 10,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Raivo Sturins",
@@ -33,7 +66,39 @@
       "club": "FK Auda",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jelgava",
+          "year": "2022"
+        },
+        {
+          "club": "Auda",
+          "year": "2024"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 113,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niks Aleksandrovs",
@@ -43,7 +108,27 @@
       "club": "FK Auda",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auda",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 35,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +138,33 @@
       "age": 21,
       "nationality": "Ivory Coast",
       "club": "FK Auda",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "United FC",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ralfs Kragliks",
@@ -63,9 +172,33 @@
       "age": 22,
       "nationality": "Latvia",
       "club": "FK Auda",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Valmiera",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bakary Diawara",
@@ -74,8 +207,36 @@
       "nationality": "Ivory Coast",
       "club": "FK Auda",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Riga",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Aranda",
@@ -83,9 +244,53 @@
       "age": 22,
       "nationality": "Peru",
       "club": "FK Auda",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. San Martín",
+          "year": "2022"
+        },
+        {
+          "club": "Unión Comercio",
+          "year": "2023"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2024"
+        },
+        {
+          "club": "Unión Comercio",
+          "year": "2024"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tin Hrvoj",
@@ -93,9 +298,45 @@
       "age": 24,
       "nationality": "Croatia",
       "club": "FK Auda",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2020"
+        },
+        {
+          "club": "NK Varazdin",
+          "year": "2020"
+        },
+        {
+          "club": "Hrv Dragovoljac",
+          "year": "2021"
+        },
+        {
+          "club": "NK Radomlje",
+          "year": "2022"
+        },
+        {
+          "club": "Auda",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 0,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Ogunji",
@@ -103,9 +344,45 @@
       "age": 25,
       "nationality": "Nigeria",
       "club": "FK Auda",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jelgava",
+          "year": "2020"
+        },
+        {
+          "club": "Tukums",
+          "year": "2020"
+        },
+        {
+          "club": "Auda",
+          "year": "2021"
+        },
+        {
+          "club": "Riga",
+          "year": "2022"
+        },
+        {
+          "club": "Auda",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 20,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -115,9 +392,37 @@
       "age": 23,
       "nationality": "Latvia",
       "club": "FK Auda",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartaks",
+          "year": "2021"
+        },
+        {
+          "club": "Auda",
+          "year": "2023"
+        },
+        {
+          "club": "Riga",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ariel Arroyo",
@@ -125,9 +430,37 @@
       "age": 21,
       "nationality": "Panama",
       "club": "FK Auda",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Árabe Unido",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Pekegnon Kone",
@@ -135,9 +468,45 @@
       "age": 24,
       "nationality": "Ivory Coast",
       "club": "FK Auda",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "M. Petah Tikva",
+          "year": "2021"
+        },
+        {
+          "club": "AS Ashdod",
+          "year": "2021"
+        },
+        {
+          "club": "M. Petah Tikva",
+          "year": "2022"
+        },
+        {
+          "club": "Akritas Chlor.",
+          "year": "2022"
+        },
+        {
+          "club": "Auda",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youba Traoré",
@@ -145,9 +514,29 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "FK Auda",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wally Fofana",
@@ -157,7 +546,35 @@
       "club": "FK Auda",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olym. Charleroi",
+          "year": "2022"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jevgenijs Minins",
@@ -165,9 +582,57 @@
       "age": 24,
       "nationality": "Latvia",
       "club": "FK Auda",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Daugavpils",
+          "year": "2020"
+        },
+        {
+          "club": "Super Nova",
+          "year": "2021"
+        },
+        {
+          "club": "RFS",
+          "year": "2024"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2024"
+        },
+        {
+          "club": "Super Nova",
+          "year": "2025"
+        },
+        {
+          "club": "RFS",
+          "year": "2025"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 25,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussaini Ibrahim",
@@ -177,7 +642,31 @@
       "club": "FK Auda",
       "appearances": 2,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Riga",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edvin Bongemba",
@@ -185,9 +674,37 @@
       "age": 22,
       "nationality": "France",
       "club": "FK Auda",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "RCO Agde",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ratmirs Trifonovs",
@@ -197,7 +714,35 @@
       "club": "FK Auda",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Riga",
+          "year": "2025"
+        },
+        {
+          "club": "Riga Mariners",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +752,37 @@
       "age": 23,
       "nationality": "Latvia",
       "club": "FK Auda",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 15,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HamKam",
+          "year": "2021"
+        },
+        {
+          "club": "Riga",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 15,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oskars Rubenis",
@@ -217,9 +790,45 @@
       "age": 27,
       "nationality": "Latvia",
       "club": "FK Auda",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Super Nova",
+          "year": "2019"
+        },
+        {
+          "club": "Caramba",
+          "year": "2021"
+        },
+        {
+          "club": "Tukums",
+          "year": "2022"
+        },
+        {
+          "club": "Jelgava",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 190,
+        "goals": 25,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Barthélémy Diedhiou",
@@ -227,9 +836,45 @@
       "age": 25,
       "nationality": "Senegal",
       "club": "FK Auda",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Trofense",
+          "year": "2021"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2024"
+        },
+        {
+          "club": "RFS",
+          "year": "2025"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 21,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jayen Gerold",
@@ -239,7 +884,27 @@
       "club": "FK Auda",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auda",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousmane Camara",
@@ -249,7 +914,47 @@
       "club": "FK Auda",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Riga",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2025"
+        },
+        {
+          "club": "Riga",
+          "year": "2025"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        },
+        {
+          "club": "Riga",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Meleye Diagne",
@@ -259,7 +964,47 @@
       "club": "FK Auda",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Riga",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2024"
+        },
+        {
+          "club": "Riga",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        },
+        {
+          "club": "Riga",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamoud Fofana",
@@ -269,7 +1014,27 @@
       "club": "FK Auda",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kader Kone",
@@ -277,9 +1042,29 @@
       "age": 19,
       "nationality": "Ivory Coast",
       "club": "FK Auda",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auda",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josué Vergara",
@@ -287,9 +1072,33 @@
       "age": 18,
       "nationality": "Panama",
       "club": "FK Auda",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 2
+      "appearances": 3,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Tauro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hénoc Lusweki",
@@ -299,7 +1108,31 @@
       "club": "FK Auda",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Auda",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

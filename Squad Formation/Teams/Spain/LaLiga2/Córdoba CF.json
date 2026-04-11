@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ES2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 24,
       "nationality": "Andorra",
       "club": "Córdoba CF",
-      "appearances": 24,
+      "appearances": 26,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -32,7 +33,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 130,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 165,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 60,
+        "clean_sheets": 7
+      }
     },
     {
       "name": "Carlos Marín",
@@ -40,7 +55,7 @@
       "age": 29,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -56,7 +71,21 @@
           "club": "Córdoba CF",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 193,
+        "clean_sheets": 57
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -110,7 +139,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Franck Fomeyem",
@@ -142,7 +185,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rubén Alves",
@@ -150,7 +207,7 @@
       "age": 31,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -190,7 +247,21 @@
           "club": "CD Tenerife",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xavi Sintes",
@@ -214,7 +285,21 @@
           "club": "Córdoba CF",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ignasi Vilarrasa",
@@ -222,7 +307,7 @@
       "age": 26,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -246,7 +331,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 10,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Bri",
@@ -254,8 +353,8 @@
       "age": 23,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 18,
-      "goals": 2,
+      "appearances": 19,
+      "goals": 3,
       "assists": 1,
       "transfer_history": [
         {
@@ -274,7 +373,21 @@
           "club": "Atl. Madrileño",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 19,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan María Alcedo",
@@ -306,7 +419,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Albarrán",
@@ -314,7 +441,7 @@
       "age": 32,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -346,7 +473,21 @@
           "club": "Córdoba CF",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 311,
+        "goals": 18,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Trilli",
@@ -354,7 +495,7 @@
       "age": 22,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -378,7 +519,21 @@
           "club": "Real Valladolid",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -388,7 +543,7 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 29,
+      "appearances": 31,
       "goals": 1,
       "assists": 3,
       "transfer_history": [
@@ -412,7 +567,21 @@
           "club": "Córdoba CF",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alberto del Moral",
@@ -444,7 +613,21 @@
           "club": "Real Oviedo",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dani Requena",
@@ -460,7 +643,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Théo Zidane",
@@ -468,7 +665,7 @@
       "age": 23,
       "nationality": "France",
       "club": "Córdoba CF",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -480,7 +677,21 @@
           "club": "Córdoba CF",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Ortiz",
@@ -520,7 +731,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mikel Goti",
@@ -528,8 +753,8 @@
       "age": 23,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 14,
-      "goals": 3,
+      "appearances": 10,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -552,7 +777,21 @@
           "club": "Real Sociedad",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 26,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dalisson de Almeida",
@@ -560,7 +799,7 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 22,
+      "appearances": 24,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -588,7 +827,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 31,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -598,7 +851,7 @@
       "age": 29,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 30,
+      "appearances": 32,
       "goals": 7,
       "assists": 1,
       "transfer_history": [
@@ -630,7 +883,21 @@
           "club": "Córdoba CF",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 51,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Medina",
@@ -638,7 +905,7 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -662,7 +929,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adilson",
@@ -670,7 +951,7 @@
       "age": 29,
       "nationality": "Portugal",
       "club": "Córdoba CF",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -682,7 +963,21 @@
           "club": "Córdoba CF",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 22,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Carracedo",
@@ -690,7 +985,7 @@
       "age": 30,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 29,
+      "appearances": 31,
       "goals": 2,
       "assists": 9,
       "transfer_history": [
@@ -742,7 +1037,21 @@
           "club": "Córdoba CF",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 245,
+        "goals": 21,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Fuentes",
@@ -750,8 +1059,8 @@
       "age": 29,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 31,
-      "goals": 10,
+      "appearances": 32,
+      "goals": 11,
       "assists": 3,
       "transfer_history": [
         {
@@ -790,7 +1099,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 50,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikolay Obolskiy",
@@ -798,7 +1121,7 @@
       "age": 29,
       "nationality": "Russia",
       "club": "Córdoba CF",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -842,7 +1165,21 @@
           "club": "Córdoba CF",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 302,
+        "goals": 77,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergi Guardiola",
@@ -850,7 +1187,7 @@
       "age": 34,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 28,
+      "appearances": 29,
       "goals": 3,
       "assists": 0,
       "transfer_history": [
@@ -930,7 +1267,21 @@
           "club": "Córdoba CF",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 424,
+        "goals": 93,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Percan",
@@ -938,9 +1289,9 @@
       "age": 24,
       "nationality": "Spain",
       "club": "Córdoba CF",
-      "appearances": 20,
+      "appearances": 10,
       "goals": 1,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Júpiter Leonés",
@@ -962,7 +1313,21 @@
           "club": "Córdoba CF",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "AND1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,19 +22,127 @@
       "age": 28,
       "nationality": "Andorra",
       "club": "FC Ordino",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UE Santa Coloma",
+          "year": "2019"
+        },
+        {
+          "club": "UE Engordany",
+          "year": "2020"
+        },
+        {
+          "club": "Ciudad Real",
+          "year": "2021"
+        },
+        {
+          "club": "Vianense",
+          "year": "2022"
+        },
+        {
+          "club": "CF La Solana",
+          "year": "2023"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 102,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 4,
+        "clean_sheets": 3
+      }
     },
     {
-      "name": "Luismi Ibáñez",
+      "name": "Walid Birrou",
       "position": "Goalkeeper",
-      "age": 29,
+      "age": 30,
       "nationality": "Spain",
       "club": "FC Ordino",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Little Rock",
+          "year": "2018"
+        },
+        {
+          "club": "Atlanta SC",
+          "year": "2019"
+        },
+        {
+          "club": "Almagro CF",
+          "year": "2020"
+        },
+        {
+          "club": "FC Wichita",
+          "year": "2021"
+        },
+        {
+          "club": "Stade Marocain",
+          "year": "2021"
+        },
+        {
+          "club": "RB",
+          "year": "2022"
+        },
+        {
+          "club": "Thróttur Vogum",
+          "year": "2022"
+        },
+        {
+          "club": "Njardvík",
+          "year": "2023"
+        },
+        {
+          "club": "Glacis United",
+          "year": "2023"
+        },
+        {
+          "club": "Kaya FC",
+          "year": "2024"
+        },
+        {
+          "club": "Dhangadhi",
+          "year": "2025"
+        },
+        {
+          "club": "KF Pogradeci",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 57,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Jauregui",
@@ -41,9 +150,29 @@
       "age": 19,
       "nationality": "Andorra",
       "club": "FC Ordino",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julen Fernández",
@@ -51,9 +180,49 @@
       "age": 27,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lugo Polvorín",
+          "year": "2018"
+        },
+        {
+          "club": "SD Sarriana",
+          "year": "2023"
+        },
+        {
+          "club": "La Palma CF",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Formentera",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 25,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +234,63 @@
       "club": "FC Ordino",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deauville",
+          "year": "2019"
+        },
+        {
+          "club": "Déols",
+          "year": "2020"
+        },
+        {
+          "club": "Saint-Pryvé FC",
+          "year": "2021"
+        },
+        {
+          "club": "CS Brétigny",
+          "year": "2022"
+        },
+        {
+          "club": "CS Mainvilliers",
+          "year": "2023"
+        },
+        {
+          "club": "ND Gorica",
+          "year": "2024"
+        },
+        {
+          "club": "NK Dekani",
+          "year": "2024"
+        },
+        {
+          "club": "Penya Encarnada",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matteo Prina",
@@ -73,9 +298,29 @@
       "age": 20,
       "nationality": "Argentina",
       "club": "FC Ordino",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isma Escobar",
@@ -83,9 +328,57 @@
       "age": 22,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Balón de Cádiz",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Puteolana",
+          "year": "2022"
+        },
+        {
+          "club": "Lugo Polvorín",
+          "year": "2023"
+        },
+        {
+          "club": "Unión Sur Yaiza",
+          "year": "2024"
+        },
+        {
+          "club": "Badalona Futur",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Mutis",
@@ -93,19 +386,41 @@
       "age": 23,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Axel Boulanger",
-      "position": "Left-Back",
-      "age": 23,
-      "nationality": "Canada",
-      "club": "FC Ordino",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "At. Tomelloso",
+          "year": "2021"
+        },
+        {
+          "club": "Calvo Sotelo",
+          "year": "2024"
+        },
+        {
+          "club": "CD Pedroñeras",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Boukhetache",
@@ -113,9 +428,33 @@
       "age": 24,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "L'Eliana",
+          "year": "2023"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bernat Merinas",
@@ -125,7 +464,35 @@
       "club": "FC Ordino",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "L'Entregu CF",
+          "year": "2023"
+        },
+        {
+          "club": "Luarca CF",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Sanches",
@@ -133,9 +500,57 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "FC Ordino",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Betis Deportivo",
+          "year": "2019"
+        },
+        {
+          "club": "FC Ryukyu",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Colo Colo-BA",
+          "year": "2023"
+        },
+        {
+          "club": "T. Moncorvo",
+          "year": "2024"
+        },
+        {
+          "club": "Barbadás",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iván Álvarez",
@@ -144,8 +559,36 @@
       "nationality": "Spain",
       "club": "FC Ordino",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lugo Fuenla",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Garzon",
@@ -155,7 +598,35 @@
       "club": "FC Ordino",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CE Sabadell",
+          "year": "2023"
+        },
+        {
+          "club": "UD Castellar",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maikel Tijan",
@@ -165,7 +636,27 @@
       "club": "FC Ordino",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +666,61 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "FC Ordino",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2012"
+        },
+        {
+          "club": "Académica U15",
+          "year": "2013"
+        },
+        {
+          "club": "Académica S17",
+          "year": "2014"
+        },
+        {
+          "club": "Moura",
+          "year": "2020"
+        },
+        {
+          "club": "ARC Oleiros",
+          "year": "2021"
+        },
+        {
+          "club": "Mortágua",
+          "year": "2022"
+        },
+        {
+          "club": "Croat. Zmijavci",
+          "year": "2024"
+        },
+        {
+          "club": "Anagen.Derynias",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Armand Font",
@@ -185,19 +728,71 @@
       "age": 21,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Santa Coloma",
+          "year": "2024"
+        },
+        {
+          "club": "FC Pas",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sohaib Boulayoune",
       "position": "Central Midfield",
-      "age": 19,
+      "age": 20,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Castells",
@@ -205,9 +800,81 @@
       "age": 36,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 14,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Poli Ejido",
+          "year": "2009"
+        },
+        {
+          "club": "Real Oviedo",
+          "year": "2010"
+        },
+        {
+          "club": "Asteras Tripoli",
+          "year": "2012"
+        },
+        {
+          "club": "Without Club",
+          "year": "2013"
+        },
+        {
+          "club": "AE Larisa",
+          "year": "2014"
+        },
+        {
+          "club": "Castellón",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "CE L'Hospitalet",
+          "year": "2017"
+        },
+        {
+          "club": "Zirka",
+          "year": "2017"
+        },
+        {
+          "club": "Castellón",
+          "year": "2018"
+        },
+        {
+          "club": "Linares",
+          "year": "2021"
+        },
+        {
+          "club": "UE Olot",
+          "year": "2022"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2023"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Mencía",
@@ -217,7 +884,39 @@
       "club": "FC Ordino",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "SD Tarazona",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pau Servat",
@@ -225,9 +924,45 @@
       "age": 23,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 15,
-      "goals": 3,
-      "assists": 0
+      "appearances": 13,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cornellà Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Siracusa",
+          "year": "2022"
+        },
+        {
+          "club": "Gravina",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rànger's",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismael Ramos",
@@ -237,7 +972,35 @@
       "club": "FC Ordino",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penya Encarnada",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Afonso Correia",
@@ -245,19 +1008,41 @@
       "age": 24,
       "nationality": "Portugal",
       "club": "FC Ordino",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Noel García",
-      "position": "",
-      "age": null,
-      "nationality": "Spain",
-      "club": "FC Ordino",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marítimo S15",
+          "year": "2014"
+        },
+        {
+          "club": "Pombal",
+          "year": "2024"
+        },
+        {
+          "club": "JK Trans Narva",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Real",
@@ -267,17 +1052,22 @@
       "club": "FC Ordino",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Aaron Casarrubias",
-      "position": "",
-      "age": 21,
-      "nationality": "Mexico",
-      "club": "FC Ordino",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -287,19 +1077,123 @@
       "age": 30,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Andorra",
+          "year": "2015"
+        },
+        {
+          "club": "Inter Escaldes",
+          "year": "2019"
+        },
+        {
+          "club": "FC Andorra",
+          "year": "2020"
+        },
+        {
+          "club": "Inter Escaldes",
+          "year": "2020"
+        },
+        {
+          "club": "CF Balaguer",
+          "year": "2022"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2023"
+        },
+        {
+          "club": "AC Escaldes",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Imad El Kabbou",
       "position": "Left Winger",
-      "age": 25,
+      "age": 26,
       "nationality": "Morocco",
       "club": "FC Ordino",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fasano",
+          "year": "2019"
+        },
+        {
+          "club": "Ponte S. Pietro",
+          "year": "2019"
+        },
+        {
+          "club": "Palencia CF",
+          "year": "2020"
+        },
+        {
+          "club": "FC Ascó",
+          "year": "2021"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2022"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2023"
+        },
+        {
+          "club": "GKS Tychy",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "NK Krka",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabricio Conci",
@@ -309,7 +1203,67 @@
       "club": "FC Ordino",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alumni",
+          "year": "2018"
+        },
+        {
+          "club": "Panserraikos",
+          "year": "2019"
+        },
+        {
+          "club": "OF Ierapetras",
+          "year": "2021"
+        },
+        {
+          "club": "Panserraikos",
+          "year": "2021"
+        },
+        {
+          "club": "Apollon Pontou",
+          "year": "2023"
+        },
+        {
+          "club": "Ellas Syrou",
+          "year": "2023"
+        },
+        {
+          "club": "San Martín (F)",
+          "year": "2024"
+        },
+        {
+          "club": "San Martín (M)",
+          "year": "2024"
+        },
+        {
+          "club": "Isernia",
+          "year": "2024"
+        },
+        {
+          "club": "Venosa",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeisson Martínez",
@@ -319,7 +1273,79 @@
       "club": "FC Ordino",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2012"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2013"
+        },
+        {
+          "club": "Alcobendas",
+          "year": "2015"
+        },
+        {
+          "club": "Aravaca CF",
+          "year": "2016"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2017"
+        },
+        {
+          "club": "Real Murcia",
+          "year": "2019"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2019"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2020"
+        },
+        {
+          "club": "Albacete",
+          "year": "2021"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2022"
+        },
+        {
+          "club": "UD Melilla",
+          "year": "2024"
+        },
+        {
+          "club": "CD Tudelano",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. Binacional",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 22,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brice Ghussein",
@@ -329,7 +1355,27 @@
       "club": "FC Ordino",
       "appearances": 6,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayman Hasni",
@@ -337,9 +1383,24 @@
       "age": null,
       "nationality": "Spain",
       "club": "FC Ordino",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viraj Arora",
@@ -347,9 +1408,33 @@
       "age": 19,
       "nationality": "India",
       "club": "FC Ordino",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter Escaldes",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arnau Teixidor",
@@ -359,7 +1444,51 @@
       "club": "FC Ordino",
       "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Santboià",
+          "year": "2020"
+        },
+        {
+          "club": "CF Sant Jaume",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "UE Figueres",
+          "year": "2023"
+        },
+        {
+          "club": "CF Peralada",
+          "year": "2024"
+        },
+        {
+          "club": "CA Monzon",
+          "year": "2025"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

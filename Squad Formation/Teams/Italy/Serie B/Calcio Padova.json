@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IT2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 22,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -48,12 +49,26 @@
           "club": "Lens",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 132,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Sorrentino",
       "position": "Goalkeeper",
-      "age": 23,
+      "age": 24,
       "nationality": "Italy",
       "club": "Calcio Padova",
       "appearances": 19,
@@ -84,7 +99,21 @@
           "club": "Monza",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 175,
+        "clean_sheets": 34
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louis Mouquet",
@@ -92,7 +121,7 @@
       "age": 21,
       "nationality": "Portugal",
       "club": "Calcio Padova",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -100,7 +129,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 65,
+        "clean_sheets": 17
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michele Voltan",
@@ -108,7 +151,7 @@
       "age": 24,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -144,7 +187,21 @@
           "club": "Padova",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 84,
+        "clean_sheets": 30
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -154,7 +211,7 @@
       "age": 26,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -174,7 +231,21 @@
           "club": "Padova",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lorenzo Villa",
@@ -182,7 +253,7 @@
       "age": 22,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -210,7 +281,21 @@
           "club": "Juve Next Gen",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filippo Sgarbi",
@@ -254,7 +339,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 14,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Perrotta",
@@ -262,7 +361,7 @@
       "age": 32,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -322,7 +421,21 @@
           "club": "Padova",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 416,
+        "goals": 19,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francesco Belli",
@@ -330,7 +443,7 @@
       "age": 32,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -354,7 +467,21 @@
           "club": "Padova",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Pastina",
@@ -362,7 +489,7 @@
       "age": 25,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -382,7 +509,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Boi",
@@ -390,8 +531,8 @@
       "age": 21,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 2,
-      "goals": 1,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -402,7 +543,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antonio Barreca",
@@ -410,7 +565,7 @@
       "age": 31,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -486,7 +641,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 5,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giulio Favale",
@@ -554,7 +723,21 @@
           "club": "Padova",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 8,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paolo Ghiglione",
@@ -562,7 +745,7 @@
       "age": 29,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -626,7 +809,21 @@
           "club": "Salernitana",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 18,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -636,7 +833,7 @@
       "age": 33,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -716,7 +913,21 @@
           "club": "Padova",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 437,
+        "goals": 11,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonas Harder",
@@ -736,7 +947,21 @@
           "club": "Fiorentina",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giovanni Giunti",
@@ -744,9 +969,9 @@
       "age": 21,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 1,
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Fano Giovanili",
@@ -760,7 +985,21 @@
           "club": "Padova",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacopo Bacci",
@@ -780,15 +1019,29 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Di Maggio",
       "position": "Central Midfield",
-      "age": 20,
+      "age": 21,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -800,7 +1053,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 26,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pietro Fusi",
@@ -808,7 +1075,7 @@
       "age": 28,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 29,
+      "appearances": 28,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -836,7 +1103,21 @@
           "club": "Padova",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 305,
+        "goals": 34,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Varas",
@@ -844,7 +1125,7 @@
       "age": 32,
       "nationality": "Ecuador",
       "club": "Calcio Padova",
-      "appearances": 31,
+      "appearances": 30,
       "goals": 2,
       "assists": 4,
       "transfer_history": [
@@ -880,7 +1161,21 @@
           "club": "Padova",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 438,
+        "goals": 60,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francesco Tumiatti",
@@ -888,15 +1183,29 @@
       "age": 19,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 19,
-      "goals": 7,
-      "assists": 4,
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Padova",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Capelli",
@@ -936,7 +1245,21 @@
           "club": "Padova",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 359,
+        "goals": 45,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Silva",
@@ -964,7 +1287,21 @@
           "club": "Torino",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 6,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -1018,7 +1355,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 646,
+        "goals": 115,
+        "assists": 115,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francesco Di Mariano",
@@ -1026,7 +1377,7 @@
       "age": 29,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 2,
       "assists": 3,
       "transfer_history": [
@@ -1078,7 +1429,21 @@
           "club": "Padova",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 386,
+        "goals": 54,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristian Buonaiuto",
@@ -1086,7 +1451,7 @@
       "age": 33,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 1,
       "assists": 3,
       "transfer_history": [
@@ -1158,7 +1523,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 455,
+        "goals": 58,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simone Russini",
@@ -1226,7 +1605,21 @@
           "club": "Padova",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 31,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gianluca Caprari",
@@ -1234,7 +1627,7 @@
       "age": 32,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -1318,7 +1711,21 @@
           "club": "Padova",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 466,
+        "goals": 95,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Seghetti",
@@ -1326,7 +1733,7 @@
       "age": 22,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -1342,7 +1749,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 43,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mattia Bortolussi",
@@ -1350,7 +1771,7 @@
       "age": 29,
       "nationality": "Italy",
       "club": "Calcio Padova",
-      "appearances": 29,
+      "appearances": 28,
       "goals": 9,
       "assists": 1,
       "transfer_history": [
@@ -1386,7 +1807,21 @@
           "club": "Padova",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 404,
+        "goals": 110,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Lasagna",
@@ -1450,7 +1885,21 @@
           "club": "Padova",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 474,
+        "goals": 106,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

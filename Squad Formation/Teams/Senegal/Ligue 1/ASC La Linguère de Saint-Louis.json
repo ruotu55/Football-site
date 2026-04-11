@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SEN1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,27 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC La Linguère",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "El Gueye",
@@ -31,9 +52,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 17,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -45,7 +81,27 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC La Linguère",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousmane Sèye",
@@ -53,9 +109,45 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 14,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartaks",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Guédiawaye FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Papa Diop",
@@ -63,9 +155,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 17,
+      "appearances": 18,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souabou Gningue",
@@ -73,9 +180,33 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pikine",
+          "year": "2024"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mamadou Jallow",
@@ -83,9 +214,29 @@
       "age": 23,
       "nationality": "The Gambia",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 19,
+      "appearances": 21,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "ASC La Linguère",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Modou Séne",
@@ -95,17 +246,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Papa Boye",
-      "position": "Right-Back",
-      "age": 19,
-      "nationality": "Senegal",
-      "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 9,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Papa Gueyé",
@@ -113,9 +269,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oumar Senghor",
@@ -125,7 +296,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -137,7 +323,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moustapha Diop",
@@ -145,9 +346,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 3,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousmane Cissé",
@@ -157,7 +373,27 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC La Linguère",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amsatou Diop",
@@ -165,9 +401,29 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 14,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASC La Linguère",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amadou Guèye",
@@ -177,7 +433,35 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UGB Saint-Louis",
+          "year": "2020"
+        },
+        {
+          "club": "Thiès FC",
+          "year": "2022"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amadou Soumaré",
@@ -187,7 +471,39 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pikine",
+          "year": "2014"
+        },
+        {
+          "club": "Pikine",
+          "year": "2015"
+        },
+        {
+          "club": "ASC Jaraaf",
+          "year": "2015"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souleymane Sarr",
@@ -195,9 +511,33 @@
       "age": 32,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2013"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mouhamed Mbaye",
@@ -205,9 +545,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulaye Fam",
@@ -217,7 +572,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oumar Sarr",
@@ -227,7 +597,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +624,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elhadji Ly",
@@ -247,9 +647,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Babacar Faye",
@@ -257,9 +672,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoualye Sylla",
@@ -267,9 +697,24 @@
       "age": null,
       "nationality": "Senegal",
       "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "El Hadji Fall",
@@ -279,7 +724,39 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 12,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teungueth FC",
+          "year": "2022"
+        },
+        {
+          "club": "ASC HLM",
+          "year": "2023"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2024"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahima Diop",
@@ -289,17 +766,31 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 14,
       "goals": 1,
-      "assists": 1
-    },
-    {
-      "name": "Adama Diouf",
-      "position": "Centre-Forward",
-      "age": 21,
-      "nationality": "Senegal",
-      "club": "ASC La Linguère de Saint-Louis",
-      "appearances": 15,
-      "goals": 1,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Teungueth FC",
+          "year": "2024"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Macoura Thiaw",
@@ -309,7 +800,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulie Bah",
@@ -319,7 +825,39 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Casa Sports",
+          "year": "2024"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2025"
+        },
+        {
+          "club": "ASC La Linguère",
+          "year": "2026"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Famara Badji",
@@ -329,7 +867,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fallou Diéye",
@@ -339,7 +892,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aliou Keita",
@@ -349,7 +917,22 @@
       "club": "ASC La Linguère de Saint-Louis",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

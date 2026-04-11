@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "AND1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 24,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 7,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santfeliuenc FC",
+          "year": "2021"
+        },
+        {
+          "club": "FE Grama",
+          "year": "2022"
+        },
+        {
+          "club": "Pobla de Mafumet CF",
+          "year": "2023"
+        },
+        {
+          "club": "PeñaBalsamaiso",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Penya Encarnada",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 44,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pol Freixanet",
@@ -31,9 +76,81 @@
       "age": 34,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Malagueño",
+          "year": "2010"
+        },
+        {
+          "club": "Real Oviedo",
+          "year": "2013"
+        },
+        {
+          "club": "Atl. Malagueño",
+          "year": "2014"
+        },
+        {
+          "club": "Elche Ilicitano",
+          "year": "2014"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2015"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2017"
+        },
+        {
+          "club": "Reus Deportiu",
+          "year": "2018"
+        },
+        {
+          "club": "AD Ceuta",
+          "year": "2019"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "CF Intercity",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 144,
+        "clean_sheets": 48
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +160,49 @@
       "age": 27,
       "nationality": "Andorra",
       "club": "UE Santa Coloma",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Andorra",
+          "year": "2018"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2018"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2019"
+        },
+        {
+          "club": "SD Tarazona",
+          "year": "2021"
+        },
+        {
+          "club": "Marchamalo",
+          "year": "2022"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fran Molina",
@@ -53,9 +210,33 @@
       "age": 23,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Minera",
+          "year": "2022"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guilherme Quichini",
@@ -63,9 +244,81 @@
       "age": 32,
       "nationality": "Brazil",
       "club": "UE Santa Coloma",
-      "appearances": 17,
-      "goals": 1,
-      "assists": 0
+      "appearances": 16,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Famalicão",
+          "year": "2016"
+        },
+        {
+          "club": "Cesarense",
+          "year": "2017"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2018"
+        },
+        {
+          "club": "Águeda",
+          "year": "2018"
+        },
+        {
+          "club": "Valadares Gaia",
+          "year": "2019"
+        },
+        {
+          "club": "Anadia",
+          "year": "2020"
+        },
+        {
+          "club": "Marinhense",
+          "year": "2021"
+        },
+        {
+          "club": "Sernache",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Fermentelos",
+          "year": "2023"
+        },
+        {
+          "club": "Valadares Gaia",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Alba",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric Mateu",
@@ -73,9 +326,45 @@
       "age": 26,
       "nationality": "Andorra",
       "club": "UE Santa Coloma",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Camprodon",
+          "year": "2018"
+        },
+        {
+          "club": "AEC Manlleu",
+          "year": "2020"
+        },
+        {
+          "club": "CF Torelló",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ekaitz Jiménez",
@@ -85,7 +374,51 @@
       "club": "UE Santa Coloma",
       "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Real Sociedad C",
+          "year": "2016"
+        },
+        {
+          "club": "Gernika",
+          "year": "2018"
+        },
+        {
+          "club": "Córdoba CF",
+          "year": "2021"
+        },
+        {
+          "club": "Unionistas CF",
+          "year": "2023"
+        },
+        {
+          "club": "CF Intercity",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 3,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Casta",
@@ -95,7 +428,35 @@
       "club": "UE Santa Coloma",
       "appearances": 17,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Gimnástica",
+          "year": "2019"
+        },
+        {
+          "club": "Laredo",
+          "year": "2023"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aritz Cuadrado",
@@ -103,9 +464,41 @@
       "age": 21,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Touring KE",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric de Pablos",
@@ -113,9 +506,53 @@
       "age": 27,
       "nationality": "Andorra",
       "club": "UE Santa Coloma",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Andorra",
+          "year": "2018"
+        },
+        {
+          "club": "FC Ordino",
+          "year": "2019"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2019"
+        },
+        {
+          "club": "FC Santa Coloma",
+          "year": "2020"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2021"
+        },
+        {
+          "club": "FC Pas",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gonçalo Lixa",
@@ -125,7 +562,55 @@
       "club": "UE Santa Coloma",
       "appearances": 14,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Gondomar Sub-15",
+          "year": "2011"
+        },
+        {
+          "club": "Gondomar Sub-17",
+          "year": "2013"
+        },
+        {
+          "club": "Lusitano FCV",
+          "year": "2020"
+        },
+        {
+          "club": "São Martinho",
+          "year": "2021"
+        },
+        {
+          "club": "Canelas 2010",
+          "year": "2022"
+        },
+        {
+          "club": "Differdange 03",
+          "year": "2024"
+        },
+        {
+          "club": "Pombal",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +620,61 @@
       "age": 28,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "UE Rubí",
+          "year": "2019"
+        },
+        {
+          "club": "CF Mollet UE",
+          "year": "2019"
+        },
+        {
+          "club": "Vilassar de Mar",
+          "year": "2020"
+        },
+        {
+          "club": "Pogon Siedlce",
+          "year": "2021"
+        },
+        {
+          "club": "FC Santa Coloma",
+          "year": "2022"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Rànger's",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 10,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kylian Poumot",
@@ -147,7 +684,43 @@
       "club": "UE Santa Coloma",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bullense",
+          "year": "2023"
+        },
+        {
+          "club": "FC Pas",
+          "year": "2024"
+        },
+        {
+          "club": "FC Rànger's",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álex Baldrich",
@@ -155,9 +728,37 @@
       "age": 22,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 0
+      "appearances": 18,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akritas Chlor.",
+          "year": "2023"
+        },
+        {
+          "club": "SV Muttenz",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Margallo",
@@ -165,9 +766,61 @@
       "age": 27,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RM Castilla",
+          "year": "2018"
+        },
+        {
+          "club": "Unión Adarve",
+          "year": "2018"
+        },
+        {
+          "club": "RM Castilla",
+          "year": "2019"
+        },
+        {
+          "club": "Moralo CP",
+          "year": "2020"
+        },
+        {
+          "club": "EMD Aceuchal",
+          "year": "2020"
+        },
+        {
+          "club": "CD Diocesano",
+          "year": "2021"
+        },
+        {
+          "club": "CD Coria",
+          "year": "2023"
+        },
+        {
+          "club": "Unión Sur Yaiza",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 17,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -177,9 +830,65 @@
       "age": 33,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CD Numancia",
+          "year": "2014"
+        },
+        {
+          "club": "CD Tudelano",
+          "year": "2014"
+        },
+        {
+          "club": "CD Numancia",
+          "year": "2015"
+        },
+        {
+          "club": "Barakaldo CF",
+          "year": "2015"
+        },
+        {
+          "club": "Burgos CF",
+          "year": "2017"
+        },
+        {
+          "club": "CD Badajoz",
+          "year": "2018"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2019"
+        },
+        {
+          "club": "FC Andorra",
+          "year": "2020"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2022"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 331,
+        "goals": 22,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tato",
@@ -187,9 +896,37 @@
       "age": 26,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Textil Escudo",
+          "year": "2020"
+        },
+        {
+          "club": "CD Tropezón",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raly Cabral",
@@ -197,9 +934,73 @@
       "age": 28,
       "nationality": "Cape Verde",
       "club": "UE Santa Coloma",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Ponferradina",
+          "year": "2016"
+        },
+        {
+          "club": "Zamora CF",
+          "year": "2016"
+        },
+        {
+          "club": "CD Barco",
+          "year": "2017"
+        },
+        {
+          "club": "Ourense CF",
+          "year": "2018"
+        },
+        {
+          "club": "SD Leioa",
+          "year": "2019"
+        },
+        {
+          "club": "CD Don Benito",
+          "year": "2021"
+        },
+        {
+          "club": "Othellos Athien",
+          "year": "2022"
+        },
+        {
+          "club": "Vélez CF",
+          "year": "2023"
+        },
+        {
+          "club": "Arandina",
+          "year": "2023"
+        },
+        {
+          "club": "CD Don Benito",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 14,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Amorós",
@@ -207,9 +1008,33 @@
       "age": 23,
       "nationality": "Spain",
       "club": "UE Santa Coloma",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Martínez",
@@ -217,9 +1042,49 @@
       "age": 27,
       "nationality": "Andorra",
       "club": "UE Santa Coloma",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UE Santa Coloma",
+          "year": "2014"
+        },
+        {
+          "club": "FC Andorra",
+          "year": "2015"
+        },
+        {
+          "club": "FC Santa Coloma",
+          "year": "2020"
+        },
+        {
+          "club": "AC Escaldes",
+          "year": "2021"
+        },
+        {
+          "club": "CF La Solana",
+          "year": "2023"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 29,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cucu",
@@ -227,9 +1092,69 @@
       "age": 27,
       "nationality": "Andorra",
       "club": "UE Santa Coloma",
-      "appearances": 19,
-      "goals": 4,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Andorra",
+          "year": "2018"
+        },
+        {
+          "club": "FC Andorra",
+          "year": "2020"
+        },
+        {
+          "club": "CF Igualada",
+          "year": "2020"
+        },
+        {
+          "club": "Formentera",
+          "year": "2020"
+        },
+        {
+          "club": "CE Andratx",
+          "year": "2022"
+        },
+        {
+          "club": "San Cristóbal",
+          "year": "2022"
+        },
+        {
+          "club": "ND Bilje",
+          "year": "2023"
+        },
+        {
+          "club": "NK Krka",
+          "year": "2024"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        },
+        {
+          "club": "Tabor Sezana",
+          "year": "2025"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 30,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 58,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fran Palma",
@@ -239,7 +1164,43 @@
       "club": "UE Santa Coloma",
       "appearances": 19,
       "goals": 3,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Atl. Onubense",
+          "year": "2017"
+        },
+        {
+          "club": "Isla Cristina",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "AD Cartaya",
+          "year": "2022"
+        },
+        {
+          "club": "UE Santa Coloma",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "MLS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,55 @@
       "club": "FC Dallas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montreal",
+          "year": "2020"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2020"
+        },
+        {
+          "club": "Montréal",
+          "year": "2020"
+        },
+        {
+          "club": "Valour FC",
+          "year": "2021"
+        },
+        {
+          "club": "Montréal",
+          "year": "2021"
+        },
+        {
+          "club": "Valour FC",
+          "year": "2022"
+        },
+        {
+          "club": "Montréal",
+          "year": "2022"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 225,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Collodi",
@@ -31,9 +80,41 @@
       "age": 24,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2019"
+        },
+        {
+          "club": "Columbia Lions",
+          "year": "2019"
+        },
+        {
+          "club": "North Texas SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 60,
+        "clean_sheets": 11
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brooks Thompson",
@@ -43,7 +124,67 @@
       "club": "FC Dallas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Derby City",
+          "year": "2017"
+        },
+        {
+          "club": "IMG Soccer",
+          "year": "2017"
+        },
+        {
+          "club": "Swope Park",
+          "year": "2019"
+        },
+        {
+          "club": "Kansas City",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "North Carolina",
+          "year": "2023"
+        },
+        {
+          "club": "Hartford",
+          "year": "2024"
+        },
+        {
+          "club": "Spokane",
+          "year": "2024"
+        },
+        {
+          "club": "Lexington SC",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        },
+        {
+          "club": "Lexington SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 125,
+        "clean_sheets": 17
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +194,53 @@
       "age": 25,
       "nationality": "England",
       "club": "FC Dallas",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sheff Wed",
+          "year": "2020"
+        },
+        {
+          "club": "Celtic",
+          "year": "2021"
+        },
+        {
+          "club": "KV Oostende",
+          "year": "2022"
+        },
+        {
+          "club": "Celtic",
+          "year": "2022"
+        },
+        {
+          "club": "Celtic",
+          "year": "2023"
+        },
+        {
+          "club": "Amiens SC",
+          "year": "2023"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lalas Abubakar",
@@ -65,7 +250,59 @@
       "club": "FC Dallas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Charlotte",
+          "year": "2015"
+        },
+        {
+          "club": "Dayton Flyers",
+          "year": "2015"
+        },
+        {
+          "club": "Michigan Bucks",
+          "year": "2016"
+        },
+        {
+          "club": "Dayton Flyers",
+          "year": "2016"
+        },
+        {
+          "club": "Columbus Crew",
+          "year": "2017"
+        },
+        {
+          "club": "Pittsburgh",
+          "year": "2017"
+        },
+        {
+          "club": "Colorado",
+          "year": "2019"
+        },
+        {
+          "club": "Columbus Crew",
+          "year": "2019"
+        },
+        {
+          "club": "Dallas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 12,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastien Ibeagha",
@@ -73,9 +310,77 @@
       "age": 34,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Blue Devils",
+          "year": "2012"
+        },
+        {
+          "club": "Carolina Dynamo",
+          "year": "2012"
+        },
+        {
+          "club": "Carolina Dynamo",
+          "year": "2013"
+        },
+        {
+          "club": "Blue Devils",
+          "year": "2013"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2014"
+        },
+        {
+          "club": "FC Fredericia",
+          "year": "2014"
+        },
+        {
+          "club": "Fram Reykjavík",
+          "year": "2015"
+        },
+        {
+          "club": "Houston",
+          "year": "2016"
+        },
+        {
+          "club": "Rayo OKC",
+          "year": "2016"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2017"
+        },
+        {
+          "club": "New York City",
+          "year": "2018"
+        },
+        {
+          "club": "LAFC",
+          "year": "2021"
+        },
+        {
+          "club": "Dallas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 337,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álvaro Augusto",
@@ -85,7 +390,31 @@
       "club": "FC Dallas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portimonense 23",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Slade Starnes",
@@ -93,9 +422,37 @@
       "age": 22,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Furman Paladins",
+          "year": "2022"
+        },
+        {
+          "club": "SMU Mustangs",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaka Scabin",
@@ -105,7 +462,31 @@
       "club": "FC Dallas",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nolan Norris",
@@ -113,9 +494,29 @@
       "age": 21,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dallas",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Torquato",
@@ -123,9 +524,33 @@
       "age": 18,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shaq Moore",
@@ -133,9 +558,57 @@
       "age": 29,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Huracán",
+          "year": "2015"
+        },
+        {
+          "club": "Oviedo Vetusta",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Levante",
+          "year": "2016"
+        },
+        {
+          "club": "Reus Deportiu",
+          "year": "2018"
+        },
+        {
+          "club": "Atl. Levante",
+          "year": "2018"
+        },
+        {
+          "club": "CD Tenerife",
+          "year": "2019"
+        },
+        {
+          "club": "Nashville",
+          "year": "2022"
+        },
+        {
+          "club": "Dallas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 8,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Geovane Jesus",
@@ -143,9 +616,33 @@
       "age": 24,
       "nationality": "Brazil",
       "club": "FC Dallas",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cruzeiro",
+          "year": "2021"
+        },
+        {
+          "club": "Dallas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Newman",
@@ -153,9 +650,29 @@
       "age": 20,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dallas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +682,49 @@
       "age": 22,
       "nationality": "Ecuador",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ind. Jrs.",
+          "year": "2020"
+        },
+        {
+          "club": "Independiente",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Dallas",
+          "year": "2024"
+        },
+        {
+          "club": "Independiente",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 6,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaick",
@@ -175,9 +732,29 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ran Binyamin",
@@ -185,9 +762,33 @@
       "age": 22,
       "nationality": "Israel",
       "club": "FC Dallas",
-      "appearances": 13,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2023"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 10,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Cappis",
@@ -195,9 +796,49 @@
       "age": 26,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hobro IK",
+          "year": "2018"
+        },
+        {
+          "club": "Bröndby IF",
+          "year": "2021"
+        },
+        {
+          "club": "Molde FK",
+          "year": "2023"
+        },
+        {
+          "club": "Bröndby IF",
+          "year": "2023"
+        },
+        {
+          "club": "Viking FK",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 12,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramiro",
@@ -205,9 +846,53 @@
       "age": 32,
       "nationality": "Brazil",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juventude",
+          "year": "2011"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2013"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wasl",
+          "year": "2021"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2022"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2023"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 521,
+        "goals": 35,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego García",
@@ -215,9 +900,33 @@
       "age": 19,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2023"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Caleb Swann",
@@ -225,9 +934,33 @@
       "age": 19,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Herman Johansson",
@@ -237,7 +970,39 @@
       "club": "FC Dallas",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Friska Viljor",
+          "year": "2015"
+        },
+        {
+          "club": "Sandvikens IF",
+          "year": "2020"
+        },
+        {
+          "club": "Mjällby AIF",
+          "year": "2021"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 26,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joaquín Valiente",
@@ -245,9 +1010,41 @@
       "age": 24,
       "nationality": "Uruguay",
       "club": "FC Dallas",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Defensor SC",
+          "year": "2020"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 18,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1054,79 @@
       "age": 18,
       "nationality": "Honduras",
       "club": "FC Dallas",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Santiago Moreno",
+      "position": "Right Winger",
+      "age": 25,
+      "nationality": "Colombia",
+      "club": "FC Dallas",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD América",
+          "year": "2019"
+        },
+        {
+          "club": "Portland",
+          "year": "2021"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2026"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 33,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anderson Julio",
@@ -269,7 +1136,47 @@
       "club": "FC Dallas",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LDU Quito",
+          "year": "2016"
+        },
+        {
+          "club": "San Luis",
+          "year": "2020"
+        },
+        {
+          "club": "Salt Lake",
+          "year": "2021"
+        },
+        {
+          "club": "San Luis",
+          "year": "2021"
+        },
+        {
+          "club": "Salt Lake",
+          "year": "2022"
+        },
+        {
+          "club": "Dallas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 61,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louicius Deedson",
@@ -279,7 +1186,35 @@
       "club": "FC Dallas",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hobro IK",
+          "year": "2019"
+        },
+        {
+          "club": "Odense BK",
+          "year": "2023"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 41,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bernard Kamungo",
@@ -287,9 +1222,33 @@
       "age": 24,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2021"
+        },
+        {
+          "club": "Dallas",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 34,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sam Sarver",
@@ -299,7 +1258,59 @@
       "club": "FC Dallas",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fort Wayne",
+          "year": "2021"
+        },
+        {
+          "club": "Indiana Hoosier",
+          "year": "2021"
+        },
+        {
+          "club": "Long Island RR",
+          "year": "2022"
+        },
+        {
+          "club": "Indiana Hoosier",
+          "year": "2022"
+        },
+        {
+          "club": "Akron City FC",
+          "year": "2024"
+        },
+        {
+          "club": "Indiana Hoosier",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2024"
+        },
+        {
+          "club": "North Texas SC",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 19,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Baran",
@@ -307,9 +1318,33 @@
       "age": 19,
       "nationality": "Poland",
       "club": "FC Dallas",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Texas SC",
+          "year": "2024"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petar Musa",
@@ -317,9 +1352,85 @@
       "age": 28,
       "nationality": "Croatia",
       "club": "FC Dallas",
-      "appearances": 4,
-      "goals": 5,
-      "assists": 0
+      "appearances": 5,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Inter Zapresic",
+          "year": "2016"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2017"
+        },
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2017"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2018"
+        },
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2018"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2019"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2019"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2020"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2021"
+        },
+        {
+          "club": "Boavista",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2022"
+        },
+        {
+          "club": "Boavista",
+          "year": "2022"
+        },
+        {
+          "club": "Benfica",
+          "year": "2022"
+        },
+        {
+          "club": "Dallas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 314,
+        "goals": 108,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Logan Farrington",
@@ -327,9 +1438,61 @@
       "age": 24,
       "nationality": "United States",
       "club": "FC Dallas",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 1
+      "appearances": 5,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Milwaukee P.",
+          "year": "2020"
+        },
+        {
+          "club": "Bavarian United",
+          "year": "2021"
+        },
+        {
+          "club": "Milwaukee P.",
+          "year": "2021"
+        },
+        {
+          "club": "Ventura County",
+          "year": "2022"
+        },
+        {
+          "club": "Milwaukee P.",
+          "year": "2022"
+        },
+        {
+          "club": "Ventura County",
+          "year": "2023"
+        },
+        {
+          "club": "Milwaukee P.",
+          "year": "2023"
+        },
+        {
+          "club": "Oregon State",
+          "year": "2023"
+        },
+        {
+          "club": "Dallas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 16,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricky Louis",
@@ -339,7 +1502,39 @@
       "club": "FC Dallas",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GSU Eagles",
+          "year": "2024"
+        },
+        {
+          "club": "Lionsbridge",
+          "year": "2025"
+        },
+        {
+          "club": "GSU Eagles",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicholas Simmonds",
@@ -347,9 +1542,45 @@
       "age": 19,
       "nationality": "Jamaica",
       "club": "FC Dallas",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Richmond",
+          "year": "2023"
+        },
+        {
+          "club": "Richmond",
+          "year": "2024"
+        },
+        {
+          "club": "Virginia Cavs",
+          "year": "2025"
+        },
+        {
+          "club": "Charlottesville",
+          "year": "2025"
+        },
+        {
+          "club": "Dallas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

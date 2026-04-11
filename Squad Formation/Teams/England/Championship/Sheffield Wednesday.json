@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 20,
       "nationality": "Northern Ireland",
       "club": "Sheffield Wednesday",
-      "appearances": 15,
+      "appearances": 13,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -28,7 +29,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 52,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 12,
+        "clean_sheets": 4
+      }
     },
     {
       "name": "Murphy Cooper",
@@ -36,7 +51,7 @@
       "age": 24,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 35,
+      "appearances": 7,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -80,7 +95,21 @@
           "club": "Sheff Wed",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 185,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Logan Stretch",
@@ -88,7 +117,7 @@
       "age": 19,
       "nationality": "Wales",
       "club": "Sheffield Wednesday",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -96,7 +125,21 @@
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -106,9 +149,9 @@
       "age": 25,
       "nationality": "Jamaica",
       "club": "Sheffield Wednesday",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0,
+      "appearances": 2,
+      "goals": 22,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Salford",
@@ -126,7 +169,21 @@
           "club": "Sheff Wed",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Otegbayo",
@@ -134,7 +191,7 @@
       "age": 21,
       "nationality": "Republic of Ireland",
       "club": "Sheffield Wednesday",
-      "appearances": 32,
+      "appearances": 29,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -146,7 +203,21 @@
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominic Iorfa",
@@ -182,7 +253,21 @@
           "club": "Sheff Wed",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 372,
+        "goals": 10,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Cooper",
@@ -190,7 +275,7 @@
       "age": 34,
       "nationality": "Scotland",
       "club": "Sheffield Wednesday",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -242,7 +327,21 @@
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 448,
+        "goals": 21,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Max Lowe",
@@ -250,7 +349,7 @@
       "age": 28,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -294,7 +393,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 6,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tayo Adaramola",
@@ -302,7 +415,7 @@
       "age": 22,
       "nationality": "Republic of Ireland",
       "club": "Sheffield Wednesday",
-      "appearances": 28,
+      "appearances": 9,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -330,7 +443,21 @@
           "club": "Sheff Wed",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 3,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reece Johnson",
@@ -338,15 +465,29 @@
       "age": 20,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 16,
-      "goals": 1,
+      "appearances": 12,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sean Fusire",
@@ -354,7 +495,7 @@
       "age": 20,
       "nationality": "Zimbabwe",
       "club": "Sheffield Wednesday",
-      "appearances": 32,
+      "appearances": 28,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -370,7 +511,21 @@
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Palmer",
@@ -378,7 +533,7 @@
       "age": 34,
       "nationality": "Scotland",
       "club": "Sheffield Wednesday",
-      "appearances": 40,
+      "appearances": 38,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -394,7 +549,21 @@
           "club": "Sheff Wed",
           "year": "2013"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 548,
+        "goals": 14,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guilherme Siqueira",
@@ -402,15 +571,29 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "Sheffield Wednesday",
-      "appearances": 2,
-      "goals": 1,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -420,7 +603,7 @@
       "age": 32,
       "nationality": "Zimbabwe",
       "club": "Sheffield Wednesday",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -452,7 +635,21 @@
           "club": "Sheff Wed",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 328,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathaniel Chalobah",
@@ -524,7 +721,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 23,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jarvis Thornton",
@@ -532,7 +743,7 @@
       "age": 20,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -540,7 +751,21 @@
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Svante Ingelsson",
@@ -548,7 +773,7 @@
       "age": 27,
       "nationality": "Sweden",
       "club": "Sheffield Wednesday",
-      "appearances": 38,
+      "appearances": 37,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -588,7 +813,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 322,
+        "goals": 32,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaden Heskey",
@@ -596,15 +835,29 @@
       "age": 20,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 27,
+      "appearances": 22,
       "goals": 0,
-      "assists": 4,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Sheff Wed",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 20,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rio Shipston",
@@ -612,7 +865,7 @@
       "age": 21,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 8,
+      "appearances": 4,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -624,7 +877,21 @@
           "club": "Sheff Wed",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zain Silcott-Duberry",
@@ -632,7 +899,7 @@
       "age": 20,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -644,7 +911,21 @@
           "club": "Sheff Wed",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 8,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -654,8 +935,8 @@
       "age": 19,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 27,
-      "goals": 2,
+      "appearances": 25,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -670,7 +951,21 @@
           "club": "Sheff Wed",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 24,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olaf Kobacki",
@@ -678,9 +973,9 @@
       "age": 24,
       "nationality": "Poland",
       "club": "Sheffield Wednesday",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Arka Gdynia",
@@ -706,7 +1001,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 38,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iké Ugbo",
@@ -714,8 +1023,8 @@
       "age": 27,
       "nationality": "Canada",
       "club": "Sheffield Wednesday",
-      "appearances": 24,
-      "goals": 1,
+      "appearances": 21,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -762,7 +1071,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 86,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jerry Yates",
@@ -770,9 +1093,9 @@
       "age": 29,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 40,
-      "goals": 10,
-      "assists": 2,
+      "appearances": 11,
+      "goals": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Rotherham",
@@ -834,7 +1157,21 @@
           "club": "Luton",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 106,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamal Lowe",
@@ -842,9 +1179,9 @@
       "age": 31,
       "nationality": "Jamaica",
       "club": "Sheffield Wednesday",
-      "appearances": 42,
+      "appearances": 39,
       "goals": 4,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Barnet",
@@ -930,7 +1267,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 406,
+        "goals": 77,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Charlie McNeill",
@@ -938,7 +1289,7 @@
       "age": 22,
       "nationality": "England",
       "club": "Sheffield Wednesday",
-      "appearances": 37,
+      "appearances": 34,
       "goals": 4,
       "assists": 1,
       "transfer_history": [
@@ -962,7 +1313,21 @@
           "club": "Sheff Wed",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 61,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

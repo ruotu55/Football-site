@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "NL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 30,
       "nationality": "Germany",
       "club": "Feyenoord Rotterdam",
-      "appearances": 36,
+      "appearances": 27,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schalke 04",
+          "year": "2014"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2015"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2016"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2020"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2022"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 382,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 522,
+        "clean_sheets": 112
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Steven Benda",
@@ -31,9 +80,61 @@
       "age": 27,
       "nationality": "Germany",
       "club": "Feyenoord Rotterdam",
-      "appearances": 12,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Swansea",
+          "year": "2018"
+        },
+        {
+          "club": "Swindon Town",
+          "year": "2019"
+        },
+        {
+          "club": "Swansea",
+          "year": "2020"
+        },
+        {
+          "club": "Peterborough",
+          "year": "2022"
+        },
+        {
+          "club": "Swansea",
+          "year": "2022"
+        },
+        {
+          "club": "Fulham",
+          "year": "2023"
+        },
+        {
+          "club": "Millwall",
+          "year": "2025"
+        },
+        {
+          "club": "Fulham",
+          "year": "2026"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 177,
+        "clean_sheets": 30
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Bossin",
@@ -43,7 +144,59 @@
       "club": "Feyenoord Rotterdam",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2015"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Cork City",
+          "year": "2020"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2021"
+        },
+        {
+          "club": "KV Oostende",
+          "year": "2023"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 261,
+        "clean_sheets": 29
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mannou Berger",
@@ -51,21 +204,89 @@
       "age": 21,
       "nationality": "Netherlands",
       "club": "Feyenoord",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord Youth",
+          "year": "2017"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 111,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
     {
       "name": "Anel Ahmedhodzic",
       "position": "Centre-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "TM nationality id 24",
       "club": "Feyenoord Rotterdam",
-      "appearances": 35,
+      "appearances": 26,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Malmö",
+          "year": "2019"
+        },
+        {
+          "club": "Hobro IK",
+          "year": "2019"
+        },
+        {
+          "club": "Malmö",
+          "year": "2020"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2022"
+        },
+        {
+          "club": "Malmö",
+          "year": "2022"
+        },
+        {
+          "club": "Sheff Utd",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 16,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tsuyoshi Watanabe",
@@ -73,9 +294,53 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Feyenoord Rotterdam",
-      "appearances": 33,
-      "goals": 4,
-      "assists": 0
+      "appearances": 25,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chuo University",
+          "year": "2015"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2018"
+        },
+        {
+          "club": "Chuo University",
+          "year": "2019"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2019"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2022"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 286,
+        "goals": 18,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thomas Beelen",
@@ -83,9 +348,33 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PEC Zwolle",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 2,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeremiah St. Juste",
@@ -95,17 +384,89 @@
       "club": "Feyenoord Rotterdam",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Heerenveen",
+          "year": "2015"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2017"
+        },
+        {
+          "club": "Mainz",
+          "year": "2019"
+        },
+        {
+          "club": "Sporting",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gernot Trauner",
       "position": "Centre-Back",
-      "age": 33,
+      "age": 34,
       "nationality": "Austria",
       "club": "Feyenoord Rotterdam",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 10,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Linz U15",
+          "year": "2006"
+        },
+        {
+          "club": "LASK",
+          "year": "2010"
+        },
+        {
+          "club": "SV Ried",
+          "year": "2012"
+        },
+        {
+          "club": "LASK",
+          "year": "2017"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 497,
+        "goals": 38,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malcolm Jeng",
@@ -113,9 +474,45 @@
       "age": 21,
       "nationality": "Sweden",
       "club": "Feyenoord Rotterdam",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "IK Sirius Jgd.",
+          "year": "2021"
+        },
+        {
+          "club": "Sirius",
+          "year": "2023"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2025"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Bos",
@@ -123,9 +520,37 @@
       "age": 23,
       "nationality": "Australia",
       "club": "Feyenoord Rotterdam",
-      "appearances": 30,
+      "appearances": 23,
       "goals": 3,
-      "assists": 10
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Melbourne City",
+          "year": "2021"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 13,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gijs Smal",
@@ -133,9 +558,41 @@
       "age": 28,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 22,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Volendam Youth",
+          "year": "2012"
+        },
+        {
+          "club": "FC Volendam",
+          "year": "2018"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2020"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 361,
+        "goals": 17,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Givairo Read",
@@ -143,9 +600,33 @@
       "age": 19,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 3
+      "appearances": 12,
+      "goals": 0,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Volendam Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 8,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Lotomba",
@@ -153,9 +634,41 @@
       "age": 27,
       "nationality": "Switzerland",
       "club": "Feyenoord Rotterdam",
-      "appearances": 23,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lausanne-Sport",
+          "year": "2015"
+        },
+        {
+          "club": "Young Boys",
+          "year": "2017"
+        },
+        {
+          "club": "Nice",
+          "year": "2020"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 344,
+        "goals": 13,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bart Nieuwkoop",
@@ -163,9 +676,45 @@
       "age": 30,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 23,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord Youth",
+          "year": "2011"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2015"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2020"
+        },
+        {
+          "club": "Union SG",
+          "year": "2021"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 25,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mats Deijl",
@@ -173,9 +722,37 @@
       "age": 28,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 36,
-      "goals": 2,
-      "assists": 5
+      "appearances": 27,
+      "goals": 1,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "FC Den Bosch",
+          "year": "2017"
+        },
+        {
+          "club": "Go Ahead Eagles",
+          "year": "2021"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 310,
+        "goals": 17,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +762,45 @@
       "age": 23,
       "nationality": "Morocco",
       "club": "Feyenoord Rotterdam",
-      "appearances": 26,
+      "appearances": 19,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Marseille",
+          "year": "2021"
+        },
+        {
+          "club": "Alanyaspor",
+          "year": "2022"
+        },
+        {
+          "club": "Marseille",
+          "year": "2022"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "In-beom Hwang",
@@ -195,9 +808,69 @@
       "age": 29,
       "nationality": "South Korea",
       "club": "Feyenoord Rotterdam",
-      "appearances": 24,
+      "appearances": 17,
       "goals": 1,
-      "assists": 5
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Daejeon U15",
+          "year": "2009"
+        },
+        {
+          "club": "Daejeon Citizen",
+          "year": "2015"
+        },
+        {
+          "club": "Asan Mugunghwa",
+          "year": "2018"
+        },
+        {
+          "club": "Daejeon Citizen",
+          "year": "2018"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2019"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2020"
+        },
+        {
+          "club": "FC Seoul",
+          "year": "2022"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2022"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2022"
+        },
+        {
+          "club": "Red Star",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 337,
+        "goals": 41,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 71,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luciano Valente",
@@ -205,9 +878,37 @@
       "age": 22,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 36,
-      "goals": 3,
-      "assists": 7
+      "appearances": 26,
+      "goals": 2,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Groningen Youth",
+          "year": "2014"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 29,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Moder",
@@ -216,8 +917,52 @@
       "nationality": "Poland",
       "club": "Feyenoord Rotterdam",
       "appearances": 8,
-      "goals": 0,
-      "assists": 1
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lech Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2017"
+        },
+        {
+          "club": "Odra Opole",
+          "year": "2018"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2019"
+        },
+        {
+          "club": "Brighton",
+          "year": "2020"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2020"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 277,
+        "goals": 31,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thijs Kraaijeveld",
@@ -225,19 +970,33 @@
       "age": 18,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 17,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Tobias van den Elshout",
-      "position": "Central Midfield",
-      "age": 19,
-      "nationality": "Netherlands",
-      "club": "Feyenoord",
-      "appearances": 21,
-      "goals": 6,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sem Steijn",
@@ -245,9 +1004,70 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 26,
+      "appearances": 19,
       "goals": 7,
-      "assists": 4
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "VVV-Venlo",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2019"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2021"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 102,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Tobias van den Elshout",
+      "position": "Attacking Midfield",
+      "age": 19,
+      "nationality": "Netherlands",
+      "club": "Feyenoord",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 27,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shiloh 't Zand",
@@ -255,9 +1075,41 @@
       "age": 22,
       "nationality": "Suriname",
       "club": "Feyenoord Rotterdam",
-      "appearances": 8,
-      "goals": 3,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Dordrecht",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        },
+        {
+          "club": "Heracles Almelo",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 39,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,19 +1119,71 @@
       "age": 20,
       "nationality": "Slovakia",
       "club": "Feyenoord Rotterdam",
-      "appearances": 28,
-      "goals": 4,
-      "assists": 2
+      "appearances": 20,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 20,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aymen Sliti",
       "position": "Left Winger",
-      "age": 19,
+      "age": 20,
       "nationality": "Netherlands",
       "club": "Feyenoord Rotterdam",
-      "appearances": 23,
+      "appearances": 17,
       "goals": 1,
-      "assists": 4
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 32,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gaoussou Diarra",
@@ -287,9 +1191,37 @@
       "age": 23,
       "nationality": "Mali",
       "club": "Feyenoord Rotterdam",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tuzlaspor",
+          "year": "2024"
+        },
+        {
+          "club": "Istanbulspor",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anis Hadj Moussa",
@@ -297,9 +1229,49 @@
       "age": 24,
       "nationality": "Algeria",
       "club": "Feyenoord Rotterdam",
-      "appearances": 34,
-      "goals": 11,
-      "assists": 6
+      "appearances": 25,
+      "goals": 8,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Montfermeil Jgd",
+          "year": "2016"
+        },
+        {
+          "club": "Olym. Charleroi",
+          "year": "2022"
+        },
+        {
+          "club": "Patro Eisden",
+          "year": "2023"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2024"
+        },
+        {
+          "club": "Patro Eisden",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 39,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raheem Sterling",
@@ -307,19 +1279,95 @@
       "age": 31,
       "nationality": "England",
       "club": "Feyenoord Rotterdam",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Liverpool",
+          "year": "2012"
+        },
+        {
+          "club": "Man City",
+          "year": "2015"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2022"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2024"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 604,
+        "goals": 182,
+        "assists": 135,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 82,
+        "goals": 20,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gonçalo Borges",
       "position": "Right Winger",
-      "age": 24,
+      "age": 25,
       "nationality": "Portugal",
       "club": "Feyenoord Rotterdam",
-      "appearances": 16,
-      "goals": 3,
-      "assists": 1
+      "appearances": 9,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2014"
+        },
+        {
+          "club": "FC Porto U15",
+          "year": "2015"
+        },
+        {
+          "club": "Porto",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 18,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayase Ueda",
@@ -327,9 +1375,45 @@
       "age": 27,
       "nationality": "Japan",
       "club": "Feyenoord Rotterdam",
-      "appearances": 34,
-      "goals": 23,
-      "assists": 2
+      "appearances": 26,
+      "goals": 22,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Hosei Univ.",
+          "year": "2017"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2019"
+        },
+        {
+          "club": "Hosei Univ.",
+          "year": "2019"
+        },
+        {
+          "club": "Cercle Brugge",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 249,
+        "goals": 107,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 16,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Casper Tengstedt",
@@ -337,9 +1421,65 @@
       "age": 25,
       "nationality": "Denmark",
       "club": "Feyenoord Rotterdam",
-      "appearances": 18,
-      "goals": 5,
-      "assists": 0
+      "appearances": 14,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCM Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2020"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2020"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2021"
+        },
+        {
+          "club": "AC Horsens",
+          "year": "2021"
+        },
+        {
+          "club": "Rosenborg BK",
+          "year": "2022"
+        },
+        {
+          "club": "Benfica",
+          "year": "2023"
+        },
+        {
+          "club": "Hellas Verona",
+          "year": "2024"
+        },
+        {
+          "club": "Benfica",
+          "year": "2025"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 89,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shaqueel van Persie",
@@ -347,9 +1487,29 @@
       "age": 19,
       "nationality": "Netherlands",
       "club": "Feyenoord",
-      "appearances": 14,
-      "goals": 3,
-      "assists": 3
+      "appearances": 2,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord Youth",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 32,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

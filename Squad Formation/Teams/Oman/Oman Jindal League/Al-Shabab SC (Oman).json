@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "OM1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,39 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Orouba SC",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 62,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 49,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 47,
+        "clean_sheets": 21
+      }
     },
     {
       "name": "Abdulmalik Al-Badri",
@@ -31,9 +64,29 @@
       "age": 27,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 3,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 36,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islam Al-Hinai",
@@ -43,7 +96,35 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ibri Club",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 17,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohanad Al-Nawfali",
@@ -53,7 +134,27 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +164,33 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Mussanah C.",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Halid Lwaliwa",
@@ -73,9 +198,41 @@
       "age": 27,
       "nationality": "Uganda",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 6,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bregalnica Stip",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaqdhan Al-Mushaifri",
@@ -83,9 +240,33 @@
       "age": 25,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Seeb",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juma Al-Habsi",
@@ -93,9 +274,53 @@
       "age": 30,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 2,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Seeb",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Khor SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2022"
+        },
+        {
+          "club": "Ibri Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruben Hoogenhout",
@@ -103,9 +328,57 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2020"
+        },
+        {
+          "club": "Resovia Rzeszow",
+          "year": "2022"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2023"
+        },
+        {
+          "club": "EN Paralimniou",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Ilioupoli",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sami Al-Ajmi",
@@ -113,9 +386,24 @@
       "age": 34,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mazin Al-Siyabi",
@@ -125,7 +413,31 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousuf Al-Malki",
@@ -133,9 +445,37 @@
       "age": 25,
       "nationality": "Oman",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Suwaiq",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salah Al-Dohani",
@@ -143,9 +483,33 @@
       "age": 27,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Tarshi",
@@ -155,7 +519,35 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2022"
+        },
+        {
+          "club": "Oman Army",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmood Mabrook",
@@ -163,9 +555,45 @@
       "age": 33,
       "nationality": "Oman",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Suwaiq",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul Majeed Al-Yahmadi",
@@ -173,9 +601,37 @@
       "age": 34,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda SC",
+          "year": "2024"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hammam Al-Maawali",
@@ -185,7 +641,22 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -195,9 +666,24 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musab Al-Siyabi",
@@ -207,7 +693,22 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yassine Saindou",
@@ -215,9 +716,57 @@
       "age": 25,
       "nationality": "Comoros",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 15,
-      "goals": 0,
-      "assists": 1
+      "appearances": 9,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Créteil Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Montrouge Jgd",
+          "year": "2016"
+        },
+        {
+          "club": "ACR Messina",
+          "year": "2020"
+        },
+        {
+          "club": "FC Sète 34",
+          "year": "2022"
+        },
+        {
+          "club": "Istres FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Jura Sud",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musab Al-Mamari",
@@ -225,9 +774,37 @@
       "age": 26,
       "nationality": "Oman",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Nasr",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaseen Al-Sheyadi",
@@ -235,9 +812,37 @@
       "age": 32,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 15,
-      "goals": 0,
-      "assists": 1
+      "appearances": 17,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Suwaiq",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hatem Al-Rushadi",
@@ -245,19 +850,107 @@
       "age": 30,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 15,
-      "goals": 2,
-      "assists": 4
+      "appearances": 17,
+      "goals": 3,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2015"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kenean Markneh",
       "position": "Attacking Midfield",
-      "age": 28,
+      "age": 29,
       "nationality": "Ethiopia",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 12,
-      "goals": 8,
-      "assists": 1
+      "appearances": 13,
+      "goals": 10,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Adama Ketema",
+          "year": "2017"
+        },
+        {
+          "club": "Kidus Giorgis",
+          "year": "2020"
+        },
+        {
+          "club": "Mechal",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Madina",
+          "year": "2024"
+        },
+        {
+          "club": "Shabab Al-Ghar",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 18,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Masoud Al-Bahri",
@@ -265,9 +958,24 @@
       "age": 20,
       "nationality": "Oman",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Munther Al-Wahaibi",
@@ -275,9 +983,37 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2023"
+        },
+        {
+          "club": "Muscat Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ghassan Al-Masrouri",
@@ -287,7 +1023,27 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -298,8 +1054,32 @@
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
       "appearances": 10,
-      "goals": 0,
-      "assists": 1
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaser Al-Balushi",
@@ -309,7 +1089,31 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sur SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bashar Al-Balushi",
@@ -317,9 +1121,33 @@
       "age": 25,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 4,
+      "appearances": 7,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bader Ali",
@@ -327,9 +1155,65 @@
       "age": 35,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kamphaengphet",
+          "year": "2018"
+        },
+        {
+          "club": "Bangkok FC",
+          "year": "2019"
+        },
+        {
+          "club": "Ranong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Khon Kaen Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Chainat FC",
+          "year": "2021"
+        },
+        {
+          "club": "Krabi FC",
+          "year": "2022"
+        },
+        {
+          "club": "Pattaya United",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 43,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousef Al-Shabibi",
@@ -337,9 +1221,29 @@
       "age": 19,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 2,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Al-Ghafri",
@@ -347,9 +1251,29 @@
       "age": 26,
       "nationality": "TM nationality id 126",
       "club": "Al-Shabab SC (Oman)",
-      "appearances": 8,
-      "goals": 3,
-      "assists": 0
+      "appearances": 5,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 25,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majid Al-Farsi",
@@ -359,7 +1283,22 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faisal Al-Hadidi",
@@ -369,7 +1308,27 @@
       "club": "Al-Shabab SC (Oman)",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Shabab SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

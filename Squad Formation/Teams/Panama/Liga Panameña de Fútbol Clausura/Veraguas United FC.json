@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PN1C"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 22,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 3,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Veraguas United",
+          "year": "2023"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 27,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Berny Araya",
@@ -33,7 +58,39 @@
       "club": "Veraguas United FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Carmelita",
+          "year": "2019"
+        },
+        {
+          "club": "Guadalupe FC",
+          "year": "2023"
+        },
+        {
+          "club": "ADR Jicaral",
+          "year": "2024"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 30,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +100,33 @@
       "age": 23,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mario Mendez",
+          "year": "2023"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Ceballos",
@@ -53,9 +134,41 @@
       "age": 24,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Árabe Unido",
+          "year": "2021"
+        },
+        {
+          "club": "Independiente",
+          "year": "2024"
+        },
+        {
+          "club": "Champions Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Góndola",
@@ -63,29 +176,197 @@
       "age": 34,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colón C-3",
+          "year": "2014"
+        },
+        {
+          "club": "Santa Gema",
+          "year": "2017"
+        },
+        {
+          "club": "Colón C-3",
+          "year": "2018"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2018"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Herrera FC",
+          "year": "2021"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        },
+        {
+          "club": "Colón C-3",
+          "year": "2023"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Camilo Mancilla",
       "position": "Centre-Back",
-      "age": 32,
+      "age": 33,
       "nationality": "Colombia",
       "club": "Veraguas United FC",
-      "appearances": 1,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Uniautónoma",
+          "year": "2015"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2016"
+        },
+        {
+          "club": "Envigado",
+          "year": "2018"
+        },
+        {
+          "club": "A. Bucaramanga",
+          "year": "2019"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Binacional",
+          "year": "2020"
+        },
+        {
+          "club": "Once Caldas",
+          "year": "2022"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Achuapa",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Cibao FC",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Torres",
       "position": "Left-Back",
-      "age": 25,
+      "age": 26,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CA Veragüense",
+          "year": "2016"
+        },
+        {
+          "club": "Independiente",
+          "year": "2020"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 1,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Diego Batista",
@@ -93,9 +374,29 @@
       "age": 23,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Veraguas United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Moya",
@@ -105,7 +406,31 @@
       "club": "Veraguas United FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Águilas UP",
+          "year": "2024"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -115,9 +440,29 @@
       "age": 22,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Veraguas United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Klissman de Gracia",
@@ -125,9 +470,33 @@
       "age": 18,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universidad Lat",
+          "year": "2023"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Villarreal",
@@ -135,9 +504,29 @@
       "age": 20,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángel Rodríguez",
@@ -145,9 +534,33 @@
       "age": 21,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Panamá Oeste",
+          "year": "2021"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José González",
@@ -157,7 +570,63 @@
       "club": "Veraguas United FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Uniautónoma",
+          "year": "2014"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2014"
+        },
+        {
+          "club": "Unión Comercio",
+          "year": "2018"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2018"
+        },
+        {
+          "club": "Career break",
+          "year": "2019"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2024"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2025"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 315,
+        "goals": 44,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Camargo",
@@ -165,9 +634,85 @@
       "age": 32,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 4,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CD Águila",
+          "year": "2015"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2015"
+        },
+        {
+          "club": "Mineros",
+          "year": "2016"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2016"
+        },
+        {
+          "club": "New York City",
+          "year": "2017"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2017"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2018"
+        },
+        {
+          "club": "Mineros",
+          "year": "2018"
+        },
+        {
+          "club": "Universitario",
+          "year": "2018"
+        },
+        {
+          "club": "Táchira",
+          "year": "2020"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2021"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2021"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2022"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2023"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 311,
+        "goals": 48,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Montenegro",
@@ -175,9 +720,29 @@
       "age": 23,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Veraguas United",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -189,7 +754,31 @@
       "club": "Veraguas United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Fácil",
+          "year": "2022"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 10,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Sagel",
@@ -197,9 +786,33 @@
       "age": 22,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Veraguas CD",
+          "year": "2021"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 10,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nedwar Zúñiga",
@@ -207,9 +820,29 @@
       "age": 23,
       "nationality": "Colombia",
       "club": "Veraguas United FC",
-      "appearances": 9,
-      "goals": 2,
-      "assists": 1
+      "appearances": 11,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Veraguas United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Estevis López",
@@ -217,9 +850,49 @@
       "age": 16,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "appearances": 8,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "River JV",
+          "year": "2024"
+        },
+        {
+          "club": "Costa del Este",
+          "year": "2024"
+        },
+        {
+          "club": "River JV",
+          "year": "2025"
+        },
+        {
+          "club": "Costa del Este",
+          "year": "2025"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2026"
+        },
+        {
+          "club": "Costa del Este",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Rivera",
@@ -229,7 +902,47 @@
       "club": "Veraguas United FC",
       "appearances": 7,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2021"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2022"
+        },
+        {
+          "club": "Santos FC",
+          "year": "2023"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 14,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gaby Torres",
@@ -237,19 +950,125 @@
       "age": 37,
       "nationality": "Panama",
       "club": "Veraguas United FC",
-      "appearances": 8,
-      "goals": 4,
-      "assists": 0
-    },
-    {
-      "name": "Jorge Angulo",
-      "position": "Centre-Forward",
-      "age": 24,
-      "nationality": "Panama",
-      "club": "Veraguas United FC",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "appearances": 10,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chepo FC",
+          "year": "2005"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2006"
+        },
+        {
+          "club": "Chepo FC",
+          "year": "2007"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2008"
+        },
+        {
+          "club": "CD América",
+          "year": "2009"
+        },
+        {
+          "club": "Chepo FC",
+          "year": "2009"
+        },
+        {
+          "club": "Ind. Yumbo",
+          "year": "2010"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2010"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2011"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2011"
+        },
+        {
+          "club": "Colorado",
+          "year": "2013"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2016"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2016"
+        },
+        {
+          "club": "Huachipato",
+          "year": "2018"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2019"
+        },
+        {
+          "club": "Independiente",
+          "year": "2019"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2020"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2021"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2021"
+        },
+        {
+          "club": "LD Alajuelense",
+          "year": "2021"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2022"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2023"
+        },
+        {
+          "club": "San Miguelito",
+          "year": "2023"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2025"
+        },
+        {
+          "club": "Veraguas United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 497,
+        "goals": 169,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 103,
+        "goals": 24,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

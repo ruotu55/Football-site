@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GHPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,22 @@
       "club": "Karela United FC",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 73,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Afadzwu",
@@ -31,9 +47,33 @@
       "age": 30,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nsoatreman FC",
+          "year": "2022"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 78,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kelvin Kofi Saaba",
@@ -41,9 +81,24 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 3,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +108,29 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 24,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul-Raman Yaya",
@@ -63,9 +138,24 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 24,
+      "appearances": 25,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Quansah",
@@ -73,9 +163,29 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 15,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nurudeen Yussif Mohammed",
@@ -83,9 +193,37 @@
       "age": 32,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alhassan Ali",
@@ -93,9 +231,33 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 24,
+      "appearances": 25,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bofoakwa Tano",
+          "year": "2022"
+        },
+        {
+          "club": "Karela United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Issa",
@@ -105,7 +267,27 @@
       "club": "Karela United FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fatawu Mohammed",
@@ -113,9 +295,33 @@
       "age": 33,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 14,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hearts of Oak",
+          "year": "2013"
+        },
+        {
+          "club": "Karela United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Bekoe",
@@ -125,7 +331,52 @@
       "club": "Karela United FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Sharif Bashiru",
+      "position": "",
+      "age": 20,
+      "nationality": "Ghana",
+      "club": "Karela United FC",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -137,7 +388,22 @@
       "club": "Karela United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jibril Nurudeen",
@@ -145,9 +411,24 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hafiz Abdulai",
@@ -155,9 +436,29 @@
       "age": 30,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Godfred Abban",
@@ -167,7 +468,35 @@
       "club": "Karela United FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tamale City",
+          "year": "2022"
+        },
+        {
+          "club": "Medeama",
+          "year": "2023"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kassim Sule",
@@ -175,9 +504,29 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fidaus Mohammed",
@@ -187,7 +536,27 @@
       "club": "Karela United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tumelo Makha",
@@ -195,9 +564,49 @@
       "age": 26,
       "nationality": "Lesotho",
       "club": "Karela United FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TTM FC",
+          "year": "2021"
+        },
+        {
+          "club": "Lioli FC",
+          "year": "2023"
+        },
+        {
+          "club": "Bantu FC",
+          "year": "2023"
+        },
+        {
+          "club": "Black Leopards",
+          "year": "2024"
+        },
+        {
+          "club": "Linare FC",
+          "year": "2025"
+        },
+        {
+          "club": "Karela United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulai Zakari",
@@ -207,7 +616,22 @@
       "club": "Karela United FC",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malik Abubakar",
@@ -215,9 +639,37 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bechem United",
+          "year": "2024"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Philip Adom",
@@ -227,7 +679,22 @@
       "club": "Karela United FC",
       "appearances": 25,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Arthur",
@@ -237,7 +704,43 @@
       "club": "Karela United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HNK Rijeka",
+          "year": "2022"
+        },
+        {
+          "club": "EurAfrica FC",
+          "year": "2023"
+        },
+        {
+          "club": "Nations FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Karela United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abedi Karim",
@@ -247,7 +750,31 @@
       "club": "Karela United FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moses Parker",
@@ -255,9 +782,24 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 3,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +809,33 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Samartex",
+          "year": "2023"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul-Shakun Abubakari",
@@ -277,9 +843,33 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Accra Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Berko",
@@ -289,7 +879,35 @@
       "club": "Karela United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nations FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Karela United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric Antwi Konadu",
@@ -299,7 +917,22 @@
       "club": "Karela United FC",
       "appearances": 23,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gideon Boateng",
@@ -307,9 +940,37 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 24,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Noravank",
+          "year": "2020"
+        },
+        {
+          "club": "Cheetah FC",
+          "year": "2021"
+        },
+        {
+          "club": "Karela United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olivier Adom",
@@ -319,7 +980,22 @@
       "club": "Karela United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danlad Nuhu",
@@ -329,7 +1005,22 @@
       "club": "Karela United FC",
       "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Solomon Aboagye",
@@ -337,9 +1028,45 @@
       "age": 31,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Karela United",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Karela United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felix Mortu",
@@ -347,9 +1074,24 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Karela United FC",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 0
+      "appearances": 24,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

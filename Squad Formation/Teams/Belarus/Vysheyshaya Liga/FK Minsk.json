@@ -8,13 +8,72 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "WER1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
+    {
+      "name": "Sergey Eshchenko",
+      "position": "Goalkeeper",
+      "age": 25,
+      "nationality": "Russia",
+      "club": "FK Minsk",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Krasnodar 2",
+          "year": "2020"
+        },
+        {
+          "club": "Fakel Voronezh",
+          "year": "2022"
+        },
+        {
+          "club": "Krasnodar 2",
+          "year": "2022"
+        },
+        {
+          "club": "Kuban",
+          "year": "2022"
+        },
+        {
+          "club": "Neftekhimik",
+          "year": "2023"
+        },
+        {
+          "club": "Avangard Kursk",
+          "year": "2024"
+        },
+        {
+          "club": "S. Kostroma",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 124,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 3,
+        "clean_sheets": 1
+      }
+    },
     {
       "name": "Matvey Sukharenko",
       "position": "Goalkeeper",
@@ -23,7 +82,31 @@
       "club": "FK Minsk",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Krumkachi",
+          "year": "2022"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 54,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandr Gutor",
@@ -31,21 +114,145 @@
       "age": 36,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "BATE Borisov",
+          "year": "2008"
+        },
+        {
+          "club": "Dinamo Minsk",
+          "year": "2013"
+        },
+        {
+          "club": "Orenburg",
+          "year": "2016"
+        },
+        {
+          "club": "Tosno",
+          "year": "2017"
+        },
+        {
+          "club": "Chornomorets",
+          "year": "2017"
+        },
+        {
+          "club": "Dynamo Brest",
+          "year": "2018"
+        },
+        {
+          "club": "Soligorsk",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "FC Aksu",
+          "year": "2023"
+        },
+        {
+          "club": "BATE Borisov",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 380,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 352,
+        "clean_sheets": 161
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 38,
+        "clean_sheets": 6
+      }
     }
   ],
   "defenders": [
     {
       "name": "Artem Sokol",
       "position": "Centre-Back",
-      "age": 31,
+      "age": 32,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Bereza",
+          "year": "2015"
+        },
+        {
+          "club": "Dnepr Mogilev",
+          "year": "2016"
+        },
+        {
+          "club": "Torpedo Minsk",
+          "year": "2016"
+        },
+        {
+          "club": "Gomel",
+          "year": "2019"
+        },
+        {
+          "club": "Energetik-BGU",
+          "year": "2020"
+        },
+        {
+          "club": "Gomel",
+          "year": "2022"
+        },
+        {
+          "club": "Surkhon",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Persikabo 1973",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksey Tumanov",
@@ -53,29 +260,29 @@
       "age": 22,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Francisco Campo",
-      "position": "Centre-Back",
-      "age": 25,
-      "nationality": "Colombia",
-      "club": "FK Minsk",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Vladislav Grekovich",
-      "position": "Centre-Back",
-      "age": 20,
-      "nationality": "Belarus",
-      "club": "FK Minsk",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Minsk",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ji-hun Park",
@@ -85,7 +292,101 @@
       "club": "FK Minsk",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chungju Citizen",
+          "year": "2022"
+        },
+        {
+          "club": "Cheju Halla Uni",
+          "year": "2023"
+        },
+        {
+          "club": "Khan Tengri",
+          "year": "2023"
+        },
+        {
+          "club": "Talant",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Francisco Campo",
+      "position": "Centre-Back",
+      "age": 25,
+      "nationality": "Colombia",
+      "club": "FK Minsk",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Baltijos FA",
+          "year": "2020"
+        },
+        {
+          "club": "Shakhter K.",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo Makhach.",
+          "year": "2024"
+        },
+        {
+          "club": "Shakhter K.",
+          "year": "2024"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilya Sviridenko",
@@ -93,9 +394,37 @@
       "age": 23,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shakhter P.",
+          "year": "2022"
+        },
+        {
+          "club": "Soligorsk",
+          "year": "2022"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vladislav Yatskevich",
@@ -103,9 +432,73 @@
       "age": 27,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Smorgon",
+          "year": "2015"
+        },
+        {
+          "club": "FC Baranovichi",
+          "year": "2018"
+        },
+        {
+          "club": "FK Smorgon",
+          "year": "2018"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2019"
+        },
+        {
+          "club": "FK Smorgon",
+          "year": "2021"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2021"
+        },
+        {
+          "club": "FK Slutsk",
+          "year": "2022"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2022"
+        },
+        {
+          "club": "FK Slutsk",
+          "year": "2023"
+        },
+        {
+          "club": "FK Smorgon",
+          "year": "2023"
+        },
+        {
+          "club": "Gomel",
+          "year": "2024"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 201,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konstantin Kuchinskiy",
@@ -113,9 +506,61 @@
       "age": 27,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Lida",
+          "year": "2018"
+        },
+        {
+          "club": "Belshina",
+          "year": "2019"
+        },
+        {
+          "club": "Belshina",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Minsk",
+          "year": "2021"
+        },
+        {
+          "club": "Gomel",
+          "year": "2022"
+        },
+        {
+          "club": "Isloch",
+          "year": "2024"
+        },
+        {
+          "club": "Zhetysu",
+          "year": "2024"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 8,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentin Dikhtievskiy",
@@ -123,9 +568,29 @@
       "age": 22,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Minsk",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Konstantin Malitskiy",
@@ -133,9 +598,53 @@
       "age": 25,
       "nationality": "Russia",
       "club": "FK Minsk",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Svetlogorsk",
+          "year": "2020"
+        },
+        {
+          "club": "Energetik-BGU",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Khimki 2",
+          "year": "2023"
+        },
+        {
+          "club": "FC Tver",
+          "year": "2023"
+        },
+        {
+          "club": "Lokomotiv Gomel",
+          "year": "2024"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +654,85 @@
       "age": 35,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2009"
+        },
+        {
+          "club": "Gomel",
+          "year": "2011"
+        },
+        {
+          "club": "BATE Borisov",
+          "year": "2013"
+        },
+        {
+          "club": "Panetolikos",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Soligorsk",
+          "year": "2017"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2017"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2018"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Krumkachi",
+          "year": "2021"
+        },
+        {
+          "club": "Gomel",
+          "year": "2022"
+        },
+        {
+          "club": "BATE Borisov",
+          "year": "2024"
+        },
+        {
+          "club": "Gomel",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 367,
+        "goals": 23,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felix Abena",
@@ -155,9 +740,29 @@
       "age": 19,
       "nationality": "Cameroon",
       "club": "FK Minsk",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Artem Turich",
@@ -165,9 +770,45 @@
       "age": 21,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tsentr Futbola",
+          "year": "2022"
+        },
+        {
+          "club": "Energetik-BGU",
+          "year": "2022"
+        },
+        {
+          "club": "Tsentr Futbola",
+          "year": "2023"
+        },
+        {
+          "club": "Dynamo Brest",
+          "year": "2024"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zakhar Drachev",
@@ -175,9 +816,29 @@
       "age": 17,
       "nationality": "Belarus",
       "club": "FC Minsk 2",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Minsk 2",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emir Ernisov",
@@ -187,7 +848,69 @@
       "club": "FK Minsk",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talant",
+          "year": "2024"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ivan Volchok",
+      "position": "Central Midfield",
+      "age": 18,
+      "nationality": "Belarus",
+      "club": "FK Minsk",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Minsk 2",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandr Ksenofontov",
@@ -195,9 +918,61 @@
       "age": 26,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Underdog",
+          "year": "2018"
+        },
+        {
+          "club": "Vitebsk",
+          "year": "2020"
+        },
+        {
+          "club": "Vitebsk",
+          "year": "2021"
+        },
+        {
+          "club": "Rodina Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2023"
+        },
+        {
+          "club": "Rodina Moscow",
+          "year": "2024"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2024"
+        },
+        {
+          "club": "Vitebsk",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 27,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +982,45 @@
       "age": 22,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Uzda",
+          "year": "2021"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2022"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2024"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2024"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilya Dubinets",
@@ -217,9 +1028,33 @@
       "age": 21,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 1
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Slutsk",
+          "year": "2023"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arseniy Migdalenok",
@@ -227,9 +1062,29 @@
       "age": 22,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Minsk",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nabil Daouda Natama",
@@ -237,9 +1092,29 @@
       "age": 22,
       "nationality": "Burkina Faso",
       "club": "FK Minsk",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandr Makas",
@@ -247,9 +1122,77 @@
       "age": 34,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 1,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MTZ-Ripo Minsk",
+          "year": "2009"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2012"
+        },
+        {
+          "club": "Minsk 2",
+          "year": "2013"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2013"
+        },
+        {
+          "club": "Atyrau",
+          "year": "2016"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2017"
+        },
+        {
+          "club": "Dinamo Minsk",
+          "year": "2018"
+        },
+        {
+          "club": "Isloch",
+          "year": "2019"
+        },
+        {
+          "club": "Suduva",
+          "year": "2021"
+        },
+        {
+          "club": "Gomel",
+          "year": "2022"
+        },
+        {
+          "club": "Dynamo Brest",
+          "year": "2023"
+        },
+        {
+          "club": "Isloch",
+          "year": "2023"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 115,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Egor Zubovich",
@@ -257,9 +1200,101 @@
       "age": 36,
       "nationality": "Belarus",
       "club": "FK Minsk",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 3
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Minsk",
+          "year": "2008"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2009"
+        },
+        {
+          "club": "Dinamo Minsk",
+          "year": "2009"
+        },
+        {
+          "club": "Partizan Minsk",
+          "year": "2010"
+        },
+        {
+          "club": "Belshina",
+          "year": "2011"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2012"
+        },
+        {
+          "club": "Naftan",
+          "year": "2012"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2013"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2013"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2014"
+        },
+        {
+          "club": "FK Slutsk",
+          "year": "2015"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2015"
+        },
+        {
+          "club": "Dinamo Minsk",
+          "year": "2016"
+        },
+        {
+          "club": "Torpedo Zhodino",
+          "year": "2017"
+        },
+        {
+          "club": "Melaka United SA",
+          "year": "2018"
+        },
+        {
+          "club": "Dinamo Minsk",
+          "year": "2019"
+        },
+        {
+          "club": "Zhetysu",
+          "year": "2020"
+        },
+        {
+          "club": "Neman Grodno",
+          "year": "2021"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 536,
+        "goals": 138,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prokhor Struk",
@@ -269,7 +1304,81 @@
       "club": "FC Minsk 2",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akademia ABFF",
+          "year": "2022"
+        },
+        {
+          "club": "Minsk 2",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Vladislav Malyutin",
+      "position": "Centre-Forward",
+      "age": 21,
+      "nationality": "Belarus",
+      "club": "FK Minsk",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Uzda",
+          "year": "2021"
+        },
+        {
+          "club": "BGU Minsk",
+          "year": "2022"
+        },
+        {
+          "club": "Osipovichi",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Minsk 2",
+          "year": "2025"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

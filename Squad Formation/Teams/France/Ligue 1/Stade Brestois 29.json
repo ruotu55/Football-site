@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -60,15 +61,29 @@
           "club": "Monaco",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 279,
+        "clean_sheets": 84
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Grégoire Coudert",
       "position": "Goalkeeper",
-      "age": 26,
+      "age": 27,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -84,7 +99,21 @@
           "club": "Stade Brestois",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 165,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Jauny",
@@ -92,7 +121,7 @@
       "age": 21,
       "nationality": "Republic of Ireland",
       "club": "Stade Brestois 29",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -100,7 +129,21 @@
           "club": "Stade Brestois",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 48,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -110,7 +153,7 @@
       "age": 22,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -146,7 +189,21 @@
           "club": "R. Strasbourg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junior Diaz",
@@ -154,7 +211,7 @@
       "age": 22,
       "nationality": "Ivory Coast",
       "club": "Stade Brestois 29",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -182,7 +239,21 @@
           "club": "Troyes",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brendan Chardonnet",
@@ -190,7 +261,7 @@
       "age": 31,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
       "assists": 4,
       "transfer_history": [
@@ -206,7 +277,21 @@
           "club": "Stade Brestois",
           "year": "2016"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 15,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raphaël Le Guen",
@@ -214,15 +299,29 @@
       "age": 19,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 13,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Stade Brestois",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bradley Locko",
@@ -230,7 +329,7 @@
       "age": 23,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -246,7 +345,21 @@
           "club": "Stade Reims",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daouda Guindo",
@@ -254,7 +367,7 @@
       "age": 23,
       "nationality": "Mali",
       "club": "Stade Brestois 29",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -278,27 +391,21 @@
           "club": "Stade Brestois",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Luck Zogbé",
-      "position": "Right-Back",
-      "age": 21,
-      "nationality": "Ivory Coast",
-      "club": "Stade Brestois 29",
-      "appearances": 9,
-      "goals": 0,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "Without Club",
-          "year": "2023"
-        },
-        {
-          "club": "Stade Brestois",
-          "year": "2023"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 5,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kenny Lala",
@@ -306,7 +413,7 @@
       "age": 34,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -334,7 +441,55 @@
           "club": "Stade Brestois",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 510,
+        "goals": 22,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Luck Zogbé",
+      "position": "Right-Back",
+      "age": 21,
+      "nationality": "Ivory Coast",
+      "club": "Stade Brestois 29",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Stade Brestois",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -344,7 +499,7 @@
       "age": 24,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -356,7 +511,21 @@
           "club": "Stade Brestois",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 235,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamidou Makalou",
@@ -364,7 +533,7 @@
       "age": 19,
       "nationality": "Mali",
       "club": "Stade Brestois 29",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -372,7 +541,21 @@
           "club": "Stade Brestois",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Magnetti",
@@ -392,7 +575,21 @@
           "club": "Stade Brestois",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Tousart",
@@ -400,7 +597,7 @@
       "age": 28,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -428,7 +625,21 @@
           "club": "Stade Brestois",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 379,
+        "goals": 16,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junior Dina Ebimbe",
@@ -484,7 +695,21 @@
           "club": "Frankfurt",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 23,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kamory Doumbia",
@@ -512,7 +737,21 @@
           "club": "Stade Brestois",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 143,
+        "goals": 26,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 14,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -522,9 +761,9 @@
       "age": 22,
       "nationality": "Senegal",
       "club": "Stade Brestois 29",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 1,
+      "appearances": 22,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "RWDM",
@@ -538,17 +777,31 @@
           "club": "Stade Brestois",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 23,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Romain Del Castillo",
       "position": "Right Winger",
-      "age": 29,
+      "age": 30,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 8,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Lyon",
@@ -578,7 +831,21 @@
           "club": "Stade Brestois",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 385,
+        "goals": 49,
+        "assists": 62,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mama Baldé",
@@ -586,7 +853,7 @@
       "age": 30,
       "nationality": "Guinea-Bissau",
       "club": "Stade Brestois 29",
-      "appearances": 15,
+      "appearances": 14,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -638,7 +905,21 @@
           "club": "Stade Brestois",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 48,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 33,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ludovic Ajorque",
@@ -694,7 +975,21 @@
           "club": "Stade Brestois",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 419,
+        "goals": 131,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rémy Labeau Lascary",
@@ -702,8 +997,8 @@
       "age": 23,
       "nationality": "France",
       "club": "Stade Brestois 29",
-      "appearances": 22,
-      "goals": 5,
+      "appearances": 21,
+      "goals": 4,
       "assists": 1,
       "transfer_history": [
         {
@@ -726,7 +1021,21 @@
           "club": "Lens",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 30,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saliou Diop",
@@ -734,15 +1043,29 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "Stade Brestois 29",
-      "appearances": 16,
-      "goals": 5,
+      "appearances": 2,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Stade Brestois",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

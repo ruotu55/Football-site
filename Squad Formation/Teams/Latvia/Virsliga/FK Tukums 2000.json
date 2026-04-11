@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "LET1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,19 +22,115 @@
       "age": 28,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JFK Ventspils",
+          "year": "2019"
+        },
+        {
+          "club": "Tukums",
+          "year": "2020"
+        },
+        {
+          "club": "TJK Legion",
+          "year": "2021"
+        },
+        {
+          "club": "Harju JK",
+          "year": "2023"
+        },
+        {
+          "club": "Džiugas",
+          "year": "2024"
+        },
+        {
+          "club": "Harju JK",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 407,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristofers Minajevs",
       "position": "Goalkeeper",
-      "age": 25,
+      "age": 26,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Super Nova",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Super Nova",
+          "year": "2021"
+        },
+        {
+          "club": "AFA Olaine",
+          "year": "2022"
+        },
+        {
+          "club": "Mārupes SC",
+          "year": "2023"
+        },
+        {
+          "club": "Kauguri",
+          "year": "2024"
+        },
+        {
+          "club": "Mārupes SC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 35,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +140,33 @@
       "age": 23,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tukums",
+          "year": "2020"
+        },
+        {
+          "club": "Tukums",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcis Susts",
@@ -53,9 +174,33 @@
       "age": 18,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jelgava",
+          "year": "2024"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martins Stals",
@@ -63,9 +208,29 @@
       "age": 20,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tukums",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maksym Derkach",
@@ -75,7 +240,43 @@
       "club": "FK Tukums 2000",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "RFS",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        },
+        {
+          "club": "RFS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristaps Uzis",
@@ -85,7 +286,22 @@
       "club": "FK Tukums 2000 II",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davis Valmiers",
@@ -93,9 +309,41 @@
       "age": 23,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auda",
+          "year": "2020"
+        },
+        {
+          "club": "AFA Olaine",
+          "year": "2022"
+        },
+        {
+          "club": "Jelgava",
+          "year": "2022"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rudolfs Melkis",
@@ -103,9 +351,41 @@
       "age": 21,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grobina",
+          "year": "2022"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -117,7 +397,31 @@
       "club": "FK Tukums 2000",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JDFS Alberts Y.",
+          "year": "2021"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaspars Anmanis",
@@ -125,9 +429,29 @@
       "age": 24,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tukums",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 22,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristers Volkovs",
@@ -135,9 +459,37 @@
       "age": 21,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grobina",
+          "year": "2022"
+        },
+        {
+          "club": "Valmiera",
+          "year": "2023"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Helvijs Joksts",
@@ -145,9 +497,29 @@
       "age": 18,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tukums",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 15,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davis Calbergs",
@@ -155,9 +527,29 @@
       "age": 19,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rene Baumanis",
@@ -165,9 +557,45 @@
       "age": 19,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Leevon Saldus",
+          "year": "2023"
+        },
+        {
+          "club": "Leevon PPK",
+          "year": "2024"
+        },
+        {
+          "club": "FC Wohlen",
+          "year": "2025"
+        },
+        {
+          "club": "Leevon PPK",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 21,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristaps Klavins",
@@ -175,9 +603,37 @@
       "age": 19,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Super Nova",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yushin Koki",
@@ -187,7 +643,35 @@
       "club": "FK Tukums 2000",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Ryukyu",
+          "year": "2024"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        },
+        {
+          "club": "Ryukyu Okinawa",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bogdans Samoilovs",
@@ -195,19 +679,95 @@
       "age": 25,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Valmiera",
+          "year": "2020"
+        },
+        {
+          "club": "Albatroz/Jelgava",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Auda",
+          "year": "2021"
+        },
+        {
+          "club": "Tukums",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 28,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leoni Gastaldelo",
       "position": "Attacking Midfield",
-      "age": 22,
+      "age": 23,
       "nationality": "Brazil",
       "club": "FK Tukums 2000",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Madureira",
+          "year": "2023"
+        },
+        {
+          "club": "Segesta Sisak",
+          "year": "2024"
+        },
+        {
+          "club": "Cibalia",
+          "year": "2024"
+        },
+        {
+          "club": "NK Vukovar 1991",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniils Putrans",
@@ -217,7 +777,31 @@
       "club": "FK Tukums 2000",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Riga",
+          "year": "2024"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jun Toba",
@@ -225,9 +809,45 @@
       "age": 26,
       "nationality": "Japan",
       "club": "FK Tukums 2000",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Senshu Univ.",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Artsakh",
+          "year": "2022"
+        },
+        {
+          "club": "CSM Focsani",
+          "year": "2023"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shun Shibata",
@@ -235,9 +855,65 @@
       "age": 28,
       "nationality": "Japan",
       "club": "FK Tukums 2000",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "SV Gonsenheim",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Auda",
+          "year": "2019"
+        },
+        {
+          "club": "O. Zambrow",
+          "year": "2020"
+        },
+        {
+          "club": "Stomil Olsztyn",
+          "year": "2021"
+        },
+        {
+          "club": "GKS Katowice",
+          "year": "2023"
+        },
+        {
+          "club": "Warta Poznan",
+          "year": "2024"
+        },
+        {
+          "club": "Chojniczanka",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 8,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +923,61 @@
       "age": 26,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Super Nova",
+          "year": "2019"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2020"
+        },
+        {
+          "club": "Riga",
+          "year": "2021"
+        },
+        {
+          "club": "Daugavpils",
+          "year": "2021"
+        },
+        {
+          "club": "Auda",
+          "year": "2022"
+        },
+        {
+          "club": "Tukums",
+          "year": "2023"
+        },
+        {
+          "club": "Auda",
+          "year": "2023"
+        },
+        {
+          "club": "GKS Wikielec",
+          "year": "2024"
+        },
+        {
+          "club": "Tukums",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 40,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ede Oloko",
@@ -257,9 +985,57 @@
       "age": 25,
       "nationality": "Nigeria",
       "club": "FK Tukums 2000",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Cotonou",
+          "year": "2021"
+        },
+        {
+          "club": "Karlovy Vary",
+          "year": "2022"
+        },
+        {
+          "club": "SILON Taborsko",
+          "year": "2023"
+        },
+        {
+          "club": "Jelgava",
+          "year": "2024"
+        },
+        {
+          "club": "SILON Taborsko",
+          "year": "2024"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 22,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ruslans Deruzinskis",
@@ -267,9 +1043,45 @@
       "age": 21,
       "nationality": "Latvia",
       "club": "FK Tukums 2000",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RFS",
+          "year": "2024"
+        },
+        {
+          "club": "Super Nova",
+          "year": "2025"
+        },
+        {
+          "club": "RFS",
+          "year": "2025"
+        },
+        {
+          "club": "Jelgava",
+          "year": "2025"
+        },
+        {
+          "club": "Tukums",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 30,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilja Atligins",
@@ -279,7 +1091,27 @@
       "club": "FK Tukums 2000",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tukums",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

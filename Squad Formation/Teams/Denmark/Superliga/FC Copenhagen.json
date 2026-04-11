@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "DK1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 26,
       "nationality": "Croatia",
       "club": "FC Copenhagen",
-      "appearances": 41,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax",
+          "year": "2019"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2021"
+        },
+        {
+          "club": "Ajax",
+          "year": "2022"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2022"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 357,
+        "clean_sheets": 78
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Rúnar Alex Rúnarsson",
@@ -31,9 +72,69 @@
       "age": 31,
       "nationality": "Iceland",
       "club": "FC Copenhagen",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KR Reykjavík",
+          "year": "2013"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2014"
+        },
+        {
+          "club": "Dijon",
+          "year": "2018"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2020"
+        },
+        {
+          "club": "OH Leuven",
+          "year": "2021"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2022"
+        },
+        {
+          "club": "Alanyaspor",
+          "year": "2022"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2023"
+        },
+        {
+          "club": "Cardiff",
+          "year": "2023"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2024"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 318,
+        "clean_sheets": 31
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 42,
+        "clean_sheets": 5
+      }
     },
     {
       "name": "Oscar Buur",
@@ -41,9 +142,29 @@
       "age": 19,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 60,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +174,49 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "FC Copenhagen",
-      "appearances": 41,
-      "goals": 3,
-      "assists": 1
+      "appearances": 20,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Volta Redonda",
+          "year": "2021"
+        },
+        {
+          "club": "Vilafranquense",
+          "year": "2021"
+        },
+        {
+          "club": "Volta Redonda",
+          "year": "2022"
+        },
+        {
+          "club": "Vilafranquense",
+          "year": "2022"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2023"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 12,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pantelis Hatzidiakos",
@@ -63,9 +224,45 @@
       "age": 29,
       "nationality": "Greece",
       "club": "FC Copenhagen",
-      "appearances": 38,
+      "appearances": 20,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AZ Alkmaar",
+          "year": "2015"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2023"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2025"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 386,
+        "goals": 12,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junnosuke Suzuki",
@@ -73,9 +270,33 @@
       "age": 22,
       "nationality": "Japan",
       "club": "FC Copenhagen",
-      "appearances": 25,
+      "appearances": 11,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shonan Bellmare",
+          "year": "2022"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zanka",
@@ -83,9 +304,85 @@
       "age": 35,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B.93",
+          "year": "2007"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2007"
+        },
+        {
+          "club": "PSV",
+          "year": "2012"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2014"
+        },
+        {
+          "club": "Huddersfield",
+          "year": "2017"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2019"
+        },
+        {
+          "club": "F. Düsseldorf",
+          "year": "2020"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2020"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2020"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2021"
+        },
+        {
+          "club": "Brentford",
+          "year": "2021"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2024"
+        },
+        {
+          "club": "LA Galaxy",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 549,
+        "goals": 34,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcos López",
@@ -93,9 +390,53 @@
       "age": 26,
       "nationality": "Peru",
       "club": "FC Copenhagen",
-      "appearances": 37,
+      "appearances": 18,
       "goals": 1,
-      "assists": 5
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "U. San Martín",
+          "year": "2016"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2017"
+        },
+        {
+          "club": "SJ Earthquakes",
+          "year": "2019"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2022"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 10,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Birger Meling",
@@ -103,9 +444,45 @@
       "age": 31,
       "nationality": "Norway",
       "club": "FC Copenhagen",
-      "appearances": 26,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stabæk",
+          "year": "2014"
+        },
+        {
+          "club": "Rosenborg BK",
+          "year": "2017"
+        },
+        {
+          "club": "Nîmes Olympique",
+          "year": "2020"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2021"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 386,
+        "goals": 12,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Huescas",
@@ -113,9 +490,33 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "FC Copenhagen",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 5
+      "appearances": 10,
+      "goals": 0,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "CD Cruz Azul",
+          "year": "2022"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 15,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aurélio Buta",
@@ -123,9 +524,57 @@
       "age": 29,
       "nationality": "Portugal",
       "club": "FC Copenhagen",
-      "appearances": 11,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Beira-Mar U15",
+          "year": "2010"
+        },
+        {
+          "club": "Benfica U15",
+          "year": "2011"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2017"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2018"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2022"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2024"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2025"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 285,
+        "goals": 8,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kenay Myrie",
@@ -133,9 +582,33 @@
       "age": 19,
       "nationality": "Costa Rica",
       "club": "FC Copenhagen",
-      "appearances": 21,
-      "goals": 4,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saprissa",
+          "year": "2025"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +618,29 @@
       "age": 21,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 32,
-      "goals": 1,
-      "assists": 0
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Copenhagen",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 2,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Richardson",
@@ -155,9 +648,53 @@
       "age": 24,
       "nationality": "Morocco",
       "club": "FC Copenhagen",
-      "appearances": 9,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Le Havre AC",
+          "year": "2021"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2022"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2022"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2023"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2024"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2026"
+        },
+        {
+          "club": "Fiorentina",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 11,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Magnus Mattsson",
@@ -165,9 +702,37 @@
       "age": 27,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 11,
-      "goals": 5,
-      "assists": 1
+      "appearances": 6,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Silkeborg IF",
+          "year": "2018"
+        },
+        {
+          "club": "NEC Nijmegen",
+          "year": "2021"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 77,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mads Emil Madsen",
@@ -175,9 +740,45 @@
       "age": 28,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 33,
+      "appearances": 20,
       "goals": 1,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Silkeborg IF",
+          "year": "2017"
+        },
+        {
+          "club": "LASK",
+          "year": "2020"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2021"
+        },
+        {
+          "club": "Aarhus GF",
+          "year": "2022"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 29,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thomas Delaney",
@@ -185,9 +786,61 @@
       "age": 34,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 25,
+      "appearances": 14,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Copenhagen",
+          "year": "2009"
+        },
+        {
+          "club": "Werder Bremen",
+          "year": "2017"
+        },
+        {
+          "club": "Dortmund",
+          "year": "2018"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2021"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2023"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2023"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2024"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 525,
+        "goals": 44,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 81,
+        "goals": 8,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oliver Højer",
@@ -195,9 +848,29 @@
       "age": 19,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Moalem",
@@ -205,9 +878,29 @@
       "age": 19,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +910,45 @@
       "age": 27,
       "nationality": "Tunisia",
       "club": "FC Copenhagen",
-      "appearances": 30,
-      "goals": 5,
-      "assists": 4
+      "appearances": 15,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Estoril",
+          "year": "2021"
+        },
+        {
+          "club": "Trofense",
+          "year": "2021"
+        },
+        {
+          "club": "Estoril",
+          "year": "2022"
+        },
+        {
+          "club": "Viborg FF",
+          "year": "2022"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 36,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert",
@@ -227,9 +956,41 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "FC Copenhagen",
-      "appearances": 31,
-      "goals": 6,
-      "assists": 2
+      "appearances": 16,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cruzeiro",
+          "year": "2023"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2025"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Larsson",
@@ -237,9 +998,69 @@
       "age": 28,
       "nationality": "Sweden",
       "club": "FC Copenhagen",
-      "appearances": 43,
-      "goals": 10,
-      "assists": 5
+      "appearances": 22,
+      "goals": 6,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Högaborg Jugend",
+          "year": "2006"
+        },
+        {
+          "club": "Högaborgs BK",
+          "year": "2012"
+        },
+        {
+          "club": "Helsingborgs IF",
+          "year": "2014"
+        },
+        {
+          "club": "NEC Nijmegen",
+          "year": "2017"
+        },
+        {
+          "club": "Norrköping",
+          "year": "2018"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2019"
+        },
+        {
+          "club": "AIK",
+          "year": "2022"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2022"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2023"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 108,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam West",
@@ -247,9 +1068,33 @@
       "age": 18,
       "nationality": "Norway",
       "club": "FC Copenhagen",
-      "appearances": 15,
-      "goals": 5,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FCK Youth",
+          "year": "2024"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 15,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Elyounoussi",
@@ -257,9 +1102,53 @@
       "age": 31,
       "nationality": "Norway",
       "club": "FC Copenhagen",
-      "appearances": 39,
-      "goals": 10,
-      "assists": 10
+      "appearances": 20,
+      "goals": 6,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Sarpsborg 08",
+          "year": "2011"
+        },
+        {
+          "club": "Molde FK",
+          "year": "2014"
+        },
+        {
+          "club": "Basel",
+          "year": "2016"
+        },
+        {
+          "club": "Southampton",
+          "year": "2018"
+        },
+        {
+          "club": "Celtic",
+          "year": "2019"
+        },
+        {
+          "club": "Southampton",
+          "year": "2021"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 538,
+        "goals": 152,
+        "assists": 92,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 55,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssoufa Moukoko",
@@ -267,9 +1156,41 @@
       "age": 21,
       "nationality": "Germany",
       "club": "FC Copenhagen",
-      "appearances": 34,
-      "goals": 10,
-      "assists": 2
+      "appearances": 18,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dortmund",
+          "year": "2020"
+        },
+        {
+          "club": "Nice",
+          "year": "2024"
+        },
+        {
+          "club": "Dortmund",
+          "year": "2025"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 173,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viktor Dadason",
@@ -277,9 +1198,37 @@
       "age": 17,
       "nationality": "Iceland",
       "club": "FC Copenhagen",
-      "appearances": 28,
-      "goals": 13,
-      "assists": 3
+      "appearances": 11,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Fram Reykjavík",
+          "year": "2023"
+        },
+        {
+          "club": "FCK Youth",
+          "year": "2024"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 18,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viktor Claesson",
@@ -287,9 +1236,45 @@
       "age": 34,
       "nationality": "Sweden",
       "club": "FC Copenhagen",
-      "appearances": 38,
-      "goals": 4,
-      "assists": 2
+      "appearances": 20,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Värnamo",
+          "year": "2009"
+        },
+        {
+          "club": "Elfsborg",
+          "year": "2012"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2017"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2022"
+        },
+        {
+          "club": "Värnamo",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 537,
+        "goals": 137,
+        "assists": 101,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 74,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andreas Cornelius",
@@ -297,9 +1282,69 @@
       "age": 33,
       "nationality": "Denmark",
       "club": "FC Copenhagen",
-      "appearances": 23,
-      "goals": 3,
-      "assists": 2
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Copenhagen",
+          "year": "2012"
+        },
+        {
+          "club": "Cardiff",
+          "year": "2013"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2014"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2017"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2018"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2019"
+        },
+        {
+          "club": "Parma",
+          "year": "2019"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2021"
+        },
+        {
+          "club": "Parma",
+          "year": "2021"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2021"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 114,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

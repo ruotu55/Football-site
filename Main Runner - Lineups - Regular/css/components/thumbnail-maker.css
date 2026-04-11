@@ -1,0 +1,258 @@
+.thumbnail-maker-page {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  /* Use the same shared configurable background as the other levels. */
+  background: transparent;
+  overflow: hidden;
+}
+
+.thumbnail-maker-page[hidden] { display: none; }
+
+/* Global overlays disabled in thumbnail mode; use pitch-wrap edge wedges instead. */
+.thumbnail-maker-page::before,
+.thumbnail-maker-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+body.thumbnail-maker-active #panel-fab,
+body.thumbnail-maker-active #video-mode-btn,
+body.thumbnail-maker-active #play-video-btn,
+body.thumbnail-maker-active #quiz-progress-container,
+body.thumbnail-maker-active #control-panel,
+body.thumbnail-maker-active #right-panel,
+body.thumbnail-maker-active #btn-save-current-team-fab {
+  display: none !important;
+}
+
+body.thumbnail-maker-active .side-text.left {
+  display: none !important;
+}
+
+/* Height must not depend on body.thumbnail-maker-active (class can lag); use page id. */
+#thumbnail-maker-page .thumbnail-maker-topbar {
+  position: relative;
+  z-index: 12;
+  width: 100%;
+  box-sizing: border-box;
+  /* 5% smaller than 24vh → 22.8vh */
+  min-height: 22.8vh !important;
+  height: auto !important;
+  background: #e10600;
+  border-bottom: none;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.36);
+}
+
+.thumbnail-maker-title {
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0.35rem;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Barlow Condensed", sans-serif;
+  /* Fill the red band: cap by bar height (~22.8vh) and viewport width for the long headline */
+  font-size: clamp(2.71rem, min(10.64vw, 16.15vh), 8.79rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 0.92;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.55);
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.thumbnail-maker-actions {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.thumbnail-maker-actions button {
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.34);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.44rem 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* Keep yellow mode layer behind pitch UI; top bar/actions still clickable. */
+body.thumbnail-maker-active #thumbnail-maker-page {
+  z-index: 60;
+  pointer-events: none;
+}
+
+body.thumbnail-maker-active #thumbnail-maker-page .thumbnail-maker-topbar,
+body.thumbnail-maker-active #thumbnail-maker-page .thumbnail-maker-actions {
+  pointer-events: auto;
+  z-index: 120;
+}
+
+/* Show actual lineup pitch in thumbnail mode (inside yellow area). */
+body.thumbnail-maker-active #pitch-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22.8vh;
+  bottom: 0;
+  z-index: 95;
+  height: auto !important;
+  perspective: 1200px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+body.thumbnail-maker-active .thumbnail-maker-page::before,
+body.thumbnail-maker-active .thumbnail-maker-page::after {
+  display: none;
+}
+
+/* 360 rays around the pitch (not on the pitch center). */
+body.thumbnail-maker-active #pitch-wrap::before,
+body.thumbnail-maker-active #pitch-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+body.thumbnail-maker-active #pitch-wrap::before {
+  opacity: 0.24;
+  background:
+    repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(255, 255, 255, 0.62) 0deg 1deg,
+      rgba(255, 255, 255, 0.16) 1deg 3.4deg,
+      rgba(255, 255, 255, 0) 3.4deg 8.4deg
+    );
+  /* Transparent center keeps rays off the pitch itself. */
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+body.thumbnail-maker-active #pitch-wrap::after {
+  opacity: 0.16;
+  background:
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.12) 66%,
+      rgba(255, 255, 255, 0.22) 100%
+    );
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+body.thumbnail-maker-active #pitch-wrap .pitch-surface {
+  /* Hard override base pitch sizing in thumbnail mode */
+  width: min(100vw, calc((100vh - 22.8vh - 8px) * 1.5 * 1.44)) !important;
+  max-width: 100vw !important;
+  height: auto !important;
+  max-height: calc(100vh - 22.8vh - 8px) !important;
+  aspect-ratio: 1.5 / 1 !important;
+  transform: rotateX(38deg) translateY(-11%) scale(1.06) !important;
+  transform-origin: center center !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* Thumbnail mode: force pitch lines/marks to full white opacity. */
+body.thumbnail-maker-active #pitch-wrap #pitch-svg > rect {
+  stroke: rgba(255, 255, 255, 1) !important;
+}
+
+body.thumbnail-maker-active #pitch-wrap #pitch-svg .pitch-lines {
+  stroke: rgba(255, 255, 255, 1) !important;
+}
+
+body.thumbnail-maker-active #pitch-wrap #pitch-svg .pitch-marks {
+  fill: rgba(255, 255, 255, 1) !important;
+}
+
+body.thumbnail-maker-active #pitch-wrap .player-slot {
+  width: calc(9.11% * 0.9);
+  /* Match regular lineup depth positioning. */
+  transform: translate(-50%, -50%) translateZ(60px) rotateX(-38deg) scale(var(--slot-scale)) !important;
+}
+
+body.thumbnail-maker-active #pitch-wrap .slot-name {
+  font-size: clamp(0.5rem, 0.75vw, 0.82rem);
+}
+
+/* 20% smaller badge logos/flags in thumbnail mode. */
+body.thumbnail-maker-active #pitch-wrap .slot-badge-scale-wrap > * {
+  transform: scale(calc(var(--slot-badge-scale, 1) * 1.0164)) !important;
+}
+
+/* National-crest front face uses an extra 1.3x in base css; reduced by extra 5%. */
+body.thumbnail-maker-active #pitch-wrap .slot-front--national-crest .slot-badge-scale-wrap > * {
+  transform: scale(calc(var(--slot-badge-scale, 1) * 1.32)) !important;
+}
+
+/* Keep label placement consistent with regular lineup depth. */
+body.thumbnail-maker-active #pitch-wrap .slot-label-container {
+  transform: translateX(-50%) translateZ(30px) !important;
+}
+
+/* Thumbnail mode: keep logos completely static (no floating animation). */
+body.thumbnail-maker-active #pitch-wrap .player-slot.has-player .slot-avatar,
+body.thumbnail-maker-active #pitch-wrap .player-slot.has-player .slot-label-container {
+  animation: none !important;
+}
+
+/* Team picker same as levels, but positioned for thumbnail mode usage. */
+body.thumbnail-maker-active .lineups-inline-team-picker {
+  top: 50%;
+  width: min(24rem, 92%);
+}

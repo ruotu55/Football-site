@@ -1,7 +1,13 @@
-import { appState, getState } from "./state.js";
+import { appState, getState, migrateShortsVideoOffLegacyNormalProfile } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { getVideoQuestionPreviewState, renderHeader, renderCareer } from "./pitch-render.js";
-import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers } from "./pitch-render.js";
+import {
+  playRules,
+  playWelcomeShortsLanding,
+  playProgressVoice,
+  playCommentBelow,
+  setBgMusicForLevel,
+} from "./audio.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -9,12 +15,14 @@ let pendingLogoToLandingContentReveal = false;
 export function switchLevel(index) {
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = index;
+  setBgMusicForLevel(appState.currentLevelIndex);
   const state = getState();
   const { els } = appState;
   const isQuestionLevel = index > 1 && index < appState.totalLevelsCount;
   if (isQuestionLevel && !state.careerPlayer) {
     const baselineQuestionState = appState.levelsData[2];
     if (baselineQuestionState && baselineQuestionState !== state) {
+      migrateShortsVideoOffLegacyNormalProfile(baselineQuestionState);
       state.careerClubsCount = baselineQuestionState.careerClubsCount;
       state.silhouetteYOffset = baselineQuestionState.silhouetteYOffset;
       state.silhouetteScaleX = baselineQuestionState.silhouetteScaleX;
@@ -127,7 +135,7 @@ export function switchLevel(index) {
     }
     
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = isLanding || !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
     }
 
     els.logoPage.hidden = true;
@@ -164,8 +172,16 @@ export function switchLevel(index) {
         }
       }
     } else if (isLanding) {
-      els.logoPage.hidden = isShorts;
-      els.landingPage.hidden = false;
+      if (isShorts) {
+        els.logoPage.hidden = false;
+        els.landingPage.hidden = true;
+      } else {
+        els.logoPage.hidden = true;
+        els.landingPage.hidden = false;
+      }
+      if (isShorts && appState.isVideoPlaying) {
+        appState.refreshLandingUi?.();
+      }
       if (pendingLogoToLandingContentReveal) {
         els.landingPage.classList.add("landing-content-awaiting-shift");
         els.landingPage.classList.remove("landing-content-slide-in");
@@ -202,19 +218,7 @@ export function switchLevel(index) {
         }, 820);
       }
 
-      const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
-
-      const silhouette = document.querySelector(".career-silhouette");
-      if (silhouette) {
-        silhouette.classList.toggle("revealed", previewPostTimer);
-      }
-
-      const revealPhoto = document.getElementById("career-reveal-photo");
-      const careerGrid = document.querySelector(".career-grid");
-      if (revealPhoto) {
-        revealPhoto.classList.toggle("show", previewPostTimer || (isShorts && previewPreTimer));
-        if (careerGrid) careerGrid.classList.toggle("reveal-active", previewPostTimer);
-      }
+      syncShortsCareerVideoPreviewLayers();
     }
 
     const sharedBg = document.getElementById("shared-bg-layer");
@@ -222,13 +226,25 @@ export function switchLevel(index) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
     
+    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+      playCommentBelow();
+    }
+
     if (appState.isVideoPlaying) {
       if (isLanding) {
-        const quizType = document.getElementById("in-quiz-type").value;
-        playRules(quizType);
-      } else if (isOutro) {
-        playCommentBelow();
-      } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {
+        if (isShorts) {
+          if (prevIndex !== 0) {
+            void playWelcomeShortsLanding();
+          }
+        } else {
+          const quizType = document.getElementById("in-quiz-type").value;
+          playRules(quizType);
+        }
+      } else if (
+        !isLogo &&
+        !isShorts &&
+        appState.currentLevelIndex < appState.totalLevelsCount - 1
+      ) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
     }
@@ -313,16 +329,52 @@ export function switchLevel(index) {
       return;
     }
 
+    const isShortsFromLogoToFirstQuestion =
+      isShorts &&
+      prevIndex === 0 &&
+      index >= 2 &&
+      index < appState.totalLevelsCount &&
+      appState.isVideoPlaying;
+    if (isShortsFromLogoToFirstQuestion) {
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim"
+      );
+      updateDOMContent();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          void stageMain.offsetWidth;
+          stageMain.classList.add("stage-enter-video-anim");
+          if (progressContainer) {
+            progressContainer.classList.remove(
+              "progress-out-reg",
+              "progress-out-shorts",
+              "progress-in-reg",
+              "progress-in-shorts"
+            );
+            void progressContainer.offsetWidth;
+            progressContainer.classList.add("progress-in-shorts");
+          }
+          setTimeout(() => {
+            stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+          }, 820);
+        });
+      });
+      return;
+    }
+
     const exitClass = "stage-exit-video-anim";
     const enterClass = "stage-enter-video-anim";
     const transitionDelay = 820;
-    
+
     stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
     stageMain.classList.add(exitClass);
 
     if (progressContainer) {
-        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
-        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
+      progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
     }
 
     setTimeout(() => {
@@ -330,17 +382,17 @@ export function switchLevel(index) {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
-          void stageMain.offsetWidth; 
+          void stageMain.offsetWidth;
           stageMain.classList.add(enterClass);
-          
+
           if (progressContainer) {
-              progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
-              void progressContainer.offsetWidth;
-              progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+            progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+            void progressContainer.offsetWidth;
+            progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
           }
 
           setTimeout(() => {
-              stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+            stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
           }, 820);
         });
       });

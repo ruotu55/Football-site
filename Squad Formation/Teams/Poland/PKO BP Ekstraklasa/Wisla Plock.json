@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,61 @@
       "age": 33,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 25,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KS Raszyn",
+          "year": "2008"
+        },
+        {
+          "club": "Dolcan Zabki",
+          "year": "2009"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2015"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2016"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2017"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2017"
+        },
+        {
+          "club": "Chrobry Glogow",
+          "year": "2021"
+        },
+        {
+          "club": "Slask Wroclaw",
+          "year": "2022"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 361,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 432,
+        "clean_sheets": 104
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Jakub Burek",
@@ -31,9 +84,53 @@
       "age": 23,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KSZO Ostrowiec",
+          "year": "2022"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2023"
+        },
+        {
+          "club": "KSZO Ostrowiec",
+          "year": "2023"
+        },
+        {
+          "club": "Pogon Siedlce",
+          "year": "2023"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 112,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stanisław Pruszkowski",
@@ -41,9 +138,33 @@
       "age": 21,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. Skierniewice",
+          "year": "2023"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 76,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oskar Klat",
@@ -51,9 +172,37 @@
       "age": 18,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 16,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        },
+        {
+          "club": "Kasztelan Sierpc",
+          "year": "2025"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 25,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +214,109 @@
       "club": "Wisla Plock",
       "appearances": 26,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Motala AIF",
+          "year": "2014"
+        },
+        {
+          "club": "IK Oddevold",
+          "year": "2016"
+        },
+        {
+          "club": "Akropolis IF",
+          "year": "2017"
+        },
+        {
+          "club": "Örgryte",
+          "year": "2021"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 384,
+        "goals": 25,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Marin Karamarko",
+      "position": "Centre-Back",
+      "age": 27,
+      "nationality": "Croatia",
+      "club": "Wisla Plock",
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK OSK Otok",
+          "year": "2015"
+        },
+        {
+          "club": "NK OSK Otok",
+          "year": "2016"
+        },
+        {
+          "club": "NK Val",
+          "year": "2017"
+        },
+        {
+          "club": "RNK Split",
+          "year": "2018"
+        },
+        {
+          "club": "GOSK Gabela",
+          "year": "2018"
+        },
+        {
+          "club": "NS Mura",
+          "year": "2019"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2022"
+        },
+        {
+          "club": "Arsenal Tula",
+          "year": "2024"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcin Kamiński",
@@ -75,27 +326,109 @@
       "club": "Wisla Plock",
       "appearances": 26,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lech Youth",
+          "year": "2005"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2009"
+        },
+        {
+          "club": "Stuttgart",
+          "year": "2016"
+        },
+        {
+          "club": "F. Düsseldorf",
+          "year": "2018"
+        },
+        {
+          "club": "Stuttgart",
+          "year": "2019"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2021"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 430,
+        "goals": 22,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Marin Karamarko",
-      "position": "Centre-Back",
-      "age": 27,
-      "nationality": "Croatia",
-      "club": "Wisla Plock",
-      "appearances": 22,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Nemanja Mijuskovic",
+      "name": "Nemanja Mijušković",
       "position": "Centre-Back",
       "age": 34,
       "nationality": "Montenegro",
       "club": "Wisla Plock",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Sarajevo",
+          "year": "2012"
+        },
+        {
+          "club": "Rudar Pljevlja",
+          "year": "2013"
+        },
+        {
+          "club": "Vardar",
+          "year": "2015"
+        },
+        {
+          "club": "Taraz",
+          "year": "2017"
+        },
+        {
+          "club": "Tosno",
+          "year": "2018"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2018"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2019"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 399,
+        "goals": 30,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matvey Bokhno",
@@ -103,9 +436,29 @@
       "age": 18,
       "nationality": "Belarus",
       "club": "Wisla Plock",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wisla Plock",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Zając",
@@ -113,9 +466,41 @@
       "age": 20,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 15,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. Skierniewice",
+          "year": "2022"
+        },
+        {
+          "club": "Jutrzenka Drzew",
+          "year": "2023"
+        },
+        {
+          "club": "U. Skierniewice",
+          "year": "2023"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +510,45 @@
       "age": 18,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 2
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zabrze Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Górnik Zabrze",
+          "year": "2024"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2026"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomás Tavares",
@@ -135,9 +556,73 @@
       "age": 25,
       "nationality": "Portugal",
       "club": "Wisla Plock",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2014"
+        },
+        {
+          "club": "Benfica",
+          "year": "2019"
+        },
+        {
+          "club": "Alavés",
+          "year": "2020"
+        },
+        {
+          "club": "Benfica",
+          "year": "2021"
+        },
+        {
+          "club": "Farense",
+          "year": "2021"
+        },
+        {
+          "club": "Basel",
+          "year": "2021"
+        },
+        {
+          "club": "Benfica",
+          "year": "2022"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2023"
+        },
+        {
+          "club": "LASK",
+          "year": "2024"
+        },
+        {
+          "club": "Spartak Moscow",
+          "year": "2025"
+        },
+        {
+          "club": "Avs FS",
+          "year": "2025"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 3,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyriakos Savvidis",
@@ -145,9 +630,73 @@
       "age": 30,
       "nationality": "Greece",
       "club": "Wisla Plock",
-      "appearances": 25,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PAOK",
+          "year": "2014"
+        },
+        {
+          "club": "OFI Crete",
+          "year": "2015"
+        },
+        {
+          "club": "PAOK",
+          "year": "2015"
+        },
+        {
+          "club": "Michalovce",
+          "year": "2016"
+        },
+        {
+          "club": "PAOK",
+          "year": "2016"
+        },
+        {
+          "club": "Panionios",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2019"
+        },
+        {
+          "club": "Michalovce",
+          "year": "2019"
+        },
+        {
+          "club": "Spartak Trnava",
+          "year": "2020"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2023"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 343,
+        "goals": 15,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominik Kun",
@@ -157,7 +706,59 @@
       "club": "Wisla Plock",
       "appearances": 26,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Stomil Olsztyn",
+          "year": "2011"
+        },
+        {
+          "club": "Pogon Szczecin",
+          "year": "2014"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2015"
+        },
+        {
+          "club": "Pogon Siedlce",
+          "year": "2017"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2018"
+        },
+        {
+          "club": "Stomil Olsztyn",
+          "year": "2018"
+        },
+        {
+          "club": "Sandecja",
+          "year": "2019"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2020"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 408,
+        "goals": 33,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dani Pacheco",
@@ -167,7 +768,111 @@
       "club": "Wisla Plock",
       "appearances": 25,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Liverpool",
+          "year": "2009"
+        },
+        {
+          "club": "Norwich",
+          "year": "2011"
+        },
+        {
+          "club": "Liverpool",
+          "year": "2011"
+        },
+        {
+          "club": "Atlético",
+          "year": "2011"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2011"
+        },
+        {
+          "club": "Atlético",
+          "year": "2012"
+        },
+        {
+          "club": "Liverpool",
+          "year": "2012"
+        },
+        {
+          "club": "SD Huesca",
+          "year": "2013"
+        },
+        {
+          "club": "Liverpool",
+          "year": "2013"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2013"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2014"
+        },
+        {
+          "club": "Alavés",
+          "year": "2015"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2016"
+        },
+        {
+          "club": "Getafe",
+          "year": "2016"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2017"
+        },
+        {
+          "club": "Getafe",
+          "year": "2017"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "UD Logroñés",
+          "year": "2021"
+        },
+        {
+          "club": "Aris Limassol",
+          "year": "2021"
+        },
+        {
+          "club": "Górnik Zabrze",
+          "year": "2022"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 423,
+        "goals": 45,
+        "assists": 64,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Krystian Pomorski",
@@ -175,9 +880,77 @@
       "age": 30,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wisla Plock",
+          "year": "2012"
+        },
+        {
+          "club": "Lech Rypin",
+          "year": "2013"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2014"
+        },
+        {
+          "club": "LKS Lomza",
+          "year": "2015"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2015"
+        },
+        {
+          "club": "O. Zambrow",
+          "year": "2015"
+        },
+        {
+          "club": "Blekitni Raciaz",
+          "year": "2016"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2016"
+        },
+        {
+          "club": "Swit N.D.M.",
+          "year": "2016"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2018"
+        },
+        {
+          "club": "Swit N.D.M.",
+          "year": "2018"
+        },
+        {
+          "club": "Znicz Pruszkow",
+          "year": "2020"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 20,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateusz Leśniewski",
@@ -185,9 +958,29 @@
       "age": 18,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 15,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zan Rogelj",
@@ -195,19 +988,131 @@
       "age": 26,
       "nationality": "Slovenia",
       "club": "Wisla Plock",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 1,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "NK Triglav",
+          "year": "2018"
+        },
+        {
+          "club": "WSG Tirol",
+          "year": "2020"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2023"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 12,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Kevin Custovic",
+      "name": "Kevin Čustović",
       "position": "Right Midfield",
       "age": 26,
       "nationality": "Sweden",
       "club": "Wisla Plock",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "IFK Västerås",
+          "year": "2016"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2017"
+        },
+        {
+          "club": "Skiljebo SK",
+          "year": "2018"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2018"
+        },
+        {
+          "club": "Enköpings SK",
+          "year": "2019"
+        },
+        {
+          "club": "Västerås SK",
+          "year": "2019"
+        },
+        {
+          "club": "Nyköpings BIS",
+          "year": "2019"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2021"
+        },
+        {
+          "club": "Örebro SK",
+          "year": "2022"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2022"
+        },
+        {
+          "club": "Cork City",
+          "year": "2023"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2023"
+        },
+        {
+          "club": "FC Koper",
+          "year": "2024"
+        },
+        {
+          "club": "Varbergs BoIS",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 8,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Hiszpański",
@@ -217,7 +1122,71 @@
       "club": "Wisla Plock",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wisla Plock",
+          "year": "2011"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2015"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2016"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Wisla Pulawy",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Bytovia Bytow",
+          "year": "2019"
+        },
+        {
+          "club": "KKS Kalisz",
+          "year": "2019"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2021"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2022"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 318,
+        "goals": 16,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dion Gallapeni",
@@ -225,9 +1194,41 @@
       "age": 21,
       "nationality": "Kosovo",
       "club": "Wisla Plock",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FC Prishtina",
+          "year": "2023"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2025"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2026"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 6,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quentin Lecoeuche",
@@ -236,8 +1237,64 @@
       "nationality": "France",
       "club": "Wisla Plock",
       "appearances": 20,
-      "goals": 1,
-      "assists": 1
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Luçon VF",
+          "year": "2015"
+        },
+        {
+          "club": "FC Lorient",
+          "year": "2017"
+        },
+        {
+          "club": "US Orléans",
+          "year": "2018"
+        },
+        {
+          "club": "FC Lorient",
+          "year": "2019"
+        },
+        {
+          "club": "AC Ajaccio",
+          "year": "2020"
+        },
+        {
+          "club": "FC Lorient",
+          "year": "2021"
+        },
+        {
+          "club": "Valenciennes FC",
+          "year": "2021"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2023"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 7,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wiktor Nowak",
@@ -246,18 +1303,40 @@
       "nationality": "Poland",
       "club": "Wisla Plock",
       "appearances": 24,
-      "goals": 4,
-      "assists": 1
-    },
-    {
-      "name": "Matchoi Djaló",
-      "position": "Attacking Midfield",
-      "age": 22,
-      "nationality": "Portugal",
-      "club": "Wisla Plock",
-      "appearances": 16,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Znicz Pruszkow",
+          "year": "2022"
+        },
+        {
+          "club": "Górnik Zabrze",
+          "year": "2025"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        },
+        {
+          "club": "Górnik Zabrze",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 15,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Jiménez",
@@ -267,7 +1346,81 @@
       "club": "Wisla Plock",
       "appearances": 8,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CD Móstoles",
+          "year": "2018"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2019"
+        },
+        {
+          "club": "UD Sanse",
+          "year": "2021"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 14,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Matchoi Djaló",
+      "position": "Attacking Midfield",
+      "age": 22,
+      "nationality": "Portugal",
+      "club": "Wisla Plock",
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paços Ferreira",
+          "year": "2019"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -277,19 +1430,183 @@
       "age": 25,
       "nationality": "TM nationality id 24",
       "club": "Wisla Plock",
-      "appearances": 20,
-      "goals": 8,
-      "assists": 3
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "DFK Dainava",
+          "year": "2021"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2022"
+        },
+        {
+          "club": "DFK Dainava",
+          "year": "2022"
+        },
+        {
+          "club": "Suduva",
+          "year": "2022"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2022"
+        },
+        {
+          "club": "DFK Dainava",
+          "year": "2023"
+        },
+        {
+          "club": "Stal Mielec",
+          "year": "2023"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2023"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2023"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2024"
+        },
+        {
+          "club": "Loko Moscow",
+          "year": "2024"
+        },
+        {
+          "club": "Widzew Lodz",
+          "year": "2024"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2025"
+        },
+        {
+          "club": "Volos NFC",
+          "year": "2025"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2026"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 52,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Deni Juric",
+      "name": "Deni Jurić",
       "position": "Centre-Forward",
       "age": 28,
       "nationality": "Australia",
       "club": "Wisla Plock",
-      "appearances": 21,
-      "goals": 10,
-      "assists": 1
+      "appearances": 13,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "R. Sesvete Jgd",
+          "year": "2011"
+        },
+        {
+          "club": "Croat. Prigorje",
+          "year": "2012"
+        },
+        {
+          "club": "NK Solin",
+          "year": "2017"
+        },
+        {
+          "club": "NK Triglav",
+          "year": "2018"
+        },
+        {
+          "club": "NK Solin",
+          "year": "2019"
+        },
+        {
+          "club": "NK Rudes",
+          "year": "2019"
+        },
+        {
+          "club": "HNK Sibenik",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2021"
+        },
+        {
+          "club": "HNK Sibenik",
+          "year": "2021"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "HNK Rijeka",
+          "year": "2023"
+        },
+        {
+          "club": "FC Koper",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 55,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giannis Niarchos",
@@ -299,7 +1616,55 @@
       "club": "Wisla Plock",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Senica",
+          "year": "2020"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2022"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2023"
+        },
+        {
+          "club": "Michalovce",
+          "year": "2024"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2024"
+        },
+        {
+          "club": "Kosice",
+          "year": "2024"
+        },
+        {
+          "club": "Dunajska Streda",
+          "year": "2025"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 25,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iban Salvador",
@@ -307,9 +1672,69 @@
       "age": 30,
       "nationality": "Equatorial Guinea",
       "club": "Wisla Plock",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CE L'Hospitalet",
+          "year": "2013"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2016"
+        },
+        {
+          "club": "UCAM Murcia",
+          "year": "2017"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2017"
+        },
+        {
+          "club": "CyD Leonesa",
+          "year": "2018"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2018"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2019"
+        },
+        {
+          "club": "AD Ceuta",
+          "year": "2023"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2023"
+        },
+        {
+          "club": "AD Ceuta",
+          "year": "2024"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 42,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 57,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bartosz Borowski",
@@ -317,19 +1742,103 @@
       "age": 19,
       "nationality": "Poland",
       "club": "Wisla Plock",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wisla Plock",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Lukasz Sekulski",
+      "name": "Łukasz Sekulski",
       "position": "Centre-Forward",
       "age": 35,
       "nationality": "Poland",
       "club": "Wisla Plock",
       "appearances": 22,
       "goals": 8,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Wisla Plock",
+          "year": "2008"
+        },
+        {
+          "club": "Raków",
+          "year": "2009"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2009"
+        },
+        {
+          "club": "Stalowa Wola",
+          "year": "2014"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2015"
+        },
+        {
+          "club": "Korona Kielce",
+          "year": "2016"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2016"
+        },
+        {
+          "club": "Piast Gliwice",
+          "year": "2017"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2017"
+        },
+        {
+          "club": "SKA Khabarovsk",
+          "year": "2018"
+        },
+        {
+          "club": "LKS Lodz",
+          "year": "2019"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 428,
+        "goals": 137,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

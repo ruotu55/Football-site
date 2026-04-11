@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "VIE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,24 @@
       "age": 25,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 82,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Y Eli Nie",
@@ -33,7 +49,35 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HAGL Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Dak Lak FC",
+          "year": "2016"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 30,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anh Tuan Le",
@@ -43,7 +87,43 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "Thanh Hoa Youth",
+          "year": "2024"
+        },
+        {
+          "club": "Bac Ninh",
+          "year": "2025"
+        },
+        {
+          "club": "Thanh Hoa Youth",
+          "year": "2025"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +133,33 @@
       "age": 30,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hai Phong FC",
+          "year": "2017"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dinh Huyen Nguyen",
@@ -63,9 +167,53 @@
       "age": 24,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Phu Dong FC",
+          "year": "2021"
+        },
+        {
+          "club": "Thanh Hoa Youth",
+          "year": "2021"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Hoa Binh FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Dong Thap FC",
+          "year": "2024"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Hung Le",
@@ -73,9 +221,45 @@
       "age": 25,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Quang Nam FC",
+          "year": "2023"
+        },
+        {
+          "club": "Da Nang Youth",
+          "year": "2023"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2026"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xuan Hung Luc",
@@ -85,17 +269,105 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2014"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "Binh Phuoc FC",
+          "year": "2023"
+        },
+        {
+          "club": "Binh Dinh FC",
+          "year": "2024"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Minh Doan Huynh",
       "position": "Right-Back",
-      "age": 24,
+      "age": 25,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Da Nang FC",
+          "year": "2021"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2021"
+        },
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ba Tien Nguyen",
@@ -103,9 +375,37 @@
       "age": 25,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Binh Phuoc FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa Youth",
+          "year": "2024"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thanh Nam Truong",
@@ -115,7 +415,27 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Duc Tung Nguyen",
@@ -125,7 +445,43 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Phu Tho FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Hoa Binh FC",
+          "year": "2025"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -137,7 +493,27 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Odilzhon Abdurakhmanov",
@@ -145,19 +521,83 @@
       "age": 30,
       "nationality": "Kyrgyzstan",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Alay Osh",
+          "year": "2016"
+        },
+        {
+          "club": "Bunyodkor",
+          "year": "2021"
+        },
+        {
+          "club": "Maktaaral",
+          "year": "2022"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2024"
+        },
+        {
+          "club": "Binh Duong FC",
+          "year": "2024"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damoth Thongkhamsavath",
       "position": "Central Midfield",
-      "age": 21,
+      "age": 22,
       "nationality": "Laos",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ezra FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 20,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ngoc Tan Doan",
@@ -167,7 +607,39 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hai Phong FC",
+          "year": "2015"
+        },
+        {
+          "club": "HCMC FC",
+          "year": "2016"
+        },
+        {
+          "club": "Hai Phong FC",
+          "year": "2016"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matias Belli Moldskred",
@@ -175,9 +647,107 @@
       "age": 28,
       "nationality": "Nicaragua",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "IF Ready",
+          "year": "2017"
+        },
+        {
+          "club": "Raufoss",
+          "year": "2018"
+        },
+        {
+          "club": "IK Start",
+          "year": "2021"
+        },
+        {
+          "club": "Mjøndalen",
+          "year": "2022"
+        },
+        {
+          "club": "Sandnes Ulf",
+          "year": "2022"
+        },
+        {
+          "club": "FC Voluntari",
+          "year": "2025"
+        },
+        {
+          "club": "Real Estelí FC",
+          "year": "2025"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 38,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Huu Dung Nguyen",
+      "position": "Central Midfield",
+      "age": 30,
+      "nationality": "TM nationality id 185",
+      "club": "Dong A Thanh Hoa FC",
+      "appearances": 3,
+      "goals": 14,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2014"
+        },
+        {
+          "club": "XSKT Can Tho FC",
+          "year": "2018"
+        },
+        {
+          "club": "FLC Thanh Hoa",
+          "year": "2018"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2023"
+        },
+        {
+          "club": "Becamex HCMC",
+          "year": "2025"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Duc Hoang Ngo",
@@ -187,17 +757,55 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Huu Dung Nguyen",
-      "position": "Central Midfield",
-      "age": 30,
-      "nationality": "TM nationality id 185",
-      "club": "Dong A Thanh Hoa FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Phu Dong FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ha Noi Youth",
+          "year": "2021"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2023"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2024"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2026"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quoc Phuong Le",
@@ -207,7 +815,35 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2011"
+        },
+        {
+          "club": "Sai Gon FC",
+          "year": "2018"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 11,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Trum Tinh Pham",
@@ -215,19 +851,67 @@
       "age": 30,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HCMC FC",
+          "year": "2020"
+        },
+        {
+          "club": "Khanh Hoa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 9,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ngoc Quy Tran",
       "position": "Attacking Midfield",
-      "age": 23,
+      "age": 24,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +921,53 @@
       "age": 22,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 1,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Phu Tho FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Binh Phuoc FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2026"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amar Catic",
@@ -249,7 +977,51 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ADO Den Haag",
+          "year": "2020"
+        },
+        {
+          "club": "Wehen Wiesbaden",
+          "year": "2023"
+        },
+        {
+          "club": "Igdir FK",
+          "year": "2024"
+        },
+        {
+          "club": "Corum FK",
+          "year": "2024"
+        },
+        {
+          "club": "Igdir FK",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 22,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Thang Le",
@@ -257,9 +1029,45 @@
       "age": 36,
       "nationality": "TM nationality id 185",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2007"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2014"
+        },
+        {
+          "club": "XSKT Can Tho FC",
+          "year": "2014"
+        },
+        {
+          "club": "Hai Phong FC",
+          "year": "2015"
+        },
+        {
+          "club": "FLC Thanh Hoa",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 26,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rimario Gordon",
@@ -267,9 +1075,87 @@
       "age": 31,
       "nationality": "Jamaica",
       "club": "Dong A Thanh Hoa FC",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "HAGL FC",
+          "year": "2018"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2018"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Binh Dinh FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Hai Phong FC",
+          "year": "2022"
+        },
+        {
+          "club": "Binh Duong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 64,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Van Hoan Le",
+      "position": "Centre-Forward",
+      "age": 19,
+      "nationality": "TM nationality id 185",
+      "club": "Dong A Thanh Hoa FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Tung Nguyen",
@@ -279,7 +1165,55 @@
       "club": "Dong A Thanh Hoa FC",
       "appearances": 9,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Phu Dong FC",
+          "year": "2021"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Hoa Binh FC",
+          "year": "2022"
+        },
+        {
+          "club": "Phu Tho FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Hoa Binh FC",
+          "year": "2025"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

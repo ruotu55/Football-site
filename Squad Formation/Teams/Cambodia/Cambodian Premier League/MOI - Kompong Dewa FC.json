@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "KHM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fiães",
+          "year": "2021"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2022"
+        },
+        {
+          "club": "Madura United",
+          "year": "2024"
+        },
+        {
+          "club": "Malut United",
+          "year": "2025"
+        },
+        {
+          "club": "Madura United",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 86,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chanveasna Kim",
@@ -33,7 +74,27 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "M. of Interior",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 55,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lyna Chhoeurng",
@@ -43,7 +104,22 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +131,71 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 20,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "PSTC-PR",
+          "year": "2018"
+        },
+        {
+          "club": "PSTC-PR",
+          "year": "2019"
+        },
+        {
+          "club": "Azuriz",
+          "year": "2019"
+        },
+        {
+          "club": "Mafra",
+          "year": "2020"
+        },
+        {
+          "club": "Loures",
+          "year": "2021"
+        },
+        {
+          "club": "Mafra",
+          "year": "2021"
+        },
+        {
+          "club": "AO Episkopi",
+          "year": "2021"
+        },
+        {
+          "club": "Kifisia",
+          "year": "2022"
+        },
+        {
+          "club": "Ilioupoli",
+          "year": "2023"
+        },
+        {
+          "club": "Kifisia",
+          "year": "2024"
+        },
+        {
+          "club": "Atyrau",
+          "year": "2024"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Lima",
@@ -63,19 +203,131 @@
       "age": 32,
       "nationality": "Brazil",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "União São João",
+          "year": "2013"
+        },
+        {
+          "club": "Barbarense-SP",
+          "year": "2013"
+        },
+        {
+          "club": "Metropolitano",
+          "year": "2015"
+        },
+        {
+          "club": "River Plate",
+          "year": "2016"
+        },
+        {
+          "club": "Iporá EC",
+          "year": "2018"
+        },
+        {
+          "club": "Madureira",
+          "year": "2019"
+        },
+        {
+          "club": "Jataiense",
+          "year": "2019"
+        },
+        {
+          "club": "Aparecidense",
+          "year": "2020"
+        },
+        {
+          "club": "Linense",
+          "year": "2020"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2021"
+        },
+        {
+          "club": "Aparecidense",
+          "year": "2022"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2022"
+        },
+        {
+          "club": "Caxias-RS",
+          "year": "2023"
+        },
+        {
+          "club": "Floresta-CE",
+          "year": "2023"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2024"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sulthan Zaky",
       "position": "Centre-Back",
-      "age": 19,
+      "age": 20,
       "nationality": "Indonesia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PSM Youth",
+          "year": "2021"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2023"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Visal Vong",
@@ -83,9 +335,24 @@
       "age": 27,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sokong Noy",
@@ -95,7 +362,22 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sanith Chan",
@@ -103,9 +385,24 @@
       "age": 24,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santana Pen",
@@ -115,7 +412,22 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rasi Lo",
@@ -125,7 +437,31 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khindaro In",
@@ -135,7 +471,35 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "M. of Interior",
+          "year": "2024"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phanhasopheaktra Sdaeng",
@@ -145,7 +509,35 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Svay Rieng",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Savdy Soun",
@@ -155,7 +547,22 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +572,45 @@
       "age": 22,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Prey Veng FC",
+          "year": "2021"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2024"
+        },
+        {
+          "club": "Life FC",
+          "year": "2024"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alisher Mirzaev",
@@ -175,9 +618,61 @@
       "age": 29,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 1,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "FK Obod",
+          "year": "2016"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2017"
+        },
+        {
+          "club": "FK Obod",
+          "year": "2017"
+        },
+        {
+          "club": "Surkhon",
+          "year": "2018"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2019"
+        },
+        {
+          "club": "Prey Veng FC",
+          "year": "2021"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2022"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 9,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pharunn Dy",
@@ -185,9 +680,29 @@
       "age": 22,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "M. of Interior",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 3,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Piseth Sri",
@@ -195,9 +710,37 @@
       "age": 23,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2020"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        },
+        {
+          "club": "M. of Interior",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arthur Lucas",
@@ -207,7 +750,63 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Mount Olive",
+          "year": "2019"
+        },
+        {
+          "club": "Lake Erie Storm",
+          "year": "2020"
+        },
+        {
+          "club": "Mézières",
+          "year": "2021"
+        },
+        {
+          "club": "ESM Gonfreville",
+          "year": "2022"
+        },
+        {
+          "club": "RC Lons-le-Saunier",
+          "year": "2023"
+        },
+        {
+          "club": "Jura Dolois",
+          "year": "2023"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kimheng San",
@@ -215,9 +814,33 @@
       "age": 26,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2020"
+        },
+        {
+          "club": "M. of Interior",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lotra Widiyanto",
@@ -227,7 +850,31 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Garuda Select",
+          "year": "2022"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +886,47 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 22,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Visakha FC",
+          "year": "2023"
+        },
+        {
+          "club": "Prey Veng FC",
+          "year": "2023"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2024"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2024"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ashnarvy Mustapha",
@@ -249,7 +936,43 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Petone",
+          "year": "2022"
+        },
+        {
+          "club": "N. Wellington",
+          "year": "2024"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2025"
+        },
+        {
+          "club": "Christchurch",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bora San",
@@ -257,9 +980,24 @@
       "age": 26,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rado Mon",
@@ -267,19 +1005,71 @@
       "age": 22,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Visakha FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        },
+        {
+          "club": "Visakha FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oudom Keo",
       "position": "Right Winger",
-      "age": 23,
+      "age": 24,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Nagaworld FC",
+          "year": "2018"
+        },
+        {
+          "club": "M. of Interior",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Nonato",
@@ -287,9 +1077,73 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 23,
-      "goals": 7,
-      "assists": 1
+      "appearances": 24,
+      "goals": 8,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Central Español",
+          "year": "2020"
+        },
+        {
+          "club": "UR Trabalhadore",
+          "year": "2021"
+        },
+        {
+          "club": "CAC Renaux",
+          "year": "2021"
+        },
+        {
+          "club": "Goiânia",
+          "year": "2021"
+        },
+        {
+          "club": "Salgueiro",
+          "year": "2022"
+        },
+        {
+          "club": "Fluminense-PI",
+          "year": "2022"
+        },
+        {
+          "club": "KF Erzeni",
+          "year": "2022"
+        },
+        {
+          "club": "FK Decic Tuzi",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Sahel SC",
+          "year": "2024"
+        },
+        {
+          "club": "Marsaxlokk",
+          "year": "2024"
+        },
+        {
+          "club": "KS Besa",
+          "year": "2025"
+        },
+        {
+          "club": "Kompong Dewa",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 33,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vanda Mon",
@@ -297,9 +1151,41 @@
       "age": 28,
       "nationality": "Cambodia",
       "club": "MOI - Kompong Dewa FC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Svay Rieng",
+          "year": "2021"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "M. of Interior",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rithy Thol",
@@ -309,7 +1195,22 @@
       "club": "MOI - Kompong Dewa FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

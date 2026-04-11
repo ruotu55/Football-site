@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "WAL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 19,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 40,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Archie Matthews",
@@ -33,39 +54,133 @@
       "club": "Penybont FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Swindon Town",
+          "year": "2019"
+        },
+        {
+          "club": "Totton",
+          "year": "2019"
+        },
+        {
+          "club": "Thatcham",
+          "year": "2019"
+        },
+        {
+          "club": "Swindon Town",
+          "year": "2020"
+        },
+        {
+          "club": "Melksham",
+          "year": "2020"
+        },
+        {
+          "club": "Swindon Town",
+          "year": "2021"
+        },
+        {
+          "club": "Bath City",
+          "year": "2021"
+        },
+        {
+          "club": "Gloucester",
+          "year": "2022"
+        },
+        {
+          "club": "Oxford City",
+          "year": "2023"
+        },
+        {
+          "club": "Penybont",
+          "year": "2024"
+        },
+        {
+          "club": "Wealdstone",
+          "year": "2024"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 39,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Daniel Higgs",
+      "position": "Goalkeeper",
+      "age": 18,
+      "nationality": "Wales",
+      "club": "Penybont FC",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
     {
       "name": "Kai Ludvigsen",
       "position": "Centre-Back",
-      "age": 21,
+      "age": 22,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 14,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Joe Woodiwiss",
-      "position": "Centre-Back",
-      "age": 23,
-      "nationality": "Wales",
-      "club": "Penybont FC",
-      "appearances": 26,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Billy Borge",
-      "position": "Centre-Back",
-      "age": 30,
-      "nationality": "Wales",
-      "club": "Penybont FC",
-      "appearances": 26,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penybont",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathaniel Williams",
@@ -73,9 +188,137 @@
       "age": 22,
       "nationality": "England",
       "club": "Penybont FC",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Weston-super-M.",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Weston-super-M.",
+          "year": "2023"
+        },
+        {
+          "club": "Chippenham",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Taunton Town",
+          "year": "2025"
+        },
+        {
+          "club": "Penybont",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Joe Woodiwiss",
+      "position": "Centre-Back",
+      "age": 23,
+      "nationality": "Wales",
+      "club": "Penybont FC",
+      "appearances": 23,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Newport County",
+          "year": "2021"
+        },
+        {
+          "club": "Merthyr Town",
+          "year": "2022"
+        },
+        {
+          "club": "Newport County",
+          "year": "2022"
+        },
+        {
+          "club": "Pontypridd",
+          "year": "2022"
+        },
+        {
+          "club": "Newport County",
+          "year": "2023"
+        },
+        {
+          "club": "Merthyr Town",
+          "year": "2023"
+        },
+        {
+          "club": "Penybont",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Billy Borge",
+      "position": "Centre-Back",
+      "age": 30,
+      "nationality": "Wales",
+      "club": "Penybont FC",
+      "appearances": 23,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penybont",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacob Jones",
@@ -83,9 +326,53 @@
       "age": 24,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 23,
+      "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Forest Green",
+          "year": "2022"
+        },
+        {
+          "club": "Bath City",
+          "year": "2022"
+        },
+        {
+          "club": "King's Lynn",
+          "year": "2023"
+        },
+        {
+          "club": "Forest Green",
+          "year": "2023"
+        },
+        {
+          "club": "Cove Rangers",
+          "year": "2023"
+        },
+        {
+          "club": "Woking",
+          "year": "2024"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -95,9 +382,41 @@
       "age": 22,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 22,
+      "appearances": 16,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Pontyclun",
+          "year": "2023"
+        },
+        {
+          "club": "Cardiff Met",
+          "year": "2024"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clayton Green",
@@ -105,9 +424,53 @@
       "age": 32,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 34,
+      "appearances": 29,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Carmarthen",
+          "year": "2014"
+        },
+        {
+          "club": "Frome Town",
+          "year": "2015"
+        },
+        {
+          "club": "Barry Town",
+          "year": "2017"
+        },
+        {
+          "club": "Carmarthen",
+          "year": "2018"
+        },
+        {
+          "club": "Barry Town",
+          "year": "2018"
+        },
+        {
+          "club": "Pontypridd",
+          "year": "2022"
+        },
+        {
+          "club": "Penybont",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 23,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ash Baker",
@@ -115,9 +478,41 @@
       "age": 29,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 0
+      "appearances": 23,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sheff Wed",
+          "year": "2018"
+        },
+        {
+          "club": "Newport County",
+          "year": "2020"
+        },
+        {
+          "club": "The New Saints",
+          "year": "2021"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 19,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Cvetkovic",
@@ -126,8 +521,72 @@
       "nationality": "England",
       "club": "Penybont FC",
       "appearances": 15,
-      "goals": 1,
-      "assists": 1
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "CS Fola Esch",
+          "year": "2016"
+        },
+        {
+          "club": "Career break",
+          "year": "2018"
+        },
+        {
+          "club": "CS Fola Esch",
+          "year": "2020"
+        },
+        {
+          "club": "HNK Sibenik",
+          "year": "2021"
+        },
+        {
+          "club": "Hrv Dragovoljac",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Eintracht Trier",
+          "year": "2023"
+        },
+        {
+          "club": "Rot Weiss Ahlen",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "San Ignacio",
+          "year": "2025"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 8,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mael Davies",
@@ -135,9 +594,37 @@
       "age": 27,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 33,
+      "appearances": 31,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Carmarthen",
+          "year": "2018"
+        },
+        {
+          "club": "Cardiff Met",
+          "year": "2019"
+        },
+        {
+          "club": "Penybont",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 280,
+        "goals": 24,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kane Owen",
@@ -145,9 +632,37 @@
       "age": 31,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 33,
+      "appearances": 27,
       "goals": 0,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Afan Lido",
+          "year": "2015"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2016"
+        },
+        {
+          "club": "Penybont",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 24,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Owen Pritchard",
@@ -155,9 +670,33 @@
       "age": 23,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 2
+      "appearances": 18,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Pontypridd",
+          "year": "2023"
+        },
+        {
+          "club": "Penybont",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 13,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -167,9 +706,57 @@
       "age": 28,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 35,
-      "goals": 3,
-      "assists": 4
+      "appearances": 31,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Undy",
+          "year": "2015"
+        },
+        {
+          "club": "Penybont",
+          "year": "2019"
+        },
+        {
+          "club": "Newport County",
+          "year": "2023"
+        },
+        {
+          "club": "Cork City",
+          "year": "2024"
+        },
+        {
+          "club": "Newport County",
+          "year": "2024"
+        },
+        {
+          "club": "Penybont",
+          "year": "2024"
+        },
+        {
+          "club": "Newport County",
+          "year": "2025"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 44,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Owain Warlow",
@@ -177,19 +764,107 @@
       "age": 38,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lincoln City",
+          "year": "2007"
+        },
+        {
+          "club": "Kettering",
+          "year": "2008"
+        },
+        {
+          "club": "Lincoln City",
+          "year": "2008"
+        },
+        {
+          "club": "Llanelli",
+          "year": "2009"
+        },
+        {
+          "club": "Unknown",
+          "year": "2011"
+        },
+        {
+          "club": "Gainsborough",
+          "year": "2011"
+        },
+        {
+          "club": "Worksop",
+          "year": "2011"
+        },
+        {
+          "club": "Merthyr Town",
+          "year": "2014"
+        },
+        {
+          "club": "Tamworth",
+          "year": "2015"
+        },
+        {
+          "club": "Penybont",
+          "year": "2015"
+        },
+        {
+          "club": "Career break",
+          "year": "2020"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Daley",
       "position": "Centre-Forward",
-      "age": 23,
+      "age": 24,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 28,
-      "goals": 13,
-      "assists": 4
+      "appearances": 24,
+      "goals": 11,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Carmarthen",
+          "year": "2020"
+        },
+        {
+          "club": "Penybont",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 94,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chris Venables",
@@ -197,9 +872,53 @@
       "age": 40,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 2,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caersws",
+          "year": "2003"
+        },
+        {
+          "club": "Welshpool",
+          "year": "2007"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2008"
+        },
+        {
+          "club": "Llanelli",
+          "year": "2009"
+        },
+        {
+          "club": "Aberystwyth",
+          "year": "2013"
+        },
+        {
+          "club": "Bala",
+          "year": "2016"
+        },
+        {
+          "club": "Penybont",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 704,
+        "goals": 294,
+        "assists": 60,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Cann",
@@ -208,8 +927,36 @@
       "nationality": "Wales",
       "club": "Penybont FC",
       "appearances": 28,
-      "goals": 3,
-      "assists": 1
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Taffs Well",
+          "year": "2019"
+        },
+        {
+          "club": "Llanelli AFC",
+          "year": "2023"
+        },
+        {
+          "club": "Penybont",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 52,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ioan Phillips",
@@ -217,9 +964,29 @@
       "age": 17,
       "nationality": "Wales",
       "club": "Penybont FC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Penybont",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

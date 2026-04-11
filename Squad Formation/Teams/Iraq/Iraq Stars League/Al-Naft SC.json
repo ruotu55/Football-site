@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IRQ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 24,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Erbil SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Waleed Atiyah",
@@ -33,7 +58,39 @@
       "club": "Al-Naft SC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Diwaniya SC",
+          "year": "2019"
+        },
+        {
+          "club": "Zakho SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Qasim SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hayder Jamal",
@@ -43,7 +100,27 @@
       "club": "Al-Naft SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +130,57 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "Al-Naft SC",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lobi Stars",
+          "year": "2014"
+        },
+        {
+          "club": "Nasarawa United",
+          "year": "2015"
+        },
+        {
+          "club": "Lobi Stars",
+          "year": "2016"
+        },
+        {
+          "club": "Enyimba Aba",
+          "year": "2017"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2018"
+        },
+        {
+          "club": "Akwa United",
+          "year": "2019"
+        },
+        {
+          "club": "Naft Al-Wassat",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joël Tchofo",
@@ -63,9 +188,49 @@
       "age": 28,
       "nationality": "Cameroon",
       "club": "Al-Naft SC",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Les Astres FC",
+          "year": "2016"
+        },
+        {
+          "club": "New Stars FC",
+          "year": "2018"
+        },
+        {
+          "club": "Kénitra",
+          "year": "2019"
+        },
+        {
+          "club": "Karbala'a FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saif Kareem Abd-Ridha",
@@ -73,9 +238,29 @@
       "age": null,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Naft SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diyar Yakhy",
@@ -85,17 +270,101 @@
       "club": "Al-Naft SC",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zakho SC",
+          "year": "2015"
+        },
+        {
+          "club": "Brayati SC",
+          "year": "2017"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2018"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Habib Mohammed",
       "position": "Centre-Back",
-      "age": 28,
+      "age": 29,
       "nationality": "Ghana",
       "club": "Al-Naft SC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2019"
+        },
+        {
+          "club": "Dreams FC",
+          "year": "2021"
+        },
+        {
+          "club": "Sekhukhune",
+          "year": "2022"
+        },
+        {
+          "club": "Insurance Corp.",
+          "year": "2022"
+        },
+        {
+          "club": "Adama Ketema",
+          "year": "2023"
+        },
+        {
+          "club": "Fasil Kenema",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hashd",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Khaled",
@@ -103,9 +372,45 @@
       "age": 28,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 17,
+      "appearances": 19,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Talaba SC",
+          "year": "2017"
+        },
+        {
+          "club": "Erbil SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Mina'a SC",
+          "year": "2019"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fadhel Kareem",
@@ -115,7 +420,27 @@
       "club": "Al-Naft SC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Naft SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karar Salim",
@@ -123,9 +448,33 @@
       "age": null,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 20,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hedod SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karrar Razzaq",
@@ -133,9 +482,24 @@
       "age": 32,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +509,41 @@
       "age": 29,
       "nationality": "Burkina Faso",
       "club": "Al-Naft SC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raja Casablanca",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Karbala'a FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hassan Hamza",
@@ -157,7 +553,31 @@
       "club": "Al-Naft SC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Gharraf",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sadat Mohammed",
@@ -167,7 +587,39 @@
       "club": "Al-Naft SC",
       "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dreams FC",
+          "year": "2021"
+        },
+        {
+          "club": "Legon Cities FC",
+          "year": "2022"
+        },
+        {
+          "club": "Nsoatreman FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Majid",
@@ -175,9 +627,33 @@
       "age": 25,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 14,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Naft Al-Wassat",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Saber",
@@ -185,9 +661,41 @@
       "age": 24,
       "nationality": "Bahrain",
       "club": "Al-Naft SC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Muharraq",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Najma",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Muharraq",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haidar Jasib",
@@ -197,7 +705,22 @@
       "club": "Al-Naft SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Al-Marmour",
@@ -207,7 +730,59 @@
       "club": "Al-Naft SC",
       "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tishreen SC",
+          "year": "2013"
+        },
+        {
+          "club": "Safa Beirut SC",
+          "year": "2017"
+        },
+        {
+          "club": "Tishreen SC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Mesaimeer",
+          "year": "2021"
+        },
+        {
+          "club": "Manama Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Najma",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Najaf FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 14,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mushtaq Talib",
@@ -215,9 +790,41 @@
       "age": 26,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Karbala'a FC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Quwa Al-Jaw.",
+          "year": "2024"
+        },
+        {
+          "club": "Karbala'a FC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ammar Ghalib",
@@ -225,9 +832,37 @@
       "age": 25,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Naft SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shorta",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sattar Yasin",
@@ -235,9 +870,37 @@
       "age": 35,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 5
+      "appearances": 21,
+      "goals": 4,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Zakho SC",
+          "year": "2022"
+        },
+        {
+          "club": "Newroz SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mustafa Qassim",
@@ -247,19 +910,59 @@
       "club": "Al-Naft SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Mohammed Adnan",
       "position": "Right Winger",
-      "age": 28,
+      "age": 29,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Naft SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amadou Moutari",
@@ -267,9 +970,77 @@
       "age": 32,
       "nationality": "Niger",
       "club": "Al-Naft SC",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Metalurg D.",
+          "year": "2014"
+        },
+        {
+          "club": "Anzhi",
+          "year": "2014"
+        },
+        {
+          "club": "Ferencváros",
+          "year": "2017"
+        },
+        {
+          "club": "Mezőkövesd",
+          "year": "2019"
+        },
+        {
+          "club": "Honvéd",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Fayha",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2022"
+        },
+        {
+          "club": "Tuzlaspor",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Sahel Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 46,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Waleed Kareem",
@@ -277,9 +1048,24 @@
       "age": 28,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 3,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Husam Jadallah Khalaf",
@@ -287,9 +1073,41 @@
       "age": 33,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Shorta",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2021"
+        },
+        {
+          "club": "Naft Al-Basra",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaafar Obeis",
@@ -299,7 +1117,31 @@
       "club": "Al-Naft SC",
       "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Najaf FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussein Lawendy",
@@ -307,9 +1149,37 @@
       "age": 25,
       "nationality": "Iraq",
       "club": "Al-Naft SC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 11,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Talaba SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Naft SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

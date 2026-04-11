@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "L2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -32,15 +33,29 @@
           "club": "1.FC Nuremberg",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 223,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Mathenia",
       "position": "Goalkeeper",
-      "age": 33,
+      "age": 34,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -56,7 +71,21 @@
           "club": "1.FC Nuremberg",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 378,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 542,
+        "clean_sheets": 103
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Lisewski",
@@ -64,15 +93,29 @@
       "age": 20,
       "nationality": "Poland",
       "club": "1.FC Nuremberg",
-      "appearances": 19,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 106,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -82,7 +125,7 @@
       "age": 27,
       "nationality": "Georgia",
       "club": "1.FC Nuremberg",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 4,
       "assists": 1,
       "transfer_history": [
@@ -122,7 +165,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 255,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabio Gruber",
@@ -130,7 +187,7 @@
       "age": 23,
       "nationality": "Peru",
       "club": "1.FC Nuremberg",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -142,7 +199,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Styopa Mkrtchyan",
@@ -150,7 +221,7 @@
       "age": 23,
       "nationality": "Armenia",
       "club": "1.FC Nuremberg",
-      "appearances": 22,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -190,7 +261,21 @@
           "club": "1.FC Nuremberg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristian Mandic",
@@ -198,10 +283,24 @@
       "age": 18,
       "nationality": "Croatia",
       "club": "1.FC Nuremberg II",
-      "appearances": 20,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2,
-      "transfer_history": []
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tarek Buchmann",
@@ -209,7 +308,7 @@
       "age": 21,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -225,7 +324,21 @@
           "club": "Bayern Munich",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Berkay Yilmaz",
@@ -233,9 +346,9 @@
       "age": 21,
       "nationality": "Turkiye",
       "club": "1.FC Nuremberg",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 7,
+      "appearances": 26,
+      "goals": 0,
+      "assists": 6,
       "transfer_history": [
         {
           "club": "Freiburg",
@@ -249,7 +362,21 @@
           "club": "Freiburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 7,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danilo Soares",
@@ -285,7 +412,21 @@
           "club": "1.FC Nuremberg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 7,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eric Porstner",
@@ -293,15 +434,29 @@
       "age": 18,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 14,
-      "goals": 5,
-      "assists": 2,
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henri Koudossou",
@@ -309,7 +464,7 @@
       "age": 26,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -345,7 +500,21 @@
           "club": "Augsburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 14,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tim Janisch",
@@ -353,7 +522,7 @@
       "age": 20,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -361,7 +530,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 14,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -371,7 +554,7 @@
       "age": 24,
       "nationality": "Finland",
       "club": "1.FC Nuremberg",
-      "appearances": 25,
+      "appearances": 20,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -399,7 +582,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 190,
+        "goals": 10,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rabby Nzingoula",
@@ -407,7 +604,7 @@
       "age": 20,
       "nationality": "France",
       "club": "1.FC Nuremberg",
-      "appearances": 16,
+      "appearances": 8,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -435,7 +632,21 @@
           "club": "R. Strasbourg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tom Baack",
@@ -471,7 +682,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 241,
+        "goals": 10,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eryk Grzywacz",
@@ -479,9 +704,9 @@
       "age": 20,
       "nationality": "Poland",
       "club": "1.FC Nuremberg",
-      "appearances": 12,
+      "appearances": 1,
       "goals": 0,
-      "assists": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Wolfsburg",
@@ -495,7 +720,21 @@
           "club": "Wolfsburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 7,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Lubach",
@@ -503,7 +742,7 @@
       "age": 21,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 5,
       "assists": 1,
       "transfer_history": [
@@ -511,7 +750,21 @@
           "club": "1.FC Nuremberg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 14,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Finn Becker",
@@ -535,7 +788,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 14,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Fernández",
@@ -543,9 +810,9 @@
       "age": 19,
       "nationality": "Spain",
       "club": "1.FC Nuremberg",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Without Club",
@@ -555,7 +822,21 @@
           "club": "1.FC Nuremberg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 12,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Soldic",
@@ -563,10 +844,24 @@
       "age": 16,
       "nationality": "Germany",
       "club": "1.FC Nürnberg",
-      "appearances": 18,
-      "goals": 7,
-      "assists": 9,
-      "transfer_history": []
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Justin von der Hitz",
@@ -574,20 +869,34 @@
       "age": 19,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 3,
+      "appearances": 4,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 22,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julian Justvan",
       "position": "Attacking Midfield",
-      "age": 27,
+      "age": 28,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
       "appearances": 26,
@@ -614,7 +923,21 @@
           "club": "1.FC Nuremberg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 348,
+        "goals": 81,
+        "assists": 72,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayoub Chaikhoun",
@@ -622,15 +945,29 @@
       "age": 20,
       "nationality": "Morocco",
       "club": "1.FC Nuremberg",
-      "appearances": 14,
-      "goals": 1,
-      "assists": 2,
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 12,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -652,7 +989,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 39,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mickaël Biron",
@@ -660,7 +1011,7 @@
       "age": 28,
       "nationality": "Martinique",
       "club": "1.FC Nuremberg",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -712,7 +1063,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 55,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Piet Scobel",
@@ -720,9 +1085,9 @@
       "age": 20,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 31,
-      "goals": 13,
-      "assists": 6,
+      "appearances": 14,
+      "goals": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Union Tornesch",
@@ -736,7 +1101,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 56,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adriano Grimaldi",
@@ -744,8 +1123,8 @@
       "age": 34,
       "nationality": "Germany",
       "club": "1.FC Nuremberg",
-      "appearances": 25,
-      "goals": 3,
+      "appearances": 24,
+      "goals": 1,
       "assists": 2,
       "transfer_history": [
         {
@@ -800,7 +1179,21 @@
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 477,
+        "goals": 125,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Noah Maboulou",
@@ -808,15 +1201,29 @@
       "age": 21,
       "nationality": "Republic of the Congo",
       "club": "1.FC Nuremberg",
-      "appearances": 14,
-      "goals": 3,
+      "appearances": 11,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "1.FC Nuremberg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 34,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tino Kusanovic",
@@ -824,10 +1231,24 @@
       "age": 18,
       "nationality": "Croatia",
       "club": "1.FC Nuremberg II",
-      "appearances": 17,
-      "goals": 3,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
-      "transfer_history": []
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 30,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

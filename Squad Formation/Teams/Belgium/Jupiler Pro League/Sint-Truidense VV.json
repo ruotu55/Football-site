@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Sint-Truidense VV",
-      "appearances": 29,
+      "appearances": 30,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica",
+          "year": "2023"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 194,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jo Coppens",
@@ -33,7 +58,55 @@
       "club": "Sint-Truidense VV",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cercle Brugge",
+          "year": "2008"
+        },
+        {
+          "club": "MVV Maastricht",
+          "year": "2014"
+        },
+        {
+          "club": "KSV Roeselare",
+          "year": "2016"
+        },
+        {
+          "club": "Carl Zeiss Jena",
+          "year": "2017"
+        },
+        {
+          "club": "Lillestrøm SK",
+          "year": "2020"
+        },
+        {
+          "club": "Unterhaching",
+          "year": "2021"
+        },
+        {
+          "club": "MSV Duisburg",
+          "year": "2021"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 473,
+        "clean_sheets": 55
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matt Lendfers",
@@ -41,9 +114,33 @@
       "age": 20,
       "nationality": "Belgium",
       "club": "Sint-Truidense VV",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "STVV Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 44,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +150,53 @@
       "age": 24,
       "nationality": "France",
       "club": "Sint-Truidense VV",
-      "appearances": 28,
-      "goals": 3,
-      "assists": 2
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nott'm Forest",
+          "year": "2020"
+        },
+        {
+          "club": "Guingamp",
+          "year": "2023"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2023"
+        },
+        {
+          "club": "Almere City",
+          "year": "2023"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2024"
+        },
+        {
+          "club": "Beerschot VA",
+          "year": "2024"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 12,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joedrick Pupe",
@@ -63,9 +204,57 @@
       "age": 28,
       "nationality": "Belgium",
       "club": "Sint-Truidense VV",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almere City",
+          "year": "2018"
+        },
+        {
+          "club": "KSV Oostkamp",
+          "year": "2020"
+        },
+        {
+          "club": "KVC Winkel Sp.",
+          "year": "2021"
+        },
+        {
+          "club": "KSK Lierse Kem.",
+          "year": "2022"
+        },
+        {
+          "club": "FCV Dender EH",
+          "year": "2023"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2025"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2026"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 2,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Visar Musliu",
@@ -73,9 +262,69 @@
       "age": 31,
       "nationality": "North Macedonia",
       "club": "Sint-Truidense VV",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Renova",
+          "year": "2011"
+        },
+        {
+          "club": "Gostivar",
+          "year": "2012"
+        },
+        {
+          "club": "Renova",
+          "year": "2012"
+        },
+        {
+          "club": "Renova",
+          "year": "2015"
+        },
+        {
+          "club": "Vardar",
+          "year": "2017"
+        },
+        {
+          "club": "FC Prishtina",
+          "year": "2018"
+        },
+        {
+          "club": "Shkendija",
+          "year": "2018"
+        },
+        {
+          "club": "Vidi FC",
+          "year": "2019"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2022"
+        },
+        {
+          "club": "SC Paderborn",
+          "year": "2023"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 24,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 72,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shogo Taniguchi",
@@ -83,9 +332,49 @@
       "age": 34,
       "nationality": "Japan",
       "club": "Sint-Truidense VV",
-      "appearances": 29,
+      "appearances": 30,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tsukuba Univ.",
+          "year": "2010"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2013"
+        },
+        {
+          "club": "Tsukuba Univ.",
+          "year": "2014"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2023"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 474,
+        "goals": 29,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wolke Janssens",
@@ -93,9 +382,41 @@
       "age": 31,
       "nationality": "Belgium",
       "club": "Sint-Truidense VV",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dessel Sport",
+          "year": "2014"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2016"
+        },
+        {
+          "club": "Lierse SK",
+          "year": "2017"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 238,
+        "goals": 16,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Lambotte",
@@ -103,9 +424,29 @@
       "age": 19,
       "nationality": "Belgium",
       "club": "Sint-Truidense VV",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sint-Truiden",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taiga Hata",
@@ -115,7 +456,31 @@
       "club": "Sint-Truidense VV",
       "appearances": 26,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Shonan Bellmare",
+          "year": "2020"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 4,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simen Juklerød",
@@ -123,19 +488,87 @@
       "age": 31,
       "nationality": "Norway",
       "club": "Sint-Truidense VV",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 1,
-      "assists": 3
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Bærum",
+          "year": "2012"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2016"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2018"
+        },
+        {
+          "club": "Genk",
+          "year": "2021"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2022"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 324,
+        "goals": 29,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert-Jan Vanwesemael",
       "position": "Right-Back",
-      "age": 23,
+      "age": 24,
       "nationality": "Belgium",
       "club": "Sint-Truidense VV",
       "appearances": 27,
-      "goals": 2,
-      "assists": 1
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "STVV Youth",
+          "year": "2017"
+        },
+        {
+          "club": "KVK Tienen",
+          "year": "2022"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -147,17 +580,85 @@
       "club": "Sint-Truidense VV",
       "appearances": 30,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "AJ Auxerre",
+          "year": "2016"
+        },
+        {
+          "club": "LB Châteauroux",
+          "year": "2018"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2019"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2023"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 10,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alouis Diriken",
       "position": "Defensive Midfield",
-      "age": 21,
+      "age": 22,
       "nationality": "Belgium",
       "club": "Sint-Truidense VV",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "STVV Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2023"
+        },
+        {
+          "club": "STVV Youth",
+          "year": "2024"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rihito Yamamoto",
@@ -165,9 +666,45 @@
       "age": 24,
       "nationality": "Japan",
       "club": "Sint-Truidense VV",
-      "appearances": 30,
+      "appearances": 29,
       "goals": 5,
-      "assists": 6
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Tokyo Verdy",
+          "year": "2019"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2022"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2023"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2024"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 8,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Merlen",
@@ -177,7 +714,31 @@
       "club": "Sint-Truidense VV",
       "appearances": 24,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RFC Lüttich",
+          "year": "2022"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 18,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryotaro Ito",
@@ -185,29 +746,103 @@
       "age": 28,
       "nationality": "Japan",
       "club": "Sint-Truidense VV",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 7,
-      "assists": 5
-    },
-    {
-      "name": "Shion Shinkawa",
-      "position": "Attacking Midfield",
-      "age": 18,
-      "nationality": "Japan",
-      "club": "Sint-Truidense VV",
-      "appearances": 5,
-      "goals": 3,
-      "assists": 0
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Urawa Reds",
+          "year": "2016"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2017"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2019"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2019"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2020"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2021"
+        },
+        {
+          "club": "Urawa Reds",
+          "year": "2022"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2022"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 249,
+        "goals": 48,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaías Delpupo",
       "position": "Attacking Midfield",
-      "age": 22,
+      "age": 23,
       "nationality": "Argentina",
       "club": "Sint-Truidense VV",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cagliari",
+          "year": "2022"
+        },
+        {
+          "club": "Pontedera",
+          "year": "2023"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2024"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 19,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Nhaili",
@@ -215,9 +850,29 @@
       "age": 20,
       "nationality": "Belgium",
       "club": "Sint-Truidense VV",
-      "appearances": 14,
-      "goals": 5,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sint-Truiden",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Illyès Benachour",
@@ -225,9 +880,29 @@
       "age": 19,
       "nationality": "Morocco",
       "club": "Sint-Truidense VV",
-      "appearances": 18,
-      "goals": 3,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +912,61 @@
       "age": 24,
       "nationality": "Morocco",
       "club": "Sint-Truidense VV",
-      "appearances": 31,
+      "appearances": 30,
       "goals": 4,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Waasland-Beveren",
+          "year": "2013"
+        },
+        {
+          "club": "Beersch. Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Beerschot VA",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2023"
+        },
+        {
+          "club": "FC Dordrecht",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 23,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaito Matsuzawa",
@@ -247,9 +974,37 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Sint-Truidense VV",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "University (J)",
+          "year": "2019"
+        },
+        {
+          "club": "V-V. Nagasaki",
+          "year": "2023"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arbnor Muja",
@@ -257,9 +1012,61 @@
       "age": 27,
       "nationality": "Albania",
       "club": "Sint-Truidense VV",
-      "appearances": 25,
+      "appearances": 21,
       "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "KF Trepca 89",
+          "year": "2017"
+        },
+        {
+          "club": "KF Skënderbeu",
+          "year": "2019"
+        },
+        {
+          "club": "KF Trepca 89",
+          "year": "2020"
+        },
+        {
+          "club": "KF Skënderbeu",
+          "year": "2021"
+        },
+        {
+          "club": "FC Drita",
+          "year": "2021"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2022"
+        },
+        {
+          "club": "Samsunspor",
+          "year": "2024"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        },
+        {
+          "club": "Samsunspor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 249,
+        "goals": 45,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keisuke Goto",
@@ -267,9 +1074,53 @@
       "age": 20,
       "nationality": "Japan",
       "club": "Sint-Truidense VV",
-      "appearances": 29,
-      "goals": 12,
-      "assists": 6
+      "appearances": 28,
+      "goals": 10,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Júbilo Iwata",
+          "year": "2023"
+        },
+        {
+          "club": "RSCA Futures",
+          "year": "2024"
+        },
+        {
+          "club": "Júbilo Iwata",
+          "year": "2024"
+        },
+        {
+          "club": "RSCA Futures",
+          "year": "2025"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2025"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 45,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oumar Diouf",
@@ -277,9 +1128,75 @@
       "age": 22,
       "nationality": "Senegal",
       "club": "Sint-Truidense VV",
-      "appearances": 27,
-      "goals": 10,
-      "assists": 2
+      "appearances": 8,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "C. Rizespor",
+          "year": "2023"
+        },
+        {
+          "club": "Genclik Gücü",
+          "year": "2024"
+        },
+        {
+          "club": "RFC Lüttich",
+          "year": "2025"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Shion Shinkawa",
+      "position": "Centre-Forward",
+      "age": 18,
+      "nationality": "Japan",
+      "club": "Sint-Truidense VV",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sagan Tosu",
+          "year": "2025"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 20,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

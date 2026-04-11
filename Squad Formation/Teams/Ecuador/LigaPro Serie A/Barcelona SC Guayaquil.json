@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "EC1N"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 31,
       "nationality": "Venezuela",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Táchira",
+          "year": "2013"
+        },
+        {
+          "club": "LB Châteauroux",
+          "year": "2018"
+        },
+        {
+          "club": "Táchira",
+          "year": "2019"
+        },
+        {
+          "club": "Deportivo Pasto",
+          "year": "2021"
+        },
+        {
+          "club": "AD San Carlos",
+          "year": "2021"
+        },
+        {
+          "club": "Rionegro Águila",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 339,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 348,
+        "clean_sheets": 129
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 11,
+        "clean_sheets": 3
+      }
     },
     {
       "name": "José Gabriel Cevallos",
@@ -33,7 +78,51 @@
       "club": "Barcelona SC Guayaquil",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barcelona SC",
+          "year": "2018"
+        },
+        {
+          "club": "CD América",
+          "year": "2019"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2019"
+        },
+        {
+          "club": "CD Olmedo",
+          "year": "2020"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2022"
+        },
+        {
+          "club": "CD Macará",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 146,
+        "clean_sheets": 20
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kleber Pinargote",
@@ -43,7 +132,39 @@
       "club": "Barcelona SC Guayaquil",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Independiente",
+          "year": "2021"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 22,
+        "clean_sheets": 11
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +174,33 @@
       "age": 24,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Técnico U.",
+          "year": "2021"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustavo Vallecilla",
@@ -63,9 +208,73 @@
       "age": 26,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Cuenca",
+          "year": "2018"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2019"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2020"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2020"
+        },
+        {
+          "club": "Cincinnati",
+          "year": "2021"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2021"
+        },
+        {
+          "club": "Cincinnati",
+          "year": "2022"
+        },
+        {
+          "club": "Colorado",
+          "year": "2022"
+        },
+        {
+          "club": "Columbus",
+          "year": "2023"
+        },
+        {
+          "club": "Colorado",
+          "year": "2023"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Sosa",
@@ -73,9 +282,81 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Huracán",
+          "year": "2014"
+        },
+        {
+          "club": "CA Talleres",
+          "year": "2015"
+        },
+        {
+          "club": "Huracán",
+          "year": "2015"
+        },
+        {
+          "club": "Patronato",
+          "year": "2017"
+        },
+        {
+          "club": "Huracán",
+          "year": "2018"
+        },
+        {
+          "club": "Dep. Cuenca",
+          "year": "2018"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2019"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2021"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2021"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2022"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2023"
+        },
+        {
+          "club": "Newell's",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 9,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Báez",
@@ -83,9 +364,101 @@
       "age": 35,
       "nationality": "Paraguay",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Independiente",
+          "year": "2010"
+        },
+        {
+          "club": "Instituto ACC",
+          "year": "2012"
+        },
+        {
+          "club": "Independiente",
+          "year": "2013"
+        },
+        {
+          "club": "Defensa",
+          "year": "2013"
+        },
+        {
+          "club": "Independiente",
+          "year": "2014"
+        },
+        {
+          "club": "CD Iquique",
+          "year": "2014"
+        },
+        {
+          "club": "Independiente",
+          "year": "2015"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2016"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2017"
+        },
+        {
+          "club": "Godoy Cruz",
+          "year": "2017"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2018"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2019"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2020"
+        },
+        {
+          "club": "Libertad",
+          "year": "2021"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2024"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 417,
+        "goals": 30,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhonnier Chalá",
@@ -93,19 +466,181 @@
       "age": 25,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD El Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        },
+        {
+          "club": "Mushuc Runa SC",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonnathan Mina",
       "position": "Left-Back",
-      "age": 30,
+      "age": 31,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Estrella Roja",
+          "year": "2015"
+        },
+        {
+          "club": "Puerto Quito",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2018"
+        },
+        {
+          "club": "LDU de Loja",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Cuenca",
+          "year": "2020"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2021"
+        },
+        {
+          "club": "Gualaceo SC",
+          "year": "2022"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2023"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 2,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jonathan Perlaza",
+      "position": "Left-Back",
+      "age": 28,
+      "nationality": "Ecuador",
+      "club": "Barcelona SC Guayaquil",
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rocafuerte FC",
+          "year": "2014"
+        },
+        {
+          "club": "Guayaquil SC",
+          "year": "2016"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2018"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2020"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2021"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2022"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 10,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Carabalí",
@@ -113,9 +648,45 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dep. Cuenca",
+          "year": "2015"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Cuenca",
+          "year": "2020"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2020"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 9,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Byron Castillo",
@@ -123,9 +694,61 @@
       "age": 27,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Deportivo Azogues",
+          "year": "2015"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2016"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2018"
+        },
+        {
+          "club": "León",
+          "year": "2022"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2023"
+        },
+        {
+          "club": "León",
+          "year": "2023"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2024"
+        },
+        {
+          "club": "León",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 11,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Willian Vargas",
@@ -135,7 +758,47 @@
       "club": "Barcelona SC Guayaquil",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alfaro Moreno",
+          "year": "2015"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2018"
+        },
+        {
+          "club": "Independiente",
+          "year": "2022"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        },
+        {
+          "club": "Mazatlán FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +808,53 @@
       "age": 29,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LDU Quito",
+          "year": "2014"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2019"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2019"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2021"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2021"
+        },
+        {
+          "club": "Mazatlán FC",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 339,
+        "goals": 10,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Lugo",
@@ -155,9 +862,53 @@
       "age": 24,
       "nationality": "Argentina",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2023"
+        },
+        {
+          "club": "Estudiantes",
+          "year": "2023"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2024"
+        },
+        {
+          "club": "O'Higgins",
+          "year": "2025"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Montaño",
@@ -165,9 +916,53 @@
       "age": 27,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fiorentina FC",
+          "year": "2017"
+        },
+        {
+          "club": "Fiorentina FC",
+          "year": "2018"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2019"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2022"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2024"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhonny Quiñónez",
@@ -175,19 +970,57 @@
       "age": 27,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Dixon Arroyo",
-      "position": "Defensive Midfield",
-      "age": 33,
-      "nationality": "Ecuador",
-      "club": "Barcelona SC Guayaquil",
-      "appearances": 0,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Norte América",
+          "year": "2015"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2016"
+        },
+        {
+          "club": "Norte América",
+          "year": "2016"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2017"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2019"
+        },
+        {
+          "club": "Independiente",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        },
+        {
+          "club": "Independiente",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 29,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Medina",
@@ -197,7 +1030,55 @@
       "club": "Barcelona SC Guayaquil",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mineros SC",
+          "year": "2021"
+        },
+        {
+          "club": "Halley FC",
+          "year": "2022"
+        },
+        {
+          "club": "Juven. Italiana",
+          "year": "2022"
+        },
+        {
+          "club": "Halley FC",
+          "year": "2023"
+        },
+        {
+          "club": "Búhos ULVR FC",
+          "year": "2023"
+        },
+        {
+          "club": "Vargas Torres",
+          "year": "2024"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milton Céliz",
@@ -205,9 +1086,97 @@
       "age": 33,
       "nationality": "Argentina",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2012"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2014"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2014"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2015"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2015"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2016"
+        },
+        {
+          "club": "Juan Aurich",
+          "year": "2017"
+        },
+        {
+          "club": "Ind. Rivadavia",
+          "year": "2018"
+        },
+        {
+          "club": "All Boys",
+          "year": "2018"
+        },
+        {
+          "club": "San Luis",
+          "year": "2019"
+        },
+        {
+          "club": "All Boys",
+          "year": "2020"
+        },
+        {
+          "club": "Tigre",
+          "year": "2021"
+        },
+        {
+          "club": "San Martín (T)",
+          "year": "2022"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2023"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        },
+        {
+          "club": "Dep. Riestra",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 264,
+        "goals": 37,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jandry Gómez",
@@ -215,9 +1184,29 @@
       "age": 19,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomás Martínez",
@@ -225,9 +1214,65 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "River Plate",
+          "year": "2013"
+        },
+        {
+          "club": "CD Tenerife",
+          "year": "2015"
+        },
+        {
+          "club": "River Plate",
+          "year": "2016"
+        },
+        {
+          "club": "Defensa",
+          "year": "2016"
+        },
+        {
+          "club": "Braga",
+          "year": "2016"
+        },
+        {
+          "club": "Houston",
+          "year": "2017"
+        },
+        {
+          "club": "Defensa",
+          "year": "2021"
+        },
+        {
+          "club": "Aldosivi",
+          "year": "2022"
+        },
+        {
+          "club": "FBC Melgar",
+          "year": "2023"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 335,
+        "goals": 41,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johan García",
@@ -235,9 +1280,29 @@
       "age": 17,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1312,49 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Aucas",
+          "year": "2015"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2017"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2017"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2018"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 39,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Cano",
@@ -257,19 +1362,95 @@
       "age": 26,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ciudadelas",
+          "year": "2016"
+        },
+        {
+          "club": "Fiorentina FC",
+          "year": "2017"
+        },
+        {
+          "club": "CD Santa Rita",
+          "year": "2017"
+        },
+        {
+          "club": "CD Santa Rita",
+          "year": "2018"
+        },
+        {
+          "club": "Fiorentina FC",
+          "year": "2018"
+        },
+        {
+          "club": "Fiorentina FC",
+          "year": "2019"
+        },
+        {
+          "club": "Ind. Jrs.",
+          "year": "2019"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2020"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2021"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 36,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Jonathan Perlaza",
+      "name": "Ronald Perlaza",
       "position": "Left Winger",
-      "age": 28,
+      "age": 20,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Héctor Villalba",
@@ -277,9 +1458,135 @@
       "age": 31,
       "nationality": "Paraguay",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 8,
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Lorenzo",
+          "year": "2012"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2016"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2016"
+        },
+        {
+          "club": "Libertad",
+          "year": "2020"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 389,
+        "goals": 73,
+        "assists": 68,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Marcos Mejía",
+      "position": "Right Winger",
+      "age": 27,
+      "nationality": "Ecuador",
+      "club": "Barcelona SC Guayaquil",
+      "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colón FC",
+          "year": "2017"
+        },
+        {
+          "club": "Galácticos FC",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "América SC",
+          "year": "2019"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2019"
+        },
+        {
+          "club": "América SC",
+          "year": "2020"
+        },
+        {
+          "club": "Chacaritas FC",
+          "year": "2020"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2021"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2022"
+        },
+        {
+          "club": "Mushuc Runa SC",
+          "year": "2023"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2023"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2024"
+        },
+        {
+          "club": "Orense SC",
+          "year": "2025"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2026"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Parrales",
@@ -287,9 +1594,109 @@
       "age": 30,
       "nationality": "Ecuador",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2011"
+        },
+        {
+          "club": "CD 5 de Julio",
+          "year": "2011"
+        },
+        {
+          "club": "Manta FC",
+          "year": "2012"
+        },
+        {
+          "club": "Independiente",
+          "year": "2013"
+        },
+        {
+          "club": "Independiente",
+          "year": "2014"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2014"
+        },
+        {
+          "club": "LDU Portoviejo",
+          "year": "2015"
+        },
+        {
+          "club": "Independiente",
+          "year": "2015"
+        },
+        {
+          "club": "Cruz Azul Hid.",
+          "year": "2015"
+        },
+        {
+          "club": "Independiente",
+          "year": "2016"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2016"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2017"
+        },
+        {
+          "club": "Atl. Portoviejo",
+          "year": "2019"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2019"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2019"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2020"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        },
+        {
+          "club": "Orense SC",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 298,
+        "goals": 85,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Núñez",
@@ -297,9 +1704,77 @@
       "age": 25,
       "nationality": "Uruguay",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Peñarol",
+          "year": "2020"
+        },
+        {
+          "club": "Cerrito",
+          "year": "2021"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2021"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2022"
+        },
+        {
+          "club": "AE Larisa",
+          "year": "2023"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2023"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 18,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darío Benedetto",
@@ -307,9 +1782,97 @@
       "age": 35,
       "nationality": "Argentina",
       "club": "Barcelona SC Guayaquil",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 0
+      "appearances": 5,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2009"
+        },
+        {
+          "club": "Defensa",
+          "year": "2010"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2010"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2011"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2011"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2013"
+        },
+        {
+          "club": "América",
+          "year": "2015"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2016"
+        },
+        {
+          "club": "Marseille",
+          "year": "2019"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2021"
+        },
+        {
+          "club": "Marseille",
+          "year": "2022"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2025"
+        },
+        {
+          "club": "Newell's",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 512,
+        "goals": 170,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Borja",
@@ -319,7 +1882,43 @@
       "club": "Barcelona SC Guayaquil",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Manta FC",
+          "year": "2022"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2023"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "RO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 24,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 18,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U Cluj",
+          "year": "2020"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 103,
+        "clean_sheets": 45
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Árpád Tordai",
@@ -31,9 +56,69 @@
       "age": 29,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Academia Hagi",
+          "year": "2009"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2016"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2018"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2018"
+        },
+        {
+          "club": "U Cluj",
+          "year": "2019"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2020"
+        },
+        {
+          "club": "Fehérvár",
+          "year": "2021"
+        },
+        {
+          "club": "FC Viitorul",
+          "year": "2021"
+        },
+        {
+          "club": "Mezőkövesd",
+          "year": "2021"
+        },
+        {
+          "club": "Zalgiris",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 180,
+        "clean_sheets": 53
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Roșu",
@@ -43,7 +128,27 @@
       "club": "UTA Arad",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +160,47 @@
       "club": "UTA Arad",
       "appearances": 30,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olympique Alès",
+          "year": "2016"
+        },
+        {
+          "club": "Sigma Olomouc",
+          "year": "2020"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2023"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2024"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Stolnik",
@@ -63,9 +208,61 @@
       "age": 29,
       "nationality": "Croatia",
       "club": "UTA Arad",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Sesvete",
+          "year": "2014"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2016"
+        },
+        {
+          "club": "NK Varazdin",
+          "year": "2018"
+        },
+        {
+          "club": "Auda",
+          "year": "2022"
+        },
+        {
+          "club": "NK Varazdin",
+          "year": "2022"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2023"
+        },
+        {
+          "club": "AEL Limassol",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dmytro Pospelov",
@@ -73,9 +270,77 @@
       "age": 34,
       "nationality": "Ukraine",
       "club": "UTA Arad",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2008"
+        },
+        {
+          "club": "Dnister",
+          "year": "2009"
+        },
+        {
+          "club": "FC Odesa",
+          "year": "2011"
+        },
+        {
+          "club": "Turan Tovuz",
+          "year": "2013"
+        },
+        {
+          "club": "Unknown",
+          "year": "2013"
+        },
+        {
+          "club": "Real Farma",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Zhemchuzhyna O.",
+          "year": "2015"
+        },
+        {
+          "club": "Metalist 1925",
+          "year": "2018"
+        },
+        {
+          "club": "Chornomorets",
+          "year": "2020"
+        },
+        {
+          "club": "Ingulets",
+          "year": "2021"
+        },
+        {
+          "club": "Unirea Slobozia",
+          "year": "2023"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 327,
+        "goals": 35,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandru Benga",
@@ -83,9 +348,105 @@
       "age": 36,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Brasov",
+          "year": "2006"
+        },
+        {
+          "club": "FC Sacele",
+          "year": "2007"
+        },
+        {
+          "club": "FC Brasov",
+          "year": "2008"
+        },
+        {
+          "club": "Forex Brasov",
+          "year": "2008"
+        },
+        {
+          "club": "FC Brasov",
+          "year": "2009"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2009"
+        },
+        {
+          "club": "FC Brasov",
+          "year": "2010"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2010"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2010"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2011"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2013"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2014"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2014"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2015"
+        },
+        {
+          "club": "Ermis Aradippou",
+          "year": "2016"
+        },
+        {
+          "club": "Juventus Buc.",
+          "year": "2017"
+        },
+        {
+          "club": "Sandecja",
+          "year": "2018"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2018"
+        },
+        {
+          "club": "Chindia",
+          "year": "2019"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 412,
+        "goals": 14,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Din Alomerovic",
@@ -93,9 +454,57 @@
       "age": 28,
       "nationality": "North Macedonia",
       "club": "UTA Arad",
-      "appearances": 30,
-      "goals": 3,
-      "assists": 2
+      "appearances": 28,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Euromilk GL",
+          "year": "2015"
+        },
+        {
+          "club": "Makedonija",
+          "year": "2016"
+        },
+        {
+          "club": "Salamanca CF",
+          "year": "2019"
+        },
+        {
+          "club": "CF La Nucía",
+          "year": "2019"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2020"
+        },
+        {
+          "club": "R. B. Linense",
+          "year": "2020"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2021"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 8,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrea Padula",
@@ -105,7 +514,67 @@
       "club": "UTA Arad",
       "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Chiasso",
+          "year": "2016"
+        },
+        {
+          "club": "FC Lugano",
+          "year": "2017"
+        },
+        {
+          "club": "FC Chiasso",
+          "year": "2017"
+        },
+        {
+          "club": "FC Lugano",
+          "year": "2018"
+        },
+        {
+          "club": "Monza",
+          "year": "2018"
+        },
+        {
+          "club": "FC Chiasso",
+          "year": "2018"
+        },
+        {
+          "club": "FC Wil 1900",
+          "year": "2020"
+        },
+        {
+          "club": "Basel",
+          "year": "2020"
+        },
+        {
+          "club": "AC Bellinzona",
+          "year": "2022"
+        },
+        {
+          "club": "FC U Craiova",
+          "year": "2023"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 28,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mark Țuțu",
@@ -113,9 +582,41 @@
       "age": 22,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 30,
+      "appearances": 29,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Ceahlaul",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        },
+        {
+          "club": "Ceahlaul",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Flavius Iacob",
@@ -123,9 +624,45 @@
       "age": 25,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Corvinul",
+          "year": "2016"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2024"
+        },
+        {
+          "club": "Corvinul",
+          "year": "2025"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        },
+        {
+          "club": "Corvinul",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 4,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +672,49 @@
       "age": 32,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2009"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2013"
+        },
+        {
+          "club": "ACS Poli",
+          "year": "2014"
+        },
+        {
+          "club": "Steaua Bucharest",
+          "year": "2016"
+        },
+        {
+          "club": "U Cluj",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 359,
+        "goals": 18,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin Van Durmen",
@@ -145,9 +722,37 @@
       "age": 29,
       "nationality": "Belgium",
       "club": "UTA Arad",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mouscron",
+          "year": "2016"
+        },
+        {
+          "club": "FC U Craiova",
+          "year": "2021"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Hrezdac",
@@ -155,9 +760,53 @@
       "age": 24,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 30,
+      "appearances": 27,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "UTA Arad",
+          "year": "2017"
+        },
+        {
+          "club": "Corvinul",
+          "year": "2021"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2021"
+        },
+        {
+          "club": "Pecica",
+          "year": "2022"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2023"
+        },
+        {
+          "club": "Corvinul",
+          "year": "2023"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sota Mino",
@@ -165,9 +814,61 @@
       "age": 31,
       "nationality": "Japan",
       "club": "UTA Arad",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lagend Shiga",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Fgura Utd",
+          "year": "2016"
+        },
+        {
+          "club": "Gharghur FC",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Metaloglobus",
+          "year": "2018"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2021"
+        },
+        {
+          "club": "Sepsi OSK",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 15,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Mihai",
@@ -175,9 +876,61 @@
       "age": 22,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Trento",
+          "year": "2022"
+        },
+        {
+          "club": "SPAL",
+          "year": "2023"
+        },
+        {
+          "club": "UC AlbinoLeffe",
+          "year": "2023"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2023"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2024"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2024"
+        },
+        {
+          "club": "FC Buzau",
+          "year": "2025"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2025"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Odada",
@@ -185,9 +938,73 @@
       "age": 25,
       "nationality": "Kenya",
       "club": "UTA Arad",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Graficar",
+          "year": "2020"
+        },
+        {
+          "club": "Red Star",
+          "year": "2021"
+        },
+        {
+          "club": "Metalac",
+          "year": "2021"
+        },
+        {
+          "club": "Red Star",
+          "year": "2022"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2022"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2023"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee United",
+          "year": "2024"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee United",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alin Roman",
@@ -195,9 +1012,101 @@
       "age": 32,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 33,
-      "goals": 7,
-      "assists": 12
+      "appearances": 30,
+      "goals": 6,
+      "assists": 12,
+      "transfer_history": [
+        {
+          "club": "Avicola Buzias",
+          "year": "2011"
+        },
+        {
+          "club": "FC Maramures",
+          "year": "2011"
+        },
+        {
+          "club": "Avicola Buzias",
+          "year": "2012"
+        },
+        {
+          "club": "FC Dinamo",
+          "year": "2012"
+        },
+        {
+          "club": "Avicola Buzias",
+          "year": "2013"
+        },
+        {
+          "club": "ASA Tg. Mures",
+          "year": "2013"
+        },
+        {
+          "club": "ACS Poli",
+          "year": "2014"
+        },
+        {
+          "club": "Avicola Buzias",
+          "year": "2014"
+        },
+        {
+          "club": "Metalul Resita",
+          "year": "2014"
+        },
+        {
+          "club": "FC Caransebes",
+          "year": "2015"
+        },
+        {
+          "club": "UTA BD",
+          "year": "2016"
+        },
+        {
+          "club": "National Sebis",
+          "year": "2016"
+        },
+        {
+          "club": "Bad Goisern",
+          "year": "2017"
+        },
+        {
+          "club": "Vöcklamarkt",
+          "year": "2017"
+        },
+        {
+          "club": "Stadl-Paura",
+          "year": "2018"
+        },
+        {
+          "club": "Vorwärts Steyr",
+          "year": "2019"
+        },
+        {
+          "club": "SKU Amstetten",
+          "year": "2020"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2022"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 79,
+        "assists": 60,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Gojkovic",
@@ -205,9 +1114,61 @@
       "age": 26,
       "nationality": "Serbia",
       "club": "UTA Arad",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "BSK Borca",
+          "year": "2017"
+        },
+        {
+          "club": "BSK Borca",
+          "year": "2018"
+        },
+        {
+          "club": "Backa",
+          "year": "2020"
+        },
+        {
+          "club": "IMT Belgrad",
+          "year": "2020"
+        },
+        {
+          "club": "Rad",
+          "year": "2021"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2022"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2026"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 24,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Țăroi",
@@ -215,9 +1176,29 @@
       "age": 17,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandru Matei",
@@ -225,9 +1206,29 @@
       "age": 18,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSC Ghiroda",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1238,41 @@
       "age": 24,
       "nationality": "Cyprus",
       "club": "UTA Arad",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 1,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Omonia Nicosia",
+          "year": "2017"
+        },
+        {
+          "club": "Kansas City",
+          "year": "2022"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 24,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ime Ndon",
@@ -247,9 +1280,45 @@
       "age": 22,
       "nationality": "Nigeria",
       "club": "UTA Arad",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 4
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Kfar Qasem",
+          "year": "2022"
+        },
+        {
+          "club": "Hammam Sousse",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Milsami",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrei Tolcea",
@@ -259,7 +1328,22 @@
       "club": "UTA Arad",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patriot Sejdiu",
@@ -267,9 +1351,61 @@
       "age": 25,
       "nationality": "TM nationality id 244",
       "club": "UTA Arad",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Malmö",
+          "year": "2020"
+        },
+        {
+          "club": "Dalkurd",
+          "year": "2020"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2023"
+        },
+        {
+          "club": "Malmö",
+          "year": "2024"
+        },
+        {
+          "club": "Roda JC",
+          "year": "2024"
+        },
+        {
+          "club": "Malmö",
+          "year": "2025"
+        },
+        {
+          "club": "Östers IF",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 22,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marius Coman",
@@ -277,9 +1413,77 @@
       "age": 29,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 26,
-      "goals": 8,
-      "assists": 2
+      "appearances": 22,
+      "goals": 7,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Minaur",
+          "year": "2013"
+        },
+        {
+          "club": "Bucovina Poj.",
+          "year": "2015"
+        },
+        {
+          "club": "Academica Clince",
+          "year": "2016"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2017"
+        },
+        {
+          "club": "U Cluj",
+          "year": "2018"
+        },
+        {
+          "club": "CSM Resita",
+          "year": "2019"
+        },
+        {
+          "club": "U Cluj",
+          "year": "2020"
+        },
+        {
+          "club": "Comuna Recea",
+          "year": "2020"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2021"
+        },
+        {
+          "club": "Corvinul",
+          "year": "2022"
+        },
+        {
+          "club": "Sepsi OSK",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        },
+        {
+          "club": "Sepsi OSK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 72,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hakim Abdallah",
@@ -287,9 +1491,53 @@
       "age": 28,
       "nationality": "Madagascar",
       "club": "UTA Arad",
-      "appearances": 29,
-      "goals": 5,
-      "assists": 3
+      "appearances": 26,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "US Avranches",
+          "year": "2017"
+        },
+        {
+          "club": "CP El Ejido",
+          "year": "2017"
+        },
+        {
+          "club": "Hesperange",
+          "year": "2020"
+        },
+        {
+          "club": "KSK Lierse Kem.",
+          "year": "2021"
+        },
+        {
+          "club": "RE Virton",
+          "year": "2022"
+        },
+        {
+          "club": "FC Dinamo",
+          "year": "2023"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 64,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrian Dragoș",
@@ -297,9 +1545,24 @@
       "age": 18,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Ciubăncan",
@@ -307,9 +1570,69 @@
       "age": 21,
       "nationality": "Romania",
       "club": "UTA Arad",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Soimii Lipova",
+          "year": "2020"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2022"
+        },
+        {
+          "club": "Unirea Ungheni",
+          "year": "2022"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2023"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2023"
+        },
+        {
+          "club": "Soimii Lipova",
+          "year": "2023"
+        },
+        {
+          "club": "CSM Deva",
+          "year": "2024"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2024"
+        },
+        {
+          "club": "Minaur",
+          "year": "2024"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2025"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

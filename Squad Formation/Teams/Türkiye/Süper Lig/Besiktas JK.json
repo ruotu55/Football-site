@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "TR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 25,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 24,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 196,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 232,
+        "clean_sheets": 63
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Devis Vásquez",
@@ -33,7 +54,79 @@
       "club": "Besiktas JK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Patriotas",
+          "year": "2016"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2018"
+        },
+        {
+          "club": "Patriotas",
+          "year": "2018"
+        },
+        {
+          "club": "Llaneros FC",
+          "year": "2019"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2021"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2023"
+        },
+        {
+          "club": "Sheff Wed",
+          "year": "2023"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2024"
+        },
+        {
+          "club": "Ascoli",
+          "year": "2024"
+        },
+        {
+          "club": "FC Empoli",
+          "year": "2024"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2025"
+        },
+        {
+          "club": "Roma",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        },
+        {
+          "club": "Roma",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 126,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emre Bilgin",
@@ -43,7 +136,35 @@
       "club": "Besiktas JK",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2020"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2023"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 72,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 3
+      }
     },
     {
       "name": "Emir Yaşar",
@@ -51,9 +172,29 @@
       "age": 20,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +204,49 @@
       "age": 28,
       "nationality": "Ivory Coast",
       "club": "Besiktas JK",
-      "appearances": 25,
+      "appearances": 7,
       "goals": 1,
-      "assists": 4
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "US Monastir",
+          "year": "2019"
+        },
+        {
+          "club": "FC San Pedro",
+          "year": "2020"
+        },
+        {
+          "club": "KAS Eupen",
+          "year": "2020"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2022"
+        },
+        {
+          "club": "Wolves",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 12,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tiago Djaló",
@@ -73,9 +254,49 @@
       "age": 25,
       "nationality": "Portugal",
       "club": "Besiktas JK",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2013"
+        },
+        {
+          "club": "Lille",
+          "year": "2019"
+        },
+        {
+          "club": "Juventus",
+          "year": "2024"
+        },
+        {
+          "club": "Porto",
+          "year": "2024"
+        },
+        {
+          "club": "Juventus",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emirhan Topçu",
@@ -83,9 +304,49 @@
       "age": 25,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 24,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "C. Rizespor",
+          "year": "2017"
+        },
+        {
+          "club": "Celik Zenica",
+          "year": "2020"
+        },
+        {
+          "club": "C. Rizespor",
+          "year": "2020"
+        },
+        {
+          "club": "Menemenspor",
+          "year": "2021"
+        },
+        {
+          "club": "C. Rizespor",
+          "year": "2021"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felix Uduokhai",
@@ -93,9 +354,57 @@
       "age": 28,
       "nationality": "Germany",
       "club": "Besiktas JK",
-      "appearances": 19,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "1860 Munich",
+          "year": "2016"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2017"
+        },
+        {
+          "club": "Augsburg",
+          "year": "2019"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2020"
+        },
+        {
+          "club": "Augsburg",
+          "year": "2020"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2024"
+        },
+        {
+          "club": "Augsburg",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 12,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yasin Özcan",
@@ -103,9 +412,49 @@
       "age": 19,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kasimpasa",
+          "year": "2022"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2025"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2026"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rıdvan Yılmaz",
@@ -113,9 +462,41 @@
       "age": 24,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2019"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2020"
+        },
+        {
+          "club": "Rangers",
+          "year": "2022"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 9,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Murillo",
@@ -123,9 +504,53 @@
       "age": 30,
       "nationality": "Panama",
       "club": "Besiktas JK",
-      "appearances": 33,
-      "goals": 4,
-      "assists": 5
+      "appearances": 7,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "San Francisco",
+          "year": "2015"
+        },
+        {
+          "club": "New York",
+          "year": "2017"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2017"
+        },
+        {
+          "club": "New York",
+          "year": "2018"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2020"
+        },
+        {
+          "club": "Marseille",
+          "year": "2023"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 29,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 91,
+        "goals": 9,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taylan Bulut",
@@ -133,9 +558,33 @@
       "age": 20,
       "nationality": "Germany",
       "club": "Besiktas JK",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Schalke 04",
+          "year": "2024"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 10,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gökhan Sazdağı",
@@ -143,9 +592,73 @@
       "age": 31,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Turgutluspor",
+          "year": "2013"
+        },
+        {
+          "club": "Manisaspor",
+          "year": "2014"
+        },
+        {
+          "club": "Gaziantep BB",
+          "year": "2015"
+        },
+        {
+          "club": "Manisaspor",
+          "year": "2017"
+        },
+        {
+          "club": "Gaziantep BB",
+          "year": "2017"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2017"
+        },
+        {
+          "club": "Hatayspor",
+          "year": "2018"
+        },
+        {
+          "club": "Adanaspor",
+          "year": "2018"
+        },
+        {
+          "club": "Boluspor",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 43,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +668,53 @@
       "age": 24,
       "nationality": "Albania",
       "club": "Besiktas JK",
-      "appearances": 24,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Empoli",
+          "year": "2021"
+        },
+        {
+          "club": "Inter",
+          "year": "2022"
+        },
+        {
+          "club": "FC Empoli",
+          "year": "2023"
+        },
+        {
+          "club": "Inter",
+          "year": "2023"
+        },
+        {
+          "club": "Torino",
+          "year": "2025"
+        },
+        {
+          "club": "Inter",
+          "year": "2026"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 27,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wilfred Ndidi",
@@ -165,9 +722,37 @@
       "age": 29,
       "nationality": "Nigeria",
       "club": "Besiktas JK",
-      "appearances": 25,
+      "appearances": 21,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Genk",
+          "year": "2015"
+        },
+        {
+          "club": "Leicester",
+          "year": "2017"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 411,
+        "goals": 27,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 77,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kartal Yılmaz",
@@ -175,9 +760,53 @@
       "age": 25,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 2
+      "appearances": 12,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2020"
+        },
+        {
+          "club": "Ümraniyespor",
+          "year": "2021"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2022"
+        },
+        {
+          "club": "Ümraniyespor",
+          "year": "2022"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2023"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 7,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Necip Uysal",
@@ -185,9 +814,33 @@
       "age": 35,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2009"
+        },
+        {
+          "club": "Retired",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 466,
+        "goals": 6,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Orkun Kökçü",
@@ -195,9 +848,53 @@
       "age": 25,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 32,
-      "goals": 7,
-      "assists": 8
+      "appearances": 23,
+      "goals": 6,
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Groningen Youth",
+          "year": "2011"
+        },
+        {
+          "club": "Feyenoord Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2018"
+        },
+        {
+          "club": "Benfica",
+          "year": "2023"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        },
+        {
+          "club": "Benfica",
+          "year": "2026"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 379,
+        "goals": 83,
+        "assists": 68,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 3,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salih Uçan",
@@ -205,9 +902,77 @@
       "age": 32,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 1
+      "appearances": 15,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bucaspor",
+          "year": "2011"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2012"
+        },
+        {
+          "club": "Roma",
+          "year": "2014"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2016"
+        },
+        {
+          "club": "FC Sion",
+          "year": "2017"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2018"
+        },
+        {
+          "club": "FC Empoli",
+          "year": "2018"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2019"
+        },
+        {
+          "club": "FC Empoli",
+          "year": "2019"
+        },
+        {
+          "club": "Alanyaspor",
+          "year": "2019"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2021"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2022"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 354,
+        "goals": 23,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junior Olaitan",
@@ -215,9 +980,53 @@
       "age": 23,
       "nationality": "Benin",
       "club": "Besiktas JK",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chamois Niort",
+          "year": "2022"
+        },
+        {
+          "club": "Troyes",
+          "year": "2023"
+        },
+        {
+          "club": "Chamois Niort",
+          "year": "2024"
+        },
+        {
+          "club": "Troyes",
+          "year": "2024"
+        },
+        {
+          "club": "Grenoble",
+          "year": "2024"
+        },
+        {
+          "club": "Göztepe",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +1036,57 @@
       "age": 24,
       "nationality": "Mali",
       "club": "Besiktas JK",
-      "appearances": 18,
-      "goals": 6,
-      "assists": 5
+      "appearances": 16,
+      "goals": 5,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "AFE",
+          "year": "2016"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2020"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2022"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2023"
+        },
+        {
+          "club": "Stuttgart",
+          "year": "2024"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        },
+        {
+          "club": "Atalanta",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 30,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jota Silva",
@@ -237,19 +1094,99 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "Besiktas JK",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sousense Sub-15",
+          "year": "2012"
+        },
+        {
+          "club": "Sousense Sub-17",
+          "year": "2014"
+        },
+        {
+          "club": "Sousense Y19",
+          "year": "2016"
+        },
+        {
+          "club": "Sousense",
+          "year": "2018"
+        },
+        {
+          "club": "Espinho",
+          "year": "2019"
+        },
+        {
+          "club": "Leixões",
+          "year": "2020"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2021"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2022"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2024"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 47,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Devrim Şahin",
       "position": "Left Winger",
-      "age": 18,
+      "age": 19,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 14,
-      "goals": 3,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 13,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vaclav Cerny",
@@ -257,9 +1194,61 @@
       "age": 28,
       "nationality": "Czech Republic",
       "club": "Besiktas JK",
-      "appearances": 28,
-      "goals": 7,
-      "assists": 8
+      "appearances": 23,
+      "goals": 4,
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Ajax",
+          "year": "2016"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2019"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2020"
+        },
+        {
+          "club": "Utrecht",
+          "year": "2021"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2021"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2023"
+        },
+        {
+          "club": "Rangers",
+          "year": "2024"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 344,
+        "goals": 108,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cengiz Ünder",
@@ -267,9 +1256,77 @@
       "age": 28,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 5,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Altinordu",
+          "year": "2014"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2016"
+        },
+        {
+          "club": "Roma",
+          "year": "2017"
+        },
+        {
+          "club": "Leicester",
+          "year": "2020"
+        },
+        {
+          "club": "Roma",
+          "year": "2021"
+        },
+        {
+          "club": "Marseille",
+          "year": "2021"
+        },
+        {
+          "club": "Roma",
+          "year": "2022"
+        },
+        {
+          "club": "Marseille",
+          "year": "2022"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2023"
+        },
+        {
+          "club": "LAFC",
+          "year": "2025"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2025"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2025"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 384,
+        "goals": 73,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 16,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milot Rashica",
@@ -277,9 +1334,53 @@
       "age": 29,
       "nationality": "Kosovo",
       "club": "Besiktas JK",
-      "appearances": 29,
-      "goals": 2,
-      "assists": 5
+      "appearances": 22,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Vushtrria",
+          "year": "2012"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2015"
+        },
+        {
+          "club": "Werder Bremen",
+          "year": "2018"
+        },
+        {
+          "club": "Norwich",
+          "year": "2021"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2022"
+        },
+        {
+          "club": "Norwich",
+          "year": "2023"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 382,
+        "goals": 62,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 64,
+        "goals": 12,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hyeon-gyu Oh",
@@ -287,9 +1388,57 @@
       "age": 24,
       "nationality": "South Korea",
       "club": "Besiktas JK",
-      "appearances": 40,
-      "goals": 15,
-      "assists": 5
+      "appearances": 7,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "S.Bluewings U15",
+          "year": "2014"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2019"
+        },
+        {
+          "club": "Sangju Sangmu",
+          "year": "2020"
+        },
+        {
+          "club": "Suwon Bluewings",
+          "year": "2021"
+        },
+        {
+          "club": "Celtic",
+          "year": "2023"
+        },
+        {
+          "club": "Genk",
+          "year": "2024"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 221,
+        "goals": 62,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mustafa Hekimoğlu",
@@ -297,9 +1446,29 @@
       "age": 18,
       "nationality": "Turkiye",
       "club": "Besiktas JK",
-      "appearances": 15,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Besiktas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

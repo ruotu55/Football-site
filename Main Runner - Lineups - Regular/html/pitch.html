@@ -1,8 +1,14 @@
 <div class="pitch-wrap" id="pitch-wrap" hidden>
+  <button type="button" id="pitch-swap-logo" class="pitch-swap-logo-btn" hidden aria-label="Swap team crest">Swap logo</button>
+  <div id="lineups-inline-team-picker" class="lineups-inline-team-picker" hidden>
+    <div class="lineups-inline-team-picker-title">No Team Selected</div>
+    <input type="search" id="team-search" class="lineups-inline-team-search" placeholder="Search team..." autocomplete="off" />
+    <div id="team-results" class="team-results lineups-inline-team-results" aria-live="polite"></div>
+  </div>
   <div class="pitch-surface" id="pitch-container">
     <svg id="pitch-svg" class="pitch-svg" viewBox="0 0 160 100" preserveAspectRatio="none" aria-hidden="true">
-      <rect x="0" y="0" width="160" height="100" fill="transparent" stroke="#e8f4ff" stroke-width="0.45" />
-      <g class="pitch-lines" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="0.42" stroke-linecap="square" stroke-linejoin="miter">
+      <rect x="0" y="0" width="160" height="100" fill="transparent" stroke="rgba(232,244,255,0.28)" stroke-width="0.45" />
+      <g class="pitch-lines" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="0.42" stroke-linecap="square" stroke-linejoin="miter">
         <line x1="0" y1="50" x2="160" y2="50" />
         <ellipse cx="80" cy="50" rx="21.529" ry="8.714" />
         <rect x="32.565" y="0" width="94.871" height="20.5" />
@@ -16,7 +22,7 @@
         <path d="M 0 99.048 A 2.353 0.952 0 0 0 2.353 100" />
         <path d="M 160 99.048 A 2.353 0.952 0 0 1 157.647 100" />
       </g>
-      <g class="pitch-marks" fill="#fff">
+      <g class="pitch-marks" fill="rgba(255,255,255,0.28)">
         <circle cx="80" cy="50" r="0.55" />
         <circle cx="80" cy="13.5" r="0.42" /> <circle cx="80" cy="86.5" r="0.42" /> </g>
     </svg>

@@ -11,6 +11,9 @@ export const appState = {
     controlPanel: null,
     headerName: null,
     headerLogo: null,
+    teamVoiceControls: null,
+    teamVoicePlay: null,
+    teamVoiceDelete: null,
     quizLevelsInput: null,
     updateLevelsBtn: null,
     quizProgressScroll: null,
@@ -18,6 +21,12 @@ export const appState = {
     swapClose: null,
     swapList: null,
     swapSearch: null,
+    swapSearchAll: null,
+    swapLogoModal: null,
+    swapLogoClose: null,
+    swapLogoList: null,
+    swapLogoSearch: null,
+    swapLogoReset: null,
     videoModeToggle: null,
     playVideoBtn: null,
     countdownTimer: null,
@@ -29,6 +38,9 @@ export const appState = {
     panelSetup: null,
     panelSaved: null,
     setupPitchControls: null,
+    btnSaveCurrentTeam: null,
+    btnSaveCurrentTeamFab: null,
+    btnSaveCurrentTeamLanding: null,
     btnSaveScript: null,
     btnCreateFolder: null,
     savedScriptsList: null,
@@ -43,6 +55,10 @@ export const appState = {
     deleteScriptModal: null,
     deleteScriptNo: null,
     deleteScriptYes: null,
+    saveScriptModalClose: null,
+    saveDiscardModal: null,
+    saveDiscardNo: null,
+    saveDiscardYes: null,
     inQuizType: null,
     inSpecificTitleToggle: null,
     inSpecificTitleText: null,
@@ -53,6 +69,18 @@ export const appState = {
     inImpossible: null,
     landingPage: null,
     outroPage: null,
+    thumbnailMakerPage: null,
+    openThumbnailMakerBtn: null,
+    thumbnailMakerBackBtn: null,
+    thumbnailMakerAddBtn: null,
+    thumbnailMakerResetBtn: null,
+    thumbnailMakerCanvas: null,
+    thumbnailPickerModal: null,
+    thumbnailPickerTitle: null,
+    thumbnailPickerSearch: null,
+    thumbnailPickerSelect: null,
+    thumbnailPickerCancel: null,
+    thumbnailPickerApply: null,
     pitchWrap: null,
     logoPage: null, 
     quizProgressContainer: null, 
@@ -61,6 +89,9 @@ export const appState = {
     shortsModeBtn: null,
   },
   teamsIndex: { clubs: [], nationalities: [] },
+  /** Map nationality string -> players from club squads with NT caps; null until lazy-loaded. */
+  internationalClubPool: null,
+  internationalClubPoolLoadPromise: null,
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
   totalLevelsCount: 20,
@@ -69,8 +100,20 @@ export const appState = {
   swapActiveSlotIndex: -1,
   careerActiveSlotIndex: -1,
   swapAvailablePlayers: [],
+  /** Latest list for swap-logo modal (refetched when modal opens; live via `run_site.py`). */
+  otherTeamsLogoNames: null,
+  /** Bust browser cache for modal crest thumbnails after folder changes. */
+  swapLogoThumbCacheToken: "0",
+  /** While swap-logo modal is open: `null` = team header crest; `{ kind: "slot", slotIndex }` = national XI slot front. */
+  swapLogoPickContext: null,
+  /** One-shot: next `renderPitch` skips staggered flip-card transition (swap picker). */
+  suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
+  /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
+  refreshLandingUi: null,
+  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
+  landingSpecialBadgeRevealTimeoutId: null,
   videoInterval: null,
   videoTimeout: null,
   currentXi: [],
@@ -78,7 +121,13 @@ export const appState = {
 };
 
 export function getState() {
-  return appState.levelsData[appState.currentLevelIndex];
+  const direct = appState.levelsData[appState.currentLevelIndex];
+  if (direct) return direct;
+  const lastQuizIndex = Math.min(
+    Math.max(1, appState.totalLevelsCount),
+    Math.max(1, appState.levelsData.length - 1),
+  );
+  return appState.levelsData[lastQuizIndex] || appState.levelsData[1] || null;
 }
 
 /** Same step/min as header logo zoom; used for video-mode front-face graphics only. */
@@ -86,7 +135,7 @@ export const SLOT_BADGE_SCALE_STEP = 0.1;
 export const SLOT_BADGE_SCALE_MIN = 0.001;
 /** Club squads: nationality flag on the card front (original default size). */
 export const DEFAULT_SLOT_FLAG_SCALE = 1;
-/** National squads: club crest on the card front — two “−” steps from 1.0. */
+/** National squads: club crest on the card front — original default (two “−” steps from 1.0). */
 export const DEFAULT_SLOT_TEAM_LOGO_SCALE = 1 - 2 * SLOT_BADGE_SCALE_STEP;
 
 export function sanitizeSlotBadgeScale(n) {
@@ -139,6 +188,16 @@ export function ensureSlotFrontFaceScales(state) {
       );
     }
   }
+
+  const teamScales = state.slotTeamLogoScales;
+  const uniform = (v) =>
+    teamScales.slice(0, SLOT_BADGE_SLOT_COUNT).every(
+      (s) => sanitizeSlotBadgeScale(s) === v
+    );
+  // Levels left at our temporary uniform defaults → restore original 0.8 crest size.
+  if (uniform(1) || uniform(1.05) || uniform(1.25) || uniform(1.5)) {
+    state.slotTeamLogoScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE);
+  }
 }
 
 export function initLevels(count) {
@@ -157,10 +216,7 @@ export function initLevels(count) {
         selectedEntry: null,
         currentSquad: null,
         slotPhotoIndexBySlot: new Map(),
-        formationId:
-          els.formation && els.formation.options.length > 0
-            ? els.formation.options[0].value
-            : "3421",
+        formationId: "433",
         lastFormationId: null,
         displayMode: els.displayMode ? els.displayMode.value : "club",
         searchText: "",
@@ -177,6 +233,9 @@ export function initLevels(count) {
         careerHistory: [],
         headerLogoScale: 1,
         headerLogoNudgeX: 0,
+        headerLogoOverrideRelPath: null,
+        /** National XI + video mode: per-slot club crest PNG rel path from `(1) Other Teams`. Keys: "0".."10". */
+        slotClubCrestOverrideRelPathBySlot: {},
         slotFlagScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_FLAG_SCALE),
         slotTeamLogoScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
       }
@@ -187,6 +246,12 @@ export function initLevels(count) {
     }
     if (last.headerLogoNudgeX === undefined || last.headerLogoNudgeX === null) {
       last.headerLogoNudgeX = 0;
+    }
+    if (last.headerLogoOverrideRelPath === undefined) {
+      last.headerLogoOverrideRelPath = null;
+    }
+    if (!last.slotClubCrestOverrideRelPathBySlot || typeof last.slotClubCrestOverrideRelPathBySlot !== "object") {
+      last.slotClubCrestOverrideRelPathBySlot = {};
     }
     ensureSlotFrontFaceScales(last);
   }

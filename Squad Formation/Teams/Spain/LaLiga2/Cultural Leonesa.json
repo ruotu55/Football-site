@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ES2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 34,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 31,
+      "appearances": 33,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -52,7 +53,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 528,
+        "clean_sheets": 137
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Bañuz",
@@ -60,7 +75,7 @@
       "age": 32,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -84,7 +99,21 @@
           "club": "CyD Leonesa",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 276,
+        "clean_sheets": 91
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arnau Rafús",
@@ -108,41 +137,31 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 54,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
-    {
-      "name": "Roger Hinojo",
-      "position": "Centre-Back",
-      "age": 21,
-      "nationality": "Spain",
-      "club": "Cultural Leonesa",
-      "appearances": 29,
-      "goals": 1,
-      "assists": 1,
-      "transfer_history": [
-        {
-          "club": "Espanyol",
-          "year": "2025"
-        },
-        {
-          "club": "CyD Leonesa",
-          "year": "2025"
-        },
-        {
-          "club": "Espanyol",
-          "year": "2026"
-        }
-      ]
-    },
     {
       "name": "Matia Barzic",
       "position": "Centre-Back",
       "age": 21,
       "nationality": "Croatia",
       "club": "Cultural Leonesa",
-      "appearances": 28,
+      "appearances": 27,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -170,15 +189,29 @@
           "club": "Elche CF",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Peru Rodríguez",
       "position": "Centre-Back",
-      "age": 23,
+      "age": 24,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 2,
       "assists": 1,
       "transfer_history": [
@@ -190,7 +223,21 @@
           "club": "CyD Leonesa",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodri Suárez",
@@ -198,7 +245,7 @@
       "age": 23,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 26,
+      "appearances": 27,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -218,7 +265,21 @@
           "club": "CyD Leonesa",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomás Ribeiro",
@@ -226,8 +287,8 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "Cultural Leonesa",
-      "appearances": 11,
-      "goals": 1,
+      "appearances": 9,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -258,7 +319,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quique Fornos",
@@ -266,8 +341,8 @@
       "age": 29,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 11,
-      "goals": 1,
+      "appearances": 8,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -278,7 +353,21 @@
           "club": "CyD Leonesa",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eneko Satrústegui",
@@ -286,7 +375,7 @@
       "age": 35,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -334,7 +423,59 @@
           "club": "CyD Leonesa",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 395,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Roger Hinojo",
+      "position": "Left-Back",
+      "age": 21,
+      "nationality": "Spain",
+      "club": "Cultural Leonesa",
+      "appearances": 30,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Espanyol",
+          "year": "2025"
+        },
+        {
+          "club": "CyD Leonesa",
+          "year": "2025"
+        },
+        {
+          "club": "Espanyol",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Homam Al-Amin",
@@ -342,7 +483,7 @@
       "age": 26,
       "nationality": "Qatar",
       "club": "Cultural Leonesa",
-      "appearances": 22,
+      "appearances": 7,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -362,7 +503,21 @@
           "club": "Al-Duhail SC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 13,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 67,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iván Calero",
@@ -371,7 +526,7 @@
       "nationality": "Spain",
       "club": "Cultural Leonesa",
       "appearances": 28,
-      "goals": 5,
+      "goals": 3,
       "assists": 5,
       "transfer_history": [
         {
@@ -438,7 +593,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 379,
+        "goals": 43,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Víctor García",
@@ -446,9 +615,9 @@
       "age": 31,
       "nationality": "Venezuela",
       "club": "Cultural Leonesa",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Dep. La Guaira",
@@ -486,7 +655,21 @@
           "club": "CyD Leonesa",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 2,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -496,7 +679,7 @@
       "age": 33,
       "nationality": "Serbia",
       "club": "Cultural Leonesa",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -532,7 +715,21 @@
           "club": "CyD Leonesa",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 373,
+        "goals": 5,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Ojeda",
@@ -540,7 +737,7 @@
       "age": 23,
       "nationality": "Argentina",
       "club": "Cultural Leonesa",
-      "appearances": 32,
+      "appearances": 30,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -552,7 +749,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Selu Diallo",
@@ -560,7 +771,7 @@
       "age": 22,
       "nationality": "Guinea",
       "club": "Cultural Leonesa",
-      "appearances": 31,
+      "appearances": 28,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -584,7 +795,21 @@
           "club": "Alavés",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yayo González",
@@ -592,7 +817,7 @@
       "age": 21,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -616,7 +841,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergi Maestre",
@@ -624,7 +863,7 @@
       "age": 35,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -668,7 +907,21 @@
           "club": "CyD Leonesa",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 398,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nico Toca",
@@ -696,7 +949,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bicho",
@@ -704,7 +971,7 @@
       "age": 30,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -736,7 +1003,21 @@
           "club": "CyD Leonesa",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 12,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -748,7 +1029,7 @@
       "club": "Cultural Leonesa",
       "appearances": 31,
       "goals": 6,
-      "assists": 2,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Racing Ferrol",
@@ -786,7 +1067,21 @@
           "club": "Dep. La Coruña",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 34,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Collado",
@@ -794,9 +1089,9 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 31,
+      "appearances": 29,
       "goals": 3,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Gil Vicente",
@@ -814,7 +1109,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 23,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafa Tresaco",
@@ -854,7 +1163,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Ribeiro",
@@ -862,8 +1185,8 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Cultural Leonesa",
-      "appearances": 22,
-      "goals": 4,
+      "appearances": 20,
+      "goals": 3,
       "assists": 1,
       "transfer_history": [
         {
@@ -918,7 +1241,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 202,
+        "goals": 65,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Víctor Moreno",
@@ -926,9 +1263,9 @@
       "age": 20,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 27,
-      "goals": 3,
-      "assists": 8,
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "CD Roda Youth",
@@ -938,7 +1275,21 @@
           "club": "CyD Leonesa",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 6,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manu Justo",
@@ -946,9 +1297,9 @@
       "age": 30,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 5,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Bouzas",
@@ -994,7 +1345,21 @@
           "club": "CyD Leonesa",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 61,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rubén Sobrino",
@@ -1002,8 +1367,8 @@
       "age": 33,
       "nationality": "Spain",
       "club": "Cultural Leonesa",
-      "appearances": 21,
-      "goals": 2,
+      "appearances": 22,
+      "goals": 1,
       "assists": 2,
       "transfer_history": [
         {
@@ -1058,7 +1423,21 @@
           "club": "CyD Leonesa",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 399,
+        "goals": 45,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

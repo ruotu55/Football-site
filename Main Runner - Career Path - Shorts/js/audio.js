@@ -1,43 +1,52 @@
-import { appState } from "./state.js";
-
 const paths = {
-  welcome: "./Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
-  guessNat: "./Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
-  guessClub: "./Voices/Game name/Guess the football national team name by players' club !!!.mp3",
-  warmUp: "./Voices/Levels/Worm up round dont mess this one .mp3",
-  serious: "./Voices/Levels/OK now it's getting serious.mp3",
-  nerds: "./Voices/Levels/Only true football nerd know this!!!.mp3",
-  genius: "./Voices/Levels/If you get this you are basically a genius!!!.mp3",
+  welcome: "../Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
+  guessNat: "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
+  guessClub: "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+  guessCareer: "../Voices/Game name/Guess the football player by career path !!!.mp3",
+  warmUp: "../Voices/Levels/Worm up round dont mess this one .mp3",
+  serious: "../Voices/Levels/OK now it's getting serious.mp3",
+  nerds: "../Voices/Levels/Only true football nerd know this!!!.mp3",
+  genius: "../Voices/Levels/If you get this you are basically a genius!!!.mp3",
   bgmPlaylist: [
-    "./Voices/Ringhton/viacheslavstarostin-upbeat-fun-music-427230.mp3",
-    "./Voices/Ringhton/nesterouk-fun-evening-145960.mp3",
-    "./Voices/Ringhton/paulyudin-fun-fun-fun-fun-fun-152388.mp3",
-    "./Voices/Ringhton/paulyudin-fun-morning-198120.mp3",
-    "./Voices/Ringhton/sunsides-summer-funny-fun-204398.mp3",
-    "./Voices/Ringhton/universfield-bright-piano-fun-270899.mp3",
-    "./Voices/Ringhton/backgroundmusicmaster-quiz-master-382651.mp3",
-    "./Voices/Ringhton/nra-lab-ukulele-fun-acoustic-background-happy-strings-221183.mp3",
-    "./Voices/Ringhton/tunetank-fun-funk-music-412727.mp3"
+    "../Voices/Ringhton/Balada Gitana - House of the Gipsies.mp3",
+    "../Voices/Ringhton/Chica Linda - Quincas Moreira.mp3",
+    "../Voices/Ringhton/Delta - TrackTribe.mp3",
+    "../Voices/Ringhton/Los Cabos - House of the Gipsies.mp3",
+    "../Voices/Ringhton/Orquidario - Quincas Moreira.mp3",
+    "../Voices/Ringhton/Swing Haven 1 - Los Angeles - Reed Mathis.mp3",
+    "../Voices/Ringhton/Swing Haven 2 - St. Louis - Reed Mathis.mp3",
+    "../Voices/Ringhton/Swing Haven 6 - New Orleans - Reed Mathis.mp3",
+    "../Voices/Ringhton/Up And At Em - Nathan Moore.mp3"
   ],
-  theAnswerIs: "./Voices/the answer is/The answer is.mp3",
-  dong: "./Voices/the answer is/dong.wav",
-  commentBelow: "./Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  ticking: "./Voices/Ticking sound/ticking sound.mp3"
+  dong: "../Voices/the answer is/dong.wav",
+  commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowLegacy: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowEncodedQ: "../Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  ticking: "../Voices/Ticking sound/ticking sound.mp3"
 };
 
 let bgMusic = null;
 let currentBgmIndex = 0;
 let currentVoice = null;
-let tickingAudio = null;
+/** Resolves `playRulesShortsLanding` when the clip ends or `stopAllAudio` interrupts. */
+let pendingShortsRulesVoiceFinish = null;
+/** Single ticking track for countdown red phase (no overlapping clips). */
+let tickingAudioEl = null;
 
 // Timeouts and Intervals for fading
 let fadeInterval = null;
 let duckingTimeout = null;
 let restoreTimeout = null;
 let progressTimeout = null;
+let bgmCrossfadeInterval = null;
+let isBgmCrossfading = false;
 
-const NORMAL_VOL = 0.4; // Dropped from 0.3 to make it quieter
-const DUCKED_VOL = 0.2; // 50% of normal volume
+const STARTING_VOL = 0.05;
+const NORMAL_VOL = 0.6;
+const DUCKED_VOL = 0.3; // half of NORMAL_VOL (0.6)
+const BGM_CROSSFADE_MS = 3000;
+const BGM_CROSSFADE_BUFFER_S = 0.15;
+let bgMusicTargetVolume = STARTING_VOL;
 
 function fadeBgm(targetVolume, durationMs) {
   if (!bgMusic) return;
@@ -70,29 +79,119 @@ function fadeBgm(targetVolume, durationMs) {
   }, stepTime);
 }
 
-function playNextBgm() {
-  if (bgMusic) {
-    bgMusic.pause();
-    bgMusic.removeEventListener('ended', playNextBgm);
+function clearBgmEventHandlers(audioEl) {
+  if (!audioEl) return;
+  audioEl.removeEventListener("ended", onBgmEnded);
+  audioEl.removeEventListener("timeupdate", onBgmTimeUpdate);
+}
+
+function bindBgmEventHandlers(audioEl) {
+  if (!audioEl) return;
+  audioEl.addEventListener("ended", onBgmEnded);
+  audioEl.addEventListener("timeupdate", onBgmTimeUpdate);
+}
+
+function onBgmEnded() {
+  queueNextBgm(true);
+}
+
+function onBgmTimeUpdate() {
+  if (!bgMusic || bgMusic !== this || isBgmCrossfading) return;
+  if (!Number.isFinite(bgMusic.duration) || bgMusic.duration <= 0) return;
+  const timeLeft = bgMusic.duration - bgMusic.currentTime;
+  if (timeLeft <= (BGM_CROSSFADE_MS / 1000) + BGM_CROSSFADE_BUFFER_S) {
+    queueNextBgm(false);
   }
+}
+
+function queueNextBgm(forceHardSwitch = false) {
+  if (!bgMusic || isBgmCrossfading) return;
+
+  const outgoing = bgMusic;
+  const outgoingStartVolume = Math.max(0, Math.min(1, outgoing.volume));
+
   currentBgmIndex = (currentBgmIndex + 1) % paths.bgmPlaylist.length;
-  bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
-  bgMusic.volume = NORMAL_VOL; 
-  bgMusic.addEventListener('ended', playNextBgm);
-  bgMusic.play().catch(err => console.warn("BGM play error:", err));
+  const incoming = new Audio(paths.bgmPlaylist[currentBgmIndex]);
+  incoming.volume = forceHardSwitch ? outgoingStartVolume : 0;
+
+  if (forceHardSwitch) {
+    clearBgmEventHandlers(outgoing);
+    outgoing.pause();
+    outgoing.currentTime = 0;
+    bgMusic = incoming;
+    bindBgmEventHandlers(bgMusic);
+    bgMusic.play().catch((err) => console.warn("BGM play error:", err));
+    return;
+  }
+
+  isBgmCrossfading = true;
+  clearBgmEventHandlers(outgoing);
+  clearInterval(bgmCrossfadeInterval);
+
+  bgMusic = incoming;
+  bindBgmEventHandlers(bgMusic);
+
+  const steps = 30;
+  const stepTime = Math.max(10, BGM_CROSSFADE_MS / steps);
+  let currentStep = 0;
+
+  bgMusic.play().catch((err) => {
+    console.warn("BGM play error:", err);
+    clearInterval(bgmCrossfadeInterval);
+    isBgmCrossfading = false;
+    clearBgmEventHandlers(bgMusic);
+    bgMusic = outgoing;
+    bindBgmEventHandlers(bgMusic);
+    queueNextBgm(true);
+  });
+
+  bgmCrossfadeInterval = setInterval(() => {
+    currentStep++;
+    const t = currentStep / steps;
+    outgoing.volume = Math.max(0, outgoingStartVolume * (1 - t));
+    if (bgMusic) {
+      bgMusic.volume = Math.max(0, Math.min(1, outgoingStartVolume * t));
+    }
+
+    if (currentStep >= steps) {
+      clearInterval(bgmCrossfadeInterval);
+      outgoing.pause();
+      outgoing.currentTime = 0;
+      outgoing.volume = outgoingStartVolume;
+      if (bgMusic) {
+        bgMusic.volume = outgoingStartVolume;
+      }
+      isBgmCrossfading = false;
+    }
+  }, stepTime);
 }
 
 export function startBgMusic() {
+  clearInterval(bgmCrossfadeInterval);
+  isBgmCrossfading = false;
   if (bgMusic) {
     bgMusic.pause();
-    bgMusic.removeEventListener('ended', playNextBgm);
+    clearBgmEventHandlers(bgMusic);
   }
   // Start with a random song from the list
   currentBgmIndex = Math.floor(Math.random() * paths.bgmPlaylist.length);
   bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
-  bgMusic.volume = NORMAL_VOL;
-  bgMusic.addEventListener('ended', playNextBgm);
+  bgMusicTargetVolume = STARTING_VOL;
+  bgMusic.volume = bgMusicTargetVolume;
+  bindBgmEventHandlers(bgMusic);
   bgMusic.play().catch(err => console.warn("BGM play error:", err));
+}
+
+export function setBgMusicForLevel(levelIndex) {
+  const nextTargetVolume = levelIndex >= 1 ? NORMAL_VOL : STARTING_VOL;
+  const isRampingUp = nextTargetVolume > bgMusicTargetVolume;
+  bgMusicTargetVolume = nextTargetVolume;
+  if (!bgMusic) return;
+  if (isRampingUp) {
+    fadeBgm(bgMusicTargetVolume, 1800);
+  } else {
+    bgMusic.volume = bgMusicTargetVolume;
+  }
 }
 
 export function stopAllAudio() {
@@ -100,19 +199,51 @@ export function stopAllAudio() {
   clearTimeout(restoreTimeout);
   clearTimeout(progressTimeout);
   clearInterval(fadeInterval);
+  clearInterval(bgmCrossfadeInterval);
+  isBgmCrossfading = false;
   
   if (bgMusic) {
+    clearBgmEventHandlers(bgMusic);
     bgMusic.pause();
     bgMusic.currentTime = 0;
-    bgMusic.volume = NORMAL_VOL; // Reset volume
+    bgMusicTargetVolume = STARTING_VOL;
+    bgMusic.volume = bgMusicTargetVolume;
+  }
+  if (pendingShortsRulesVoiceFinish) {
+    const finish = pendingShortsRulesVoiceFinish;
+    pendingShortsRulesVoiceFinish = null;
+    finish();
   }
   if (currentVoice) {
     currentVoice.pause();
     currentVoice.currentTime = 0;
   }
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
+  stopTicking();
+}
+
+const TICKING_VOLUME = 1;
+
+function onTickingClipEnded() {
+  if (!tickingAudioEl) return;
+  tickingAudioEl.currentTime = 0;
+  tickingAudioEl.play().catch((err) => console.warn("Ticking play error:", err));
+}
+
+/** One ticking stream until `stopTicking` (red phase only in video.js). Restarts on `ended` so clips never stack. */
+export function playTicking() {
+  stopTicking();
+  tickingAudioEl = new Audio(paths.ticking);
+  tickingAudioEl.volume = TICKING_VOLUME;
+  tickingAudioEl.addEventListener("ended", onTickingClipEnded);
+  tickingAudioEl.play().catch((err) => console.warn("Ticking play error:", err));
+}
+
+export function stopTicking() {
+  if (tickingAudioEl) {
+    tickingAudioEl.removeEventListener("ended", onTickingClipEnded);
+    tickingAudioEl.pause();
+    tickingAudioEl.currentTime = 0;
+    tickingAudioEl = null;
   }
 }
 
@@ -141,53 +272,219 @@ export function playVoice(src, delayMs = 1000) {
   }, delayMs);
 }
 
-export function playTicking() {
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
-  }
-  tickingAudio = new Audio(paths.ticking);
-  tickingAudio.play().catch(err => console.warn("Ticking play error:", err));
-}
-
-export function stopTicking() {
-  if (tickingAudio) {
-    tickingAudio.pause();
-    tickingAudio.currentTime = 0;
-  }
-}
-
 export function playWelcome() {
-  // Fades BGM down for 1000ms, then speaks
-  playVoice(paths.welcome, 1000);
+  if (document.body.classList.contains("shorts-mode")) return;
+  // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
+  playVoice(paths.welcome, 500);
 }
 
-export function playRules(quizType) {
-  if (quizType === "club-by-nat") {
-    playVoice(paths.guessNat, 1000);
-  } else {
-    playVoice(paths.guessClub, 1000);
+/** Shorts landing: welcome only over BGM (no duck); resolves when the clip ends. Pre-delay lives in video.js. */
+export function playWelcomeShortsLanding() {
+  if (!document.body.classList.contains("shorts-mode")) {
+    return Promise.resolve();
   }
+  return new Promise((resolve) => {
+    if (currentVoice) {
+      currentVoice.pause();
+      currentVoice.currentTime = 0;
+    }
+    currentVoice = new Audio(paths.welcome);
+    currentVoice.addEventListener(
+      "ended",
+      () => {
+        resolve();
+      },
+      { once: true }
+    );
+    currentVoice.play().catch((err) => {
+      console.warn("Voice play error:", err);
+      resolve();
+    });
+  });
 }
 
-export function playTheAnswerIs(includeVoice = true) {
+function getRulesVoicePath(quizType) {
+  if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
+    return paths.guessCareer;
+  }
+  if (quizType === "club-by-nat") {
+    return paths.guessNat;
+  }
+  return paths.guessClub;
+}
+
+export function playRulesShortsLanding(quizType, options = {}) {
+  if (!document.body.classList.contains("shorts-mode")) {
+    return Promise.resolve();
+  }
+  const onPlaybackStart =
+    typeof options.onPlaybackStart === "function" ? options.onPlaybackStart : null;
+  const notifyPlaybackStart = () => {
+    if (onPlaybackStart) onPlaybackStart();
+  };
+  const playClip = (src) =>
+    new Promise((resolve) => {
+      const clipSrc = String(src || "").trim();
+      if (!clipSrc) {
+        notifyPlaybackStart();
+        resolve();
+        return;
+      }
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        if (pendingShortsRulesVoiceFinish === finish) {
+          pendingShortsRulesVoiceFinish = null;
+        }
+        resolve();
+      };
+      pendingShortsRulesVoiceFinish = finish;
+      if (currentVoice) {
+        currentVoice.pause();
+        currentVoice.currentTime = 0;
+      }
+      currentVoice = new Audio(clipSrc);
+      currentVoice.addEventListener("playing", notifyPlaybackStart, { once: true });
+      currentVoice.addEventListener("ended", finish, { once: true });
+      currentVoice.play().catch((err) => {
+        console.warn("Voice play error:", err);
+        notifyPlaybackStart();
+        finish();
+      });
+    });
+  const playFallback = () => playClip(getRulesVoicePath(quizType));
+  const resolver = window.__resolveQuizTitleVoiceSrc;
+  if (typeof resolver !== "function") {
+    return playFallback();
+  }
+  return Promise.resolve(resolver(quizType))
+    .then((src) => {
+      const clipSrc = String(src || "").trim();
+      if (clipSrc) return playClip(clipSrc);
+      return playFallback();
+    })
+    .catch(() => playFallback());
+}
+
+export function playRules(quizType, delayMs = 1000) {
+  const playFallback = () => {
+    playVoice(getRulesVoicePath(quizType), delayMs);
+  };
+  const resolver = window.__resolveQuizTitleVoiceSrc;
+  if (typeof resolver !== "function") {
+    playFallback();
+    return;
+  }
+  Promise.resolve(resolver(quizType))
+    .then((src) => {
+      const clipSrc = String(src || "").trim();
+      if (clipSrc) {
+        playVoice(clipSrc, delayMs);
+      } else {
+        playFallback();
+      }
+    })
+    .catch(() => {
+      playFallback();
+    });
+}
+
+export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
+
+export function revealPlayerVoiceDir() {
+  return "../Voices/Players Names/";
+}
+
+function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
+  const base = String(displayName || "").trim();
+  if (!base) return;
+  const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
+  let i = 0;
+  const tryNext = () => {
+    if (i >= PLAYER_NAME_VOICE_EXTS.length) return;
+    const ext = PLAYER_NAME_VOICE_EXTS[i++];
+    const src = `${dir}${encodeURIComponent(base)}${ext}`;
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, delayMs);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
+}
+
+export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3") {
+  const cleanName = String(displayName || "").trim();
+  if (!cleanName) return "";
+  const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
+  return `${revealPlayerVoiceDir()}${encodeURIComponent(cleanName)}${cleanExt}`;
+}
+
+export function playPlayerNameVoiceIfExists(displayName, delayMs = 0) {
+  playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir());
+}
+
+export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
   
   if (includeVoice) {
-    // Dong plays immediately. Meanwhile, BGM fades down for 0.5s, then the voice plays.
-    playVoice(paths.theAnswerIs, 100);
+    // Reveal uses player name clip only.
+    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
   }
 }
 
 export function playCommentBelow() {
   // Removed the dong sound here so it doesn't interrupt the transition.
-  // Delay is strictly set to 600ms to perfectly match the length of the 
-  // CSS page drop transition (`stage-enter-anim`)
-  playVoice(paths.commentBelow, 600);
+  // Delay is set to 100ms so it starts 0.5s earlier than before.
+  // CSS page drop transition (`stage-enter-anim`).
+  const candidates = [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
+  let i = 0;
+  const tryNext = () => {
+    if (i >= candidates.length) return;
+    const src = candidates[i++];
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => {
+      cleanup();
+      tryNext();
+    };
+    const onOk = () => {
+      cleanup();
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+      playVoice(src, 100);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
+  if (document.body.classList.contains("shorts-mode")) return;
   clearTimeout(progressTimeout);
   
   const questionIndex = levelIndex - 1; 

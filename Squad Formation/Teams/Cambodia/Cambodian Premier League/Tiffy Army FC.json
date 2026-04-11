@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "KHM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,24 @@
       "age": 20,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sereirath Um",
@@ -33,7 +49,39 @@
       "club": "Tiffy Army FC",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2013"
+        },
+        {
+          "club": "Asia Euro Utd",
+          "year": "2014"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2022"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 61,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 32,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Dara Pich",
@@ -43,7 +91,22 @@
       "club": "Tiffy Army FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 42,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Narith Mao",
@@ -53,7 +116,39 @@
       "club": "Tiffy Army FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army (B)",
+          "year": "2023"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2024"
+        },
+        {
+          "club": "Tiffy Army (B)",
+          "year": "2025"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 38,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +158,53 @@
       "age": 33,
       "nationality": "Japan",
       "club": "Tiffy Army FC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ritsumeikan Uni",
+          "year": "2011"
+        },
+        {
+          "club": "Nara Club",
+          "year": "2015"
+        },
+        {
+          "club": "a. cl. Numazu",
+          "year": "2017"
+        },
+        {
+          "club": "Gainare Tottori",
+          "year": "2021"
+        },
+        {
+          "club": "FC Osaka",
+          "year": "2022"
+        },
+        {
+          "club": "Vonds Ichihara",
+          "year": "2024"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 12,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phumin Yang",
@@ -73,9 +212,24 @@
       "age": 22,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vatana Suk",
@@ -85,7 +239,27 @@
       "club": "Tiffy Army FC",
       "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Da Thorng",
@@ -95,7 +269,22 @@
       "club": "Tiffy Army FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mengleav Chhun",
@@ -103,9 +292,29 @@
       "age": 19,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phalla Vorn",
@@ -115,7 +324,27 @@
       "club": "Tiffy Army FC",
       "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 0,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sangha Nat",
@@ -125,7 +354,22 @@
       "club": "Tiffy Army FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soktey Touch",
@@ -133,9 +377,24 @@
       "age": 21,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Usos Sa",
@@ -143,9 +402,37 @@
       "age": 19,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        },
+        {
+          "club": "Tiffy Army (B)",
+          "year": "2024"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vinun Oem",
@@ -153,9 +440,29 @@
       "age": 26,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sokleng Soung",
@@ -163,9 +470,29 @@
       "age": 23,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ratha Buth",
@@ -175,7 +502,22 @@
       "club": "Tiffy Army FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Makara Nho",
@@ -185,7 +527,27 @@
       "club": "Tiffy Army FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -195,9 +557,65 @@
       "age": 32,
       "nationality": "Japan",
       "club": "Tiffy Army FC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kanto G. Univ.",
+          "year": "2012"
+        },
+        {
+          "club": "HBO Tokyo",
+          "year": "2016"
+        },
+        {
+          "club": "Lao Toyota",
+          "year": "2016"
+        },
+        {
+          "club": "Athletic 220",
+          "year": "2018"
+        },
+        {
+          "club": "Yangon United",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Persiraja",
+          "year": "2021"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 4,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hikaru Mizuno",
@@ -205,9 +623,69 @@
       "age": 34,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 19,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2010"
+        },
+        {
+          "club": "FC Ryukyu",
+          "year": "2014"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2015"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2016"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2016"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2021"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2024"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2026"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryosuke Maeda",
@@ -217,7 +695,55 @@
       "club": "Tiffy Army FC",
       "appearances": 11,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vissel Kobe",
+          "year": "2013"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2017"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2019"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2019"
+        },
+        {
+          "club": "Ehime FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2024"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filib Tep",
@@ -227,7 +753,22 @@
       "club": "Tiffy Army FC",
       "appearances": 7,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kakada Yim",
@@ -235,9 +776,24 @@
       "age": 18,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "So Kataoka",
@@ -245,9 +801,57 @@
       "age": 33,
       "nationality": "Japan",
       "club": "Tiffy Army FC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tsukuba Univ.",
+          "year": "2011"
+        },
+        {
+          "club": "FC Imabari",
+          "year": "2015"
+        },
+        {
+          "club": "Fujieda MYFC",
+          "year": "2019"
+        },
+        {
+          "club": "FC Imabari",
+          "year": "2020"
+        },
+        {
+          "club": "Fujieda MYFC",
+          "year": "2020"
+        },
+        {
+          "club": "Nara Club",
+          "year": "2021"
+        },
+        {
+          "club": "Ilinden",
+          "year": "2024"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 20,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Piseth Mao",
@@ -257,19 +861,107 @@
       "club": "Tiffy Army FC",
       "appearances": 12,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Angkor Tiger",
+          "year": "2022"
+        },
+        {
+          "club": "Phnom Penh",
+          "year": "2022"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        },
+        {
+          "club": "Life FC",
+          "year": "2023"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
     {
       "name": "Reiya Kinoshita",
       "position": "Left Winger",
-      "age": 31,
+      "age": 32,
       "nationality": "Japan",
       "club": "Tiffy Army FC",
       "appearances": 16,
       "goals": 3,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Teikyo Univ.",
+          "year": "2012"
+        },
+        {
+          "club": "Okinawa SV",
+          "year": "2016"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2019"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2021"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 22,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sokea Sreng",
@@ -279,7 +971,31 @@
       "club": "Tiffy Army FC",
       "appearances": 14,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Narong Khorn",
@@ -287,9 +1003,24 @@
       "age": 22,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 2,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Surim Ahmath",
@@ -297,9 +1028,29 @@
       "age": 24,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pisey Leang",
@@ -307,9 +1058,37 @@
       "age": 20,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        },
+        {
+          "club": "Tiffy Army (B)",
+          "year": "2024"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentine Ekejiuba",
@@ -317,9 +1096,29 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Tiffy Army FC",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 3
+      "appearances": 19,
+      "goals": 5,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sinoeun Chun",
@@ -327,9 +1126,29 @@
       "age": 22,
       "nationality": "Cambodia",
       "club": "Tiffy Army FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

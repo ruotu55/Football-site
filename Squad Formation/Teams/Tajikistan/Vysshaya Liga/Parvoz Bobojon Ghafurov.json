@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "TAD1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,43 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FK Istaravshan",
+          "year": "2023"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 54,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Mukhriddin Akhmedov",
@@ -33,7 +70,55 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2019"
+        },
+        {
+          "club": "Kara-Balta",
+          "year": "2020"
+        },
+        {
+          "club": "Ravshan Kulob",
+          "year": "2021"
+        },
+        {
+          "club": "Ravshan",
+          "year": "2022"
+        },
+        {
+          "club": "Kara-Balta",
+          "year": "2023"
+        },
+        {
+          "club": "Afon NA",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 148,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akhlidin Khabibulloev",
@@ -43,7 +128,43 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kuktosh",
+          "year": "2019"
+        },
+        {
+          "club": "Fayzkand Vose",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Khatlon",
+          "year": "2023"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +176,51 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kokand 1912",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2019"
+        },
+        {
+          "club": "FK Istaravshan",
+          "year": "2022"
+        },
+        {
+          "club": "OshMU",
+          "year": "2024"
+        },
+        {
+          "club": "FK FarDU",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Makhmud Muminov",
@@ -65,7 +230,47 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fayzkand Vose",
+          "year": "2021"
+        },
+        {
+          "club": "Kuktosh",
+          "year": "2022"
+        },
+        {
+          "club": "Ravshan Kulob",
+          "year": "2023"
+        },
+        {
+          "club": "Vakhsh",
+          "year": "2024"
+        },
+        {
+          "club": "FK Vahdat",
+          "year": "2024"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Parviz Izatshoev",
@@ -75,7 +280,35 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2022"
+        },
+        {
+          "club": "Career break",
+          "year": "2023"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Umedzhon Odinaev",
@@ -85,7 +318,47 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2015"
+        },
+        {
+          "club": "Ravshan Kulob",
+          "year": "2018"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2018"
+        },
+        {
+          "club": "FK Eskhata",
+          "year": "2019"
+        },
+        {
+          "club": "Ravshan",
+          "year": "2022"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandr Mukhin",
@@ -95,7 +368,47 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "DYuSSh Strogino",
+          "year": "2022"
+        },
+        {
+          "club": "Khimki 2",
+          "year": "2023"
+        },
+        {
+          "club": "Arsenal-2 Tula",
+          "year": "2024"
+        },
+        {
+          "club": "SKA Rostov",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dilovar Sharifzoda",
@@ -105,7 +418,27 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amirbek Jumaev",
@@ -115,7 +448,27 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -127,7 +480,43 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lokomotiv Pamir",
+          "year": "2020"
+        },
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2021"
+        },
+        {
+          "club": "Ban",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyrylo Voloshyn",
@@ -135,9 +524,45 @@
       "age": 21,
       "nationality": "Ukraine",
       "club": "Parvoz Bobojon Ghafurov",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "NKP Podhale",
+          "year": "2023"
+        },
+        {
+          "club": "Mirand Szczecin",
+          "year": "2024"
+        },
+        {
+          "club": "Humenne",
+          "year": "2024"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bekzhon Juraboev",
@@ -147,7 +572,39 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kokand 1912",
+          "year": "2024"
+        },
+        {
+          "club": "Kokand 1912",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Munir Davlatbekov",
@@ -157,7 +614,39 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2020"
+        },
+        {
+          "club": "Fayzkand Vose",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramazon Bakhtaliev",
@@ -167,7 +656,27 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shakhriyor Polvonov",
@@ -177,7 +686,27 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sharaf Azizov",
@@ -187,7 +716,27 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tabriz Mirzoaliev",
@@ -197,7 +746,27 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -209,7 +778,43 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Krystal Kherson",
+          "year": "2021"
+        },
+        {
+          "club": "FC Oberneuland",
+          "year": "2022"
+        },
+        {
+          "club": "FK Ekranas",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asadbek Dzhurabekzoda",
@@ -219,7 +824,39 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2022"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Duah Daniel Kuiko",
@@ -229,7 +866,31 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tokhir Malodustov",
@@ -239,7 +900,55 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barqchi",
+          "year": "2017"
+        },
+        {
+          "club": "Kaganat",
+          "year": "2020"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2020"
+        },
+        {
+          "club": "FC Buxoro",
+          "year": "2021"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2022"
+        },
+        {
+          "club": "Ravshan Kulob",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daler Makhatov",
@@ -249,7 +958,39 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ravshan",
+          "year": "2022"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bakhodir Abduvaliev",
@@ -259,7 +1000,43 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo",
+          "year": "2023"
+        },
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FK FarDU",
+          "year": "2025"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukhsin Rustamzoda",
@@ -269,7 +1046,27 @@
       "club": "Parvoz Bobojon Ghafurov",
       "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Parvoz",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

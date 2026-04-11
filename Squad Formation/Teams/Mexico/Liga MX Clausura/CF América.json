@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MEXA"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 29,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 29,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zamora",
+          "year": "2013"
+        },
+        {
+          "club": "Monarcas Morelia",
+          "year": "2017"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2020"
+        },
+        {
+          "club": "América",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 318,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 362,
+        "clean_sheets": 104
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 14,
+        "clean_sheets": 12
+      }
     },
     {
       "name": "Fernando Tapia",
@@ -31,9 +64,61 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América",
+          "year": "2022"
+        },
+        {
+          "club": "Venados FC",
+          "year": "2023"
+        },
+        {
+          "club": "América",
+          "year": "2023"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2023"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2025"
+        },
+        {
+          "club": "América",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 126,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodolfo Cota",
@@ -41,31 +126,151 @@
       "age": 38,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indios Chihuahua",
+          "year": "2006"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2007"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2014"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2015"
+        },
+        {
+          "club": "Chivas",
+          "year": "2015"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2018"
+        },
+        {
+          "club": "León",
+          "year": "2018"
+        },
+        {
+          "club": "América",
+          "year": "2024"
+        },
+        {
+          "club": "León",
+          "year": "2025"
+        },
+        {
+          "club": "América",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 511,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 579,
+        "clean_sheets": 157
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 7,
+        "clean_sheets": 2
+      }
     }
   ],
   "defenders": [
-    {
-      "name": "Ramón Juárez",
-      "position": "Centre-Back",
-      "age": 24,
-      "nationality": "Mexico",
-      "club": "CF América",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Israel Reyes",
       "position": "Centre-Back",
       "age": 25,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 30,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Puebla FC",
+          "year": "2020"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2021"
+        },
+        {
+          "club": "América",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 286,
+        "goals": 16,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Ramón Juárez",
+      "position": "Centre-Back",
+      "age": 24,
+      "nationality": "Mexico",
+      "club": "CF América",
+      "appearances": 14,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Puebla FC",
+          "year": "2021"
+        },
+        {
+          "club": "América",
+          "year": "2021"
+        },
+        {
+          "club": "San Luis",
+          "year": "2022"
+        },
+        {
+          "club": "América",
+          "year": "2022"
+        },
+        {
+          "club": "América",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Cáceres",
@@ -73,9 +278,63 @@
       "age": 26,
       "nationality": "Uruguay",
       "club": "CF América",
-      "appearances": 0,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2017"
+        },
+        {
+          "club": "América",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Miguel Vázquez",
+      "position": "Centre-Back",
+      "age": 22,
+      "nationality": "Mexico",
+      "club": "CF América",
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Néstor Araújo",
@@ -85,17 +344,51 @@
       "club": "CF América",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Miguel Vázquez",
-      "position": "Centre-Back",
-      "age": 22,
-      "nationality": "Mexico",
-      "club": "CF América",
-      "appearances": 11,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cruz Azul Jasso",
+          "year": "2008"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2010"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2013"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2014"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2014"
+        },
+        {
+          "club": "Celta de Vigo",
+          "year": "2018"
+        },
+        {
+          "club": "América",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 468,
+        "goals": 13,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 67,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ralph Orquin",
@@ -103,9 +396,37 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América",
+          "year": "2023"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2024"
+        },
+        {
+          "club": "América",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristián Borja",
@@ -113,9 +434,61 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "CF América",
-      "appearances": 0,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Inter Palmira",
+          "year": "2015"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2016"
+        },
+        {
+          "club": "Inter Palmira",
+          "year": "2017"
+        },
+        {
+          "club": "Toluca",
+          "year": "2018"
+        },
+        {
+          "club": "Sporting",
+          "year": "2019"
+        },
+        {
+          "club": "Braga",
+          "year": "2021"
+        },
+        {
+          "club": "Alanyaspor",
+          "year": "2021"
+        },
+        {
+          "club": "Braga",
+          "year": "2022"
+        },
+        {
+          "club": "América",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 370,
+        "goals": 10,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Espinosa",
@@ -123,9 +496,37 @@
       "age": 21,
       "nationality": "Uruguay",
       "club": "CF América",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2024"
+        },
+        {
+          "club": "América",
+          "year": "2026"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dagoberto Espinoza",
@@ -135,7 +536,31 @@
       "club": "CF América",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jong Cercle",
+          "year": "2022"
+        },
+        {
+          "club": "América",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Álvarez",
@@ -143,9 +568,37 @@
       "age": 27,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 14,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tuzos Pachuca",
+          "year": "2015"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2019"
+        },
+        {
+          "club": "América",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 10,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aarón Mejía",
@@ -153,9 +606,41 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 12,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2020"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2022"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2023"
+        },
+        {
+          "club": "América",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +650,41 @@
       "age": 28,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "León",
+          "year": "2017"
+        },
+        {
+          "club": "Chivas",
+          "year": "2018"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2020"
+        },
+        {
+          "club": "América",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Dourado",
@@ -175,9 +692,37 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "CF América",
-      "appearances": 29,
-      "goals": 1,
-      "assists": 3
+      "appearances": 15,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Internacional",
+          "year": "2015"
+        },
+        {
+          "club": "San Luis",
+          "year": "2022"
+        },
+        {
+          "club": "América",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 449,
+        "goals": 27,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Naveda",
@@ -185,9 +730,45 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América",
+          "year": "2021"
+        },
+        {
+          "club": "Miedz Legnica",
+          "year": "2022"
+        },
+        {
+          "club": "América",
+          "year": "2023"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2024"
+        },
+        {
+          "club": "América",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan dos Santos",
@@ -195,9 +776,45 @@
       "age": 35,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 23,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barça Atlètic",
+          "year": "2009"
+        },
+        {
+          "club": "Barcelona",
+          "year": "2012"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2014"
+        },
+        {
+          "club": "LA Galaxy",
+          "year": "2017"
+        },
+        {
+          "club": "América",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 499,
+        "goals": 21,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 58,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Érick Sánchez",
@@ -205,9 +822,37 @@
       "age": 26,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 13,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Min. Zacatecas",
+          "year": "2019"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2020"
+        },
+        {
+          "club": "América",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 321,
+        "goals": 35,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raphael Veiga",
@@ -215,9 +860,49 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "CF América",
-      "appearances": 13,
-      "goals": 3,
-      "assists": 3
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Coritiba FC",
+          "year": "2016"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2017"
+        },
+        {
+          "club": "Atlético-PR",
+          "year": "2018"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2018"
+        },
+        {
+          "club": "América",
+          "year": "2026"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 462,
+        "goals": 124,
+        "assists": 68,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Gutiérrez",
@@ -225,9 +910,41 @@
       "age": 26,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 0,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CD Cruz Azul",
+          "year": "2019"
+        },
+        {
+          "club": "Tapatío",
+          "year": "2022"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2022"
+        },
+        {
+          "club": "América",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 12,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lima",
@@ -235,9 +952,69 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "CF América",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCD Mallorca",
+          "year": "2015"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2017"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Wasl",
+          "year": "2018"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2019"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2019"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2021"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2021"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2023"
+        },
+        {
+          "club": "América",
+          "year": "2026"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 412,
+        "goals": 44,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1024,45 @@
       "age": 25,
       "nationality": "Uruguay",
       "club": "CF América",
-      "appearances": 34,
-      "goals": 10,
-      "assists": 7
+      "appearances": 17,
+      "goals": 7,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Peñarol",
+          "year": "2018"
+        },
+        {
+          "club": "LAFC",
+          "year": "2019"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2021"
+        },
+        {
+          "club": "LAFC",
+          "year": "2021"
+        },
+        {
+          "club": "América",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 251,
+        "goals": 49,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 33,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaías Violante",
@@ -257,9 +1070,33 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 3
+      "appearances": 10,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Toluca",
+          "year": "2024"
+        },
+        {
+          "club": "América",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 25,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álex Zendejas",
@@ -267,9 +1104,49 @@
       "age": 28,
       "nationality": "United States",
       "club": "CF América",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 14,
+      "goals": 5,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Dallas",
+          "year": "2015"
+        },
+        {
+          "club": "Chivas",
+          "year": "2016"
+        },
+        {
+          "club": "Zacatepec",
+          "year": "2017"
+        },
+        {
+          "club": "Chivas",
+          "year": "2018"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2020"
+        },
+        {
+          "club": "América",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 362,
+        "goals": 76,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Víctor Dávila",
@@ -277,9 +1154,49 @@
       "age": 28,
       "nationality": "Chile",
       "club": "CF América",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 11,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Huachipato",
+          "year": "2015"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2017"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2019"
+        },
+        {
+          "club": "León",
+          "year": "2021"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2023"
+        },
+        {
+          "club": "América",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 79,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henry Martin",
@@ -287,9 +1204,37 @@
       "age": 33,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mérida FC",
+          "year": "2013"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2014"
+        },
+        {
+          "club": "América",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 449,
+        "goals": 145,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 11,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Raúl Zúñiga",
@@ -297,9 +1242,53 @@
       "age": 31,
       "nationality": "Colombia",
       "club": "CF América",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 1
+      "appearances": 11,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Potros UAEM",
+          "year": "2019"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2020"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2023"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2025"
+        },
+        {
+          "club": "América",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 79,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patricio Salas",
@@ -307,9 +1296,45 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "CF América",
-      "appearances": 28,
-      "goals": 1,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "Pachuca Jgd.",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "América",
+          "year": "2023"
+        },
+        {
+          "club": "América",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

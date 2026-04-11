@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "COLP"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,67 @@
       "club": "Millonarios FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2011"
+        },
+        {
+          "club": "Boston River",
+          "year": "2018"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2018"
+        },
+        {
+          "club": "Boston River",
+          "year": "2019"
+        },
+        {
+          "club": "CA Fénix",
+          "year": "2020"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2021"
+        },
+        {
+          "club": "Lanús",
+          "year": "2022"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2023"
+        },
+        {
+          "club": "Lanús",
+          "year": "2023"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2023"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 261,
+        "clean_sheets": 75
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Diego Novoa",
@@ -31,9 +92,37 @@
       "age": 36,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter Bogotá",
+          "year": "2010"
+        },
+        {
+          "club": "CD América",
+          "year": "2021"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 380,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 389,
+        "clean_sheets": 127
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +132,33 @@
       "age": 28,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 13,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real C.",
+          "year": "2018"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Arias",
@@ -53,9 +166,61 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indep. Medellín",
+          "year": "2011"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2016"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2016"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2018"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2021"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2021"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2022"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 429,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Mosquera",
@@ -63,9 +228,49 @@
       "age": 32,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Envigado",
+          "year": "2013"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2016"
+        },
+        {
+          "club": "Envigado",
+          "year": "2017"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2018"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2023"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 26,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edgar Elizalde",
@@ -73,9 +278,73 @@
       "age": 26,
       "nationality": "Uruguay",
       "club": "Millonarios FC",
-      "appearances": 3,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Wanderers",
+          "year": "2017"
+        },
+        {
+          "club": "Pescara",
+          "year": "2017"
+        },
+        {
+          "club": "Catanzaro",
+          "year": "2019"
+        },
+        {
+          "club": "Pescara",
+          "year": "2020"
+        },
+        {
+          "club": "Juve Stabia",
+          "year": "2021"
+        },
+        {
+          "club": "Pescara",
+          "year": "2021"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2021"
+        },
+        {
+          "club": "Pescara",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2022"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2024"
+        },
+        {
+          "club": "Platense",
+          "year": "2025"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Moreno",
@@ -85,7 +354,27 @@
       "club": "Millonarios FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Millonarios",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Valencia",
@@ -93,9 +382,53 @@
       "age": 29,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 3
+      "appearances": 13,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Moca FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2024"
+        },
+        {
+          "club": "Fortaleza CEIF",
+          "year": "2025"
+        },
+        {
+          "club": "Leones FC",
+          "year": "2025"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 13,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danovis Banguero",
@@ -103,19 +436,139 @@
       "age": 36,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cúcuta Dep.",
+          "year": "2008"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2011"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2011"
+        },
+        {
+          "club": "Ind. Yumbo",
+          "year": "2016"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "Rionegro Águila",
+          "year": "2023"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 618,
+        "goals": 42,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Giraldo",
       "position": "Left-Back",
-      "age": 32,
+      "age": 33,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 14,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Desp. Brasil",
+          "year": "2012"
+        },
+        {
+          "club": "Boyacá Chicó",
+          "year": "2014"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2015"
+        },
+        {
+          "club": "CA Torque",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "Espírito Santo",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Envigado",
+          "year": "2018"
+        },
+        {
+          "club": "CD América",
+          "year": "2020"
+        },
+        {
+          "club": "Once Caldas",
+          "year": "2021"
+        },
+        {
+          "club": "CD América",
+          "year": "2022"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2023"
+        },
+        {
+          "club": "Pereira",
+          "year": "2024"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 0,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Sarabia",
@@ -125,7 +578,22 @@
       "club": "Millonarios FC",
       "appearances": 11,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Martín",
@@ -133,9 +601,29 @@
       "age": 20,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Millonarios",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +633,81 @@
       "age": 33,
       "nationality": "Chile",
       "club": "Millonarios FC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "U. de Chile",
+          "year": "2013"
+        },
+        {
+          "club": "Cobresal",
+          "year": "2014"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2015"
+        },
+        {
+          "club": "Cobresal",
+          "year": "2016"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2016"
+        },
+        {
+          "club": "Deportes Temuco",
+          "year": "2017"
+        },
+        {
+          "club": "Palestino",
+          "year": "2017"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Cobresal",
+          "year": "2018"
+        },
+        {
+          "club": "CD América",
+          "year": "2020"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 12,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stiven Vega",
@@ -155,9 +715,37 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Millonarios",
+          "year": "2015"
+        },
+        {
+          "club": "Real C.",
+          "year": "2018"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo García",
@@ -165,9 +753,57 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Pasto",
+          "year": "2018"
+        },
+        {
+          "club": "Llaneros FC",
+          "year": "2019"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2022"
+        },
+        {
+          "club": "Llaneros FC",
+          "year": "2022"
+        },
+        {
+          "club": "Real Cartagena",
+          "year": "2023"
+        },
+        {
+          "club": "Llaneros FC",
+          "year": "2023"
+        },
+        {
+          "club": "Once Caldas",
+          "year": "2024"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 202,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Viveros",
@@ -175,9 +811,33 @@
       "age": 21,
       "nationality": "Ecuador",
       "club": "Millonarios FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Orsomarso SC",
+          "year": "2025"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dewar Victoria",
@@ -187,7 +847,35 @@
       "club": "Millonarios FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Millonarios",
+          "year": "2021"
+        },
+        {
+          "club": "Patriotas",
+          "year": "2024"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Carlos Pereira",
@@ -195,9 +883,49 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 12,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Depor Aguablanca FC",
+          "year": "2014"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2015"
+        },
+        {
+          "club": "Orsomarso SC",
+          "year": "2016"
+        },
+        {
+          "club": "Cúcuta Dep.",
+          "year": "2016"
+        },
+        {
+          "club": "Unión Magdalena",
+          "year": "2017"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 273,
+        "goals": 26,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darwin Quintero",
@@ -205,9 +933,69 @@
       "age": 38,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 9,
+      "appearances": 12,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Deportes Tolima",
+          "year": "2005"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2007"
+        },
+        {
+          "club": "Pereira",
+          "year": "2008"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2008"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2009"
+        },
+        {
+          "club": "América",
+          "year": "2015"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2018"
+        },
+        {
+          "club": "Houston",
+          "year": "2019"
+        },
+        {
+          "club": "CD América",
+          "year": "2023"
+        },
+        {
+          "club": "Pereira",
+          "year": "2024"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 720,
+        "goals": 202,
+        "assists": 168,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Silva",
@@ -215,9 +1003,53 @@
       "age": 39,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 1
+      "appearances": 9,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Millonarios",
+          "year": "2005"
+        },
+        {
+          "club": "Pereira",
+          "year": "2007"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2007"
+        },
+        {
+          "club": "Bogotá FC",
+          "year": "2009"
+        },
+        {
+          "club": "Real Cartagena",
+          "year": "2011"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2012"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2015"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 599,
+        "goals": 77,
+        "assists": 79,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +1059,37 @@
       "age": 22,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 3
+      "appearances": 12,
+      "goals": 3,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Millonarios",
+          "year": "2023"
+        },
+        {
+          "club": "Inter Bogotá",
+          "year": "2024"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 23,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álex Castro",
@@ -239,7 +1099,75 @@
       "club": "Millonarios FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Cali",
+          "year": "2017"
+        },
+        {
+          "club": "Alianza FC",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2018"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2019"
+        },
+        {
+          "club": "Deportivo Cali",
+          "year": "2019"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2021"
+        },
+        {
+          "club": "Nacional",
+          "year": "2022"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2022"
+        },
+        {
+          "club": "Rionegro Águila",
+          "year": "2023"
+        },
+        {
+          "club": "Deportes Tolima",
+          "year": "2023"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 437,
+        "goals": 34,
+        "assists": 56,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julián Angulo",
@@ -247,9 +1175,57 @@
       "age": 23,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportes Tolima",
+          "year": "2023"
+        },
+        {
+          "club": "Real Santander",
+          "year": "2023"
+        },
+        {
+          "club": "Cúcuta Dep.",
+          "year": "2024"
+        },
+        {
+          "club": "Real Santander",
+          "year": "2024"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2025"
+        },
+        {
+          "club": "Llaneros FC",
+          "year": "2025"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 20,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Contreras",
@@ -257,9 +1233,109 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Millonarios FC",
-      "appearances": 11,
-      "goals": 7,
-      "assists": 0
+      "appearances": 13,
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gimnasia",
+          "year": "2014"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2015"
+        },
+        {
+          "club": "Gimnasia",
+          "year": "2015"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2016"
+        },
+        {
+          "club": "Quilmes",
+          "year": "2017"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2017"
+        },
+        {
+          "club": "Arsenal Sarandí",
+          "year": "2017"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2018"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2018"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2019"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2019"
+        },
+        {
+          "club": "Aldosivi",
+          "year": "2020"
+        },
+        {
+          "club": "Defensa",
+          "year": "2021"
+        },
+        {
+          "club": "Platense",
+          "year": "2022"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2023"
+        },
+        {
+          "club": "CD Everton",
+          "year": "2024"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2024"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2025"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2025"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        },
+        {
+          "club": "Antofagasta",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 77,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Castro",
@@ -267,9 +1343,45 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Millonarios FC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 6,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indep. Medellín",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2020"
+        },
+        {
+          "club": "Pereira",
+          "year": "2022"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 361,
+        "goals": 128,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Hurtado",
@@ -279,7 +1391,59 @@
       "club": "Millonarios FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Cartagena",
+          "year": "2021"
+        },
+        {
+          "club": "Watford",
+          "year": "2023"
+        },
+        {
+          "club": "Indep. Medellín",
+          "year": "2023"
+        },
+        {
+          "club": "New York",
+          "year": "2023"
+        },
+        {
+          "club": "Gillingham",
+          "year": "2024"
+        },
+        {
+          "club": "Watford",
+          "year": "2024"
+        },
+        {
+          "club": "Watford",
+          "year": "2025"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2025"
+        },
+        {
+          "club": "Watford",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Giordana",
@@ -288,8 +1452,72 @@
       "nationality": "Argentina",
       "club": "Millonarios FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Belgrano",
+          "year": "2016"
+        },
+        {
+          "club": "Guillermo Brown",
+          "year": "2016"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2017"
+        },
+        {
+          "club": "Villa Dálmine",
+          "year": "2017"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2018"
+        },
+        {
+          "club": "CA Temperley",
+          "year": "2018"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2019"
+        },
+        {
+          "club": "CA Alvarado",
+          "year": "2019"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "year": "2020"
+        },
+        {
+          "club": "Mushuc Runa SC",
+          "year": "2021"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2023"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 249,
+        "goals": 64,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Radamel Falcao",
@@ -299,7 +1527,75 @@
       "club": "Millonarios FC",
       "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "River Plate",
+          "year": "2005"
+        },
+        {
+          "club": "Porto",
+          "year": "2009"
+        },
+        {
+          "club": "Atlético",
+          "year": "2011"
+        },
+        {
+          "club": "Monaco",
+          "year": "2013"
+        },
+        {
+          "club": "Man Utd",
+          "year": "2014"
+        },
+        {
+          "club": "Monaco",
+          "year": "2015"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2015"
+        },
+        {
+          "club": "Monaco",
+          "year": "2016"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2019"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2021"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 628,
+        "goals": 319,
+        "assists": 62,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 105,
+        "goals": 36,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

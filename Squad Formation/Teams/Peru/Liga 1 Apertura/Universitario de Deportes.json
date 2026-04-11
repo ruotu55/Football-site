@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "TDEA"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Universitario de Deportes",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2020"
+        },
+        {
+          "club": "Banfield",
+          "year": "2025"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 39,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Vargas",
@@ -31,9 +60,69 @@
       "age": 29,
       "nationality": "Chile",
       "club": "Universitario de Deportes",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. Católica",
+          "year": "2015"
+        },
+        {
+          "club": "Santa Cruz",
+          "year": "2017"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2017"
+        },
+        {
+          "club": "Cobresal",
+          "year": "2019"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2019"
+        },
+        {
+          "club": "La Calera",
+          "year": "2020"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2020"
+        },
+        {
+          "club": "La Calera",
+          "year": "2021"
+        },
+        {
+          "club": "Cienciano",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 114,
+        "clean_sheets": 34
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhefferson Rodríguez",
@@ -43,7 +132,27 @@
       "club": "Universitario de Deportes",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 14,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +162,57 @@
       "age": 34,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inti Gas",
+          "year": "2010"
+        },
+        {
+          "club": "León de Huánuco",
+          "year": "2013"
+        },
+        {
+          "club": "FBC Melgar",
+          "year": "2016"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2018"
+        },
+        {
+          "club": "Atlas",
+          "year": "2019"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2019"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 442,
+        "goals": 29,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Williams Riveros",
@@ -65,7 +222,63 @@
       "club": "Universitario de Deportes",
       "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Flandria",
+          "year": "2013"
+        },
+        {
+          "club": "CA Temperley",
+          "year": "2017"
+        },
+        {
+          "club": "Flandria",
+          "year": "2018"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2018"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2020"
+        },
+        {
+          "club": "Cerro Porteño",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2023"
+        },
+        {
+          "club": "Universitario",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 24,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Di Benedetto",
@@ -73,9 +286,119 @@
       "age": 33,
       "nationality": "Argentina",
       "club": "Universitario de Deportes",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vil. San Carlos",
+          "year": "2015"
+        },
+        {
+          "club": "Almagro",
+          "year": "2015"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2018"
+        },
+        {
+          "club": "Deportes Temuco",
+          "year": "2019"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Caín Fara",
+      "position": "Centre-Back",
+      "age": 32,
+      "nationality": "Argentina",
+      "club": "Universitario de Deportes",
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juv. Antoniana",
+          "year": "2016"
+        },
+        {
+          "club": "Estudiantes",
+          "year": "2017"
+        },
+        {
+          "club": "Ferro",
+          "year": "2018"
+        },
+        {
+          "club": "Aldosivi",
+          "year": "2019"
+        },
+        {
+          "club": "Sol de América",
+          "year": "2020"
+        },
+        {
+          "club": "Tigre",
+          "year": "2021"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2022"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aldo Corzo",
@@ -85,17 +408,39 @@
       "club": "Universitario de Deportes",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Caín Fara",
-      "position": "Centre-Back",
-      "age": 32,
-      "nationality": "Argentina",
-      "club": "Universitario de Deportes",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alianza Lima",
+          "year": "2009"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2010"
+        },
+        {
+          "club": "Dep. Municipal",
+          "year": "2016"
+        },
+        {
+          "club": "Universitario",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 534,
+        "goals": 32,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "César Inga",
@@ -103,9 +448,33 @@
       "age": 23,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Tarma",
+          "year": "2021"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Carabalí",
@@ -113,9 +482,57 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Universitario de Deportes",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Club Unibolivar",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Puerto Quito",
+          "year": "2017"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2020"
+        },
+        {
+          "club": "Orense SC",
+          "year": "2023"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2024"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 8,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paolo Reyna",
@@ -125,7 +542,31 @@
       "club": "Universitario de Deportes",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FBC Melgar",
+          "year": "2019"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 4,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Ancajima",
@@ -135,7 +576,43 @@
       "club": "Universitario de Deportes",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cienciano",
+          "year": "2018"
+        },
+        {
+          "club": "Pirata FC",
+          "year": "2020"
+        },
+        {
+          "club": "Santa Rosa",
+          "year": "2021"
+        },
+        {
+          "club": "AD Tarma",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 3,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,19 +622,79 @@
       "age": 24,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sport. Cristal",
+          "year": "2019"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2023"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Murrugarra",
       "position": "Defensive Midfield",
-      "age": 28,
+      "age": 29,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Coopsol",
+          "year": "2016"
+        },
+        {
+          "club": "UTC",
+          "year": "2017"
+        },
+        {
+          "club": "Ayacucho FC",
+          "year": "2020"
+        },
+        {
+          "club": "Universitario",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 262,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jairo Concha",
@@ -167,7 +704,39 @@
       "club": "Universitario de Deportes",
       "appearances": 6,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "U. San Martín",
+          "year": "2017"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2020"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2020"
+        },
+        {
+          "club": "Universitario",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 276,
+        "goals": 27,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martín Pérez Guedes",
@@ -175,9 +744,81 @@
       "age": 34,
       "nationality": "Argentina",
       "club": "Universitario de Deportes",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpo",
+          "year": "2011"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2012"
+        },
+        {
+          "club": "Olimpo",
+          "year": "2013"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2014"
+        },
+        {
+          "club": "Quilmes",
+          "year": "2015"
+        },
+        {
+          "club": "CA Temperley",
+          "year": "2016"
+        },
+        {
+          "club": "Olimpo",
+          "year": "2016"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2017"
+        },
+        {
+          "club": "Def. Belgrano",
+          "year": "2018"
+        },
+        {
+          "club": "Odisha FC",
+          "year": "2019"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "year": "2020"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2021"
+        },
+        {
+          "club": "FBC Melgar",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 391,
+        "goals": 58,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Horacio Calcaterra",
@@ -185,9 +826,41 @@
       "age": 37,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unión Comercio",
+          "year": "2011"
+        },
+        {
+          "club": "Universitario",
+          "year": "2012"
+        },
+        {
+          "club": "Sport. Cristal",
+          "year": "2013"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 563,
+        "goals": 66,
+        "assists": 62,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diogo Vásquez",
@@ -197,7 +870,27 @@
       "club": "Universitario de Deportes",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Flores",
@@ -207,17 +900,73 @@
       "club": "Universitario de Deportes",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Silveira",
       "position": "Attacking Midfield",
-      "age": 22,
+      "age": 23,
       "nationality": "Brazil",
       "club": "Universitario de Deportes",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2020"
+        },
+        {
+          "club": "RB Bragantino",
+          "year": "2021"
+        },
+        {
+          "club": "FK Sochi",
+          "year": "2023"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2025"
+        },
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 5,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabián Cabanillas",
@@ -227,7 +976,27 @@
       "club": "Universitario de Deportes",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1006,77 @@
       "age": 27,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RCD Mallorca",
+          "year": "2017"
+        },
+        {
+          "club": "CD Toledo",
+          "year": "2018"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2018"
+        },
+        {
+          "club": "CD Alcoyano",
+          "year": "2018"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2019"
+        },
+        {
+          "club": "Barakaldo CF",
+          "year": "2019"
+        },
+        {
+          "club": "Las Rozas CF",
+          "year": "2020"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2020"
+        },
+        {
+          "club": "AD Cantolao",
+          "year": "2021"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2023"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2026"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 20,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Héctor Fértoli",
@@ -249,7 +1086,67 @@
       "club": "Universitario de Deportes",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Newell's",
+          "year": "2016"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2019"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2020"
+        },
+        {
+          "club": "CA Talleres",
+          "year": "2021"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2022"
+        },
+        {
+          "club": "Huracán",
+          "year": "2023"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2024"
+        },
+        {
+          "club": "Tigre",
+          "year": "2025"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2025"
+        },
+        {
+          "club": "Universitario",
+          "year": "2026"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 264,
+        "goals": 36,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Loayza",
@@ -259,7 +1156,27 @@
       "club": "Universitario de Deportes",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andy Polo",
@@ -267,9 +1184,65 @@
       "age": 31,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2011"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2013"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2014"
+        },
+        {
+          "club": "Universitario",
+          "year": "2015"
+        },
+        {
+          "club": "Millonarios",
+          "year": "2017"
+        },
+        {
+          "club": "Monarcas Morelia",
+          "year": "2017"
+        },
+        {
+          "club": "Portland",
+          "year": "2018"
+        },
+        {
+          "club": "Monarcas Morelia",
+          "year": "2018"
+        },
+        {
+          "club": "Portland",
+          "year": "2019"
+        },
+        {
+          "club": "Universitario",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 440,
+        "goals": 34,
+        "assists": 58,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lisandro Alzugaray",
@@ -277,9 +1250,73 @@
       "age": 35,
       "nationality": "Argentina",
       "club": "Universitario de Deportes",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chaco For Ever",
+          "year": "2013"
+        },
+        {
+          "club": "Atl. Paraná",
+          "year": "2014"
+        },
+        {
+          "club": "Club San José",
+          "year": "2017"
+        },
+        {
+          "club": "Chaco For Ever",
+          "year": "2017"
+        },
+        {
+          "club": "Newell's",
+          "year": "2018"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2019"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2020"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2023"
+        },
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 272,
+        "goals": 69,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álex Valera",
@@ -287,19 +1324,53 @@
       "age": 29,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 5,
-      "assists": 0
-    },
-    {
-      "name": "Edison Flores",
-      "position": "Centre-Forward",
-      "age": 31,
-      "nationality": "Peru",
-      "club": "Universitario de Deportes",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Carlos Stein",
+          "year": "2017"
+        },
+        {
+          "club": "Pirata FC",
+          "year": "2018"
+        },
+        {
+          "club": "Dep. Garcilaso",
+          "year": "2019"
+        },
+        {
+          "club": "Llacuabamba",
+          "year": "2019"
+        },
+        {
+          "club": "Universitario",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Fateh",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 85,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Rivera",
@@ -307,9 +1378,103 @@
       "age": 28,
       "nationality": "Peru",
       "club": "Universitario de Deportes",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unión Comercio",
+          "year": "2016"
+        },
+        {
+          "club": "Cusco FC",
+          "year": "2020"
+        },
+        {
+          "club": "CA Mannucci",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 57,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Edison Flores",
+      "position": "Centre-Forward",
+      "age": 31,
+      "nationality": "Peru",
+      "club": "Universitario de Deportes",
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2011"
+        },
+        {
+          "club": "Universitario",
+          "year": "2014"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2016"
+        },
+        {
+          "club": "Monarcas Morelia",
+          "year": "2018"
+        },
+        {
+          "club": "D.C. United",
+          "year": "2020"
+        },
+        {
+          "club": "Atlas",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        },
+        {
+          "club": "Atlas",
+          "year": "2024"
+        },
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 426,
+        "goals": 68,
+        "assists": 66,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 84,
+        "goals": 17,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sekou Gassama",
@@ -319,7 +1484,95 @@
       "club": "Universitario de Deportes",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CF Damm Youth",
+          "year": "2007"
+        },
+        {
+          "club": "Bergantiños FC",
+          "year": "2015"
+        },
+        {
+          "club": "Badalona",
+          "year": "2016"
+        },
+        {
+          "club": "Sant Andreu",
+          "year": "2016"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2018"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2019"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2020"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2020"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2021"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2021"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2022"
+        },
+        {
+          "club": "Racing",
+          "year": "2022"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2023"
+        },
+        {
+          "club": "Anorthosis",
+          "year": "2023"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2024"
+        },
+        {
+          "club": "Eldense",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 45,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Dioses",
@@ -329,7 +1582,27 @@
       "club": "Universitario de Deportes",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhon Guzmán",
@@ -339,7 +1612,27 @@
       "club": "Universitario de Deportes",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

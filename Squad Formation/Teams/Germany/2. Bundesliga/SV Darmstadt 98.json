@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "L2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 33,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 30,
+      "appearances": 27,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -40,7 +41,21 @@
           "club": "Darmstadt 98",
           "year": "2019"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 512,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 697,
+        "clean_sheets": 145
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Brunst",
@@ -68,7 +83,21 @@
           "club": "Darmstadt 98",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 325,
+        "clean_sheets": 71
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benedikt Börner",
@@ -76,7 +105,7 @@
       "age": 19,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -84,7 +113,21 @@
           "club": "Darmstadt 98",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 77,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -94,7 +137,7 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "SV Darmstadt 98",
-      "appearances": 29,
+      "appearances": 26,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -126,7 +169,21 @@
           "club": "Darmstadt 98",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 17,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matej Maglica",
@@ -134,8 +191,8 @@
       "age": 27,
       "nationality": "Croatia",
       "club": "SV Darmstadt 98",
-      "appearances": 27,
-      "goals": 7,
+      "appearances": 24,
+      "goals": 5,
       "assists": 0,
       "transfer_history": [
         {
@@ -166,7 +223,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 18,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandar Vukotic",
@@ -174,7 +245,7 @@
       "age": 30,
       "nationality": "Serbia",
       "club": "SV Darmstadt 98",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -198,7 +269,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 20,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Grayson Dettoni",
@@ -206,7 +291,7 @@
       "age": 20,
       "nationality": "United States",
       "club": "SV Darmstadt 98",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -218,23 +303,51 @@
           "club": "Darmstadt 98",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Max Pfister",
       "position": "Centre-Back",
-      "age": 18,
+      "age": 19,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 13,
-      "goals": 2,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Darmstadt 98",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raoul Petretta",
@@ -262,7 +375,21 @@
           "club": "Darmstadt 98",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 342,
+        "goals": 24,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Holland",
@@ -270,7 +397,7 @@
       "age": 35,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 20,
+      "appearances": 18,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -290,7 +417,21 @@
           "club": "Darmstadt 98",
           "year": "2015"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 459,
+        "goals": 26,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tim Arnold",
@@ -298,15 +439,29 @@
       "age": 19,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 14,
+      "appearances": 0,
       "goals": 0,
-      "assists": 5,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Darmstadt 98",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 0,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio López",
@@ -314,9 +469,9 @@
       "age": 26,
       "nationality": "Spain",
       "club": "SV Darmstadt 98",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 0,
-      "assists": 6,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "RM Castilla",
@@ -338,7 +493,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 221,
+        "goals": 7,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthias Bader",
@@ -346,7 +515,7 @@
       "age": 28,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -362,7 +531,21 @@
           "club": "Darmstadt 98",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 264,
+        "goals": 5,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -372,8 +555,8 @@
       "age": 25,
       "nationality": "Japan",
       "club": "SV Darmstadt 98",
-      "appearances": 27,
-      "goals": 4,
+      "appearances": 25,
+      "goals": 3,
       "assists": 0,
       "transfer_history": [
         {
@@ -408,7 +591,21 @@
           "club": "Darmstadt 98",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 13,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kai Klefisch",
@@ -416,9 +613,9 @@
       "age": 26,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Viktoria Köln",
@@ -432,7 +629,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 259,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niklas Schmidt",
@@ -440,9 +651,9 @@
       "age": 28,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Werder Bremen",
@@ -476,7 +687,21 @@
           "club": "Toulouse",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 327,
+        "goals": 61,
+        "assists": 79,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Merveille Papela",
@@ -484,7 +709,7 @@
       "age": 25,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -504,7 +729,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 18,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Nürnberger",
@@ -512,7 +751,7 @@
       "age": 26,
       "nationality": "Bulgaria",
       "club": "SV Darmstadt 98",
-      "appearances": 18,
+      "appearances": 17,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -524,7 +763,21 @@
           "club": "Darmstadt 98",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 22,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Richter",
@@ -532,7 +785,7 @@
       "age": 28,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 2,
       "assists": 10,
       "transfer_history": [
@@ -564,7 +817,21 @@
           "club": "Mainz",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 355,
+        "goals": 90,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Marseiler",
@@ -572,9 +839,9 @@
       "age": 29,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 29,
+      "appearances": 26,
       "goals": 2,
-      "assists": 5,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Unterhaching",
@@ -600,7 +867,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 286,
+        "goals": 40,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -610,7 +891,7 @@
       "age": 22,
       "nationality": "Japan",
       "club": "SV Darmstadt 98",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -634,7 +915,21 @@
           "club": "Darmstadt 98",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isac Lidberg",
@@ -642,7 +937,7 @@
       "age": 27,
       "nationality": "Sweden",
       "club": "SV Darmstadt 98",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 14,
       "assists": 2,
       "transfer_history": [
@@ -698,7 +993,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 109,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fraser Hornby",
@@ -706,8 +1015,8 @@
       "age": 26,
       "nationality": "Scotland",
       "club": "SV Darmstadt 98",
-      "appearances": 23,
-      "goals": 11,
+      "appearances": 21,
+      "goals": 9,
       "assists": 6,
       "transfer_history": [
         {
@@ -742,7 +1051,21 @@
           "club": "Darmstadt 98",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 60,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Killian Corredor",
@@ -750,7 +1073,7 @@
       "age": 25,
       "nationality": "France",
       "club": "SV Darmstadt 98",
-      "appearances": 24,
+      "appearances": 21,
       "goals": 5,
       "assists": 3,
       "transfer_history": [
@@ -766,7 +1089,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 57,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bartosz Bialek",
@@ -774,8 +1111,8 @@
       "age": 24,
       "nationality": "Poland",
       "club": "SV Darmstadt 98",
-      "appearances": 13,
-      "goals": 1,
+      "appearances": 10,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -806,7 +1143,21 @@
           "club": "Darmstadt 98",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 31,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fynn Lakenmacher",
@@ -814,7 +1165,7 @@
       "age": 25,
       "nationality": "Germany",
       "club": "SV Darmstadt 98",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -830,7 +1181,21 @@
           "club": "Darmstadt 98",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 24,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Serhat-Semih Güler",
@@ -878,7 +1243,21 @@
           "club": "Darmstadt 98",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 99,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

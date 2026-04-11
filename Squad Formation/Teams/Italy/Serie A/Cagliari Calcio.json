@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IT1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 24,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 32,
+      "appearances": 30,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -52,7 +53,21 @@
           "club": "Napoli",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 308,
+        "clean_sheets": 68
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alen Sherri",
@@ -60,7 +75,7 @@
       "age": 28,
       "nationality": "Albania",
       "club": "Cagliari Calcio",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -88,7 +103,21 @@
           "club": "Cagliari",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 220,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 215,
+        "clean_sheets": 84
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Giuseppe Ciocci",
@@ -96,7 +125,7 @@
       "age": 24,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -124,7 +153,21 @@
           "club": "Pontedera",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 155,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -190,7 +233,21 @@
           "club": "Como",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Obert",
@@ -198,7 +255,7 @@
       "age": 23,
       "nationality": "Slovakia",
       "club": "Cagliari Calcio",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 0,
       "assists": 3,
       "transfer_history": [
@@ -206,7 +263,21 @@
           "club": "Cagliari",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 202,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Rodríguez",
@@ -214,7 +285,7 @@
       "age": 20,
       "nationality": "Uruguay",
       "club": "Cagliari Calcio",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -230,7 +301,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yerry Mina",
@@ -238,7 +323,7 @@
       "age": 31,
       "nationality": "Colombia",
       "club": "Cagliari Calcio",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -270,7 +355,21 @@
           "club": "Cagliari",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 369,
+        "goals": 35,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 52,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zé Pedro",
@@ -278,7 +377,7 @@
       "age": 28,
       "nationality": "Portugal",
       "club": "Cagliari Calcio",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -326,7 +425,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riyad Idrissi",
@@ -334,9 +447,9 @@
       "age": 20,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 2,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Cagliari Youth",
@@ -350,7 +463,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Palestra",
@@ -382,7 +509,21 @@
           "club": "Atalanta",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 8,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriele Zappa",
@@ -390,7 +531,7 @@
       "age": 26,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
       "assists": 3,
       "transfer_history": [
@@ -414,7 +555,21 @@
           "club": "Cagliari",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 14,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Othniël Raterink",
@@ -422,9 +577,9 @@
       "age": 19,
       "nationality": "Netherlands",
       "club": "Cagliari Calcio",
-      "appearances": 28,
-      "goals": 3,
-      "assists": 4,
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "De Graafschap",
@@ -434,7 +589,21 @@
           "club": "Cagliari",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 11,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -444,7 +613,7 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Cagliari Calcio",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -472,7 +641,21 @@
           "club": "Cagliari",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michel Adopo",
@@ -480,9 +663,9 @@
       "age": 25,
       "nationality": "France",
       "club": "Cagliari Calcio",
-      "appearances": 33,
+      "appearances": 30,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Torino",
@@ -512,7 +695,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 8,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Folorunsho",
@@ -520,7 +717,7 @@
       "age": 28,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -596,7 +793,21 @@
           "club": "Napoli",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 312,
+        "goals": 40,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Liteta",
@@ -604,7 +815,7 @@
       "age": 20,
       "nationality": "Zambia",
       "club": "Cagliari Calcio",
-      "appearances": 17,
+      "appearances": 4,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -612,7 +823,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Deiola",
@@ -620,7 +845,7 @@
       "age": 30,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 16,
+      "appearances": 13,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -668,7 +893,21 @@
           "club": "Cagliari",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 27,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Mazzitelli",
@@ -676,7 +915,7 @@
       "age": 30,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -768,7 +1007,21 @@
           "club": "Como",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 34,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gianluca Gaetano",
@@ -776,8 +1029,8 @@
       "age": 25,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 27,
-      "goals": 3,
+      "appearances": 25,
+      "goals": 2,
       "assists": 3,
       "transfer_history": [
         {
@@ -816,7 +1069,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 318,
+        "goals": 103,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -826,9 +1093,9 @@
       "age": 24,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 13,
-      "goals": 3,
-      "assists": 2,
+      "appearances": 11,
+      "goals": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Tor Tre Teste",
@@ -874,7 +1141,21 @@
           "club": "Cagliari",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 24,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Agustín Albarracín",
@@ -882,8 +1163,8 @@
       "age": 20,
       "nationality": "Uruguay",
       "club": "Cagliari Calcio",
-      "appearances": 2,
-      "goals": 1,
+      "appearances": 1,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -898,7 +1179,21 @@
           "club": "Cagliari",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 14,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastiano Esposito",
@@ -906,9 +1201,9 @@
       "age": 23,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 31,
-      "goals": 5,
-      "assists": 6,
+      "appearances": 28,
+      "goals": 4,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Brescia Youth",
@@ -982,7 +1277,21 @@
           "club": "Cagliari",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 275,
+        "goals": 83,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 14,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Semih Kılıçsoy",
@@ -990,7 +1299,7 @@
       "age": 20,
       "nationality": "Turkiye",
       "club": "Cagliari Calcio",
-      "appearances": 26,
+      "appearances": 21,
       "goals": 4,
       "assists": 0,
       "transfer_history": [
@@ -1006,7 +1315,21 @@
           "club": "Besiktas",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 62,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gennaro Borrelli",
@@ -1014,9 +1337,9 @@
       "age": 26,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 24,
-      "goals": 4,
-      "assists": 2,
+      "appearances": 22,
+      "goals": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Pescara",
@@ -1070,7 +1393,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 252,
+        "goals": 75,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrea Belotti",
@@ -1130,7 +1467,21 @@
           "club": "Cagliari",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 529,
+        "goals": 180,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yael Trepy",
@@ -1138,15 +1489,29 @@
       "age": 19,
       "nationality": "France",
       "club": "Cagliari Calcio",
-      "appearances": 25,
-      "goals": 9,
-      "assists": 1,
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Cagliari",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 28,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Pavoletti",
@@ -1154,7 +1519,7 @@
       "age": 37,
       "nationality": "Italy",
       "club": "Cagliari Calcio",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -1214,7 +1579,21 @@
           "club": "Cagliari",
           "year": "2017"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 493,
+        "goals": 149,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

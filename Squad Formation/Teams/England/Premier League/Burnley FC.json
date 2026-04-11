@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 21,
       "nationality": "Germany",
       "club": "Burnley FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -32,7 +33,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 113,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Dúbravka",
@@ -80,7 +95,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 467,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 583,
+        "clean_sheets": 148
+      },
+      "national_team_career_totals": {
+        "appearances": 60,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 72,
+        "clean_sheets": 24
+      }
     },
     {
       "name": "Václav Hladký",
@@ -128,7 +157,21 @@
           "club": "Burnley",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 279,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 342,
+        "clean_sheets": 92
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -138,7 +181,7 @@
       "age": 23,
       "nationality": "France",
       "club": "Burnley FC",
-      "appearances": 30,
+      "appearances": 28,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -158,7 +201,21 @@
           "club": "Montpellier",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bashir Humphreys",
@@ -166,7 +223,7 @@
       "age": 23,
       "nationality": "England",
       "club": "Burnley FC",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -194,7 +251,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hjalmar Ekdal",
@@ -202,9 +273,9 @@
       "age": 27,
       "nationality": "Sweden",
       "club": "Burnley FC",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Brommapojkarna",
@@ -254,7 +325,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Axel Tuanzebe",
@@ -262,7 +347,7 @@
       "age": 28,
       "nationality": "Democratic Republic of the Congo",
       "club": "Burnley FC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -314,7 +399,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joe Worrall",
@@ -322,7 +421,7 @@
       "age": 29,
       "nationality": "England",
       "club": "Burnley FC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -358,7 +457,21 @@
           "club": "Burnley",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 310,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Beyer",
@@ -366,8 +479,8 @@
       "age": 25,
       "nationality": "Germany",
       "club": "Burnley FC",
-      "appearances": 0,
-      "goals": 0,
+      "appearances": 1,
+      "goals": 6,
       "assists": 0,
       "transfer_history": [
         {
@@ -394,7 +507,21 @@
           "club": "Burnley",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 164,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quilindschy Hartman",
@@ -402,7 +529,7 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "Burnley FC",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 0,
       "assists": 4,
       "transfer_history": [
@@ -422,7 +549,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 4,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Pires",
@@ -430,7 +571,7 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Burnley FC",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -450,7 +591,21 @@
           "club": "Burnley",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 1,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyle Walker",
@@ -510,7 +665,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 676,
+        "goals": 12,
+        "assists": 54,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 96,
+        "goals": 1,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Connor Roberts",
@@ -518,9 +687,9 @@
       "age": 30,
       "nationality": "Wales",
       "club": "Burnley FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0,
+      "appearances": 1,
+      "goals": 5,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Yeovil Town",
@@ -554,7 +723,21 @@
           "club": "Burnley",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 21,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 63,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -564,7 +747,7 @@
       "age": 22,
       "nationality": "France",
       "club": "Burnley FC",
-      "appearances": 33,
+      "appearances": 30,
       "goals": 3,
       "assists": 2,
       "transfer_history": [
@@ -588,7 +771,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florentino",
@@ -596,8 +793,8 @@
       "age": 26,
       "nationality": "Portugal",
       "club": "Burnley FC",
-      "appearances": 33,
-      "goals": 1,
+      "appearances": 24,
+      "goals": 0,
       "assists": 2,
       "transfer_history": [
         {
@@ -632,7 +829,21 @@
           "club": "Benfica",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 337,
+        "goals": 6,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Ward-Prowse",
@@ -640,7 +851,7 @@
       "age": 31,
       "nationality": "England",
       "club": "Burnley FC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -668,7 +879,21 @@
           "club": "West Ham",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 512,
+        "goals": 65,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josh Cullen",
@@ -728,7 +953,21 @@
           "club": "Burnley",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 410,
+        "goals": 19,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josh Laurent",
@@ -736,8 +975,8 @@
       "age": 30,
       "nationality": "England",
       "club": "Burnley FC",
-      "appearances": 31,
-      "goals": 2,
+      "appearances": 28,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -784,7 +1023,21 @@
           "club": "Burnley",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 416,
+        "goals": 28,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hannibal",
@@ -792,7 +1045,7 @@
       "age": 23,
       "nationality": "Tunisia",
       "club": "Burnley FC",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
       "assists": 3,
       "transfer_history": [
@@ -824,7 +1077,21 @@
           "club": "Burnley",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 11,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mike Tresor",
@@ -832,9 +1099,9 @@
       "age": 26,
       "nationality": "Belgium",
       "club": "Burnley FC",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Without Club",
@@ -864,7 +1131,21 @@
           "club": "Burnley",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 33,
+        "assists": 54,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -874,8 +1155,8 @@
       "age": 26,
       "nationality": "England",
       "club": "Burnley FC",
-      "appearances": 31,
-      "goals": 8,
+      "appearances": 30,
+      "goals": 7,
       "assists": 3,
       "transfer_history": [
         {
@@ -906,7 +1187,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 211,
+        "goals": 31,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacob Bruun Larsen",
@@ -914,9 +1209,9 @@
       "age": 27,
       "nationality": "Denmark",
       "club": "Burnley FC",
-      "appearances": 25,
+      "appearances": 23,
       "goals": 0,
-      "assists": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Dortmund",
@@ -958,7 +1253,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 60,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Loum Tchaouna",
@@ -966,8 +1275,8 @@
       "age": 22,
       "nationality": "France",
       "club": "Burnley FC",
-      "appearances": 26,
-      "goals": 2,
+      "appearances": 23,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -1002,7 +1311,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 24,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcus Edwards",
@@ -1010,9 +1333,9 @@
       "age": 27,
       "nationality": "England",
       "club": "Burnley FC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 4,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Norwich",
@@ -1038,7 +1361,21 @@
           "club": "Sporting",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 324,
+        "goals": 63,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zian Flemming",
@@ -1046,8 +1383,8 @@
       "age": 27,
       "nationality": "Netherlands",
       "club": "Burnley FC",
-      "appearances": 25,
-      "goals": 9,
+      "appearances": 22,
+      "goals": 8,
       "assists": 0,
       "transfer_history": [
         {
@@ -1086,7 +1423,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 352,
+        "goals": 118,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lyle Foster",
@@ -1094,9 +1445,9 @@
       "age": 25,
       "nationality": "South Africa",
       "club": "Burnley FC",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 3,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Orlando Pirates",
@@ -1130,7 +1481,21 @@
           "club": "Burnley",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 30,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zeki Amdouni",
@@ -1138,8 +1503,8 @@
       "age": 25,
       "nationality": "Switzerland",
       "club": "Burnley FC",
-      "appearances": 0,
-      "goals": 0,
+      "appearances": 1,
+      "goals": 2,
       "assists": 0,
       "transfer_history": [
         {
@@ -1182,7 +1547,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 277,
+        "goals": 88,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Armando Broja",
@@ -1190,9 +1569,9 @@
       "age": 24,
       "nationality": "Albania",
       "club": "Burnley FC",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 1,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Chelsea Youth",
@@ -1230,7 +1609,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 45,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ashley Barnes",
@@ -1238,8 +1631,8 @@
       "age": 36,
       "nationality": "England",
       "club": "Burnley FC",
-      "appearances": 10,
-      "goals": 2,
+      "appearances": 6,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -1294,7 +1687,21 @@
           "club": "Burnley",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 589,
+        "goals": 128,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

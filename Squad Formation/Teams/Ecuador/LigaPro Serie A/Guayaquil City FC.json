@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "EC1N"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 23,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Orense SC",
+          "year": "2021"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2023"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 23,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Perea",
@@ -33,7 +62,87 @@
       "club": "Guayaquil City FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Star Club",
+          "year": "2010"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2011"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2013"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2017"
+        },
+        {
+          "club": "Fuerza Amarilla",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2019"
+        },
+        {
+          "club": "CD América",
+          "year": "2019"
+        },
+        {
+          "club": "Atl. Porteño",
+          "year": "2020"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2021"
+        },
+        {
+          "club": "Mushuc Runa SC",
+          "year": "2022"
+        },
+        {
+          "club": "Deportivo Quito",
+          "year": "2023"
+        },
+        {
+          "club": "Cuniburo FC",
+          "year": "2023"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        },
+        {
+          "club": "11 de Mayo",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 76,
+        "clean_sheets": 37
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eved Sanchez",
@@ -43,7 +152,22 @@
       "club": "Guayaquil City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +177,65 @@
       "age": 31,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Técnico U.",
+          "year": "2013"
+        },
+        {
+          "club": "CD Olmedo",
+          "year": "2016"
+        },
+        {
+          "club": "U.T. Cotopaxi",
+          "year": "2016"
+        },
+        {
+          "club": "Colón FC",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Duros del Balon",
+          "year": "2018"
+        },
+        {
+          "club": "CS Patria",
+          "year": "2021"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2021"
+        },
+        {
+          "club": "Gualaceo SC",
+          "year": "2023"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Esnáider Cabezas",
@@ -65,7 +245,43 @@
       "club": "Guayaquil City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Duros del Balon",
+          "year": "2017"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2021"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Oriente P.",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshué Quiñónez",
@@ -73,9 +289,49 @@
       "age": 24,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Barcelona SC",
+          "year": "2021"
+        },
+        {
+          "club": "Dallas",
+          "year": "2022"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2022"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2024"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Erick Ladines",
@@ -83,9 +339,33 @@
       "age": 24,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2023"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roger Arias",
@@ -93,9 +373,33 @@
       "age": 26,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CS Patria",
+          "year": "2020"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jonathan Ordóñez",
@@ -105,7 +409,47 @@
       "club": "Guayaquil City FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Everest",
+          "year": "2021"
+        },
+        {
+          "club": "FC Insutec",
+          "year": "2021"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2022"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2023"
+        },
+        {
+          "club": "Búhos ULVR FC",
+          "year": "2023"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junior Ayoví",
@@ -113,9 +457,37 @@
       "age": 24,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CS Patria",
+          "year": "2020"
+        },
+        {
+          "club": "Guayaquil SC",
+          "year": "2020"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +497,33 @@
       "age": 22,
       "nationality": "Uruguay",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rentistas",
+          "year": "2023"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Humanante",
@@ -135,9 +531,45 @@
       "age": 29,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rocafuerte FC",
+          "year": "2016"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2018"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2024"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Madison Julio",
@@ -145,9 +577,105 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Antonio FC",
+          "year": "2015"
+        },
+        {
+          "club": "Deportivo Quito",
+          "year": "2015"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2016"
+        },
+        {
+          "club": "Deportivo Quito",
+          "year": "2016"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2017"
+        },
+        {
+          "club": "CD Clan Juvenil",
+          "year": "2018"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2018"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2018"
+        },
+        {
+          "club": "Santo Domingo",
+          "year": "2019"
+        },
+        {
+          "club": "CD América",
+          "year": "2020"
+        },
+        {
+          "club": "Chacaritas FC",
+          "year": "2021"
+        },
+        {
+          "club": "M. Iturralde",
+          "year": "2021"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2022"
+        },
+        {
+          "club": "FC Oleksandriya",
+          "year": "2024"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2024"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2025"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2025"
+        },
+        {
+          "club": "Vinotinto FC",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Sambonino",
@@ -155,19 +683,141 @@
       "age": 25,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guayaquil City",
+          "year": "2018"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Dixon Arroyo",
+      "position": "Defensive Midfield",
+      "age": 33,
+      "nationality": "Ecuador",
+      "club": "Guayaquil City FC",
+      "appearances": 2,
+      "goals": 11,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Quito",
+          "year": "2010"
+        },
+        {
+          "club": "Deportivo Quito",
+          "year": "2011"
+        },
+        {
+          "club": "LDU de Loja",
+          "year": "2013"
+        },
+        {
+          "club": "Independiente",
+          "year": "2015"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2018"
+        },
+        {
+          "club": "Miami",
+          "year": "2023"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 496,
+        "goals": 18,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cesar Parra",
       "position": "Defensive Midfield",
-      "age": 25,
+      "age": 26,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Banife",
+          "year": "2021"
+        },
+        {
+          "club": "Manta FC",
+          "year": "2022"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2023"
+        },
+        {
+          "club": "Cuniburo FC",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrew Draper",
@@ -177,7 +827,43 @@
       "club": "Guayaquil City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD América",
+          "year": "2020"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2021"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2023"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo González",
@@ -187,7 +873,67 @@
       "club": "Guayaquil City FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Liverpool FC",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "CA Atenas",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Albion FC",
+          "year": "2020"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2022"
+        },
+        {
+          "club": "Gimpo FC",
+          "year": "2023"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2024"
+        },
+        {
+          "club": "Albion FC",
+          "year": "2025"
+        },
+        {
+          "club": "CD Macará",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 28,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 6,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damián Díaz",
@@ -195,9 +941,85 @@
       "age": 39,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rosario Central",
+          "year": "2007"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2008"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2009"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2010"
+        },
+        {
+          "club": "Colon",
+          "year": "2010"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2011"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2011"
+        },
+        {
+          "club": "Boca Juniors",
+          "year": "2012"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2012"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2016"
+        },
+        {
+          "club": "Banfield",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 528,
+        "goals": 127,
+        "assists": 129,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +1029,65 @@
       "age": 27,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toreros FC",
+          "year": "2018"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. Cuenca",
+          "year": "2020"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2020"
+        },
+        {
+          "club": "Orense SC",
+          "year": "2021"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2021"
+        },
+        {
+          "club": "CD Macará",
+          "year": "2022"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        },
+        {
+          "club": "Vinotinto FC",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 8,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gerónimo Plada",
@@ -219,7 +1097,39 @@
       "club": "Guayaquil City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanderers",
+          "year": "2020"
+        },
+        {
+          "club": "CA Atenas",
+          "year": "2023"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edinson Mero",
@@ -227,9 +1137,65 @@
       "age": 27,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Grupo Alcívar",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Grupo Alcívar",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "San Francisco",
+          "year": "2018"
+        },
+        {
+          "club": "CD Santa Rita",
+          "year": "2019"
+        },
+        {
+          "club": "Atl. Porteño",
+          "year": "2020"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2022"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2023"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 43,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Mancilla",
@@ -237,9 +1203,69 @@
       "age": 33,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liceo Cristiano",
+          "year": "2009"
+        },
+        {
+          "club": "CD Ferroviarios",
+          "year": "2011"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Guayaquil SC",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Guayaquil SC",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Guayaquil SC",
+          "year": "2016"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2017"
+        },
+        {
+          "club": "CD Macará",
+          "year": "2020"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 10,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Janus Vivar",
@@ -247,9 +1273,73 @@
       "age": 27,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Azogues",
+          "year": "2015"
+        },
+        {
+          "club": "Norte América",
+          "year": "2015"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2016"
+        },
+        {
+          "club": "Norte América",
+          "year": "2016"
+        },
+        {
+          "club": "CSD del Valle",
+          "year": "2017"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2017"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2018"
+        },
+        {
+          "club": "CD América",
+          "year": "2019"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2019"
+        },
+        {
+          "club": "Uni. Católica",
+          "year": "2021"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 6,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anderson Naula",
@@ -257,9 +1347,57 @@
       "age": 27,
       "nationality": "Ecuador",
       "club": "Guayaquil City FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LDU de Loja",
+          "year": "2015"
+        },
+        {
+          "club": "CD River Plate",
+          "year": "2016"
+        },
+        {
+          "club": "Atl. Porteño",
+          "year": "2020"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2020"
+        },
+        {
+          "club": "Dep. Cuenca",
+          "year": "2021"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2022"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 31,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Miguel Andrade",
@@ -269,7 +1407,91 @@
       "club": "Guayaquil City FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Deportivo Quito",
+          "year": "2010"
+        },
+        {
+          "club": "Deportivo Quito",
+          "year": "2012"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "CD América",
+          "year": "2014"
+        },
+        {
+          "club": "CD Espoli",
+          "year": "2015"
+        },
+        {
+          "club": "Cienciano",
+          "year": "2016"
+        },
+        {
+          "club": "Rosario FC",
+          "year": "2017"
+        },
+        {
+          "club": "CD América",
+          "year": "2018"
+        },
+        {
+          "club": "Dep. Municipal",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Cumbayá FC",
+          "year": "2019"
+        },
+        {
+          "club": "Atl. Porteño",
+          "year": "2019"
+        },
+        {
+          "club": "LDU Portoviejo",
+          "year": "2020"
+        },
+        {
+          "club": "CD Olmedo",
+          "year": "2021"
+        },
+        {
+          "club": "Orense SC",
+          "year": "2022"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2025"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 23,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manu Palma",
@@ -279,7 +1501,55 @@
       "club": "Guayaquil City FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Fernando CD",
+          "year": "2017"
+        },
+        {
+          "club": "Eldense",
+          "year": "2018"
+        },
+        {
+          "club": "Elche Ilicitano",
+          "year": "2019"
+        },
+        {
+          "club": "At. Saguntino",
+          "year": "2021"
+        },
+        {
+          "club": "Atzeneta UE",
+          "year": "2022"
+        },
+        {
+          "club": "Castuera",
+          "year": "2023"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edwin Angulo",
@@ -289,7 +1559,43 @@
       "club": "Guayaquil City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fuerza Amarilla",
+          "year": "2020"
+        },
+        {
+          "club": "Ind. Jrs.",
+          "year": "2023"
+        },
+        {
+          "club": "Deportivo Quito",
+          "year": "2024"
+        },
+        {
+          "club": "Libertad FC",
+          "year": "2024"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

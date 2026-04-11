@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "J1YV"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gamba Osaka",
+          "year": "2018"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2020"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2023"
+        },
+        {
+          "club": "FCV Dender EH",
+          "year": "2023"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2025"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 241,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 279,
+        "clean_sheets": 76
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Tatsuya Morita",
@@ -31,9 +80,65 @@
       "age": 35,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kyoto Sanga",
+          "year": "2009"
+        },
+        {
+          "club": "Kataller Toyama",
+          "year": "2012"
+        },
+        {
+          "club": "Kyoto Sanga",
+          "year": "2014"
+        },
+        {
+          "club": "Albirex Niigata",
+          "year": "2014"
+        },
+        {
+          "club": "Matsumoto Yama.",
+          "year": "2018"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2020"
+        },
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2022"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2023"
+        },
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 433,
+        "clean_sheets": 76
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yoshiaki Arai",
@@ -43,7 +148,59 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RKU",
+          "year": "2014"
+        },
+        {
+          "club": "RKD Ryugasaki",
+          "year": "2015"
+        },
+        {
+          "club": "RKU",
+          "year": "2017"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2018"
+        },
+        {
+          "club": "Zweig. Kanazawa",
+          "year": "2019"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2020"
+        },
+        {
+          "club": "Blaublitz Akita",
+          "year": "2021"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaung Zan Mara",
@@ -53,7 +210,31 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sanno Univ.",
+          "year": "2021"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +244,41 @@
       "age": 29,
       "nationality": "TM nationality id 244",
       "club": "Machida Zelvia",
-      "appearances": 9,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Elfsborg",
+          "year": "2016"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2019"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2022"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 354,
+        "goals": 15,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuta Nakayama",
@@ -73,9 +286,41 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 16,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2015"
+        },
+        {
+          "club": "PEC Zwolle",
+          "year": "2019"
+        },
+        {
+          "club": "Huddersfield",
+          "year": "2022"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 17,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daihachi Okamura",
@@ -83,9 +328,49 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 13,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rissho Univ.",
+          "year": "2015"
+        },
+        {
+          "club": "Thespaku. Gunma",
+          "year": "2019"
+        },
+        {
+          "club": "Teg. Miyazaki",
+          "year": "2019"
+        },
+        {
+          "club": "Thespaku. Gunma",
+          "year": "2020"
+        },
+        {
+          "club": "H. C. Sapporo",
+          "year": "2021"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 248,
+        "goals": 15,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Min-tae Kim",
@@ -95,7 +380,71 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kwangwoon Univ.",
+          "year": "2012"
+        },
+        {
+          "club": "Vegalta Sendai",
+          "year": "2015"
+        },
+        {
+          "club": "H. C. Sapporo",
+          "year": "2017"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2021"
+        },
+        {
+          "club": "H. C. Sapporo",
+          "year": "2022"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2022"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2023"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2024"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2026"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 12,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gen Shoji",
@@ -103,9 +452,45 @@
       "age": 33,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 14,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kashima Antlers",
+          "year": "2011"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2019"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2020"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 17,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryuho Kikuchi",
@@ -115,7 +500,39 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Osaka Uni H&SS",
+          "year": "2015"
+        },
+        {
+          "club": "Reno. Yamaguchi",
+          "year": "2019"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2020"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 17,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomoki Imai",
@@ -125,7 +542,51 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chuo University",
+          "year": "2009"
+        },
+        {
+          "club": "Omiya Ardija",
+          "year": "2013"
+        },
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2015"
+        },
+        {
+          "club": "Matsumoto Yama.",
+          "year": "2018"
+        },
+        {
+          "club": "Western United",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 4,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kotaro Hayashi",
@@ -133,9 +594,37 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 16,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2019"
+        },
+        {
+          "club": "Yokohama FC",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henry Heroki Mochizuki",
@@ -143,9 +632,33 @@
       "age": 24,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kokushikan Univ",
+          "year": "2020"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hotaka Nakamura",
@@ -153,9 +666,37 @@
       "age": 28,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Meiji Uni",
+          "year": "2016"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2020"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +706,53 @@
       "age": 30,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "C'dole Sapporo",
+          "year": "2014"
+        },
+        {
+          "club": "Khon Kaen FC",
+          "year": "2014"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2018"
+        },
+        {
+          "club": "H. C. Sapporo",
+          "year": "2019"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2019"
+        },
+        {
+          "club": "Avispa Fukuoka",
+          "year": "2020"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 373,
+        "goals": 14,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Neta Lavi",
@@ -175,9 +760,37 @@
       "age": 29,
       "nationality": "Israel",
       "club": "Machida Zelvia",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Maccabi Haifa",
+          "year": "2015"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 12,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hokuto Shimoda",
@@ -185,9 +798,45 @@
       "age": 34,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 2
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ventforet Kofu",
+          "year": "2014"
+        },
+        {
+          "club": "Shonan Bellmare",
+          "year": "2016"
+        },
+        {
+          "club": "Kawasaki Front.",
+          "year": "2018"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2021"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 327,
+        "goals": 28,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Je-hoon Cha",
@@ -197,7 +846,35 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Haeundae FC",
+          "year": "2021"
+        },
+        {
+          "club": "Jungkyung HS",
+          "year": "2022"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Keiya Sento",
@@ -205,9 +882,61 @@
       "age": 31,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 2
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toyo Univ.",
+          "year": "2013"
+        },
+        {
+          "club": "Kyoto Sanga",
+          "year": "2017"
+        },
+        {
+          "club": "Yokohama F. M.",
+          "year": "2020"
+        },
+        {
+          "club": "Kyoto Sanga",
+          "year": "2020"
+        },
+        {
+          "club": "Yokohama F. M.",
+          "year": "2021"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2021"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2022"
+        },
+        {
+          "club": "Kashiwa Reysol",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 324,
+        "goals": 31,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asahi Masuyama",
@@ -215,9 +944,57 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 2
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vissel Kobe",
+          "year": "2015"
+        },
+        {
+          "club": "Yokohama FC",
+          "year": "2017"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2018"
+        },
+        {
+          "club": "Avispa Fukuoka",
+          "year": "2020"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2021"
+        },
+        {
+          "club": "Oita Trinita",
+          "year": "2021"
+        },
+        {
+          "club": "V-V. Nagasaki",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 28,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tenshiro Takasaki",
@@ -227,7 +1004,35 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        },
+        {
+          "club": "Shibuya City",
+          "year": "2025"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryohei Shirasaki",
@@ -235,9 +1040,65 @@
       "age": 32,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2012"
+        },
+        {
+          "club": "Kataller Toyama",
+          "year": "2013"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2015"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2019"
+        },
+        {
+          "club": "Sagan Tosu",
+          "year": "2021"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2022"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2022"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        },
+        {
+          "club": "Shimizu S-Pulse",
+          "year": "2025"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 415,
+        "goals": 53,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Futa Tokumura",
@@ -245,9 +1106,29 @@
       "age": 18,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Machida Zelvia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 18,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chui Hiromu Mayaka",
@@ -257,7 +1138,27 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +1168,57 @@
       "age": 29,
       "nationality": "South Korea",
       "club": "Machida Zelvia",
-      "appearances": 13,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Gwangyang MS",
+          "year": "2009"
+        },
+        {
+          "club": "Dankook Univ",
+          "year": "2015"
+        },
+        {
+          "club": "Gwangju FC",
+          "year": "2017"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2019"
+        },
+        {
+          "club": "Seongnam FC",
+          "year": "2020"
+        },
+        {
+          "club": "FC Tokyo",
+          "year": "2020"
+        },
+        {
+          "club": "FC Seoul",
+          "year": "2021"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 71,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Takaya Numata",
@@ -277,9 +1226,45 @@
       "age": 26,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kansai Univ.",
+          "year": "2018"
+        },
+        {
+          "club": "Reno. Yamaguchi",
+          "year": "2022"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2023"
+        },
+        {
+          "club": "Kagoshima Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuki Soma",
@@ -287,9 +1272,57 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 15,
-      "goals": 6,
-      "assists": 2
+      "appearances": 8,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Waseda Univ.",
+          "year": "2015"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2019"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2019"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2020"
+        },
+        {
+          "club": "Casa Pia",
+          "year": "2023"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2023"
+        },
+        {
+          "club": "Nagoya Grampus",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 41,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Erik",
@@ -297,9 +1330,73 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Machida Zelvia",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 5,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Goiás",
+          "year": "2013"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2016"
+        },
+        {
+          "club": "Atlético-MG",
+          "year": "2018"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2018"
+        },
+        {
+          "club": "Botafogo",
+          "year": "2018"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2019"
+        },
+        {
+          "club": "Yokohama F. M.",
+          "year": "2019"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2021"
+        },
+        {
+          "club": "CC Yatai",
+          "year": "2021"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2023"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2025"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 425,
+        "goals": 134,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Byron Vásquez",
@@ -309,7 +1406,51 @@
       "club": "Machida Zelvia",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Iwaki FC",
+          "year": "2019"
+        },
+        {
+          "club": "U. Católica",
+          "year": "2020"
+        },
+        {
+          "club": "Iwaki FC",
+          "year": "2020"
+        },
+        {
+          "club": "Tokyo Verdy",
+          "year": "2022"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2023"
+        },
+        {
+          "club": "Tochigi City",
+          "year": "2025"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 25,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Takuma Nishimura",
@@ -317,9 +1458,69 @@
       "age": 29,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vegalta Sendai",
+          "year": "2015"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2018"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2020"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2020"
+        },
+        {
+          "club": "Vegalta Sendai",
+          "year": "2020"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2021"
+        },
+        {
+          "club": "Vegalta Sendai",
+          "year": "2021"
+        },
+        {
+          "club": "Yokohama F. M.",
+          "year": "2022"
+        },
+        {
+          "club": "Servette FC",
+          "year": "2024"
+        },
+        {
+          "club": "Yokohama F. M.",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 76,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shota Fujio",
@@ -327,9 +1528,57 @@
       "age": 24,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 2
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cerezo Osaka",
+          "year": "2020"
+        },
+        {
+          "club": "Mito HollyHock",
+          "year": "2021"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2022"
+        },
+        {
+          "club": "Tokushima Vort.",
+          "year": "2022"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2023"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2023"
+        },
+        {
+          "club": "Cerezo Osaka",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 56,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tete Yengi",
@@ -337,9 +1586,69 @@
       "age": 25,
       "nationality": "Australia",
       "club": "Machida Zelvia",
-      "appearances": 31,
-      "goals": 5,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide Comets",
+          "year": "2019"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2020"
+        },
+        {
+          "club": "Ipswich",
+          "year": "2021"
+        },
+        {
+          "club": "VPS",
+          "year": "2022"
+        },
+        {
+          "club": "Ipswich",
+          "year": "2022"
+        },
+        {
+          "club": "Northampton",
+          "year": "2023"
+        },
+        {
+          "club": "Ipswich",
+          "year": "2023"
+        },
+        {
+          "club": "KuPS",
+          "year": "2023"
+        },
+        {
+          "club": "Livingston FC",
+          "year": "2024"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2026"
+        },
+        {
+          "club": "Livingston FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 30,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kanji Kuwayama",
@@ -347,9 +1656,33 @@
       "age": 23,
       "nationality": "Japan",
       "club": "Machida Zelvia",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tokai Uni",
+          "year": "2021"
+        },
+        {
+          "club": "Machida Zelvia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

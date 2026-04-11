@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 23,
       "nationality": "Libya",
       "club": "Al-Watan SC",
-      "appearances": 0,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Watan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 13,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhannad Al-Doukali",
@@ -33,7 +54,22 @@
       "club": "Al-Watan SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 15,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Al-Waer",
@@ -43,7 +79,27 @@
       "club": "Al-Watan SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +111,27 @@
       "club": "Al-Watan SC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Watan",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aboulqasem Larou",
@@ -65,7 +141,22 @@
       "club": "Al-Watan SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wahid Bannouba",
@@ -75,7 +166,22 @@
       "club": "Al-Watan SC",
       "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulmoez Al-Amouri",
@@ -85,7 +191,43 @@
       "club": "Al-Watan SC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almahalla Tripoli",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Madina",
+          "year": "2023"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2024"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mourad Zahou",
@@ -95,7 +237,55 @@
       "club": "Al-Watan SC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Ben Guerdane",
+          "year": "2015"
+        },
+        {
+          "club": "ES Metlaoui",
+          "year": "2017"
+        },
+        {
+          "club": "Stade Gabèsien",
+          "year": "2018"
+        },
+        {
+          "club": "CS Hammam-Lif",
+          "year": "2020"
+        },
+        {
+          "club": "Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2022"
+        },
+        {
+          "club": "Tuwaiq FC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 0,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Amin",
@@ -105,7 +295,55 @@
       "club": "Al-Watan SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vårgårda IK",
+          "year": "2019"
+        },
+        {
+          "club": "Motala AIF",
+          "year": "2021"
+        },
+        {
+          "club": "Ullareds IK",
+          "year": "2022"
+        },
+        {
+          "club": "Bergdalens IK",
+          "year": "2022"
+        },
+        {
+          "club": "Ytterhogdals IK",
+          "year": "2023"
+        },
+        {
+          "club": "Ahlafors IF",
+          "year": "2023"
+        },
+        {
+          "club": "IFK Östersund",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Lawal",
@@ -115,7 +353,22 @@
       "club": "Al-Watan SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulmohaymen Al-Zeyadi",
@@ -125,7 +378,22 @@
       "club": "Al-Watan SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moataz Al-Fadhli",
@@ -135,7 +403,35 @@
       "club": "Al-Watan SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ahli Musrati",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulmuhaymen Al Seikh",
@@ -145,7 +441,22 @@
       "club": "Al-Watan SC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Kahloul",
@@ -155,7 +466,22 @@
       "club": "Al-Watan SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -167,7 +493,22 @@
       "club": "Al-Watan SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mutassim Al Burki",
@@ -177,7 +518,22 @@
       "club": "Al-Watan SC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Amine Meskini",
@@ -187,17 +543,89 @@
       "club": "Al-Watan SC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CS Hammam-Lif",
+          "year": "2016"
+        },
+        {
+          "club": "Esperance",
+          "year": "2017"
+        },
+        {
+          "club": "CS Chebba",
+          "year": "2022"
+        },
+        {
+          "club": "US Ben Guerdane",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tawfiq Al-Khenjari",
       "position": "Defensive Midfield",
-      "age": 32,
+      "age": 33,
       "nationality": "Libya",
       "club": "Al-Watan SC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al Bashayer",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shomooa SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moussa Bagayoko",
@@ -207,7 +635,63 @@
       "club": "Al-Watan SC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Black Stars",
+          "year": "2015"
+        },
+        {
+          "club": "Elazigspor",
+          "year": "2018"
+        },
+        {
+          "club": "Adanaspor",
+          "year": "2019"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2020"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2021"
+        },
+        {
+          "club": "FC Ashdod",
+          "year": "2022"
+        },
+        {
+          "club": "Carabobo FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab Club",
+          "year": "2024"
+        },
+        {
+          "club": "Real",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Hammami",
@@ -217,7 +701,47 @@
       "club": "Al-Watan SC",
       "appearances": 9,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Tataouine",
+          "year": "2020"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2022"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Madina",
+          "year": "2024"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hichem Esehila",
@@ -227,7 +751,39 @@
       "club": "Al-Watan SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asaria",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2024"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mouad Legzhal",
@@ -237,17 +793,47 @@
       "club": "Al-Watan SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saber Al-Farrouj",
       "position": "Attacking Midfield",
-      "age": 30,
+      "age": 31,
       "nationality": "Libya",
       "club": "Al-Watan SC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Basha",
@@ -257,7 +843,22 @@
       "club": "Al-Watan SC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulbari Saad",
@@ -267,7 +868,22 @@
       "club": "Al-Watan SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -279,7 +895,22 @@
       "club": "Al-Watan SC",
       "appearances": 11,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Hamouma",
@@ -289,7 +920,22 @@
       "club": "Al-Watan SC",
       "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Timbuktu",
@@ -299,7 +945,35 @@
       "club": "Al-Watan SC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Madina",
+          "year": "2023"
+        },
+        {
+          "club": "Shabab Al-Ghar",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nacef Atoui",
@@ -309,7 +983,59 @@
       "club": "Al-Watan SC",
       "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Esperance",
+          "year": "2020"
+        },
+        {
+          "club": "AS Soliman",
+          "year": "2020"
+        },
+        {
+          "club": "Menzel Bouzelfa",
+          "year": "2021"
+        },
+        {
+          "club": "AS Soliman",
+          "year": "2021"
+        },
+        {
+          "club": "ES Zarzis",
+          "year": "2021"
+        },
+        {
+          "club": "Stade Gabèsien",
+          "year": "2022"
+        },
+        {
+          "club": "ES Zarzis",
+          "year": "2022"
+        },
+        {
+          "club": "Stade Tunisien",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Peter Nworah",
@@ -319,7 +1045,95 @@
       "club": "Al-Watan SC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tatran Presov",
+          "year": "2012"
+        },
+        {
+          "club": "Bardejov",
+          "year": "2013"
+        },
+        {
+          "club": "Tatran Presov",
+          "year": "2013"
+        },
+        {
+          "club": "Spartak Trnava",
+          "year": "2013"
+        },
+        {
+          "club": "Podbrezova",
+          "year": "2014"
+        },
+        {
+          "club": "Michalovce",
+          "year": "2015"
+        },
+        {
+          "club": "Hradec Kralove",
+          "year": "2016"
+        },
+        {
+          "club": "Frydek-Mistek",
+          "year": "2016"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Jabalain",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2019"
+        },
+        {
+          "club": "Hajer",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Markhiya SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2022"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Sahel SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Watan",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 36,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Ejdeir",
@@ -329,7 +1143,22 @@
       "club": "Al-Watan SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anis Doghman",
@@ -339,7 +1168,22 @@
       "club": "Al-Watan SC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

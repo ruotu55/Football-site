@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "CSL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 35,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NC Bayi Hengyuan",
+          "year": "2011"
+        },
+        {
+          "club": "GZ R&F",
+          "year": "2015"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2016"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2022"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 373,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 418,
+        "clean_sheets": 124
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Tao Jian",
@@ -31,9 +68,37 @@
       "age": 24,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Villefranche",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 46,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Weifeng Ran",
@@ -43,7 +108,39 @@
       "club": "Chengdu Rongcheng",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongch. Res.",
+          "year": "2019"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2022"
+        },
+        {
+          "club": "DL K'un City",
+          "year": "2024"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 8,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haochen Peng",
@@ -53,7 +150,27 @@
       "club": "Chengdu Rongcheng",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 23
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zicheng Tang",
@@ -63,7 +180,27 @@
       "club": "Chengdu Rongcheng",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -73,9 +210,69 @@
       "age": 30,
       "nationality": "Russia",
       "club": "Chengdu Rongcheng",
-      "appearances": 19,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MZ S-Pb",
+          "year": "2010"
+        },
+        {
+          "club": "Tosno",
+          "year": "2013"
+        },
+        {
+          "club": "Aktobe",
+          "year": "2016"
+        },
+        {
+          "club": "Neftekhimik",
+          "year": "2017"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2017"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2019"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2019"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2023"
+        },
+        {
+          "club": "Yelimay",
+          "year": "2024"
+        },
+        {
+          "club": "Kairat Almaty",
+          "year": "2024"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 312,
+        "goals": 11,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yang Li",
@@ -83,9 +280,57 @@
       "age": 28,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 9,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Coimbrões",
+          "year": "2017"
+        },
+        {
+          "club": "SH Shenhua",
+          "year": "2019"
+        },
+        {
+          "club": "Gondomar",
+          "year": "2020"
+        },
+        {
+          "club": "WH FC",
+          "year": "2021"
+        },
+        {
+          "club": "Gondomar",
+          "year": "2021"
+        },
+        {
+          "club": "GuaZ FC",
+          "year": "2022"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2023"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yiran He",
@@ -93,9 +338,29 @@
       "age": 21,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pengfei Han",
@@ -103,9 +368,69 @@
       "age": 32,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mafra",
+          "year": "2013"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2016"
+        },
+        {
+          "club": "GZ H. Zhicheng",
+          "year": "2017"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2017"
+        },
+        {
+          "club": "GZ Hengfeng",
+          "year": "2018"
+        },
+        {
+          "club": "WH Zall",
+          "year": "2019"
+        },
+        {
+          "club": "GZ City",
+          "year": "2021"
+        },
+        {
+          "club": "WH Yangtze",
+          "year": "2021"
+        },
+        {
+          "club": "CC Yatai",
+          "year": "2022"
+        },
+        {
+          "club": "TJ Jinmen Tiger",
+          "year": "2023"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yanfeng Dong",
@@ -113,9 +438,49 @@
       "age": 30,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DL Aerbin",
+          "year": "2014"
+        },
+        {
+          "club": "DL Pro Res.",
+          "year": "2015"
+        },
+        {
+          "club": "DL Yifang",
+          "year": "2015"
+        },
+        {
+          "club": "DL Pro Res.",
+          "year": "2016"
+        },
+        {
+          "club": "DL Yifang",
+          "year": "2016"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hetao Hu",
@@ -123,9 +488,29 @@
       "age": 22,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 5,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dongsheng Wang",
@@ -133,9 +518,41 @@
       "age": 28,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "HZ Greentown",
+          "year": "2017"
+        },
+        {
+          "club": "FJ Tianxin",
+          "year": "2018"
+        },
+        {
+          "club": "ZJ Greentown",
+          "year": "2019"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 6,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Jojo",
@@ -143,9 +560,57 @@
       "age": 27,
       "nationality": "Hong Kong",
       "club": "Chengdu Rongcheng",
-      "appearances": 7,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Happy Valley",
+          "year": "2019"
+        },
+        {
+          "club": "Eastern",
+          "year": "2020"
+        },
+        {
+          "club": "Tai Po",
+          "year": "2023"
+        },
+        {
+          "club": "IK Oddevold",
+          "year": "2023"
+        },
+        {
+          "club": "Eastern",
+          "year": "2024"
+        },
+        {
+          "club": "IK Oddevold",
+          "year": "2025"
+        },
+        {
+          "club": "SH Port",
+          "year": "2025"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siliang Chen",
@@ -155,7 +620,22 @@
       "club": "Chengdu Rongcheng B",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziteng Wang",
@@ -165,19 +645,115 @@
       "club": "Chengdu Rongcheng",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
     {
       "name": "Matheus Jussa",
       "position": "Defensive Midfield",
-      "age": 29,
+      "age": 30,
       "nationality": "Brazil",
       "club": "Chengdu Rongcheng",
-      "appearances": 8,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vasco da Gama",
+          "year": "2015"
+        },
+        {
+          "club": "Bonsucesso-RJ",
+          "year": "2017"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2017"
+        },
+        {
+          "club": "São Bernardo",
+          "year": "2018"
+        },
+        {
+          "club": "Botafogo-SP",
+          "year": "2018"
+        },
+        {
+          "club": "Oeste",
+          "year": "2019"
+        },
+        {
+          "club": "Internacional",
+          "year": "2020"
+        },
+        {
+          "club": "Oeste",
+          "year": "2021"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2021"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2022"
+        },
+        {
+          "club": "Qatar SC",
+          "year": "2022"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2023"
+        },
+        {
+          "club": "Fortaleza",
+          "year": "2023"
+        },
+        {
+          "club": "SH Port",
+          "year": "2024"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 14,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ming-Yang Yang",
@@ -185,9 +761,49 @@
       "age": 30,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lausanne-Sport",
+          "year": "2013"
+        },
+        {
+          "club": "FC Winterthur",
+          "year": "2017"
+        },
+        {
+          "club": "Jumilla",
+          "year": "2018"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2020"
+        },
+        {
+          "club": "NT Zhiyun",
+          "year": "2021"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 348,
+        "goals": 19,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chao Gan",
@@ -195,9 +811,45 @@
       "age": 31,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GZ Renhe",
+          "year": "2014"
+        },
+        {
+          "club": "SZ FC",
+          "year": "2018"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2021"
+        },
+        {
+          "club": "SZ FC",
+          "year": "2021"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 207,
+        "goals": 9,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Murahmetjan Muzepper",
@@ -205,9 +857,49 @@
       "age": 35,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SD Luneng",
+          "year": "2010"
+        },
+        {
+          "club": "HN Jianye",
+          "year": "2010"
+        },
+        {
+          "club": "HN Jianye",
+          "year": "2014"
+        },
+        {
+          "club": "TJ Teda",
+          "year": "2017"
+        },
+        {
+          "club": "SH SIPG",
+          "year": "2020"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 9,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zhuoyi Feng",
@@ -215,9 +907,57 @@
       "age": 36,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 12,
+      "goals": 27,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "CD Blades",
+          "year": "2007"
+        },
+        {
+          "club": "Sheffield Utd HK",
+          "year": "2008"
+        },
+        {
+          "club": "CD Blades",
+          "year": "2009"
+        },
+        {
+          "club": "GZ R&F",
+          "year": "2013"
+        },
+        {
+          "club": "HN Jianye",
+          "year": "2016"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2020"
+        },
+        {
+          "club": "SJZ Gongfu",
+          "year": "2025"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 15,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mutallep Iminqari",
@@ -225,9 +965,37 @@
       "age": 22,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2022"
+        },
+        {
+          "club": "QD West Coast",
+          "year": "2025"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lisheng Liao",
@@ -235,9 +1003,49 @@
       "age": 32,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "GZ Evergrande",
+          "year": "2013"
+        },
+        {
+          "club": "TJ Tianhai",
+          "year": "2019"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2019"
+        },
+        {
+          "club": "SD Taishan",
+          "year": "2022"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        },
+        {
+          "club": "SZ Peng City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 14,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moyu Li",
@@ -245,9 +1053,29 @@
       "age": 20,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rômulo",
@@ -255,9 +1083,53 @@
       "age": 30,
       "nationality": "Brazil",
       "club": "Chengdu Rongcheng",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 1,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "EC Bahia",
+          "year": "2014"
+        },
+        {
+          "club": "Bragantino",
+          "year": "2016"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2016"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2017"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2017"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2018"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 321,
+        "goals": 78,
+        "assists": 63,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ke Li",
@@ -267,7 +1139,27 @@
       "club": "Chengdu Rongcheng B",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Derui",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -277,19 +1169,69 @@
       "age": 30,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Hong Xu",
-      "position": "Left Winger",
-      "age": 21,
-      "nationality": "China",
-      "club": "Chengdu Rongcheng",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Boavista Y19",
+          "year": "2013"
+        },
+        {
+          "club": "SD Taishan Res.",
+          "year": "2014"
+        },
+        {
+          "club": "Boavista",
+          "year": "2014"
+        },
+        {
+          "club": "Feirense",
+          "year": "2015"
+        },
+        {
+          "club": "Leixões",
+          "year": "2016"
+        },
+        {
+          "club": "SH SIPG",
+          "year": "2017"
+        },
+        {
+          "club": "Leixões",
+          "year": "2017"
+        },
+        {
+          "club": "BJ Guoan",
+          "year": "2018"
+        },
+        {
+          "club": "GZ Evergrande",
+          "year": "2019"
+        },
+        {
+          "club": "WH Three Towns",
+          "year": "2023"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 256,
+        "goals": 75,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wellington Silva",
@@ -297,9 +1239,113 @@
       "age": 33,
       "nationality": "Brazil",
       "club": "Chengdu Rongcheng",
-      "appearances": 4,
-      "goals": 2,
-      "assists": 0
+      "appearances": 3,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fluminense",
+          "year": "2010"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2011"
+        },
+        {
+          "club": "Levante",
+          "year": "2011"
+        },
+        {
+          "club": "CD Alcoyano",
+          "year": "2012"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2012"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2012"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2013"
+        },
+        {
+          "club": "Real Murcia",
+          "year": "2013"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2014"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2014"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2015"
+        },
+        {
+          "club": "Bolton",
+          "year": "2015"
+        },
+        {
+          "club": "Arsenal",
+          "year": "2016"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2016"
+        },
+        {
+          "club": "Internacional",
+          "year": "2018"
+        },
+        {
+          "club": "Fluminense",
+          "year": "2020"
+        },
+        {
+          "club": "Gamba Osaka",
+          "year": "2021"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Najma",
+          "year": "2024"
+        },
+        {
+          "club": "QD Hainiu",
+          "year": "2024"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2024"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 468,
+        "goals": 59,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rongxiang Liao",
@@ -307,9 +1353,29 @@
       "age": 21,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ezimet Qeyser",
@@ -317,19 +1383,71 @@
       "age": 20,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rongcheng",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felipe Silva",
       "position": "Centre-Forward",
-      "age": 33,
+      "age": 34,
       "nationality": "Brazil",
       "club": "Chengdu Rongcheng",
-      "appearances": 10,
-      "goals": 7,
-      "assists": 1
+      "appearances": 1,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Votuporanguense",
+          "year": "2018"
+        },
+        {
+          "club": "Vila Nova FC",
+          "year": "2018"
+        },
+        {
+          "club": "Gwangju FC",
+          "year": "2018"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 115,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Behram Abduweli",
@@ -337,9 +1455,41 @@
       "age": 23,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JN Xingzhou",
+          "year": "2022"
+        },
+        {
+          "club": "SC Jiuniu",
+          "year": "2023"
+        },
+        {
+          "club": "SZ Peng City",
+          "year": "2024"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziming Wang",
@@ -347,9 +1497,49 @@
       "age": 29,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "QD Jonoon",
+          "year": "2014"
+        },
+        {
+          "club": "Hainiu  Res.",
+          "year": "2016"
+        },
+        {
+          "club": "QD Jonoon",
+          "year": "2016"
+        },
+        {
+          "club": "BJ Guoan",
+          "year": "2017"
+        },
+        {
+          "club": "QD Jonoon",
+          "year": "2017"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 41,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chuang Tang",
@@ -357,9 +1547,37 @@
       "age": 29,
       "nationality": "China",
       "club": "Chengdu Rongcheng",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SZ Dongwu Res.",
+          "year": "2019"
+        },
+        {
+          "club": "SZ Dongwu",
+          "year": "2020"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 25,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

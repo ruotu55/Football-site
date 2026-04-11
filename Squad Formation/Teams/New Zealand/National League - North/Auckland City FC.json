@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "NNL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 21,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Manukau",
+          "year": "2021"
+        },
+        {
+          "club": "Bay Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Auckland Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 129,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Areya Prasad",
@@ -33,7 +66,27 @@
       "club": "Auckland City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland City",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 8,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Ciganda",
@@ -43,7 +96,43 @@
       "club": "Auckland City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Waiheke United",
+          "year": "2018"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2023"
+        },
+        {
+          "club": "Waiheke United",
+          "year": "2024"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 44,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +144,55 @@
       "club": "Auckland City FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanderers SC",
+          "year": "2013"
+        },
+        {
+          "club": "WaiBOP United",
+          "year": "2015"
+        },
+        {
+          "club": "Red Star",
+          "year": "2016"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2016"
+        },
+        {
+          "club": "NK Celje",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Team Wellington",
+          "year": "2019"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 219,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathan Rostron",
@@ -63,9 +200,37 @@
       "age": 21,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tauranga City",
+          "year": "2021"
+        },
+        {
+          "club": "Birkenhead",
+          "year": "2025"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Bell",
@@ -73,9 +238,29 @@
       "age": 22,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland City",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alfie Rogers",
@@ -83,9 +268,33 @@
       "age": 31,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland City",
+          "year": "2015"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Regont Murati",
@@ -93,9 +302,61 @@
       "age": 29,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanderers SC",
+          "year": "2014"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2016"
+        },
+        {
+          "club": "Hamilton W.",
+          "year": "2016"
+        },
+        {
+          "club": "Central United",
+          "year": "2017"
+        },
+        {
+          "club": "Eastern Suburbs",
+          "year": "2017"
+        },
+        {
+          "club": "Central United",
+          "year": "2018"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Auckland Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Connolly",
@@ -103,9 +364,45 @@
       "age": 25,
       "nationality": "Republic of Ireland",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lucan United",
+          "year": "2020"
+        },
+        {
+          "club": "Career break",
+          "year": "2023"
+        },
+        {
+          "club": "T. Maraerenga",
+          "year": "2024"
+        },
+        {
+          "club": "Birkenhead",
+          "year": "2024"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -117,7 +414,59 @@
       "club": "Auckland City FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland City",
+          "year": "2012"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2014"
+        },
+        {
+          "club": "Wanderers SC",
+          "year": "2014"
+        },
+        {
+          "club": "WaiBOP United",
+          "year": "2015"
+        },
+        {
+          "club": "Eastern Suburbs",
+          "year": "2016"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2017"
+        },
+        {
+          "club": "Team Wellington",
+          "year": "2017"
+        },
+        {
+          "club": "Bentleigh",
+          "year": "2019"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 22,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gerard Garriga",
@@ -125,9 +474,41 @@
       "age": 32,
       "nationality": "Spain",
       "club": "Auckland City FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Western Springs",
+          "year": "2018"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Western Springs",
+          "year": "2021"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 28,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paris Domfeh",
@@ -137,7 +518,31 @@
       "club": "Auckland City FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Phoenix Res.",
+          "year": "2024"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Manickum",
@@ -146,8 +551,32 @@
       "nationality": "New Zealand",
       "club": "Auckland City FC",
       "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Waitakere Utd.",
+          "year": "2014"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 227,
+        "goals": 60,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michal Doudera",
@@ -155,9 +584,41 @@
       "age": 26,
       "nationality": "Czech Republic",
       "club": "Auckland City FC",
-      "appearances": 13,
-      "goals": 5,
-      "assists": 5
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Admira Prague",
+          "year": "2018"
+        },
+        {
+          "club": "Bay Olympic",
+          "year": "2024"
+        },
+        {
+          "club": "Brozany",
+          "year": "2024"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 26,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeremy Foo",
@@ -165,9 +626,29 @@
       "age": 19,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -177,9 +658,49 @@
       "age": 36,
       "nationality": "China",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DL Aerbin",
+          "year": "2010"
+        },
+        {
+          "club": "DL Pro Res.",
+          "year": "2015"
+        },
+        {
+          "club": "TJ Teda",
+          "year": "2015"
+        },
+        {
+          "club": "WH Zall",
+          "year": "2018"
+        },
+        {
+          "club": "TJ Jinmen Tiger",
+          "year": "2021"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 275,
+        "goals": 16,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thomas Golding",
@@ -187,9 +708,53 @@
       "age": 25,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Birkenhead",
+          "year": "2021"
+        },
+        {
+          "club": "Manukau",
+          "year": "2021"
+        },
+        {
+          "club": "Eastern Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Manningham",
+          "year": "2024"
+        },
+        {
+          "club": "Eastern Suburbs",
+          "year": "2024"
+        },
+        {
+          "club": "Birkenhead",
+          "year": "2025"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 11,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Angus Kilkolly",
@@ -197,9 +762,65 @@
       "age": 29,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hawke’s Bay",
+          "year": "2012"
+        },
+        {
+          "club": "Hawke's Bay Y.",
+          "year": "2013"
+        },
+        {
+          "club": "Wanderers SC",
+          "year": "2014"
+        },
+        {
+          "club": "Canterbury Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Panevezys",
+          "year": "2016"
+        },
+        {
+          "club": "Hawke’s Bay",
+          "year": "2016"
+        },
+        {
+          "club": "Team Wellington",
+          "year": "2017"
+        },
+        {
+          "club": "Hawke’s Bay",
+          "year": "2020"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 103,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan De Vries",
@@ -207,9 +828,65 @@
       "age": 34,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Waitakere Utd.",
+          "year": "2009"
+        },
+        {
+          "club": "Bentleigh",
+          "year": "2011"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2011"
+        },
+        {
+          "club": "Bentleigh",
+          "year": "2012"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2012"
+        },
+        {
+          "club": "Bentleigh",
+          "year": "2013"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2013"
+        },
+        {
+          "club": "FC Gifu",
+          "year": "2018"
+        },
+        {
+          "club": "Sligo Rovers",
+          "year": "2020"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 135,
+        "assists": 65,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kieran Richards",
@@ -217,9 +894,73 @@
       "age": 25,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Phoenix Res.",
+          "year": "2018"
+        },
+        {
+          "club": "ETSU Buccaneers",
+          "year": "2019"
+        },
+        {
+          "club": "Phoenix Res.",
+          "year": "2020"
+        },
+        {
+          "club": "Melville",
+          "year": "2021"
+        },
+        {
+          "club": "ETSU Buccaneers",
+          "year": "2021"
+        },
+        {
+          "club": "Melville",
+          "year": "2022"
+        },
+        {
+          "club": "ETSU Buccaneers",
+          "year": "2022"
+        },
+        {
+          "club": "Asheville City",
+          "year": "2023"
+        },
+        {
+          "club": "ETSU Buccaneers",
+          "year": "2023"
+        },
+        {
+          "club": "Napier City",
+          "year": "2024"
+        },
+        {
+          "club": "Birkenhead",
+          "year": "2025"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Zambrano",
@@ -227,9 +968,65 @@
       "age": 29,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland City",
+          "year": "2014"
+        },
+        {
+          "club": "Central United",
+          "year": "2014"
+        },
+        {
+          "club": "Team Wellington",
+          "year": "2016"
+        },
+        {
+          "club": "Eastern Suburbs",
+          "year": "2017"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Central United",
+          "year": "2018"
+        },
+        {
+          "club": "Waitakere Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Auckland Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Dunedin C.R.",
+          "year": "2024"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 39,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shaan Anand",
@@ -237,9 +1034,33 @@
       "age": 18,
       "nationality": "New Zealand",
       "club": "Auckland City FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

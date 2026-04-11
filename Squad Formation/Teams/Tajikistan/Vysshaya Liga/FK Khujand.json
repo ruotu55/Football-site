@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "TAD1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,55 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlant Kobrin",
+          "year": "2015"
+        },
+        {
+          "club": "Dynamo Brest",
+          "year": "2015"
+        },
+        {
+          "club": "FK Lida",
+          "year": "2017"
+        },
+        {
+          "club": "Rukh",
+          "year": "2018"
+        },
+        {
+          "club": "Sabah FK",
+          "year": "2022"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2023"
+        },
+        {
+          "club": "Gomel",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 118,
+        "clean_sheets": 35
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zukhriddin Muyidinov",
@@ -33,7 +82,27 @@
       "club": "FK Khujand",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 2,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -45,7 +114,55 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Khatlon",
+          "year": "2020"
+        },
+        {
+          "club": "FK Istaravshan",
+          "year": "2021"
+        },
+        {
+          "club": "Khosilot",
+          "year": "2023"
+        },
+        {
+          "club": "FK Eskhata",
+          "year": "2023"
+        },
+        {
+          "club": "Khosilot",
+          "year": "2024"
+        },
+        {
+          "club": "Vakhsh",
+          "year": "2024"
+        },
+        {
+          "club": "FK Istaravshan",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davronzhon Ergashev",
@@ -55,7 +172,71 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2010"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2011"
+        },
+        {
+          "club": "Zhetysu",
+          "year": "2013"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2014"
+        },
+        {
+          "club": "Zhetysu",
+          "year": "2014"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2016"
+        },
+        {
+          "club": "Taraz",
+          "year": "2016"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2018"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2019"
+        },
+        {
+          "club": "Bunyodkor",
+          "year": "2020"
+        },
+        {
+          "club": "Metallurg Bk.",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 254,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 71,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Darko Isailovic",
@@ -63,9 +244,61 @@
       "age": 30,
       "nationality": "Serbia",
       "club": "FK Khujand",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Macva",
+          "year": "2016"
+        },
+        {
+          "club": "FK Provo",
+          "year": "2016"
+        },
+        {
+          "club": "Lokomotiva",
+          "year": "2019"
+        },
+        {
+          "club": "Sloga 33",
+          "year": "2020"
+        },
+        {
+          "club": "Radnicki Srem",
+          "year": "2023"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2024"
+        },
+        {
+          "club": "Macva",
+          "year": "2025"
+        },
+        {
+          "club": "FK Buducnost",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Parviz Bokiev",
@@ -75,7 +308,27 @@
       "club": "FK Khujand",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Firuz Karaev",
@@ -85,7 +338,51 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Istiqlol",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Kaganat",
+          "year": "2020"
+        },
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2020"
+        },
+        {
+          "club": "FK Istaravshan",
+          "year": "2022"
+        },
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2022"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dzhumaboy Akhmadzoda",
@@ -95,7 +392,27 @@
       "club": "FK Khujand",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mekhroj Kholov",
@@ -105,7 +422,27 @@
       "club": "FK Khujand",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -115,9 +452,65 @@
       "age": 28,
       "nationality": "Serbia",
       "club": "FK Khujand",
-      "appearances": 20,
+      "appearances": 2,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zvijezda 09",
+          "year": "2016"
+        },
+        {
+          "club": "Napredak",
+          "year": "2017"
+        },
+        {
+          "club": "Backa",
+          "year": "2020"
+        },
+        {
+          "club": "Bregalnica Stip",
+          "year": "2021"
+        },
+        {
+          "club": "Riteriai",
+          "year": "2022"
+        },
+        {
+          "club": "FC Aksu",
+          "year": "2023"
+        },
+        {
+          "club": "Sloboda Uzice",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2024"
+        },
+        {
+          "club": "Dubocica",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 8,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khurshed-Timur Dzhuraev",
@@ -127,7 +520,47 @@
       "club": "FK Khujand",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "JK Trans Narva",
+          "year": "2016"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2017"
+        },
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2022"
+        },
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shukhratdzhon Shonazarov",
@@ -137,7 +570,47 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Istiqlol",
+          "year": "2022"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2024"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bezhan Nishonboyzoda",
@@ -147,7 +620,43 @@
       "club": "FK Khujand",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dynamo Dushanbe",
+          "year": "2022"
+        },
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2023"
+        },
+        {
+          "club": "Khosilot",
+          "year": "2023"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lasha Parunashvili",
@@ -157,7 +666,75 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2010"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2011"
+        },
+        {
+          "club": "Sioni Bolnisi",
+          "year": "2013"
+        },
+        {
+          "club": "Tskhinvali",
+          "year": "2014"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2014"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2017"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2022"
+        },
+        {
+          "club": "Maktaaral",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FC Samtredia",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Jazeera",
+          "year": "2025"
+        },
+        {
+          "club": "FC Gareji",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 314,
+        "goals": 15,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Parviz Aliev",
@@ -167,7 +744,55 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2018"
+        },
+        {
+          "club": "FK Eskhata",
+          "year": "2021"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2021"
+        },
+        {
+          "club": "ZSKA Dushanbe",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2023"
+        },
+        {
+          "club": "Sarazm",
+          "year": "2024"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukimjon Tojimurodov",
@@ -177,7 +802,27 @@
       "club": "FK Khujand",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -187,9 +832,61 @@
       "age": 21,
       "nationality": "Serbia",
       "club": "FK Khujand",
-      "appearances": 14,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jedinstvo",
+          "year": "2021"
+        },
+        {
+          "club": "FK Hajduk Veljko Negotin",
+          "year": "2022"
+        },
+        {
+          "club": "Radnik",
+          "year": "2022"
+        },
+        {
+          "club": "Borac Paracin",
+          "year": "2022"
+        },
+        {
+          "club": "Radnik",
+          "year": "2023"
+        },
+        {
+          "club": "Jedinstvo Sur",
+          "year": "2025"
+        },
+        {
+          "club": "Radnik",
+          "year": "2025"
+        },
+        {
+          "club": "FK FAP Priboj",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sorbon Avgonov",
@@ -199,7 +896,59 @@
       "club": "FK Khujand",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Panjsher",
+          "year": "2017"
+        },
+        {
+          "club": "Khatlon",
+          "year": "2019"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2022"
+        },
+        {
+          "club": "Ban",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Khatlon",
+          "year": "2023"
+        },
+        {
+          "club": "Parvoz",
+          "year": "2024"
+        },
+        {
+          "club": "Hulbuk Vose",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Firuz Kholmatov",
@@ -209,7 +958,35 @@
       "club": "FK Khujand",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2021"
+        },
+        {
+          "club": "FK Eskhata",
+          "year": "2023"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rashad Muhammed",
@@ -219,7 +996,87 @@
       "club": "FK Khujand",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UR Namur",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Florø SK",
+          "year": "2016"
+        },
+        {
+          "club": "Sarpsborg 08",
+          "year": "2017"
+        },
+        {
+          "club": "BB Erzurumspor",
+          "year": "2019"
+        },
+        {
+          "club": "Sarpsborg 08",
+          "year": "2021"
+        },
+        {
+          "club": "A. Keciörengücü",
+          "year": "2022"
+        },
+        {
+          "club": "Sakaryaspor",
+          "year": "2023"
+        },
+        {
+          "club": "Adanaspor",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Jandal",
+          "year": "2024"
+        },
+        {
+          "club": "Magusa TG",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FK Sparta",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "TSV Singen",
+          "year": "2026"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 30,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Komron Tursunov",
@@ -229,7 +1086,87 @@
       "club": "FK Khujand",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2015"
+        },
+        {
+          "club": "Istiqlol",
+          "year": "2018"
+        },
+        {
+          "club": "ATK Mohun Bagan",
+          "year": "2019"
+        },
+        {
+          "club": "TRAU FC",
+          "year": "2020"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2021"
+        },
+        {
+          "club": "Rajasthan Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Ch. Brothers",
+          "year": "2022"
+        },
+        {
+          "club": "TRAU FC",
+          "year": "2022"
+        },
+        {
+          "club": "Gokulam FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dejan FC",
+          "year": "2024"
+        },
+        {
+          "club": "Ravshan Kulob",
+          "year": "2025"
+        },
+        {
+          "club": "Malappuram FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kopa Tigers",
+          "year": "2025"
+        },
+        {
+          "club": "Malappuram FC",
+          "year": "2026"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 36,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petar Gigic",
@@ -237,9 +1174,93 @@
       "age": 29,
       "nationality": "Serbia",
       "club": "FK Khujand",
-      "appearances": 12,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "OFK Beograd",
+          "year": "2016"
+        },
+        {
+          "club": "Macva",
+          "year": "2017"
+        },
+        {
+          "club": "Partizan",
+          "year": "2019"
+        },
+        {
+          "club": "Macva",
+          "year": "2020"
+        },
+        {
+          "club": "Partizan",
+          "year": "2020"
+        },
+        {
+          "club": "Újpest FC",
+          "year": "2020"
+        },
+        {
+          "club": "Partizan",
+          "year": "2021"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2021"
+        },
+        {
+          "club": "Macva",
+          "year": "2021"
+        },
+        {
+          "club": "Zelez. Pancevo",
+          "year": "2022"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2022"
+        },
+        {
+          "club": "Boluspor",
+          "year": "2024"
+        },
+        {
+          "club": "Panserraikos",
+          "year": "2024"
+        },
+        {
+          "club": "Zelez. Pancevo",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Rudar Prijedor",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 40,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakhongir Ergashev",
@@ -249,7 +1270,71 @@
       "club": "FK Khujand",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2015"
+        },
+        {
+          "club": "Dynamo Brest",
+          "year": "2016"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2017"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2019"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2020"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2021"
+        },
+        {
+          "club": "FK Eskhata",
+          "year": "2021"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2022"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2022"
+        },
+        {
+          "club": "FK Eskhata",
+          "year": "2024"
+        },
+        {
+          "club": "FC Regar-TadAZ",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 35,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fakhriddin Shermatov",
@@ -259,7 +1344,27 @@
       "club": "FK Khujand",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Khujand",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

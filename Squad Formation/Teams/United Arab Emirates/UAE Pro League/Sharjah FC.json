@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "UAE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,37 @@
       "age": 30,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 11,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Bataeh CSC",
+          "year": "2024"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 139,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adel Al-Hosani",
@@ -31,9 +60,37 @@
       "age": 36,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 21,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda",
+          "year": "2008"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 382,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 477,
+        "clean_sheets": 114
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Tawhid",
@@ -43,7 +100,27 @@
       "club": "Sharjah FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     }
   ],
   "defenders": [
@@ -53,9 +130,57 @@
       "age": 29,
       "nationality": "South Korea",
       "club": "Sharjah FC",
-      "appearances": 26,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "D. Sinhung ES",
+          "year": "2008"
+        },
+        {
+          "club": "School Team",
+          "year": "2009"
+        },
+        {
+          "club": "Daeseo MS",
+          "year": "2011"
+        },
+        {
+          "club": "C. Daesung HS",
+          "year": "2012"
+        },
+        {
+          "club": "Chung-Ang Uni",
+          "year": "2015"
+        },
+        {
+          "club": "Suwon FC",
+          "year": "2018"
+        },
+        {
+          "club": "Daejeon Hana C.",
+          "year": "2022"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 21,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maro Katinic",
@@ -63,9 +188,41 @@
       "age": 21,
       "nationality": "Croatia",
       "club": "Sharjah FC",
-      "appearances": 25,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2022"
+        },
+        {
+          "club": "NK Bravo",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Pereira",
@@ -73,9 +230,49 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Sharjah FC",
-      "appearances": 19,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vila FC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2020"
+        },
+        {
+          "club": "Khor Fakkan",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Bataeh CSC",
+          "year": "2024"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulla Ghanim",
@@ -83,9 +280,29 @@
       "age": 30,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 11,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2013"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 233,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shahin Abdulrahman",
@@ -93,9 +310,29 @@
       "age": 33,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 20,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2011"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leandrinho",
@@ -103,9 +340,41 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "Sharjah FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vasco da Gama",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2025"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2025"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vladimir Prijovic",
@@ -113,9 +382,45 @@
       "age": 23,
       "nationality": "Serbia",
       "club": "Sharjah FC",
-      "appearances": 19,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Graficar",
+          "year": "2019"
+        },
+        {
+          "club": "Aalborg BK",
+          "year": "2020"
+        },
+        {
+          "club": "Napredak",
+          "year": "2022"
+        },
+        {
+          "club": "Spartak",
+          "year": "2023"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 4,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamad Fahad",
@@ -123,9 +428,24 @@
       "age": 23,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Ebraheim",
@@ -133,9 +453,41 @@
       "age": 29,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 26,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Wahda",
+          "year": "2016"
+        },
+        {
+          "club": "FC Baniyas",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2020"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 258,
+        "goals": 4,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +497,41 @@
       "age": 25,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 0,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ittihad Kalba",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2018"
+        },
+        {
+          "club": "Ittihad Kalba",
+          "year": "2019"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Feta Fetai",
@@ -155,9 +539,45 @@
       "age": 20,
       "nationality": "Albania",
       "club": "Sharjah FC",
-      "appearances": 14,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shkupi Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2022"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2023"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gerónimo Poblete",
@@ -165,9 +585,65 @@
       "age": 33,
       "nationality": "Argentina",
       "club": "Sharjah FC",
-      "appearances": 25,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Colon",
+          "year": "2013"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2017"
+        },
+        {
+          "club": "San Lorenzo",
+          "year": "2018"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2020"
+        },
+        {
+          "club": "La Serena",
+          "year": "2020"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2021"
+        },
+        {
+          "club": "Metalist",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Wasl",
+          "year": "2022"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 328,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majed Hassan",
@@ -175,9 +651,37 @@
       "age": 33,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 16,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli (UAE)",
+          "year": "2009"
+        },
+        {
+          "club": "Shabab Al-Ahli",
+          "year": "2017"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 5,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majid Suroor",
@@ -185,19 +689,87 @@
       "age": 28,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 24,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Wasl",
+          "year": "2024"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arshia Sarshogh",
       "position": "Defensive Midfield",
-      "age": 22,
+      "age": 23,
       "nationality": "TM nationality id 71",
       "club": "Sharjah FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sepahan",
+          "year": "2022"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2024"
+        },
+        {
+          "club": "Sepahan",
+          "year": "2024"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2025"
+        },
+        {
+          "club": "Fajr Sepasi",
+          "year": "2025"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adel Taarabt",
@@ -205,9 +777,89 @@
       "age": 36,
       "nationality": "Morocco",
       "club": "Sharjah FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lens",
+          "year": "2006"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2007"
+        },
+        {
+          "club": "Lens",
+          "year": "2007"
+        },
+        {
+          "club": "QPR",
+          "year": "2009"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2009"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2010"
+        },
+        {
+          "club": "QPR",
+          "year": "2010"
+        },
+        {
+          "club": "Fulham",
+          "year": "2013"
+        },
+        {
+          "club": "QPR",
+          "year": "2014"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2014"
+        },
+        {
+          "club": "Benfica",
+          "year": "2015"
+        },
+        {
+          "club": "Genoa",
+          "year": "2017"
+        },
+        {
+          "club": "Benfica",
+          "year": "2018"
+        },
+        {
+          "club": "Benfica",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2022"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 485,
+        "goals": 75,
+        "assists": 86,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Firas Ben Larbi",
@@ -215,9 +867,53 @@
       "age": 29,
       "nationality": "Tunisia",
       "club": "Sharjah FC",
-      "appearances": 29,
+      "appearances": 18,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "AS Marsa",
+          "year": "2014"
+        },
+        {
+          "club": "CA Bizertin",
+          "year": "2016"
+        },
+        {
+          "club": "ES Sahel",
+          "year": "2018"
+        },
+        {
+          "club": "Fujairah SC",
+          "year": "2020"
+        },
+        {
+          "club": "ES Sahel",
+          "year": "2021"
+        },
+        {
+          "club": "Ajman Club",
+          "year": "2021"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 77,
+        "assists": 62,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Igor Coronado",
@@ -225,9 +921,65 @@
       "age": 33,
       "nationality": "Italy",
       "club": "Sharjah FC",
-      "appearances": 30,
-      "goals": 7,
-      "assists": 6
+      "appearances": 16,
+      "goals": 4,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2012"
+        },
+        {
+          "club": "Floriana",
+          "year": "2012"
+        },
+        {
+          "club": "Trapani",
+          "year": "2015"
+        },
+        {
+          "club": "Floriana",
+          "year": "2016"
+        },
+        {
+          "club": "Trapani",
+          "year": "2016"
+        },
+        {
+          "club": "US Palermo",
+          "year": "2017"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2021"
+        },
+        {
+          "club": "Corinthians",
+          "year": "2024"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 448,
+        "goals": 145,
+        "assists": 113,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +989,33 @@
       "age": 25,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 20,
-      "goals": 3,
-      "assists": 7
+      "appearances": 12,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Avaí FC",
+          "year": "2017"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 281,
+        "goals": 48,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Caio Lucas",
@@ -247,9 +1023,53 @@
       "age": 31,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 21,
-      "goals": 8,
-      "assists": 2
+      "appearances": 13,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chiba Kokusai",
+          "year": "2011"
+        },
+        {
+          "club": "Kashima Antlers",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2016"
+        },
+        {
+          "club": "Benfica",
+          "year": "2019"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2020"
+        },
+        {
+          "club": "Benfica",
+          "year": "2021"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 421,
+        "goals": 156,
+        "assists": 104,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalid Bawazir",
@@ -257,9 +1077,41 @@
       "age": 30,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wasl",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Wahda",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Dhafra FC",
+          "year": "2018"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 15,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mayed Saeed",
@@ -267,9 +1119,29 @@
       "age": 22,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Clemente",
@@ -277,9 +1149,29 @@
       "age": 22,
       "nationality": "Argentina",
       "club": "Sharjah FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harib Suhail",
@@ -287,9 +1179,33 @@
       "age": 23,
       "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 2
+      "appearances": 17,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Shabab Al-Ahli",
+          "year": "2020"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 18,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 46,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matheus Saldanha",
@@ -297,19 +1213,107 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Sharjah FC",
-      "appearances": 27,
-      "goals": 2,
-      "assists": 3
+      "appearances": 15,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "EC Bahia",
+          "year": "2020"
+        },
+        {
+          "club": "JEF Utd. Chiba",
+          "year": "2021"
+        },
+        {
+          "club": "EC Bahia",
+          "year": "2021"
+        },
+        {
+          "club": "JEF Utd. Chiba",
+          "year": "2022"
+        },
+        {
+          "club": "CD Rongcheng",
+          "year": "2022"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2023"
+        },
+        {
+          "club": "JEF Utd. Chiba",
+          "year": "2023"
+        },
+        {
+          "club": "Partizan",
+          "year": "2023"
+        },
+        {
+          "club": "Ferencváros",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Wasl",
+          "year": "2025"
+        },
+        {
+          "club": "Sharjah FC",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Wasl",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 230,
+        "goals": 54,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ousmane Camara",
       "position": "Centre-Forward",
       "age": 25,
-      "nationality": "Guinea",
+      "nationality": "United Arab Emirates",
       "club": "Sharjah FC",
-      "appearances": 32,
-      "goals": 8,
-      "assists": 1
+      "appearances": 18,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ittihad Kalba",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 57,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sultan Al-Saadi",
@@ -319,7 +1323,27 @@
       "club": "Sharjah FC",
       "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sharjah FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

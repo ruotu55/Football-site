@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "FIJ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,39 @@
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tavua FC",
+          "year": "2017"
+        },
+        {
+          "club": "Rewa FC",
+          "year": "2019"
+        },
+        {
+          "club": "Suva FA",
+          "year": "2020"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 96,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tevita Ravia",
@@ -31,9 +64,37 @@
       "age": 23,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nadi FA",
+          "year": "2021"
+        },
+        {
+          "club": "Nadroga FC",
+          "year": "2025"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 38,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rinish",
@@ -43,7 +104,27 @@
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 20,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Ledua",
@@ -53,17 +134,57 @@
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sireli O'Connor",
       "position": "Goalkeeper",
-      "age": 17,
+      "age": 18,
       "nationality": "Fiji",
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -73,9 +194,57 @@
       "age": 31,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rewa FC",
+          "year": "2012"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2013"
+        },
+        {
+          "club": "Rewa FC",
+          "year": "2014"
+        },
+        {
+          "club": "Suva FA",
+          "year": "2015"
+        },
+        {
+          "club": "Lautoka FC",
+          "year": "2016"
+        },
+        {
+          "club": "Ban",
+          "year": "2019"
+        },
+        {
+          "club": "Lautoka FC",
+          "year": "2020"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Peniame Drova",
@@ -83,9 +252,29 @@
       "age": 35,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arami Manumanubhai",
@@ -93,9 +282,41 @@
       "age": 27,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lautoka FC",
+          "year": "2018"
+        },
+        {
+          "club": "Nasinu FC",
+          "year": "2018"
+        },
+        {
+          "club": "Lautoka FC",
+          "year": "2020"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isake Naduvu",
@@ -105,7 +326,22 @@
       "club": "Navua FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vinal Prasad",
@@ -113,9 +349,33 @@
       "age": 28,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lami FC",
+          "year": "2018"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mosese Balenagaga",
@@ -123,9 +383,37 @@
       "age": 29,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2019"
+        },
+        {
+          "club": "S.A Rangers",
+          "year": "2025"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simione Damuni",
@@ -135,7 +423,39 @@
       "club": "Navua FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Suva FA",
+          "year": "2017"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthew Charitar",
@@ -143,29 +463,24 @@
       "age": 28,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Voniani Smith",
-      "position": "",
-      "age": 20,
-      "nationality": "Fiji",
-      "club": "Navua FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Sagar Permal",
-      "position": "",
-      "age": 17,
-      "nationality": "Fiji",
-      "club": "Navua FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reeshab Permal",
@@ -173,9 +488,89 @@
       "age": 18,
       "nationality": "Fiji",
       "club": "Navua FC",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Sagar Permal",
+      "position": "",
+      "age": 18,
+      "nationality": "Fiji",
+      "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Voniani Smith",
+      "position": "",
+      "age": 20,
+      "nationality": "Fiji",
+      "club": "Navua FC",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arav Nadan",
@@ -185,7 +580,27 @@
       "club": "Navua FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aarav Kumar",
@@ -195,7 +610,27 @@
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Samo",
@@ -203,9 +638,29 @@
       "age": 20,
       "nationality": "Solomon Islands",
       "club": "Navua FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nishil Prasad",
@@ -215,7 +670,27 @@
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -225,9 +700,37 @@
       "age": 29,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nadi FA",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jared Rongosulia",
@@ -235,9 +738,53 @@
       "age": 30,
       "nationality": "Solomon Islands",
       "club": "Navua FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kossa FC",
+          "year": "2016"
+        },
+        {
+          "club": "Laugu United",
+          "year": "2019"
+        },
+        {
+          "club": "Nasinu FC",
+          "year": "2020"
+        },
+        {
+          "club": "Laugu United",
+          "year": "2020"
+        },
+        {
+          "club": "Lautoka FC",
+          "year": "2021"
+        },
+        {
+          "club": "Waneagu",
+          "year": "2022"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shofwaan Ali",
@@ -245,9 +792,37 @@
       "age": 18,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2025"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Shaheer",
@@ -257,7 +832,77 @@
       "club": "Navua FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Rewa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Lino Roseru",
+      "position": "",
+      "age": 27,
+      "nationality": "Fiji",
+      "club": "Navua FC",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tailevu N.",
+          "year": "2021"
+        },
+        {
+          "club": "Lami FC",
+          "year": "2023"
+        },
+        {
+          "club": "Nasinu FC",
+          "year": "2025"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vineet Chand",
@@ -266,8 +911,23 @@
       "nationality": "Fiji",
       "club": "Navua FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 8,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac Raicama",
@@ -276,8 +936,28 @@
       "nationality": "Fiji",
       "club": "Navua FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sunny Deol",
@@ -285,9 +965,29 @@
       "age": 29,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alfred Ali",
@@ -295,9 +995,33 @@
       "age": 30,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samir Hussain",
@@ -307,7 +1031,27 @@
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mannav Permal",
@@ -316,8 +1060,48 @@
       "nationality": "Fiji",
       "club": "Navua FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Suva FA",
+          "year": "2017"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2019"
+        },
+        {
+          "club": "Suva FA",
+          "year": "2019"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bai Tito",
@@ -325,19 +1109,59 @@
       "age": 16,
       "nationality": "Fiji",
       "club": "Navua FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lliam Danford",
       "position": "",
-      "age": 15,
+      "age": 16,
       "nationality": "Fiji",
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Laisenia Cama",
@@ -347,7 +1171,27 @@
       "club": "Navua FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sitiveni Qarua",
@@ -357,7 +1201,35 @@
       "club": "Navua FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Navua FC",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -368,8 +1240,52 @@
       "nationality": "Solomon Islands",
       "club": "Navua FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "West Honiara",
+          "year": "2017"
+        },
+        {
+          "club": "Western United",
+          "year": "2018"
+        },
+        {
+          "club": "Waneagu",
+          "year": "2021"
+        },
+        {
+          "club": "Adelaide City",
+          "year": "2022"
+        },
+        {
+          "club": "TFA Dubai",
+          "year": "2023"
+        },
+        {
+          "club": "Waneagu",
+          "year": "2023"
+        },
+        {
+          "club": "Navua FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 14,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MYA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,31 @@
       "club": "Hantharwady United",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mahar United",
+          "year": "2022"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 48,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pyae Phyo Aung 2",
@@ -33,7 +58,22 @@
       "club": "Hantharwady United",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 28,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chit Moe Sat",
@@ -43,7 +83,31 @@
       "club": "Hantharwady United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +119,31 @@
       "club": "Hantharwady United",
       "appearances": 21,
       "goals": 1,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Magwe FC",
+          "year": "2015"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 8,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pyae Phyo Zaw",
@@ -65,7 +153,35 @@
       "club": "Hantharwady United",
       "appearances": 14,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shin Thant Aung",
@@ -75,7 +191,22 @@
       "club": "Hantharwady United",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hlaing Myo Aung",
@@ -85,7 +216,47 @@
       "club": "Hantharwady United",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shan United",
+          "year": "2017"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2018"
+        },
+        {
+          "club": "GFA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Dagon Port",
+          "year": "2024"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aung Moe Htwe",
@@ -95,7 +266,22 @@
       "club": "Hantharwady United",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aung Moe Htwe",
@@ -105,7 +291,27 @@
       "club": "Hantharwady United",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Win Ko Ko Tun",
@@ -115,7 +321,27 @@
       "club": "Hantharwady United",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soe Lin",
@@ -125,7 +351,27 @@
       "club": "Hantharwady United",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hein Yar Zar Oo",
@@ -135,7 +381,27 @@
       "club": "Hantharwady United",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaung Htet Aung",
@@ -145,7 +411,27 @@
       "club": "Hantharwady United",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zwe Htet Aung",
@@ -155,7 +441,27 @@
       "club": "Hantharwady United",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Han Win Aung",
@@ -165,7 +471,22 @@
       "club": "Hantharwady United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -177,7 +498,27 @@
       "club": "Hantharwady United",
       "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Min Htoo Eain Lin",
@@ -187,7 +528,27 @@
       "club": "Hantharwady United",
       "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "La Din Maw Yar",
@@ -197,7 +558,22 @@
       "club": "Hantharwady United",
       "appearances": 8,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yan Naing Aung",
@@ -207,7 +583,22 @@
       "club": "Hantharwady United",
       "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyi Soe",
@@ -217,7 +608,35 @@
       "club": "Hantharwady United",
       "appearances": 22,
       "goals": 4,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "ISPE FC",
+          "year": "2020"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2024"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "N. N. Arkar",
@@ -227,7 +646,35 @@
       "club": "Hantharwady United",
       "appearances": 16,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2022"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2024"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyaw Htoo",
@@ -237,7 +684,35 @@
       "club": "Hantharwady United",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mahar United",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zaw Zaw Htike",
@@ -247,7 +722,22 @@
       "club": "Hantharwady United",
       "appearances": 5,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zaw Lin Oo",
@@ -257,7 +747,35 @@
       "club": "Hantharwady United",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2023"
+        },
+        {
+          "club": "YRFA",
+          "year": "2025"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thu Ya Zaw",
@@ -267,7 +785,35 @@
       "club": "Hantharwady United",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2023"
+        },
+        {
+          "club": "Friendship",
+          "year": "2025"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mine Kyaw",
@@ -277,7 +823,27 @@
       "club": "Hantharwady United",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thu Ya Aung",
@@ -287,7 +853,27 @@
       "club": "Hantharwady United",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -299,7 +885,35 @@
       "club": "Hantharwady United",
       "appearances": 10,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yangon United",
+          "year": "2025"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        },
+        {
+          "club": "Yangon United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maung Maung Soe",
@@ -309,7 +923,47 @@
       "club": "Hantharwady United",
       "appearances": 19,
       "goals": 2,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Magwe FC",
+          "year": "2013"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Rakhine United",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 13,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wine Lu",
@@ -319,7 +973,31 @@
       "club": "Hantharwady United",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rakhine United",
+          "year": "2024"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shwe Ko",
@@ -329,7 +1007,39 @@
       "club": "Hantharwady United",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Than Toe Aung",
@@ -339,7 +1049,27 @@
       "club": "Hantharwady United",
       "appearances": 21,
       "goals": 11,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 25,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aung Myat Thu",
@@ -349,7 +1079,35 @@
       "club": "Hantharwady United",
       "appearances": 8,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Southern Myanmar",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 19,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soe Kyaw Kyaw",
@@ -359,7 +1117,51 @@
       "club": "Hantharwady United",
       "appearances": 8,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Yadanarbon FC",
+          "year": "2009"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2013"
+        },
+        {
+          "club": "Horizon FC",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2022"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2025"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 12,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aung Zaw Oo",
@@ -369,7 +1171,27 @@
       "club": "Hantharwady United",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

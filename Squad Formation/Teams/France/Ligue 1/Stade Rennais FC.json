@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 31,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -56,7 +57,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 378,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 405,
+        "clean_sheets": 131
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Mathys Silistrie",
@@ -64,7 +79,7 @@
       "age": 20,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -72,7 +87,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 85,
+        "clean_sheets": 21
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -82,7 +111,7 @@
       "age": 20,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -106,7 +135,21 @@
           "club": "Liverpool",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lilian Brassier",
@@ -114,10 +157,14 @@
       "age": 26,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
+        {
+          "club": "Rennes Jugend",
+          "year": "2013"
+        },
         {
           "club": "Valenciennes FC",
           "year": "2019"
@@ -150,35 +197,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Abdelhamid Ait Boudlal",
-      "position": "Centre-Back",
-      "age": 19,
-      "nationality": "Morocco",
-      "club": "Stade Rennais FC",
-      "appearances": 14,
-      "goals": 2,
-      "assists": 1,
-      "transfer_history": [
-        {
-          "club": "AM Football",
-          "year": "2015"
-        },
-        {
-          "club": "Stade Rennais",
-          "year": "2024"
-        },
-        {
-          "club": "Amiens SC",
-          "year": "2025"
-        },
-        {
-          "club": "Stade Rennais",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anthony Rouault",
@@ -186,9 +219,9 @@
       "age": 24,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Toulouse",
@@ -210,7 +243,63 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Abdelhamid Ait Boudlal",
+      "position": "Centre-Back",
+      "age": 19,
+      "nationality": "Morocco",
+      "club": "Stade Rennais FC",
+      "appearances": 13,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "AM Football",
+          "year": "2015"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2024"
+        },
+        {
+          "club": "Amiens SC",
+          "year": "2025"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alidu Seidu",
@@ -218,7 +307,7 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Stade Rennais FC",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -230,7 +319,21 @@
           "club": "Stade Rennais",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quentin Merlin",
@@ -238,9 +341,9 @@
       "age": 23,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 29,
-      "goals": 3,
-      "assists": 4,
+      "appearances": 26,
+      "goals": 1,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Pornic Foot",
@@ -258,7 +361,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 8,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahamadou Nagida",
@@ -266,7 +383,7 @@
       "age": 20,
       "nationality": "Cameroon",
       "club": "Stade Rennais FC",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -274,7 +391,21 @@
           "club": "Stade Rennais",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Przemyslaw Frankowski",
@@ -318,7 +449,21 @@
           "club": "Galatasaray",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 437,
+        "goals": 62,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -328,7 +473,7 @@
       "age": 22,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -336,7 +481,21 @@
           "club": "Stade Rennais",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahdi Camara",
@@ -344,7 +503,7 @@
       "age": 27,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 3,
       "assists": 2,
       "transfer_history": [
@@ -376,7 +535,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 39,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentin Rongier",
@@ -384,7 +557,7 @@
       "age": 31,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 1,
       "assists": 4,
       "transfer_history": [
@@ -400,7 +573,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 19,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Glen Kamara",
@@ -408,7 +595,7 @@
       "age": 30,
       "nationality": "Finland",
       "club": "Stade Rennais FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -444,7 +631,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 11,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 70,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ludovic Blas",
@@ -452,9 +653,9 @@
       "age": 28,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 4,
-      "assists": 4,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Guingamp",
@@ -468,17 +669,31 @@
           "club": "Stade Rennais",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 418,
+        "goals": 73,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Sebastian Szymanski",
+      "name": "Sebastian Szymański",
       "position": "Attacking Midfield",
       "age": 26,
       "nationality": "Poland",
       "club": "Stade Rennais FC",
-      "appearances": 36,
-      "goals": 3,
-      "assists": 4,
+      "appearances": 9,
+      "goals": 1,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Legia Warszawa",
@@ -504,7 +719,21 @@
           "club": "Stade Rennais",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 394,
+        "goals": 60,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 52,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -514,9 +743,9 @@
       "age": 28,
       "nationality": "Jordan",
       "club": "Stade Rennais FC",
-      "appearances": 29,
-      "goals": 4,
-      "assists": 7,
+      "appearances": 26,
+      "goals": 3,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Shabab Al-Ordon",
@@ -546,7 +775,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 41,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 74,
+        "goals": 23,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arnaud Nordin",
@@ -554,7 +797,7 @@
       "age": 27,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 26,
+      "appearances": 7,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -590,23 +833,21 @@
           "club": "Mainz",
           "year": "2026"
         }
-      ]
-    },
-    {
-      "name": "Nordan Mukiele",
-      "position": "Right Winger",
-      "age": 20,
-      "nationality": "France",
-      "club": "Stade Rennais FC",
-      "appearances": 10,
-      "goals": 3,
-      "assists": 1,
-      "transfer_history": [
-        {
-          "club": "Stade Rennais",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 321,
+        "goals": 55,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elías Legendre Quiñónez",
@@ -614,15 +855,59 @@
       "age": 17,
       "nationality": "Ecuador",
       "club": "Stade Rennais FC",
-      "appearances": 22,
-      "goals": 7,
-      "assists": 1,
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Nordan Mukiele",
+      "position": "Right Winger",
+      "age": 20,
+      "nationality": "France",
+      "club": "Stade Rennais FC",
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stade Rennais",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Estéban Lepaul",
@@ -630,7 +915,7 @@
       "age": 25,
       "nationality": "France",
       "club": "Stade Rennais FC",
-      "appearances": 30,
+      "appearances": 27,
       "goals": 14,
       "assists": 3,
       "transfer_history": [
@@ -654,7 +939,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 75,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Breel Embolo",
@@ -662,8 +961,8 @@
       "age": 29,
       "nationality": "Switzerland",
       "club": "Stade Rennais FC",
-      "appearances": 27,
-      "goals": 8,
+      "appearances": 24,
+      "goals": 6,
       "assists": 3,
       "transfer_history": [
         {
@@ -690,7 +989,21 @@
           "club": "Stade Rennais",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 404,
+        "goals": 105,
+        "assists": 66,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 85,
+        "goals": 23,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yassir Zabiri",
@@ -698,8 +1011,8 @@
       "age": 21,
       "nationality": "Morocco",
       "club": "Stade Rennais FC",
-      "appearances": 17,
-      "goals": 4,
+      "appearances": 3,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -714,7 +1027,21 @@
           "club": "Stade Rennais",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 15,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 19,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

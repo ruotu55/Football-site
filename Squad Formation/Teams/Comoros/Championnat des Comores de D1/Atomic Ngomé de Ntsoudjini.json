@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "COM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,24 @@
       "age": 31,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -33,9 +49,33 @@
       "age": 29,
       "nationality": "Madagascar",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 12,
-      "goals": 0,
-      "assists": 0
+      "appearances": 14,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Volcan Club",
+          "year": "2021"
+        },
+        {
+          "club": "Atomic Ngomé",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahavy Randrianarisoa",
@@ -43,9 +83,24 @@
       "age": 22,
       "nationality": "Madagascar",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Soilihi",
@@ -55,7 +110,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fahad Ibouroi",
@@ -65,7 +135,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -77,7 +162,39 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Arta/Solar7",
+          "year": "2023"
+        },
+        {
+          "club": "SC Gagnoa",
+          "year": "2024"
+        },
+        {
+          "club": "Mlandege",
+          "year": "2025"
+        },
+        {
+          "club": "Atomic Ngomé",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamis M'sa",
@@ -85,9 +202,33 @@
       "age": 21,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mlandege",
+          "year": "2025"
+        },
+        {
+          "club": "Atomic Ngomé",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayouba Abdou Himidi Iliassa",
@@ -97,7 +238,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 10,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kanane Louk-Man",
@@ -107,7 +263,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mze Ali Hamidou Maoulida",
@@ -117,7 +288,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Bacar Naher",
@@ -127,7 +313,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abderemane Fouad Said",
@@ -137,7 +338,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chahardine Soidiki",
@@ -145,9 +361,24 @@
       "age": 28,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soule Soultoine",
@@ -157,7 +388,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssouf Abdourazakou",
@@ -165,9 +411,24 @@
       "age": 30,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssouf Hassani",
@@ -175,9 +436,24 @@
       "age": 22,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismaila Mohamed",
@@ -185,9 +461,24 @@
       "age": 27,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mhadjou Mohamed",
@@ -197,7 +488,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Absoir Mohamed Mavouna",
@@ -205,9 +511,24 @@
       "age": 29,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nassim Mze Mmadi",
@@ -215,9 +536,24 @@
       "age": 20,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tojoniaina Rafanomezantsoa",
@@ -225,9 +561,24 @@
       "age": 24,
       "nationality": "Madagascar",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 6,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Chafiou",
@@ -237,7 +588,22 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Boinaid Said Omar",
@@ -247,7 +613,27 @@
       "club": "Atomic Ngomé de Ntsoudjini",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atomic Ngomé",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abbas Mohamed",
@@ -255,9 +641,24 @@
       "age": 29,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +668,33 @@
       "age": 25,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 0
+      "appearances": 12,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Volcan Club",
+          "year": "2021"
+        },
+        {
+          "club": "Atomic Ngomé",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Marchal Soulemana",
@@ -277,9 +702,33 @@
       "age": 25,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 14,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Volcan Club",
+          "year": "2021"
+        },
+        {
+          "club": "Atomic Ngomé",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Idarousse Zainou El Abidine",
@@ -287,9 +736,24 @@
       "age": 23,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hatub Rabahadine",
@@ -297,9 +761,24 @@
       "age": 24,
       "nationality": "Comoros",
       "club": "Atomic Ngomé de Ntsoudjini",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

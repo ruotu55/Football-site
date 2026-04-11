@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "TS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 34,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tescoma Zlin",
+          "year": "2008"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 349,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 424,
+        "clean_sheets": 103
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Knobloch",
@@ -31,9 +52,73 @@
       "age": 33,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2013"
+        },
+        {
+          "club": "Lounovice",
+          "year": "2014"
+        },
+        {
+          "club": "Zivanice",
+          "year": "2014"
+        },
+        {
+          "club": "Pardubice",
+          "year": "2015"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2019"
+        },
+        {
+          "club": "Karmiotissa",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2023"
+        },
+        {
+          "club": "Hradec Kralove",
+          "year": "2024"
+        },
+        {
+          "club": "Karvina",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 270,
+        "clean_sheets": 66
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stepan Bachurek",
@@ -41,9 +126,24 @@
       "age": 23,
       "nationality": "Czech Republic",
       "club": "FC Zlin B",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 112,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +153,57 @@
       "age": 27,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Lisen",
+          "year": "2018"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2019"
+        },
+        {
+          "club": "Lisen",
+          "year": "2020"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2020"
+        },
+        {
+          "club": "Blansko",
+          "year": "2021"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2021"
+        },
+        {
+          "club": "Lisen",
+          "year": "2022"
+        },
+        {
+          "club": "Zlin",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 22,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Kolar",
@@ -63,9 +211,29 @@
       "age": 26,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Fastav Zlin",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 201,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antonin Krapka",
@@ -73,9 +241,61 @@
       "age": 32,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mlada Boleslav",
+          "year": "2015"
+        },
+        {
+          "club": "Usti nad Labem",
+          "year": "2016"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2016"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2016"
+        },
+        {
+          "club": "Pardubice",
+          "year": "2017"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2017"
+        },
+        {
+          "club": "Karvina",
+          "year": "2021"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2022"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 321,
+        "goals": 19,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Jugas",
@@ -83,9 +303,81 @@
       "age": 33,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tescoma Zlin",
+          "year": "2010"
+        },
+        {
+          "club": "Pribram",
+          "year": "2012"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2014"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2014"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2015"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2017"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2019"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2019"
+        },
+        {
+          "club": "Jablonec",
+          "year": "2019"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2020"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2020"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2021"
+        },
+        {
+          "club": "Cracovia",
+          "year": "2021"
+        },
+        {
+          "club": "Zlin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 12,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lukas Bartosak",
@@ -93,9 +385,57 @@
       "age": 35,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Brumov",
+          "year": "2008"
+        },
+        {
+          "club": "Hlucin",
+          "year": "2010"
+        },
+        {
+          "club": "Karvina",
+          "year": "2011"
+        },
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2012"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2015"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2017"
+        },
+        {
+          "club": "Karvina",
+          "year": "2020"
+        },
+        {
+          "club": "Trinity Zlin",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 463,
+        "goals": 35,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Kalabiska",
@@ -103,9 +443,69 @@
       "age": 39,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Libis",
+          "year": "2005"
+        },
+        {
+          "club": "Marila Pribram",
+          "year": "2008"
+        },
+        {
+          "club": "Graffin Vlasim",
+          "year": "2009"
+        },
+        {
+          "club": "1. FC Brno",
+          "year": "2010"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2011"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2016"
+        },
+        {
+          "club": "Karvina",
+          "year": "2017"
+        },
+        {
+          "club": "Mlada Boleslav",
+          "year": "2017"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2018"
+        },
+        {
+          "club": "Pardubice",
+          "year": "2024"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 566,
+        "goals": 101,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michal Fukala",
@@ -113,9 +513,41 @@
       "age": 25,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 27,
+      "appearances": 25,
       "goals": 0,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Frydek-Mistek",
+          "year": "2017"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2018"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2024"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 5,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milos Kopecny",
@@ -123,21 +555,159 @@
       "age": 32,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HS Kromeriz",
+          "year": "2012"
+        },
+        {
+          "club": "Hulin",
+          "year": "2013"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2015"
+        },
+        {
+          "club": "Banik Sokolov",
+          "year": "2016"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2016"
+        },
+        {
+          "club": "Hradec Kralove",
+          "year": "2018"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2020"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2020"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2021"
+        },
+        {
+          "club": "MAS Taborsko",
+          "year": "2021"
+        },
+        {
+          "club": "SFC Opava",
+          "year": "2022"
+        },
+        {
+          "club": "Zlin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 28,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
+    {
+      "name": "Stanislav Petruța",
+      "position": "Defensive Midfield",
+      "age": 20,
+      "nationality": "Czech Republic",
+      "club": "FC Zlin",
+      "appearances": 19,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 20,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Cletus Nombil",
       "position": "Defensive Midfield",
       "age": 25,
       "nationality": "Ghana",
       "club": "FC Zlin",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dreams FC",
+          "year": "2018"
+        },
+        {
+          "club": "H. Jerusalem",
+          "year": "2020"
+        },
+        {
+          "club": "H. Kfar Saba",
+          "year": "2022"
+        },
+        {
+          "club": "H. Jerusalem",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "FC Petrzalka",
+          "year": "2023"
+        },
+        {
+          "club": "Zlin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 5,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joss Didiba",
@@ -145,19 +715,69 @@
       "age": 28,
       "nationality": "Cameroon",
       "club": "FC Zlin",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 0,
-      "assists": 2
-    },
-    {
-      "name": "Stanislav Petruța",
-      "position": "Defensive Midfield",
-      "age": 20,
-      "nationality": "Czech Republic",
-      "club": "FC Zlin",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 0
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Perugia",
+          "year": "2015"
+        },
+        {
+          "club": "Perugia",
+          "year": "2016"
+        },
+        {
+          "club": "Matera",
+          "year": "2017"
+        },
+        {
+          "club": "Perugia",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Troina",
+          "year": "2018"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2019"
+        },
+        {
+          "club": "SFC Opava",
+          "year": "2020"
+        },
+        {
+          "club": "FK Senica",
+          "year": "2021"
+        },
+        {
+          "club": "SFC Opava",
+          "year": "2021"
+        },
+        {
+          "club": "Trinity Zlin",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 22,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kristers Penkevics",
@@ -165,9 +785,41 @@
       "age": 23,
       "nationality": "Latvia",
       "club": "FC Zlin",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tukums",
+          "year": "2020"
+        },
+        {
+          "club": "Valmiera",
+          "year": "2022"
+        },
+        {
+          "club": "Jelgava",
+          "year": "2025"
+        },
+        {
+          "club": "Zlin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Machalik",
@@ -175,9 +827,61 @@
       "age": 29,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 3
+      "appearances": 13,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Slovacko",
+          "year": "2017"
+        },
+        {
+          "club": "1.SC Znojmo",
+          "year": "2019"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2019"
+        },
+        {
+          "club": "Fotbal Trinec",
+          "year": "2019"
+        },
+        {
+          "club": "Slovacko",
+          "year": "2020"
+        },
+        {
+          "club": "Blansko",
+          "year": "2020"
+        },
+        {
+          "club": "Lisen",
+          "year": "2022"
+        },
+        {
+          "club": "HS Kromeriz",
+          "year": "2024"
+        },
+        {
+          "club": "Zlin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 273,
+        "goals": 20,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marian Pisoja",
@@ -185,9 +889,49 @@
       "age": 25,
       "nationality": "Slovakia",
       "club": "FC Zlin",
-      "appearances": 21,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Trencin",
+          "year": "2018"
+        },
+        {
+          "club": "Puchov",
+          "year": "2019"
+        },
+        {
+          "club": "AS Trencin",
+          "year": "2020"
+        },
+        {
+          "club": "Puchov",
+          "year": "2021"
+        },
+        {
+          "club": "Banska Bystrica",
+          "year": "2021"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 5,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michal Cupak",
@@ -195,9 +939,33 @@
       "age": 27,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 7,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "HS Kromeriz",
+          "year": "2016"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 269,
+        "goals": 50,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomas Hellebrand",
@@ -205,9 +973,29 @@
       "age": 18,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 2
+      "appearances": 5,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zlin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tom Ulbrich",
@@ -215,9 +1003,53 @@
       "age": 27,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 26,
+      "appearances": 22,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Varnsdorf",
+          "year": "2018"
+        },
+        {
+          "club": "Pisek",
+          "year": "2019"
+        },
+        {
+          "club": "Pisek",
+          "year": "2020"
+        },
+        {
+          "club": "Lisen",
+          "year": "2021"
+        },
+        {
+          "club": "Tatran Bohunice",
+          "year": "2024"
+        },
+        {
+          "club": "MFK Vyskov",
+          "year": "2024"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 27,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +1059,49 @@
       "age": 32,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "C. Budejovice",
+          "year": "2015"
+        },
+        {
+          "club": "C. Budejovice",
+          "year": "2017"
+        },
+        {
+          "club": "Slovan Liberec",
+          "year": "2018"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2021"
+        },
+        {
+          "club": "Wieczysta",
+          "year": "2025"
+        },
+        {
+          "club": "Zlin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 334,
+        "goals": 45,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stanley Kanu",
@@ -237,9 +1109,41 @@
       "age": 27,
       "nationality": "Nigeria",
       "club": "FC Zlin",
-      "appearances": 27,
-      "goals": 6,
-      "assists": 4
+      "appearances": 24,
+      "goals": 5,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Portosantense",
+          "year": "2017"
+        },
+        {
+          "club": "Taipas",
+          "year": "2018"
+        },
+        {
+          "club": "Vilar Perdizes",
+          "year": "2019"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matej Koubek",
@@ -247,9 +1151,53 @@
       "age": 26,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 24,
-      "goals": 5,
-      "assists": 3
+      "appearances": 19,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bohemians 1905",
+          "year": "2019"
+        },
+        {
+          "club": "Jihlava",
+          "year": "2019"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2020"
+        },
+        {
+          "club": "Usti nad Labem",
+          "year": "2020"
+        },
+        {
+          "club": "Bohemians 1905",
+          "year": "2021"
+        },
+        {
+          "club": "Hradec Kralove",
+          "year": "2022"
+        },
+        {
+          "club": "Zlin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 55,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lukas Branecky",
@@ -257,9 +1205,29 @@
       "age": 19,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 24,
-      "goals": 14,
-      "assists": 7
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zlin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 64,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomas Poznar",
@@ -267,9 +1235,77 @@
       "age": 37,
       "nationality": "Czech Republic",
       "club": "FC Zlin",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Vitkovice",
+          "year": "2008"
+        },
+        {
+          "club": "Tescoma Zlin",
+          "year": "2009"
+        },
+        {
+          "club": "Spartak Trnava",
+          "year": "2013"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2013"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2016"
+        },
+        {
+          "club": "Banik Ostrava",
+          "year": "2017"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2018"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2018"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2019"
+        },
+        {
+          "club": "Fastav Zlin",
+          "year": "2019"
+        },
+        {
+          "club": "Nieciecza",
+          "year": "2022"
+        },
+        {
+          "club": "Spartak Trnava",
+          "year": "2024"
+        },
+        {
+          "club": "Zlin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 485,
+        "goals": 119,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

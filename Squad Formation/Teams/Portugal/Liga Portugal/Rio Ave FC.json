@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,47 @@
       "club": "Rio Ave FC",
       "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Legia Warszawa",
+          "year": "2019"
+        },
+        {
+          "club": "Z. Sosnowiec",
+          "year": "2019"
+        },
+        {
+          "club": "Radomiak",
+          "year": "2020"
+        },
+        {
+          "club": "Legia Warszawa",
+          "year": "2020"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        },
+        {
+          "club": "Legia Warszawa",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 192,
+        "clean_sheets": 44
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ennio van der Gouw",
@@ -31,9 +72,45 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "Rio Ave FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Twente",
+          "year": "2020"
+        },
+        {
+          "club": "VVV-Venlo",
+          "year": "2022"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2026"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 140,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Chamorro",
@@ -41,9 +118,61 @@
       "age": 25,
       "nationality": "Costa Rica",
       "club": "Rio Ave FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Carmelita",
+          "year": "2018"
+        },
+        {
+          "club": "AD San Carlos",
+          "year": "2019"
+        },
+        {
+          "club": "AD Carmelita",
+          "year": "2021"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2021"
+        },
+        {
+          "club": "AD Carmelita",
+          "year": "2022"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2023"
+        },
+        {
+          "club": "Estoril",
+          "year": "2024"
+        },
+        {
+          "club": "Saprissa",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 174,
+        "clean_sheets": 67
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 21,
+        "clean_sheets": 2
+      }
     }
   ],
   "defenders": [
@@ -55,7 +184,35 @@
       "club": "Rio Ave FC",
       "appearances": 24,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Olympiacos",
+          "year": "2022"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco Petrasso",
@@ -63,9 +220,33 @@
       "age": 24,
       "nationality": "Argentina",
       "club": "Rio Ave FC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ind. Rivadavia",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nelson Abbey",
@@ -75,7 +256,43 @@
       "club": "Rio Ave FC",
       "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Reading",
+          "year": "2023"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2024"
+        },
+        {
+          "club": "Swansea",
+          "year": "2024"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gustavo Mancha",
@@ -83,9 +300,41 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "Rio Ave FC",
-      "appearances": 14,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fortaleza",
+          "year": "2025"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2026"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jakub Brabec",
@@ -93,9 +342,65 @@
       "age": 33,
       "nationality": "Czech Republic",
       "club": "Rio Ave FC",
-      "appearances": 20,
-      "goals": 0,
-      "assists": 0
+      "appearances": 19,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Viktoria Zizkov",
+          "year": "2009"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2012"
+        },
+        {
+          "club": "Zbrojovka Brno",
+          "year": "2012"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2013"
+        },
+        {
+          "club": "Genk",
+          "year": "2016"
+        },
+        {
+          "club": "C. Rizespor",
+          "year": "2018"
+        },
+        {
+          "club": "Genk",
+          "year": "2019"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2019"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2021"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 492,
+        "goals": 26,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julien Lomboto",
@@ -103,9 +408,41 @@
       "age": 23,
       "nationality": "France",
       "club": "Rio Ave FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Camon",
+          "year": "2018"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2024"
+        },
+        {
+          "club": "Torreense",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Richards",
@@ -113,9 +450,61 @@
       "age": 28,
       "nationality": "England",
       "club": "Rio Ave FC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Reading",
+          "year": "2017"
+        },
+        {
+          "club": "Bayern Munich",
+          "year": "2021"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2022"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2023"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Buta",
@@ -123,9 +512,61 @@
       "age": 23,
       "nationality": "Portugal",
       "club": "Rio Ave FC",
-      "appearances": 17,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Anadia Sub-15",
+          "year": "2015"
+        },
+        {
+          "club": "Udinese",
+          "year": "2022"
+        },
+        {
+          "club": "Gil Vicente",
+          "year": "2023"
+        },
+        {
+          "club": "Udinese",
+          "year": "2024"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2024"
+        },
+        {
+          "club": "Udinese",
+          "year": "2025"
+        },
+        {
+          "club": "SD Eibar",
+          "year": "2025"
+        },
+        {
+          "club": "Udinese",
+          "year": "2026"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marios Vrousai",
@@ -135,7 +576,39 @@
       "club": "Rio Ave FC",
       "appearances": 25,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Olympiacos",
+          "year": "2016"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2020"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 306,
+        "goals": 52,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Tomé",
@@ -143,9 +616,33 @@
       "age": 23,
       "nationality": "Portugal",
       "club": "Rio Ave FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2016"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 1,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -157,7 +654,31 @@
       "club": "Rio Ave FC",
       "appearances": 21,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Panetolikos",
+          "year": "2018"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 11,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tamás Nikitscher",
@@ -165,9 +686,53 @@
       "age": 26,
       "nationality": "Hungary",
       "club": "Rio Ave FC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "ZTE Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Debreceni EAC",
+          "year": "2020"
+        },
+        {
+          "club": "Makói FC",
+          "year": "2021"
+        },
+        {
+          "club": "Pécsi MFC",
+          "year": "2022"
+        },
+        {
+          "club": "Kecskemét",
+          "year": "2023"
+        },
+        {
+          "club": "Real Valladolid",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brandon Aguilera",
@@ -175,9 +740,61 @@
       "age": 22,
       "nationality": "Costa Rica",
       "club": "Rio Ave FC",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AD Carmelita",
+          "year": "2019"
+        },
+        {
+          "club": "LD Alajuelense",
+          "year": "2020"
+        },
+        {
+          "club": "Guanacasteca",
+          "year": "2022"
+        },
+        {
+          "club": "LD Alajuelense",
+          "year": "2022"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2022"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2023"
+        },
+        {
+          "club": "Bristol Rovers",
+          "year": "2024"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 16,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Guilherme",
@@ -185,9 +802,61 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Rio Ave FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boavista",
+          "year": "2021"
+        },
+        {
+          "club": "Boavista",
+          "year": "2022"
+        },
+        {
+          "club": "Boavista",
+          "year": "2023"
+        },
+        {
+          "club": "Operário-PR",
+          "year": "2023"
+        },
+        {
+          "club": "Boavista",
+          "year": "2024"
+        },
+        {
+          "club": "Volta Redonda",
+          "year": "2024"
+        },
+        {
+          "club": "Leiria",
+          "year": "2024"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Graça",
@@ -195,9 +864,57 @@
       "age": 30,
       "nationality": "Portugal",
       "club": "Rio Ave FC",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Porto U15",
+          "year": "2008"
+        },
+        {
+          "club": "Feirense",
+          "year": "2017"
+        },
+        {
+          "club": "Arouca",
+          "year": "2018"
+        },
+        {
+          "club": "Feirense",
+          "year": "2019"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2019"
+        },
+        {
+          "club": "Leixões",
+          "year": "2019"
+        },
+        {
+          "club": "Mafra",
+          "year": "2020"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 290,
+        "goals": 15,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ole Pohlmann",
@@ -207,7 +924,31 @@
       "club": "Rio Ave FC",
       "appearances": 25,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dortmund",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 46,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antonis Papakanellos",
@@ -215,9 +956,37 @@
       "age": 20,
       "nationality": "Greece",
       "club": "Rio Ave FC",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olympiacos",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 17,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +996,33 @@
       "age": 22,
       "nationality": "Argentina",
       "club": "Rio Ave FC",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Lorenzo",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diogo Bezerra",
@@ -237,9 +1030,41 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Rio Ave FC",
-      "appearances": 30,
-      "goals": 2,
-      "assists": 8
+      "appearances": 10,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Red Bull",
+          "year": "2023"
+        },
+        {
+          "club": "NS Mura",
+          "year": "2024"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 6,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Lobato",
@@ -247,29 +1072,133 @@
       "age": 20,
       "nationality": "Brazil",
       "club": "Rio Ave FC",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Botafogo",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dario Špikić",
       "position": "Right Winger",
-      "age": 26,
+      "age": 27,
       "nationality": "Croatia",
       "club": "Rio Ave FC",
       "appearances": 23,
       "goals": 2,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "HNK Gorica",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2021"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2021"
+        },
+        {
+          "club": "Aris Saloniki",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 304,
+        "goals": 39,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amine Rehmi",
       "position": "Right Winger",
-      "age": 23,
+      "age": 24,
       "nationality": "Netherlands",
       "club": "Rio Ave FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jodan Boys 2",
+          "year": "2021"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        },
+        {
+          "club": "TOP Oss",
+          "year": "2024"
+        },
+        {
+          "club": "Feirense",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tamble",
@@ -277,9 +1206,57 @@
       "age": 25,
       "nationality": "Guinea-Bissau",
       "club": "Rio Ave FC",
-      "appearances": 24,
-      "goals": 11,
-      "assists": 1
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Académica U15",
+          "year": "2013"
+        },
+        {
+          "club": "Académica S17",
+          "year": "2015"
+        },
+        {
+          "club": "Eirense",
+          "year": "2019"
+        },
+        {
+          "club": "Anadia",
+          "year": "2020"
+        },
+        {
+          "club": "S. João Ver",
+          "year": "2022"
+        },
+        {
+          "club": "Felgueiras",
+          "year": "2023"
+        },
+        {
+          "club": "Portimonense",
+          "year": "2024"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 41,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karem Zoabi",
@@ -287,9 +1264,33 @@
       "age": 19,
       "nationality": "Israel",
       "club": "Rio Ave FC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "H. Jerusalem",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jalen Blesa",
@@ -297,9 +1298,61 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Rio Ave FC",
-      "appearances": 28,
-      "goals": 8,
-      "assists": 2
+      "appearances": 7,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arlesey Town",
+          "year": "2020"
+        },
+        {
+          "club": "KF Istogu",
+          "year": "2022"
+        },
+        {
+          "club": "KF Rahoveci",
+          "year": "2022"
+        },
+        {
+          "club": "FC Prishtina",
+          "year": "2023"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2024"
+        },
+        {
+          "club": "Un. Craiova",
+          "year": "2025"
+        },
+        {
+          "club": "Cesena",
+          "year": "2025"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 32,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marc Gual",
@@ -307,9 +1360,77 @@
       "age": 30,
       "nationality": "Spain",
       "club": "Rio Ave FC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sevilla Atl.",
+          "year": "2016"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2018"
+        },
+        {
+          "club": "Real Zaragoza",
+          "year": "2018"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2019"
+        },
+        {
+          "club": "Girona",
+          "year": "2019"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2020"
+        },
+        {
+          "club": "RM Castilla",
+          "year": "2020"
+        },
+        {
+          "club": "AD Alcorcón",
+          "year": "2020"
+        },
+        {
+          "club": "SC Dnipro-1",
+          "year": "2022"
+        },
+        {
+          "club": "Jagiellonia",
+          "year": "2022"
+        },
+        {
+          "club": "SC Dnipro-1",
+          "year": "2023"
+        },
+        {
+          "club": "Legia Warszawa",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 97,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

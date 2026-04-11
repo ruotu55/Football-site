@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "THA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,73 @@
       "age": 31,
       "nationality": "Austria",
       "club": "Muangthong United",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TSV Hartberg",
+          "year": "2012"
+        },
+        {
+          "club": "FC Pasching",
+          "year": "2013"
+        },
+        {
+          "club": "FAC",
+          "year": "2015"
+        },
+        {
+          "club": "SV Horn",
+          "year": "2016"
+        },
+        {
+          "club": "Doxa Katokopias",
+          "year": "2017"
+        },
+        {
+          "club": "SKN St. Pölten",
+          "year": "2020"
+        },
+        {
+          "club": "FC U Craiova",
+          "year": "2021"
+        },
+        {
+          "club": "SCR Altach",
+          "year": "2022"
+        },
+        {
+          "club": "Arm. Bielefeld",
+          "year": "2023"
+        },
+        {
+          "club": "First Vienna FC",
+          "year": "2023"
+        },
+        {
+          "club": "SKU Amstetten",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 303,
+        "clean_sheets": 38
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Korrakot Pipatnadda",
@@ -31,19 +96,99 @@
       "age": 26,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Trat FC",
+          "year": "2021"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Kasetsart FC",
+          "year": "2021"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Udon Thani FC",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Rayong FC",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 126,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Khomsan Sanphiphan",
       "position": "Goalkeeper",
-      "age": 19,
+      "age": 20,
       "nationality": "Thailand",
       "club": "Muangthong United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Korat City",
+          "year": "2025"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rithisak Kalaya",
@@ -53,7 +198,27 @@
       "club": "Muangthong United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +228,65 @@
       "age": 31,
       "nationality": "Bulgaria",
       "club": "Muangthong United",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vyzas Megaron",
+          "year": "2015"
+        },
+        {
+          "club": "Lokomotiv GO",
+          "year": "2016"
+        },
+        {
+          "club": "Montana",
+          "year": "2017"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2022"
+        },
+        {
+          "club": "Hebar P.",
+          "year": "2023"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2023"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2024"
+        },
+        {
+          "club": "Botev Vratsa",
+          "year": "2024"
+        },
+        {
+          "club": "Hebar P.",
+          "year": "2025"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 248,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nelson Orji",
@@ -73,9 +294,49 @@
       "age": 23,
       "nationality": "Nigeria",
       "club": "Muangthong United",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zalaegerszeg",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "ATL UTD 2",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "NK Brezice 1919",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Songwut Kraikruan",
@@ -83,9 +344,45 @@
       "age": 24,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 19,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ayutthaya",
+          "year": "2020"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Kasetsart FC",
+          "year": "2021"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Ayutthaya Utd.",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dong-su Kim",
@@ -93,9 +390,77 @@
       "age": 31,
       "nationality": "South Korea",
       "club": "Muangthong United",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 0
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wanju MS",
+          "year": "2007"
+        },
+        {
+          "club": "Yeongdeungpo HS",
+          "year": "2010"
+        },
+        {
+          "club": "Kyung Hee Univ.",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Omiya Ardija",
+          "year": "2017"
+        },
+        {
+          "club": "VfB Lübeck",
+          "year": "2019"
+        },
+        {
+          "club": "FC Anyang",
+          "year": "2020"
+        },
+        {
+          "club": "HAGL FC",
+          "year": "2021"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2022"
+        },
+        {
+          "club": "Seoul N. United",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2025"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Theekawin Chansri",
@@ -103,9 +468,41 @@
       "age": 22,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Assumption Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Ayutthaya Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "James Falconer",
@@ -113,9 +510,29 @@
       "age": 20,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Kempter",
@@ -123,9 +540,45 @@
       "age": 31,
       "nationality": "Philippines",
       "club": "Muangthong United",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Zürich",
+          "year": "2016"
+        },
+        {
+          "club": "Neuchâtel Xamax",
+          "year": "2020"
+        },
+        {
+          "club": "FC St. Gallen",
+          "year": "2021"
+        },
+        {
+          "club": "Grasshoppers",
+          "year": "2023"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wattanakorn Sawatlakhorn",
@@ -133,19 +586,53 @@
       "age": 27,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Kittapak Seangsawat",
-      "position": "Left-Back",
-      "age": 20,
-      "nationality": "Thailand",
-      "club": "Muangthong United",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Bangkok FC",
+          "year": "2018"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Uthai Thani",
+          "year": "2024"
+        },
+        {
+          "club": "Ayutthaya Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 0,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tristan Do",
@@ -153,9 +640,61 @@
       "age": 33,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Lorient",
+          "year": "2011"
+        },
+        {
+          "club": "SAS Epinal",
+          "year": "2012"
+        },
+        {
+          "club": "FC Lorient",
+          "year": "2013"
+        },
+        {
+          "club": "G. Ajaccio",
+          "year": "2013"
+        },
+        {
+          "club": "BEC Tero Sasana",
+          "year": "2014"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 412,
+        "goals": 35,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +704,41 @@
       "age": 30,
       "nationality": "Philippines",
       "club": "Muangthong United",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Leipzig",
+          "year": "2014"
+        },
+        {
+          "club": "Erzgebirge Aue",
+          "year": "2017"
+        },
+        {
+          "club": "Hansa Rostock",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 301,
+        "goals": 30,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siradanai Phosri",
@@ -175,9 +746,33 @@
       "age": 20,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Assumption Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nitisak Anulun",
@@ -187,7 +782,35 @@
       "club": "Muangthong United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Assumption Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sorawit Panthong",
@@ -195,9 +818,57 @@
       "age": 29,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Assumption Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Sisaket FC",
+          "year": "2017"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Police Tero FC",
+          "year": "2019"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Police Tero FC",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 186,
+        "goals": 15,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wongsakorn Chaikultewin",
@@ -205,9 +876,77 @@
       "age": 29,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2014"
+        },
+        {
+          "club": "Pattaya United",
+          "year": "2016"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Pattaya Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Udon Thani FC",
+          "year": "2017"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Trat FC",
+          "year": "2019"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Swat Cat",
+          "year": "2020"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Trat FC",
+          "year": "2025"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 9,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiraphat Nuntagowat",
@@ -215,9 +954,29 @@
       "age": 21,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 0
+      "appearances": 16,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danuphon Buppha",
@@ -225,9 +984,59 @@
       "age": 18,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Kittapak Seangsawat",
+      "position": "Central Midfield",
+      "age": 20,
+      "nationality": "Thailand",
+      "club": "Muangthong United",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kakana Khamyok",
@@ -235,9 +1044,33 @@
       "age": 21,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 26,
-      "goals": 2,
-      "assists": 5
+      "appearances": 24,
+      "goals": 1,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Assumption Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 18,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anass Ahannach",
@@ -245,9 +1078,53 @@
       "age": 28,
       "nationality": "Morocco",
       "club": "Muangthong United",
-      "appearances": 21,
-      "goals": 4,
-      "assists": 0
+      "appearances": 20,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2006"
+        },
+        {
+          "club": "AFC Youth",
+          "year": "2010"
+        },
+        {
+          "club": "Almere City FC",
+          "year": "2011"
+        },
+        {
+          "club": "Almere City",
+          "year": "2017"
+        },
+        {
+          "club": "FC Den Bosch",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 24,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Piyanat Thodsanid",
@@ -255,9 +1132,37 @@
       "age": 23,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hua Hin",
+          "year": "2020"
+        },
+        {
+          "club": "Kohkwang United",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -269,7 +1174,71 @@
       "club": "Muangthong United",
       "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mogi Mirim",
+          "year": "2014"
+        },
+        {
+          "club": "Joinville-SC",
+          "year": "2014"
+        },
+        {
+          "club": "Busan IPark",
+          "year": "2016"
+        },
+        {
+          "club": "Avispa Fukuoka",
+          "year": "2017"
+        },
+        {
+          "club": "Bucheon FC",
+          "year": "2018"
+        },
+        {
+          "club": "Figueirense FC",
+          "year": "2019"
+        },
+        {
+          "club": "Ceará SC",
+          "year": "2019"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Chapecoense",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "SH Port",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 104,
+        "assists": 33,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Melvyn Lorenzen",
@@ -277,9 +1246,69 @@
       "age": 31,
       "nationality": "Uganda",
       "club": "Muangthong United",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Werder Bremen",
+          "year": "2015"
+        },
+        {
+          "club": "ADO Den Haag",
+          "year": "2017"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2019"
+        },
+        {
+          "club": "Persela",
+          "year": "2021"
+        },
+        {
+          "club": "Sligo Rovers",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Wormatia Worms",
+          "year": "2022"
+        },
+        {
+          "club": "Swat Cat",
+          "year": "2023"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 56,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emil Roback",
@@ -287,9 +1316,49 @@
       "age": 22,
       "nationality": "Sweden",
       "club": "Muangthong United",
-      "appearances": 14,
-      "goals": 3,
-      "assists": 1
+      "appearances": 11,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "IK Frej Täby",
+          "year": "2020"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2022"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2022"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2023"
+        },
+        {
+          "club": "Norrköping",
+          "year": "2023"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 21,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Korawich Tasa",
@@ -297,9 +1366,49 @@
       "age": 25,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 22,
-      "goals": 2,
-      "assists": 2
+      "appearances": 20,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Bangkok FC",
+          "year": "2018"
+        },
+        {
+          "club": "Ubon UMT Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2023"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 20,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Purachet Thodsanid",
@@ -307,9 +1416,37 @@
       "age": 24,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Ayutthaya",
+          "year": "2020"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Saric",
@@ -317,9 +1454,77 @@
       "age": 27,
       "nationality": "Serbia",
       "club": "Muangthong United",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 0
+      "appearances": 9,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cukaricki",
+          "year": "2018"
+        },
+        {
+          "club": "IMT Belgrad",
+          "year": "2018"
+        },
+        {
+          "club": "Radnicki Pirot",
+          "year": "2020"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2020"
+        },
+        {
+          "club": "Rad",
+          "year": "2021"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2021"
+        },
+        {
+          "club": "Metalac",
+          "year": "2021"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2022"
+        },
+        {
+          "club": "Napredak",
+          "year": "2022"
+        },
+        {
+          "club": "QD Hainiu",
+          "year": "2023"
+        },
+        {
+          "club": "Javor-Matis",
+          "year": "2024"
+        },
+        {
+          "club": "Napredak",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 36,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sarayut Yoosuebchuea",
@@ -327,9 +1532,65 @@
       "age": 25,
       "nationality": "Thailand",
       "club": "Muangthong United",
-      "appearances": 2,
-      "goals": 3,
-      "assists": 1
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muangthong Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Ayutthaya",
+          "year": "2020"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Ayutthaya Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Chainat FC",
+          "year": "2022"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Kasetsart FC",
+          "year": "2024"
+        },
+        {
+          "club": "Muangthong Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Ayutthaya Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 20,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -1,6 +1,6 @@
 // Application Security Requirement: load squad JSON only from curated index paths; avoid dynamic URL assembly from untrusted input.
 import { appState, clearSlotPhotoIndices, getState } from "./state.js";
-import { normalizeTeamPath } from "./paths.js";
+import { normalizeTeamPath, projectAssetUrl } from "./paths.js";
 import { renderHeader, renderPitch } from "./pitch-render.js";
 
 // Specific team mappings to populate standard large tournament selections natively
@@ -141,8 +141,7 @@ export const SPECIAL_COMPETITIONS = {
 
 export async function loadSquadJson(entry) {
   const path = normalizeTeamPath(entry.path);
-  const url = new URL(path, window.location.href);
-  const res = await fetch(url);
+  const res = await fetch(projectAssetUrl(path));
   if (!res.ok) throw new Error(`Failed to load squad (${res.status})`);
   return res.json();
 }

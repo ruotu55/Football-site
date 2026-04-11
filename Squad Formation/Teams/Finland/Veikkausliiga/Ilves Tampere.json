@@ -8,22 +8,55 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "FI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Otso Virtanen",
       "position": "Goalkeeper",
-      "age": 31,
+      "age": 32,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "IFK Mariehamn",
+          "year": "2013"
+        },
+        {
+          "club": "Hibernian FC",
+          "year": "2016"
+        },
+        {
+          "club": "KuPS",
+          "year": "2017"
+        },
+        {
+          "club": "Ilves",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 347,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 423,
+        "clean_sheets": 109
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faris Krkalic",
@@ -31,9 +64,45 @@
       "age": 23,
       "nationality": "TM nationality id 24",
       "club": "Ilves Tampere",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Sesvete",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2022"
+        },
+        {
+          "club": "NK Kustosija",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo Zagreb",
+          "year": "2023"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 90,
+        "clean_sheets": 30
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 3
+      }
     }
   ],
   "defenders": [
@@ -43,9 +112,81 @@
       "age": 31,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 7,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Honka",
+          "year": "2013"
+        },
+        {
+          "club": "AIK",
+          "year": "2014"
+        },
+        {
+          "club": "Helsinki IFK",
+          "year": "2015"
+        },
+        {
+          "club": "AIK",
+          "year": "2015"
+        },
+        {
+          "club": "SPAL",
+          "year": "2017"
+        },
+        {
+          "club": "Crotone",
+          "year": "2018"
+        },
+        {
+          "club": "SPAL",
+          "year": "2019"
+        },
+        {
+          "club": "Chievo Verona",
+          "year": "2019"
+        },
+        {
+          "club": "Cosenza",
+          "year": "2021"
+        },
+        {
+          "club": "Odense BK",
+          "year": "2023"
+        },
+        {
+          "club": "Ascoli",
+          "year": "2024"
+        },
+        {
+          "club": "Odense BK",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 271,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oliver Pettersson",
@@ -53,9 +194,49 @@
       "age": 22,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Espoon PS",
+          "year": "2019"
+        },
+        {
+          "club": "Ekenäs IF",
+          "year": "2021"
+        },
+        {
+          "club": "HJK Klubi 04",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        },
+        {
+          "club": "IF Gnistan",
+          "year": "2024"
+        },
+        {
+          "club": "Ilves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tatu Miettunen",
@@ -63,9 +244,29 @@
       "age": 30,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2014"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 370,
+        "goals": 23,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ville Kumpu",
@@ -73,9 +274,29 @@
       "age": 18,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jere Riissanen",
@@ -85,7 +306,35 @@
       "club": "Ilves Tampere",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2023"
+        },
+        {
+          "club": "FC Jazz",
+          "year": "2025"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matias Rale",
@@ -93,9 +342,37 @@
       "age": 25,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Honka",
+          "year": "2021"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2024"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "André Raymond",
@@ -103,9 +380,57 @@
       "age": 25,
       "nationality": "Trinidad and Tobago",
       "club": "Ilves Tampere",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vilaverdense",
+          "year": "2019"
+        },
+        {
+          "club": "Castro Daire",
+          "year": "2021"
+        },
+        {
+          "club": "Dumiense",
+          "year": "2022"
+        },
+        {
+          "club": "Vilar Perdizes",
+          "year": "2023"
+        },
+        {
+          "club": "St. Johnstone",
+          "year": "2024"
+        },
+        {
+          "club": "Dunfermline A.",
+          "year": "2025"
+        },
+        {
+          "club": "St. Johnstone",
+          "year": "2025"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Suvanne",
@@ -113,9 +438,33 @@
       "age": 19,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Honka Youth",
+          "year": "2023"
+        },
+        {
+          "club": "Ilves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kalle Wallius",
@@ -123,9 +472,45 @@
       "age": 23,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 8,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2020"
+        },
+        {
+          "club": "IK Start",
+          "year": "2023"
+        },
+        {
+          "club": "IFK Mariehamn",
+          "year": "2024"
+        },
+        {
+          "club": "IK Start",
+          "year": "2024"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 11,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Goudouss Bamba",
@@ -133,21 +518,103 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "Ilves Tampere",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
+    {
+      "name": "Yiandro Raap",
+      "position": "Defensive Midfield",
+      "age": 19,
+      "nationality": "Venezuela",
+      "club": "Ilves Tampere",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Ilves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Anton Popovitch",
       "position": "Central Midfield",
       "age": 29,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 4
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Haka",
+          "year": "2015"
+        },
+        {
+          "club": "KuPS",
+          "year": "2021"
+        },
+        {
+          "club": "Ilves",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 376,
+        "goals": 39,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joona Veteli",
@@ -155,9 +622,53 @@
       "age": 30,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TP-47",
+          "year": "2012"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2015"
+        },
+        {
+          "club": "PS Kemi",
+          "year": "2016"
+        },
+        {
+          "club": "Fredrikstad FK",
+          "year": "2017"
+        },
+        {
+          "club": "Ilves",
+          "year": "2020"
+        },
+        {
+          "club": "KuPS",
+          "year": "2022"
+        },
+        {
+          "club": "Ilves",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 48,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Otto Tiitinen",
@@ -165,9 +676,29 @@
       "age": 17,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oskari Multala",
@@ -175,9 +706,29 @@
       "age": 19,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jardell Kanga",
@@ -185,9 +736,45 @@
       "age": 20,
       "nationality": "Sweden",
       "club": "Ilves Tampere",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brommapojkarna",
+          "year": "2021"
+        },
+        {
+          "club": "De Graafschap",
+          "year": "2024"
+        },
+        {
+          "club": "Hammarby",
+          "year": "2024"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        },
+        {
+          "club": "Hammarby",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 26,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maksim Stjopin",
@@ -195,9 +782,45 @@
       "age": 22,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 10,
-      "goals": 2,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2020"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2023"
+        },
+        {
+          "club": "Ilves",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 36,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lauri Ala-Myllymäki",
@@ -205,9 +828,45 @@
       "age": 28,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2014"
+        },
+        {
+          "club": "Venezia",
+          "year": "2021"
+        },
+        {
+          "club": "Triestina",
+          "year": "2022"
+        },
+        {
+          "club": "Venezia",
+          "year": "2023"
+        },
+        {
+          "club": "Ilves",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 335,
+        "goals": 61,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jesse Kilo",
@@ -215,9 +874,29 @@
       "age": 22,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 7,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 9,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +906,41 @@
       "age": 20,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2023"
+        },
+        {
+          "club": "Kalev",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "Ilves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 29,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Teemu Hytönen",
@@ -237,9 +948,37 @@
       "age": 23,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 8,
-      "goals": 4,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "VPS",
+          "year": "2023"
+        },
+        {
+          "club": "Närpes Kraft",
+          "year": "2023"
+        },
+        {
+          "club": "Ilves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 50,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roope Riski",
@@ -247,9 +986,109 @@
       "age": 34,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "TPS",
+          "year": "2009"
+        },
+        {
+          "club": "FC Viikingit",
+          "year": "2010"
+        },
+        {
+          "club": "TPS",
+          "year": "2010"
+        },
+        {
+          "club": "Cesena",
+          "year": "2011"
+        },
+        {
+          "club": "TPS",
+          "year": "2011"
+        },
+        {
+          "club": "Hønefoss",
+          "year": "2012"
+        },
+        {
+          "club": "Cesena",
+          "year": "2012"
+        },
+        {
+          "club": "TPS",
+          "year": "2012"
+        },
+        {
+          "club": "TPS",
+          "year": "2013"
+        },
+        {
+          "club": "Cesena",
+          "year": "2013"
+        },
+        {
+          "club": "Hønefoss",
+          "year": "2014"
+        },
+        {
+          "club": "Haugesund",
+          "year": "2015"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2015"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2016"
+        },
+        {
+          "club": "SC Paderborn",
+          "year": "2017"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2017"
+        },
+        {
+          "club": "SKN St. Pölten",
+          "year": "2017"
+        },
+        {
+          "club": "AOX Kissamikos",
+          "year": "2018"
+        },
+        {
+          "club": "SKN St. Pölten",
+          "year": "2019"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2020"
+        },
+        {
+          "club": "Ilves",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 433,
+        "goals": 171,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oskari Paavola",
@@ -257,9 +1096,29 @@
       "age": 21,
       "nationality": "Finland",
       "club": "Ilves Tampere",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilves",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 48,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

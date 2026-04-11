@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "L2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 25,
       "nationality": "Denmark",
       "club": "Karlsruher SC",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -48,7 +49,21 @@
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 245,
+        "clean_sheets": 49
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Himmelmann",
@@ -96,7 +111,21 @@
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 486,
+        "clean_sheets": 91
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aki Koch",
@@ -104,15 +133,29 @@
       "age": 22,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 15,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 89,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -122,7 +165,7 @@
       "age": 23,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -138,7 +181,21 @@
           "club": "Karlsruher SC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 23,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paul Scholl",
@@ -146,7 +203,7 @@
       "age": 19,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 17,
+      "appearances": 10,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -154,7 +211,21 @@
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christoph Kobald",
@@ -162,8 +233,8 @@
       "age": 28,
       "nationality": "Austria",
       "club": "Karlsruher SC",
-      "appearances": 22,
-      "goals": 2,
+      "appearances": 20,
+      "goals": 1,
       "assists": 3,
       "transfer_history": [
         {
@@ -194,7 +265,21 @@
           "club": "Karlsruher SC",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 18,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephan Ambrosius",
@@ -202,9 +287,9 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Karlsruher SC",
-      "appearances": 12,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Hamburg",
@@ -230,7 +315,21 @@
           "club": "FC St. Gallen",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcel Franke",
@@ -238,7 +337,7 @@
       "age": 32,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -282,7 +381,21 @@
           "club": "Karlsruher SC",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 423,
+        "goals": 22,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Herold",
@@ -290,9 +403,9 @@
       "age": 23,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 0,
-      "assists": 6,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "SCR Altach",
@@ -306,7 +419,21 @@
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 9,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Niclas Dühring",
@@ -314,9 +441,9 @@
       "age": 22,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 5,
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "FC Ingolstadt",
@@ -326,7 +453,21 @@
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 13,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Pinto Pedrosa",
@@ -334,7 +475,7 @@
       "age": 18,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -342,7 +483,21 @@
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Jung",
@@ -350,7 +505,7 @@
       "age": 35,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 1,
       "assists": 3,
       "transfer_history": [
@@ -370,7 +525,21 @@
           "club": "Karlsruher SC",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 428,
+        "goals": 16,
+        "assists": 42,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -380,7 +549,7 @@
       "age": 27,
       "nationality": "Bosnia-Herzegovina",
       "club": "Karlsruher SC",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -412,7 +581,21 @@
           "club": "Karlsruher SC",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 40,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolai Rapp",
@@ -420,8 +603,8 @@
       "age": 29,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 21,
-      "goals": 1,
+      "appearances": 19,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -472,7 +655,21 @@
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 13,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hyeok-kyu Kwon",
@@ -480,7 +677,7 @@
       "age": 25,
       "nationality": "South Korea",
       "club": "Karlsruher SC",
-      "appearances": 17,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -528,7 +725,21 @@
           "club": "Karlsruher SC",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andreas Müller",
@@ -536,9 +747,9 @@
       "age": 25,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 19,
+      "appearances": 17,
       "goals": 0,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "1.FC Magdeburg",
@@ -552,7 +763,21 @@
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 178,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo Kritzer",
@@ -560,15 +785,54 @@
       "age": 20,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 18,
+      "appearances": 4,
       "goals": 0,
-      "assists": 4,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 3,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Danyal Zor",
+      "position": "Defensive Midfield",
+      "age": 18,
+      "nationality": "Germany",
+      "club": "Karlsruher SC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marvin Wanitzek",
@@ -576,9 +840,9 @@
       "age": 32,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 13,
-      "assists": 6,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "FCA Walldorf",
@@ -592,7 +856,21 @@
           "club": "Karlsruher SC",
           "year": "2017"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 460,
+        "goals": 105,
+        "assists": 114,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Meiko Wäschenbach",
@@ -600,9 +878,9 @@
       "age": 22,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 17,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "1.FC Köln",
@@ -612,7 +890,21 @@
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 5,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Efe-Kaan Sihlaroglu",
@@ -620,15 +912,29 @@
       "age": 20,
       "nationality": "Turkiye",
       "club": "Karlsruher SC",
-      "appearances": 3,
-      "goals": 1,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lilian Egloff",
@@ -636,9 +942,9 @@
       "age": 23,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 17,
-      "goals": 5,
-      "assists": 2,
+      "appearances": 15,
+      "goals": 4,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Stuttgart",
@@ -652,7 +958,21 @@
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 42,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Philipp Förster",
@@ -660,7 +980,7 @@
       "age": 31,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -696,7 +1016,21 @@
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 381,
+        "goals": 44,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leon Opitz",
@@ -720,7 +1054,21 @@
           "club": "Werder Bremen",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 33,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali-Eren Ersungur",
@@ -728,15 +1076,29 @@
       "age": 20,
       "nationality": "Turkiye",
       "club": "Karlsruher SC",
-      "appearances": 10,
-      "goals": 5,
+      "appearances": 1,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Karlsruher SC",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 29,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -754,7 +1116,21 @@
           "club": "Karlsruher SC",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 33,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roko Simic",
@@ -762,7 +1138,7 @@
       "age": 22,
       "nationality": "Croatia",
       "club": "Karlsruher SC",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 3,
       "assists": 1,
       "transfer_history": [
@@ -810,7 +1186,21 @@
           "club": "Cardiff",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 45,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eymen Laghrissi",
@@ -818,10 +1208,24 @@
       "age": 17,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 14,
-      "goals": 4,
+      "appearances": 7,
+      "goals": 0,
       "assists": 1,
-      "transfer_history": []
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shio Fukuda",
@@ -829,7 +1233,7 @@
       "age": 21,
       "nationality": "Japan",
       "club": "Karlsruher SC",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -845,7 +1249,21 @@
           "club": "Mönchengladbach",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 23,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabian Schleusener",
@@ -853,8 +1271,8 @@
       "age": 34,
       "nationality": "Germany",
       "club": "Karlsruher SC",
-      "appearances": 28,
-      "goals": 12,
+      "appearances": 26,
+      "goals": 9,
       "assists": 3,
       "transfer_history": [
         {
@@ -909,7 +1327,21 @@
           "club": "Karlsruher SC",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 436,
+        "goals": 154,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

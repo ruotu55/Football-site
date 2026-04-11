@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 35,
       "nationality": "Portugal",
       "club": "FC Nantes",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -32,7 +33,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 561,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 682,
+        "clean_sheets": 171
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 13,
+        "clean_sheets": 6
+      }
     },
     {
       "name": "Patrik Carlgren",
@@ -40,7 +55,7 @@
       "age": 34,
       "nationality": "Sweden",
       "club": "FC Nantes",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -68,7 +83,21 @@
           "club": "FC Nantes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 359,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 458,
+        "clean_sheets": 104
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Alexis Mirbach",
@@ -76,7 +105,7 @@
       "age": 21,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -84,7 +113,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 113,
+        "clean_sheets": 20
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -94,7 +137,7 @@
       "age": 18,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -102,7 +145,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abakar Sylla",
@@ -110,7 +167,7 @@
       "age": 23,
       "nationality": "Ivory Coast",
       "club": "FC Nantes",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -134,7 +191,21 @@
           "club": "R. Strasbourg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chidozie Awaziem",
@@ -214,7 +285,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 328,
+        "goals": 12,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Youssif",
@@ -222,8 +307,8 @@
       "age": 24,
       "nationality": "Libya",
       "club": "FC Nantes",
-      "appearances": 19,
-      "goals": 2,
+      "appearances": 6,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -234,15 +319,29 @@
           "club": "FC Nantes",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Uros Radakovic",
       "position": "Centre-Back",
-      "age": 31,
+      "age": 32,
       "nationality": "Serbia",
       "club": "FC Nantes",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -314,7 +413,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 12,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sékou Doucouré",
@@ -322,7 +435,7 @@
       "age": 20,
       "nationality": "Mali",
       "club": "FC Nantes",
-      "appearances": 13,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -330,7 +443,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Cozza",
@@ -338,7 +465,7 @@
       "age": 27,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -362,7 +489,21 @@
           "club": "Wolfsburg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deiver Machado",
@@ -370,7 +511,7 @@
       "age": 32,
       "nationality": "Colombia",
       "club": "FC Nantes",
-      "appearances": 15,
+      "appearances": 13,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -410,7 +551,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 338,
+        "goals": 15,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kelvin Amian",
@@ -418,7 +573,7 @@
       "age": 28,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -434,7 +589,21 @@
           "club": "FC Nantes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 331,
+        "goals": 7,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fabien Centonze",
@@ -442,9 +611,9 @@
       "age": 30,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 14,
-      "goals": 4,
-      "assists": 1,
+      "appearances": 13,
+      "goals": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Évian",
@@ -474,7 +643,21 @@
           "club": "FC Nantes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 302,
+        "goals": 15,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frédéric Guilbert",
@@ -482,7 +665,7 @@
       "age": 31,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -538,7 +721,21 @@
           "club": "FC Nantes",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 8,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -548,7 +745,7 @@
       "age": 23,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -572,7 +769,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahima Sissoko",
@@ -580,8 +791,8 @@
       "age": 28,
       "nationality": "Mali",
       "club": "FC Nantes",
-      "appearances": 14,
-      "goals": 3,
+      "appearances": 6,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -600,7 +811,51 @@
           "club": "FC Nantes",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 311,
+        "goals": 14,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Bahmed Deuff",
+      "position": "Defensive Midfield",
+      "age": 20,
+      "nationality": "France",
+      "club": "FC Nantes",
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Nantes",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francis Coquelin",
@@ -608,7 +863,7 @@
       "age": 34,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -656,23 +911,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Bahmed Deuff",
-      "position": "Defensive Midfield",
-      "age": 20,
-      "nationality": "France",
-      "club": "FC Nantes",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "FC Nantes",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 458,
+        "goals": 12,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dehmaine Tabibou",
@@ -680,7 +933,7 @@
       "age": 20,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -688,7 +941,21 @@
           "club": "FC Nantes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Kaba",
@@ -696,8 +963,8 @@
       "age": 24,
       "nationality": "Guinea",
       "club": "FC Nantes",
-      "appearances": 24,
-      "goals": 1,
+      "appearances": 7,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
@@ -716,7 +983,21 @@
           "club": "Lecce",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 7,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louis Leroux",
@@ -732,7 +1013,21 @@
           "club": "FC Nantes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 13,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rémy Cabella",
@@ -740,9 +1035,9 @@
       "age": 36,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 20,
+      "appearances": 9,
       "goals": 1,
-      "assists": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Montpellier",
@@ -808,7 +1103,21 @@
           "club": "Olympiacos",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 513,
+        "goals": 93,
+        "assists": 77,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -818,25 +1127,39 @@
       "age": 19,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 19,
-      "goals": 3,
+      "appearances": 18,
+      "goals": 2,
       "assists": 1,
       "transfer_history": [
         {
           "club": "FC Nantes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 31,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matthis Abline",
       "position": "Centre-Forward",
-      "age": 22,
+      "age": 23,
       "nationality": "France",
       "club": "FC Nantes",
-      "appearances": 27,
-      "goals": 7,
-      "assists": 6,
+      "appearances": 25,
+      "goals": 5,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Stade Rennais",
@@ -870,7 +1193,21 @@
           "club": "FC Nantes",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 42,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mostafa Mohamed",
@@ -922,7 +1259,21 @@
           "club": "FC Nantes",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 311,
+        "goals": 86,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ignatius Ganago",
@@ -930,7 +1281,7 @@
       "age": 27,
       "nationality": "Cameroon",
       "club": "FC Nantes",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -954,7 +1305,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 218,
+        "goals": 39,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amady Camara",
@@ -962,8 +1327,8 @@
       "age": 20,
       "nationality": "Mali",
       "club": "FC Nantes",
-      "appearances": 12,
-      "goals": 1,
+      "appearances": 10,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -986,7 +1351,21 @@
           "club": "Sturm Graz",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Youssef El Arabi",
@@ -994,9 +1373,9 @@
       "age": 39,
       "nationality": "Morocco",
       "club": "FC Nantes",
-      "appearances": 24,
-      "goals": 4,
-      "assists": 2,
+      "appearances": 22,
+      "goals": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "SM Caen",
@@ -1026,7 +1405,21 @@
           "club": "FC Nantes",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 624,
+        "goals": 298,
+        "assists": 71,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 16,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -25,9 +25,10 @@ export function normalizeTeamPath(path) {
     .replace(/\.\.\/Squad Formation\//g, "Squad Formation/");
 }
 
+/** Resolve a path relative to the Football Channel repo root (shared asset folders sit next to each runner). */
 export function projectAssetUrl(relativePath) {
   const rel = String(relativePath || "").replace(/^\/+/, "");
-  return new URL(`./${rel}`, window.location.href).href;
+  return new URL(`../${rel}`, window.location.href).href;
 }
 
 const PAGE_LOAD_CACHE_BUST = String(Date.now());
@@ -46,6 +47,11 @@ function withCacheBust(url, token = PAGE_LOAD_CACHE_BUST) {
  */
 export function projectAssetUrlFresh(relativePath) {
   return withCacheBust(projectAssetUrl(relativePath));
+}
+
+/** Same cache-bust as `projectAssetUrlFresh`, for an already-resolved absolute asset URL. */
+export function withProjectAssetCacheBust(absoluteHref) {
+  return withCacheBust(absoluteHref);
 }
 
 /** Relative to project root (Football Channel). PNGs named like "{Player Name}.png" */

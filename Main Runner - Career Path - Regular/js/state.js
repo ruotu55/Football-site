@@ -29,6 +29,9 @@ export const appState = {
     controlPanel: null,
     headerName: null,
     headerLogo: null,
+    playerVoiceControls: null,
+    playerVoicePlay: null,
+    playerVoiceDelete: null,
     quizLevelsInput: null,
     updateLevelsBtn: null,
     quizProgressScroll: null,
@@ -61,6 +64,10 @@ export const appState = {
     deleteScriptModal: null,
     deleteScriptNo: null,
     deleteScriptYes: null,
+    saveScriptModalClose: null,
+    saveDiscardModal: null,
+    saveDiscardNo: null,
+    saveDiscardYes: null,
     inQuizType: null,
     inSpecificTitleToggle: null,
     inSpecificTitleText: null,
@@ -121,6 +128,10 @@ export const appState = {
   swapAvailablePlayers: [],
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
+  /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
+  refreshLandingUi: null,
+  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
+  landingSpecialBadgeRevealTimeoutId: null,
   /** Shorts-only: show career club circles without a player (tune css/modes/shorts-career-club-count-map.css). */
   careerShortsCirclePreview: { enabled: false, count: 5 },
   videoInterval: null,

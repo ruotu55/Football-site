@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BU1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,81 @@
       "age": 29,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Loko Mezdra",
+          "year": "2016"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2016"
+        },
+        {
+          "club": "Nesebar",
+          "year": "2016"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2017"
+        },
+        {
+          "club": "Botev Vratsa",
+          "year": "2017"
+        },
+        {
+          "club": "Botev Vratsa",
+          "year": "2018"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2018"
+        },
+        {
+          "club": "Vitosha",
+          "year": "2020"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Botev Vratsa",
+          "year": "2021"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 130,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yanko Georgiev",
@@ -33,7 +106,83 @@
       "club": "Septemvri Sofia",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pomorie",
+          "year": "2005"
+        },
+        {
+          "club": "Chern. Burgas",
+          "year": "2006"
+        },
+        {
+          "club": "PFC Naftex",
+          "year": "2008"
+        },
+        {
+          "club": "Pomorie",
+          "year": "2009"
+        },
+        {
+          "club": "Chern. Burgas",
+          "year": "2011"
+        },
+        {
+          "club": "Master Burgas",
+          "year": "2014"
+        },
+        {
+          "club": "Chern. Burgas",
+          "year": "2015"
+        },
+        {
+          "club": "Pomorie",
+          "year": "2015"
+        },
+        {
+          "club": "Neftochimic",
+          "year": "2016"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2017"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2019"
+        },
+        {
+          "club": "Tsarsko Selo",
+          "year": "2021"
+        },
+        {
+          "club": "Pirin",
+          "year": "2022"
+        },
+        {
+          "club": "Krumovgrad",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 351,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 426,
+        "clean_sheets": 114
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -45,7 +194,35 @@
       "club": "Septemvri Sofia",
       "appearances": 27,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Botev Vratsa",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2024"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentine Ozornwafor",
@@ -53,9 +230,69 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Septemvri Sofia",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enyimba Aba",
+          "year": "2019"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2019"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2019"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2020"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2021"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2022"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2022"
+        },
+        {
+          "club": "FC Sochaux",
+          "year": "2022"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominik Ivkic",
@@ -63,9 +300,85 @@
       "age": 28,
       "nationality": "Slovenia",
       "club": "Septemvri Sofia",
-      "appearances": 11,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Domzale",
+          "year": "2016"
+        },
+        {
+          "club": "Zarica Kranj",
+          "year": "2017"
+        },
+        {
+          "club": "NK Domzale",
+          "year": "2017"
+        },
+        {
+          "club": "NK Radomlje",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "NK Domzale",
+          "year": "2018"
+        },
+        {
+          "club": "Brinje",
+          "year": "2018"
+        },
+        {
+          "club": "NK Fuzinar",
+          "year": "2018"
+        },
+        {
+          "club": "Kalev",
+          "year": "2020"
+        },
+        {
+          "club": "Hrv Dragovoljac",
+          "year": "2021"
+        },
+        {
+          "club": "NK Sesvete",
+          "year": "2022"
+        },
+        {
+          "club": "ND Ilirija",
+          "year": "2022"
+        },
+        {
+          "club": "KF Fushë Kosova",
+          "year": "2023"
+        },
+        {
+          "club": "FC Koper",
+          "year": "2024"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 14,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebas Wade",
@@ -73,9 +386,33 @@
       "age": 22,
       "nationality": "England",
       "club": "Septemvri Sofia",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shabab Al-Ahli",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simeon Vasilev",
@@ -83,9 +420,37 @@
       "age": 20,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSKA 1948",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Georgi Varbanov",
@@ -93,19 +458,95 @@
       "age": 25,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yantra",
+          "year": "2020"
+        },
+        {
+          "club": "Pirin",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo Stamatov",
       "position": "Left-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2019"
+        },
+        {
+          "club": "UA Horta",
+          "year": "2019"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2020"
+        },
+        {
+          "club": "Orenburg",
+          "year": "2021"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 0,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Schouten",
@@ -115,7 +556,51 @@
       "club": "Septemvri Sofia",
       "appearances": 19,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "FC Volendam",
+          "year": "2018"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2019"
+        },
+        {
+          "club": "SönderjyskE",
+          "year": "2021"
+        },
+        {
+          "club": "De Graafschap",
+          "year": "2022"
+        },
+        {
+          "club": "Sönderjyske",
+          "year": "2023"
+        },
+        {
+          "club": "FC Emmen",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 275,
+        "goals": 15,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bozhidar Tomovski",
@@ -123,9 +608,41 @@
       "age": 21,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Minyor Pernik",
+          "year": "2022"
+        },
+        {
+          "club": "Yantra",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +652,29 @@
       "age": 19,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Septemvri Sofia",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valon Hamdiu",
@@ -145,9 +682,69 @@
       "age": 27,
       "nationality": "TM nationality id 244",
       "club": "Septemvri Sofia",
-      "appearances": 22,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Wil 1900",
+          "year": "2017"
+        },
+        {
+          "club": "FC Wil 1900",
+          "year": "2018"
+        },
+        {
+          "club": "FC Winterthur",
+          "year": "2019"
+        },
+        {
+          "club": "FC Schaffhausen",
+          "year": "2020"
+        },
+        {
+          "club": "StadeLO",
+          "year": "2023"
+        },
+        {
+          "club": "AC Bellinzona",
+          "year": "2024"
+        },
+        {
+          "club": "FC Schaffhausen",
+          "year": "2025"
+        },
+        {
+          "club": "AC Bellinzona",
+          "year": "2025"
+        },
+        {
+          "club": "Unirea Slobozia",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 266,
+        "goals": 14,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yoan Baurenski",
@@ -157,7 +754,55 @@
       "club": "Septemvri Sofia",
       "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CSKA-Sofia",
+          "year": "2020"
+        },
+        {
+          "club": "Litex Lovech",
+          "year": "2020"
+        },
+        {
+          "club": "CSKA-Sofia",
+          "year": "2021"
+        },
+        {
+          "club": "Botev Vratsa",
+          "year": "2021"
+        },
+        {
+          "club": "CSKA-Sofia",
+          "year": "2022"
+        },
+        {
+          "club": "Beroe",
+          "year": "2023"
+        },
+        {
+          "club": "Spartak Varna",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Krasian Kolev",
@@ -165,9 +810,49 @@
       "age": 22,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Septemvri Sofia",
+          "year": "2021"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2023"
+        },
+        {
+          "club": "Hebar P.",
+          "year": "2024"
+        },
+        {
+          "club": "Botev Plovdiv",
+          "year": "2024"
+        },
+        {
+          "club": "Dob. Dobrich",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 12,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ayoub Abou",
@@ -175,9 +860,77 @@
       "age": 27,
       "nationality": "Morocco",
       "club": "Septemvri Sofia",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "R. Majadahonda",
+          "year": "2017"
+        },
+        {
+          "club": "Getafe",
+          "year": "2018"
+        },
+        {
+          "club": "RM Castilla",
+          "year": "2018"
+        },
+        {
+          "club": "R. Majadahonda",
+          "year": "2020"
+        },
+        {
+          "club": "RM Castilla",
+          "year": "2021"
+        },
+        {
+          "club": "SPAL",
+          "year": "2021"
+        },
+        {
+          "club": "Tsarsko Selo",
+          "year": "2022"
+        },
+        {
+          "club": "SPAL",
+          "year": "2022"
+        },
+        {
+          "club": "Pirin",
+          "year": "2023"
+        },
+        {
+          "club": "FC Urartu",
+          "year": "2024"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2025"
+        },
+        {
+          "club": "Feirense",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stoyan Stoichkov",
@@ -185,9 +938,41 @@
       "age": 22,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 0
+      "appearances": 19,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DIT Sofia",
+          "year": "2017"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2021"
+        },
+        {
+          "club": "Hebar P.",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Preslav Georgiev",
@@ -195,9 +980,37 @@
       "age": 20,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Septemvri Sofia",
+          "year": "2024"
+        },
+        {
+          "club": "Spartak Pleven",
+          "year": "2024"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +1020,61 @@
       "age": 26,
       "nationality": "Madagascar",
       "club": "Septemvri Sofia",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Las Rozas CF",
+          "year": "2020"
+        },
+        {
+          "club": "UP Langreo",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "GFA Rumilly Val",
+          "year": "2022"
+        },
+        {
+          "club": "CS Chênois",
+          "year": "2023"
+        },
+        {
+          "club": "La Louvière",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Lokeren-Temse",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 27,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faiz Mattoir",
@@ -217,9 +1082,45 @@
       "age": 25,
       "nationality": "Comoros",
       "club": "Septemvri Sofia",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AC Ajaccio",
+          "year": "2020"
+        },
+        {
+          "club": "SO Cholet",
+          "year": "2021"
+        },
+        {
+          "club": "AC Ajaccio",
+          "year": "2022"
+        },
+        {
+          "club": "Almere City",
+          "year": "2022"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandar Dzhamov",
@@ -227,9 +1128,29 @@
       "age": 18,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frantzety Herard",
@@ -237,9 +1158,57 @@
       "age": 24,
       "nationality": "Haiti",
       "club": "Septemvri Sofia",
-      "appearances": 24,
-      "goals": 10,
-      "assists": 6
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Cristóbal",
+          "year": "2022"
+        },
+        {
+          "club": "Cibao FC",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Pantoja",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Pantoja",
+          "year": "2023"
+        },
+        {
+          "club": "Atl. Vega Real",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Pantoja",
+          "year": "2024"
+        },
+        {
+          "club": "Universidad O&M",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 34,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefan Stojanovic",
@@ -247,9 +1216,57 @@
       "age": 24,
       "nationality": "Serbia",
       "club": "Septemvri Sofia",
-      "appearances": 24,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zvezdara",
+          "year": "2020"
+        },
+        {
+          "club": "Rad",
+          "year": "2021"
+        },
+        {
+          "club": "IMT Belgrad",
+          "year": "2023"
+        },
+        {
+          "club": "FK Stepojevac",
+          "year": "2023"
+        },
+        {
+          "club": "Tekstilac",
+          "year": "2023"
+        },
+        {
+          "club": "Spartak",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        },
+        {
+          "club": "Spartak",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 111,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Galin Ivanov",
@@ -257,9 +1274,89 @@
       "age": 37,
       "nationality": "Bulgaria",
       "club": "Septemvri Sofia",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 4
+      "appearances": 24,
+      "goals": 0,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Beroe",
+          "year": "2006"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2008"
+        },
+        {
+          "club": "Arm. Bielefeld",
+          "year": "2011"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2011"
+        },
+        {
+          "club": "Litex Lovech",
+          "year": "2012"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2012"
+        },
+        {
+          "club": "Khazar Lankaran",
+          "year": "2014"
+        },
+        {
+          "club": "Samsunspor",
+          "year": "2015"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2016"
+        },
+        {
+          "club": "Neftochimic",
+          "year": "2017"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2017"
+        },
+        {
+          "club": "Haladás",
+          "year": "2019"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2019"
+        },
+        {
+          "club": "CSKA 1948",
+          "year": "2020"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2022"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 529,
+        "goals": 105,
+        "assists": 84,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bertrand Fourrier",
@@ -267,9 +1364,57 @@
       "age": 28,
       "nationality": "France",
       "club": "Septemvri Sofia",
-      "appearances": 27,
-      "goals": 12,
-      "assists": 0
+      "appearances": 26,
+      "goals": 11,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Carapinheirense",
+          "year": "2016"
+        },
+        {
+          "club": "FC Martigues",
+          "year": "2017"
+        },
+        {
+          "club": "Aubagne FC",
+          "year": "2020"
+        },
+        {
+          "club": "Le Puy Foot",
+          "year": "2021"
+        },
+        {
+          "club": "Moulins-Yzeure",
+          "year": "2022"
+        },
+        {
+          "club": "SC Toulon",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 40,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edney Ribeiro",
@@ -277,9 +1422,57 @@
       "age": 25,
       "nationality": "Portugal",
       "club": "Septemvri Sofia",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 1
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CAC U15",
+          "year": "2015"
+        },
+        {
+          "club": "Alverca",
+          "year": "2019"
+        },
+        {
+          "club": "Vimioso",
+          "year": "2020"
+        },
+        {
+          "club": "AC Malveira",
+          "year": "2021"
+        },
+        {
+          "club": "Interoeste",
+          "year": "2023"
+        },
+        {
+          "club": "Sintrense",
+          "year": "2024"
+        },
+        {
+          "club": "Amora FC",
+          "year": "2025"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

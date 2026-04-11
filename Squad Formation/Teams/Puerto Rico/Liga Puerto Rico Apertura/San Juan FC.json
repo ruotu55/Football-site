@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "PRC1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 27,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2024"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 76,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gian Rivera",
@@ -31,9 +56,29 @@
       "age": 18,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 21,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Cernuda",
@@ -41,9 +86,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kennieth Ojeda",
@@ -51,9 +111,33 @@
       "age": 19,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 22,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángel Álvarez",
@@ -61,22 +145,32 @@
       "age": 21,
       "nationality": "Colombia",
       "club": "San Juan FC",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
-    {
-      "name": "Augusto Rivas",
-      "position": "Centre-Back",
-      "age": 16,
-      "nationality": "Puerto Rico",
-      "club": "San Juan FC",
-      "appearances": 15,
-      "goals": 0,
-      "assists": 1
-    },
     {
       "name": "Tomas Cuiña",
       "position": "Centre-Back",
@@ -85,7 +179,27 @@
       "club": "San Juan FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damean Domínguez",
@@ -93,9 +207,45 @@
       "age": 23,
       "nationality": "United States",
       "club": "San Juan FC",
-      "appearances": 4,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "F. Atlantic Owl",
+          "year": "2021"
+        },
+        {
+          "club": "GSW Hurricanes",
+          "year": "2022"
+        },
+        {
+          "club": "Lionsbridge",
+          "year": "2025"
+        },
+        {
+          "club": "GSW Hurricanes",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ignacio Chévere",
@@ -103,9 +253,24 @@
       "age": 17,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 13,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Vázquez",
@@ -113,9 +278,24 @@
       "age": 18,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 20,
-      "goals": 0,
-      "assists": 0
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrés Bartolomei",
@@ -123,19 +303,37 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Edwin Andújar",
-      "position": "Left-Back",
-      "age": 26,
-      "nationality": "Puerto Rico",
-      "club": "San Juan FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mauricio Ramos",
@@ -143,19 +341,63 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Rene Díaz",
-      "position": "Right-Back",
-      "age": 27,
+      "name": "Edwin Andújar",
+      "position": "Left-Back",
+      "age": 26,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 12,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caguas SFC",
+          "year": "2024"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Pérez",
@@ -163,9 +405,24 @@
       "age": 18,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 24,
-      "goals": 1,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manuel Arrieta",
@@ -173,19 +430,24 @@
       "age": 28,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Víctor Alejandro",
-      "position": "",
-      "age": 18,
-      "nationality": "Puerto Rico",
-      "club": "San Juan FC",
-      "appearances": 8,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Cabello",
@@ -193,9 +455,24 @@
       "age": 29,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gianluca Miraldi",
@@ -203,9 +480,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Burgos",
@@ -215,7 +507,27 @@
       "club": "San Juan FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeshuan Collazo",
@@ -223,9 +535,29 @@
       "age": 21,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Rodríguez",
@@ -235,7 +567,31 @@
       "club": "San Juan FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "X. Musketeers",
+          "year": "2017"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -247,7 +603,27 @@
       "club": "San Juan FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enrique Torres",
@@ -255,9 +631,49 @@
       "age": 24,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 21,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitan FA",
+          "year": "2023"
+        },
+        {
+          "club": "Bayamón FC",
+          "year": "2024"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Caguas SFC",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Steven Vélez",
@@ -265,9 +681,37 @@
       "age": 28,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Acad. Quintana",
+          "year": "2025"
+        },
+        {
+          "club": "FC Mayagüez",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eliseo Gómez",
@@ -275,19 +719,24 @@
       "age": 20,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 14,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Diego Rodríguez",
-      "position": "Central Midfield",
-      "age": 24,
-      "nationality": "Puerto Rico",
-      "club": "San Juan FC",
-      "appearances": 13,
-      "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Prado",
@@ -297,7 +746,60 @@
       "club": "San Juan FC",
       "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Diego Rodríguez",
+      "position": "Central Midfield",
+      "age": 24,
+      "nationality": "Puerto Rico",
+      "club": "San Juan FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HV Hammers",
+          "year": "2025"
+        },
+        {
+          "club": "Bryant Bulldogs",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Procchio",
@@ -305,9 +807,29 @@
       "age": 28,
       "nationality": "Bolivia",
       "club": "San Juan FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maximiliano Del Castillo",
@@ -315,9 +837,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ignacio Otero",
@@ -325,9 +862,24 @@
       "age": 17,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 15,
-      "goals": 8,
-      "assists": 2
+      "appearances": 8,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Arce",
@@ -335,9 +887,41 @@
       "age": 25,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bayamón FC",
+          "year": "2024"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Otero",
@@ -345,9 +929,29 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luisfe",
@@ -355,9 +959,24 @@
       "age": 17,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rigoberto Najera",
@@ -365,9 +984,29 @@
       "age": 29,
       "nationality": "Mexico",
       "club": "San Juan FC",
-      "appearances": 7,
-      "goals": 6,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quanah Brayboy",
@@ -375,9 +1014,33 @@
       "age": null,
       "nationality": "United States",
       "club": "San Juan FC",
-      "appearances": 6,
-      "goals": 3,
-      "assists": 0
+      "appearances": 8,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcelo Rodríguez",
@@ -385,9 +1048,33 @@
       "age": 29,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicholas Martinez",
@@ -395,29 +1082,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Dyllan Arias",
-      "position": "",
-      "age": null,
-      "nationality": "Puerto Rico",
-      "club": "San Juan FC",
-      "appearances": 18,
-      "goals": 6,
-      "assists": 0
-    },
-    {
-      "name": "Gilberto Ramírez",
-      "position": "",
-      "age": null,
-      "nationality": "Puerto Rico",
-      "club": "San Juan FC",
-      "appearances": 14,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrés Acevedo",
@@ -425,9 +1107,74 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Gilberto Ramírez",
+      "position": "",
+      "age": null,
+      "nationality": "Puerto Rico",
+      "club": "San Juan FC",
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Dyllan Arias",
+      "position": "",
+      "age": null,
+      "nationality": "Puerto Rico",
+      "club": "San Juan FC",
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -437,9 +1184,45 @@
       "age": 22,
       "nationality": "Botswana",
       "club": "San Juan FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "LCU Chaparrals",
+          "year": "2023"
+        },
+        {
+          "club": "Lubbock",
+          "year": "2024"
+        },
+        {
+          "club": "LCU Chaparrals",
+          "year": "2024"
+        },
+        {
+          "club": "Mercyhurst",
+          "year": "2025"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javier Hopgood",
@@ -448,18 +1231,23 @@
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
       "appearances": 10,
-      "goals": 8,
-      "assists": 1
-    },
-    {
-      "name": "Nicolas Ballester",
-      "position": "Right Winger",
-      "age": 27,
-      "nationality": "Puerto Rico",
-      "club": "San Juan FC",
-      "appearances": 5,
-      "goals": 0,
-      "assists": 0
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 22,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miguel Eliza",
@@ -467,9 +1255,24 @@
       "age": null,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adrián Quintero",
@@ -477,9 +1280,41 @@
       "age": 23,
       "nationality": "United States",
       "club": "San Juan FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Little Rock",
+          "year": "2021"
+        },
+        {
+          "club": "Miami AC",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Espinal",
@@ -487,9 +1322,29 @@
       "age": 22,
       "nationality": "Puerto Rico",
       "club": "San Juan FC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "San Juan FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

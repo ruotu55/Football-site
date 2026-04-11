@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "UZ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,39 @@
       "club": "FC Qizilqum",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Turon",
+          "year": "2023"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2024"
+        },
+        {
+          "club": "OKMK Olmaliq",
+          "year": "2025"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 19,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Farkhod Rakhmatov",
@@ -33,7 +66,31 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo",
+          "year": "2020"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 70,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -45,7 +102,31 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mash'al",
+          "year": "2020"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Kumburovic",
@@ -55,7 +136,43 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Iskra",
+          "year": "2018"
+        },
+        {
+          "club": "FK Iskra",
+          "year": "2019"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2023"
+        },
+        {
+          "club": "Chernomorets N.",
+          "year": "2023"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Doston Tursunov",
@@ -65,7 +182,27 @@
       "club": "FC Qizilqum",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilkhomzhon Vakhobov",
@@ -75,7 +212,31 @@
       "club": "FC Qizilqum",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kokand 1912",
+          "year": "2021"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Grigol Chabradze",
@@ -83,9 +244,53 @@
       "age": 29,
       "nationality": "Georgia",
       "club": "FC Qizilqum",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2013"
+        },
+        {
+          "club": "FC Telavi",
+          "year": "2020"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2021"
+        },
+        {
+          "club": "Zob Ahan",
+          "year": "2024"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2025"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 270,
+        "goals": 4,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giyosdzhon Rizakulov",
@@ -95,17 +300,73 @@
       "club": "FC Qizilqum",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpik-Mobiuz",
+          "year": "2024"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        },
+        {
+          "club": "Olimpik-Mobiuz",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Farrukh Juraev",
       "position": "Right-Back",
-      "age": 27,
+      "age": 28,
       "nationality": "Uzbekistan",
       "club": "FC Qizilqum",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pakhtakor-Farm",
+          "year": "2020"
+        },
+        {
+          "club": "Gijduvon",
+          "year": "2021"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -117,7 +378,79 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pakhtakor-Farm",
+          "year": "2011"
+        },
+        {
+          "club": "Pakhtakor",
+          "year": "2014"
+        },
+        {
+          "club": "Manisaspor",
+          "year": "2015"
+        },
+        {
+          "club": "Sökespor",
+          "year": "2015"
+        },
+        {
+          "club": "Corlu 1947",
+          "year": "2016"
+        },
+        {
+          "club": "Gebzespor",
+          "year": "2017"
+        },
+        {
+          "club": "Icelspor",
+          "year": "2018"
+        },
+        {
+          "club": "FC Andijon",
+          "year": "2019"
+        },
+        {
+          "club": "Surkhon",
+          "year": "2019"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2021"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2022"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2024"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2025"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 20,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shakhzod Turopov",
@@ -127,7 +460,31 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aral Nukus",
+          "year": "2023"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shakhzod Rakhmatullaev",
@@ -137,17 +494,97 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FC Olympic",
+          "year": "2022"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2023"
+        },
+        {
+          "club": "Pakhtakor",
+          "year": "2024"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2024"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alisher Shukurov",
       "position": "Central Midfield",
-      "age": 23,
+      "age": 24,
       "nationality": "Tajikistan",
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kuktosh",
+          "year": "2021"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        },
+        {
+          "club": "Vakhsh",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Tyumen",
+          "year": "2025"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2025"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diyor Rakhmatilloev",
@@ -157,17 +594,72 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukhammadaziz Ibrakhimov",
       "position": "Central Midfield",
-      "age": 24,
+      "age": 25,
       "nationality": "Uzbekistan",
       "club": "FC Qizilqum",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Olympic",
+          "year": "2021"
+        },
+        {
+          "club": "Metallurg Bk.",
+          "year": "2023"
+        },
+        {
+          "club": "FC Olympic",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo",
+          "year": "2025"
+        },
+        {
+          "club": "Shurtan",
+          "year": "2025"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 3,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akmal Muzaffarov",
@@ -177,7 +669,27 @@
       "club": "FC Qizilqum",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilkhomzhon Kenzhaev",
@@ -187,7 +699,31 @@
       "club": "FC Qizilqum",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Career break",
+          "year": "2023"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Murodali Usmonov",
@@ -197,7 +733,31 @@
       "club": "FC Qizilqum",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olimpik-Mobiuz",
+          "year": "2024"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sulton Rakhmatov",
@@ -207,7 +767,22 @@
       "club": "Qizilqum Navai",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaba Jigauri",
@@ -217,7 +792,71 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2011"
+        },
+        {
+          "club": "Chikhura",
+          "year": "2013"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2014"
+        },
+        {
+          "club": "Chikhura",
+          "year": "2014"
+        },
+        {
+          "club": "Vardar",
+          "year": "2017"
+        },
+        {
+          "club": "Aktobe",
+          "year": "2018"
+        },
+        {
+          "club": "Ordabasy",
+          "year": "2018"
+        },
+        {
+          "club": "Grenoble",
+          "year": "2018"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2019"
+        },
+        {
+          "club": "Kaspiy Aktau",
+          "year": "2023"
+        },
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2023"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 432,
+        "goals": 99,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -229,7 +868,35 @@
       "club": "FC Qizilqum",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Buxoro",
+          "year": "2020"
+        },
+        {
+          "club": "FK Turon",
+          "year": "2023"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 149,
+        "goals": 10,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Islom Kenjaboev",
@@ -239,7 +906,55 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2017"
+        },
+        {
+          "club": "Jeju United",
+          "year": "2021"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2021"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2022"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2022"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2023"
+        },
+        {
+          "club": "Nasaf Qarshi",
+          "year": "2024"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 31,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bobomurod Bozorov",
@@ -249,7 +964,27 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Qizilqum",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shokhruz Norkhonov",
@@ -259,7 +994,51 @@
       "club": "FC Qizilqum",
       "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bunyodkor",
+          "year": "2017"
+        },
+        {
+          "club": "Sogdiana",
+          "year": "2018"
+        },
+        {
+          "club": "Navbahor",
+          "year": "2023"
+        },
+        {
+          "club": "FC Buxoro",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2024"
+        },
+        {
+          "club": "FC Buxoro",
+          "year": "2025"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 91,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oleksiy Shchebetun",
@@ -267,9 +1046,65 @@
       "age": 28,
       "nationality": "Ukraine",
       "club": "FC Qizilqum",
-      "appearances": 23,
-      "goals": 5,
-      "assists": 3
+      "appearances": 4,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Stal Kamyanske",
+          "year": "2017"
+        },
+        {
+          "club": "Luch",
+          "year": "2018"
+        },
+        {
+          "club": "MFC Metalurg",
+          "year": "2018"
+        },
+        {
+          "club": "Avangard K.",
+          "year": "2019"
+        },
+        {
+          "club": "MFC Metalurg",
+          "year": "2019"
+        },
+        {
+          "club": "Obolon",
+          "year": "2020"
+        },
+        {
+          "club": "FA Siauliai",
+          "year": "2022"
+        },
+        {
+          "club": "Qyzyljar",
+          "year": "2024"
+        },
+        {
+          "club": "Zimbru Chisinau",
+          "year": "2025"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 220,
+        "goals": 45,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

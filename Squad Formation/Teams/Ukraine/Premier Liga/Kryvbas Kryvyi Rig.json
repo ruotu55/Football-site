@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "UKR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 23,
       "nationality": "Ukraine",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 17,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Minaj",
+          "year": "2021"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 72,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Volodymyr Makhankov",
@@ -33,17 +66,77 @@
       "club": "Kryvbas Kryvyi Rig",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Karpaty Lviv",
+          "year": "2020"
+        },
+        {
+          "club": "Polissya",
+          "year": "2020"
+        },
+        {
+          "club": "Kolos Kovalivka",
+          "year": "2021"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 67,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bogdan Khoma",
       "position": "Goalkeeper",
-      "age": 22,
+      "age": 23,
       "nationality": "Ukraine",
       "club": "Kryvbas Kryvyi Rig",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Nikopol",
+          "year": "2021"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +146,33 @@
       "age": 21,
       "nationality": "Ukraine",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ingulets",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Jones",
@@ -63,9 +180,33 @@
       "age": 20,
       "nationality": "Panama",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Plaza Amador",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Rojas",
@@ -73,9 +214,45 @@
       "age": 22,
       "nationality": "Venezuela",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. La Guaira",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. La Guaira",
+          "year": "2023"
+        },
+        {
+          "club": "Dep. La Guaira",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        },
+        {
+          "club": "Dep. La Guaira",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yvan Dibango",
@@ -83,9 +260,45 @@
       "age": 24,
       "nationality": "Cameroon",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Isloch",
+          "year": "2021"
+        },
+        {
+          "club": "FCI Levadia",
+          "year": "2022"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2022"
+        },
+        {
+          "club": "FCI Levadia",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 6,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ante Bekavac",
@@ -95,7 +308,47 @@
       "club": "Kryvbas Kryvyi Rig",
       "appearances": 12,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Hajduk Split",
+          "year": "2021"
+        },
+        {
+          "club": "NK Dugopolje",
+          "year": "2021"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2022"
+        },
+        {
+          "club": "Croat. Zmijavci",
+          "year": "2022"
+        },
+        {
+          "club": "HSK Posusje",
+          "year": "2023"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 4,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thiago Borges",
@@ -103,9 +356,29 @@
       "age": 21,
       "nationality": "Brazil",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jan Jurcec",
@@ -113,9 +386,45 @@
       "age": 25,
       "nationality": "Croatia",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 0,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Kustosija Jgd",
+          "year": "2014"
+        },
+        {
+          "club": "NK Kustosija",
+          "year": "2019"
+        },
+        {
+          "club": "SCR Altach",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 14,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +434,33 @@
       "age": 22,
       "nationality": "Venezuela",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Rayo Zuliano",
+          "year": "2023"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yaroslav Shevchenko",
@@ -135,9 +468,37 @@
       "age": 19,
       "nationality": "Ukraine",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 19,
-      "goals": 0,
-      "assists": 0
+      "appearances": 17,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oleksandr Kamenskyi",
@@ -145,9 +506,29 @@
       "age": 18,
       "nationality": "Ukraine",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 16,
+      "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maksym Zaderaka",
@@ -155,9 +536,45 @@
       "age": 31,
       "nationality": "Ukraine",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 6,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Stal Kamyanske",
+          "year": "2016"
+        },
+        {
+          "club": "FC Oleksandriya",
+          "year": "2018"
+        },
+        {
+          "club": "Ararat Yerevan",
+          "year": "2021"
+        },
+        {
+          "club": "Metalist 1925",
+          "year": "2021"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 26,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giovany Herbert",
@@ -165,9 +582,41 @@
       "age": 21,
       "nationality": "Panama",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Árabe Unido",
+          "year": "2024"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2025"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2026"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhoel Maya",
@@ -175,9 +624,37 @@
       "age": 20,
       "nationality": "Ecuador",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD El Nacional",
+          "year": "2025"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -187,9 +664,49 @@
       "age": 24,
       "nationality": "Venezuela",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 6,
-      "assists": 9
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Angostura FC",
+          "year": "2023"
+        },
+        {
+          "club": "Táchira",
+          "year": "2024"
+        },
+        {
+          "club": "Angostura FC",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        },
+        {
+          "club": "Angostura FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 12,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sami Adam",
@@ -197,9 +714,41 @@
       "age": 21,
       "nationality": "Israel",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 16,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2024"
+        },
+        {
+          "club": "Maccabi Jaffa",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2026"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bar Lin",
@@ -207,9 +756,53 @@
       "age": 21,
       "nationality": "Israel",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 18,
-      "goals": 4,
-      "assists": 0
+      "appearances": 17,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "M. Tel Aviv",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2023"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2024"
+        },
+        {
+          "club": "Hapoel Haifa",
+          "year": "2024"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2025"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        },
+        {
+          "club": "M. Tel Aviv",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Assane Seck",
@@ -219,7 +812,51 @@
       "club": "Kryvbas Kryvyi Rig",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pisa",
+          "year": "2022"
+        },
+        {
+          "club": "Pisa",
+          "year": "2023"
+        },
+        {
+          "club": "Fiorenzuola",
+          "year": "2023"
+        },
+        {
+          "club": "Pisa",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "FC KTP",
+          "year": "2025"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 23,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Paraco",
@@ -227,19 +864,37 @@
       "age": 22,
       "nationality": "Venezuela",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 21,
-      "goals": 5,
-      "assists": 2
-    },
-    {
-      "name": "Volodymyr Mulyk",
-      "position": "Centre-Forward",
-      "age": 20,
-      "nationality": "Ukraine",
-      "club": "Kryvbas Kryvyi Rig",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 1
+      "appearances": 20,
+      "goals": 6,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Táchira",
+          "year": "2022"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 21,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matviy Bodnar",
@@ -247,9 +902,54 @@
       "age": 18,
       "nationality": "Ukraine",
       "club": "Kryvbas Kryvyi Rig",
-      "appearances": 20,
-      "goals": 5,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Volodymyr Mulyk",
+      "position": "Centre-Forward",
+      "age": 20,
+      "nationality": "Ukraine",
+      "club": "Kryvbas Kryvyi Rig",
+      "appearances": 7,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kryvbas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

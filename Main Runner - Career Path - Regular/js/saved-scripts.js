@@ -6,6 +6,7 @@ import {
 } from "./state.js";
 import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
+import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_career_regular_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_career_regular_fcbnew";
@@ -14,6 +15,54 @@ const LEGACY_SCRIPTS = "footballQuizScripts";
 const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
 const FIXED_SHORTS_MODE = false;
+
+const SPECIFIC_TITLE_ICON_PATH_MAP = {
+    "icons/specific-title/premier-league.png": "icons/specific-title/Premier League.png",
+    "icons/specific-title/la-liga.png": "icons/specific-title/La Liga.png",
+    "icons/specific-title/serie-a.png": "icons/specific-title/Seria A.png",
+    "icons/specific-title/bundesliga.png": "icons/specific-title/Bundesliga.png",
+    "icons/specific-title/ligue-1.png": "icons/specific-title/Ligue 1.png",
+    "icons/specific-title/fifa-world-cup.png": "icons/specific-title/World Cup 2026.png",
+    "icons/specific-title/uefa-champions-league.png": "icons/specific-title/Champions League.png",
+    "icons/specific-title/uefa-europa-league.png": "icons/specific-title/Europa League.png",
+    "icons/specific-title/uefa-conference-league.png": "icons/specific-title/Conference League.png",
+};
+
+function normalizeSpecificTitleIconPath(iconPath) {
+    return SPECIFIC_TITLE_ICON_PATH_MAP[iconPath] || iconPath || "";
+}
+
+const SAVE_SERVER = createSavedScriptsServerSync("career_regular", {
+    KEY_SCRIPTS,
+    KEY_FOLDERS,
+    KEY_FOLDER_STATES,
+});
+
+function persistSaved() {
+    SAVE_SERVER.flushLocalAndServer(savedScripts, savedFolders, folderStates);
+}
+
+function jsonSafeClone(value) {
+    if (value == null) return value;
+    try {
+        return JSON.parse(JSON.stringify(value));
+    } catch {
+        return null;
+    }
+}
+
+function cloneCareerPlayerForStorage(p) {
+    if (!p || typeof p !== "object") return null;
+    const raw = jsonSafeClone(p);
+    if (raw && typeof raw === "object") delete raw._clubItem;
+    return raw;
+}
+
+function cloneCareerHistoryForStorage(h) {
+    if (!Array.isArray(h)) return [];
+    const raw = jsonSafeClone(h);
+    return Array.isArray(raw) ? raw : [];
+}
 
 function scriptHasCareer(s) {
     if ((s.landing?.gameMode || "lineup") === "career") return true;
@@ -49,6 +98,76 @@ export function initSavedScripts(callbacks) {
     uiCallbacks = callbacks || {};
     const { els } = appState;
 
+    let pendingSaveDiscardAction = null;
+
+    function hideSaveDiscardModal() {
+        pendingSaveDiscardAction = null;
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = true;
+    }
+
+    function hideSaveScriptModal() {
+        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
+        if (els.saveScriptName) els.saveScriptName.value = "";
+    }
+
+    function requestCloseSaveScriptModal() {
+        const raw = els.saveScriptName?.value?.trim() || "";
+        if (!raw) {
+            hideSaveScriptModal();
+            return;
+        }
+        pendingSaveDiscardAction = () => hideSaveScriptModal();
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = false;
+    }
+
+    function requestCloseSaveRightPanel(nameInput) {
+        if (!els.rightPanel) return;
+        const raw = nameInput?.value?.trim() || "";
+        if (!raw) {
+            els.rightPanel.hidden = true;
+            return;
+        }
+        pendingSaveDiscardAction = () => {
+            els.rightPanel.hidden = true;
+        };
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = false;
+    }
+
+    if (els.saveDiscardNo) {
+        els.saveDiscardNo.onclick = () => hideSaveDiscardModal();
+    }
+    if (els.saveDiscardYes) {
+        els.saveDiscardYes.onclick = () => {
+            if (pendingSaveDiscardAction) pendingSaveDiscardAction();
+            hideSaveDiscardModal();
+        };
+    }
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+            if (e.key !== "Escape") return;
+            if (els.saveDiscardModal && !els.saveDiscardModal.hidden) {
+                e.preventDefault();
+                hideSaveDiscardModal();
+                return;
+            }
+            if (els.saveScriptModal && !els.saveScriptModal.hidden) {
+                e.preventDefault();
+                requestCloseSaveScriptModal();
+                return;
+            }
+            if (els.rightPanel && !els.rightPanel.hidden) {
+                const nameInput = document.getElementById("save-settings-panel-name");
+                if (nameInput) {
+                    e.preventDefault();
+                    requestCloseSaveRightPanel(nameInput);
+                }
+            }
+        },
+        true,
+    );
+
     els.btnCreateFolder.onclick = () => {
         els.createFolderName.value = "";
         els.createFolderModal.hidden = false;
@@ -64,41 +183,30 @@ export function initSavedScripts(callbacks) {
         if (!name) return;
         if (!savedFolders.includes(name)) {
             savedFolders.push(name);
-            localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
+            persistSaved();
         }
         els.createFolderModal.hidden = true;
         renderSavedScripts();
     };
 
-    els.btnSaveScript.onclick = () => {
-        els.saveScriptName.value = "";
-        els.saveScriptModal.hidden = false;
-        els.saveScriptName.focus();
-    };
-
-    els.saveScriptCancel.onclick = () => {
-        els.saveScriptModal.hidden = true;
-    };
-
-    els.saveScriptConfirm.onclick = () => {
-        const name = els.saveScriptName.value.trim();
-        if (!name) return;
-        
-        const levelsToSave = appState.levelsData.map(lvl => ({
+    function buildLevelsSnapshot() {
+        return appState.levelsData.map((lvl) => ({
             isLogo: lvl.isLogo,
             isIntro: lvl.isIntro,
             isBonus: lvl.isBonus,
             isOutro: lvl.isOutro,
-            gameMode: lvl.gameMode || "career", 
+            gameMode: lvl.gameMode || "career",
             squadType: lvl.squadType,
-            selectedEntry: lvl.selectedEntry,
-            currentSquad: lvl.currentSquad,
+            selectedEntry: jsonSafeClone(lvl.selectedEntry),
+            currentSquad: jsonSafeClone(lvl.currentSquad),
+            careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
+            careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
             formationId: lvl.formationId,
             lastFormationId: lvl.lastFormationId,
             displayMode: lvl.displayMode,
             searchText: lvl.searchText,
-            customXi: lvl.customXi,
-            customNames: lvl.customNames,
+            customXi: jsonSafeClone(lvl.customXi),
+            customNames: jsonSafeClone(lvl.customNames) || {},
             videoMode: lvl.videoMode,
             landingPageType: lvl.landingPageType,
             careerClubsCount: lvl.careerClubsCount,
@@ -130,36 +238,90 @@ export function initSavedScripts(callbacks) {
             careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
                 ? [...lvl.careerSlotYearNudges]
                 : [],
-            slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries())
+            slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
         }));
+    }
 
+    function commitSavedScript(name) {
+        const levelsToSave = buildLevelsSnapshot();
         const newScript = {
             name,
-            folder: null, 
+            folder: null,
             landing: {
                 gameMode: "career",
                 quizType: els.inQuizType.value,
                 specificToggle: els.inSpecificTitleToggle.checked,
                 specificText: els.inSpecificTitleText.value,
                 specificIcon: els.inSpecificTitleIcon.value,
-                easy: els.inEasy.value,
-                medium: els.inMedium.value,
-                hard: els.inHard.value,
-                impossible: els.inImpossible.value
+                easy: els.inEasy?.value ?? "10",
+                medium: els.inMedium?.value ?? "5",
+                hard: els.inHard?.value ?? "3",
+                impossible: els.inImpossible?.value ?? "1",
             },
             lineup: {
                 videoMode: els.videoModeToggle.checked,
                 totalLevels: els.quizLevelsInput.value,
-                shortsMode: FIXED_SHORTS_MODE
+                shortsMode: FIXED_SHORTS_MODE,
             },
-            levels: levelsToSave
+            levels: levelsToSave,
         };
-
         savedScripts.push(newScript);
-        localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
-        activeScriptName = name; 
-        els.saveScriptModal.hidden = true;
+        persistSaved();
+        activeScriptName = name;
         renderSavedScripts();
+    }
+
+    function openSaveSettingsRightPanel() {
+        if (!els.rightPanel) return;
+        els.rightPanel.hidden = false;
+        els.rightPanel.innerHTML = `
+      <div class="panel-header">
+        <h1>Save Current Settings</h1>
+        <button type="button" class="panel-toggle" id="btn-close-save-right-panel">Hide</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+        <label class="field" style="margin: 0;">
+          <span class="label">Name</span>
+          <input type="text" id="save-settings-panel-name" placeholder="Enter name..." autocomplete="off"
+            style="width: 100%; padding: 0.6rem; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px; box-sizing: border-box;" />
+        </label>
+        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+          <button type="button" class="panel-toggle" id="save-settings-panel-cancel">Cancel</button>
+          <button type="button" class="panel-toggle" id="save-settings-panel-confirm" style="background: var(--accent); color: #000; font-weight: bold;">Save</button>
+        </div>
+      </div>
+    `;
+
+        const nameInput = document.getElementById("save-settings-panel-name");
+        document.getElementById("btn-close-save-right-panel").onclick = () => {
+            requestCloseSaveRightPanel(nameInput);
+        };
+        document.getElementById("save-settings-panel-cancel").onclick = () => {
+            requestCloseSaveRightPanel(nameInput);
+        };
+        document.getElementById("save-settings-panel-confirm").onclick = () => {
+            const name = nameInput.value.trim();
+            if (!name) return;
+            commitSavedScript(name);
+            els.rightPanel.hidden = true;
+        };
+        if (nameInput) nameInput.focus();
+    }
+
+    els.btnSaveScript.onclick = () => {
+        openSaveSettingsRightPanel();
+    };
+
+    els.saveScriptCancel.onclick = () => requestCloseSaveScriptModal();
+    if (els.saveScriptModalClose) {
+        els.saveScriptModalClose.onclick = () => requestCloseSaveScriptModal();
+    }
+
+    els.saveScriptConfirm.onclick = () => {
+        const name = els.saveScriptName.value.trim();
+        if (!name) return;
+        commitSavedScript(name);
+        hideSaveScriptModal();
     };
 
     els.deleteScriptNo.onclick = () => {
@@ -172,12 +334,34 @@ export function initSavedScripts(callbacks) {
             const deletedScript = savedScripts[scriptToDeleteIndex];
             if (deletedScript.name === activeScriptName) activeScriptName = null;
             savedScripts.splice(scriptToDeleteIndex, 1);
-            localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+            persistSaved();
             renderSavedScripts();
         }
         els.deleteScriptModal.hidden = true;
         scriptToDeleteIndex = -1;
     };
+
+    void SAVE_SERVER.startPull({
+        render: renderSavedScripts,
+        replaceAll(scripts, folders, states) {
+            savedScripts = scripts;
+            savedFolders = folders;
+            folderStates = states;
+            localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+            localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
+            localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+        },
+        hasLocalData() {
+            return (
+                savedScripts.length > 0 ||
+                savedFolders.length > 0 ||
+                Object.keys(folderStates).length > 0
+            );
+        },
+        getSnapshot() {
+            return { scripts: savedScripts, folders: savedFolders, folderStates };
+        },
+    });
 
     renderSavedScripts();
 }
@@ -220,7 +404,7 @@ export function renderSavedScripts() {
             if (e.target.tagName.toLowerCase() === 'button') return;
             folderDiv.classList.toggle("collapsed");
             folderStates[folderName] = folderDiv.classList.contains("collapsed");
-            localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+            persistSaved();
         };
 
         header.ondragover = (e) => {
@@ -236,11 +420,9 @@ export function renderSavedScripts() {
             const draggedIndex = e.dataTransfer.getData("text/plain");
             if (draggedIndex !== "" && savedScripts[draggedIndex]) {
                 savedScripts[draggedIndex].folder = folderName;
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
-                
                 folderDiv.classList.remove("collapsed");
                 folderStates[folderName] = false;
-                localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+                persistSaved();
                 
                 renderSavedScripts();
             }
@@ -259,10 +441,7 @@ export function renderSavedScripts() {
                 savedScripts.forEach(s => { if(s.folder === folderName) s.folder = null; });
                 
                 delete folderStates[folderName];
-                localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
-                
-                localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+                persistSaved();
                 renderSavedScripts();
             }
         };
@@ -337,7 +516,7 @@ export function renderSavedScripts() {
             btnMoveOut.style.fontSize = "0.8rem";
             btnMoveOut.onclick = () => {
                 script.folder = null;
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+                persistSaved();
                 renderSavedScripts();
             };
             actions.appendChild(btnMoveOut);
@@ -393,7 +572,7 @@ async function loadScript(script) {
     if (script.landing) {
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
         els.inSpecificTitleText.value = script.landing.specificText || "";
-        els.inSpecificTitleIcon.value = script.landing.specificIcon || "";
+        els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;
         els.inHard.value = script.landing.hard || 3;
@@ -468,6 +647,8 @@ async function loadScript(script) {
             ? [...lvl.careerSlotYearNudges]
             : undefined,
         slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
+        careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
+        careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
     }));
     
     els.teamSearch.value = "";

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "NC1C"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 23,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Walter Ferretti",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 15,
+        "clean_sheets": 7
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronaldo Espinoza",
@@ -31,9 +52,37 @@
       "age": 26,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 15,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ART Jalapa",
+          "year": "2023"
+        },
+        {
+          "club": "Juventus FC",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 47,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -45,7 +94,47 @@
       "club": "Deportivo Walter Ferretti",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guaireña FC",
+          "year": "2022"
+        },
+        {
+          "club": "Crucero",
+          "year": "2024"
+        },
+        {
+          "club": "CA Cerro",
+          "year": "2024"
+        },
+        {
+          "club": "San Martín (T)",
+          "year": "2025"
+        },
+        {
+          "club": "Sarmiento (LB)",
+          "year": "2025"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maverick Boza",
@@ -55,7 +144,31 @@
       "club": "Deportivo Walter Ferretti",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Rio Blanco",
+          "year": "2025"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Randy Benavídez",
@@ -63,9 +176,33 @@
       "age": 34,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 16,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Matagalpa",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Federico Moreira",
@@ -73,9 +210,33 @@
       "age": 22,
       "nationality": "Uruguay",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 26,
-      "goals": 2,
-      "assists": 0
+      "appearances": 10,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco Vallecillo",
@@ -83,9 +244,33 @@
       "age": 23,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 26,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Estelí FC",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sheldon Harris",
@@ -93,9 +278,57 @@
       "age": 26,
       "nationality": "Costa Rica",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 21,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guanacasteca",
+          "year": "2019"
+        },
+        {
+          "club": "Limón FC",
+          "year": "2020"
+        },
+        {
+          "club": "Liberia",
+          "year": "2021"
+        },
+        {
+          "club": "Cariari Pococí",
+          "year": "2022"
+        },
+        {
+          "club": "Cartaginés",
+          "year": "2023"
+        },
+        {
+          "club": "AD Sarchí",
+          "year": "2023"
+        },
+        {
+          "club": "Limón BS",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brayan Marín",
@@ -103,9 +336,73 @@
       "age": 29,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 15,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Curridabat FC",
+          "year": "2017"
+        },
+        {
+          "club": "Guanacasteca",
+          "year": "2018"
+        },
+        {
+          "club": "CS Uruguay",
+          "year": "2018"
+        },
+        {
+          "club": "Guanacasteca",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "CD Ocotal",
+          "year": "2021"
+        },
+        {
+          "club": "ADR Jicaral",
+          "year": "2022"
+        },
+        {
+          "club": "Matagalpa",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "CD Ocotal",
+          "year": "2023"
+        },
+        {
+          "club": "PFA Antioquia",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Camphers Pérez",
@@ -113,9 +410,45 @@
       "age": 27,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Managua FC",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "CD Ocotal",
+          "year": "2022"
+        },
+        {
+          "club": "Chinandega",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -127,7 +460,71 @@
       "club": "Deportivo Walter Ferretti",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "High Point",
+          "year": "2013"
+        },
+        {
+          "club": "Carolina Dynamo",
+          "year": "2016"
+        },
+        {
+          "club": "High Point",
+          "year": "2016"
+        },
+        {
+          "club": "ÍBV",
+          "year": "2017"
+        },
+        {
+          "club": "ÍR",
+          "year": "2017"
+        },
+        {
+          "club": "Sortland IL",
+          "year": "2018"
+        },
+        {
+          "club": "Nybergsund",
+          "year": "2019"
+        },
+        {
+          "club": "NK Novigrad",
+          "year": "2020"
+        },
+        {
+          "club": "Stöde IF",
+          "year": "2021"
+        },
+        {
+          "club": "Aegir",
+          "year": "2022"
+        },
+        {
+          "club": "ÍR",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 10,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ronny Talavera",
@@ -135,9 +532,29 @@
       "age": 31,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Walter Ferretti",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramón Morales",
@@ -146,8 +563,44 @@
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rancho Santana",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2024"
+        },
+        {
+          "club": "Juventus FC",
+          "year": "2025"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        },
+        {
+          "club": "San Marcos FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jareck Cáceres",
@@ -155,9 +608,41 @@
       "age": 23,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 31,
-      "goals": 2,
-      "assists": 5
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UNAN Managua",
+          "year": "2021"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2024"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Cañate",
@@ -165,9 +650,65 @@
       "age": 29,
       "nationality": "Panama",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 27,
-      "goals": 3,
-      "assists": 5
+      "appearances": 12,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Alianza FC",
+          "year": "2017"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2018"
+        },
+        {
+          "club": "Plaza Amador",
+          "year": "2019"
+        },
+        {
+          "club": "Juan Aurich",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2021"
+        },
+        {
+          "club": "Universitario",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Universitario",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 217,
+        "goals": 14,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Norlan Cuadra",
@@ -175,9 +716,61 @@
       "age": 37,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 20,
-      "goals": 3,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Juventus FC",
+          "year": "2010"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "UNAN Managua",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "CD Ocotal",
+          "year": "2023"
+        },
+        {
+          "club": "CD Junior",
+          "year": "2024"
+        },
+        {
+          "club": "Juventus FC",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrew Legall",
@@ -185,9 +778,29 @@
       "age": null,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tulio López",
@@ -195,9 +808,41 @@
       "age": 30,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UNAN Managua",
+          "year": "2018"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2019"
+        },
+        {
+          "club": "CD Junior",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jehu Flores",
@@ -205,9 +850,29 @@
       "age": 27,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 28,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +882,53 @@
       "age": 31,
       "nationality": "Argentina",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diriangén FC",
+          "year": "2015"
+        },
+        {
+          "club": "Guillermo Brown",
+          "year": "2016"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2018"
+        },
+        {
+          "club": "Sol de Mayo",
+          "year": "2018"
+        },
+        {
+          "club": "Villa Mitre",
+          "year": "2019"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2021"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 26,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juwan Brown",
@@ -227,9 +936,57 @@
       "age": 28,
       "nationality": "Costa Rica",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 20,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Santa Ana",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "SoccerViza FC",
+          "year": "2023"
+        },
+        {
+          "club": "Guadalupe FC",
+          "year": "2024"
+        },
+        {
+          "club": "PFA Antioquia",
+          "year": "2024"
+        },
+        {
+          "club": "Guanacasteca",
+          "year": "2025"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2025"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nahum Peralta",
@@ -237,9 +994,45 @@
       "age": 31,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 30,
-      "goals": 4,
-      "assists": 0
+      "appearances": 12,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Managua FC",
+          "year": "2019"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2023"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2023"
+        },
+        {
+          "club": "UNAN Managua",
+          "year": "2024"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 17,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jorge Betancur",
@@ -247,9 +1040,61 @@
       "age": 33,
       "nationality": "Nicaragua",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 30,
+      "appearances": 12,
       "goals": 1,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Villa Española",
+          "year": "2014"
+        },
+        {
+          "club": "Juventus FC",
+          "year": "2015"
+        },
+        {
+          "club": "Ind. Yumbo",
+          "year": "2017"
+        },
+        {
+          "club": "Envigado",
+          "year": "2017"
+        },
+        {
+          "club": "Real Estelí FC",
+          "year": "2018"
+        },
+        {
+          "club": "Lynx FC",
+          "year": "2021"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brayton Lewis",
@@ -259,17 +1104,39 @@
       "club": "Deportivo Walter Ferretti",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Luis Brenes",
-      "position": "Centre-Forward",
-      "age": null,
-      "nationality": "Nicaragua",
-      "club": "Deportivo Walter Ferretti",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Guadalupe FC",
+          "year": "2024"
+        },
+        {
+          "club": "Inter",
+          "year": "2025"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2026"
+        },
+        {
+          "club": "Inter",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas dos Santos",
@@ -277,9 +1144,77 @@
       "age": 31,
       "nationality": "Brazil",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 27,
-      "goals": 14,
-      "assists": 2
+      "appearances": 11,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fernandópolis",
+          "year": "2016"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2017"
+        },
+        {
+          "club": "ADI Metapán",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Thoqbah",
+          "year": "2020"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2020"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2021"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2022"
+        },
+        {
+          "club": "Juventus FC",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Vega Real",
+          "year": "2023"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2023"
+        },
+        {
+          "club": "Limeño",
+          "year": "2024"
+        },
+        {
+          "club": "Managua FC",
+          "year": "2025"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 76,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Hinestroza",
@@ -287,29 +1222,53 @@
       "age": 31,
       "nationality": "Panama",
       "club": "Deportivo Walter Ferretti",
-      "appearances": 29,
-      "goals": 7,
-      "assists": 1
-    },
-    {
-      "name": "Dylan Mongalo",
-      "position": "",
-      "age": null,
-      "nationality": "Nicaragua",
-      "club": "Deportivo Walter Ferretti",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "José Matamoros",
-      "position": "",
-      "age": null,
-      "nationality": "Nicaragua",
-      "club": "Deportivo Walter Ferretti",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Correcaminos",
+          "year": "2017"
+        },
+        {
+          "club": "Chorrillo FC",
+          "year": "2018"
+        },
+        {
+          "club": "Tauro FC",
+          "year": "2019"
+        },
+        {
+          "club": "Independiente",
+          "year": "2021"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2022"
+        },
+        {
+          "club": "Universitario",
+          "year": "2023"
+        },
+        {
+          "club": "Walter Ferretti",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 224,
+        "goals": 31,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

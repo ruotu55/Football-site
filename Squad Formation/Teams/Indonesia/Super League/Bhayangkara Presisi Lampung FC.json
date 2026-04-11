@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IN1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,43 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PERSIB Youth",
+          "year": "2014"
+        },
+        {
+          "club": "PERSIB",
+          "year": "2018"
+        },
+        {
+          "club": "Bandung United",
+          "year": "2020"
+        },
+        {
+          "club": "PERSIB",
+          "year": "2020"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 59,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Awan Setho",
@@ -33,7 +70,51 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SAD Indonesia",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Bali United",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Persip",
+          "year": "2016"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2017"
+        },
+        {
+          "club": "PSIS",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 202,
+        "clean_sheets": 51
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 2
+      }
     },
     {
       "name": "Rakasurya Handika",
@@ -43,7 +124,39 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bali United",
+          "year": "2019"
+        },
+        {
+          "club": "Nusantara Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Bali United",
+          "year": "2025"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 13,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sultan Jabbar",
@@ -51,9 +164,29 @@
       "age": 17,
       "nationality": "Indonesia",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +198,31 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Persija",
+          "year": "2020"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Slavko Damjanovic",
@@ -75,7 +232,79 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 24,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Spartak",
+          "year": "2013"
+        },
+        {
+          "club": "FK Backa",
+          "year": "2013"
+        },
+        {
+          "club": "Békéscsaba",
+          "year": "2015"
+        },
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2016"
+        },
+        {
+          "club": "Bidvest Wits FC",
+          "year": "2017"
+        },
+        {
+          "club": "B. Podgorica",
+          "year": "2018"
+        },
+        {
+          "club": "Loko Tashkent",
+          "year": "2020"
+        },
+        {
+          "club": "FK TSC",
+          "year": "2021"
+        },
+        {
+          "club": "Chennaiyin FC",
+          "year": "2021"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2022"
+        },
+        {
+          "club": "ATK Mohun Bagan",
+          "year": "2023"
+        },
+        {
+          "club": "Bengaluru FC",
+          "year": "2023"
+        },
+        {
+          "club": "Persebaya",
+          "year": "2024"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nehar Sadiki",
@@ -85,7 +314,67 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 23,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rabotnicki",
+          "year": "2015"
+        },
+        {
+          "club": "Euromilk GL",
+          "year": "2015"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Renova",
+          "year": "2019"
+        },
+        {
+          "club": "Hamrun Spart.",
+          "year": "2020"
+        },
+        {
+          "club": "Borec Veles",
+          "year": "2021"
+        },
+        {
+          "club": "KF Erzeni",
+          "year": "2022"
+        },
+        {
+          "club": "SKA Khabarovsk",
+          "year": "2024"
+        },
+        {
+          "club": "Igman Konjic",
+          "year": "2025"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Léo",
@@ -95,7 +384,51 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Inter Limeira",
+          "year": "2021"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2022"
+        },
+        {
+          "club": "Ferroviária",
+          "year": "2022"
+        },
+        {
+          "club": "São Bento (SP)",
+          "year": "2022"
+        },
+        {
+          "club": "Sampaio-MA",
+          "year": "2023"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2023"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rahmat Syawal",
@@ -105,7 +438,35 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Persas Sabang",
+          "year": "2023"
+        },
+        {
+          "club": "PSIS",
+          "year": "2024"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ferre Murari",
@@ -113,9 +474,37 @@
       "age": 20,
       "nationality": "Indonesia",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Garuda Select",
+          "year": "2021"
+        },
+        {
+          "club": "Garuda Select",
+          "year": "2022"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Firza Andika",
@@ -125,7 +514,59 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 16,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Semen P. Youth",
+          "year": "2016"
+        },
+        {
+          "club": "PSMS",
+          "year": "2018"
+        },
+        {
+          "club": "AFC Tubize",
+          "year": "2019"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2019"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2020"
+        },
+        {
+          "club": "AFC Tubize",
+          "year": "2020"
+        },
+        {
+          "club": "TR-KABO",
+          "year": "2021"
+        },
+        {
+          "club": "Persija",
+          "year": "2022"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 7,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alan Cardoso",
@@ -135,7 +576,79 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "ABC FC",
+          "year": "2018"
+        },
+        {
+          "club": "Vasco da Gama",
+          "year": "2018"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2020"
+        },
+        {
+          "club": "Santa Cruz-PE",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Paysandu",
+          "year": "2021"
+        },
+        {
+          "club": "Resende",
+          "year": "2021"
+        },
+        {
+          "club": "Ipatinga",
+          "year": "2022"
+        },
+        {
+          "club": "Náutico",
+          "year": "2023"
+        },
+        {
+          "club": "Novo Hamburgo",
+          "year": "2023"
+        },
+        {
+          "club": "Avenida",
+          "year": "2023"
+        },
+        {
+          "club": "Confiança",
+          "year": "2025"
+        },
+        {
+          "club": "Persija",
+          "year": "2025"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frengky Missa",
@@ -145,7 +658,43 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PON N.T.T.",
+          "year": "2021"
+        },
+        {
+          "club": "Persija",
+          "year": "2022"
+        },
+        {
+          "club": "Persikabo 1973",
+          "year": "2023"
+        },
+        {
+          "club": "Persija",
+          "year": "2024"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Putu Gede",
@@ -155,7 +704,51 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SKO Ragunan",
+          "year": "2011"
+        },
+        {
+          "club": "Without Club",
+          "year": "2013"
+        },
+        {
+          "club": "Surabaya United",
+          "year": "2014"
+        },
+        {
+          "club": "Bali United",
+          "year": "2015"
+        },
+        {
+          "club": "Bhayangkara S.U.",
+          "year": "2016"
+        },
+        {
+          "club": "PERSIB",
+          "year": "2023"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 1,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -167,7 +760,79 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 22,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Chapecoense",
+          "year": "2017"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2017"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2018"
+        },
+        {
+          "club": "Grêmio",
+          "year": "2018"
+        },
+        {
+          "club": "Juventude",
+          "year": "2019"
+        },
+        {
+          "club": "Paraná",
+          "year": "2021"
+        },
+        {
+          "club": "Juventude",
+          "year": "2021"
+        },
+        {
+          "club": "Paraná",
+          "year": "2022"
+        },
+        {
+          "club": "Juventude",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "CSA",
+          "year": "2023"
+        },
+        {
+          "club": "Londrina-PR",
+          "year": "2023"
+        },
+        {
+          "club": "Zakho SC",
+          "year": "2023"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 225,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Evandra Florasta",
@@ -175,9 +840,33 @@
       "age": 17,
       "nationality": "Indonesia",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 8,
-      "goals": 4,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Persema Youth",
+          "year": "2022"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Ilic",
@@ -187,7 +876,67 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "St. Lambrecht",
+          "year": "2011"
+        },
+        {
+          "club": "St. Lambrecht",
+          "year": "2014"
+        },
+        {
+          "club": "TSV Hartberg",
+          "year": "2014"
+        },
+        {
+          "club": "Motherwell FC",
+          "year": "2019"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2021"
+        },
+        {
+          "club": "Doxa Katokopias",
+          "year": "2022"
+        },
+        {
+          "club": "FC Dinamo",
+          "year": "2023"
+        },
+        {
+          "club": "Spartak Varna",
+          "year": "2024"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 15,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "TM Ichsan",
@@ -197,7 +946,31 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bhayangkara SU Y",
+          "year": "2016"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryo Matsumura",
@@ -207,7 +980,87 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 6,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Vissel Kobe",
+          "year": "2013"
+        },
+        {
+          "club": "Tochigi SC",
+          "year": "2015"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2016"
+        },
+        {
+          "club": "Tokushima Vort.",
+          "year": "2017"
+        },
+        {
+          "club": "Vissel Kobe",
+          "year": "2018"
+        },
+        {
+          "club": "Nagano Parceiro",
+          "year": "2018"
+        },
+        {
+          "club": "Rayong FC",
+          "year": "2019"
+        },
+        {
+          "club": "Chiangmai FC",
+          "year": "2019"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Police Tero FC",
+          "year": "2021"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2022"
+        },
+        {
+          "club": "BG Pathum Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Persija",
+          "year": "2023"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2026"
+        },
+        {
+          "club": "Persija",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 65,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wahyu Subo Seto",
@@ -217,7 +1070,27 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 23,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Persebaya DU",
+          "year": "2014"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 3,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Da-bin Ji",
@@ -225,9 +1098,33 @@
       "age": 20,
       "nationality": "Indonesia",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASIOP",
+          "year": "2018"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +1136,55 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 21,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "OFK Petrovac",
+          "year": "2017"
+        },
+        {
+          "club": "Spartak",
+          "year": "2019"
+        },
+        {
+          "club": "FK Iskra",
+          "year": "2020"
+        },
+        {
+          "club": "Spartak",
+          "year": "2020"
+        },
+        {
+          "club": "Persebaya",
+          "year": "2022"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2023"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2026"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 32,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sani Rizki",
@@ -249,7 +1194,35 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Urakan Youth",
+          "year": "2013"
+        },
+        {
+          "club": "SKO Ragunan",
+          "year": "2014"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 17,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ginanjar Wahyu",
@@ -257,9 +1230,41 @@
       "age": 22,
       "nationality": "Indonesia",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Persija",
+          "year": "2022"
+        },
+        {
+          "club": "Arema FC",
+          "year": "2023"
+        },
+        {
+          "club": "Persija",
+          "year": "2024"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fadly Alberto",
@@ -267,9 +1272,29 @@
       "age": 17,
       "nationality": "Indonesia",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 14,
-      "goals": 6,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moussa Sidibé",
@@ -277,9 +1302,109 @@
       "age": 31,
       "nationality": "Mali",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 13,
+      "appearances": 8,
       "goals": 6,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "SD Almazán",
+          "year": "2013"
+        },
+        {
+          "club": "CD Ebro",
+          "year": "2014"
+        },
+        {
+          "club": "CF Épila",
+          "year": "2014"
+        },
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Benferri",
+          "year": "2015"
+        },
+        {
+          "club": "UD Ibiza",
+          "year": "2016"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2018"
+        },
+        {
+          "club": "CD Guadalajara",
+          "year": "2018"
+        },
+        {
+          "club": "UE Llagostera",
+          "year": "2018"
+        },
+        {
+          "club": "FC Andorra",
+          "year": "2019"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2020"
+        },
+        {
+          "club": "Córdoba CF",
+          "year": "2021"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2021"
+        },
+        {
+          "club": "UE Costa Brava",
+          "year": "2021"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2022"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2022"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2022"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2023"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2023"
+        },
+        {
+          "club": "Johor DT",
+          "year": "2025"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 32,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Privat Mbarga",
@@ -287,9 +1412,65 @@
       "age": 34,
       "nationality": "Cambodia",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 21,
-      "goals": 5,
-      "assists": 2
+      "appearances": 18,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Phnom Penh",
+          "year": "2014"
+        },
+        {
+          "club": "Cambodian Tiger",
+          "year": "2015"
+        },
+        {
+          "club": "Nagaworld FC",
+          "year": "2016"
+        },
+        {
+          "club": "Samut Prakan FC",
+          "year": "2017"
+        },
+        {
+          "club": "Asia Euro Utd",
+          "year": "2018"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2019"
+        },
+        {
+          "club": "Bali United",
+          "year": "2021"
+        },
+        {
+          "club": "Dewa United",
+          "year": "2025"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2026"
+        },
+        {
+          "club": "Dewa United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 179,
+        "goals": 72,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryan Kurnia",
@@ -299,7 +1480,71 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Persikabo",
+          "year": "2015"
+        },
+        {
+          "club": "PON Jabar",
+          "year": "2016"
+        },
+        {
+          "club": "Persikabo",
+          "year": "2016"
+        },
+        {
+          "club": "PSGC",
+          "year": "2017"
+        },
+        {
+          "club": "Martapura",
+          "year": "2018"
+        },
+        {
+          "club": "Persita",
+          "year": "2018"
+        },
+        {
+          "club": "TR-KABO",
+          "year": "2019"
+        },
+        {
+          "club": "Sulut United",
+          "year": "2020"
+        },
+        {
+          "club": "Arema FC",
+          "year": "2022"
+        },
+        {
+          "club": "Persikabo 1973",
+          "year": "2022"
+        },
+        {
+          "club": "PERSIB",
+          "year": "2023"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 9,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fareed Sadat",
@@ -309,7 +1554,71 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 13,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Espoo",
+          "year": "2015"
+        },
+        {
+          "club": "FC Lahti",
+          "year": "2016"
+        },
+        {
+          "club": "Haukar",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "MuSa",
+          "year": "2020"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2020"
+        },
+        {
+          "club": "MuSa",
+          "year": "2021"
+        },
+        {
+          "club": "Phnom Penh",
+          "year": "2022"
+        },
+        {
+          "club": "Nakhonsi Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "PSKC Cimahi",
+          "year": "2023"
+        },
+        {
+          "club": "Persikabo 1973",
+          "year": "2024"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 215,
+        "goals": 73,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dendy Sulistyawan",
@@ -319,7 +1628,43 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 19,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Persela Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Persela",
+          "year": "2016"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2017"
+        },
+        {
+          "club": "Persela",
+          "year": "2018"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 41,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henri Doumbia",
@@ -327,9 +1672,77 @@
       "age": 33,
       "nationality": "Ivory Coast",
       "club": "Bhayangkara Presisi Lampung FC",
-      "appearances": 17,
-      "goals": 8,
-      "assists": 3
+      "appearances": 8,
+      "goals": 4,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Saraburi",
+          "year": "2015"
+        },
+        {
+          "club": "Angthong FC",
+          "year": "2016"
+        },
+        {
+          "club": "Chainat FC",
+          "year": "2017"
+        },
+        {
+          "club": "Swat Cat",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Fahaheel SC",
+          "year": "2021"
+        },
+        {
+          "club": "Qadsia SC",
+          "year": "2022"
+        },
+        {
+          "club": "Khaitan SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2023"
+        },
+        {
+          "club": "Emirates Club",
+          "year": "2024"
+        },
+        {
+          "club": "El Ettihad",
+          "year": "2025"
+        },
+        {
+          "club": "PDRM FC",
+          "year": "2025"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 44,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilija Spasojević",
@@ -339,7 +1752,83 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 19,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sutjeska Niksic",
+          "year": "2005"
+        },
+        {
+          "club": "CSK Celarevo",
+          "year": "2006"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2007"
+        },
+        {
+          "club": "Borac Cacak",
+          "year": "2009"
+        },
+        {
+          "club": "Metalurgs",
+          "year": "2010"
+        },
+        {
+          "club": "AO Trikala",
+          "year": "2010"
+        },
+        {
+          "club": "Bali Devata",
+          "year": "2011"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2011"
+        },
+        {
+          "club": "Mitra Kukar",
+          "year": "2013"
+        },
+        {
+          "club": "Persisam",
+          "year": "2014"
+        },
+        {
+          "club": "PERSIB",
+          "year": "2015"
+        },
+        {
+          "club": "Melaka United SA",
+          "year": "2016"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2017"
+        },
+        {
+          "club": "Bali United",
+          "year": "2017"
+        },
+        {
+          "club": "Bhayangkara FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 339,
+        "goals": 151,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saugix Baaqil",
@@ -349,7 +1838,27 @@
       "club": "Bhayangkara Presisi Lampung FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Football School",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

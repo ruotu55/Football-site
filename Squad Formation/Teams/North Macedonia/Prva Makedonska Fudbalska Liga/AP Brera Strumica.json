@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MAZ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,31 @@
       "club": "AP Brera Strumica",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vardar Negotino",
+          "year": "2024"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Iloski",
@@ -31,9 +56,29 @@
       "age": 18,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 8,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 16,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 0
+      }
     },
     {
       "name": "Daniel Dikovski",
@@ -41,9 +86,33 @@
       "age": 19,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MGjP Youth",
+          "year": "2023"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 18,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +122,61 @@
       "age": 24,
       "nationality": "Serbia",
       "club": "AP Brera Strumica",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Teleoptik",
+          "year": "2020"
+        },
+        {
+          "club": "Sindjelic Bg",
+          "year": "2020"
+        },
+        {
+          "club": "FCI Levadia",
+          "year": "2021"
+        },
+        {
+          "club": "Pärnu Vaprus",
+          "year": "2022"
+        },
+        {
+          "club": "FCI Levadia",
+          "year": "2022"
+        },
+        {
+          "club": "Sloga Kraljevo",
+          "year": "2022"
+        },
+        {
+          "club": "Smederevo 1924",
+          "year": "2023"
+        },
+        {
+          "club": "Balzan FC",
+          "year": "2025"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viktor Velkoski",
@@ -63,9 +184,85 @@
       "age": 30,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2015"
+        },
+        {
+          "club": "Vardar",
+          "year": "2015"
+        },
+        {
+          "club": "Ljubanci",
+          "year": "2015"
+        },
+        {
+          "club": "Vardar",
+          "year": "2016"
+        },
+        {
+          "club": "FK Skopje",
+          "year": "2017"
+        },
+        {
+          "club": "Pobeda Prilep",
+          "year": "2018"
+        },
+        {
+          "club": "Eginiakos",
+          "year": "2019"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2019"
+        },
+        {
+          "club": "Vardar",
+          "year": "2020"
+        },
+        {
+          "club": "KF Laçi",
+          "year": "2021"
+        },
+        {
+          "club": "Bregalnica Stip",
+          "year": "2023"
+        },
+        {
+          "club": "FC Turan",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2025"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 249,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Antovski",
@@ -73,9 +270,53 @@
       "age": 25,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 1,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Vardar",
+          "year": "2018"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2020"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2021"
+        },
+        {
+          "club": "NK Istra",
+          "year": "2022"
+        },
+        {
+          "club": "Austria Vienna",
+          "year": "2023"
+        },
+        {
+          "club": "Karvina",
+          "year": "2023"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 1,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrej Velkov",
@@ -85,7 +326,27 @@
       "club": "AP Brera Strumica",
       "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Brera Strumica",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marko Stojilevski",
@@ -95,7 +356,31 @@
       "club": "AP Brera Strumica",
       "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vardar",
+          "year": "2022"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zoran Ivanovski",
@@ -105,7 +390,51 @@
       "club": "AP Brera Strumica",
       "appearances": 18,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "AP Brera",
+          "year": "2019"
+        },
+        {
+          "club": "Belasica",
+          "year": "2019"
+        },
+        {
+          "club": "AP Brera",
+          "year": "2021"
+        },
+        {
+          "club": "Belasica",
+          "year": "2023"
+        },
+        {
+          "club": "Detonit",
+          "year": "2024"
+        },
+        {
+          "club": "Bregalnica Stip",
+          "year": "2024"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -115,9 +444,65 @@
       "age": 24,
       "nationality": "TM nationality id 24",
       "club": "AP Brera Strumica",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 3
+      "appearances": 22,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "J. Bihac",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "NK Nehaj Senj",
+          "year": "2022"
+        },
+        {
+          "club": "J. Bihac",
+          "year": "2022"
+        },
+        {
+          "club": "FK Rad. Lukavac",
+          "year": "2023"
+        },
+        {
+          "club": "Simm-Bau",
+          "year": "2023"
+        },
+        {
+          "club": "FK Gorazde",
+          "year": "2024"
+        },
+        {
+          "club": "FK Rad. Lukavac",
+          "year": "2024"
+        },
+        {
+          "club": "OFK Gradina",
+          "year": "2025"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrej Arizankoski",
@@ -125,9 +510,37 @@
       "age": 20,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pobeda Prilep Y",
+          "year": "2014"
+        },
+        {
+          "club": "Pobeda Prilep",
+          "year": "2022"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gjorgji Doshev",
@@ -137,7 +550,35 @@
       "club": "AP Brera Strumica",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vardar",
+          "year": "2022"
+        },
+        {
+          "club": "Makedonija",
+          "year": "2025"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Warsama Hassan",
@@ -147,7 +588,43 @@
       "club": "AP Brera Strumica",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RFC Seraing",
+          "year": "2019"
+        },
+        {
+          "club": "SKF Sered",
+          "year": "2020"
+        },
+        {
+          "club": "Sliema Wander.",
+          "year": "2021"
+        },
+        {
+          "club": "AS Arta/Solar7",
+          "year": "2022"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mile Todorov",
@@ -155,9 +632,57 @@
       "age": 26,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 4,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Rabotnicki",
+          "year": "2017"
+        },
+        {
+          "club": "NK Novigrad",
+          "year": "2018"
+        },
+        {
+          "club": "Radnik Bijelj.",
+          "year": "2021"
+        },
+        {
+          "club": "Pobeda Prilep",
+          "year": "2022"
+        },
+        {
+          "club": "FK Skopje",
+          "year": "2023"
+        },
+        {
+          "club": "Tikves",
+          "year": "2023"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2025"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 16,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bojan Velkov",
@@ -167,7 +692,27 @@
       "club": "AP Brera Strumica",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Mihailov",
@@ -177,7 +722,67 @@
       "club": "AP Brera Strumica",
       "appearances": 22,
       "goals": 2,
-      "assists": 8
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Akad. Pandev",
+          "year": "2015"
+        },
+        {
+          "club": "Horizont",
+          "year": "2017"
+        },
+        {
+          "club": "AP Brera",
+          "year": "2017"
+        },
+        {
+          "club": "Osogovo",
+          "year": "2019"
+        },
+        {
+          "club": "AP Brera",
+          "year": "2020"
+        },
+        {
+          "club": "Belasica",
+          "year": "2020"
+        },
+        {
+          "club": "AP Brera",
+          "year": "2021"
+        },
+        {
+          "club": "Belasica",
+          "year": "2021"
+        },
+        {
+          "club": "FC Marchfeld",
+          "year": "2023"
+        },
+        {
+          "club": "Tikves",
+          "year": "2023"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 2,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -187,9 +792,57 @@
       "age": 23,
       "nationality": "Croatia",
       "club": "AP Brera Strumica",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 2
+      "appearances": 8,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Croat. Zmijavci",
+          "year": "2022"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2022"
+        },
+        {
+          "club": "Jadran LP",
+          "year": "2022"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2023"
+        },
+        {
+          "club": "HSK Posusje",
+          "year": "2023"
+        },
+        {
+          "club": "Radnik Bijelj.",
+          "year": "2025"
+        },
+        {
+          "club": "Croat. Zmijavci",
+          "year": "2025"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kire Stojanov",
@@ -199,7 +852,35 @@
       "club": "AP Brera Strumica",
       "appearances": 19,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Brera Strumica",
+          "year": "2024"
+        },
+        {
+          "club": "Belasica",
+          "year": "2024"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Igor Ristov",
@@ -207,9 +888,29 @@
       "age": 18,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikola Velichkovski",
@@ -217,19 +918,107 @@
       "age": 20,
       "nationality": "North Macedonia",
       "club": "AP Brera Strumica",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Vardar",
+          "year": "2022"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2023"
+        },
+        {
+          "club": "Makedonija",
+          "year": "2023"
+        },
+        {
+          "club": "Septemvri Sofia",
+          "year": "2024"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Kouadio Yann Kouakou",
+      "name": "Yann Kouakou",
       "position": "Centre-Forward",
       "age": 26,
       "nationality": "Malawi",
       "club": "AP Brera Strumica",
-      "appearances": 17,
-      "goals": 2,
-      "assists": 3
+      "appearances": 5,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "LZS Starowice",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Penya Encarnada",
+          "year": "2022"
+        },
+        {
+          "club": "Montemiletto",
+          "year": "2023"
+        },
+        {
+          "club": "Kiruna FF",
+          "year": "2024"
+        },
+        {
+          "club": "CSU Alba Iulia",
+          "year": "2025"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2025"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

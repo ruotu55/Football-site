@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=20260329a" />
+    <link rel="stylesheet" href="css/styles.css?v=20260401f" />
   </head>
   <body>
     <div class="app">
@@ -24,14 +24,19 @@
       <div class="side-text right" id="side-text-right">THE FOOTBALL LAB</div>
 
       <button type="button" class="panel-fab" id="panel-fab">Show controls</button>
+      <button type="button" class="panel-fab btn-save-current-team-fab" id="btn-save-current-team-fab" hidden aria-pressed="false">
+        Save team
+      </button>
       <button type="button" class="panel-fab video-mode-btn" id="video-mode-btn" aria-pressed="false">Video Mode</button>
             <button type="button" class="panel-fab play-video-btn" id="play-video-btn">Play Video</button>
       
       <div id="countdown-timer" class="countdown-timer" hidden>
-        <svg class="timer-svg" viewBox="0 0 100 100">
-          <circle class="timer-progress" cx="50" cy="50" r="45"></circle>
-        </svg>
-        <span id="countdown-text">3</span>
+        <div class="countdown-bar-track">
+          <div class="countdown-bar-inner">
+            <div id="countdown-bar-fill" class="countdown-bar-fill"></div>
+          </div>
+          <div class="countdown-bar-gloss" aria-hidden="true"></div>
+        </div>
       </div>
       
       <aside class="control-panel" id="control-panel"></aside>
@@ -71,7 +76,7 @@
         ]);
 
         const stageComponents = [
-          'html/logo.html',
+          'html/shorts-stage-stub.html',
           'html/landing.html',
           'html/outro.html',
           'html/header.html',

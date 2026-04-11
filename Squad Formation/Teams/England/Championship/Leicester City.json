@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 25,
       "nationality": "Poland",
       "club": "Leicester City",
-      "appearances": 33,
+      "appearances": 31,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -40,7 +41,21 @@
           "club": "Leicester",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 229,
+        "clean_sheets": 24
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fran Vieites",
@@ -72,7 +87,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 113,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asmir Begovic",
@@ -80,7 +109,7 @@
       "age": 38,
       "nationality": "TM nationality id 24",
       "club": "Leicester City",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -168,7 +197,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 462,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 601,
+        "clean_sheets": 129
+      },
+      "national_team_career_totals": {
+        "appearances": 63,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 70,
+        "clean_sheets": 27
+      }
     }
   ],
   "defenders": [
@@ -178,7 +221,7 @@
       "age": 24,
       "nationality": "Italy",
       "club": "Leicester City",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -218,7 +261,21 @@
           "club": "Leicester",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 10,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harry Souttar",
@@ -226,9 +283,9 @@
       "age": 27,
       "nationality": "Australia",
       "club": "Leicester City",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0,
+      "appearances": 3,
+      "goals": 12,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Dundee United",
@@ -270,7 +327,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 212,
+        "goals": 9,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 11,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jannik Vestergaard",
@@ -278,7 +349,7 @@
       "age": 33,
       "nationality": "Denmark",
       "club": "Leicester City",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 3,
       "assists": 0,
       "transfer_history": [
@@ -302,7 +373,21 @@
           "club": "Leicester",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 438,
+        "goals": 31,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Nelson",
@@ -310,7 +395,7 @@
       "age": 22,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -334,7 +419,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jamaal Lascelles",
@@ -342,7 +441,7 @@
       "age": 32,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -374,7 +473,21 @@
           "club": "Leicester",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 334,
+        "goals": 20,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Victor Kristiansen",
@@ -382,7 +495,7 @@
       "age": 23,
       "nationality": "Denmark",
       "club": "Leicester City",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -402,7 +515,21 @@
           "club": "Leicester",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 2,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luke Thomas",
@@ -410,7 +537,7 @@
       "age": 24,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 39,
+      "appearances": 36,
       "goals": 0,
       "assists": 5,
       "transfer_history": [
@@ -430,7 +557,21 @@
           "club": "Middlesbrough",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 10,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricardo Pereira",
@@ -438,7 +579,7 @@
       "age": 32,
       "nationality": "Portugal",
       "club": "Leicester City",
-      "appearances": 33,
+      "appearances": 32,
       "goals": 2,
       "assists": 1,
       "transfer_history": [
@@ -466,7 +607,21 @@
           "club": "Leicester",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 406,
+        "goals": 29,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Olabade Aluko",
@@ -474,15 +629,29 @@
       "age": 19,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 18,
+      "appearances": 11,
       "goals": 2,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -492,9 +661,9 @@
       "age": 25,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 32,
-      "goals": 2,
-      "assists": 1,
+      "appearances": 29,
+      "goals": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Tottenham",
@@ -512,7 +681,21 @@
           "club": "Leicester",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 5,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harry Winks",
@@ -520,8 +703,8 @@
       "age": 30,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 29,
-      "goals": 2,
+      "appearances": 27,
+      "goals": 1,
       "assists": 2,
       "transfer_history": [
         {
@@ -540,7 +723,21 @@
           "club": "Leicester",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 359,
+        "goals": 13,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Choudhury",
@@ -548,8 +745,8 @@
       "age": 28,
       "nationality": "Bangladesh",
       "club": "Leicester City",
-      "appearances": 27,
-      "goals": 1,
+      "appearances": 25,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -576,7 +773,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan James",
@@ -604,7 +815,21 @@
           "club": "Stade Rennais",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 22,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joe Aribo",
@@ -640,7 +865,21 @@
           "club": "Southampton",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 364,
+        "goals": 51,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louis Page",
@@ -648,7 +887,7 @@
       "age": 17,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 27,
+      "appearances": 22,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -656,7 +895,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 4,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Golding",
@@ -664,15 +917,29 @@
       "age": 19,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 26,
+      "appearances": 15,
       "goals": 2,
-      "assists": 2,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Leicester",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aaron Ramsey",
@@ -680,8 +947,8 @@
       "age": 23,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 9,
-      "goals": 3,
+      "appearances": 8,
+      "goals": 2,
       "assists": 0,
       "transfer_history": [
         {
@@ -708,7 +975,21 @@
           "club": "Burnley",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 36,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Divine Mukasa",
@@ -716,15 +997,29 @@
       "age": 18,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 29,
-      "goals": 9,
-      "assists": 6,
+      "appearances": 16,
+      "goals": 3,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Leicester",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 29,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bobby De Cordova-Reid",
@@ -788,7 +1083,21 @@
           "club": "Leicester",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 497,
+        "goals": 76,
+        "assists": 57,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 45,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -798,7 +1107,7 @@
       "age": 16,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 25,
+      "appearances": 22,
       "goals": 1,
       "assists": 2,
       "transfer_history": [
@@ -806,7 +1115,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephy Mavididi",
@@ -814,9 +1137,9 @@
       "age": 27,
       "nationality": "England",
       "club": "Leicester City",
-      "appearances": 38,
-      "goals": 3,
-      "assists": 4,
+      "appearances": 35,
+      "goals": 2,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Arsenal Youth",
@@ -846,7 +1169,21 @@
           "club": "Leicester",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 88,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul Fatawu",
@@ -886,7 +1223,21 @@
           "club": "Leicester",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 27,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wanya Marçal",
@@ -894,7 +1245,7 @@
       "age": 23,
       "nationality": "Portugal",
       "club": "Leicester City",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -910,7 +1261,21 @@
           "club": "Leicester",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 17,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patson Daka",
@@ -918,8 +1283,8 @@
       "age": 27,
       "nationality": "Zambia",
       "club": "Leicester City",
-      "appearances": 37,
-      "goals": 4,
+      "appearances": 34,
+      "goals": 3,
       "assists": 3,
       "transfer_history": [
         {
@@ -950,7 +1315,21 @@
           "club": "Leicester",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 312,
+        "goals": 103,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 21,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Ayew",
@@ -958,7 +1337,7 @@
       "age": 34,
       "nationality": "Ghana",
       "club": "Leicester City",
-      "appearances": 39,
+      "appearances": 36,
       "goals": 5,
       "assists": 3,
       "transfer_history": [
@@ -1002,7 +1381,21 @@
           "club": "Leicester",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 602,
+        "goals": 96,
+        "assists": 58,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 117,
+        "goals": 33,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dujuan Richards",
@@ -1010,7 +1403,7 @@
       "age": 20,
       "nationality": "Jamaica",
       "club": "Leicester City",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 2,
       "assists": 0,
       "transfer_history": [
@@ -1018,7 +1411,21 @@
           "club": "Leicester",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 9,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

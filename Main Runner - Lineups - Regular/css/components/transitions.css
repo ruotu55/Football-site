@@ -26,6 +26,41 @@
   animation: stage-enter-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
+/* Video reveal transition: move from big-player reveal to next question smoothly. */
+@keyframes stage-exit-video-reveal {
+  0% {
+    transform: none;
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: none;
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+@keyframes stage-enter-video-reveal {
+  0% {
+    transform: none;
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.stage-exit-video-anim {
+  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+.stage-enter-video-anim {
+  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
 @keyframes logo-bounce-out {
   0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
@@ -51,8 +86,5 @@
   100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
-  animation: none !important;
-  transform: translate(45vw, -39.5vh) scale(0.25);
-  opacity: 0.85;
-  filter: blur(0);
+  animation: logo-shift-top-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }

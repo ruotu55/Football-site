@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "TR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,39 @@
       "club": "Kayserispor",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2008"
+        },
+        {
+          "club": "Vitesse Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2019"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 324,
+        "clean_sheets": 51
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Deniz Dönmezer",
@@ -31,9 +64,33 @@
       "age": 17,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adana Demirspor",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 72,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Onurcan Piri",
@@ -41,9 +98,65 @@
       "age": 31,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Giresunspor",
+          "year": "2012"
+        },
+        {
+          "club": "Bursaspor",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "K. Erciyesspor",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Ankara Adliye",
+          "year": "2016"
+        },
+        {
+          "club": "Y. Corumspor",
+          "year": "2018"
+        },
+        {
+          "club": "Bursaspor",
+          "year": "2019"
+        },
+        {
+          "club": "Giresunspor",
+          "year": "2020"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 214,
+        "clean_sheets": 43
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +166,53 @@
       "age": 31,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 0
+      "appearances": 24,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Westfalia Herne",
+          "year": "2013"
+        },
+        {
+          "club": "Eskisehirspor",
+          "year": "2014"
+        },
+        {
+          "club": "Eyüpspor",
+          "year": "2015"
+        },
+        {
+          "club": "Eskisehirspor",
+          "year": "2017"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2019"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2025"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefano Denswil",
@@ -65,17 +222,117 @@
       "club": "Kayserispor",
       "appearances": 26,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2001"
+        },
+        {
+          "club": "Ajax",
+          "year": "2012"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2015"
+        },
+        {
+          "club": "Bologna",
+          "year": "2019"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2021"
+        },
+        {
+          "club": "Bologna",
+          "year": "2021"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2021"
+        },
+        {
+          "club": "Bologna",
+          "year": "2022"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 475,
+        "goals": 23,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majid Hosseini",
       "position": "Centre-Back",
       "age": 29,
-      "nationality": "Iran",
+      "nationality": "TM nationality id 71",
       "club": "Kayserispor",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saipa FC Youth",
+          "year": "2009"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2014"
+        },
+        {
+          "club": "Rah Ahan",
+          "year": "2015"
+        },
+        {
+          "club": "Esteghlal FC",
+          "year": "2016"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2018"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jadel Katongo",
@@ -83,9 +340,37 @@
       "age": 21,
       "nationality": "England",
       "club": "Kayserispor",
-      "appearances": 10,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Peterborough",
+          "year": "2023"
+        },
+        {
+          "club": "Peterborough",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kayra Cihan",
@@ -93,9 +378,29 @@
       "age": 18,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 11,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulsamet Burak",
@@ -103,9 +408,57 @@
       "age": 29,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kemerspor 2003",
+          "year": "2017"
+        },
+        {
+          "club": "Yeni Orduspor",
+          "year": "2018"
+        },
+        {
+          "club": "Serik Belediye",
+          "year": "2019"
+        },
+        {
+          "club": "Bayrampasa",
+          "year": "2021"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2022"
+        },
+        {
+          "club": "Sanliurfaspor",
+          "year": "2022"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 199,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lionel Carole",
@@ -113,9 +466,65 @@
       "age": 34,
       "nationality": "France",
       "club": "Kayserispor",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Nantes",
+          "year": "2010"
+        },
+        {
+          "club": "Benfica",
+          "year": "2011"
+        },
+        {
+          "club": "CS Sedan",
+          "year": "2011"
+        },
+        {
+          "club": "Benfica",
+          "year": "2012"
+        },
+        {
+          "club": "Troyes",
+          "year": "2013"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2015"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2017"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2018"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2018"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 464,
+        "goals": 2,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Brenet",
@@ -123,9 +532,69 @@
       "age": 32,
       "nationality": "Curaçao",
       "club": "Kayserispor",
-      "appearances": 22,
+      "appearances": 7,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Almere City FC",
+          "year": "2006"
+        },
+        {
+          "club": "PSV",
+          "year": "2013"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2018"
+        },
+        {
+          "club": "Vitesse",
+          "year": "2020"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2020"
+        },
+        {
+          "club": "FC Twente",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Livingston FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 347,
+        "goals": 23,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ramazan Civelek",
@@ -133,9 +602,45 @@
       "age": 30,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Gaziantep BB",
+          "year": "2017"
+        },
+        {
+          "club": "Sakaryaspor",
+          "year": "2017"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2018"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2019"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 24,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Burak Kapacak",
@@ -143,9 +648,61 @@
       "age": 26,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bursaspor",
+          "year": "2018"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2021"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2022"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2023"
+        },
+        {
+          "club": "Sivasspor",
+          "year": "2023"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2026"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 8,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -157,7 +714,75 @@
       "club": "Kayserispor",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Nancy",
+          "year": "2015"
+        },
+        {
+          "club": "Monaco",
+          "year": "2016"
+        },
+        {
+          "club": "AS Nancy",
+          "year": "2016"
+        },
+        {
+          "club": "Monaco",
+          "year": "2017"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2017"
+        },
+        {
+          "club": "Monaco",
+          "year": "2018"
+        },
+        {
+          "club": "Saint-Étienne",
+          "year": "2019"
+        },
+        {
+          "club": "Monaco",
+          "year": "2019"
+        },
+        {
+          "club": "G. Bordeaux",
+          "year": "2019"
+        },
+        {
+          "club": "Monaco",
+          "year": "2020"
+        },
+        {
+          "club": "Adanaspor",
+          "year": "2021"
+        },
+        {
+          "club": "Samsunspor",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 11,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dorukhan Toköz",
@@ -165,9 +790,49 @@
       "age": 29,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eskisehirspor",
+          "year": "2015"
+        },
+        {
+          "club": "Besiktas",
+          "year": "2018"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2021"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2023"
+        },
+        {
+          "club": "Eyüpspor",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 9,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "László Bénes",
@@ -177,7 +842,63 @@
       "club": "Kayserispor",
       "appearances": 25,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "MSK Zilina",
+          "year": "2015"
+        },
+        {
+          "club": "Mönchengladbach",
+          "year": "2016"
+        },
+        {
+          "club": "Holstein Kiel",
+          "year": "2019"
+        },
+        {
+          "club": "Mönchengladbach",
+          "year": "2019"
+        },
+        {
+          "club": "Augsburg",
+          "year": "2021"
+        },
+        {
+          "club": "Mönchengladbach",
+          "year": "2021"
+        },
+        {
+          "club": "Hamburg",
+          "year": "2022"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 272,
+        "goals": 35,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Görkem Sağlam",
@@ -185,9 +906,41 @@
       "age": 27,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 21,
-      "goals": 3,
-      "assists": 2
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "VfL Bochum",
+          "year": "2016"
+        },
+        {
+          "club": "Giresunspor",
+          "year": "2022"
+        },
+        {
+          "club": "Hatayspor",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 53,
+        "assists": 39,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Furkan Soyalp",
@@ -195,9 +948,69 @@
       "age": 30,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bandirmaspor",
+          "year": "2015"
+        },
+        {
+          "club": "Bursaspor",
+          "year": "2015"
+        },
+        {
+          "club": "Bandirmaspor",
+          "year": "2016"
+        },
+        {
+          "club": "Bursaspor",
+          "year": "2017"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2019"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2019"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2020"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2020"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2023"
+        },
+        {
+          "club": "Gaziantep FK",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 253,
+        "goals": 19,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yiğit Emre Çeltik",
@@ -205,9 +1018,53 @@
       "age": 22,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Altinordu",
+          "year": "2020"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2021"
+        },
+        {
+          "club": "Podbeskidzie",
+          "year": "2022"
+        },
+        {
+          "club": "Fortuna Sittard",
+          "year": "2022"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2023"
+        },
+        {
+          "club": "Arnavutköy Bld",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "João Mendes",
@@ -215,9 +1072,89 @@
       "age": 31,
       "nationality": "Portugal",
       "club": "Kayserispor",
-      "appearances": 23,
+      "appearances": 22,
       "goals": 0,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Leixões U15",
+          "year": "2007"
+        },
+        {
+          "club": "Gondomar",
+          "year": "2013"
+        },
+        {
+          "club": "Gouveia",
+          "year": "2014"
+        },
+        {
+          "club": "Nogueirense",
+          "year": "2015"
+        },
+        {
+          "club": "Operário",
+          "year": "2016"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2016"
+        },
+        {
+          "club": "Tondela",
+          "year": "2018"
+        },
+        {
+          "club": "Oliveirense",
+          "year": "2019"
+        },
+        {
+          "club": "Tondela",
+          "year": "2019"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2019"
+        },
+        {
+          "club": "Tondela",
+          "year": "2020"
+        },
+        {
+          "club": "Estoril",
+          "year": "2021"
+        },
+        {
+          "club": "Tondela",
+          "year": "2021"
+        },
+        {
+          "club": "Chaves",
+          "year": "2021"
+        },
+        {
+          "club": "Vit. Guimarães",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 26,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eray Özbek",
@@ -225,9 +1162,37 @@
       "age": 23,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 10,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kayserispor",
+          "year": "2022"
+        },
+        {
+          "club": "Kirsehir FSK",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +1202,77 @@
       "age": 31,
       "nationality": "Portugal",
       "club": "Kayserispor",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 2,
-      "assists": 5
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2007"
+        },
+        {
+          "club": "E. Amadora U15",
+          "year": "2008"
+        },
+        {
+          "club": "Real SC",
+          "year": "2013"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2015"
+        },
+        {
+          "club": "União Madeira",
+          "year": "2016"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2016"
+        },
+        {
+          "club": "Tondela",
+          "year": "2016"
+        },
+        {
+          "club": "Dinamo Moscow",
+          "year": "2018"
+        },
+        {
+          "club": "Tambov",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Moscow",
+          "year": "2020"
+        },
+        {
+          "club": "B SAD",
+          "year": "2020"
+        },
+        {
+          "club": "Dynamo Moscow",
+          "year": "2021"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 303,
+        "goals": 49,
+        "assists": 44,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sam Mather",
@@ -247,9 +1280,37 @@
       "age": 21,
       "nationality": "England",
       "club": "Kayserispor",
-      "appearances": 7,
+      "appearances": 1,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rochdale",
+          "year": "2024"
+        },
+        {
+          "club": "Tranmere",
+          "year": "2025"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 32,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nurettin Korkmaz",
@@ -257,9 +1318,49 @@
       "age": 23,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 9,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kayserispor",
+          "year": "2019"
+        },
+        {
+          "club": "Trofense",
+          "year": "2022"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2022"
+        },
+        {
+          "club": "Inegölspor",
+          "year": "2023"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2024"
+        },
+        {
+          "club": "Iskenderunspor",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Denis Makarov",
@@ -267,9 +1368,57 @@
       "age": 28,
       "nationality": "Russia",
       "club": "Kayserispor",
-      "appearances": 18,
-      "goals": 3,
-      "assists": 1
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MCPUFP Mordovia",
+          "year": "2015"
+        },
+        {
+          "club": "Orenburg-2",
+          "year": "2017"
+        },
+        {
+          "club": "Neftekhimik",
+          "year": "2018"
+        },
+        {
+          "club": "Orenburg-2",
+          "year": "2019"
+        },
+        {
+          "club": "Neftekhimik",
+          "year": "2019"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2020"
+        },
+        {
+          "club": "Dynamo Moscow",
+          "year": "2021"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 245,
+        "goals": 60,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Mané",
@@ -277,9 +1426,57 @@
       "age": 32,
       "nationality": "Guinea-Bissau",
       "club": "Kayserispor",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sporting Sub-15",
+          "year": "2007"
+        },
+        {
+          "club": "Sporting",
+          "year": "2014"
+        },
+        {
+          "club": "Stuttgart",
+          "year": "2016"
+        },
+        {
+          "club": "Sporting",
+          "year": "2018"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2019"
+        },
+        {
+          "club": "Sporting",
+          "year": "2019"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2019"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 360,
+        "goals": 42,
+        "assists": 52,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fedor Chalov",
@@ -287,9 +1484,49 @@
       "age": 27,
       "nationality": "Russia",
       "club": "Kayserispor",
-      "appearances": 31,
-      "goals": 3,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CSKA Moscow",
+          "year": "2017"
+        },
+        {
+          "club": "Basel",
+          "year": "2022"
+        },
+        {
+          "club": "CSKA Moscow",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2026"
+        },
+        {
+          "club": "PAOK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 391,
+        "goals": 124,
+        "assists": 58,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "German Onugkha",
@@ -297,9 +1534,89 @@
       "age": 29,
       "nationality": "Russia",
       "club": "Kayserispor",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 8,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zenit Penza",
+          "year": "2017"
+        },
+        {
+          "club": "Volgar",
+          "year": "2018"
+        },
+        {
+          "club": "Krasnodar 2",
+          "year": "2018"
+        },
+        {
+          "club": "Tambov",
+          "year": "2020"
+        },
+        {
+          "club": "Krasnodar 2",
+          "year": "2021"
+        },
+        {
+          "club": "Krasnodar",
+          "year": "2021"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2021"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2021"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2021"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2022"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2022"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2023"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2024"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2025"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2025"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 256,
+        "goals": 82,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Indrit Tuci",
@@ -307,9 +1624,41 @@
       "age": 25,
       "nationality": "Albania",
       "club": "Kayserispor",
-      "appearances": 18,
-      "goals": 3,
-      "assists": 0
+      "appearances": 16,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Lokomotiva",
+          "year": "2019"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2024"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2025"
+        },
+        {
+          "club": "Sparta Prague",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 30,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Talha Sarıarslan",
@@ -317,9 +1666,29 @@
       "age": 22,
       "nationality": "Turkiye",
       "club": "Kayserispor",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Kayserispor",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 42,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

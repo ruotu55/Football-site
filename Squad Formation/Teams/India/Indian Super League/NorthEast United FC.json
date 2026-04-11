@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IND1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 26,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 11,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NorthEast Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Hyderabad FC",
+          "year": "2021"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 88,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 105,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dipesh Chauhan",
@@ -31,9 +68,29 @@
       "age": 22,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 18,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arman Tamang",
@@ -41,9 +98,37 @@
       "age": 21,
       "nationality": "India",
       "club": "NorthEast United FC II",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Maharana AC",
+          "year": "2022"
+        },
+        {
+          "club": "West Lions",
+          "year": "2023"
+        },
+        {
+          "club": "FC Agniputhra",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +138,53 @@
       "age": 28,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Anouba Imagi",
+          "year": "2016"
+        },
+        {
+          "club": "Real Kashmir",
+          "year": "2017"
+        },
+        {
+          "club": "TRAU FC",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "TRAU FC",
+          "year": "2019"
+        },
+        {
+          "club": "Sreenidi",
+          "year": "2021"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Míchel Zabaco",
@@ -63,9 +192,65 @@
       "age": 37,
       "nationality": "Spain",
       "club": "NorthEast United FC",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Madrid C",
+          "year": "2008"
+        },
+        {
+          "club": "Atl. Madrileño",
+          "year": "2010"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2015"
+        },
+        {
+          "club": "CyD Leonesa",
+          "year": "2016"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2016"
+        },
+        {
+          "club": "FC Cartagena",
+          "year": "2016"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2018"
+        },
+        {
+          "club": "UD Logroñés",
+          "year": "2019"
+        },
+        {
+          "club": "Burgos CF",
+          "year": "2020"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 390,
+        "goals": 16,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shubham Poonia",
@@ -75,7 +260,22 @@
       "club": "NorthEast United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Buanthanglun Samte",
@@ -83,9 +283,45 @@
       "age": 26,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pune FC",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "LYGSEDA",
+          "year": "2021"
+        },
+        {
+          "club": "TRAU FC",
+          "year": "2021"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 2,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tondonba Singh",
@@ -93,9 +329,37 @@
       "age": 31,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chennaiyin FC",
+          "year": "2018"
+        },
+        {
+          "club": "Mumbai City",
+          "year": "2020"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asheer Akhtar",
@@ -103,9 +367,61 @@
       "age": 31,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 1
+      "appearances": 6,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Salgaocar FC",
+          "year": "2016"
+        },
+        {
+          "club": "Mumbai FC",
+          "year": "2017"
+        },
+        {
+          "club": "Bengaluru FC",
+          "year": "2018"
+        },
+        {
+          "club": "East Bengal FC",
+          "year": "2019"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2020"
+        },
+        {
+          "club": "SC East Bengal",
+          "year": "2021"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2021"
+        },
+        {
+          "club": "Sreenidi",
+          "year": "2022"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robin Yadav",
@@ -113,9 +429,33 @@
       "age": 24,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bengaluru FC",
+          "year": "2023"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukul Panwar",
@@ -125,7 +465,22 @@
       "club": "NorthEast United FC II",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +490,37 @@
       "age": 28,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gokulam FC",
+          "year": "2019"
+        },
+        {
+          "club": "Sreenidi",
+          "year": "2021"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Macarton Louis Nickson",
@@ -145,9 +528,37 @@
       "age": 22,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 12,
-      "goals": 0,
-      "assists": 2
+      "appearances": 6,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indian Arrows",
+          "year": "2022"
+        },
+        {
+          "club": "Bengaluru U.",
+          "year": "2023"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andy Rodríguez",
@@ -155,9 +566,49 @@
       "age": 36,
       "nationality": "Spain",
       "club": "NorthEast United FC",
-      "appearances": 13,
-      "goals": 4,
-      "assists": 3
+      "appearances": 6,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Madrid C",
+          "year": "2009"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2014"
+        },
+        {
+          "club": "UD Logroñés",
+          "year": "2018"
+        },
+        {
+          "club": "Burgos CF",
+          "year": "2021"
+        },
+        {
+          "club": "FC Cartagena",
+          "year": "2024"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 461,
+        "goals": 70,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bekey Oram",
@@ -165,9 +616,29 @@
       "age": 22,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danny Meitei",
@@ -175,9 +646,24 @@
       "age": 18,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 13,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gunleiba Wangkheirakpam",
@@ -187,7 +673,22 @@
       "club": "NorthEast United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Arshaf A K",
@@ -195,9 +696,37 @@
       "age": 21,
       "nationality": "India",
       "club": "NorthEast United FC II",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muthoot FA",
+          "year": "2024"
+        },
+        {
+          "club": "Calicut FC",
+          "year": "2024"
+        },
+        {
+          "club": "Calicut FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -207,9 +736,33 @@
       "age": 23,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 13,
-      "goals": 3,
-      "assists": 0
+      "appearances": 6,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Indian Arrows",
+          "year": "2020"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 24,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jairo Samperio",
@@ -217,9 +770,73 @@
       "age": 32,
       "nationality": "Spain",
       "club": "NorthEast United FC",
-      "appearances": 11,
-      "goals": 2,
-      "assists": 2
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Racing",
+          "year": "2011"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2013"
+        },
+        {
+          "club": "Mainz",
+          "year": "2014"
+        },
+        {
+          "club": "UD Las Palmas",
+          "year": "2018"
+        },
+        {
+          "club": "Hamburg",
+          "year": "2018"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2020"
+        },
+        {
+          "club": "Honvéd",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Mezőkövesd",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sestao River",
+          "year": "2025"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 316,
+        "goals": 39,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Redeem Tlang",
@@ -227,9 +844,53 @@
       "age": 31,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NorthEast Utd.",
+          "year": "2014"
+        },
+        {
+          "club": "Shillong Lajong",
+          "year": "2014"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2018"
+        },
+        {
+          "club": "FC Goa",
+          "year": "2020"
+        },
+        {
+          "club": "Odisha FC",
+          "year": "2022"
+        },
+        {
+          "club": "FC Goa",
+          "year": "2022"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 16,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jithin M.S",
@@ -237,9 +898,41 @@
       "age": 28,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 12,
+      "appearances": 6,
       "goals": 1,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kerala Blasters",
+          "year": "2018"
+        },
+        {
+          "club": "Ozone FC",
+          "year": "2018"
+        },
+        {
+          "club": "Gokulam FC",
+          "year": "2019"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 24,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lalrinzuala Lalbiaknia",
@@ -247,9 +940,45 @@
       "age": 25,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Chhinga Veng FC",
+          "year": "2022"
+        },
+        {
+          "club": "Delhi FC",
+          "year": "2023"
+        },
+        {
+          "club": "Chhinga Veng FC",
+          "year": "2023"
+        },
+        {
+          "club": "Aizawl FC",
+          "year": "2023"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 28,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lalbiakdika",
@@ -257,9 +986,37 @@
       "age": 26,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 9,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "United Chirang",
+          "year": "2023"
+        },
+        {
+          "club": "Aizawl FC",
+          "year": "2023"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 11,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thoi Singh",
@@ -267,9 +1024,37 @@
       "age": 21,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 2
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bengaluru FC",
+          "year": "2020"
+        },
+        {
+          "club": "Bengaluru FC",
+          "year": "2022"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ankith P",
@@ -277,9 +1062,33 @@
       "age": 24,
       "nationality": "India",
       "club": "NorthEast United FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Y. Challenger",
+          "year": "2020"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fredy",
@@ -287,9 +1096,24 @@
       "age": 22,
       "nationality": "India",
       "club": "NorthEast United FC II",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

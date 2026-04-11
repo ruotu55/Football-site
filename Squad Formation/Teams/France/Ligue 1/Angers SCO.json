@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -68,7 +69,21 @@
           "club": "Lens",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 302,
+        "clean_sheets": 59
+      },
+      "national_team_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 50,
+        "clean_sheets": 35
+      }
     },
     {
       "name": "Melvin Zinga",
@@ -76,7 +91,7 @@
       "age": 24,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -84,7 +99,21 @@
           "club": "Angers SCO",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 51,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oumar Pona",
@@ -92,7 +121,7 @@
       "age": 19,
       "nationality": "Mali",
       "club": "Angers SCO",
-      "appearances": 13,
+      "appearances": 2,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -100,7 +129,21 @@
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 95,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -122,7 +165,21 @@
           "club": "Angers SCO",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Biumla",
@@ -130,7 +187,7 @@
       "age": 20,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -142,7 +199,21 @@
           "club": "Angers SCO",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Lefort",
@@ -150,7 +221,7 @@
       "age": 32,
       "nationality": "Mauritania",
       "club": "Angers SCO",
-      "appearances": 29,
+      "appearances": 27,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -182,7 +253,21 @@
           "club": "Angers SCO",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 381,
+        "goals": 4,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulaye Bamba",
@@ -190,9 +275,9 @@
       "age": 35,
       "nationality": "Ivory Coast",
       "club": "Angers SCO",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Dijon",
@@ -206,7 +291,21 @@
           "club": "Angers SCO",
           "year": "2017"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 454,
+        "goals": 3,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacques Ekomié",
@@ -214,7 +313,7 @@
       "age": 22,
       "nationality": "Gabon",
       "club": "Angers SCO",
-      "appearances": 26,
+      "appearances": 25,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -226,7 +325,21 @@
           "club": "Angers SCO",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florent Hanin",
@@ -234,7 +347,7 @@
       "age": 36,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -282,7 +395,21 @@
           "club": "Angers SCO",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 478,
+        "goals": 7,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dan Sinaté",
@@ -290,15 +417,59 @@
       "age": 19,
       "nationality": "Mali",
       "club": "Angers SCO",
-      "appearances": 17,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Lilian Raolisoa",
+      "position": "Right-Back",
+      "age": 25,
+      "nationality": "France",
+      "club": "Angers SCO",
+      "appearances": 25,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Angers SCO",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 5,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlens Arcus",
@@ -306,7 +477,7 @@
       "age": 29,
       "nationality": "Haiti",
       "club": "Angers SCO",
-      "appearances": 26,
+      "appearances": 24,
       "goals": 0,
       "assists": 3,
       "transfer_history": [
@@ -338,23 +509,21 @@
           "club": "Angers SCO",
           "year": "2024"
         }
-      ]
-    },
-    {
-      "name": "Lilian Raolisoa",
-      "position": "Right-Back",
-      "age": 25,
-      "nationality": "France",
-      "club": "Angers SCO",
-      "appearances": 28,
-      "goals": 2,
-      "assists": 3,
-      "transfer_history": [
-        {
-          "club": "Angers SCO",
-          "year": "2023"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 330,
+        "goals": 5,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 1,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marius Louër",
@@ -362,15 +531,29 @@
       "age": 19,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 12,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -380,7 +563,7 @@
       "age": 19,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 22,
+      "appearances": 18,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -392,7 +575,21 @@
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yassin Belkhdim",
@@ -400,7 +597,7 @@
       "age": 24,
       "nationality": "Morocco",
       "club": "Angers SCO",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -412,7 +609,21 @@
           "club": "Angers SCO",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 8,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Branco van den Boomen",
@@ -420,7 +631,7 @@
       "age": 30,
       "nationality": "Netherlands",
       "club": "Angers SCO",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -460,7 +671,21 @@
           "club": "Ajax",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 414,
+        "goals": 63,
+        "assists": 90,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Haris Belkebla",
@@ -468,7 +693,7 @@
       "age": 32,
       "nationality": "Algeria",
       "club": "Angers SCO",
-      "appearances": 27,
+      "appearances": 26,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -488,7 +713,21 @@
           "club": "Angers SCO",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 440,
+        "goals": 11,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pierrick Capelle",
@@ -496,7 +735,7 @@
       "age": 38,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -528,7 +767,21 @@
           "club": "Angers SCO",
           "year": "2015"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 449,
+        "goals": 43,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louis Mouton",
@@ -536,7 +789,7 @@
       "age": 23,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 28,
+      "appearances": 26,
       "goals": 2,
       "assists": 1,
       "transfer_history": [
@@ -556,7 +809,21 @@
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 11,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -566,8 +833,8 @@
       "age": 25,
       "nationality": "Morocco",
       "club": "Angers SCO",
-      "appearances": 22,
-      "goals": 3,
+      "appearances": 19,
+      "goals": 2,
       "assists": 1,
       "transfer_history": [
         {
@@ -594,7 +861,21 @@
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 35,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harouna Djibirin",
@@ -602,15 +883,29 @@
       "age": 19,
       "nationality": "Cameroon",
       "club": "Angers SCO",
-      "appearances": 18,
+      "appearances": 15,
       "goals": 2,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prosper Peter",
@@ -618,15 +913,29 @@
       "age": 18,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 3,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 20,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Goduine Koyalipou",
@@ -634,8 +943,8 @@
       "age": 26,
       "nationality": "Central African Republic",
       "club": "Angers SCO",
-      "appearances": 21,
-      "goals": 2,
+      "appearances": 7,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
@@ -678,7 +987,21 @@
           "club": "Angers SCO",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 71,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lanroy Machine",
@@ -686,15 +1009,29 @@
       "age": 20,
       "nationality": "France",
       "club": "Angers SCO",
-      "appearances": 21,
-      "goals": 3,
+      "appearances": 15,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Angers SCO",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 29,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

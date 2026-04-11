@@ -9,31 +9,37 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LAO1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
-      "name": "Sengphachan Bounthisanh",
+      "name": "Gamekeela Bounliyaphanh",
       "position": "Goalkeeper",
-      "age": 38,
+      "age": 28,
       "nationality": "Laos",
       "club": "Namtha United",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Anousay Sivanthong",
-      "position": "Goalkeeper",
-      "age": 18,
-      "nationality": "Laos",
-      "club": "Namtha United",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 13,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santisouk Khamphanouvong",
@@ -43,17 +49,27 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Gamekeela Bounliyaphanh",
-      "position": "Goalkeeper",
-      "age": 28,
-      "nationality": "Laos",
-      "club": "Namtha United",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Obee Vongthachit",
@@ -63,7 +79,118 @@
       "club": "Namtha United",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 23,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Sengphachan Bounthisanh",
+      "position": "Goalkeeper",
+      "age": 38,
+      "nationality": "Laos",
+      "club": "Namtha United",
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vientiane Cap.",
+          "year": "2003"
+        },
+        {
+          "club": "SHB Champasak",
+          "year": "2013"
+        },
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Eastern Star",
+          "year": "2015"
+        },
+        {
+          "club": "Lao Toyota",
+          "year": "2017"
+        },
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Muanghat Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Bolikhamxay FC",
+          "year": "2023"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 22,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 17,
+        "clean_sheets": 1
+      }
+    },
+    {
+      "name": "Anousay Sivanthong",
+      "position": "Goalkeeper",
+      "age": 18,
+      "nationality": "Laos",
+      "club": "Namtha United",
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -75,37 +202,51 @@
       "club": "Namtha United",
       "appearances": 17,
       "goals": 0,
-      "assists": 3
-    },
-    {
-      "name": "Soukamphan Phommalyvong",
-      "position": "Centre-Back",
-      "age": 25,
-      "nationality": "Laos",
-      "club": "Namtha United",
-      "appearances": 12,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Anung Douangvixay",
-      "position": "Centre-Back",
-      "age": 20,
-      "nationality": "Laos",
-      "club": "Namtha United",
-      "appearances": 15,
-      "goals": 4,
-      "assists": 1
-    },
-    {
-      "name": "Sisavath Keomoungkhoun",
-      "position": "Centre-Back",
-      "age": 19,
-      "nationality": "Laos",
-      "club": "Namtha United",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Esperanza SC",
+          "year": "2020"
+        },
+        {
+          "club": "Thespa Challen.",
+          "year": "2021"
+        },
+        {
+          "club": "KF Albpetrol",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Rakhine United",
+          "year": "2023"
+        },
+        {
+          "club": "KF Maliqi",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ketsada Souksavath",
@@ -115,7 +256,198 @@
       "club": "Namtha United",
       "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nong Khai FT",
+          "year": "2010"
+        },
+        {
+          "club": "SHB Champasak",
+          "year": "2013"
+        },
+        {
+          "club": "Super Power FC",
+          "year": "2017"
+        },
+        {
+          "club": "Lao Toyota",
+          "year": "2017"
+        },
+        {
+          "club": "Master 7",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Soukamphan Phommalyvong",
+      "position": "Centre-Back",
+      "age": 25,
+      "nationality": "Laos",
+      "club": "Namtha United",
+      "appearances": 12,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "VSV Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Lao Police Club",
+          "year": "2018"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2019"
+        },
+        {
+          "club": "Master 7",
+          "year": "2019"
+        },
+        {
+          "club": "FC Chanthabouly",
+          "year": "2021"
+        },
+        {
+          "club": "Master 7",
+          "year": "2022"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Anung Douangvixay",
+      "position": "Centre-Back",
+      "age": 20,
+      "nationality": "Laos",
+      "club": "Namtha United",
+      "appearances": 15,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Sisavath Keomoungkhoun",
+      "position": "Centre-Back",
+      "age": 19,
+      "nationality": "Laos",
+      "club": "Namtha United",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Aphisard Bounmysavath",
+      "position": "Centre-Back",
+      "age": 18,
+      "nationality": "Laos",
+      "club": "Namtha United",
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Takuya Watanabe",
@@ -125,7 +457,107 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nihon Uni",
+          "year": "2006"
+        },
+        {
+          "club": "Nihon Uni",
+          "year": "2009"
+        },
+        {
+          "club": "JSC FC",
+          "year": "2009"
+        },
+        {
+          "club": "Amateur (JP)",
+          "year": "2010"
+        },
+        {
+          "club": "HBO Tokyo",
+          "year": "2013"
+        },
+        {
+          "club": "CMAC FC",
+          "year": "2016"
+        },
+        {
+          "club": "Dangkor Senchey",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Goyo FC",
+          "year": "2017"
+        },
+        {
+          "club": "Selenge Press",
+          "year": "2017"
+        },
+        {
+          "club": "Three Star Club",
+          "year": "2018"
+        },
+        {
+          "club": "SP Falcons",
+          "year": "2018"
+        },
+        {
+          "club": "Samut Prakan FC",
+          "year": "2019"
+        },
+        {
+          "club": "Athletic 220",
+          "year": "2019"
+        },
+        {
+          "club": "Viengchanh FC",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Ezra FC",
+          "year": "2022"
+        },
+        {
+          "club": "Master 7",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Salavan United",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khounvang Soundala",
@@ -135,7 +567,22 @@
       "club": "Namtha United",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bounthavy Sipasong",
@@ -145,7 +592,51 @@
       "club": "Namtha United",
       "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "HAA",
+          "year": "2014"
+        },
+        {
+          "club": "Lao Toyota",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Master 7",
+          "year": "2019"
+        },
+        {
+          "club": "Ezra FC",
+          "year": "2023"
+        },
+        {
+          "club": "Master",
+          "year": "2024"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viengxay Sydavong",
@@ -155,7 +646,22 @@
       "club": "Namtha United",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kammakan Lathsaath",
@@ -165,17 +671,27 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Aphisard Bounmysavath",
-      "position": "",
-      "age": 18,
-      "nationality": "Laos",
-      "club": "Namtha United",
-      "appearances": 5,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -187,7 +703,47 @@
       "club": "Namtha United",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lao Police Club",
+          "year": "2015"
+        },
+        {
+          "club": "Master 7",
+          "year": "2022"
+        },
+        {
+          "club": "Bolikhamxay FC",
+          "year": "2023"
+        },
+        {
+          "club": "Viengchanh FC",
+          "year": "2023"
+        },
+        {
+          "club": "Master 7",
+          "year": "2023"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anoulack Sayyalath",
@@ -197,7 +753,27 @@
       "club": "Namtha United",
       "appearances": 16,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daiki Jahana",
@@ -207,27 +783,130 @@
       "club": "Namtha United",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "DFK Dainava",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "S. F. Int'l",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Kaiho Bank",
+          "year": "2022"
+        },
+        {
+          "club": "Erchim",
+          "year": "2022"
+        },
+        {
+          "club": "Khovd FC",
+          "year": "2023"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Manila Digger",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 9,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Ponesavanh Khamvongkeo",
+      "name": "Bounchay Chernvanglien",
       "position": "Attacking Midfield",
       "age": 19,
       "nationality": "Laos",
       "club": "Namtha United",
       "appearances": 6,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Bounchay Chernvanglien",
-      "position": "",
-      "age": 19,
+      "name": "Ponesavanh Khamvongkeo",
+      "position": "Attacking Midfield",
+      "age": 20,
       "nationality": "Laos",
       "club": "Namtha United",
       "appearances": 6,
       "goals": 0,
-      "assists": 1
+      "assists": 3,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kola Lalounglat",
@@ -237,17 +916,52 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soulin Thammasone",
       "position": "",
-      "age": 19,
+      "age": 20,
       "nationality": "Laos",
       "club": "Namtha United",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -259,7 +973,39 @@
       "club": "Namtha United",
       "appearances": 9,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2023"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xayasith Singsavang",
@@ -269,17 +1015,85 @@
       "club": "Namtha United",
       "appearances": 17,
       "goals": 5,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lao Toyota",
+          "year": "2020"
+        },
+        {
+          "club": "Viengchanh FC",
+          "year": "2021"
+        },
+        {
+          "club": "Master 7",
+          "year": "2022"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 8,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lavi Somthongkham",
       "position": "Right Winger",
-      "age": 21,
+      "age": 22,
       "nationality": "Laos",
       "club": "Namtha United",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ezra FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Young Elephants",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souksavanh Hopchakkawan",
@@ -289,7 +1103,27 @@
       "club": "Namtha United",
       "appearances": 15,
       "goals": 9,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 19,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lo Viphath",
@@ -299,7 +1133,39 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lao Toyota",
+          "year": "2019"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souksavan Khueahorkham",
@@ -309,7 +1175,22 @@
       "club": "Namtha United",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thongxay Silimoungkhoun",
@@ -319,7 +1200,27 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khorthou Phoutue",
@@ -329,7 +1230,22 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seevan Kounthavan",
@@ -339,7 +1255,22 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sadoudta Ladsaphon",
@@ -349,7 +1280,31 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Namtha United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yonghua Wanglangsy",
@@ -359,7 +1314,22 @@
       "club": "Namtha United",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikko Anouson",
@@ -369,7 +1339,22 @@
       "club": "Namtha United",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

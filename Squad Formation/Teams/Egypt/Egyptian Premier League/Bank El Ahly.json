@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "EGY1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 21,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 153,
+        "clean_sheets": 42
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Sobhi",
@@ -31,9 +56,24 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 34,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Tarek Soliman",
@@ -43,7 +83,47 @@
       "club": "Bank El Ahly",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Makasa",
+          "year": "2021"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2022"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2023"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        },
+        {
+          "club": "Proxy FC",
+          "year": "2024"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 7,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +133,41 @@
       "age": 28,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 19,
+      "appearances": 14,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2019"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2020"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2021"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saïdou Simporé",
@@ -64,8 +176,44 @@
       "nationality": "Burkina Faso",
       "club": "Bank El Ahly",
       "appearances": 14,
-      "goals": 3,
-      "assists": 0
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sonabel",
+          "year": "2013"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2016"
+        },
+        {
+          "club": "El Masry",
+          "year": "2019"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2021"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 29,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mostafa El Zenary",
@@ -73,19 +221,91 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2019"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2020"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2021"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Dao Cyrille",
+      "name": "Cyril Dao",
       "position": "Centre-Back",
       "age": 20,
       "nationality": "Burkina Faso",
       "club": "Bank El Ahly",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "Réal du Faso",
+          "year": "2025"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Medhat",
@@ -93,9 +313,24 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Meteb",
@@ -103,9 +338,49 @@
       "age": 29,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 17,
-      "goals": 2,
-      "assists": 1
+      "appearances": 12,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Makasa",
+          "year": "2020"
+        },
+        {
+          "club": "Eastern Company",
+          "year": "2021"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2022"
+        },
+        {
+          "club": "Eastern Company",
+          "year": "2023"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2023"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 12,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mostafa Dowidar",
@@ -113,9 +388,37 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 15,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aswan SC",
+          "year": "2019"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2020"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 165,
+        "goals": 3,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hesham Salah",
@@ -123,9 +426,41 @@
       "age": 28,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 14,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ittihad Alex",
+          "year": "2019"
+        },
+        {
+          "club": "El Raja",
+          "year": "2019"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2020"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shefo",
@@ -133,9 +468,41 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "La Viena FC",
+          "year": "2020"
+        },
+        {
+          "club": "Tamiya",
+          "year": "2021"
+        },
+        {
+          "club": "La Viena FC",
+          "year": "2021"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +512,41 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 17,
+      "appearances": 14,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ismaily",
+          "year": "2015"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2018"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Reda",
@@ -155,9 +554,41 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Petrojet",
+          "year": "2021"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2025"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2026"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bencharki",
@@ -165,9 +596,37 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "La Viena FC",
+          "year": "2023"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2024"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed El Nadry",
@@ -175,9 +634,33 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 17,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Mahalla",
+          "year": "2019"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salah Abd Etouab Bouchama",
@@ -185,9 +668,33 @@
       "age": 24,
       "nationality": "Algeria",
       "club": "Bank El Ahly",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 1
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ES Sétif",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 6,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Madbouli",
@@ -195,9 +702,37 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 4
+      "appearances": 18,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2017"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2019"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 266,
+        "goals": 19,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Ibrahim",
@@ -205,9 +740,74 @@
       "age": 34,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 21,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2011"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2014"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2015"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2019"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2020"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 406,
+        "goals": 36,
+        "assists": 64,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Mohamed Hosny",
+      "position": "",
+      "age": null,
+      "nationality": "Egypt",
+      "club": "Bank El Ahly",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +817,61 @@
       "age": 28,
       "nationality": "Togo",
       "club": "Bank El Ahly",
-      "appearances": 17,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2017"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2017"
+        },
+        {
+          "club": "Burgos CF",
+          "year": "2018"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2020"
+        },
+        {
+          "club": "Ashanti Gold",
+          "year": "2020"
+        },
+        {
+          "club": "Ismaily",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 64,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mostafa Shalaby",
@@ -227,9 +879,41 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 5
+      "appearances": 17,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Petrol Asyut",
+          "year": "2017"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2020"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 32,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sayed Abdallah",
@@ -237,19 +921,79 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 17,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ubon United",
+          "year": "2019"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2021"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2025"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 7,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mostafa Shehata",
       "position": "Right Winger",
-      "age": 24,
+      "age": 25,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Entag El Harby",
+          "year": "2021"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osama Faisal",
@@ -257,9 +1001,49 @@
       "age": 25,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2022"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2024"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 32,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Yasser Rayan",
@@ -267,9 +1051,65 @@
       "age": 28,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 22,
-      "goals": 8,
-      "assists": 2
+      "appearances": 15,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2017"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2019"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2019"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2020"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2021"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Altay SK",
+          "year": "2021"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2022"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 69,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oufa",
@@ -277,9 +1117,53 @@
       "age": 29,
       "nationality": "Egypt",
       "club": "Bank El Ahly",
-      "appearances": 23,
-      "goals": 5,
-      "assists": 0
+      "appearances": 17,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cleopatra FC",
+          "year": "2020"
+        },
+        {
+          "club": "El Makasa",
+          "year": "2021"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2021"
+        },
+        {
+          "club": "Eastern Company",
+          "year": "2022"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2022"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2022"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 31,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

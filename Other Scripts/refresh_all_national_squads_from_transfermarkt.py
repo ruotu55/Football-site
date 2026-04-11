@@ -14,6 +14,7 @@ import json
 import os
 import sys
 from pathlib import Path
+from typing import Any
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
 if str(_SCRIPT_DIR) not in sys.path:
@@ -53,6 +54,9 @@ async def run(args: argparse.Namespace) -> int:
     nt_cache: dict[str, str] = {}
     player_cache: dict[str, Any] = {}
     stats_cache: dict[str, tuple[int, int, int]] = {}
+    transfer_cache: dict[str, list[dict[str, str]]] = {}
+    club_career_cache: dict[str, dict[str, Any]] = {}
+    national_career_cache: dict[str, dict[str, Any]] = {}
 
     async with TMKT() as tmkt:
         season_meta = await _season_hint(tmkt)
@@ -98,6 +102,9 @@ async def run(args: argparse.Namespace) -> int:
                             nt_name_cache=nt_cache,
                             player_cache=player_cache,
                             stats_cache=stats_cache,
+                            transfer_cache=transfer_cache,
+                            club_career_cache=club_career_cache,
+                            national_career_cache=national_career_cache,
                             season_id=sid,
                             national_team_squad=True,
                         )

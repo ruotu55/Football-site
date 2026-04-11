@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "HOC1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 27,
       "nationality": "Colombia",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 20,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 33,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dayan Rodriguez",
@@ -31,9 +52,37 @@
       "age": 27,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 12,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olancho FC",
+          "year": "2022"
+        },
+        {
+          "club": "Unknown",
+          "year": "2025"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 20,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +92,37 @@
       "age": 30,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 21,
-      "goals": 2,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2017"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 323,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Mosquera",
@@ -53,9 +130,57 @@
       "age": 29,
       "nationality": "Colombia",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 20,
-      "goals": 1,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Santander",
+          "year": "2018"
+        },
+        {
+          "club": "Pereira",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Lusitânia",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Árabe Unido",
+          "year": "2024"
+        },
+        {
+          "club": "ADI Metapán",
+          "year": "2025"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Allans Vargas",
@@ -63,9 +188,37 @@
       "age": 32,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 17,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marathón",
+          "year": "2021"
+        },
+        {
+          "club": "Real Estelí FC",
+          "year": "2025"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Santos",
@@ -73,9 +226,53 @@
       "age": 30,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 21,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Olimpia",
+          "year": "2016"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2017"
+        },
+        {
+          "club": "Real de Minas",
+          "year": "2019"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2021"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2022"
+        },
+        {
+          "club": "Génesis FC",
+          "year": "2025"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 117,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Araújo",
@@ -83,9 +280,105 @@
       "age": 34,
       "nationality": "Brazil",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 25,
+      "appearances": 12,
       "goals": 1,
-      "assists": 4
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cruzeiro",
+          "year": "2011"
+        },
+        {
+          "club": "Nacional-MG",
+          "year": "2012"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2012"
+        },
+        {
+          "club": "EC Vitória",
+          "year": "2012"
+        },
+        {
+          "club": "Madureira",
+          "year": "2013"
+        },
+        {
+          "club": "Cruzeiro",
+          "year": "2013"
+        },
+        {
+          "club": "Macaé",
+          "year": "2013"
+        },
+        {
+          "club": "Metalurg D.",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Stal D.",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Ypiranga-RS",
+          "year": "2017"
+        },
+        {
+          "club": "Náutico",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Penapolense",
+          "year": "2020"
+        },
+        {
+          "club": "São Luiz",
+          "year": "2020"
+        },
+        {
+          "club": "Botafogo-PB",
+          "year": "2021"
+        },
+        {
+          "club": "Brasil Pelotas",
+          "year": "2022"
+        },
+        {
+          "club": "CD Olimpia",
+          "year": "2022"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 274,
+        "goals": 10,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juanes Ramos",
@@ -93,9 +386,24 @@
       "age": 20,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 10,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cristopher Fonseca",
@@ -103,19 +411,49 @@
       "age": 23,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 17,
+      "appearances": 4,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Pérez",
       "position": "Right-Back",
-      "age": 16,
+      "age": 17,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC Reserve",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Allan Flores",
@@ -123,9 +461,24 @@
       "age": 18,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC Reserve",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +488,33 @@
       "age": 26,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 20,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olancho FC",
+          "year": "2024"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edwin Maldonado",
@@ -145,9 +522,41 @@
       "age": 31,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 31,
-      "goals": 2,
-      "assists": 3
+      "appearances": 12,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Honduras Progr.",
+          "year": "2020"
+        },
+        {
+          "club": "FC Motagua",
+          "year": "2023"
+        },
+        {
+          "club": "Honduras Progr.",
+          "year": "2023"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Nieto",
@@ -155,9 +564,57 @@
       "age": 31,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 0
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Platense FC",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Real de Minas",
+          "year": "2021"
+        },
+        {
+          "club": "Génesis Huracán",
+          "year": "2021"
+        },
+        {
+          "club": "Platense FC",
+          "year": "2022"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 18,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Riascos",
@@ -165,9 +622,37 @@
       "age": 24,
       "nationality": "Colombia",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 20,
+      "appearances": 11,
       "goals": 1,
-      "assists": 4
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Fénix",
+          "year": "2023"
+        },
+        {
+          "club": "Muñiz",
+          "year": "2024"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Meléndez",
@@ -175,9 +660,37 @@
       "age": 23,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Génesis FC",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2025"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Moncada",
@@ -185,9 +698,49 @@
       "age": 34,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 24,
-      "goals": 6,
-      "assists": 3
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real de Minas",
+          "year": "2020"
+        },
+        {
+          "club": "Platense FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Lobos UPNFM",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 18,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Solano",
@@ -197,7 +750,22 @@
       "club": "Génesis / Policía Nacional FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oscar Flores",
@@ -205,9 +773,24 @@
       "age": 30,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángel Sánchez",
@@ -215,9 +798,24 @@
       "age": 20,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Josue Palma",
@@ -225,9 +823,24 @@
       "age": 24,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +850,45 @@
       "age": 26,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 21,
-      "goals": 4,
-      "assists": 2
+      "appearances": 6,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Platense FC",
+          "year": "2020"
+        },
+        {
+          "club": "Juventud",
+          "year": "2021"
+        },
+        {
+          "club": "Marathón",
+          "year": "2022"
+        },
+        {
+          "club": "Independiente",
+          "year": "2023"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Félix",
@@ -247,9 +896,69 @@
       "age": 23,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 27,
-      "goals": 4,
-      "assists": 0
+      "appearances": 13,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ac. Leones SP",
+          "year": "2018"
+        },
+        {
+          "club": "Juv. Escazuceña",
+          "year": "2021"
+        },
+        {
+          "club": "LD Alajuelense",
+          "year": "2022"
+        },
+        {
+          "club": "AD San Carlos",
+          "year": "2023"
+        },
+        {
+          "club": "LD Alajuelense",
+          "year": "2023"
+        },
+        {
+          "club": "FC Desamparados",
+          "year": "2023"
+        },
+        {
+          "club": "Real España",
+          "year": "2024"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2025"
+        },
+        {
+          "club": "Real España",
+          "year": "2025"
+        },
+        {
+          "club": "CD Choloma",
+          "year": "2025"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Arzu",
@@ -257,9 +966,33 @@
       "age": 27,
       "nationality": "Bolivia",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 0
+      "appearances": 10,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Victoria",
+          "year": "2023"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joan Euceda",
@@ -267,9 +1000,29 @@
       "age": 17,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Policía NFC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeffry Miranda",
@@ -277,9 +1030,41 @@
       "age": 23,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 1
+      "appearances": 12,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Marathón",
+          "year": "2021"
+        },
+        {
+          "club": "CD Victoria",
+          "year": "2024"
+        },
+        {
+          "club": "Marathón",
+          "year": "2024"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángel Tejeda",
@@ -287,9 +1072,65 @@
       "age": 34,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 31,
-      "goals": 8,
-      "assists": 6
+      "appearances": 13,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Honduras Progr.",
+          "year": "2014"
+        },
+        {
+          "club": "Real España",
+          "year": "2017"
+        },
+        {
+          "club": "Pérez Zeledón",
+          "year": "2019"
+        },
+        {
+          "club": "Real España",
+          "year": "2020"
+        },
+        {
+          "club": "CDS Vida",
+          "year": "2021"
+        },
+        {
+          "club": "FC Motagua",
+          "year": "2022"
+        },
+        {
+          "club": "LD Alajuelense",
+          "year": "2023"
+        },
+        {
+          "club": "Olancho FC",
+          "year": "2023"
+        },
+        {
+          "club": "Marathón",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 412,
+        "goals": 113,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yorman Valencia",
@@ -297,9 +1138,85 @@
       "age": 31,
       "nationality": "Ecuador",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Norte América",
+          "year": "2013"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2014"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2016"
+        },
+        {
+          "club": "Guayaquil City",
+          "year": "2018"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "CD América",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Rocafuerte FC",
+          "year": "2022"
+        },
+        {
+          "club": "Aviced FC",
+          "year": "2022"
+        },
+        {
+          "club": "CD La Union",
+          "year": "2023"
+        },
+        {
+          "club": "Baños CF",
+          "year": "2023"
+        },
+        {
+          "club": "Mineros SC",
+          "year": "2024"
+        },
+        {
+          "club": "Atlántico",
+          "year": "2025"
+        },
+        {
+          "club": "Génesis PN",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángel Palomo",
@@ -307,19 +1224,49 @@
       "age": 18,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC Reserve",
-      "appearances": 9,
-      "goals": 3,
-      "assists": 0
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Perez",
       "position": "",
-      "age": 18,
+      "age": 19,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 7,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Edil Mármol",
@@ -327,9 +1274,29 @@
       "age": 21,
       "nationality": "Honduras",
       "club": "Génesis / Policía Nacional FC",
-      "appearances": 5,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Génesis PN",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

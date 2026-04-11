@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MAZ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,31 @@
       "club": "Pelister Bitola",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2017"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 70,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nataniel Dimovski",
@@ -31,9 +56,33 @@
       "age": 20,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2015"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +92,53 @@
       "age": 32,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Carev Dvor",
+          "year": "2015"
+        },
+        {
+          "club": "Novaci",
+          "year": "2016"
+        },
+        {
+          "club": "Gostivar",
+          "year": "2017"
+        },
+        {
+          "club": "Sileks",
+          "year": "2018"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2021"
+        },
+        {
+          "club": "Voska Sport",
+          "year": "2021"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 152,
+        "goals": 1,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nemanja Zdravkovic",
@@ -53,9 +146,73 @@
       "age": 33,
       "nationality": "Serbia",
       "club": "Pelister Bitola",
-      "appearances": 22,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Napredak",
+          "year": "2011"
+        },
+        {
+          "club": "Kopaonik",
+          "year": "2013"
+        },
+        {
+          "club": "Napredak",
+          "year": "2013"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2014"
+        },
+        {
+          "club": "Pazova",
+          "year": "2016"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2018"
+        },
+        {
+          "club": "Backa",
+          "year": "2020"
+        },
+        {
+          "club": "Panevezys",
+          "year": "2021"
+        },
+        {
+          "club": "Dobanovci",
+          "year": "2022"
+        },
+        {
+          "club": "Metalac",
+          "year": "2022"
+        },
+        {
+          "club": "Dubocica",
+          "year": "2023"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 20,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kire Ristevski",
@@ -63,9 +220,89 @@
       "age": 35,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KF Elbasani",
+          "year": "2010"
+        },
+        {
+          "club": "FK Bylis",
+          "year": "2011"
+        },
+        {
+          "club": "Slavia Sofia",
+          "year": "2014"
+        },
+        {
+          "club": "KF Tirana",
+          "year": "2015"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2015"
+        },
+        {
+          "club": "Vasas FC",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Újpest FC",
+          "year": "2018"
+        },
+        {
+          "club": "AEL Limassol",
+          "year": "2021"
+        },
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2022"
+        },
+        {
+          "club": "Ethnikos",
+          "year": "2023"
+        },
+        {
+          "club": "Struga",
+          "year": "2024"
+        },
+        {
+          "club": "Makedonija",
+          "year": "2025"
+        },
+        {
+          "club": "Struga",
+          "year": "2025"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2026"
+        },
+        {
+          "club": "Struga",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 427,
+        "goals": 16,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 60,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milan Srbijanac",
@@ -73,9 +310,73 @@
       "age": 27,
       "nationality": "Serbia",
       "club": "Pelister Bitola",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FK Indjija",
+          "year": "2015"
+        },
+        {
+          "club": "Zlatibor",
+          "year": "2018"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2018"
+        },
+        {
+          "club": "FK Feniks",
+          "year": "2018"
+        },
+        {
+          "club": "Kabel Novi Sad",
+          "year": "2019"
+        },
+        {
+          "club": "FK Indjija",
+          "year": "2021"
+        },
+        {
+          "club": "Radnicki Srem",
+          "year": "2023"
+        },
+        {
+          "club": "Sloboda Uzice",
+          "year": "2024"
+        },
+        {
+          "club": "Graficar",
+          "year": "2024"
+        },
+        {
+          "club": "Zeleznicar (I)",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 11,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Milenkovski",
@@ -83,9 +384,49 @@
       "age": 36,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sileks",
+          "year": "2018"
+        },
+        {
+          "club": "Bregalnica Stip",
+          "year": "2019"
+        },
+        {
+          "club": "Struga",
+          "year": "2020"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2021"
+        },
+        {
+          "club": "Bregalnica Stip",
+          "year": "2021"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 236,
+        "goals": 7,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hristijan Stojanovski",
@@ -93,9 +434,33 @@
       "age": 21,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 0
+      "appearances": 17,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2015"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Boskovski",
@@ -105,7 +470,43 @@
       "club": "Pelister Bitola",
       "appearances": 17,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2012"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2018"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2022"
+        },
+        {
+          "club": "FC Samtredia",
+          "year": "2024"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 2,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefan Ivanovski",
@@ -113,9 +514,33 @@
       "age": 22,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2017"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mihail Milevski",
@@ -125,7 +550,55 @@
       "club": "Pelister Bitola",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pehcevo",
+          "year": "2021"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2022"
+        },
+        {
+          "club": "Mladost Klostar Podravski",
+          "year": "2023"
+        },
+        {
+          "club": "Ohrid Lihnidos",
+          "year": "2024"
+        },
+        {
+          "club": "Novaci",
+          "year": "2024"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2025"
+        },
+        {
+          "club": "Career break",
+          "year": "2025"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +608,89 @@
       "age": 35,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 23,
-      "goals": 4,
-      "assists": 1
+      "appearances": 22,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Borac Cacak",
+          "year": "2010"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2012"
+        },
+        {
+          "club": "Borac Cacak",
+          "year": "2012"
+        },
+        {
+          "club": "Beroe",
+          "year": "2014"
+        },
+        {
+          "club": "Vardar",
+          "year": "2015"
+        },
+        {
+          "club": "Ferencváros",
+          "year": "2017"
+        },
+        {
+          "club": "Hapoel Tel Aviv",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "AEK Larnaca",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "FC Mariupol",
+          "year": "2021"
+        },
+        {
+          "club": "MTK Budapest",
+          "year": "2022"
+        },
+        {
+          "club": "Pyunik Yerevan",
+          "year": "2022"
+        },
+        {
+          "club": "Ethnikos",
+          "year": "2023"
+        },
+        {
+          "club": "Struga",
+          "year": "2024"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 389,
+        "goals": 34,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 55,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Krstevski",
@@ -145,9 +698,29 @@
       "age": 19,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomce Grozdanovski",
@@ -155,9 +728,57 @@
       "age": 26,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kozuf",
+          "year": "2017"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2019"
+        },
+        {
+          "club": "NK Dugopolje",
+          "year": "2021"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2022"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2023"
+        },
+        {
+          "club": "Sileks",
+          "year": "2024"
+        },
+        {
+          "club": "Concordia",
+          "year": "2025"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 131,
+        "goals": 2,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Milojevic",
@@ -165,9 +786,57 @@
       "age": 22,
       "nationality": "Serbia",
       "club": "Pelister Bitola",
-      "appearances": 26,
+      "appearances": 8,
       "goals": 0,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Radnicki 1923",
+          "year": "2023"
+        },
+        {
+          "club": "Sloboda Uzice",
+          "year": "2023"
+        },
+        {
+          "club": "FK FAP Priboj",
+          "year": "2024"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2024"
+        },
+        {
+          "club": "Mladost GAT",
+          "year": "2025"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2025"
+        },
+        {
+          "club": "Vrsac",
+          "year": "2025"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Angelevski",
@@ -175,9 +844,29 @@
       "age": 18,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mihajlo Petrovic",
@@ -185,9 +874,49 @@
       "age": 20,
       "nationality": "Serbia",
       "club": "Pelister Bitola",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan Youth",
+          "year": "2018"
+        },
+        {
+          "club": "Partizan U15",
+          "year": "2019"
+        },
+        {
+          "club": "Partizan",
+          "year": "2024"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2025"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2026"
+        },
+        {
+          "club": "OFK Beograd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 18,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -197,9 +926,65 @@
       "age": 29,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Kozuf",
+          "year": "2016"
+        },
+        {
+          "club": "Tikves",
+          "year": "2019"
+        },
+        {
+          "club": "Borec Veles",
+          "year": "2020"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2021"
+        },
+        {
+          "club": "Sileks",
+          "year": "2022"
+        },
+        {
+          "club": "Vardar",
+          "year": "2024"
+        },
+        {
+          "club": "Brera Strumica",
+          "year": "2024"
+        },
+        {
+          "club": "AO Kavala",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 21,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vildan Kerim",
@@ -207,9 +992,65 @@
       "age": 31,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 20,
+      "appearances": 19,
       "goals": 3,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Karaman Bld",
+          "year": "2015"
+        },
+        {
+          "club": "Silifke Bld",
+          "year": "2017"
+        },
+        {
+          "club": "Sarayönü Bld",
+          "year": "2018"
+        },
+        {
+          "club": "FK Skopje",
+          "year": "2018"
+        },
+        {
+          "club": "KF Drenica",
+          "year": "2020"
+        },
+        {
+          "club": "KF Dukagjini",
+          "year": "2021"
+        },
+        {
+          "club": "Vardar",
+          "year": "2021"
+        },
+        {
+          "club": "Gostivar",
+          "year": "2022"
+        },
+        {
+          "club": "Detonit",
+          "year": "2023"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petar Petkovski",
@@ -219,7 +1060,51 @@
       "club": "Pelister Bitola",
       "appearances": 15,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vardar",
+          "year": "2015"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2018"
+        },
+        {
+          "club": "FC Botosani",
+          "year": "2021"
+        },
+        {
+          "club": "Concordia",
+          "year": "2023"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2023"
+        },
+        {
+          "club": "Concordia",
+          "year": "2024"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 31,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jovan Mrmachovski",
@@ -227,9 +1112,33 @@
       "age": 17,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2023"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Bulatovic",
@@ -239,7 +1148,55 @@
       "club": "Pelister Bitola",
       "appearances": 24,
       "goals": 9,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Dinamo Pancevo",
+          "year": "2019"
+        },
+        {
+          "club": "Radnicki Srem",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Amvrak. Loutrou",
+          "year": "2021"
+        },
+        {
+          "club": "AE Lefkimmis",
+          "year": "2022"
+        },
+        {
+          "club": "Makedonikos",
+          "year": "2022"
+        },
+        {
+          "club": "ND Gorica",
+          "year": "2024"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 18,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jovanco Trajkovski",
@@ -247,9 +1204,45 @@
       "age": 31,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 8,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Novaci",
+          "year": "2016"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2018"
+        },
+        {
+          "club": "Bosporus Kassel",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mirko Ivanovski",
@@ -259,7 +1252,91 @@
       "club": "Pelister Bitola",
       "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2006"
+        },
+        {
+          "club": "Makedonija",
+          "year": "2008"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2009"
+        },
+        {
+          "club": "Makedonija",
+          "year": "2010"
+        },
+        {
+          "club": "Arka Gdynia",
+          "year": "2010"
+        },
+        {
+          "club": "Astra Giurgiu",
+          "year": "2012"
+        },
+        {
+          "club": "CFR Cluj",
+          "year": "2014"
+        },
+        {
+          "club": "Videoton FC",
+          "year": "2015"
+        },
+        {
+          "club": "Boluspor",
+          "year": "2016"
+        },
+        {
+          "club": "Slaven Belupo",
+          "year": "2016"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2018"
+        },
+        {
+          "club": "Diósgyőr",
+          "year": "2019"
+        },
+        {
+          "club": "FC Dinamo",
+          "year": "2021"
+        },
+        {
+          "club": "Petrolul",
+          "year": "2022"
+        },
+        {
+          "club": "Concordia",
+          "year": "2023"
+        },
+        {
+          "club": "CS Tunari",
+          "year": "2023"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 437,
+        "goals": 91,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Boban Zdravevski",
@@ -267,9 +1344,69 @@
       "age": 26,
       "nationality": "North Macedonia",
       "club": "Pelister Bitola",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pelister Bitola",
+          "year": "2012"
+        },
+        {
+          "club": "Struga",
+          "year": "2017"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2017"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2018"
+        },
+        {
+          "club": "Detonit Junior",
+          "year": "2019"
+        },
+        {
+          "club": "Pitu Guli",
+          "year": "2019"
+        },
+        {
+          "club": "Osogovo",
+          "year": "2020"
+        },
+        {
+          "club": "Tikves",
+          "year": "2020"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2021"
+        },
+        {
+          "club": "Novaci",
+          "year": "2024"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filip Petrovic",
@@ -279,7 +1416,47 @@
       "club": "Pelister Bitola",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Svilajnac",
+          "year": "2019"
+        },
+        {
+          "club": "Kusiljevo",
+          "year": "2022"
+        },
+        {
+          "club": "FK Mesevo",
+          "year": "2022"
+        },
+        {
+          "club": "Svilajnac",
+          "year": "2024"
+        },
+        {
+          "club": "Radnicki Pirot",
+          "year": "2024"
+        },
+        {
+          "club": "Pelister Bitola",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

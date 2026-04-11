@@ -1,19 +1,20 @@
 // js/emojis.js
 
 export const EMOJI_IMAGES = [
-  "./emojies/active-character-dribbling-removebg-preview.png",
-  "./emojies/positive-character-with-ball-removebg-preview.png",
-  "./emojies/round-characters-playing-football-removebg-preview.png",
-  "./emojies/_Pngtree_soccer_ball_in_goal_net_3581900-removebg-preview.png",
-  "./emojies/5842fe18a6515b1e0ad75b3d-removebg-preview.png",
-  "./emojies/5842fe21a6515b1e0ad75b3e-removebg-preview.png",
-  "./emojies/_Pngtree_mens_sports_red_football_shoes_9097428-removebg-preview.png",
+  "../emojies/active-character-dribbling-removebg-preview.png",
+  "../emojies/positive-character-with-ball-removebg-preview.png",
+  "../emojies/round-characters-playing-football-removebg-preview.png",
+  "../emojies/_Pngtree_soccer_ball_in_goal_net_3581900-removebg-preview.png",
+  "../emojies/5842fe18a6515b1e0ad75b3d-removebg-preview.png",
+  "../emojies/5842fe21a6515b1e0ad75b3e-removebg-preview.png",
+  "../emojies/_Pngtree_mens_sports_red_football_shoes_9097428-removebg-preview.png",
 ];
 
 export function initFloatingEmojis() {
   const container = document.getElementById("floating-background");
   if (!container) return;
 
+  const isShorts = document.body.classList.contains("shorts-mode");
   const numRows = 10;
   const itemsPerRow = 8;
   const duration = 90; 
@@ -30,8 +31,14 @@ export function initFloatingEmojis() {
       img.style.height = `75px`; 
       img.style.objectFit = 'contain';
 
-      const verticalSpacing = 90 / (numRows - 1); 
-      img.style.top = `${5 + (r * verticalSpacing)}vh`;
+      if (isShorts) {
+        // In shorts mode the effect runs vertically inside the 9:16 window.
+        const horizontalSpacing = 90 / (numRows - 1);
+        img.style.left = `${5 + (r * horizontalSpacing)}%`;
+      } else {
+        const verticalSpacing = 90 / (numRows - 1); 
+        img.style.top = `${5 + (r * verticalSpacing)}vh`;
+      }
 
       img.style.animationDuration = `${duration}s`;
 

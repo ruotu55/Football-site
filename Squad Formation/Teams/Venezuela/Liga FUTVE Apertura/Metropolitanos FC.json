@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "VZ1A"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,49 @@
       "age": 34,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caracas FC",
+          "year": "2012"
+        },
+        {
+          "club": "Aragua FC",
+          "year": "2017"
+        },
+        {
+          "club": "Portuguesa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Anzoátegui",
+          "year": "2025"
+        },
+        {
+          "club": "Técnico U.",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 273,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 306,
+        "clean_sheets": 86
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jesús Lara",
@@ -33,7 +74,22 @@
       "club": "Metropolitanos B",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alan Vázquez",
@@ -43,19 +99,71 @@
       "club": "Metropolitanos FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 7,
+        "clean_sheets": 1
+      }
     }
   ],
   "defenders": [
     {
       "name": "Yolfran Caricote",
       "position": "Centre-Back",
-      "age": 26,
+      "age": 27,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UCV FC",
+          "year": "2022"
+        },
+        {
+          "club": "Colmenarez",
+          "year": "2023"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrés Ferro",
@@ -63,9 +171,45 @@
       "age": 24,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2019"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        },
+        {
+          "club": "NK Istra",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco Manenti",
@@ -75,7 +219,55 @@
       "club": "Metropolitanos FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unión Comercio",
+          "year": "2019"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2019"
+        },
+        {
+          "club": "Villa Dálmine",
+          "year": "2020"
+        },
+        {
+          "club": "12 de Octubre",
+          "year": "2021"
+        },
+        {
+          "club": "San Miguel",
+          "year": "2023"
+        },
+        {
+          "club": "Mitre (SdE)",
+          "year": "2025"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Pérez",
@@ -83,9 +275,29 @@
       "age": 22,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Camarillo",
@@ -95,7 +307,27 @@
       "club": "Metropolitanos FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac Ramírez",
@@ -103,9 +335,33 @@
       "age": 24,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zamora FC",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ely Valderrey",
@@ -113,9 +369,61 @@
       "age": 39,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Caracas FC",
+          "year": "2006"
+        },
+        {
+          "club": "Llaneros EF",
+          "year": "2009"
+        },
+        {
+          "club": "Caracas FC",
+          "year": "2009"
+        },
+        {
+          "club": "Llaneros EF",
+          "year": "2010"
+        },
+        {
+          "club": "Carabobo FC",
+          "year": "2013"
+        },
+        {
+          "club": "Dep. La Guaira",
+          "year": "2014"
+        },
+        {
+          "club": "Deportivo Lara",
+          "year": "2015"
+        },
+        {
+          "club": "Mineros",
+          "year": "2018"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 20,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Angel Jaimes",
@@ -125,7 +433,27 @@
       "club": "Metropolitanos FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alejandro Hernandez",
@@ -133,9 +461,29 @@
       "age": 18,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,19 +493,115 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Metropolitanos FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arcozelo",
+          "year": "2018"
+        },
+        {
+          "club": "Vila FC",
+          "year": "2019"
+        },
+        {
+          "club": "Valadares Gaia",
+          "year": "2019"
+        },
+        {
+          "club": "Leixões",
+          "year": "2021"
+        },
+        {
+          "club": "Puerto Cabello",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Rayo Zuliano",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Sangiovani",
       "position": "Central Midfield",
-      "age": 27,
+      "age": 28,
       "nationality": "Argentina",
       "club": "Metropolitanos FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Rosario Central",
+          "year": "2021"
+        },
+        {
+          "club": "Villa Dálmine",
+          "year": "2022"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2022"
+        },
+        {
+          "club": "Ind. Rivadavia",
+          "year": "2023"
+        },
+        {
+          "club": "Brown (Adrogué)",
+          "year": "2023"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2025"
+        },
+        {
+          "club": "Anzoátegui",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 2,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicol Martinez",
@@ -165,9 +609,24 @@
       "age": 20,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Zalzman",
@@ -175,9 +634,101 @@
       "age": 30,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Cornellà Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Barça Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Dep. Anzoátegui",
+          "year": "2014"
+        },
+        {
+          "club": "Memphis Tigers",
+          "year": "2015"
+        },
+        {
+          "club": "OKC Energy U-23",
+          "year": "2016"
+        },
+        {
+          "club": "Memphis Tigers",
+          "year": "2016"
+        },
+        {
+          "club": "Des Moines",
+          "year": "2017"
+        },
+        {
+          "club": "Memphis Tigers",
+          "year": "2017"
+        },
+        {
+          "club": "Memphis City FC",
+          "year": "2018"
+        },
+        {
+          "club": "Memphis Tigers",
+          "year": "2018"
+        },
+        {
+          "club": "Portland",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Táchira",
+          "year": "2019"
+        },
+        {
+          "club": "Monagas SC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Estudiantes",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 144,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert Garcés",
@@ -185,9 +736,61 @@
       "age": 32,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dep. Anzoátegui",
+          "year": "2012"
+        },
+        {
+          "club": "Dep. Miranda",
+          "year": "2013"
+        },
+        {
+          "club": "Caracas FC",
+          "year": "2014"
+        },
+        {
+          "club": "Carabobo FC",
+          "year": "2015"
+        },
+        {
+          "club": "Caracas FC",
+          "year": "2015"
+        },
+        {
+          "club": "Puerto Cabello",
+          "year": "2019"
+        },
+        {
+          "club": "Táchira",
+          "year": "2022"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 25,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Acosta",
@@ -195,9 +798,89 @@
       "age": 37,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cagliari",
+          "year": "2008"
+        },
+        {
+          "club": "Diagoras",
+          "year": "2010"
+        },
+        {
+          "club": "Cagliari",
+          "year": "2010"
+        },
+        {
+          "club": "Without Club",
+          "year": "2010"
+        },
+        {
+          "club": "Murcia Imperial",
+          "year": "2010"
+        },
+        {
+          "club": "Mineros",
+          "year": "2011"
+        },
+        {
+          "club": "Olimpia",
+          "year": "2017"
+        },
+        {
+          "club": "Independiente",
+          "year": "2017"
+        },
+        {
+          "club": "Alki Oroklini",
+          "year": "2018"
+        },
+        {
+          "club": "Olympiakos N.",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "ACSM Poli Iasi",
+          "year": "2021"
+        },
+        {
+          "club": "Alki Oroklini",
+          "year": "2021"
+        },
+        {
+          "club": "Omon. Aradippou",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 20,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jailerth Navarro",
@@ -205,9 +888,29 @@
       "age": 20,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaiver Gímenez",
@@ -215,9 +918,24 @@
       "age": 20,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,19 +945,111 @@
       "age": 29,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 2,
-      "assists": 3
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Dep. Anzoátegui",
+          "year": "2018"
+        },
+        {
+          "club": "Deportivo Lara",
+          "year": "2019"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2019"
+        },
+        {
+          "club": "Táchira",
+          "year": "2022"
+        },
+        {
+          "club": "Puerto Cabello",
+          "year": "2023"
+        },
+        {
+          "club": "Caracas FC",
+          "year": "2024"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 31,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeizon Ramírez",
       "position": "Left Winger",
-      "age": 24,
+      "age": 25,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
       "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Táchira",
+          "year": "2018"
+        },
+        {
+          "club": "Salt Lake",
+          "year": "2020"
+        },
+        {
+          "club": "Táchira",
+          "year": "2022"
+        },
+        {
+          "club": "Zamora FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Portuguesa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 17,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saimon Ramírez",
@@ -247,9 +1057,37 @@
       "age": 24,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zulia FC",
+          "year": "2022"
+        },
+        {
+          "club": "Rayo Zuliano",
+          "year": "2023"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 13,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kavier Ortiz",
@@ -257,9 +1095,57 @@
       "age": 23,
       "nationality": "Ecuador",
       "club": "Metropolitanos FC",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 1
+      "appearances": 9,
+      "goals": 3,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SD Aucas",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Albacete",
+          "year": "2023"
+        },
+        {
+          "club": "I. de Barinas",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Albacete",
+          "year": "2024"
+        },
+        {
+          "club": "Estudiantes",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Albacete",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        },
+        {
+          "club": "Atl. Albacete",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Rodríguez",
@@ -269,7 +1155,27 @@
       "club": "Metropolitanos FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marlon Díaz",
@@ -277,9 +1183,37 @@
       "age": 22,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Puerto Cabello",
+          "year": "2024"
+        },
+        {
+          "club": "Trujillanos",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Nieves",
@@ -289,7 +1223,27 @@
       "club": "Metropolitanos FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Agustín Bianciotti",
@@ -297,9 +1251,57 @@
       "age": 22,
       "nationality": "Argentina",
       "club": "Metropolitanos FC",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "appearances": 3,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atl. Rafaela",
+          "year": "2023"
+        },
+        {
+          "club": "Libertad (S)",
+          "year": "2023"
+        },
+        {
+          "club": "Atl. Rafaela",
+          "year": "2024"
+        },
+        {
+          "club": "9 de Julio",
+          "year": "2024"
+        },
+        {
+          "club": "Atl. Paraná",
+          "year": "2024"
+        },
+        {
+          "club": "Central Norte",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Rafaela",
+          "year": "2025"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miku",
@@ -307,19 +1309,131 @@
       "age": 40,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CD Alcoyano",
+          "year": "2004"
+        },
+        {
+          "club": "UD Salamanca",
+          "year": "2005"
+        },
+        {
+          "club": "Ciudad Murcia",
+          "year": "2006"
+        },
+        {
+          "club": "Gimnàstic",
+          "year": "2007"
+        },
+        {
+          "club": "UD Salamanca",
+          "year": "2008"
+        },
+        {
+          "club": "Valencia",
+          "year": "2009"
+        },
+        {
+          "club": "Getafe",
+          "year": "2010"
+        },
+        {
+          "club": "Celtic",
+          "year": "2012"
+        },
+        {
+          "club": "Getafe",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Gharafa",
+          "year": "2013"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2015"
+        },
+        {
+          "club": "Bengaluru FC",
+          "year": "2017"
+        },
+        {
+          "club": "Omonia Nicosia",
+          "year": "2019"
+        },
+        {
+          "club": "Dep. La Coruña",
+          "year": "2020"
+        },
+        {
+          "club": "Real Murcia",
+          "year": "2022"
+        },
+        {
+          "club": "CF Intercity",
+          "year": "2023"
+        },
+        {
+          "club": "Arenteiro",
+          "year": "2023"
+        },
+        {
+          "club": "Puerto Cabello",
+          "year": "2024"
+        },
+        {
+          "club": "Metropolitanos",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 498,
+        "goals": 150,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángelo Rivas",
       "position": "",
-      "age": 17,
+      "age": 18,
       "nationality": "Venezuela",
       "club": "Metropolitanos FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Metropolitanos",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

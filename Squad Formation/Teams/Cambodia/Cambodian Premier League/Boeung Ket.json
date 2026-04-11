@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "KHM1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,24 @@
       "age": 23,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 90,
+        "clean_sheets": 13
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chantha Chheng",
@@ -33,7 +49,27 @@
       "club": "Boeung Ket",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 59,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kuntheara Khem",
@@ -43,7 +79,22 @@
       "club": "Boeung Ket",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +104,77 @@
       "age": 32,
       "nationality": "Scotland",
       "club": "Boeung Ket",
-      "appearances": 23,
+      "appearances": 24,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "St. Mirren",
+          "year": "2012"
+        },
+        {
+          "club": "East Stirling",
+          "year": "2012"
+        },
+        {
+          "club": "AFC Wimbledon",
+          "year": "2016"
+        },
+        {
+          "club": "Ross County",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Falkirk",
+          "year": "2020"
+        },
+        {
+          "club": "Livingston FC",
+          "year": "2021"
+        },
+        {
+          "club": "Karmiotissa",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Partick Thistle",
+          "year": "2025"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 20,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bunchhai Taing",
@@ -63,9 +182,29 @@
       "age": 23,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nava Soueth",
@@ -73,9 +212,29 @@
       "age": 25,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2018"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Visinu Chhoeung",
@@ -83,9 +242,29 @@
       "age": 26,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vahed Ly",
@@ -95,7 +274,22 @@
       "club": "Boeung Ket",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davin Vang",
@@ -103,9 +297,29 @@
       "age": 24,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phearon Our",
@@ -113,9 +327,29 @@
       "age": 26,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 17,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rosib Sath",
@@ -125,7 +359,43 @@
       "club": "Boeung Ket",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NagaCorp FC",
+          "year": "2014"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2016"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2023"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 1,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louis Zabala",
@@ -133,9 +403,33 @@
       "age": 25,
       "nationality": "Australia",
       "club": "Boeung Ket",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Brisbane Roar",
+          "year": "2022"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sen Sleh",
@@ -143,9 +437,29 @@
       "age": 27,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manoch Touch",
@@ -155,7 +469,27 @@
       "club": "Boeung Ket",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sinarin Try",
@@ -165,7 +499,22 @@
       "club": "Boeung Ket",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +524,57 @@
       "age": 28,
       "nationality": "England",
       "club": "Boeung Ket",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Hamilton Acad.",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Altrincham",
+          "year": "2018"
+        },
+        {
+          "club": "Newcastle Town",
+          "year": "2019"
+        },
+        {
+          "club": "Happy Valley",
+          "year": "2020"
+        },
+        {
+          "club": "Kitchee",
+          "year": "2021"
+        },
+        {
+          "club": "Semen Padang",
+          "year": "2024"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 18,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vesley Chea",
@@ -185,9 +582,33 @@
       "age": 27,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Phnom Penh",
+          "year": "2015"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2017"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 3,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aarun Lim",
@@ -197,7 +618,47 @@
       "club": "Boeung Ket",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2020"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2022"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2022"
+        },
+        {
+          "club": "Nagaworld FC",
+          "year": "2023"
+        },
+        {
+          "club": "Tiffy Army FC",
+          "year": "2023"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Nop",
@@ -205,9 +666,29 @@
       "age": 25,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sovannara Eav",
@@ -217,7 +698,27 @@
       "club": "Boeung Ket",
       "appearances": 15,
       "goals": 4,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sovanpanha Heng",
@@ -227,7 +728,27 @@
       "club": "Boeung Ket",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +758,41 @@
       "age": 27,
       "nationality": "Cambodia",
       "club": "Boeung Ket",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Anachak Baitong",
+          "year": "2016"
+        },
+        {
+          "club": "Électricité",
+          "year": "2017"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 33,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iago",
@@ -247,9 +800,41 @@
       "age": 27,
       "nationality": "Brazil",
       "club": "Boeung Ket",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 2,
-      "assists": 7
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Angkor Tiger",
+          "year": "2021"
+        },
+        {
+          "club": "Svay Rieng",
+          "year": "2023"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 17,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Myer Bevan",
@@ -259,7 +844,75 @@
       "club": "Boeung Ket",
       "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Auckland City",
+          "year": "2016"
+        },
+        {
+          "club": "Whitecaps FC 2",
+          "year": "2017"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2017"
+        },
+        {
+          "club": "Husqvarna FF",
+          "year": "2018"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2018"
+        },
+        {
+          "club": "Fresno",
+          "year": "2018"
+        },
+        {
+          "club": "Western Springs",
+          "year": "2019"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2019"
+        },
+        {
+          "club": "TS Galaxy FC",
+          "year": "2020"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2021"
+        },
+        {
+          "club": "Cavalry FC",
+          "year": "2022"
+        },
+        {
+          "club": "Auckland City",
+          "year": "2024"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 65,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vathanaka Chan",
@@ -269,7 +922,59 @@
       "club": "Boeung Ket",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Preah Khan Reach",
+          "year": "2011"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2012"
+        },
+        {
+          "club": "Fujieda MYFC",
+          "year": "2017"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2017"
+        },
+        {
+          "club": "FA Pahang",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2018"
+        },
+        {
+          "club": "PKNS FC",
+          "year": "2019"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 15,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 32,
+        "goals": 13,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cyrus Dehmie",
@@ -279,7 +984,47 @@
       "club": "Boeung Ket",
       "appearances": 5,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brisbane Roar",
+          "year": "2021"
+        },
+        {
+          "club": "Naestved BK",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Olympic FC",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney Olympic",
+          "year": "2025"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 21,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Soben Khoan",
@@ -289,7 +1034,35 @@
       "club": "Boeung Ket",
       "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Boeung Ket",
+          "year": "2022"
+        },
+        {
+          "club": "Kirivong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Boeung Ket",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 10,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "MLS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,73 @@
       "age": 34,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cleveland Int.",
+          "year": "2010"
+        },
+        {
+          "club": "CSU Vikings",
+          "year": "2010"
+        },
+        {
+          "club": "Akron Assault",
+          "year": "2011"
+        },
+        {
+          "club": "CSU Vikings",
+          "year": "2011"
+        },
+        {
+          "club": "Montreal",
+          "year": "2013"
+        },
+        {
+          "club": "MLS Pool",
+          "year": "2013"
+        },
+        {
+          "club": "Columbus",
+          "year": "2013"
+        },
+        {
+          "club": "Dayton Dutch L.",
+          "year": "2014"
+        },
+        {
+          "club": "Columbus Crew",
+          "year": "2014"
+        },
+        {
+          "club": "Wilmington",
+          "year": "2014"
+        },
+        {
+          "club": "New York City",
+          "year": "2017"
+        },
+        {
+          "club": "Austin",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 222,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 328,
+        "clean_sheets": 47
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damian Las",
@@ -33,7 +98,51 @@
       "club": "Austin FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "North Carolina",
+          "year": "2021"
+        },
+        {
+          "club": "Austin",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2023"
+        },
+        {
+          "club": "Louisville City",
+          "year": "2024"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        },
+        {
+          "club": "Louisville City",
+          "year": "2025"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 115,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 2
+      }
     }
   ],
   "defenders": [
@@ -43,9 +152,49 @@
       "age": 31,
       "nationality": "Ukraine",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dnipro",
+          "year": "2014"
+        },
+        {
+          "club": "Volyn Lutsk",
+          "year": "2014"
+        },
+        {
+          "club": "Zorya Lugansk",
+          "year": "2017"
+        },
+        {
+          "club": "Hajduk Split",
+          "year": "2019"
+        },
+        {
+          "club": "SC Dnipro-1",
+          "year": "2020"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateja Djordjević",
@@ -55,7 +204,39 @@
       "club": "Austin FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan",
+          "year": "2021"
+        },
+        {
+          "club": "Vozdovac",
+          "year": "2022"
+        },
+        {
+          "club": "FK TSC",
+          "year": "2023"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brendan Hines-Ike",
@@ -63,9 +244,61 @@
       "age": 31,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ocean City",
+          "year": "2014"
+        },
+        {
+          "club": "CU Bluejays",
+          "year": "2014"
+        },
+        {
+          "club": "SF Bulls",
+          "year": "2015"
+        },
+        {
+          "club": "Örebro SK",
+          "year": "2016"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2018"
+        },
+        {
+          "club": "D.C. United",
+          "year": "2021"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2021"
+        },
+        {
+          "club": "D.C. United",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 252,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jon Bell",
@@ -73,9 +306,69 @@
       "age": 28,
       "nationality": "Jamaica",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UMBC Retrievers",
+          "year": "2016"
+        },
+        {
+          "club": "OKC Energy U-23",
+          "year": "2017"
+        },
+        {
+          "club": "UMBC Retrievers",
+          "year": "2017"
+        },
+        {
+          "club": "Baltimore",
+          "year": "2019"
+        },
+        {
+          "club": "UMBC Retrievers",
+          "year": "2019"
+        },
+        {
+          "club": "SJ Earthquakes",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "New England",
+          "year": "2021"
+        },
+        {
+          "club": "St. Louis CITY",
+          "year": "2022"
+        },
+        {
+          "club": "Seattle",
+          "year": "2023"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guilherme Biro",
@@ -83,9 +376,37 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Austin FC",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Coritiba FC",
+          "year": "2020"
+        },
+        {
+          "club": "Mirassol-SP",
+          "year": "2023"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Rosales",
@@ -93,9 +414,45 @@
       "age": 25,
       "nationality": "Honduras",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Independiente",
+          "year": "2019"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2021"
+        },
+        {
+          "club": "Independiente",
+          "year": "2022"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2023"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 7,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Žan Kolmanič",
@@ -103,9 +460,41 @@
       "age": 26,
       "nationality": "Slovenia",
       "club": "Austin FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Maribor",
+          "year": "2017"
+        },
+        {
+          "club": "Austin",
+          "year": "2021"
+        },
+        {
+          "club": "NK Maribor",
+          "year": "2021"
+        },
+        {
+          "club": "Austin",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 1,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mikkel Desler",
@@ -113,9 +502,41 @@
       "age": 31,
       "nationality": "Denmark",
       "club": "Austin FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Odense BK",
+          "year": "2014"
+        },
+        {
+          "club": "Haugesund",
+          "year": "2019"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2021"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 10,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jon Gallagher",
@@ -123,9 +544,57 @@
       "age": 30,
       "nationality": "Republic of Ireland",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Notre Dame",
+          "year": "2014"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2018"
+        },
+        {
+          "club": "ATL UTD 2",
+          "year": "2018"
+        },
+        {
+          "club": "ATL UTD 2",
+          "year": "2019"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2019"
+        },
+        {
+          "club": "Aberdeen FC",
+          "year": "2019"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2020"
+        },
+        {
+          "club": "Austin",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 269,
+        "goals": 26,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Riley Thomas",
@@ -133,9 +602,37 @@
       "age": 24,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tar Heels",
+          "year": "2020"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +642,57 @@
       "age": 35,
       "nationality": "Spain",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Barça Atlètic",
+          "year": "2009"
+        },
+        {
+          "club": "1860 Munich",
+          "year": "2014"
+        },
+        {
+          "club": "Elche CF",
+          "year": "2015"
+        },
+        {
+          "club": "1860 Munich",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Kansas City",
+          "year": "2017"
+        },
+        {
+          "club": "LAFC",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 512,
+        "goals": 20,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Owen Wolff",
@@ -155,9 +700,29 @@
       "age": 21,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 15,
+      "goals": 13,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Austin",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 10,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Pereira",
@@ -167,7 +732,27 @@
       "club": "Austin FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Austin",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 6,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Besard Šabović",
@@ -175,9 +760,65 @@
       "age": 28,
       "nationality": "Sweden",
       "club": "Austin FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Djurgården",
+          "year": "2016"
+        },
+        {
+          "club": "Brommapojkarna",
+          "year": "2017"
+        },
+        {
+          "club": "Djurgården",
+          "year": "2017"
+        },
+        {
+          "club": "Dalkurd",
+          "year": "2019"
+        },
+        {
+          "club": "Djurgården",
+          "year": "2019"
+        },
+        {
+          "club": "Mjällby AIF",
+          "year": "2020"
+        },
+        {
+          "club": "Kayserispor",
+          "year": "2021"
+        },
+        {
+          "club": "Khimki",
+          "year": "2021"
+        },
+        {
+          "club": "Djurgården",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 38,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolás Dubersarsky",
@@ -185,9 +826,33 @@
       "age": 21,
       "nationality": "Argentina",
       "club": "Austin FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Instituto ACC",
+          "year": "2024"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ervin Torres",
@@ -195,19 +860,59 @@
       "age": 18,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Micah Burton",
       "position": "Attacking Midfield",
-      "age": 19,
+      "age": 20,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Austin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +922,53 @@
       "age": 30,
       "nationality": "Albania",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Tomori Berat",
+          "year": "2013"
+        },
+        {
+          "club": "FK Apolonia",
+          "year": "2015"
+        },
+        {
+          "club": "KF Laçi",
+          "year": "2017"
+        },
+        {
+          "club": "NK Lokomotiva",
+          "year": "2018"
+        },
+        {
+          "club": "Ferencváros",
+          "year": "2020"
+        },
+        {
+          "club": "Granada CF",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 137,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 6,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jayden Nelson",
@@ -229,7 +978,51 @@
       "club": "Austin FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toronto",
+          "year": "2020"
+        },
+        {
+          "club": "Toronto",
+          "year": "2021"
+        },
+        {
+          "club": "Rosenborg BK",
+          "year": "2023"
+        },
+        {
+          "club": "SSV Ulm 1846",
+          "year": "2024"
+        },
+        {
+          "club": "Rosenborg BK",
+          "year": "2025"
+        },
+        {
+          "club": "Vancouver",
+          "year": "2025"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 16,
+        "assists": 26,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Robert Taylor",
@@ -239,7 +1032,63 @@
       "club": "Austin FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Huima",
+          "year": "2011"
+        },
+        {
+          "club": "Boston Town",
+          "year": "2013"
+        },
+        {
+          "club": "JJK Jyväskylä",
+          "year": "2013"
+        },
+        {
+          "club": "RoPS",
+          "year": "2016"
+        },
+        {
+          "club": "AIK",
+          "year": "2017"
+        },
+        {
+          "club": "Tromsø IL",
+          "year": "2018"
+        },
+        {
+          "club": "AIK",
+          "year": "2018"
+        },
+        {
+          "club": "SK Brann",
+          "year": "2020"
+        },
+        {
+          "club": "Miami",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 387,
+        "goals": 74,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "CJ Fodrey",
@@ -247,9 +1096,57 @@
       "age": 22,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LA Galaxy Acad.",
+          "year": "2019"
+        },
+        {
+          "club": "San Diego Surf",
+          "year": "2020"
+        },
+        {
+          "club": "San Diego Loyal",
+          "year": "2021"
+        },
+        {
+          "club": "San Diego Surf",
+          "year": "2021"
+        },
+        {
+          "club": "San Diego State",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2022"
+        },
+        {
+          "club": "Austin",
+          "year": "2023"
+        },
+        {
+          "club": "Austin",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 17,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Torres",
@@ -257,9 +1154,41 @@
       "age": 25,
       "nationality": "Uruguay",
       "club": "Austin FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Peñarol",
+          "year": "2020"
+        },
+        {
+          "club": "Orlando",
+          "year": "2022"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2025"
+        },
+        {
+          "club": "Austin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 73,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brandon Vazquez",
@@ -267,9 +1196,61 @@
       "age": 27,
       "nationality": "United States",
       "club": "Austin FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 18,
+      "goals": 12,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlanta",
+          "year": "2017"
+        },
+        {
+          "club": "ATL UTD 2",
+          "year": "2018"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2018"
+        },
+        {
+          "club": "ATL UTD 2",
+          "year": "2019"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2019"
+        },
+        {
+          "club": "Nashville",
+          "year": "2019"
+        },
+        {
+          "club": "Cincinnati",
+          "year": "2019"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2024"
+        },
+        {
+          "club": "Austin",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 262,
+        "goals": 83,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Ramirez",
@@ -279,7 +1260,91 @@
       "club": "Austin FC",
       "appearances": 4,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UCSB Gauchos",
+          "year": "2009"
+        },
+        {
+          "club": "Orange County",
+          "year": "2010"
+        },
+        {
+          "club": "UCSB Gauchos",
+          "year": "2010"
+        },
+        {
+          "club": "Orange County",
+          "year": "2011"
+        },
+        {
+          "club": "UCSB Gauchos",
+          "year": "2011"
+        },
+        {
+          "club": "CU Irvine",
+          "year": "2011"
+        },
+        {
+          "club": "Orange County",
+          "year": "2012"
+        },
+        {
+          "club": "CU Irvine",
+          "year": "2012"
+        },
+        {
+          "club": "Charlotte",
+          "year": "2013"
+        },
+        {
+          "club": "Minnesota NASL",
+          "year": "2014"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2017"
+        },
+        {
+          "club": "LAFC",
+          "year": "2018"
+        },
+        {
+          "club": "Houston",
+          "year": "2019"
+        },
+        {
+          "club": "Aberdeen FC",
+          "year": "2021"
+        },
+        {
+          "club": "Columbus",
+          "year": "2023"
+        },
+        {
+          "club": "LA Galaxy",
+          "year": "2025"
+        },
+        {
+          "club": "Austin",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 399,
+        "goals": 143,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GHPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 101,
+        "clean_sheets": 54
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Massawudu Inusah",
@@ -33,7 +54,22 @@
       "club": "Aduana Stars FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 70,
+        "clean_sheets": 28
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osei Prince",
@@ -41,9 +77,24 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 13,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +106,55 @@
       "club": "Aduana Stars FC",
       "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2015"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Tadamon SC",
+          "year": "2019"
+        },
+        {
+          "club": "Berekum Chelsea",
+          "year": "2021"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2022"
+        },
+        {
+          "club": "Mechal",
+          "year": "2023"
+        },
+        {
+          "club": "Arbaminch",
+          "year": "2024"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Boakye",
@@ -63,9 +162,24 @@
       "age": 30,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 20,
+      "appearances": 22,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 8,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Kuffour",
@@ -73,9 +187,41 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 12,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Felgueiras",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2023"
+        },
+        {
+          "club": "Nations FC",
+          "year": "2024"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "William Dankyi",
@@ -85,7 +231,55 @@
       "club": "Aduana Stars FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Liberty Prof.",
+          "year": "2015"
+        },
+        {
+          "club": "Tema Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Liberty Prof.",
+          "year": "2017"
+        },
+        {
+          "club": "Hearts of Oak",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "King Faisal",
+          "year": "2023"
+        },
+        {
+          "club": "Gold Stars FC",
+          "year": "2023"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abubakar Adams",
@@ -93,9 +287,24 @@
       "age": 18,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 20,
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Remember Adomako Boateng",
@@ -103,9 +312,33 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 23,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Accra Lions",
+          "year": "2021"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 1,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elvis Addo",
@@ -113,9 +346,24 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stephen Kwakye",
@@ -125,7 +373,27 @@
       "club": "Aduana Stars FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Desmond Obeng",
@@ -135,7 +403,22 @@
       "club": "Aduana Stars FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Yeboah",
@@ -145,7 +428,27 @@
       "club": "Aduana Stars FC",
       "appearances": 2,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +458,37 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 19,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Godfred Boakye",
@@ -167,7 +498,27 @@
       "club": "Aduana Stars FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Silas Kyeremeh",
@@ -177,7 +528,22 @@
       "club": "Aduana Stars FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul-Aziz Nurudeen",
@@ -187,7 +553,35 @@
       "club": "Aduana Stars FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hearts of Oak",
+          "year": "2020"
+        },
+        {
+          "club": "Hearts of Oak",
+          "year": "2023"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gideon Asante Yeboah",
@@ -197,7 +591,35 @@
       "club": "Aduana Stars FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vision FC",
+          "year": "2025"
+        },
+        {
+          "club": "Hearts of Oak",
+          "year": "2025"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sam Adams",
@@ -207,7 +629,35 @@
       "club": "Aduana Stars FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 23,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richard Afriyie",
@@ -217,7 +667,22 @@
       "club": "Aduana Stars FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hensen Anponsa",
@@ -225,9 +690,24 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 24,
+      "appearances": 26,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raymond Agyemang",
@@ -235,9 +715,24 @@
       "age": 21,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seidu Saana",
@@ -245,9 +740,24 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 22,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samuel Owusu Ansah",
@@ -257,7 +767,22 @@
       "club": "Aduana Stars FC",
       "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salim Uzair Baafada",
@@ -265,9 +790,24 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 8,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -277,9 +817,41 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 11,
+      "appearances": 13,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2021"
+        },
+        {
+          "club": "Vision FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Otubua",
@@ -289,7 +861,43 @@
       "club": "Aduana Stars FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UniStar SA",
+          "year": "2021"
+        },
+        {
+          "club": "RC Abidjan",
+          "year": "2022"
+        },
+        {
+          "club": "UniStar SA",
+          "year": "2023"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Awuni",
@@ -297,9 +905,45 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Accra Lions",
+          "year": "2021"
+        },
+        {
+          "club": "Accra Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Cukaricki",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daouda Sidibé",
@@ -307,9 +951,41 @@
       "age": 26,
       "nationality": "Burkina Faso",
       "club": "Aduana Stars FC",
-      "appearances": 23,
+      "appearances": 25,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Medeama",
+          "year": "2024"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        },
+        {
+          "club": "Medeama",
+          "year": "2025"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Benjamin Tsivanyo",
@@ -319,7 +995,31 @@
       "club": "Aduana Stars FC",
       "appearances": 6,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nsoatreman FC",
+          "year": "2024"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Charles Gyamfi Kamara",
@@ -327,9 +1027,33 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gold Stars FC",
+          "year": "2021"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 8,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Marfo",
@@ -337,9 +1061,37 @@
       "age": 26,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 20,
-      "goals": 6,
-      "assists": 0
+      "appearances": 22,
+      "goals": 7,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EF Ouagadougou",
+          "year": "2023"
+        },
+        {
+          "club": "New Edubiase",
+          "year": "2024"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 15,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mezack Afriyie",
@@ -349,7 +1101,27 @@
       "club": "Aduana Stars FC",
       "appearances": 20,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 21,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bright Adjei",
@@ -357,9 +1129,78 @@
       "age": 31,
       "nationality": "Ghana",
       "club": "Aduana Stars FC",
-      "appearances": 17,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aduana Stars",
+          "year": "2016"
+        },
+        {
+          "club": "Burgan SC",
+          "year": "2019"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2020"
+        },
+        {
+          "club": "Singida Big Star",
+          "year": "2023"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2023"
+        },
+        {
+          "club": "Fountain Gate",
+          "year": "2024"
+        },
+        {
+          "club": "Aduana Stars",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 42,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Kofi Asante",
+      "position": "Centre-Forward",
+      "age": 23,
+      "nationality": "Ghana",
+      "club": "Aduana Stars FC",
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Bamba",
@@ -369,17 +1210,22 @@
       "club": "Aduana Stars FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Kofi Asante",
-      "position": "",
-      "age": 23,
-      "nationality": "Ghana",
-      "club": "Aduana Stars FC",
-      "appearances": 6,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

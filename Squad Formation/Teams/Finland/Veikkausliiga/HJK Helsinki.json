@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "FI1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,77 @@
       "age": 29,
       "nationality": "Croatia",
       "club": "HJK Helsinki",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NK Rudes",
+          "year": "2015"
+        },
+        {
+          "club": "HASK Zagreb",
+          "year": "2016"
+        },
+        {
+          "club": "Celik Zenica",
+          "year": "2017"
+        },
+        {
+          "club": "FK Krupa",
+          "year": "2018"
+        },
+        {
+          "club": "FK Sarajevo",
+          "year": "2019"
+        },
+        {
+          "club": "Michalovce",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Levadiakos",
+          "year": "2022"
+        },
+        {
+          "club": "NK Rudes",
+          "year": "2023"
+        },
+        {
+          "club": "Levski Sofia",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "NK Vukovar 1991",
+          "year": "2025"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 207,
+        "clean_sheets": 39
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jesse Öst",
@@ -31,9 +100,79 @@
       "age": 35,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jakobstads BK",
+          "year": "2008"
+        },
+        {
+          "club": "FF Jaro",
+          "year": "2010"
+        },
+        {
+          "club": "Degerfors",
+          "year": "2016"
+        },
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2018"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 335,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 454,
+        "clean_sheets": 83
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Mitja Haapanen",
+      "position": "Goalkeeper",
+      "age": 18,
+      "nationality": "Finland",
+      "club": "HJK Helsinki",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2025"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 32,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +182,69 @@
       "age": 26,
       "nationality": "France",
       "club": "HJK Helsinki",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Clermont Foot",
+          "year": "2019"
+        },
+        {
+          "club": "A. Lustenau",
+          "year": "2020"
+        },
+        {
+          "club": "Clermont Foot",
+          "year": "2021"
+        },
+        {
+          "club": "Quevilly Rouen",
+          "year": "2021"
+        },
+        {
+          "club": "Clermont Foot",
+          "year": "2022"
+        },
+        {
+          "club": "Quevilly Rouen",
+          "year": "2022"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2024"
+        },
+        {
+          "club": "Rodez AF",
+          "year": "2025"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ville Tikkanen",
@@ -53,9 +252,33 @@
       "age": 26,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SJK Seinäjoki",
+          "year": "2017"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 227,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mihailo Bogicevic",
@@ -63,9 +286,41 @@
       "age": 27,
       "nationality": "Serbia",
       "club": "HJK Helsinki",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Renens",
+          "year": "2015"
+        },
+        {
+          "club": "FK Loznica",
+          "year": "2019"
+        },
+        {
+          "club": "Spartak",
+          "year": "2021"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel O'Shaughnessy",
@@ -73,9 +328,53 @@
       "age": 31,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 8,
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Metz",
+          "year": "2013"
+        },
+        {
+          "club": "Braintree",
+          "year": "2015"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2016"
+        },
+        {
+          "club": "Cheltenham",
+          "year": "2016"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2018"
+        },
+        {
+          "club": "Karlsruher SC",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emil Leveälahti",
@@ -83,9 +382,33 @@
       "age": 19,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonel Montano",
@@ -93,19 +416,99 @@
       "age": 26,
       "nationality": "Denmark",
       "club": "HJK Helsinki",
-      "appearances": 23,
+      "appearances": 0,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "B.93",
+          "year": "2017"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2020"
+        },
+        {
+          "club": "FC Fredericia",
+          "year": "2021"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2021"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2021"
+        },
+        {
+          "club": "Silkeborg IF",
+          "year": "2025"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        },
+        {
+          "club": "Silkeborg IF",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 35,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaius Simojoki",
       "position": "Right-Back",
-      "age": 19,
+      "age": 20,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Käpylän Pallo",
+          "year": "2023"
+        },
+        {
+          "club": "HJK Klubi 04",
+          "year": "2023"
+        },
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miska Ylitolva",
@@ -113,9 +516,41 @@
       "age": 21,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RoPS",
+          "year": "2021"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2022"
+        },
+        {
+          "club": "FC KTP",
+          "year": "2023"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 4,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brooklyn Lyons-Foster",
@@ -123,9 +558,29 @@
       "age": 25,
       "nationality": "England",
       "club": "HJK Helsinki",
-      "appearances": 6,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Helsinki",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 210,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eemil Toivonen",
@@ -133,9 +588,37 @@
       "age": 19,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        },
+        {
+          "club": "IFK Mariehamn",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +628,57 @@
       "age": 28,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 3
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2015"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2016"
+        },
+        {
+          "club": "RoPS",
+          "year": "2018"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2020"
+        },
+        {
+          "club": "Helsingborgs IF",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2022"
+        },
+        {
+          "club": "Helsingborgs IF",
+          "year": "2023"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 366,
+        "goals": 28,
+        "assists": 56,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Ring",
@@ -155,19 +686,61 @@
       "age": 34,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 9,
-      "goals": 2,
-      "assists": 4
-    },
-    {
-      "name": "Jere Kallinen",
-      "position": "Central Midfield",
-      "age": 24,
-      "nationality": "Finland",
-      "club": "HJK Helsinki",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2009"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2010"
+        },
+        {
+          "club": "Tampere United",
+          "year": "2010"
+        },
+        {
+          "club": "Mönchengladbach",
+          "year": "2012"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2013"
+        },
+        {
+          "club": "1.FC K'lautern",
+          "year": "2013"
+        },
+        {
+          "club": "New York City",
+          "year": "2017"
+        },
+        {
+          "club": "Austin",
+          "year": "2020"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 500,
+        "goals": 66,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pyry Mentu",
@@ -175,9 +748,67 @@
       "age": 19,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 9,
+      "appearances": 0,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 80,
+        "goals": 6,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Jere Kallinen",
+      "position": "Central Midfield",
+      "age": 24,
+      "nationality": "Finland",
+      "club": "HJK Helsinki",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AC Oulu",
+          "year": "2020"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Antton Nylund",
@@ -185,9 +816,33 @@
       "age": 17,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 10,
-      "goals": 3,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alfie Cicale",
@@ -195,9 +850,37 @@
       "age": 23,
       "nationality": "England",
       "club": "HJK Helsinki",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "VPS",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 2,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liam Möller",
@@ -205,9 +888,33 @@
       "age": 21,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 14,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martin Kirilov",
@@ -215,9 +922,29 @@
       "age": 18,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 21,
-      "goals": 4,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 21,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +954,65 @@
       "age": 27,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2015"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2016"
+        },
+        {
+          "club": "RoPS",
+          "year": "2017"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2018"
+        },
+        {
+          "club": "Bologna",
+          "year": "2019"
+        },
+        {
+          "club": "Montreal",
+          "year": "2019"
+        },
+        {
+          "club": "Bologna",
+          "year": "2021"
+        },
+        {
+          "club": "Montréal",
+          "year": "2022"
+        },
+        {
+          "club": "Columbus",
+          "year": "2025"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 50,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Toivo Mero",
@@ -237,19 +1020,33 @@
       "age": 18,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 13,
-      "goals": 8,
-      "assists": 1
-    },
-    {
-      "name": "Ville Vuorinen",
-      "position": "Left Winger",
-      "age": 21,
-      "nationality": "Finland",
-      "club": "HJK Helsinki",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 24,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Roni Hudd",
@@ -257,19 +1054,111 @@
       "age": 21,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "VPS",
+          "year": "2021"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2024"
+        },
+        {
+          "club": "FC Haka",
+          "year": "2025"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 16,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Teemu Pukki",
       "position": "Centre-Forward",
-      "age": 35,
+      "age": 36,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 9,
-      "goals": 4,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC KTP",
+          "year": "2006"
+        },
+        {
+          "club": "Sevilla Atl.",
+          "year": "2008"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2010"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2011"
+        },
+        {
+          "club": "Celtic",
+          "year": "2013"
+        },
+        {
+          "club": "Bröndby IF",
+          "year": "2014"
+        },
+        {
+          "club": "Celtic",
+          "year": "2015"
+        },
+        {
+          "club": "Bröndby IF",
+          "year": "2015"
+        },
+        {
+          "club": "Norwich",
+          "year": "2018"
+        },
+        {
+          "club": "Minnesota",
+          "year": "2023"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 642,
+        "goals": 239,
+        "assists": 87,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 133,
+        "goals": 43,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mads Borchers",
@@ -277,9 +1166,65 @@
       "age": 23,
       "nationality": "Denmark",
       "club": "HJK Helsinki",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Esbjerg Youth",
+          "year": "2017"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2021"
+        },
+        {
+          "club": "07 Vestur",
+          "year": "2022"
+        },
+        {
+          "club": "Esbjerg fB",
+          "year": "2022"
+        },
+        {
+          "club": "HB Tórshavn",
+          "year": "2023"
+        },
+        {
+          "club": "Varbergs BoIS",
+          "year": "2023"
+        },
+        {
+          "club": "VPS",
+          "year": "2024"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2025"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2026"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 60,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Ezeh",
@@ -287,9 +1232,41 @@
       "age": 20,
       "nationality": "Finland",
       "club": "HJK Helsinki",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HJK Klubi 04",
+          "year": "2022"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2023"
+        },
+        {
+          "club": "Raków",
+          "year": "2024"
+        },
+        {
+          "club": "HJK Helsinki",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 32,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

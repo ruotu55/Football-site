@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "JPL1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,17 +24,22 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Freedom Decossa",
-      "position": "Goalkeeper",
-      "age": 30,
-      "nationality": "Haiti",
-      "club": "Montego Bay United FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Thompson",
@@ -43,7 +49,22 @@
       "club": "Montego Bay United FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Davonnie Burton",
@@ -51,9 +72,54 @@
       "age": 24,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 22,
+      "appearances": 27,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 103,
+        "clean_sheets": 27
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Freedom Decossa",
+      "position": "Goalkeeper",
+      "age": 30,
+      "nationality": "Haiti",
+      "club": "Montego Bay United FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +131,69 @@
       "club": "Montego Bay United FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2021"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 129,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Tajay Cooper",
+      "position": "Centre-Back",
+      "age": 22,
+      "nationality": "Jamaica",
+      "club": "Montego Bay United FC",
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molynes United",
+          "year": "2023"
+        },
+        {
+          "club": "Falmouth United",
+          "year": "2024"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Odorland Harding",
@@ -75,7 +203,31 @@
       "club": "Montego Bay United FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2018"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phillando Wing",
@@ -83,19 +235,33 @@
       "age": 22,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 26,
+      "appearances": 30,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Okeemo Jones",
-      "position": "Right-Back",
-      "age": 21,
-      "nationality": "Jamaica",
-      "club": "Montego Bay United FC",
-      "appearances": 25,
-      "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Arnett Gardens",
+          "year": "2022"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dylan Zane",
@@ -105,7 +271,27 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deveron McKenzie",
@@ -113,19 +299,62 @@
       "age": 24,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 19,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Tajay Cooper",
-      "position": "",
+      "name": "Okeemo Jones",
+      "position": "Right-Back",
       "age": 22,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 30,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dunbeholden FC",
+          "year": "2023"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2023"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jevaulu Thomas",
@@ -135,17 +364,22 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Richard Ramsey",
-      "position": "",
-      "age": 19,
-      "nationality": "Jamaica",
-      "club": "Montego Bay United FC",
-      "appearances": 11,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chervenson Dorelien",
@@ -155,7 +389,57 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Richard Ramsey",
+      "position": "",
+      "age": 19,
+      "nationality": "Jamaica",
+      "club": "Montego Bay United FC",
+      "appearances": 16,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +449,49 @@
       "age": 29,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 12,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "S. South Coast",
+          "year": "2016"
+        },
+        {
+          "club": "Reno FC",
+          "year": "2016"
+        },
+        {
+          "club": "S. South Coast",
+          "year": "2017"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2018"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2020"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 13,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Correa",
@@ -175,9 +499,49 @@
       "age": 26,
       "nationality": "Brazil",
       "club": "Montego Bay United FC",
-      "appearances": 26,
+      "appearances": 31,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Crato",
+          "year": "2020"
+        },
+        {
+          "club": "Tianguá EC",
+          "year": "2020"
+        },
+        {
+          "club": "Serrano-RJ",
+          "year": "2021"
+        },
+        {
+          "club": "América-RJ",
+          "year": "2022"
+        },
+        {
+          "club": "Mogi Mirim",
+          "year": "2023"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 9,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rasheed Brown",
@@ -186,8 +550,23 @@
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gregson President",
@@ -197,7 +576,47 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Morv. Cal. Utd",
+          "year": "2015"
+        },
+        {
+          "club": "Platinum FC",
+          "year": "2016"
+        },
+        {
+          "club": "Grenades FC",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Platinum FC",
+          "year": "2021"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Johann Weatherly",
@@ -206,8 +625,48 @@
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 5,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2015"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2018"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2019"
+        },
+        {
+          "club": "Mount Pleasant",
+          "year": "2019"
+        },
+        {
+          "club": "Dunbeholden FC",
+          "year": "2021"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 16,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Deonjay Brown",
@@ -215,29 +674,33 @@
       "age": 20,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 15,
+      "appearances": 19,
       "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Che Benny",
-      "position": "",
-      "age": 25,
-      "nationality": "Trinidad and Tobago",
-      "club": "Montego Bay United FC",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Gerson Gabriel",
-      "position": "",
-      "age": 23,
-      "nationality": "Haiti",
-      "club": "Montego Bay United FC",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Humble Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Clarence Jean-Gilles",
@@ -245,9 +708,29 @@
       "age": 19,
       "nationality": "Haiti",
       "club": "Montego Bay United FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shamour Smith",
@@ -257,17 +740,31 @@
       "club": "Montego Bay United FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Romario Smith",
-      "position": "",
-      "age": 28,
-      "nationality": "Jamaica",
-      "club": "Montego Bay United FC",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mount Pleasant",
+          "year": "2025"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shaven Salmon",
@@ -277,7 +774,22 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Hawthorne",
@@ -287,7 +799,22 @@
       "club": "Montego Bay United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gregory Saint-Fleur",
@@ -295,9 +822,41 @@
       "age": 19,
       "nationality": "Haiti",
       "club": "Montego Bay United FC",
-      "appearances": 2,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2019"
+        },
+        {
+          "club": "Tempête",
+          "year": "2021"
+        },
+        {
+          "club": "Real Hope FA",
+          "year": "2025"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jahmar Stevens",
@@ -307,7 +866,22 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Malachi Sterling",
@@ -315,9 +889,117 @@
       "age": 21,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 23,
+      "appearances": 28,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Romario Smith",
+      "position": "",
+      "age": 28,
+      "nationality": "Jamaica",
+      "club": "Montego Bay United FC",
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Reno FC",
+          "year": "2016"
+        },
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Treasure Beach",
+          "year": "2023"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Che Benny",
+      "position": "",
+      "age": 25,
+      "nationality": "Trinidad and Tobago",
+      "club": "Montego Bay United FC",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Univ. of T&T",
+          "year": "2019"
+        },
+        {
+          "club": "Central FC",
+          "year": "2019"
+        },
+        {
+          "club": "AC POS",
+          "year": "2023"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevaughn Perry",
@@ -327,29 +1009,128 @@
       "club": "Montego Bay United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
-    }
-  ],
-  "attackers": [
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
-      "name": "Kimani Arbourine",
-      "position": "Left Winger",
-      "age": 28,
-      "nationality": "Jamaica",
+      "name": "Gerson Gabriel",
+      "position": "",
+      "age": 23,
+      "nationality": "Haiti",
       "club": "Montego Bay United FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
-    },
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América",
+          "year": "2019"
+        },
+        {
+          "club": "FICA",
+          "year": "2020"
+        },
+        {
+          "club": "Arcahaie FC",
+          "year": "2021"
+        },
+        {
+          "club": "AS Cavaly",
+          "year": "2023"
+        },
+        {
+          "club": "FC Juventus",
+          "year": "2024"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    }
+  ],
+  "attackers": [
     {
       "name": "Courtney Allen",
       "position": "Left Winger",
       "age": 27,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Portmore United",
+          "year": "2018"
+        },
+        {
+          "club": "UWI FC",
+          "year": "2019"
+        },
+        {
+          "club": "Portmore United",
+          "year": "2019"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2021"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2022"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2023"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kegan Caull",
@@ -357,19 +1138,115 @@
       "age": 22,
       "nationality": "Saint Lucia",
       "club": "Montego Bay United FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Europa Point FC",
+          "year": "2022"
+        },
+        {
+          "club": "VSADC",
+          "year": "2022"
+        },
+        {
+          "club": "NK Tolmin",
+          "year": "2023"
+        },
+        {
+          "club": "Europa Point FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Villena",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Hashtag Utd",
+          "year": "2025"
+        },
+        {
+          "club": "Basildon Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 17,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Timar Lewis",
-      "position": "Right Winger",
-      "age": 27,
+      "name": "Kimani Arbourine",
+      "position": "Left Winger",
+      "age": 29,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 24,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cavalier FC",
+          "year": "2019"
+        },
+        {
+          "club": "Arnett Gardens",
+          "year": "2019"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2020"
+        },
+        {
+          "club": "Arnett Gardens",
+          "year": "2022"
+        },
+        {
+          "club": "Huehueteco",
+          "year": "2025"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 24,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Owayne Gordon",
@@ -377,9 +1254,119 @@
       "age": 34,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 22,
+      "appearances": 26,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2012"
+        },
+        {
+          "club": "Indy Eleven",
+          "year": "2016"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2016"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2017"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2017"
+        },
+        {
+          "club": "San Antonio FC",
+          "year": "2018"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2018"
+        },
+        {
+          "club": "Oklahoma City",
+          "year": "2019"
+        },
+        {
+          "club": "Bold FC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Richmond",
+          "year": "2022"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 67,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Timar Lewis",
+      "position": "Right Winger",
+      "age": 27,
+      "nationality": "Jamaica",
+      "club": "Montego Bay United FC",
+      "appearances": 28,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2018"
+        },
+        {
+          "club": "Mrkonjic",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2025"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 200,
+        "goals": 31,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Reid",
@@ -388,8 +1375,40 @@
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Reno FC",
+          "year": "2018"
+        },
+        {
+          "club": "Cavalier FC",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jahmari Clarke",
@@ -397,9 +1416,99 @@
       "age": 22,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 18,
+      "appearances": 20,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Woking",
+          "year": "2022"
+        },
+        {
+          "club": "Forest Green",
+          "year": "2023"
+        },
+        {
+          "club": "Boreham Wood",
+          "year": "2023"
+        },
+        {
+          "club": "Yeovil Town",
+          "year": "2024"
+        },
+        {
+          "club": "Wealdstone",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Basingstoke",
+          "year": "2024"
+        },
+        {
+          "club": "AFC Croydon",
+          "year": "2024"
+        },
+        {
+          "club": "Yeovil Town",
+          "year": "2025"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 26,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Dwight Merrick",
+      "position": "Centre-Forward",
+      "age": 22,
+      "nationality": "Jamaica",
+      "club": "Montego Bay United FC",
+      "appearances": 25,
+      "goals": 11,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dunbeholden FC",
+          "year": "2024"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 20,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shaniel Thomas",
@@ -407,9 +1516,29 @@
       "age": 24,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 12,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 34,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brian Brown",
@@ -417,19 +1546,111 @@
       "age": 33,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 18,
-      "goals": 2,
-      "assists": 0
+      "appearances": 22,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Harbour View FC",
+          "year": "2013"
+        },
+        {
+          "club": "Philadelphia",
+          "year": "2014"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2014"
+        },
+        {
+          "club": "Indy Eleven",
+          "year": "2015"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2015"
+        },
+        {
+          "club": "Charlotte Ind.",
+          "year": "2016"
+        },
+        {
+          "club": "Harbour View FC",
+          "year": "2016"
+        },
+        {
+          "club": "Reno FC",
+          "year": "2017"
+        },
+        {
+          "club": "FK Partizani",
+          "year": "2019"
+        },
+        {
+          "club": "New Mexico Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "Oakland Roots",
+          "year": "2021"
+        },
+        {
+          "club": "Tulsa",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Montego Bay Utd",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 291,
+        "goals": 82,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Dwight Merrick",
+      "name": "Nashordo Gibbs",
       "position": "",
-      "age": 22,
+      "age": 19,
       "nationality": "Jamaica",
       "club": "Montego Bay United FC",
-      "appearances": 23,
-      "goals": 10,
-      "assists": 0
+      "appearances": 30,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Montego Bay Utd",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Javaughn Anglin",
@@ -439,17 +1660,22 @@
       "club": "Montego Bay United FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Nashordo Gibbs",
-      "position": "",
-      "age": 19,
-      "nationality": "Jamaica",
-      "club": "Montego Bay United FC",
-      "appearances": 26,
-      "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

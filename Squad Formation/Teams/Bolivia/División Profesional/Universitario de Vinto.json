@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "BO1A"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wilstermann",
+          "year": "2022"
+        },
+        {
+          "club": "GV San José",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 82,
+        "clean_sheets": 20
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paolo Garcia",
@@ -33,7 +62,39 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oriente P.",
+          "year": "2022"
+        },
+        {
+          "club": "Almirante Brown",
+          "year": "2023"
+        },
+        {
+          "club": "Novo Hamburgo",
+          "year": "2023"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Rojas",
@@ -43,7 +104,22 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jesús Careaga",
@@ -53,7 +129,43 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club San José",
+          "year": "2015"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2021"
+        },
+        {
+          "club": "Primero de Mayo",
+          "year": "2025"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 22,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -64,8 +176,40 @@
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oriente P.",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Ciudad Nueva",
+          "year": "2023"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Villarreal",
@@ -75,7 +219,27 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Brian López",
@@ -83,9 +247,61 @@
       "age": 26,
       "nationality": "Dominican Republic",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 9,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "UE Sants",
+          "year": "2018"
+        },
+        {
+          "club": "UA Horta",
+          "year": "2019"
+        },
+        {
+          "club": "At. Porcuna",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "CD Ursaria",
+          "year": "2021"
+        },
+        {
+          "club": "Atl. Pantoja",
+          "year": "2022"
+        },
+        {
+          "club": "Real Santa Cruz",
+          "year": "2023"
+        },
+        {
+          "club": "Ciudad Nueva",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Agustín Jara",
@@ -94,8 +310,56 @@
       "nationality": "Argentina",
       "club": "Universitario de Vinto",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 7,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Dallas",
+          "year": "2016"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2016"
+        },
+        {
+          "club": "Santamarina",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Bermejo",
+          "year": "2023"
+        },
+        {
+          "club": "AD 9 de Octubre",
+          "year": "2023"
+        },
+        {
+          "club": "Santamarina",
+          "year": "2024"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 168,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julio Lazarte",
@@ -105,7 +369,27 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Pinto",
@@ -114,8 +398,32 @@
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Destroyers",
+          "year": "2022"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alvaro Cuestas",
@@ -125,7 +433,39 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Millonarios FC",
+          "year": "2024"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Massimo Rinaldi",
@@ -135,7 +475,22 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Pessoa",
@@ -145,7 +500,27 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -156,8 +531,52 @@
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Charlotte SA",
+          "year": "2017"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2019"
+        },
+        {
+          "club": "Aurora",
+          "year": "2021"
+        },
+        {
+          "club": "Palmaflor",
+          "year": "2023"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2024"
+        },
+        {
+          "club": "Charlotte Ind.",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ezequiel Straccia",
@@ -165,9 +584,69 @@
       "age": 34,
       "nationality": "Argentina",
       "club": "Universitario de Vinto",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Newell's",
+          "year": "2009"
+        },
+        {
+          "club": "River Plate",
+          "year": "2011"
+        },
+        {
+          "club": "Dep. Merlo",
+          "year": "2015"
+        },
+        {
+          "club": "Giulianova",
+          "year": "2016"
+        },
+        {
+          "club": "Colegiales",
+          "year": "2017"
+        },
+        {
+          "club": "CADU (Zarate)",
+          "year": "2019"
+        },
+        {
+          "club": "SKF Sered",
+          "year": "2020"
+        },
+        {
+          "club": "Circulo Dep.",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FC Hayk",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Camacho",
@@ -175,9 +654,57 @@
       "age": 27,
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 11,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "The Strongest",
+          "year": "2017"
+        },
+        {
+          "club": "Aurora",
+          "year": "2019"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2020"
+        },
+        {
+          "club": "Independiente",
+          "year": "2021"
+        },
+        {
+          "club": "The Strongest",
+          "year": "2022"
+        },
+        {
+          "club": "U. San Martín",
+          "year": "2022"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2023"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 12,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hernán Rodríguez",
@@ -185,9 +712,57 @@
       "age": 29,
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 11,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bolívar",
+          "year": "2016"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2022"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2022"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2023"
+        },
+        {
+          "club": "Real Tomayapo",
+          "year": "2023"
+        },
+        {
+          "club": "GV San José",
+          "year": "2024"
+        },
+        {
+          "club": "SA Bulo Bulo",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 8,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Didí Torrico",
@@ -195,9 +770,85 @@
       "age": 37,
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 19,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "La Paz",
+          "year": "2007"
+        },
+        {
+          "club": "Wilstermann",
+          "year": "2009"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2010"
+        },
+        {
+          "club": "Nacional Potosí",
+          "year": "2011"
+        },
+        {
+          "club": "Club San José",
+          "year": "2012"
+        },
+        {
+          "club": "Guabirá",
+          "year": "2013"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2014"
+        },
+        {
+          "club": "Club San José",
+          "year": "2016"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2017"
+        },
+        {
+          "club": "Club San José",
+          "year": "2018"
+        },
+        {
+          "club": "Wilstermann",
+          "year": "2020"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2021"
+        },
+        {
+          "club": "Palmaflor",
+          "year": "2022"
+        },
+        {
+          "club": "Aurora",
+          "year": "2023"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 2,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Gomez",
@@ -207,7 +858,55 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gran Mamoré",
+          "year": "2020"
+        },
+        {
+          "club": "CD Torre Fuerte",
+          "year": "2021"
+        },
+        {
+          "club": "Gran Mamoré",
+          "year": "2021"
+        },
+        {
+          "club": "Ciudad Nueva",
+          "year": "2022"
+        },
+        {
+          "club": "CD Torre Fuerte",
+          "year": "2023"
+        },
+        {
+          "club": "Ciudad Nueva",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sergio Pardo",
@@ -217,7 +916,47 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Palmaflor",
+          "year": "2021"
+        },
+        {
+          "club": "Enrique Happ",
+          "year": "2022"
+        },
+        {
+          "club": "E.M. Huanuni",
+          "year": "2023"
+        },
+        {
+          "club": "Amanecer Vinto",
+          "year": "2024"
+        },
+        {
+          "club": "Mun. Tiquipaya",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Dorrego",
@@ -225,9 +964,77 @@
       "age": 32,
       "nationality": "Uruguay",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 9,
+      "goals": 8,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Nacional",
+          "year": "2013"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2014"
+        },
+        {
+          "club": "Nacional",
+          "year": "2014"
+        },
+        {
+          "club": "CD Maldonado",
+          "year": "2015"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2016"
+        },
+        {
+          "club": "Rampla Jrs",
+          "year": "2018"
+        },
+        {
+          "club": "Cerro Largo",
+          "year": "2018"
+        },
+        {
+          "club": "Oriente P.",
+          "year": "2021"
+        },
+        {
+          "club": "Guaraní",
+          "year": "2023"
+        },
+        {
+          "club": "Oriente P.",
+          "year": "2023"
+        },
+        {
+          "club": "Once Caldas",
+          "year": "2025"
+        },
+        {
+          "club": "Luqueño",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 297,
+        "goals": 49,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gonzalo Mendoza",
@@ -237,7 +1044,27 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Callaú",
@@ -246,8 +1073,28 @@
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yeferson Mamani",
@@ -257,7 +1104,39 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bolívar",
+          "year": "2022"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2023"
+        },
+        {
+          "club": "Bolívar",
+          "year": "2024"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Abrego",
@@ -266,8 +1145,28 @@
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Morales",
@@ -277,7 +1176,27 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -287,9 +1206,24 @@
       "age": 19,
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guilder Cuellar",
@@ -297,9 +1231,29 @@
       "age": 26,
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joel Calicho",
@@ -307,9 +1261,24 @@
       "age": 30,
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 15,
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 15,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "José Veizaga",
@@ -318,8 +1287,64 @@
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Blooming",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Real Potosí",
+          "year": "2021"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2022"
+        },
+        {
+          "club": "Real Santa Cruz",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Club Blooming",
+          "year": "2023"
+        },
+        {
+          "club": "Real Santa Cruz",
+          "year": "2023"
+        },
+        {
+          "club": "Real Santa Cruz",
+          "year": "2024"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jair Torrico",
@@ -327,9 +1352,53 @@
       "age": 39,
       "nationality": "Bolivia",
       "club": "Universitario de Vinto",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 12,
+      "goals": 27,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "The Strongest",
+          "year": "2011"
+        },
+        {
+          "club": "Sport Boys",
+          "year": "2017"
+        },
+        {
+          "club": "Club San José",
+          "year": "2018"
+        },
+        {
+          "club": "Always Ready",
+          "year": "2020"
+        },
+        {
+          "club": "Royal Pari",
+          "year": "2021"
+        },
+        {
+          "club": "Aurora",
+          "year": "2021"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 18,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rodrigo Llano",
@@ -337,9 +1406,171 @@
       "age": 33,
       "nationality": "Colombia",
       "club": "Universitario de Vinto",
-      "appearances": 22,
-      "goals": 3,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Univ. de Vinto",
+          "year": "2022"
+        },
+        {
+          "club": "Real Oruro",
+          "year": "2025"
+        },
+        {
+          "club": "Diriangén FC",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 35,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "José Valencia",
+      "position": "Centre-Forward",
+      "age": 34,
+      "nationality": "Colombia",
+      "club": "Universitario de Vinto",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2008"
+        },
+        {
+          "club": "Soacha",
+          "year": "2008"
+        },
+        {
+          "club": "Portland",
+          "year": "2012"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2012"
+        },
+        {
+          "club": "Portland",
+          "year": "2013"
+        },
+        {
+          "club": "Olimpo",
+          "year": "2014"
+        },
+        {
+          "club": "Portland",
+          "year": "2014"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2014"
+        },
+        {
+          "club": "Independiente",
+          "year": "2015"
+        },
+        {
+          "club": "Rosario Central",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Once Caldas",
+          "year": "2016"
+        },
+        {
+          "club": "Indep. Santa Fe",
+          "year": "2017"
+        },
+        {
+          "club": "Feirense",
+          "year": "2017"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2019"
+        },
+        {
+          "club": "Delfín SC",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Pereira",
+          "year": "2021"
+        },
+        {
+          "club": "A. Bucaramanga",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Yangon United",
+          "year": "2023"
+        },
+        {
+          "club": "PSMS",
+          "year": "2023"
+        },
+        {
+          "club": "Patronato",
+          "year": "2024"
+        },
+        {
+          "club": "FC Cajamarca",
+          "year": "2025"
+        },
+        {
+          "club": "ADA Jaén",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 286,
+        "goals": 47,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Saavedra",
@@ -349,7 +1580,31 @@
       "club": "Universitario de Vinto",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ciudad Nueva",
+          "year": "2025"
+        },
+        {
+          "club": "Univ. de Vinto",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ALG1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 35,
       "nationality": "Algeria",
       "club": "MC Oran",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC El Eulma",
+          "year": "2011"
+        },
+        {
+          "club": "AB Merouana",
+          "year": "2013"
+        },
+        {
+          "club": "USM El Harrach",
+          "year": "2015"
+        },
+        {
+          "club": "ES Sétif",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Wehda",
+          "year": "2019"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2020"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 287,
+        "clean_sheets": 96
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 5
+      }
     },
     {
       "name": "Mokhtar Ferrahi",
@@ -31,9 +80,41 @@
       "age": 30,
       "nationality": "Algeria",
       "club": "MC Oran",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paradou AC",
+          "year": "2016"
+        },
+        {
+          "club": "ES Sétif",
+          "year": "2021"
+        },
+        {
+          "club": "Paradou AC",
+          "year": "2023"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 67,
+        "clean_sheets": 15
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anis Mahdi Mendil",
@@ -43,7 +124,27 @@
       "club": "MC Oran",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Oran",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 5,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +156,39 @@
       "club": "MC Oran",
       "appearances": 17,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASM Oran",
+          "year": "2018"
+        },
+        {
+          "club": "JS Kabylie",
+          "year": "2020"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2022"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 16,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelkarim Maamar Chaouche",
@@ -65,7 +198,47 @@
       "club": "MC Oran",
       "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Eskilstuna City",
+          "year": "2015"
+        },
+        {
+          "club": "Sollentuna FK",
+          "year": "2018"
+        },
+        {
+          "club": "Norrby",
+          "year": "2020"
+        },
+        {
+          "club": "AFC Eskilstuna",
+          "year": "2021"
+        },
+        {
+          "club": "Degerfors",
+          "year": "2023"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 262,
+        "goals": 21,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abderrahim Hamra",
@@ -75,7 +248,43 @@
       "club": "MC Oran",
       "appearances": 22,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "USM Alger",
+          "year": "2016"
+        },
+        {
+          "club": "DRB Tadjenanet",
+          "year": "2017"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2018"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2023"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 187,
+        "goals": 8,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Hachoud",
@@ -85,7 +294,43 @@
       "club": "MC Oran",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ES Sétif",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2023"
+        },
+        {
+          "club": "USM Khenchela",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2025"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kelyan Guessoum",
@@ -95,7 +340,35 @@
       "club": "MC Oran",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nîmes Olympique",
+          "year": "2019"
+        },
+        {
+          "club": "Etar",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 213,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oussama Safa Kaddour",
@@ -103,9 +376,41 @@
       "age": 28,
       "nationality": "Algeria",
       "club": "MC Oran",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "JS Saoura",
+          "year": "2019"
+        },
+        {
+          "club": "O Médéa",
+          "year": "2021"
+        },
+        {
+          "club": "USM Khenchela",
+          "year": "2022"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 154,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdelkader Belharrane",
@@ -115,7 +420,39 @@
       "club": "MC Oran",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ASM Oran",
+          "year": "2018"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2020"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2021"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mokhtar Belkhiter",
@@ -125,39 +462,195 @@
       "club": "MC Oran",
       "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "USM Blida",
+          "year": "2010"
+        },
+        {
+          "club": "MC El Eulma",
+          "year": "2013"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Qadsiah",
+          "year": "2019"
+        },
+        {
+          "club": "Club Africain",
+          "year": "2019"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2020"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 361,
+        "goals": 7,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
-    {
-      "name": "Omar Embarek",
-      "position": "Defensive Midfield",
-      "age": 27,
-      "nationality": "Algeria",
-      "club": "MC Oran",
-      "appearances": 20,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Ousmane Kokoe Coumbassa",
       "position": "Defensive Midfield",
       "age": 24,
       "nationality": "Guinea",
       "club": "MC Oran",
-      "appearances": 20,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Olympique Beja",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shorta",
+          "year": "2024"
+        },
+        {
+          "club": "ES Zarzis",
+          "year": "2025"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Omar Embarek",
+      "position": "Defensive Midfield",
+      "age": 27,
+      "nationality": "Algeria",
+      "club": "MC Oran",
+      "appearances": 19,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Ain Defla",
+          "year": "2020"
+        },
+        {
+          "club": "MC El Bayadh",
+          "year": "2022"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2023"
+        },
+        {
+          "club": "ES Mostaganem",
+          "year": "2025"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2025"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gape Edwin Mohutsiwa",
       "position": "Defensive Midfield",
-      "age": 28,
+      "age": 29,
       "nationality": "Botswana",
       "club": "MC Oran",
       "appearances": 19,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Motlakase",
+          "year": "2014"
+        },
+        {
+          "club": "Township Rol.",
+          "year": "2016"
+        },
+        {
+          "club": "Jwaneng",
+          "year": "2020"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2022"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oussama Fatmi",
@@ -167,7 +660,27 @@
       "club": "MC Oran",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Benhakim",
@@ -177,7 +690,27 @@
       "club": "MC Oran",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juba Aguieb",
@@ -187,7 +720,39 @@
       "club": "MC Oran",
       "appearances": 22,
       "goals": 0,
-      "assists": 2
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "JS Kabylie",
+          "year": "2020"
+        },
+        {
+          "club": "USM El Harrach",
+          "year": "2021"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2021"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 145,
+        "goals": 9,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chakib Aoudjane",
@@ -196,8 +761,32 @@
       "nationality": "Algeria",
       "club": "MC Oran",
       "appearances": 22,
-      "goals": 3,
-      "assists": 2
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "ES Mostaganem",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abderrahmane Bourdim",
@@ -205,9 +794,69 @@
       "age": 31,
       "nationality": "Algeria",
       "club": "MC Oran",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "USM Alger",
+          "year": "2014"
+        },
+        {
+          "club": "RC Rélizane",
+          "year": "2015"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2016"
+        },
+        {
+          "club": "JS Saoura",
+          "year": "2016"
+        },
+        {
+          "club": "USM Alger",
+          "year": "2017"
+        },
+        {
+          "club": "JS Saoura",
+          "year": "2017"
+        },
+        {
+          "club": "MC Algiers",
+          "year": "2018"
+        },
+        {
+          "club": "CR Belouizdad",
+          "year": "2021"
+        },
+        {
+          "club": "Hajer",
+          "year": "2023"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 259,
+        "goals": 52,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bilal Benkhedim",
@@ -215,9 +864,45 @@
       "age": 24,
       "nationality": "Algeria",
       "club": "MC Oran",
-      "appearances": 18,
-      "goals": 9,
-      "assists": 6
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saint-Étienne",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Le Puy Foot",
+          "year": "2022"
+        },
+        {
+          "club": "F91 Dudelange",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 25,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilyes Miloudi",
@@ -227,7 +912,27 @@
       "club": "MC Oran",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Oran",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +944,31 @@
       "club": "MC Oran",
       "appearances": 20,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "ASO Chlef",
+          "year": "2021"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 18,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sékou Damaro Bangoura",
@@ -247,9 +976,29 @@
       "age": 20,
       "nationality": "Guinea",
       "club": "MC Oran",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Oran",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moulay Abdelaziz Abdelkader",
@@ -259,17 +1008,81 @@
       "club": "MC Oran",
       "appearances": 23,
       "goals": 4,
-      "assists": 3
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "US Tataouine",
+          "year": "2019"
+        },
+        {
+          "club": "NA Hussein Dey",
+          "year": "2020"
+        },
+        {
+          "club": "CR Temouchent",
+          "year": "2020"
+        },
+        {
+          "club": "ES Mostaganem",
+          "year": "2023"
+        },
+        {
+          "club": "ASO Chlef",
+          "year": "2023"
+        },
+        {
+          "club": "ES Sétif",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mounir El Mehdi Mahadane",
       "position": "Right Winger",
-      "age": 20,
+      "age": 21,
       "nationality": "Algeria",
       "club": "MC Oran",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MC Oran",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Boubacar Traoré",
@@ -277,9 +1090,49 @@
       "age": 26,
       "nationality": "Mali",
       "club": "MC Oran",
-      "appearances": 11,
-      "goals": 4,
-      "assists": 1
+      "appearances": 7,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CA Bizertin",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Honvéd",
+          "year": "2020"
+        },
+        {
+          "club": "US Monastir",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2024"
+        },
+        {
+          "club": "MC Oran",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 36,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yacine Goudjil",
@@ -289,7 +1142,27 @@
       "club": "MC Oran",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "MC Oran",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

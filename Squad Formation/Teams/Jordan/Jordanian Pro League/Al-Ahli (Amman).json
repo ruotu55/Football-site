@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "JO1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,35 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sahab SC",
+          "year": "2023"
+        },
+        {
+          "club": "Ma'an SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 52,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tony Awad",
@@ -33,17 +62,77 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Burlington SC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Montreal Concor",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Montreal Concor",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 12,
+        "clean_sheets": 2
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Al-Maharmeh",
       "position": "Goalkeeper",
-      "age": 22,
+      "age": 23,
       "nationality": "Jordan",
       "club": "Al-Ahli (Amman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 1,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +144,31 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Arabi",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Laith Abu Rahal",
@@ -65,7 +178,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ammar Al-Husari",
@@ -75,7 +203,31 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Aqaba Club",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Talal Al-Hawary",
@@ -83,9 +235,61 @@
       "age": 29,
       "nationality": "Jordan",
       "club": "Al-Ahli (Amman)",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Asalah SC",
+          "year": "2017"
+        },
+        {
+          "club": "Sahab SC",
+          "year": "2018"
+        },
+        {
+          "club": "Ma'an SC",
+          "year": "2022"
+        },
+        {
+          "club": "Hidd SCC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Jalil",
+          "year": "2023"
+        },
+        {
+          "club": "Ma'an SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Jazeera Club",
+          "year": "2024"
+        },
+        {
+          "club": "Jerash SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Al Shatti",
@@ -95,7 +299,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 10,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamad Haddad",
@@ -105,7 +324,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faisal Abu Shanab",
@@ -115,7 +349,35 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shabab Al-Ordon",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Baha Shamalty",
@@ -125,7 +387,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yazan Dahshan",
@@ -135,7 +412,47 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2010"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Aqaba Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        },
+        {
+          "club": "Shabab Al-Ordon",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -147,7 +464,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Hassan",
@@ -157,7 +489,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Al-Diabat",
@@ -167,7 +514,27 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Abu Al-Kass",
@@ -177,7 +544,31 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Nasiriyah FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaled Al-Abdullah",
@@ -187,7 +578,31 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahdi Al-Barri",
@@ -197,7 +612,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamad Abu Dahab",
@@ -207,7 +637,31 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Amman FC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Izz Al-Din Abu Al-Saud",
@@ -217,7 +671,27 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmad Al-Azazmeh",
@@ -227,7 +701,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -239,7 +728,27 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 17,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmad Abu Kabir",
@@ -249,7 +758,51 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 15,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Baqaa",
+          "year": "2018"
+        },
+        {
+          "club": "Ma'an SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Salt SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Ghanajoq",
@@ -259,7 +812,27 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 16,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saif Al-Bashabsheh",
@@ -269,7 +842,51 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Faisaly",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Aqaba Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Salt SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wildson Índio",
@@ -279,7 +896,79 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 17,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sport Recife",
+          "year": "2017"
+        },
+        {
+          "club": "Ermis Aradippou",
+          "year": "2018"
+        },
+        {
+          "club": "CD Fátima",
+          "year": "2019"
+        },
+        {
+          "club": "Valadares Gaia",
+          "year": "2020"
+        },
+        {
+          "club": "Villa Nova",
+          "year": "2020"
+        },
+        {
+          "club": "Afogados",
+          "year": "2021"
+        },
+        {
+          "club": "Madureira",
+          "year": "2021"
+        },
+        {
+          "club": "Cianorte",
+          "year": "2022"
+        },
+        {
+          "club": "Khon Kaen Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "CS Esportiva",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2024"
+        },
+        {
+          "club": "CS Esportiva",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 101,
+        "goals": 12,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mido El Attar",
@@ -289,7 +978,55 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 9,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Nasr",
+          "year": "2019"
+        },
+        {
+          "club": "Aswan SC",
+          "year": "2022"
+        },
+        {
+          "club": "El Nasr",
+          "year": "2022"
+        },
+        {
+          "club": "Tersana",
+          "year": "2023"
+        },
+        {
+          "club": "El Dakhlia",
+          "year": "2024"
+        },
+        {
+          "club": "Baladiya",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Baqaa",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qais Al Khulaifat",
@@ -299,7 +1036,22 @@
       "club": "Al-Ahli (Amman)",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

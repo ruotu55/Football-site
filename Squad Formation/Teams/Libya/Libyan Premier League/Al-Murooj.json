@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "LPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,43 @@
       "club": "Al-Murooj",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Ettihad",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Soqour Club",
+          "year": "2025"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 10,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Najd Taqouq",
@@ -33,7 +70,22 @@
       "club": "Al-Murooj",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 4,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulwali Al-Mnefi",
@@ -41,9 +93,24 @@
       "age": 21,
       "nationality": "Libya",
       "club": "Al-Murooj",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rashed Rajab",
@@ -53,19 +120,86 @@
       "club": "Al-Murooj",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
     {
       "name": "Julfin Ondongo",
       "position": "Centre-Back",
-      "age": 35,
+      "age": 36,
       "nationality": "TM nationality id 85",
       "club": "Al-Murooj",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Ponténégrine",
+          "year": "2009"
+        },
+        {
+          "club": "JS de Talangai",
+          "year": "2013"
+        },
+        {
+          "club": "Étoile du Congo",
+          "year": "2017"
+        },
+        {
+          "club": "AS Otôho",
+          "year": "2018"
+        },
+        {
+          "club": "Étoile du Congo",
+          "year": "2018"
+        },
+        {
+          "club": "AS Otôho",
+          "year": "2021"
+        },
+        {
+          "club": "Murooj",
+          "year": "2023"
+        },
+        {
+          "club": "Racing Beirut",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Abouqasem",
@@ -75,7 +209,31 @@
       "club": "Al-Murooj",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Dhahra",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hussam Abdulmajid",
@@ -83,9 +241,24 @@
       "age": 32,
       "nationality": "Libya",
       "club": "Al-Murooj",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bassirou Dione",
@@ -93,9 +266,65 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "Al-Murooj",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Teungueth FC",
+          "year": "2020"
+        },
+        {
+          "club": "Pikine",
+          "year": "2021"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2022"
+        },
+        {
+          "club": "RCA Zemamra",
+          "year": "2023"
+        },
+        {
+          "club": "Teungueth FC",
+          "year": "2023"
+        },
+        {
+          "club": "Sacré Cœur",
+          "year": "2023"
+        },
+        {
+          "club": "AS Vita Club",
+          "year": "2024"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "Murooj",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza El Hayen",
@@ -105,17 +334,47 @@
       "club": "Al-Murooj",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muayid Satti",
       "position": "Left-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Libya",
       "club": "Al-Murooj",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muad Boushanaf El Sheikhy",
@@ -125,7 +384,35 @@
       "club": "Al-Murooj",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Anwar",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Wefaq Ly",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marei Farzougha",
@@ -135,7 +422,35 @@
       "club": "Al-Murooj",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Murooj",
+          "year": "2022"
+        },
+        {
+          "club": "Khaleej Sirte",
+          "year": "2023"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aziz Bellakhdar",
@@ -145,7 +460,35 @@
       "club": "Al-Murooj",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Souf",
+          "year": "2022"
+        },
+        {
+          "club": "JSM Tiaret",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Al-Jebali",
@@ -155,7 +498,22 @@
       "club": "Al-Murooj",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -167,7 +525,22 @@
       "club": "Al-Murooj",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Maedani",
@@ -177,7 +550,35 @@
       "club": "Al-Murooj",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Murooj",
+          "year": "2024"
+        },
+        {
+          "club": "Assabah SC",
+          "year": "2025"
+        },
+        {
+          "club": "Murooj",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Husain Al-Mughrabi",
@@ -187,7 +588,43 @@
       "club": "Al-Murooj",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shabaab Jabal",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Anwar",
+          "year": "2022"
+        },
+        {
+          "club": "Andalus",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Wefaq Ly",
+          "year": "2023"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulrahman Al-Amami",
@@ -195,9 +632,24 @@
       "age": 41,
       "nationality": "Libya",
       "club": "Al-Murooj",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 2,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Claude Singone",
@@ -207,7 +659,47 @@
       "club": "Al-Murooj",
       "appearances": 9,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Monastir",
+          "year": "2013"
+        },
+        {
+          "club": "Sur SC",
+          "year": "2015"
+        },
+        {
+          "club": "FC San Pedro",
+          "year": "2017"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2022"
+        },
+        {
+          "club": "Murooj",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 74,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Fazzani",
@@ -216,8 +708,60 @@
       "nationality": "Libya",
       "club": "Al-Murooj",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Tersana",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Anwar",
+          "year": "2018"
+        },
+        {
+          "club": "CS Hammam-Lif",
+          "year": "2019"
+        },
+        {
+          "club": "Rafik Sorman",
+          "year": "2020"
+        },
+        {
+          "club": "ES Metlaoui",
+          "year": "2021"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Madina",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulwader Al-Jahhawi",
@@ -227,7 +771,31 @@
       "club": "Al-Murooj",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wefaq Ly",
+          "year": "2022"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Al-Rasheed",
@@ -237,7 +805,22 @@
       "club": "Al-Murooj",
       "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Miloud Bousaoud",
@@ -247,7 +830,43 @@
       "club": "Al-Murooj",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al Bashayer",
+          "year": "2022"
+        },
+        {
+          "club": "Rafik Sorman",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Jazeera Zuw.",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Majd SCC",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khairullah Emghonen",
@@ -257,7 +876,22 @@
       "club": "Al-Murooj",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Boukhreis",
@@ -267,7 +901,39 @@
       "club": "Al-Murooj",
       "appearances": 8,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Soqour Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Tahaddy",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Anwar",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saad Abdullah",
@@ -277,7 +943,22 @@
       "club": "Al-Murooj",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhannad Emtaweel",
@@ -287,7 +968,22 @@
       "club": "Al-Murooj",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -299,7 +995,43 @@
       "club": "Al-Murooj",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shabaab Jabal",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Khums",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Wefaq Ly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Anwar",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Steroley Mambela",
@@ -309,7 +1041,31 @@
       "club": "Al-Murooj",
       "appearances": 7,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Andalus",
+          "year": "2023"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 9,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guily Manziba",
@@ -319,7 +1075,71 @@
       "club": "Al-Murooj",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "St-Éloi Lupopo",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Zanaco FC",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "SuperSport Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "AmaZulu FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Borouq",
+          "year": "2023"
+        },
+        {
+          "club": "Mahdia",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ahly",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Murooj",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 6,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean-Francis N'Da",
@@ -329,7 +1149,39 @@
       "club": "Al-Murooj",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SC Gagnoa",
+          "year": "2019"
+        },
+        {
+          "club": "Golan SC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musab Galangat",
@@ -339,7 +1191,43 @@
       "club": "Al-Murooj",
       "appearances": 8,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Hilal Obeid",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Dhahra",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Soqour Club",
+          "year": "2024"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Houta",
@@ -349,7 +1237,22 @@
       "club": "Al-Murooj",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamza Al-Sengri",
@@ -359,7 +1262,31 @@
       "club": "Al-Murooj",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Khaleej Sirte",
+          "year": "2023"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Adel",
@@ -369,7 +1296,47 @@
       "club": "Al-Murooj",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fujairah SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Ittihad",
+          "year": "2022"
+        },
+        {
+          "club": "Murooj",
+          "year": "2023"
+        },
+        {
+          "club": "Abu Salim",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Akhdar",
+          "year": "2025"
+        },
+        {
+          "club": "Murooj",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wa’el Al-Awawdeh",
@@ -379,7 +1346,47 @@
       "club": "Al-Murooj",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shabab Al-Samu",
+          "year": "2015"
+        },
+        {
+          "club": "Ahli Al-Khaleel",
+          "year": "2019"
+        },
+        {
+          "club": "Shabab Al-Samu",
+          "year": "2020"
+        },
+        {
+          "club": "Ahli Al-Khaleel",
+          "year": "2022"
+        },
+        {
+          "club": "Shabab Yatta",
+          "year": "2023"
+        },
+        {
+          "club": "Murooj",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

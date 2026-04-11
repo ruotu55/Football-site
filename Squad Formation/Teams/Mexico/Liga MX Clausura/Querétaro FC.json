@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MEXA"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,33 @@
       "age": 28,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Atlas",
+          "year": "2018"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 142,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 185,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guillermo Allison",
@@ -31,9 +56,57 @@
       "age": 35,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 22,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cruz Azul Hid.",
+          "year": "2012"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2013"
+        },
+        {
+          "club": "Cancún FC",
+          "year": "2020"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2021"
+        },
+        {
+          "club": "Celaya",
+          "year": "2021"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2022"
+        },
+        {
+          "club": "Celaya",
+          "year": "2022"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 377,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 444,
+        "clean_sheets": 120
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Villegas",
@@ -41,9 +114,41 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 8,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2022"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2023"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 36,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +158,119 @@
       "age": 30,
       "nationality": "Argentina",
       "club": "Querétaro FC",
-      "appearances": 10,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tiro Federal R",
+          "year": "2016"
+        },
+        {
+          "club": "Sp. Las Parejas",
+          "year": "2017"
+        },
+        {
+          "club": "Dep. Morón",
+          "year": "2021"
+        },
+        {
+          "club": "Ñublense",
+          "year": "2023"
+        },
+        {
+          "club": "Quilmes",
+          "year": "2024"
+        },
+        {
+          "club": "Ñublense",
+          "year": "2024"
+        },
+        {
+          "club": "Central Córdoba",
+          "year": "2024"
+        },
+        {
+          "club": "Ñublense",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Santiago Homenchenko",
+      "position": "Centre-Back",
+      "age": 22,
+      "nationality": "Uruguay",
+      "club": "Querétaro FC",
+      "appearances": 13,
+      "goals": 4,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Plaza Colonia",
+          "year": "2021"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2023"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2024"
+        },
+        {
+          "club": "Real Oviedo",
+          "year": "2024"
+        },
+        {
+          "club": "CD Mirandés",
+          "year": "2024"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        },
+        {
+          "club": "Pachuca",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Reyes",
@@ -63,9 +278,69 @@
       "age": 33,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 17,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "América",
+          "year": "2010"
+        },
+        {
+          "club": "Porto",
+          "year": "2013"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2015"
+        },
+        {
+          "club": "Porto",
+          "year": "2016"
+        },
+        {
+          "club": "Espanyol",
+          "year": "2016"
+        },
+        {
+          "club": "Porto",
+          "year": "2017"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2018"
+        },
+        {
+          "club": "CD Leganés",
+          "year": "2019"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2019"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2019"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 429,
+        "goals": 22,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 65,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlos Villanueva",
@@ -73,9 +348,73 @@
       "age": 31,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 12,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chivas",
+          "year": "2015"
+        },
+        {
+          "club": "Coras de Tepic",
+          "year": "2017"
+        },
+        {
+          "club": "Chivas",
+          "year": "2017"
+        },
+        {
+          "club": "Zacatepec",
+          "year": "2017"
+        },
+        {
+          "club": "Chivas",
+          "year": "2018"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2018"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2020"
+        },
+        {
+          "club": "Chivas",
+          "year": "2020"
+        },
+        {
+          "club": "Tapatío",
+          "year": "2021"
+        },
+        {
+          "club": "Tepatitlán",
+          "year": "2021"
+        },
+        {
+          "club": "Atlante",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 16,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francisco Venegas",
@@ -83,9 +422,45 @@
       "age": 27,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 24,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CD Everton",
+          "year": "2017"
+        },
+        {
+          "club": "Tigres UANL",
+          "year": "2019"
+        },
+        {
+          "club": "Mazatlán FC",
+          "year": "2023"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Mazatlán FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 16,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Parra",
@@ -93,9 +468,65 @@
       "age": 26,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 20,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2012"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2020"
+        },
+        {
+          "club": "Necaxa",
+          "year": "2022"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2022"
+        },
+        {
+          "club": "Morelia",
+          "year": "2023"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2023"
+        },
+        {
+          "club": "Forge FC",
+          "year": "2024"
+        },
+        {
+          "club": "Monterrey",
+          "year": "2024"
+        },
+        {
+          "club": "Morelia",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 205,
+        "goals": 23,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaime Gómez",
@@ -103,9 +534,45 @@
       "age": 32,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 21,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Irapuato",
+          "year": "2014"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2015"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2020"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2021"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 397,
+        "goals": 11,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bayron Duarte",
@@ -113,9 +580,33 @@
       "age": 23,
       "nationality": "Colombia",
       "club": "Querétaro FC",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "A. Bucaramanga",
+          "year": "2023"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Mendoza",
@@ -125,29 +616,83 @@
       "club": "Querétaro FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cruz Azul Oaxaca",
+          "year": "2006"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2014"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2018"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 492,
+        "goals": 18,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
-    {
-      "name": "Santiago Homenchenko",
-      "position": "Defensive Midfield",
-      "age": 22,
-      "nationality": "Uruguay",
-      "club": "Querétaro FC",
-      "appearances": 22,
-      "goals": 5,
-      "assists": 0
-    },
     {
       "name": "Bernardo Parra",
       "position": "Defensive Midfield",
       "age": 21,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 22,
-      "goals": 1,
-      "assists": 1
+      "appearances": 9,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Tigres UANL",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Michael Carcelén",
@@ -155,9 +700,61 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Querétaro FC",
-      "appearances": 13,
+      "appearances": 7,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chivos FC",
+          "year": "2017"
+        },
+        {
+          "club": "Cumbayá FC",
+          "year": "2018"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2020"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2021"
+        },
+        {
+          "club": "CD El Nacional",
+          "year": "2021"
+        },
+        {
+          "club": "Barcelona SC",
+          "year": "2022"
+        },
+        {
+          "club": "SD Aucas",
+          "year": "2023"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2023"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 171,
+        "goals": 16,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Waldo Madrid",
@@ -165,9 +762,33 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Venados FC",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 21,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eduardo Armenta",
@@ -177,7 +798,35 @@
       "club": "Querétaro FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2022"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2023"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Érik Dueñas",
@@ -185,9 +834,45 @@
       "age": 21,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LAFC",
+          "year": "2020"
+        },
+        {
+          "club": "LV Lights",
+          "year": "2022"
+        },
+        {
+          "club": "LAFC",
+          "year": "2022"
+        },
+        {
+          "club": "Houston",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 108,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Carlo García",
@@ -195,19 +880,37 @@
       "age": 25,
       "nationality": "Spain",
       "club": "Querétaro FC",
-      "appearances": 18,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Edison Gruezo",
-      "position": "Central Midfield",
-      "age": 18,
-      "nationality": "Ecuador",
-      "club": "Querétaro FC",
-      "appearances": 1,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Villarreal C",
+          "year": "2019"
+        },
+        {
+          "club": "CD Mirandés",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 7,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jesús Arellano",
@@ -215,9 +918,33 @@
       "age": 21,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jean Unjanque",
@@ -225,9 +952,37 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "Querétaro FC",
-      "appearances": 24,
-      "goals": 3,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Cancún FC",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        },
+        {
+          "club": "Cancún FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fernando González",
@@ -235,9 +990,33 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dorados Sinaloa",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 181,
+        "goals": 30,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Rodríguez",
@@ -245,9 +1024,45 @@
       "age": 28,
       "nationality": "Argentina",
       "club": "Querétaro FC",
-      "appearances": 23,
+      "appearances": 16,
       "goals": 2,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Estudiantes LP",
+          "year": "2015"
+        },
+        {
+          "club": "D.C. United",
+          "year": "2019"
+        },
+        {
+          "club": "Estudiantes LP",
+          "year": "2019"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2021"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 309,
+        "goals": 37,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhojan Julio",
@@ -255,9 +1070,45 @@
       "age": 28,
       "nationality": "Ecuador",
       "club": "Querétaro FC",
-      "appearances": 24,
-      "goals": 3,
-      "assists": 1
+      "appearances": 14,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LDU Quito",
+          "year": "2016"
+        },
+        {
+          "club": "Santos",
+          "year": "2022"
+        },
+        {
+          "club": "LDU Quito",
+          "year": "2022"
+        },
+        {
+          "club": "Club Tijuana",
+          "year": "2025"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 305,
+        "goals": 42,
+        "assists": 47,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christopher Figueroa",
@@ -265,9 +1116,29 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 92,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Álex Alcalá",
@@ -275,9 +1146,29 @@
       "age": 20,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 4,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -287,19 +1178,29 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 13,
+      "appearances": 11,
       "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Carlos Valenzuela",
-      "position": "Left Winger",
-      "age": 28,
-      "nationality": "Argentina",
-      "club": "Querétaro FC",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Gutiérrez",
@@ -307,9 +1208,37 @@
       "age": 24,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 9,
-      "goals": 2,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zacatepec",
+          "year": "2019"
+        },
+        {
+          "club": "CD Cruz Azul",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 37,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Víctor López",
@@ -317,19 +1246,41 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Pablo Barrera",
-      "position": "Right Winger",
-      "age": 38,
-      "nationality": "Mexico",
-      "club": "Querétaro FC",
-      "appearances": 11,
-      "goals": 1,
-      "assists": 2
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raya2",
+          "year": "2022"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        },
+        {
+          "club": "Dundee FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 21,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo Coronel",
@@ -337,9 +1288,49 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Querétaro FC",
-      "appearances": 17,
-      "goals": 3,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2020"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "year": "2022"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "year": "2023"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 36,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alí Ávila",
@@ -347,9 +1338,37 @@
       "age": 22,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 18,
-      "goals": 8,
-      "assists": 0
+      "appearances": 10,
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Raya2",
+          "year": "2022"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 159,
+        "goals": 38,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eduardo Pérez",
@@ -357,9 +1376,77 @@
       "age": 32,
       "nationality": "Mexico",
       "club": "Querétaro FC",
-      "appearances": 24,
-      "goals": 10,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lobos BUAP",
+          "year": "2015"
+        },
+        {
+          "club": "Puebla FC",
+          "year": "2016"
+        },
+        {
+          "club": "Cafetaleros",
+          "year": "2017"
+        },
+        {
+          "club": "Tampico Madero",
+          "year": "2019"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2019"
+        },
+        {
+          "club": "Zacatepec",
+          "year": "2020"
+        },
+        {
+          "club": "Morelia",
+          "year": "2020"
+        },
+        {
+          "club": "Tampico Madero",
+          "year": "2021"
+        },
+        {
+          "club": "Santos Laguna",
+          "year": "2022"
+        },
+        {
+          "club": "Atlético La Paz",
+          "year": "2023"
+        },
+        {
+          "club": "Panachaiki",
+          "year": "2024"
+        },
+        {
+          "club": "Tampico Madero",
+          "year": "2024"
+        },
+        {
+          "club": "Querétaro FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 365,
+        "goals": 106,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

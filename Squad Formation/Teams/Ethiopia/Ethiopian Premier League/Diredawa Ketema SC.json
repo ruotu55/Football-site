@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "ETP1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,24 @@
       "age": 25,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 38,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Frew Getahun",
@@ -33,7 +49,35 @@
       "club": "Diredawa Ketema SC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2018"
+        },
+        {
+          "club": "Ethiopia Nigd",
+          "year": "2023"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 42,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 4,
+        "clean_sheets": 1
+      }
     },
     {
       "name": "Hamdi Tofik",
@@ -43,7 +87,22 @@
       "club": "Diredawa Ketema SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Liban Elías",
@@ -53,7 +112,22 @@
       "club": "Diredawa Ketema SC Reserve Team",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +137,49 @@
       "age": 31,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2017"
+        },
+        {
+          "club": "Ethiopia Bunna",
+          "year": "2018"
+        },
+        {
+          "club": "Bahirdar Ketema",
+          "year": "2020"
+        },
+        {
+          "club": "Mechal",
+          "year": "2022"
+        },
+        {
+          "club": "Adama Ketema",
+          "year": "2023"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Redwan Sherif",
@@ -75,7 +189,27 @@
       "club": "Diredawa Ketema SC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yeabsira Mulugeta",
@@ -85,7 +219,43 @@
       "club": "Diredawa Ketema SC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Jimma Aba Jifar",
+          "year": "2021"
+        },
+        {
+          "club": "Mechal",
+          "year": "2022"
+        },
+        {
+          "club": "Shashamane City",
+          "year": "2023"
+        },
+        {
+          "club": "Wolwalo Adigrat",
+          "year": "2024"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aschalew Tamene",
@@ -93,9 +263,45 @@
       "age": 34,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dedebit FC",
+          "year": "2013"
+        },
+        {
+          "club": "Kidus Giorgis",
+          "year": "2015"
+        },
+        {
+          "club": "Fasil Kenema",
+          "year": "2021"
+        },
+        {
+          "club": "Mechal",
+          "year": "2023"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 53,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asrat Tonjo",
@@ -103,9 +309,29 @@
       "age": 29,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulselam Yesuf",
@@ -113,9 +339,29 @@
       "age": 23,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 3,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jemil Yakob",
@@ -123,9 +369,33 @@
       "age": 29,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 13,
+      "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Adama Ketema",
+          "year": "2020"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diladis Gebere",
@@ -135,7 +405,22 @@
       "club": "Diredawa Ketema SC",
       "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Siyam Sultan",
@@ -143,9 +428,29 @@
       "age": 21,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 11,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kulmiye Ali Buh",
@@ -155,7 +460,22 @@
       "club": "Diredawa Ketema SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamze Hassen",
@@ -165,7 +485,22 @@
       "club": "Diredawa Ketema SC Reserve Team",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ferhan Mehadi",
@@ -175,7 +510,31 @@
       "club": "Diredawa Ketema SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -187,7 +546,51 @@
       "club": "Diredawa Ketema SC",
       "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethio Electric",
+          "year": "2007"
+        },
+        {
+          "club": "Ethiopia Bunna",
+          "year": "2010"
+        },
+        {
+          "club": "Jimma Aba Jifar",
+          "year": "2018"
+        },
+        {
+          "club": "Sebeta",
+          "year": "2019"
+        },
+        {
+          "club": "Jimma Aba Jifar",
+          "year": "2021"
+        },
+        {
+          "club": "Adama Ketema",
+          "year": "2022"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abel Asebe",
@@ -195,9 +598,24 @@
       "age": 24,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abubeker Shamil",
@@ -205,9 +623,33 @@
       "age": 25,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Adama Ketema",
+          "year": "2023"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jaefer Mudasir",
@@ -215,9 +657,29 @@
       "age": 24,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henok Hassen",
@@ -225,9 +687,24 @@
       "age": 24,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ednan Meki",
@@ -237,7 +714,27 @@
       "club": "Diredawa Ketema SC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dagim Degu",
@@ -247,7 +744,31 @@
       "club": "Diredawa Ketema SC Reserve Team",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diredawa Ketema",
+          "year": "2023"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +778,41 @@
       "age": 26,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Addis Ababa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Wolkite Ketema",
+          "year": "2022"
+        },
+        {
+          "club": "Mechal",
+          "year": "2023"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammednur Nasir",
@@ -267,9 +820,33 @@
       "age": 22,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 5,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ethiopia Bunna",
+          "year": "2022"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdisa Jemal",
@@ -277,9 +854,33 @@
       "age": 25,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Insurance Corp.",
+          "year": "2023"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yared Tadesse",
@@ -289,7 +890,31 @@
       "club": "Diredawa Ketema SC",
       "appearances": 14,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Wolkite Ketema",
+          "year": "2020"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhedin Musa",
@@ -299,7 +924,22 @@
       "club": "Diredawa Ketema SC",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zeray Gebresilassie",
@@ -309,7 +949,22 @@
       "club": "Diredawa Ketema SC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Girum Mekuriya",
@@ -317,9 +972,24 @@
       "age": null,
       "nationality": "Ethiopia",
       "club": "Diredawa Ketema SC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abubeker Wondimu",
@@ -329,7 +999,43 @@
       "club": "Diredawa Ketema SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "Adama Ketema",
+          "year": "2021"
+        },
+        {
+          "club": "Insurance Corp.",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Diredawa Ketema",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

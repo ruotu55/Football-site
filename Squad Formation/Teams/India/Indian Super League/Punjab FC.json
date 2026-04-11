@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IND1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 24,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "J&K State FA",
+          "year": "2017"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2020"
+        },
+        {
+          "club": "Real Kashmir",
+          "year": "2023"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 42,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arshdeep Singh",
@@ -31,9 +64,49 @@
       "age": 28,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "U. Punjab FC",
+          "year": "2016"
+        },
+        {
+          "club": "Minerva Punjab",
+          "year": "2016"
+        },
+        {
+          "club": "Odisha FC",
+          "year": "2019"
+        },
+        {
+          "club": "FC Goa",
+          "year": "2022"
+        },
+        {
+          "club": "Hyderabad FC",
+          "year": "2024"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 105,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 150,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aryaman Bengani",
@@ -43,7 +116,27 @@
       "club": "Punjab FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Punjab FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,19 +146,115 @@
       "age": 28,
       "nationality": "TM nationality id 24",
       "club": "Punjab FC",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "TOSK Tesanj",
+          "year": "2017"
+        },
+        {
+          "club": "Igman Konjic",
+          "year": "2017"
+        },
+        {
+          "club": "Velez Mostar",
+          "year": "2018"
+        },
+        {
+          "club": "FK Sarajevo",
+          "year": "2023"
+        },
+        {
+          "club": "Bunyodkor",
+          "year": "2024"
+        },
+        {
+          "club": "FK Sarajevo",
+          "year": "2024"
+        },
+        {
+          "club": "Radnicki 1923",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 249,
+        "goals": 8,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nongmaikapam Suresh Meitei",
       "position": "Centre-Back",
-      "age": 31,
+      "age": 32,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 8,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ch. Brothers",
+          "year": "2019"
+        },
+        {
+          "club": "Army Red",
+          "year": "2021"
+        },
+        {
+          "club": "Ch. Brothers",
+          "year": "2021"
+        },
+        {
+          "club": "Army Red",
+          "year": "2022"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2022"
+        },
+        {
+          "club": "Army Red",
+          "year": "2023"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bijoy V",
@@ -73,9 +262,49 @@
       "age": 26,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 9,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "SAI (Thiruvan.)",
+          "year": "2016"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2021"
+        },
+        {
+          "club": "Inter Kashi",
+          "year": "2023"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2024"
+        },
+        {
+          "club": "Inter Kashi",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pablo Santos",
@@ -85,7 +314,79 @@
       "club": "Punjab FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paysandu",
+          "year": "2012"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2017"
+        },
+        {
+          "club": "Braga",
+          "year": "2018"
+        },
+        {
+          "club": "Rubin Kazan",
+          "year": "2020"
+        },
+        {
+          "club": "Braga",
+          "year": "2020"
+        },
+        {
+          "club": "Hatayspor",
+          "year": "2020"
+        },
+        {
+          "club": "Braga",
+          "year": "2021"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2021"
+        },
+        {
+          "club": "Braga",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Raed",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FC Noah",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 19,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pramveer",
@@ -93,9 +394,29 @@
       "age": 18,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Punjab FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhammed Uvais",
@@ -103,9 +424,61 @@
       "age": 27,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Kerala",
+          "year": "2017"
+        },
+        {
+          "club": "FC Thrissur",
+          "year": "2018"
+        },
+        {
+          "club": "Ozone FC",
+          "year": "2019"
+        },
+        {
+          "club": "Bengaluru U.",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Kerala SEB",
+          "year": "2021"
+        },
+        {
+          "club": "Gokulam FC",
+          "year": "2021"
+        },
+        {
+          "club": "Jamshedpur FC",
+          "year": "2022"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 2,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Likmabam Rakesh",
@@ -115,7 +488,51 @@
       "club": "Punjab FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2017"
+        },
+        {
+          "club": "NEROCA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2024"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2024"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thoungamba Singh",
@@ -125,7 +542,22 @@
       "club": "Punjab FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +567,45 @@
       "age": 25,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hyderabad FC",
+          "year": "2020"
+        },
+        {
+          "club": "Odisha FC",
+          "year": "2022"
+        },
+        {
+          "club": "Hyderabad FC",
+          "year": "2022"
+        },
+        {
+          "club": "FC Goa",
+          "year": "2023"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ricky John Shabong",
@@ -145,9 +613,45 @@
       "age": 23,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indian Arrows",
+          "year": "2018"
+        },
+        {
+          "club": "ATK Mohun Bagan",
+          "year": "2021"
+        },
+        {
+          "club": "Rajasthan Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "ATK Mohun Bagan",
+          "year": "2022"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 2,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vinit Rai",
@@ -155,9 +659,65 @@
       "age": 28,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 5,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dempo SC",
+          "year": "2014"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2016"
+        },
+        {
+          "club": "Minerva Punjab",
+          "year": "2017"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2017"
+        },
+        {
+          "club": "Delhi Dynamos",
+          "year": "2017"
+        },
+        {
+          "club": "Mumbai City",
+          "year": "2022"
+        },
+        {
+          "club": "Odisha FC",
+          "year": "2022"
+        },
+        {
+          "club": "Odisha FC",
+          "year": "2023"
+        },
+        {
+          "club": "Mumbai City",
+          "year": "2023"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 158,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaimin Lhungdim",
@@ -165,9 +725,33 @@
       "age": 25,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "NEROCA FC",
+          "year": "2019"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 5,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leon Augustine",
@@ -175,9 +759,37 @@
       "age": 27,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bengaluru FC",
+          "year": "2017"
+        },
+        {
+          "club": "Bengaluru FC",
+          "year": "2019"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 99,
+        "goals": 11,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dani Ramírez",
@@ -185,9 +797,65 @@
       "age": 33,
       "nationality": "Spain",
       "club": "Punjab FC",
-      "appearances": 8,
+      "appearances": 5,
       "goals": 1,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Real Madrid C",
+          "year": "2011"
+        },
+        {
+          "club": "Inter de Madrid",
+          "year": "2016"
+        },
+        {
+          "club": "Stomil Olsztyn",
+          "year": "2017"
+        },
+        {
+          "club": "LKS Lodz",
+          "year": "2018"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2020"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2022"
+        },
+        {
+          "club": "LKS Lodz",
+          "year": "2023"
+        },
+        {
+          "club": "Manisa FK",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 383,
+        "goals": 76,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Princeton Rebello",
@@ -195,9 +863,41 @@
       "age": 27,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indian Arrows",
+          "year": "2018"
+        },
+        {
+          "club": "FC Goa",
+          "year": "2018"
+        },
+        {
+          "club": "Odisha FC",
+          "year": "2023"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Singamayum Shami",
@@ -205,9 +905,24 @@
       "age": 18,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Manglenthang Kipgen",
@@ -215,9 +930,29 @@
       "age": 20,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 2
+      "appearances": 5,
+      "goals": 0,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Punjab FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -229,7 +964,55 @@
       "club": "Punjab FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "TRAU FC",
+          "year": "2021"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2023"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2023"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2024"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2024"
+        },
+        {
+          "club": "Kerala Blasters",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 72,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ninthoi Meetei",
@@ -237,9 +1020,41 @@
       "age": 24,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 1
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Indian Arrows",
+          "year": "2017"
+        },
+        {
+          "club": "NorthEast Utd.",
+          "year": "2019"
+        },
+        {
+          "club": "Chennaiyin FC",
+          "year": "2021"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nsungusi Effiong",
@@ -247,9 +1062,57 @@
       "age": 26,
       "nationality": "Nigeria",
       "club": "Punjab FC",
-      "appearances": 7,
+      "appearances": 4,
       "goals": 4,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HB Köge",
+          "year": "2020"
+        },
+        {
+          "club": "Inter Allies",
+          "year": "2020"
+        },
+        {
+          "club": "Atyrau",
+          "year": "2023"
+        },
+        {
+          "club": "HB Köge",
+          "year": "2023"
+        },
+        {
+          "club": "Neftchi",
+          "year": "2024"
+        },
+        {
+          "club": "UTA Arad",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 37,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bede Osuji",
@@ -258,8 +1121,64 @@
       "nationality": "Nigeria",
       "club": "Punjab FC",
       "appearances": 5,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "ND Gorica",
+          "year": "2013"
+        },
+        {
+          "club": "NK Brda",
+          "year": "2014"
+        },
+        {
+          "club": "ND Gorica",
+          "year": "2014"
+        },
+        {
+          "club": "NK Tolmin",
+          "year": "2015"
+        },
+        {
+          "club": "ND Gorica",
+          "year": "2015"
+        },
+        {
+          "club": "Hapoel Raanana",
+          "year": "2020"
+        },
+        {
+          "club": "FC Koper",
+          "year": "2021"
+        },
+        {
+          "club": "Manisa FK",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 323,
+        "goals": 65,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ranjeet Singh Pandre P",
@@ -267,9 +1186,41 @@
       "age": 31,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chennai City",
+          "year": "2018"
+        },
+        {
+          "club": "Kenkre FC",
+          "year": "2021"
+        },
+        {
+          "club": "Gokulam FC",
+          "year": "2024"
+        },
+        {
+          "club": "Punjab FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muhammad Suhail F",
@@ -277,9 +1228,29 @@
       "age": 19,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 9,
+      "appearances": 4,
       "goals": 0,
-      "assists": 3
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Punjab FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vishal Yadav",
@@ -287,9 +1258,24 @@
       "age": 18,
       "nationality": "India",
       "club": "Punjab FC",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

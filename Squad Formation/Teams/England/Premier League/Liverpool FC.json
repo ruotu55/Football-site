@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 25,
       "nationality": "Georgia",
       "club": "Liverpool FC",
-      "appearances": 13,
+      "appearances": 6,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -64,7 +65,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 214,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 270,
+        "clean_sheets": 59
+      },
+      "national_team_career_totals": {
+        "appearances": 37,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 59,
+        "clean_sheets": 11
+      }
     },
     {
       "name": "Alisson",
@@ -72,7 +87,7 @@
       "age": 33,
       "nationality": "Brazil",
       "club": "Liverpool FC",
-      "appearances": 34,
+      "appearances": 25,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -88,7 +103,21 @@
           "club": "Liverpool",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 497,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 460,
+        "clean_sheets": 213
+      },
+      "national_team_career_totals": {
+        "appearances": 76,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 34,
+        "clean_sheets": 47
+      }
     },
     {
       "name": "Freddie Woodman",
@@ -96,7 +125,7 @@
       "age": 29,
       "nationality": "England",
       "club": "Liverpool FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -164,7 +193,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 431,
+        "clean_sheets": 99
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harvey Davies",
@@ -172,7 +215,7 @@
       "age": 22,
       "nationality": "England",
       "club": "Liverpool FC",
-      "appearances": 19,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -192,7 +235,21 @@
           "club": "Liverpool",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 191,
+        "clean_sheets": 32
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -202,8 +259,8 @@
       "age": 26,
       "nationality": "France",
       "club": "Liverpool FC",
-      "appearances": 41,
-      "goals": 2,
+      "appearances": 29,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
@@ -218,7 +275,21 @@
           "club": "Liverpool",
           "year": "2021"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 292,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giovanni Leoni",
@@ -226,7 +297,7 @@
       "age": 19,
       "nationality": "Italy",
       "club": "Liverpool FC",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -254,7 +325,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Virgil van Dijk",
@@ -262,9 +347,9 @@
       "age": 34,
       "nationality": "Netherlands",
       "club": "Liverpool FC",
-      "appearances": 45,
-      "goals": 5,
-      "assists": 3,
+      "appearances": 31,
+      "goals": 3,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "FC Groningen",
@@ -282,7 +367,21 @@
           "club": "Liverpool",
           "year": "2018"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 629,
+        "goals": 63,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 90,
+        "goals": 12,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joe Gomez",
@@ -290,7 +389,7 @@
       "age": 28,
       "nationality": "England",
       "club": "Liverpool FC",
-      "appearances": 25,
+      "appearances": 16,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -302,7 +401,21 @@
           "club": "Liverpool",
           "year": "2015"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 1,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rhys Williams",
@@ -310,7 +423,7 @@
       "age": 25,
       "nationality": "England",
       "club": "Liverpool FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -358,7 +471,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 15,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Milos Kerkez",
@@ -366,9 +493,9 @@
       "age": 22,
       "nationality": "Hungary",
       "club": "Liverpool FC",
-      "appearances": 39,
+      "appearances": 28,
       "goals": 2,
-      "assists": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Rapid Youth",
@@ -398,7 +525,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 229,
+        "goals": 9,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrew Robertson",
@@ -406,9 +547,9 @@
       "age": 32,
       "nationality": "Scotland",
       "club": "Liverpool FC",
-      "appearances": 30,
-      "goals": 2,
-      "assists": 2,
+      "appearances": 19,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Queen's Park U1",
@@ -430,7 +571,21 @@
           "club": "Liverpool",
           "year": "2017"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 574,
+        "goals": 25,
+        "assists": 88,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 92,
+        "goals": 4,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeremie Frimpong",
@@ -438,8 +593,8 @@
       "age": 25,
       "nationality": "Netherlands",
       "club": "Liverpool FC",
-      "appearances": 26,
-      "goals": 2,
+      "appearances": 15,
+      "goals": 0,
       "assists": 2,
       "transfer_history": [
         {
@@ -454,7 +609,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 335,
+        "goals": 38,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Conor Bradley",
@@ -462,7 +631,7 @@
       "age": 22,
       "nationality": "Northern Ireland",
       "club": "Liverpool FC",
-      "appearances": 21,
+      "appearances": 15,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -474,7 +643,21 @@
           "club": "Liverpool",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 195,
+        "goals": 15,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Calvin Ramsay",
@@ -482,9 +665,9 @@
       "age": 22,
       "nationality": "Scotland",
       "club": "Liverpool FC",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 1,
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Aberdeen FC",
@@ -510,7 +693,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 93,
+        "goals": 6,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -520,9 +717,9 @@
       "age": 23,
       "nationality": "Netherlands",
       "club": "Liverpool FC",
-      "appearances": 40,
-      "goals": 5,
-      "assists": 6,
+      "appearances": 29,
+      "goals": 4,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Ajax Youth",
@@ -540,7 +737,21 @@
           "club": "Liverpool",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 349,
+        "goals": 45,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wataru Endo",
@@ -548,7 +759,7 @@
       "age": 33,
       "nationality": "Japan",
       "club": "Liverpool FC",
-      "appearances": 12,
+      "appearances": 8,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -580,7 +791,21 @@
           "club": "Liverpool",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 526,
+        "goals": 49,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 72,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefan Bajcetic",
@@ -589,7 +814,7 @@
       "nationality": "Spain",
       "club": "Liverpool FC",
       "appearances": 0,
-      "goals": 0,
+      "goals": 2,
       "assists": 0,
       "transfer_history": [
         {
@@ -612,7 +837,21 @@
           "club": "UD Las Palmas",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Mac Allister",
@@ -620,9 +859,9 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Liverpool FC",
-      "appearances": 45,
-      "goals": 5,
-      "assists": 5,
+      "appearances": 30,
+      "goals": 2,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Argentinos Jrs.",
@@ -648,7 +887,21 @@
           "club": "Liverpool",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 355,
+        "goals": 53,
+        "assists": 41,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 44,
+        "goals": 6,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Curtis Jones",
@@ -656,15 +909,29 @@
       "age": 25,
       "nationality": "England",
       "club": "Liverpool FC",
-      "appearances": 39,
-      "goals": 2,
-      "assists": 2,
+      "appearances": 27,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Liverpool",
           "year": "2020"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 62,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Trey Nyoni",
@@ -672,15 +939,29 @@
       "age": 18,
       "nationality": "England",
       "club": "Liverpool FC",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 3,
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 90,
+        "goals": 10,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Florian Wirtz",
@@ -688,9 +969,9 @@
       "age": 22,
       "nationality": "Germany",
       "club": "Liverpool FC",
-      "appearances": 40,
-      "goals": 6,
-      "assists": 9,
+      "appearances": 27,
+      "goals": 4,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Leverkusen",
@@ -700,7 +981,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 77,
+        "assists": 80,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 39,
+        "goals": 10,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Dominik Szoboszlai",
@@ -708,9 +1003,9 @@
       "age": 25,
       "nationality": "Hungary",
       "club": "Liverpool FC",
-      "appearances": 43,
-      "goals": 12,
-      "assists": 8,
+      "appearances": 29,
+      "goals": 5,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "Főnix Jgd",
@@ -732,7 +1027,21 @@
           "club": "Liverpool",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 91,
+        "assists": 95,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 63,
+        "goals": 17,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -742,9 +1051,9 @@
       "age": 26,
       "nationality": "Netherlands",
       "club": "Liverpool FC",
-      "appearances": 42,
-      "goals": 8,
-      "assists": 4,
+      "appearances": 29,
+      "goals": 6,
+      "assists": 3,
       "transfer_history": [
         {
           "club": "PSV",
@@ -754,7 +1063,21 @@
           "club": "Liverpool",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 131,
+        "assists": 80,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 19,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rio Ngumoha",
@@ -762,15 +1085,29 @@
       "age": 17,
       "nationality": "England",
       "club": "Liverpool FC",
-      "appearances": 23,
-      "goals": 2,
+      "appearances": 13,
+      "goals": 1,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 58,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Salah",
@@ -778,9 +1115,9 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "Liverpool FC",
-      "appearances": 34,
-      "goals": 10,
-      "assists": 9,
+      "appearances": 22,
+      "goals": 5,
+      "assists": 6,
       "transfer_history": [
         {
           "club": "El Mokawloon",
@@ -822,7 +1159,21 @@
           "club": "Without Club",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 687,
+        "goals": 332,
+        "assists": 170,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 113,
+        "goals": 65,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Federico Chiesa",
@@ -830,9 +1181,9 @@
       "age": 28,
       "nationality": "Italy",
       "club": "Liverpool FC",
-      "appearances": 32,
-      "goals": 3,
-      "assists": 3,
+      "appearances": 23,
+      "goals": 2,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Fiorentina",
@@ -854,7 +1205,21 @@
           "club": "Liverpool",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 371,
+        "goals": 83,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 51,
+        "goals": 7,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Isak",
@@ -862,8 +1227,8 @@
       "age": 26,
       "nationality": "Sweden",
       "club": "Liverpool FC",
-      "appearances": 16,
-      "goals": 3,
+      "appearances": 10,
+      "goals": 2,
       "assists": 1,
       "transfer_history": [
         {
@@ -890,7 +1255,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 147,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 16,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hugo Ekitiké",
@@ -898,9 +1277,9 @@
       "age": 23,
       "nationality": "France",
       "club": "Liverpool FC",
-      "appearances": 42,
-      "goals": 17,
-      "assists": 6,
+      "appearances": 28,
+      "goals": 11,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Vejle BK",
@@ -934,7 +1313,21 @@
           "club": "Liverpool",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 67,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

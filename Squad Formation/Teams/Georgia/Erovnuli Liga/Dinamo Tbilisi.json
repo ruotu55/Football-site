@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "GE1N"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,27 @@
       "club": "Dinamo Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 127,
+        "clean_sheets": 14
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Loria",
@@ -33,7 +54,71 @@
       "club": "Dinamo Tbilisi",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2004"
+        },
+        {
+          "club": "OFI Crete",
+          "year": "2014"
+        },
+        {
+          "club": "Olympiacos",
+          "year": "2015"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2015"
+        },
+        {
+          "club": "Anzhi",
+          "year": "2017"
+        },
+        {
+          "club": "KS Samara",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "1.FC Magdeburg",
+          "year": "2019"
+        },
+        {
+          "club": "Anorthosis",
+          "year": "2019"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2023"
+        },
+        {
+          "club": "Omon. Aradippou",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 525,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 542,
+        "clean_sheets": 195
+      },
+      "national_team_career_totals": {
+        "appearances": 79,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 85,
+        "clean_sheets": 31
+      }
     }
   ],
   "defenders": [
@@ -43,9 +128,73 @@
       "age": 26,
       "nationality": "TM nationality id 24",
       "club": "Dinamo Tbilisi",
-      "appearances": 20,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Sarajevo",
+          "year": "2018"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2020"
+        },
+        {
+          "club": "FK Sarajevo",
+          "year": "2021"
+        },
+        {
+          "club": "FK Kukësi",
+          "year": "2021"
+        },
+        {
+          "club": "RWDM",
+          "year": "2022"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2023"
+        },
+        {
+          "club": "RWDM",
+          "year": "2023"
+        },
+        {
+          "club": "Araz-Nakhchivan",
+          "year": "2023"
+        },
+        {
+          "club": "Kauno Zalgiris",
+          "year": "2024"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2025"
+        },
+        {
+          "club": "Mes Rafsanjan",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 203,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandre Kalandadze",
@@ -53,9 +202,49 @@
       "age": 24,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 12,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Diósgyőr",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2021"
+        },
+        {
+          "club": "Fehérvár",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        },
+        {
+          "club": "Wisla Plock",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 134,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nikoloz Ugrekhelidze",
@@ -63,9 +252,37 @@
       "age": 22,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 8,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2023"
+        },
+        {
+          "club": "Karagümrük",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 11,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Albert Gomez",
@@ -73,9 +290,33 @@
       "age": 19,
       "nationality": "The Gambia",
       "club": "Dinamo Tbilisi",
-      "appearances": 16,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Falcons FC",
+          "year": "2021"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Lomidze",
@@ -83,9 +324,29 @@
       "age": 18,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 7,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yussif Musah",
@@ -95,7 +356,27 @@
       "club": "Dinamo Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saba Kharebashvili",
@@ -103,9 +384,33 @@
       "age": 17,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Léo Santos",
@@ -113,9 +418,37 @@
       "age": 22,
       "nationality": "Brazil",
       "club": "Dinamo Tbilisi",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Gvasalia",
@@ -123,9 +456,29 @@
       "age": 18,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 1
+      "appearances": 3,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lasha Patarkatsishvili",
@@ -135,19 +488,231 @@
       "club": "Dinamo Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
+    {
+      "name": "Nikoloz Ninua",
+      "position": "Defensive Midfield",
+      "age": 26,
+      "nationality": "Georgia",
+      "club": "Dinamo Tbilisi",
+      "appearances": 3,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2016"
+        },
+        {
+          "club": "PAOK",
+          "year": "2020"
+        },
+        {
+          "club": "Anorthosis",
+          "year": "2021"
+        },
+        {
+          "club": "PAOK",
+          "year": "2021"
+        },
+        {
+          "club": "PAS Lamia",
+          "year": "2022"
+        },
+        {
+          "club": "PAOK",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 203,
+        "goals": 21,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Jaba Kankava",
       "position": "Defensive Midfield",
       "age": 40,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
+      "appearances": 1,
+      "goals": 7,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2003"
+        },
+        {
+          "club": "Spartak V-kavkaz",
+          "year": "2005"
+        },
+        {
+          "club": "Arsenal Kyiv",
+          "year": "2006"
+        },
+        {
+          "club": "Dnipro",
+          "year": "2007"
+        },
+        {
+          "club": "Kryvbas",
+          "year": "2011"
+        },
+        {
+          "club": "Dnipro",
+          "year": "2012"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Tobol Kostanay",
+          "year": "2018"
+        },
+        {
+          "club": "Valenciennes FC",
+          "year": "2021"
+        },
+        {
+          "club": "Slo. Bratislava",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 533,
+        "goals": 23,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 100,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Josh Onomah",
+      "position": "Central Midfield",
+      "age": 28,
+      "nationality": "England",
+      "club": "Dinamo Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tottenham",
+          "year": "2015"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2017"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2018"
+        },
+        {
+          "club": "Sheff Wed",
+          "year": "2018"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2019"
+        },
+        {
+          "club": "Fulham",
+          "year": "2019"
+        },
+        {
+          "club": "Preston",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Blackpool",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 227,
+        "goals": 14,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Kharaishvili",
@@ -157,17 +722,63 @@
       "club": "Dinamo Tbilisi",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Nikoloz Ninua",
-      "position": "Central Midfield",
-      "age": 26,
-      "nationality": "Georgia",
-      "club": "Dinamo Tbilisi",
-      "appearances": 3,
-      "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2013"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2018"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2018"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2019"
+        },
+        {
+          "club": "Ferencváros",
+          "year": "2021"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2023"
+        },
+        {
+          "club": "Ferencváros",
+          "year": "2023"
+        },
+        {
+          "club": "Kocaelispor",
+          "year": "2024"
+        },
+        {
+          "club": "Sumgayit",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 239,
+        "goals": 65,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Barnes Osei",
@@ -177,7 +788,67 @@
       "club": "Dinamo Tbilisi",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paços Ferreira",
+          "year": "2013"
+        },
+        {
+          "club": "União Madeira",
+          "year": "2015"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2015"
+        },
+        {
+          "club": "Arouca",
+          "year": "2017"
+        },
+        {
+          "club": "Paços Ferreira",
+          "year": "2018"
+        },
+        {
+          "club": "Coimbra",
+          "year": "2019"
+        },
+        {
+          "club": "Nea Salamis",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2021"
+        },
+        {
+          "club": "FC Astana",
+          "year": "2024"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 322,
+        "goals": 33,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luka Tsulaia",
@@ -185,9 +856,29 @@
       "age": 19,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 3,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Zaria",
@@ -195,9 +886,41 @@
       "age": 28,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 9,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2015"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2021"
+        },
+        {
+          "club": "Kairat Almaty",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 42,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulaye Yoro",
@@ -207,7 +930,35 @@
       "club": "Dinamo Tbilisi",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Basaksehir",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -217,9 +968,45 @@
       "age": 22,
       "nationality": "Portugal",
       "club": "Dinamo Tbilisi",
-      "appearances": 11,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Benfica U15",
+          "year": "2016"
+        },
+        {
+          "club": "Belenenses S15",
+          "year": "2018"
+        },
+        {
+          "club": "Tondela",
+          "year": "2024"
+        },
+        {
+          "club": "Ararat-Armenia",
+          "year": "2025"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 49,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Kharebashvili",
@@ -229,7 +1016,71 @@
       "club": "Dinamo Tbilisi",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Iberia",
+          "year": "2014"
+        },
+        {
+          "club": "Sakartvelos U.",
+          "year": "2015"
+        },
+        {
+          "club": "Tskhumi Sokhumi",
+          "year": "2016"
+        },
+        {
+          "club": "Career break",
+          "year": "2016"
+        },
+        {
+          "club": "FC Telavi",
+          "year": "2017"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2019"
+        },
+        {
+          "club": "FC Telavi",
+          "year": "2019"
+        },
+        {
+          "club": "Rustavi",
+          "year": "2020"
+        },
+        {
+          "club": "FC Shevardeni",
+          "year": "2021"
+        },
+        {
+          "club": "FC Gareji",
+          "year": "2021"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 219,
+        "goals": 88,
+        "assists": 35,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nana-Kofi Donkor",
@@ -237,19 +1088,59 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Dinamo Tbilisi",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rui Monteiro",
       "position": "Right Winger",
-      "age": 22,
+      "age": 23,
       "nationality": "Portugal",
       "club": "Dinamo Tbilisi",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Kvartskhava",
@@ -257,9 +1148,37 @@
       "age": 19,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 40,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reziko Danelia",
@@ -267,9 +1186,33 @@
       "age": 18,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 6,
-      "goals": 3,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Samtredia",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Irakli Siradze",
@@ -279,7 +1222,43 @@
       "club": "Dinamo Tbilisi",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Chikhura",
+          "year": "2019"
+        },
+        {
+          "club": "Career break",
+          "year": "2020"
+        },
+        {
+          "club": "Kajaanin Haka",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 18,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mate Vatsadze",
@@ -289,7 +1268,87 @@
       "club": "Dinamo Tbilisi",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2005"
+        },
+        {
+          "club": "Volga NN",
+          "year": "2011"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2012"
+        },
+        {
+          "club": "Aarhus GF",
+          "year": "2012"
+        },
+        {
+          "club": "FC Locomotive",
+          "year": "2016"
+        },
+        {
+          "club": "Viborg FF",
+          "year": "2017"
+        },
+        {
+          "club": "Silkeborg IF",
+          "year": "2017"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2018"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2019"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2019"
+        },
+        {
+          "club": "AGMK Olmaliq",
+          "year": "2020"
+        },
+        {
+          "club": "Qizilqum",
+          "year": "2021"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2022"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2024"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 427,
+        "goals": 131,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoulie Njie",
@@ -297,9 +1356,29 @@
       "age": 18,
       "nationality": "The Gambia",
       "club": "Dinamo Tbilisi",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Halid Doltmurziev",
@@ -307,9 +1386,29 @@
       "age": 18,
       "nationality": "Georgia",
       "club": "Dinamo Tbilisi",
-      "appearances": 6,
-      "goals": 5,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

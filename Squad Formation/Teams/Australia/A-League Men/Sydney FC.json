@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "AUS1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 29,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilinden",
+          "year": "2016"
+        },
+        {
+          "club": "Northern Tigers",
+          "year": "2017"
+        },
+        {
+          "club": "SF Bulls",
+          "year": "2017"
+        },
+        {
+          "club": "FC Rapid 1923",
+          "year": "2021"
+        },
+        {
+          "club": "SSU Poli",
+          "year": "2021"
+        },
+        {
+          "club": "CS Tunari",
+          "year": "2022"
+        },
+        {
+          "club": "Ilinden",
+          "year": "2023"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 102,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gus Hoefsloot",
@@ -33,7 +82,27 @@
       "club": "Sydney FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 37,
+        "clean_sheets": 10
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +112,89 @@
       "age": 33,
       "nationality": "Democratic Republic of the Congo",
       "club": "Sydney FC",
-      "appearances": 18,
+      "appearances": 19,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Monaco",
+          "year": "2013"
+        },
+        {
+          "club": "Lens",
+          "year": "2014"
+        },
+        {
+          "club": "Monaco",
+          "year": "2014"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2014"
+        },
+        {
+          "club": "Monaco",
+          "year": "2016"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2016"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2017"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2018"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2018"
+        },
+        {
+          "club": "Fenerbahçe",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ettifaq",
+          "year": "2022"
+        },
+        {
+          "club": "Abha",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ettifaq",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Khaleej",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Ettifaq",
+          "year": "2025"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 358,
+        "goals": 11,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alex Grant",
@@ -53,9 +202,69 @@
       "age": 32,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 21,
+      "appearances": 22,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Portsmouth",
+          "year": "2012"
+        },
+        {
+          "club": "Eastleigh",
+          "year": "2012"
+        },
+        {
+          "club": "Portsmouth",
+          "year": "2013"
+        },
+        {
+          "club": "Havant & Water.",
+          "year": "2013"
+        },
+        {
+          "club": "Stoke City",
+          "year": "2013"
+        },
+        {
+          "club": "Macclesfield",
+          "year": "2014"
+        },
+        {
+          "club": "Stoke City",
+          "year": "2015"
+        },
+        {
+          "club": "Perth Glory",
+          "year": "2015"
+        },
+        {
+          "club": "Pohang Steelers",
+          "year": "2021"
+        },
+        {
+          "club": "TJ Jinmen Tiger",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 20,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jordan Courtney-Perkins",
@@ -63,9 +272,53 @@
       "age": 23,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 5,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brisbane Roar",
+          "year": "2019"
+        },
+        {
+          "club": "Raków",
+          "year": "2021"
+        },
+        {
+          "club": "Warta Poznan",
+          "year": "2022"
+        },
+        {
+          "club": "Raków",
+          "year": "2022"
+        },
+        {
+          "club": "Brisbane Roar",
+          "year": "2022"
+        },
+        {
+          "club": "Raków",
+          "year": "2023"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 8,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexandar Popovic",
@@ -73,9 +326,45 @@
       "age": 23,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 13,
+      "appearances": 15,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2021"
+        },
+        {
+          "club": "Gwangju FC",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2024"
+        },
+        {
+          "club": "Gwangju FC",
+          "year": "2025"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 98,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tyler Williams",
@@ -83,9 +372,29 @@
       "age": 18,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joel King",
@@ -95,7 +404,39 @@
       "club": "Sydney FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2018"
+        },
+        {
+          "club": "Odense BK",
+          "year": "2022"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2023"
+        },
+        {
+          "club": "Odense BK",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 5,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Garuccio",
@@ -103,9 +444,53 @@
       "age": 30,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 15,
+      "appearances": 17,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Melbourne Heart",
+          "year": "2012"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2016"
+        },
+        {
+          "club": "Heart of Midl.",
+          "year": "2018"
+        },
+        {
+          "club": "Melbourne City",
+          "year": "2020"
+        },
+        {
+          "club": "Western United",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 11,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rhyan Grant",
@@ -113,9 +498,33 @@
       "age": 35,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FFA C. of Excel",
+          "year": "2008"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2009"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 19,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zach De Jesus",
@@ -123,9 +532,29 @@
       "age": 20,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 4,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +564,29 @@
       "age": 21,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 18,
+      "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 63,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Corey Hollman",
@@ -147,7 +596,27 @@
       "club": "Sydney FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rhys Youlley",
@@ -155,9 +624,37 @@
       "age": 21,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bulls FC Ac.",
+          "year": "2022"
+        },
+        {
+          "club": "KVC Westerlo",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wataru Kamijo",
@@ -165,9 +662,29 @@
       "age": 19,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 11,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Lacey",
@@ -175,9 +692,29 @@
       "age": 18,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 2,
-      "goals": 1,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nickolas Alfaro",
@@ -185,9 +722,29 @@
       "age": 18,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lachlan Middleton",
@@ -195,9 +752,29 @@
       "age": 20,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 4,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Piero Quispe",
@@ -205,9 +782,41 @@
       "age": 24,
       "nationality": "Peru",
       "club": "Sydney FC",
-      "appearances": 27,
+      "appearances": 23,
       "goals": 1,
-      "assists": 3
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Universitario",
+          "year": "2021"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 17,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tiago Quintal",
@@ -215,19 +824,99 @@
       "age": 19,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 19,
-      "goals": 4,
-      "assists": 2
+      "appearances": 21,
+      "goals": 5,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 78,
+        "goals": 16,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmet Arslan",
       "position": "Attacking Midfield",
-      "age": 31,
+      "age": 32,
       "nationality": "Turkiye",
       "club": "Sydney FC",
-      "appearances": 28,
-      "goals": 6,
-      "assists": 2
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "VfB Lübeck",
+          "year": "2013"
+        },
+        {
+          "club": "VfL Osnabrück",
+          "year": "2016"
+        },
+        {
+          "club": "VfB Lübeck",
+          "year": "2018"
+        },
+        {
+          "club": "Holstein Kiel",
+          "year": "2020"
+        },
+        {
+          "club": "Dynamo Dresden",
+          "year": "2022"
+        },
+        {
+          "club": "Holstein Kiel",
+          "year": "2023"
+        },
+        {
+          "club": "1.FC Magdeburg",
+          "year": "2023"
+        },
+        {
+          "club": "Dynamo Dresden",
+          "year": "2024"
+        },
+        {
+          "club": "1.FC Magdeburg",
+          "year": "2024"
+        },
+        {
+          "club": "RW Essen",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 387,
+        "goals": 156,
+        "assists": 75,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +926,57 @@
       "age": 25,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 15,
+      "appearances": 17,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Adelaide United",
+          "year": "2019"
+        },
+        {
+          "club": "Macarthur",
+          "year": "2021"
+        },
+        {
+          "club": "Eyüpspor",
+          "year": "2023"
+        },
+        {
+          "club": "Sanliurfaspor",
+          "year": "2023"
+        },
+        {
+          "club": "Eyüpspor",
+          "year": "2024"
+        },
+        {
+          "club": "AC Ajaccio",
+          "year": "2024"
+        },
+        {
+          "club": "Tulsa",
+          "year": "2025"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 141,
+        "goals": 24,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abel Walatee",
@@ -249,7 +986,35 @@
       "club": "Sydney FC",
       "appearances": 14,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Akademisk BK",
+          "year": "2023"
+        },
+        {
+          "club": "Western United",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 8,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marin France",
@@ -257,9 +1022,29 @@
       "age": 19,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 10,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joe Lolley",
@@ -269,7 +1054,55 @@
       "club": "Sydney FC",
       "appearances": 14,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bromsgrove",
+          "year": "2008"
+        },
+        {
+          "club": "Littleton FC",
+          "year": "2011"
+        },
+        {
+          "club": "Kidderminster",
+          "year": "2013"
+        },
+        {
+          "club": "Huddersfield",
+          "year": "2014"
+        },
+        {
+          "club": "Scunthorpe Utd.",
+          "year": "2015"
+        },
+        {
+          "club": "Huddersfield",
+          "year": "2015"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2018"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 405,
+        "goals": 84,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Akol Akon",
@@ -277,9 +1110,29 @@
       "age": 16,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Víctor Campuzano",
@@ -287,9 +1140,41 @@
       "age": 28,
       "nationality": "Spain",
       "club": "Sydney FC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 4,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "RM Castilla",
+          "year": "2016"
+        },
+        {
+          "club": "Espanyol",
+          "year": "2019"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2021"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 248,
+        "goals": 47,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Apostolos Stamatelopoulos",
@@ -297,9 +1182,65 @@
       "age": 26,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 33,
-      "goals": 8,
-      "assists": 3
+      "appearances": 8,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Adelaide Comets",
+          "year": "2015"
+        },
+        {
+          "club": "Adelaide United",
+          "year": "2017"
+        },
+        {
+          "club": "Western United",
+          "year": "2019"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2021"
+        },
+        {
+          "club": "AS Rodos",
+          "year": "2021"
+        },
+        {
+          "club": "PAS Giannina",
+          "year": "2022"
+        },
+        {
+          "club": "Newcastle",
+          "year": "2023"
+        },
+        {
+          "club": "Motherwell FC",
+          "year": "2024"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2026"
+        },
+        {
+          "club": "Motherwell FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 43,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Wood",
@@ -307,9 +1248,37 @@
       "age": 23,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 14,
+      "appearances": 16,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2021"
+        },
+        {
+          "club": "Perth Glory",
+          "year": "2025"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 27,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mitch Glasson",
@@ -317,9 +1286,37 @@
       "age": 19,
       "nationality": "Australia",
       "club": "Sydney FC",
-      "appearances": 4,
-      "goals": 3,
-      "assists": 0
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2023"
+        },
+        {
+          "club": "FC KTP",
+          "year": "2025"
+        },
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 91,
+        "goals": 17,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathias Macallister",
@@ -329,7 +1326,27 @@
       "club": "Sydney FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sydney FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 19,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

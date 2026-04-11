@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "JO1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 33,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 19,
+      "appearances": 15,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Shabab Al-Ordon",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Jabalain",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 93,
+        "clean_sheets": 32
+      },
+      "national_team_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 66,
+        "clean_sheets": 29
+      }
     },
     {
       "name": "Mahmoud Al-Kawamleh",
@@ -31,9 +68,33 @@
       "age": 28,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 3,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Jalil",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Murad Al-Faluji",
@@ -43,7 +104,31 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +138,45 @@
       "age": 29,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 21,
+      "appearances": 15,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Arabi Irbid",
+          "year": "2014"
+        },
+        {
+          "club": "Mansheyat",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Baqaa",
+          "year": "2018"
+        },
+        {
+          "club": "Ma'an SC",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pedro Henrique",
@@ -63,9 +184,69 @@
       "age": 25,
       "nationality": "Brazil",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 19,
+      "appearances": 13,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Internacional",
+          "year": "2020"
+        },
+        {
+          "club": "Sport Recife",
+          "year": "2021"
+        },
+        {
+          "club": "Internacional",
+          "year": "2021"
+        },
+        {
+          "club": "La Calera",
+          "year": "2022"
+        },
+        {
+          "club": "Internacional",
+          "year": "2022"
+        },
+        {
+          "club": "Ludogorets",
+          "year": "2022"
+        },
+        {
+          "club": "Beroe",
+          "year": "2023"
+        },
+        {
+          "club": "Ludogorets",
+          "year": "2023"
+        },
+        {
+          "club": "Guarani",
+          "year": "2024"
+        },
+        {
+          "club": "Ludogorets",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousef Abu Al-Jazar",
@@ -73,9 +254,37 @@
       "age": 26,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2023"
+        },
+        {
+          "club": "Kazma SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saleem Obaid",
@@ -83,9 +292,45 @@
       "age": 34,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 19,
+      "appearances": 14,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2018"
+        },
+        {
+          "club": "Sahab SC",
+          "year": "2021"
+        },
+        {
+          "club": "Shabab Al-Ordon",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Saffah Obeidat",
@@ -95,7 +340,69 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Sareeh",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Mohammad Taha",
+      "position": "Left-Back",
+      "age": 20,
+      "nationality": "Jordan",
+      "club": "Al-Hussein SC (Irbid)",
+      "appearances": 15,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Shabab Al-Ordon",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2026"
+        },
+        {
+          "club": "Shabab Al-Ordon",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Hajabi",
@@ -103,9 +410,29 @@
       "age": 21,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 15,
-      "goals": 1,
-      "assists": 1
+      "appearances": 11,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ehsan Haddad",
@@ -113,9 +440,69 @@
       "age": 32,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Arabi Irbid",
+          "year": "2011"
+        },
+        {
+          "club": "Al-Ramtha SC",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Ramtha SC",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Quwa Al-Jaw.",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Shorta",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 74,
+        "goals": 1,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adham Al-Quraishi",
@@ -123,9 +510,33 @@
       "age": 31,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 13,
+      "appearances": 10,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Salt SC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ward Al-Barri",
@@ -135,7 +546,39 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Faisaly",
+          "year": "2021"
+        },
+        {
+          "club": "Sahab SC",
+          "year": "2023"
+        },
+        {
+          "club": "Shabab Al-Ordon",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmad Assaf",
@@ -143,9 +586,65 @@
       "age": 26,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 15,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mladost Kakanj",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "VfB Eichstätt",
+          "year": "2020"
+        },
+        {
+          "club": "FC Eilenburg",
+          "year": "2021"
+        },
+        {
+          "club": "Türkgücü Münch.",
+          "year": "2022"
+        },
+        {
+          "club": "Zvijezda G.",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bremer SV",
+          "year": "2024"
+        },
+        {
+          "club": "US Rumelange",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 65,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +654,45 @@
       "age": 32,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 21,
+      "appearances": 15,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Wehdat SC",
+          "year": "2012"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Mesaimeer",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Latyr Fall",
@@ -165,9 +700,89 @@
       "age": 31,
       "nationality": "Senegal",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 17,
-      "goals": 1,
-      "assists": 2
+      "appearances": 13,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chaves",
+          "year": "2013"
+        },
+        {
+          "club": "Pedras Salgadas",
+          "year": "2013"
+        },
+        {
+          "club": "Chaves",
+          "year": "2014"
+        },
+        {
+          "club": "Pedras Salgadas",
+          "year": "2014"
+        },
+        {
+          "club": "Chaves",
+          "year": "2015"
+        },
+        {
+          "club": "Mirandela",
+          "year": "2015"
+        },
+        {
+          "club": "Chaves",
+          "year": "2016"
+        },
+        {
+          "club": "Vilaverdense",
+          "year": "2016"
+        },
+        {
+          "club": "Chaves",
+          "year": "2017"
+        },
+        {
+          "club": "Vilaverdense",
+          "year": "2017"
+        },
+        {
+          "club": "Académico Viseu",
+          "year": "2018"
+        },
+        {
+          "club": "Feirense",
+          "year": "2020"
+        },
+        {
+          "club": "Estrela Amadora",
+          "year": "2022"
+        },
+        {
+          "club": "Kapaz PFK",
+          "year": "2023"
+        },
+        {
+          "club": "PSM Makassar",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 235,
+        "goals": 11,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Waseem Al-Riyalat",
@@ -177,7 +792,27 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hussein SC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Deeb",
@@ -185,9 +820,33 @@
       "age": 20,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 21,
-      "goals": 6,
-      "assists": 4
+      "appearances": 15,
+      "goals": 5,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Al-Sareeh",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 7,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hashem Al-Mubaidin",
@@ -195,9 +854,29 @@
       "age": 22,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 10,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yousef Qashi",
@@ -207,7 +886,35 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Altglienicke",
+          "year": "2023"
+        },
+        {
+          "club": "Wuppertaler SV",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohanad Al-Aramsheh",
@@ -217,7 +924,31 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sisa",
@@ -225,9 +956,37 @@
       "age": 27,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 20,
-      "goals": 8,
-      "assists": 9
+      "appearances": 14,
+      "goals": 6,
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Kazma SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 22,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faris Ghatasha",
@@ -235,9 +994,57 @@
       "age": 28,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 16,
+      "appearances": 11,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ma'an SC",
+          "year": "2017"
+        },
+        {
+          "club": "Ohod Club",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Jalil",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Shabab Club",
+          "year": "2023"
+        },
+        {
+          "club": "East Riffa",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1054,85 @@
       "age": 32,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 4
+      "appearances": 5,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Itti. Al-Zarqa",
+          "year": "2013"
+        },
+        {
+          "club": "Al-Sheikh FC",
+          "year": "2014"
+        },
+        {
+          "club": "Itti. Al-Zarqa",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Jazeera Club",
+          "year": "2018"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Salt SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Muharraq",
+          "year": "2021"
+        },
+        {
+          "club": "KDA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Qadsia SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2023"
+        },
+        {
+          "club": "Dibba SCC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 20,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 68,
+        "goals": 8,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Obieda Al-Namarneh",
@@ -257,9 +1140,29 @@
       "age": 21,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 3
+      "appearances": 7,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aref Al-Haj",
@@ -267,9 +1170,45 @@
       "age": 24,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 19,
+      "appearances": 14,
       "goals": 8,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "J. Al-Mokabber",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Sareeh",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Sareeh",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 14,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Bani",
@@ -277,19 +1216,37 @@
       "age": 23,
       "nationality": "Romania",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 1
-    },
-    {
-      "name": "Mohammad Taha",
-      "position": "Right Winger",
-      "age": 20,
-      "nationality": "Jordan",
-      "club": "Al-Hussein SC (Irbid)",
-      "appearances": 16,
-      "goals": 4,
-      "assists": 2
+      "appearances": 5,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Dinamo",
+          "year": "2019"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 155,
+        "goals": 16,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ashley Coffey",
@@ -297,9 +1254,53 @@
       "age": 32,
       "nationality": "England",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Whitby",
+          "year": "2018"
+        },
+        {
+          "club": "Huddinge IF",
+          "year": "2019"
+        },
+        {
+          "club": "IFK Haninge",
+          "year": "2020"
+        },
+        {
+          "club": "AFC Eskilstuna",
+          "year": "2021"
+        },
+        {
+          "club": "AC Oulu",
+          "year": "2023"
+        },
+        {
+          "club": "SH JD Huilong",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 92,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luis Kacorri",
@@ -307,9 +1308,85 @@
       "age": 28,
       "nationality": "Albania",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 11,
-      "goals": 7,
-      "assists": 2
+      "appearances": 9,
+      "goals": 5,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Montemurlo G.",
+          "year": "2015"
+        },
+        {
+          "club": "Jolly & Montemurlo",
+          "year": "2016"
+        },
+        {
+          "club": "Igea Virtus",
+          "year": "2017"
+        },
+        {
+          "club": "Carpi",
+          "year": "2018"
+        },
+        {
+          "club": "Fermana",
+          "year": "2018"
+        },
+        {
+          "club": "Fiorenzuola",
+          "year": "2019"
+        },
+        {
+          "club": "Ligorna",
+          "year": "2019"
+        },
+        {
+          "club": "Cittanovese",
+          "year": "2019"
+        },
+        {
+          "club": "Correggese",
+          "year": "2020"
+        },
+        {
+          "club": "Savoia",
+          "year": "2020"
+        },
+        {
+          "club": "Arzachena",
+          "year": "2021"
+        },
+        {
+          "club": "FK Bylis",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo City",
+          "year": "2023"
+        },
+        {
+          "club": "Bunyodkor",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 67,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Reziq Bani Hani",
@@ -317,9 +1394,53 @@
       "age": 24,
       "nationality": "Jordan",
       "club": "Al-Hussein SC (Irbid)",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 3
+      "appearances": 2,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Career break",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Faisaly",
+          "year": "2023"
+        },
+        {
+          "club": "Selangor FC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Hussein SC",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Zawraa SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khaldoon Sabra",
@@ -329,7 +1450,27 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hussein SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahmoud Al-Tmaizi",
@@ -339,7 +1480,27 @@
       "club": "Al-Hussein SC (Irbid)",
       "appearances": 1,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hussein SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

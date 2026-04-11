@@ -18,6 +18,10 @@
     </select>
   </label>
 
+  <button type="button" id="btn-save-current-team-landing" class="btn-save-current-team" hidden aria-pressed="false">
+    Save current team
+  </button>
+
   <label class="field" style="flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
     <span class="label" style="margin: 0;">Add specific title</span>
     <input type="checkbox" id="in-specific-title-toggle" style="width: 1.2rem; height: 1.2rem; margin: 0; cursor: pointer; accent-color: var(--accent);" />
@@ -31,22 +35,17 @@
       <span class="label">Icon</span>
       <select id="in-specific-title-icon">
         <optgroup label="Leagues">
-          <option value="icons/specific-title/premier-league.png">Premier League</option>
-          <option value="icons/specific-title/la-liga.png">La Liga</option>
-          <option value="icons/specific-title/serie-a.png">Serie A</option>
-          <option value="icons/specific-title/bundesliga.png">Bundesliga</option>
-          <option value="icons/specific-title/ligue-1.png">Ligue 1</option>
-          <option value="icons/specific-title/eredivisie.png">Eredivisie</option>
-          <option value="icons/specific-title/primeira-liga.png">Primeira Liga</option>
-          <option value="icons/specific-title/belgian-pro-league.png">Belgian Pro League</option>
-          <option value="icons/specific-title/super-lig.png">Süper Lig (Turkey)</option>
-          <option value="icons/specific-title/danish-superliga.png">Danish Superliga</option>
+          <option value="icons/specific-title/Premier League.png">Premier League</option>
+          <option value="icons/specific-title/La Liga.png">La Liga</option>
+          <option value="icons/specific-title/Seria A.png">Seria A</option>
+          <option value="icons/specific-title/Bundesliga.png">Bundesliga</option>
+          <option value="icons/specific-title/Ligue 1.png">Ligue 1</option>
         </optgroup>
         <optgroup label="Competitions">
-          <option value="icons/specific-title/fifa-world-cup.png" selected>FIFA World Cup</option>
-          <option value="icons/specific-title/uefa-champions-league.png">UEFA Champions League</option>
-          <option value="icons/specific-title/uefa-europa-league.png">UEFA Europa League</option>
-          <option value="icons/specific-title/uefa-conference-league.png">UEFA Conference League</option>
+          <option value="icons/specific-title/World Cup 2026.png" selected>World Cup 2026</option>
+          <option value="icons/specific-title/Champions League.png">Champions League</option>
+          <option value="icons/specific-title/Europa League.png">Europa League</option>
+          <option value="icons/specific-title/Conference League.png">Conference League</option>
         </optgroup>
         <optgroup label="Emoji">
           <option value="🏆">🏆 Trophy</option>
@@ -85,6 +84,20 @@
   <button type="button" id="apply-video-all-btn" class="panel-toggle" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Apply Video Mode To All</button>
 
   <label class="field">
+    <span class="label">Background Color</span>
+    <select id="in-background-color"></select>
+  </label>
+  <label class="field">
+    <span class="label">Background Effect</span>
+    <select id="in-background-effect"></select>
+  </label>
+  <label class="field">
+    <span class="label">Opacity</span>
+    <input type="number" id="in-background-opacity" value="1" min="0" max="10" step="0.1" />
+  </label>
+  <button type="button" id="btn-save-background-opacity" class="panel-toggle">Save Opacity For Color</button>
+
+  <label class="field">
     <span class="label">Total Levels</span>
     <div style="display: flex; gap: 0.5rem;">
       <input type="number" id="quiz-levels-input" value="20" min="1" max="100" style="flex: 1;" />
@@ -105,23 +118,13 @@
     </label>
 
     <label class="field">
-      <span class="label">Search Mode</span>
-      <select id="search-mode">
-        <option value="team" selected>By Team</option>
-        <option value="league">By League / Competition</option>
-      </select>
-    </label>
-
-    <label class="field">
-      <span class="label">Search</span>
-      <input type="search" id="team-search" placeholder="Type name..." autocomplete="off" />
-    </label>
-    <div id="team-results" class="team-results" aria-live="polite"></div>
-
-    <label class="field">
       <span class="label">Formation</span>
       <select id="formation"></select>
     </label>
+
+    <button type="button" id="btn-save-current-team" class="btn-save-current-team" hidden>
+      Save current team
+    </button>
 
     <label class="field" style="display: none;">
       <span class="label">Images type</span>

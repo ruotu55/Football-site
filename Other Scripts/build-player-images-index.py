@@ -6,7 +6,10 @@ import json
 from pathlib import Path
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
-ROOT = _SCRIPT_DIR.parent.parent
+# Repo root contains `Players images/` and `data/` (script lives in `Other Scripts/` at repo root).
+ROOT = _SCRIPT_DIR.parent
+if not (ROOT / "Players images" / "Club images").is_dir():
+    ROOT = _SCRIPT_DIR.parent.parent
 OUT = ROOT / "data" / "player-images.json"
 
 CLUB_BASE = ROOT / "Players images" / "Club images"

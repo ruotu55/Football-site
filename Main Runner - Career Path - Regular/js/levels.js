@@ -1,14 +1,18 @@
 import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { getVideoQuestionPreviewState, renderHeader, renderCareer } from "./pitch-render.js";
-import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { playRules, playProgressVoice, playCommentBelow, setBgMusicForLevel } from "./audio.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
 
 export function switchLevel(index) {
+  if (index === 0) {
+    index = 1;
+  }
   const prevIndex = appState.currentLevelIndex;
   appState.currentLevelIndex = index;
+  setBgMusicForLevel(appState.currentLevelIndex);
   const state = getState();
   const { els } = appState;
   const isQuestionLevel = index > 1 && index < appState.totalLevelsCount;
@@ -127,7 +131,7 @@ export function switchLevel(index) {
     }
     
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = true;
     }
 
     els.logoPage.hidden = true;
@@ -176,7 +180,7 @@ export function switchLevel(index) {
         );
       }
     } else if (isOutro) {
-      els.logoPage.hidden = isShorts;
+      els.logoPage.hidden = true;
       els.outroPage.hidden = false;
     } else {
       els.logoPage.hidden = isShorts;
@@ -222,12 +226,14 @@ export function switchLevel(index) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
     
+    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+      playCommentBelow();
+    }
+
     if (appState.isVideoPlaying) {
       if (isLanding) {
         const quizType = document.getElementById("in-quiz-type").value;
         playRules(quizType);
-      } else if (isOutro) {
-        playCommentBelow();
       } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
@@ -240,7 +246,7 @@ export function switchLevel(index) {
     if (isLogoToLanding) {
       // First page -> second page: logo shifts to top-right first; landing copy slides in from top after.
       const LOGO_SHIFT_MS = 800;
-      const LANDING_SLIDE_MS = 650;
+      const LANDING_SLIDE_MS = 820;
       stageMain.classList.remove(
         "stage-exit-anim",
         "stage-exit-video-anim",

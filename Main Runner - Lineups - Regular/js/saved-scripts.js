@@ -7,6 +7,7 @@ import {
 } from "./state.js";
 import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
+import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_lineups_regular_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_lineups_regular_fcbnew";
@@ -15,6 +16,32 @@ const LEGACY_SCRIPTS = "footballQuizScripts";
 const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
 const FIXED_SHORTS_MODE = false;
+
+const SPECIFIC_TITLE_ICON_PATH_MAP = {
+    "icons/specific-title/premier-league.png": "icons/specific-title/Premier League.png",
+    "icons/specific-title/la-liga.png": "icons/specific-title/La Liga.png",
+    "icons/specific-title/serie-a.png": "icons/specific-title/Seria A.png",
+    "icons/specific-title/bundesliga.png": "icons/specific-title/Bundesliga.png",
+    "icons/specific-title/ligue-1.png": "icons/specific-title/Ligue 1.png",
+    "icons/specific-title/fifa-world-cup.png": "icons/specific-title/World Cup 2026.png",
+    "icons/specific-title/uefa-champions-league.png": "icons/specific-title/Champions League.png",
+    "icons/specific-title/uefa-europa-league.png": "icons/specific-title/Europa League.png",
+    "icons/specific-title/uefa-conference-league.png": "icons/specific-title/Conference League.png",
+};
+
+function normalizeSpecificTitleIconPath(iconPath) {
+    return SPECIFIC_TITLE_ICON_PATH_MAP[iconPath] || iconPath || "";
+}
+
+const SAVE_SERVER = createSavedScriptsServerSync("lineups_regular", {
+    KEY_SCRIPTS,
+    KEY_FOLDERS,
+    KEY_FOLDER_STATES,
+});
+
+function persistSaved() {
+    SAVE_SERVER.flushLocalAndServer(savedScripts, savedFolders, folderStates);
+}
 
 function scriptHasCareer(s) {
     if ((s.landing?.gameMode || "lineup") === "career") return true;
@@ -50,6 +77,55 @@ export function initSavedScripts(callbacks) {
     uiCallbacks = callbacks || {};
     const { els } = appState;
 
+    let pendingSaveDiscardAction = null;
+
+    function hideSaveDiscardModal() {
+        pendingSaveDiscardAction = null;
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = true;
+    }
+
+    function hideSaveScriptModal() {
+        if (els.saveScriptModal) els.saveScriptModal.hidden = true;
+        if (els.saveScriptName) els.saveScriptName.value = "";
+    }
+
+    function requestCloseSaveScriptModal() {
+        const raw = els.saveScriptName?.value?.trim() || "";
+        if (!raw) {
+            hideSaveScriptModal();
+            return;
+        }
+        pendingSaveDiscardAction = () => hideSaveScriptModal();
+        if (els.saveDiscardModal) els.saveDiscardModal.hidden = false;
+    }
+
+    if (els.saveDiscardNo) {
+        els.saveDiscardNo.onclick = () => hideSaveDiscardModal();
+    }
+    if (els.saveDiscardYes) {
+        els.saveDiscardYes.onclick = () => {
+            if (pendingSaveDiscardAction) pendingSaveDiscardAction();
+            hideSaveDiscardModal();
+        };
+    }
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+            if (e.key !== "Escape") return;
+            if (els.saveDiscardModal && !els.saveDiscardModal.hidden) {
+                e.preventDefault();
+                hideSaveDiscardModal();
+                return;
+            }
+            if (els.saveScriptModal && !els.saveScriptModal.hidden) {
+                e.preventDefault();
+                requestCloseSaveScriptModal();
+            }
+        },
+        true,
+    );
+
     els.btnCreateFolder.onclick = () => {
         els.createFolderName.value = "";
         els.createFolderModal.hidden = false;
@@ -65,7 +141,7 @@ export function initSavedScripts(callbacks) {
         if (!name) return;
         if (!savedFolders.includes(name)) {
             savedFolders.push(name);
-            localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
+            persistSaved();
         }
         els.createFolderModal.hidden = true;
         renderSavedScripts();
@@ -77,9 +153,10 @@ export function initSavedScripts(callbacks) {
         els.saveScriptName.focus();
     };
 
-    els.saveScriptCancel.onclick = () => {
-        els.saveScriptModal.hidden = true;
-    };
+    els.saveScriptCancel.onclick = () => requestCloseSaveScriptModal();
+    if (els.saveScriptModalClose) {
+        els.saveScriptModalClose.onclick = () => requestCloseSaveScriptModal();
+    }
 
     els.saveScriptConfirm.onclick = () => {
         const name = els.saveScriptName.value.trim();
@@ -111,6 +188,12 @@ export function initSavedScripts(callbacks) {
             silhouetteScaleY: lvl.silhouetteScaleY,
             headerLogoScale: lvl.headerLogoScale ?? 1,
             headerLogoNudgeX: lvl.headerLogoNudgeX ?? 0,
+            headerLogoOverrideRelPath: lvl.headerLogoOverrideRelPath ?? null,
+            slotClubCrestOverrideRelPathBySlot:
+              lvl.slotClubCrestOverrideRelPathBySlot &&
+              typeof lvl.slotClubCrestOverrideRelPathBySlot === "object"
+                ? { ...lvl.slotClubCrestOverrideRelPathBySlot }
+                : {},
             slotFlagScales: Array.isArray(lvl.slotFlagScales)
                 ? [...lvl.slotFlagScales]
                 : Array(11).fill(DEFAULT_SLOT_FLAG_SCALE),
@@ -144,9 +227,9 @@ export function initSavedScripts(callbacks) {
         };
 
         savedScripts.push(newScript);
-        localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
-        activeScriptName = name; 
-        els.saveScriptModal.hidden = true;
+        persistSaved();
+        activeScriptName = name;
+        hideSaveScriptModal();
         renderSavedScripts();
     };
 
@@ -160,12 +243,34 @@ export function initSavedScripts(callbacks) {
             const deletedScript = savedScripts[scriptToDeleteIndex];
             if (deletedScript.name === activeScriptName) activeScriptName = null;
             savedScripts.splice(scriptToDeleteIndex, 1);
-            localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+            persistSaved();
             renderSavedScripts();
         }
         els.deleteScriptModal.hidden = true;
         scriptToDeleteIndex = -1;
     };
+
+    void SAVE_SERVER.startPull({
+        render: renderSavedScripts,
+        replaceAll(scripts, folders, states) {
+            savedScripts = scripts;
+            savedFolders = folders;
+            folderStates = states;
+            localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+            localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
+            localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+        },
+        hasLocalData() {
+            return (
+                savedScripts.length > 0 ||
+                savedFolders.length > 0 ||
+                Object.keys(folderStates).length > 0
+            );
+        },
+        getSnapshot() {
+            return { scripts: savedScripts, folders: savedFolders, folderStates };
+        },
+    });
 
     renderSavedScripts();
 }
@@ -208,7 +313,7 @@ export function renderSavedScripts() {
             if (e.target.tagName.toLowerCase() === 'button') return;
             folderDiv.classList.toggle("collapsed");
             folderStates[folderName] = folderDiv.classList.contains("collapsed");
-            localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+            persistSaved();
         };
 
         header.ondragover = (e) => {
@@ -224,11 +329,9 @@ export function renderSavedScripts() {
             const draggedIndex = e.dataTransfer.getData("text/plain");
             if (draggedIndex !== "" && savedScripts[draggedIndex]) {
                 savedScripts[draggedIndex].folder = folderName;
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
-                
                 folderDiv.classList.remove("collapsed");
                 folderStates[folderName] = false;
-                localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
+                persistSaved();
                 
                 renderSavedScripts();
             }
@@ -247,10 +350,7 @@ export function renderSavedScripts() {
                 savedScripts.forEach(s => { if(s.folder === folderName) s.folder = null; });
                 
                 delete folderStates[folderName];
-                localStorage.setItem(KEY_FOLDER_STATES, JSON.stringify(folderStates));
-                
-                localStorage.setItem(KEY_FOLDERS, JSON.stringify(savedFolders));
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+                persistSaved();
                 renderSavedScripts();
             }
         };
@@ -325,7 +425,7 @@ export function renderSavedScripts() {
             btnMoveOut.style.fontSize = "0.8rem";
             btnMoveOut.onclick = () => {
                 script.folder = null;
-                localStorage.setItem(KEY_SCRIPTS, JSON.stringify(savedScripts));
+                persistSaved();
                 renderSavedScripts();
             };
             actions.appendChild(btnMoveOut);
@@ -381,7 +481,7 @@ async function loadScript(script) {
     if (script.landing) {
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
         els.inSpecificTitleText.value = script.landing.specificText || "";
-        els.inSpecificTitleIcon.value = script.landing.specificIcon || "";
+        els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;
         els.inHard.value = script.landing.hard || 3;
@@ -414,6 +514,12 @@ async function loadScript(script) {
             silhouetteScaleY: lvl.silhouetteScaleY || 1,
             headerLogoScale: lvl.headerLogoScale ?? 1,
             headerLogoNudgeX: lvl.headerLogoNudgeX ?? 0,
+            headerLogoOverrideRelPath: lvl.headerLogoOverrideRelPath ?? null,
+            slotClubCrestOverrideRelPathBySlot:
+              lvl.slotClubCrestOverrideRelPathBySlot &&
+              typeof lvl.slotClubCrestOverrideRelPathBySlot === "object"
+                ? { ...lvl.slotClubCrestOverrideRelPathBySlot }
+                : {},
             slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
         };
         ensureSlotFrontFaceScales(merged);

@@ -1,0 +1,378 @@
+/* LANDING PAGE */
+.landing-page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.landing-page[hidden] { display: none; }
+
+/* Keep quiz-title voice controls hidden during play-video flow. */
+body.play-video-active #landing-title-voice-controls {
+  display: none !important;
+}
+
+.landing-title {
+  position: relative;
+  z-index: 10;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5);
+  margin: 0 0 0.5rem 0;
+  animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+}
+.landing-subtitle {
+  position: relative;
+  z-index: 10;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
+  color: #ff3b30;
+  text-transform: uppercase;
+  margin: 0 0 2rem 0;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5);
+  animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+}
+.landing-q-badge {
+  position: relative;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid #fff;
+  padding: 0.5rem 1.6rem;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  margin-bottom: 2.5rem;
+  transform: perspective(500px) rotateX(5deg);
+  animation: float-up-down-tilted 3.2s ease-in-out infinite; /* Slightly tilted animation */
+}
+.q-number { color: #fff; font-family: "Barlow Condensed"; font-size: 2.8rem; font-weight: 800; line-height: 1; }
+.q-text { color: #fff; font-family: "Barlow Condensed"; font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.2rem; }
+.bonus-pill { 
+  background: var(--lime); 
+  color: #fff; 
+  font-family: "Barlow Condensed"; 
+  font-size: 1.6rem; 
+  font-weight: 800; 
+  padding: 0.15rem 0.9rem; 
+  border-radius: 25px; 
+  line-height: 1; 
+  margin-top: 0.2rem; 
+}
+
+.difficulty-box {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  padding: 1rem 1.8rem;
+  gap: 2.2rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.1);
+  animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+}
+.diff-item { display: flex; align-items: center; gap: 0.8rem; position: relative; }
+.diff-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -1.1rem; 
+  top: 15%;
+  height: 70%;
+  width: 2px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+}
+.diff-icon { font-size: 2.4rem; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+.diff-info { display: flex; flex-direction: column; align-items: flex-start; }
+.diff-val { color: #fff; font-family: "Barlow Condensed"; font-size: 2rem; font-weight: 800; line-height: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.diff-label { color: rgba(255,255,255,0.9); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5);}
+
+/* Logo page → landing: quiz copy sits above the fold until logo shift-top-right finishes, then slides in from top (no opacity fade) */
+.landing-page.landing-content-awaiting-shift,
+.landing-page.landing-content-slide-in {
+  overflow: hidden;
+}
+.landing-page.landing-content-awaiting-shift .landing-title,
+.landing-page.landing-content-awaiting-shift .landing-subtitle,
+.landing-page.landing-content-awaiting-shift .difficulty-box {
+  animation: none;
+  transform: translateY(-120vh);
+}
+.landing-page.landing-content-awaiting-shift .landing-q-badge {
+  animation: none;
+  transform: translateY(-120vh) perspective(500px) rotateX(5deg);
+}
+.landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) {
+  visibility: hidden;
+  pointer-events: none;
+  animation: none;
+}
+.landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden])::after,
+.landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) .landing-special-badge {
+  animation: none !important;
+}
+
+@keyframes landing-info-slide-from-top {
+  from { transform: translateY(-120vh); }
+  to { transform: translateY(0); }
+}
+@keyframes landing-info-slide-from-top-tilted {
+  from { transform: translateY(-120vh) perspective(500px) rotateX(5deg); }
+  to { transform: translateY(0) perspective(500px) rotateX(5deg); }
+}
+@keyframes landing-special-badge-slide-from-top {
+  from { transform: translateY(calc(-50% - 120vh)) rotate(-6deg); }
+  to { transform: translateY(-50%) rotate(-6deg); }
+}
+
+.landing-page.landing-content-slide-in .landing-title {
+  animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down 3.2s ease-in-out 0.65s infinite;
+}
+.landing-page.landing-content-slide-in .landing-subtitle {
+  animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down 3.2s ease-in-out 0.65s infinite;
+}
+.landing-page.landing-content-slide-in .landing-q-badge {
+  animation: landing-info-slide-from-top-tilted 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down-tilted 3.2s ease-in-out 0.65s infinite;
+}
+.landing-page.landing-content-slide-in .difficulty-box {
+  animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down 3.2s ease-in-out 0.65s infinite;
+}
+.landing-page.landing-content-slide-in .landing-special-badge-container:not([hidden]) {
+  visibility: visible;
+  animation: landing-special-badge-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down-special-badge 3.2s ease-in-out 0.65s infinite;
+  pointer-events: auto;
+}
+
+/* ADDITION: SHORTS-ONLY LOGO FLOATING TOGETHER WITH TEXT */
+body:not(.shorts-mode) .landing-page .shorts-landing-logo {
+  display: none;
+}
+.shorts-landing-logo {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 320px;
+  object-fit: contain;
+  margin-top: -1rem; /* Adjust position to float in the stack */
+  animation: float-up-down 3.2s ease-in-out infinite; /* FLOATS TOGETHER WITH TEXT */
+}
+
+/* RUBBER STAMP ANIMATION & STYLES */
+.landing-special-badge-container {
+  position: absolute;
+  left: 10rem;
+  top: 53%; 
+  transform: translateY(-50%) rotate(-6deg);
+  z-index: 100;
+  animation: float-up-down-special-badge 3.2s ease-in-out infinite;
+}
+.landing-special-badge-container[hidden] { display: none; }
+
+.landing-special-badge-container::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 80px; height: 110px;
+  margin-left: -40px; margin-top: -110px;
+  background: 
+    radial-gradient(ellipse at 50% 10%, rgba(255,255,255,0.4) 10%, transparent 20%),
+    radial-gradient(circle at 50% 25%, #c48b59 20%, transparent 28%),
+    linear-gradient(to right, transparent 40%, #a36531 40%, #c48b59 50%, #874e20 60%, transparent 60%),
+    linear-gradient(to bottom, transparent 75%, #c48b59 75%, #a36531 90%, #5e3211 90%, #5e3211 95%, #b71c1c 95%, #b71c1c 100%);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: bottom center;
+  animation: stamper-hit 1.2s linear forwards;
+  animation-delay: 1s; 
+}
+
+.landing-special-badge {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: #ff3b30;
+  padding: 0;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: none;
+  box-shadow: none;
+  opacity: 0; 
+  transform: scale(1.1);
+  animation: badge-impression 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 1.36s; 
+  width: auto;
+  max-width: min(28rem, 92vw);
+  height: auto;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+@keyframes stamper-hit {
+  0% { 
+    opacity: 0; 
+    transform: translateY(-300px) scale(2.2) rotate(-10deg); 
+    filter: drop-shadow(0 50px 20px rgba(0,0,0,0.1)); 
+    animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.2);
+  }
+  30% { 
+    opacity: 1; 
+    transform: translateY(70px) scale(1) rotate(0deg); 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8)); 
+    animation-timing-function: linear; 
+  }
+  40% { 
+    opacity: 1; 
+    transform: translateY(70px) scale(1) rotate(0deg); 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8)); 
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-300px) scale(1.4) rotate(25deg); 
+    filter: drop-shadow(0 30px 20px rgba(0,0,0,0.1)); 
+  }
+}
+
+@keyframes badge-impression {
+  0% { opacity: 0; transform: scale(1.6); }
+  40% { opacity: 1; transform: scale(0.9); }
+  70% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.special-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+}
+.special-icon-img {
+  display: block;
+  height: 8rem;
+  width: auto;
+  max-width: 26rem;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+}
+.special-icon { 
+  font-size: 8rem; 
+  line-height: 1; 
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+}
+.special-text {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.4rem; 
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  white-space: normal;
+  width: 100%;
+}
+
+/* =========================================
+   OUTRO ANIMATIONS & LAYOUT (REGULAR MODE)
+   ========================================= */
+
+.outro-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1rem;
+}
+
+.outro-action {
+  width: 160px;
+  object-fit: contain;
+  opacity: 0;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+.outro-bottom-row {
+  display: none; /* Only visible in Shorts Mode */
+}
+
+/* Animations triggered when Outro page is visible */
+#outro-page .landing-title,
+#outro-page .landing-subtitle {
+  animation: none;
+}
+
+#outro-page:not([hidden]) {
+  --outro-float-base-y: 0px;
+  animation: outro-page-float-sync 3.2s ease-in-out infinite;
+}
+
+#outro-page:not([hidden]) .outro-top-row,
+#outro-page:not([hidden]) .outro-bottom-row {
+  animation: outro-content-follow-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+#outro-page:not([hidden]) .action-like {
+  animation: pop-in-left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 2.7s; /* 1.2s base + 1.5s additional delay */
+}
+
+#outro-page:not([hidden]) .action-sub {
+  animation: pop-in-right 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 3.0s; /* 1.5s base + 1.5s additional delay */
+}
+
+@keyframes pop-in-left {
+  0% { transform: translateX(-100px) scale(0.5); opacity: 0; }
+  100% { transform: translateX(0) scale(1) rotate(-8deg); opacity: 1; }
+}
+
+@keyframes pop-in-right {
+  0% { transform: translateX(100px) scale(0.5); opacity: 0; }
+  100% { transform: translateX(0) scale(1) rotate(8deg); opacity: 1; }
+}
+
+@keyframes outro-content-follow-in {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes outro-page-float-sync {
+  0%, 100% {
+    transform: translateY(var(--outro-float-base-y, 0px));
+  }
+  50% {
+    transform: translateY(calc(var(--outro-float-base-y, 0px) - 12px));
+  }
+}

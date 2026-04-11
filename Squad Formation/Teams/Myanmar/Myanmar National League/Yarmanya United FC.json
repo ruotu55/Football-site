@@ -9,21 +9,62 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "MYA1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Yuya Kuriyama",
       "position": "Goalkeeper",
-      "age": 25,
+      "age": 26,
       "nationality": "Japan",
       "club": "Yarmanya United FC",
       "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "APF Club",
+          "year": "2021"
+        },
+        {
+          "club": "Thimphu City FC",
+          "year": "2023"
+        },
+        {
+          "club": "Manila Digger",
+          "year": "2024"
+        },
+        {
+          "club": "SC Bengaluru",
+          "year": "2025"
+        },
+        {
+          "club": "Samtse FC",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 124,
+        "clean_sheets": 11
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Han Naing Soe",
@@ -33,7 +74,31 @@
       "club": "Yarmanya United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yangon United",
+          "year": "2023"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Htoo Kyaw",
@@ -41,9 +106,24 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 31,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zin Min Zaw",
@@ -53,7 +133,27 @@
       "club": "Yarmanya United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -65,7 +165,63 @@
       "club": "Yarmanya United FC",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Nay Pyi Taw FC",
+          "year": "2015"
+        },
+        {
+          "club": "Rakhine United",
+          "year": "2016"
+        },
+        {
+          "club": "Shan United",
+          "year": "2019"
+        },
+        {
+          "club": "Ranong Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Dagon Star Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Dagon Port",
+          "year": "2024"
+        },
+        {
+          "club": "Dagon Star Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Rakhine United",
+          "year": "2025"
+        },
+        {
+          "club": "Mahar United",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 103,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Koe Than Zaw",
@@ -73,9 +229,33 @@
       "age": 22,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dagon Star Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thein Than Win",
@@ -85,7 +265,63 @@
       "club": "Yarmanya United FC",
       "appearances": 20,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Kanbawza FC",
+          "year": "2009"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2015"
+        },
+        {
+          "club": "Ratchaburi FC",
+          "year": "2019"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2019"
+        },
+        {
+          "club": "Yangon United",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Rakhine United",
+          "year": "2022"
+        },
+        {
+          "club": "Dagon Star Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Mahar United",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nay Toe Zaw",
@@ -93,9 +329,29 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phyo Pyae Sone",
@@ -105,7 +361,31 @@
       "club": "Yarmanya United FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yhayha Abdullah Tanka",
@@ -115,7 +395,31 @@
       "club": "Yarmanya United FC",
       "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rakhine United",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Naing Phone Htut",
@@ -123,9 +427,33 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yadanarbon FC",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zin Ko",
@@ -135,7 +463,39 @@
       "club": "Yarmanya United FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rakhine United",
+          "year": "2018"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Boateng",
@@ -145,7 +505,22 @@
       "club": "Yarmanya United FC",
       "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Myo Min Hein",
@@ -153,9 +528,37 @@
       "age": 22,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2024"
+        },
+        {
+          "club": "10/Mon FC",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyaw Zin Hla",
@@ -165,7 +568,22 @@
       "club": "Yarmanya United FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -177,7 +595,31 @@
       "club": "Yarmanya United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dagon Port",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yan Lin Aung",
@@ -187,7 +629,51 @@
       "club": "Yarmanya United FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Magwe FC",
+          "year": "2019"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Kamphaengphet",
+          "year": "2022"
+        },
+        {
+          "club": "Yangon United",
+          "year": "2023"
+        },
+        {
+          "club": "Dagon Star Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Zan United",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kyaw Myo Naing",
@@ -195,19 +681,75 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hantharwady Utd",
+          "year": "2023"
+        },
+        {
+          "club": "Dagon Port",
+          "year": "2025"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 55,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pema Zangpo",
       "position": "Attacking Midfield",
-      "age": 20,
+      "age": 21,
       "nationality": "Bhutan",
       "club": "Yarmanya United FC",
       "appearances": 5,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RTC",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 14,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chit Hla Aung",
@@ -217,7 +759,55 @@
       "club": "Yarmanya United FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rakhine United",
+          "year": "2020"
+        },
+        {
+          "club": "Dagon Star Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Kachin United",
+          "year": "2023"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2024"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Enjoy Brother",
+          "year": "2025"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lwin Myo Aung",
@@ -227,7 +817,27 @@
       "club": "Yarmanya United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ye Win Hlaing",
@@ -237,7 +847,43 @@
       "club": "Yarmanya United FC",
       "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Magwe FC",
+          "year": "2018"
+        },
+        {
+          "club": "Rakhine United",
+          "year": "2019"
+        },
+        {
+          "club": "Kachin United",
+          "year": "2023"
+        },
+        {
+          "club": "Dagon Port",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wai Yan Htet",
@@ -247,7 +893,22 @@
       "club": "Yarmanya United FC",
       "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hein Htet Zaw Win",
@@ -257,7 +918,35 @@
       "club": "Yarmanya United FC",
       "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yadanarbon FC",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aung Pyae Han",
@@ -267,7 +956,22 @@
       "club": "Yarmanya United FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "San Myint Naing",
@@ -275,9 +979,37 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dagon Star Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phoo Khant Kyaw",
@@ -287,7 +1019,22 @@
       "club": "Yarmanya United FC",
       "appearances": 15,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saw Naing",
@@ -297,7 +1044,35 @@
       "club": "Yarmanya United FC",
       "appearances": 18,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Mahar United",
+          "year": "2023"
+        },
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Myo Min Htwe",
@@ -305,9 +1080,24 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wunna Zaw",
@@ -315,9 +1105,29 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hla Min Aung",
@@ -325,9 +1135,24 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saw Than Win Htay",
@@ -337,7 +1162,27 @@
       "club": "Yarmanya United FC",
       "appearances": 3,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -347,9 +1192,33 @@
       "age": 22,
       "nationality": "Ghana",
       "club": "Yarmanya United FC",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yangon United",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nyi Nyi Aung",
@@ -357,9 +1226,53 @@
       "age": 30,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2020"
+        },
+        {
+          "club": "Yangon United",
+          "year": "2024"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Yangon United",
+          "year": "2025"
+        },
+        {
+          "club": "Yadanarbon FC",
+          "year": "2025"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 12,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chan Oo",
@@ -367,9 +1280,41 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 12,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2018"
+        },
+        {
+          "club": "Rakhine United",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Tengemo",
@@ -379,7 +1324,27 @@
       "club": "Yarmanya United FC",
       "appearances": 6,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chan Nyein",
@@ -387,19 +1352,71 @@
       "age": 28,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 15,
+      "appearances": 16,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "GFA FC",
+          "year": "2022"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Henry Adusei Poku",
       "position": "Centre-Forward",
-      "age": 24,
+      "age": 25,
       "nationality": "Ghana",
       "club": "Yarmanya United FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Than Toe Aung",
@@ -407,9 +1424,41 @@
       "age": 22,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 16,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kachin United",
+          "year": "2023"
+        },
+        {
+          "club": "Ayeyawady Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Kachin United",
+          "year": "2024"
+        },
+        {
+          "club": "Yarmanya United",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saw Htoo Wai Hlyan Aung",
@@ -417,9 +1466,29 @@
       "age": null,
       "nationality": "Myanmar",
       "club": "Yarmanya United FC",
-      "appearances": 7,
+      "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Yarmanya United",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

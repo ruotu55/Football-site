@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SIN1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 31,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 15,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Gombak United",
+          "year": "2012"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2013"
+        },
+        {
+          "club": "Home United",
+          "year": "2017"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2022"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2022"
+        },
+        {
+          "club": "Geylang",
+          "year": "2023"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2023"
+        },
+        {
+          "club": "Geylang",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 136,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 253,
+        "clean_sheets": 30
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu Kanoshima",
@@ -31,9 +80,41 @@
       "age": 22,
       "nationality": "Japan",
       "club": "Geylang International",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RKU",
+          "year": "2022"
+        },
+        {
+          "club": "RKD Ryugasaki",
+          "year": "2025"
+        },
+        {
+          "club": "RKU",
+          "year": "2025"
+        },
+        {
+          "club": "Geylang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 35,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 5,
+        "clean_sheets": 0
+      }
     }
   ],
   "defenders": [
@@ -43,9 +124,57 @@
       "age": 28,
       "nationality": "Serbia",
       "club": "Geylang International",
-      "appearances": 19,
+      "appearances": 13,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "OFK Beograd",
+          "year": "2017"
+        },
+        {
+          "club": "Zarkovo",
+          "year": "2020"
+        },
+        {
+          "club": "Radnik",
+          "year": "2022"
+        },
+        {
+          "club": "Radnicki Srem",
+          "year": "2022"
+        },
+        {
+          "club": "Diagoras",
+          "year": "2023"
+        },
+        {
+          "club": "Eolikos",
+          "year": "2024"
+        },
+        {
+          "club": "Smederevo 1924",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 162,
+        "goals": 6,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Pereira",
@@ -53,9 +182,41 @@
       "age": 28,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 19,
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2016"
+        },
+        {
+          "club": "Geylang",
+          "year": "2020"
+        },
+        {
+          "club": "Military",
+          "year": "2020"
+        },
+        {
+          "club": "Geylang",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 12,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tae-ho Kim",
@@ -65,7 +226,51 @@
       "club": "Geylang International",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FSV Frankf. Jgd",
+          "year": "2015"
+        },
+        {
+          "club": "SF Lotte",
+          "year": "2021"
+        },
+        {
+          "club": "Paju Citizen",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Yangpyeong FC",
+          "year": "2024"
+        },
+        {
+          "club": "Paju Citizen",
+          "year": "2025"
+        },
+        {
+          "club": "Geylang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shakir Hamzah",
@@ -73,9 +278,61 @@
       "age": 33,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 19,
+      "appearances": 10,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "LionsXII",
+          "year": "2011"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2014"
+        },
+        {
+          "club": "LionsXII",
+          "year": "2015"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2016"
+        },
+        {
+          "club": "Home United",
+          "year": "2018"
+        },
+        {
+          "club": "Kedah FA",
+          "year": "2018"
+        },
+        {
+          "club": "Perak FC",
+          "year": "2021"
+        },
+        {
+          "club": "Tanjong Pagar",
+          "year": "2021"
+        },
+        {
+          "club": "Geylang",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 253,
+        "goals": 23,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gareth Low",
@@ -83,9 +340,61 @@
       "age": 29,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 14,
-      "goals": 3,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2016"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2019"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2020"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2021"
+        },
+        {
+          "club": "Geylang",
+          "year": "2023"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 140,
+        "goals": 7,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nazrul Nazari",
@@ -93,9 +402,41 @@
       "age": 35,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 17,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2009"
+        },
+        {
+          "club": "LionsXII",
+          "year": "2013"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2016"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 300,
+        "goals": 16,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danial Scott Crichton",
@@ -103,9 +444,57 @@
       "age": 23,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Warriors Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2020"
+        },
+        {
+          "club": "Military",
+          "year": "2021"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2022"
+        },
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Rio Red Storm",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iqram Rifqi",
@@ -113,9 +502,57 @@
       "age": 30,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 17,
-      "goals": 1,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tampines Res.",
+          "year": "2015"
+        },
+        {
+          "club": "Home Utd Reserv",
+          "year": "2016"
+        },
+        {
+          "club": "Home United",
+          "year": "2017"
+        },
+        {
+          "club": "Geylang",
+          "year": "2021"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2021"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2023"
+        },
+        {
+          "club": "Starlight Socc.",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 17,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faisal Shahril",
@@ -123,9 +560,37 @@
       "age": 28,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 14,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Geylang",
+          "year": "2023"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Geylang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +600,77 @@
       "age": 37,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 19,
+      "appearances": 13,
       "goals": 0,
-      "assists": 4
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Tampines Rovers",
+          "year": "2006"
+        },
+        {
+          "club": "Home United",
+          "year": "2009"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2011"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2011"
+        },
+        {
+          "club": "LionsXII",
+          "year": "2011"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2013"
+        },
+        {
+          "club": "LionsXII",
+          "year": "2015"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2016"
+        },
+        {
+          "club": "Melaka United SA",
+          "year": "2017"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2018"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2020"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 422,
+        "goals": 54,
+        "assists": 65,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 82,
+        "goals": 5,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryu Hardy",
@@ -145,9 +678,45 @@
       "age": 20,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2022"
+        },
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jae-hyun Ko",
@@ -155,9 +724,33 @@
       "age": 23,
       "nationality": "South Korea",
       "club": "Geylang International",
-      "appearances": 14,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Calvin Univ.",
+          "year": "2021"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vincent Bezecourt",
@@ -165,9 +758,53 @@
       "age": 32,
       "nationality": "France",
       "club": "Geylang International",
-      "appearances": 19,
-      "goals": 4,
-      "assists": 3
+      "appearances": 14,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "St. Francis",
+          "year": "2014"
+        },
+        {
+          "club": "Italians",
+          "year": "2015"
+        },
+        {
+          "club": "St. Francis",
+          "year": "2015"
+        },
+        {
+          "club": "New York",
+          "year": "2017"
+        },
+        {
+          "club": "Miami FC",
+          "year": "2020"
+        },
+        {
+          "club": "Alashkert FC",
+          "year": "2021"
+        },
+        {
+          "club": "Geylang",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 263,
+        "goals": 58,
+        "assists": 61,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kaisei Ogawa",
@@ -175,9 +812,41 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Geylang International",
-      "appearances": 17,
+      "appearances": 12,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Takushoku Univ.",
+          "year": "2019"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 8,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Raiyan Noor",
@@ -185,9 +854,29 @@
       "age": 20,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 19,
-      "goals": 2,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nur Ikhsanuddin",
@@ -195,9 +884,29 @@
       "age": 20,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 11,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ryoya Taniguchi",
@@ -205,9 +914,49 @@
       "age": 26,
       "nationality": "Japan",
       "club": "Geylang International",
-      "appearances": 19,
-      "goals": 7,
-      "assists": 2
+      "appearances": 14,
+      "goals": 6,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zweig. Kanazawa",
+          "year": "2018"
+        },
+        {
+          "club": "JSC FC",
+          "year": "2019"
+        },
+        {
+          "club": "Zweig. Kanazawa",
+          "year": "2020"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2020"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2022"
+        },
+        {
+          "club": "Geylang",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 71,
+        "assists": 49,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shodai Yokoyama",
@@ -215,9 +964,41 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Geylang International",
-      "appearances": 17,
+      "appearances": 12,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Osaka Uni H&SS",
+          "year": "2019"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2023"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 82,
+        "goals": 15,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -227,9 +1008,41 @@
       "age": 25,
       "nationality": "Japan",
       "club": "Geylang International",
-      "appearances": 14,
-      "goals": 4,
-      "assists": 1
+      "appearances": 9,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Takushoku Univ.",
+          "year": "2019"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2023"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 21,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ethan Pinto",
@@ -237,9 +1050,41 @@
       "age": 21,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 12,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amy Recha",
@@ -247,9 +1092,61 @@
       "age": 33,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 17,
-      "goals": 5,
-      "assists": 1
+      "appearances": 8,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Geylang",
+          "year": "2013"
+        },
+        {
+          "club": "Career break",
+          "year": "2013"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2014"
+        },
+        {
+          "club": "Geylang",
+          "year": "2016"
+        },
+        {
+          "club": "Home United",
+          "year": "2018"
+        },
+        {
+          "club": "Geylang",
+          "year": "2019"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 304,
+        "goals": 63,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Rio Rifae'i",
@@ -257,9 +1154,29 @@
       "age": 18,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 19,
-      "goals": 4,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danie Hafiy",
@@ -267,9 +1184,53 @@
       "age": 21,
       "nationality": "Singapore",
       "club": "Geylang International",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LCS Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Military",
+          "year": "2022"
+        },
+        {
+          "club": "Mattar Sailors",
+          "year": "2022"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Geylang",
+          "year": "2026"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shuhei Hoshino",
@@ -277,9 +1238,45 @@
       "age": 30,
       "nationality": "Japan",
       "club": "Geylang International",
-      "appearances": 20,
-      "goals": 5,
-      "assists": 2
+      "appearances": 14,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Albirex N. (S)",
+          "year": "2018"
+        },
+        {
+          "club": "Busan Trans. C.",
+          "year": "2019"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2020"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2024"
+        },
+        {
+          "club": "Geylang",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 75,
+        "assists": 43,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BGD1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 22,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sheikh Jamal",
+          "year": "2021"
+        },
+        {
+          "club": "Fortis FC",
+          "year": "2022"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 98,
+        "clean_sheets": 30
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 33,
+        "clean_sheets": 6
+      }
     },
     {
       "name": "Sahidul Alam",
@@ -33,7 +66,47 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "A. Krira Chakra",
+          "year": "2009"
+        },
+        {
+          "club": "Unknown",
+          "year": "2014"
+        },
+        {
+          "club": "Sheikh Jamal",
+          "year": "2015"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2017"
+        },
+        {
+          "club": "Rahmatganj",
+          "year": "2024"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 195,
+        "clean_sheets": 60
+      },
+      "national_team_career_totals": {
+        "appearances": 24,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 41,
+        "clean_sheets": 10
+      }
     },
     {
       "name": "Pappu Hossain",
@@ -43,7 +116,51 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saif SC",
+          "year": "2017"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2019"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2019"
+        },
+        {
+          "club": "CTG Abahani",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2023"
+        },
+        {
+          "club": "Brothers Union",
+          "year": "2024"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 95,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 111,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahfuz Hasan Pritom",
@@ -53,7 +170,39 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muktijoddha",
+          "year": "2019"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2021"
+        },
+        {
+          "club": "Sheikh Jamal",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 69,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shamim Hossen",
@@ -63,7 +212,22 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "SP Rafiz",
@@ -73,7 +237,27 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -83,9 +267,45 @@
       "age": 23,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Brothers Union",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Swadhinata KS",
+          "year": "2021"
+        },
+        {
+          "club": "Sheikh Jamal",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Assaduzzaman Bablu",
@@ -93,9 +313,41 @@
       "age": 30,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Mohammedan",
+          "year": "2017"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2018"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2019"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hasan Murad",
@@ -103,9 +355,33 @@
       "age": 28,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mohammedan",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yeasin Khan",
@@ -113,9 +389,65 @@
       "age": 31,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sheikh Jamal",
+          "year": "2015"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2016"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2017"
+        },
+        {
+          "club": "Sheikh Jamal",
+          "year": "2017"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2019"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2019"
+        },
+        {
+          "club": "Sheikh Jamal",
+          "year": "2021"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2022"
+        },
+        {
+          "club": "CTG Abahani",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sabuz Hossain",
@@ -125,7 +457,35 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saif SC",
+          "year": "2019"
+        },
+        {
+          "club": "Fortis FC",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Md Abdul Riyadh Fahim",
@@ -135,7 +495,22 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kamrul Islam",
@@ -143,9 +518,45 @@
       "age": 27,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 5,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "NoFeL SC",
+          "year": "2018"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2019"
+        },
+        {
+          "club": "CTG Abahani",
+          "year": "2021"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alomgir Molla",
@@ -155,7 +566,39 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mohammedan",
+          "year": "2021"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2022"
+        },
+        {
+          "club": "Brothers Union",
+          "year": "2024"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 89,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sushanto Tripura",
@@ -165,7 +608,47 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saif SC",
+          "year": "2018"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2018"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2021"
+        },
+        {
+          "club": "Rahmatganj",
+          "year": "2023"
+        },
+        {
+          "club": "Brothers Union",
+          "year": "2024"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shakir Ahmed",
@@ -175,7 +658,22 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -185,9 +683,29 @@
       "age": 26,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abahani Ltd.",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 97,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quazem Shah",
@@ -195,9 +713,37 @@
       "age": 27,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Edmonton Scot.",
+          "year": "2021"
+        },
+        {
+          "club": "Bangl. Police",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 5,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tonmoy Das",
@@ -207,7 +753,35 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abahani Ltd.",
+          "year": "2021"
+        },
+        {
+          "club": "Rahmatganj",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shekh Morsalin",
@@ -215,9 +789,41 @@
       "age": 20,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 3,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Bashund. Kings",
+          "year": "2021"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2022"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 23,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bruno Matos",
@@ -227,7 +833,147 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 5,
       "goals": 3,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Palmeiras",
+          "year": "2010"
+        },
+        {
+          "club": "Oeste",
+          "year": "2011"
+        },
+        {
+          "club": "Palmeiras",
+          "year": "2011"
+        },
+        {
+          "club": "Noroeste",
+          "year": "2012"
+        },
+        {
+          "club": "Ponte Preta",
+          "year": "2012"
+        },
+        {
+          "club": "Atl. Sorocaba",
+          "year": "2012"
+        },
+        {
+          "club": "Juazeiro-BA",
+          "year": "2013"
+        },
+        {
+          "club": "ASA",
+          "year": "2013"
+        },
+        {
+          "club": "Nacional-MG",
+          "year": "2014"
+        },
+        {
+          "club": "Juazeirense-BA",
+          "year": "2014"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2014"
+        },
+        {
+          "club": "Red Star",
+          "year": "2015"
+        },
+        {
+          "club": "Novi Pazar",
+          "year": "2016"
+        },
+        {
+          "club": "Red Star",
+          "year": "2016"
+        },
+        {
+          "club": "Sanat Naft",
+          "year": "2016"
+        },
+        {
+          "club": "Manama Club",
+          "year": "2017"
+        },
+        {
+          "club": "Juazeirense-BA",
+          "year": "2018"
+        },
+        {
+          "club": "PKNS FC",
+          "year": "2018"
+        },
+        {
+          "club": "Persija",
+          "year": "2019"
+        },
+        {
+          "club": "Bhayangkara",
+          "year": "2019"
+        },
+        {
+          "club": "Madura United",
+          "year": "2020"
+        },
+        {
+          "club": "Viettel FC",
+          "year": "2021"
+        },
+        {
+          "club": "Barito Putera",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Jeel",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2023"
+        },
+        {
+          "club": "Juazeirense-BA",
+          "year": "2024"
+        },
+        {
+          "club": "Sampaio-MA",
+          "year": "2025"
+        },
+        {
+          "club": "Sousa",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 193,
+        "goals": 47,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sayed Hossain Sayem",
@@ -237,7 +983,27 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iftiar Hossain",
@@ -247,7 +1013,27 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -257,9 +1043,33 @@
       "age": 24,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 9,
+      "appearances": 8,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rahmatganj",
+          "year": "2018"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 118,
+        "goals": 13,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jafar Iqbal",
@@ -267,9 +1077,41 @@
       "age": 26,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "CTG Abahani",
+          "year": "2017"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2019"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2020"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 125,
+        "goals": 13,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammad Ibrahim",
@@ -277,9 +1119,49 @@
       "age": 28,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Abahani Ltd.",
+          "year": "2017"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2017"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2019"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2022"
+        },
+        {
+          "club": "Bashund. Kings",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 151,
+        "goals": 15,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mirajul Islam",
@@ -287,29 +1169,141 @@
       "age": 19,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Mohammedan",
+          "year": "2022"
+        },
+        {
+          "club": "BFF Elite",
+          "year": "2022"
+        },
+        {
+          "club": "Brothers Union",
+          "year": "2023"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Souleymane Diabate",
       "position": "Centre-Forward",
-      "age": 34,
+      "age": 35,
       "nationality": "Mali",
       "club": "Abahani Limited Dhaka",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 8,
-      "assists": 4
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Jomo Cosmos",
+          "year": "2008"
+        },
+        {
+          "club": "Umbelebele Jomo Cosmos",
+          "year": "2009"
+        },
+        {
+          "club": "Jomo Cosmos",
+          "year": "2010"
+        },
+        {
+          "club": "XSKT Can Tho FC",
+          "year": "2012"
+        },
+        {
+          "club": "Long An FC",
+          "year": "2014"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2016"
+        },
+        {
+          "club": "Mohammedan",
+          "year": "2018"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 116,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Md Alamin Islam",
       "position": "Centre-Forward",
-      "age": 21,
+      "age": 22,
       "nationality": "Bangladesh",
       "club": "Abahani Limited Dhaka",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sheikh Jamal",
+          "year": "2023"
+        },
+        {
+          "club": "Bangl. Police",
+          "year": "2024"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 48,
+        "goals": 12,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emeka Ogbugh",
@@ -319,7 +1313,63 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 2,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Heartland",
+          "year": "2012"
+        },
+        {
+          "club": "Rivers United",
+          "year": "2017"
+        },
+        {
+          "club": "Mouloudia",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Malkiya Club",
+          "year": "2021"
+        },
+        {
+          "club": "Saif SC",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Abahani Ltd.",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 208,
+        "goals": 54,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Md Asadul Molla",
@@ -329,7 +1379,22 @@
       "club": "Abahani Limited Dhaka",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

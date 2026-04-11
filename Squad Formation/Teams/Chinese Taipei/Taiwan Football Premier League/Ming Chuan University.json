@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "TFPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,57 @@
       "age": 24,
       "nationality": "United States",
       "club": "Ming Chuan University",
-      "appearances": 8,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MSU Denver",
+          "year": "2020"
+        },
+        {
+          "club": "Albert Foundry",
+          "year": "2021"
+        },
+        {
+          "club": "Ballyclare",
+          "year": "2022"
+        },
+        {
+          "club": "Mossley AFC",
+          "year": "2022"
+        },
+        {
+          "club": "Lisburn Rangers",
+          "year": "2023"
+        },
+        {
+          "club": "Cincy SC",
+          "year": "2025"
+        },
+        {
+          "club": "Mendiola",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 32,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yung-Sheng Li",
@@ -33,7 +82,35 @@
       "club": "Ming Chuan University",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2019"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 73,
+        "clean_sheets": 5
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ying-Jun Lin",
@@ -43,7 +120,35 @@
       "club": "Ming Chuan University",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 9,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -55,7 +160,35 @@
       "club": "Ming Chuan University",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2019"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 43,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hung-Hsiang Chiang",
@@ -65,7 +198,35 @@
       "club": "Ming Chuan University",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2024"
+        },
+        {
+          "club": "Inter Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ángelo Vergara",
@@ -75,7 +236,31 @@
       "club": "Ming Chuan University",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jie-En Zhuang",
@@ -85,7 +270,27 @@
       "club": "Ming Chuan University",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu-Cheng Chang",
@@ -95,7 +300,27 @@
       "club": "Ming Chuan University",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chia-Cheng Kuo",
@@ -105,7 +330,27 @@
       "club": "Ming Chuan University",
       "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "You-Yi Yu",
@@ -115,7 +360,39 @@
       "club": "Ming Chuan University",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bryan Vega Vega",
@@ -125,7 +402,31 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -135,9 +436,33 @@
       "age": 25,
       "nationality": "South Korea",
       "club": "Ming Chuan University",
-      "appearances": 13,
-      "goals": 1,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Life FC",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yi-Jui Tsai",
@@ -147,7 +472,27 @@
       "club": "Ming Chuan University",
       "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Po-Yu Li",
@@ -157,7 +502,27 @@
       "club": "Ming Chuan University",
       "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 100,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yuan-Kuan Hsiung",
@@ -167,7 +532,43 @@
       "club": "Ming Chuan University",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2023"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 73,
+        "goals": 8,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu-Cheng Chang",
@@ -177,7 +578,43 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2020"
+        },
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "EC Desafio",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu-Zhe Zheng",
@@ -187,7 +624,39 @@
       "club": "Ming Chuan University",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Matías Godoy",
@@ -197,7 +666,63 @@
       "club": "Ming Chuan University",
       "appearances": 14,
       "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2013"
+        },
+        {
+          "club": "Quintero Un.",
+          "year": "2015"
+        },
+        {
+          "club": "Curacaví FC",
+          "year": "2016"
+        },
+        {
+          "club": "Dep. La Pintana",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Tainan City",
+          "year": "2019"
+        },
+        {
+          "club": "CPC FC",
+          "year": "2020"
+        },
+        {
+          "club": "Taichung Futuro",
+          "year": "2022"
+        },
+        {
+          "club": "Taipei Vikings",
+          "year": "2023"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 48,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu-Ci Jhang",
@@ -207,7 +732,39 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2023"
+        },
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yen-Hsiang Hu",
@@ -217,7 +774,39 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2021"
+        },
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chao-Wei Chen",
@@ -227,7 +816,22 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hsin-Yu Chiang",
@@ -237,7 +841,22 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yi-Chen Hu",
@@ -247,7 +866,35 @@
       "club": "Ming Chuan University",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Peng-Yu Fang",
@@ -257,7 +904,22 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -269,7 +931,35 @@
       "club": "Ming Chuan University",
       "appearances": 13,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "GZ City Youth",
+          "year": "2020"
+        },
+        {
+          "club": "AC Taipei",
+          "year": "2022"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 60,
+        "goals": 11,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Damien Zabramba Gael",
@@ -279,7 +969,43 @@
       "club": "Ming Chuan University",
       "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "KOZAF",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Requins",
+          "year": "2024"
+        },
+        {
+          "club": "Inter Taoyuan",
+          "year": "2024"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shih-Hsun Chen",
@@ -289,7 +1015,27 @@
       "club": "Ming Chuan University",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 83,
+        "goals": 18,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yi-Sian Jhang",
@@ -299,7 +1045,43 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2022"
+        },
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "EC Desafio",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kai-Wei Cheng",
@@ -309,7 +1091,35 @@
       "club": "Ming Chuan University",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "EC Desafio",
+          "year": "2024"
+        },
+        {
+          "club": "MCU Reserves",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chan-Cheng Liu",
@@ -319,7 +1129,27 @@
       "club": "Ming Chuan University",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chi-Lung Chu",
@@ -329,7 +1159,27 @@
       "club": "Ming Chuan University",
       "appearances": 9,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jhih-Wen Liu",
@@ -339,7 +1189,31 @@
       "club": "Ming Chuan University",
       "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hang Yuan",
+          "year": "2019"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hsuan Wang",
@@ -349,7 +1223,27 @@
       "club": "Ming Chuan University",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bradley Sibanda",
@@ -359,7 +1253,39 @@
       "club": "Ming Chuan University",
       "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "St. George FA",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2025"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu-Jhe Su",
@@ -369,7 +1295,27 @@
       "club": "Ming Chuan University",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yu-Jen Hsu",
@@ -379,7 +1325,35 @@
       "club": "Ming Chuan University",
       "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tong Jie FC",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Ming Chuan Univ",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 7,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chih-Hsueh Yang",
@@ -389,7 +1363,22 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tzu-Ning Wei",
@@ -399,7 +1388,22 @@
       "club": "Ming Chuan University",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Chih-Ning Kuo",
@@ -409,7 +1413,22 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pin-Yu Chen",
@@ -419,7 +1438,22 @@
       "club": "Ming Chuan University",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

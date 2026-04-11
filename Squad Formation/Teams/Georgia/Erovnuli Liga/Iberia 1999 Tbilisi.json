@@ -8,22 +8,95 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "GE1N"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Giorgi Makaridze",
       "position": "Goalkeeper",
-      "age": 35,
+      "age": 36,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2007"
+        },
+        {
+          "club": "Le Mans UC 72",
+          "year": "2009"
+        },
+        {
+          "club": "Without Club",
+          "year": "2013"
+        },
+        {
+          "club": "Doxa Katokopias",
+          "year": "2014"
+        },
+        {
+          "club": "Feirense",
+          "year": "2014"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2016"
+        },
+        {
+          "club": "Rio Ave",
+          "year": "2018"
+        },
+        {
+          "club": "Vitória Setúbal",
+          "year": "2019"
+        },
+        {
+          "club": "UD Almería",
+          "year": "2020"
+        },
+        {
+          "club": "Ponferradina",
+          "year": "2022"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "SC Covilhã",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 332,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 343,
+        "clean_sheets": 113
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 22,
+        "clean_sheets": 4
+      }
     },
     {
       "name": "Tornike Megrelishvili",
@@ -33,7 +106,35 @@
       "club": "Iberia 1999 Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2019"
+        },
+        {
+          "club": "FC Samtredia",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 95,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Revaz Kurtanidze",
@@ -43,19 +144,87 @@
       "club": "Iberia 1999 Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 36,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 46,
+        "clean_sheets": 6
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
     {
       "name": "Vahid Selimovic",
       "position": "Centre-Back",
-      "age": 28,
+      "age": 29,
       "nationality": "Luxembourg",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 17,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Metz",
+          "year": "2016"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2019"
+        },
+        {
+          "club": "OFI Crete",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "ND Gorica",
+          "year": "2023"
+        },
+        {
+          "club": "Zeljeznicar",
+          "year": "2023"
+        },
+        {
+          "club": "FC Hermannstadt",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Terence Kongolo",
@@ -63,9 +232,73 @@
       "age": 32,
       "nationality": "Netherlands",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 6,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Feyenoord",
+          "year": "2012"
+        },
+        {
+          "club": "Monaco",
+          "year": "2017"
+        },
+        {
+          "club": "Huddersfield",
+          "year": "2018"
+        },
+        {
+          "club": "Monaco",
+          "year": "2018"
+        },
+        {
+          "club": "Fulham",
+          "year": "2020"
+        },
+        {
+          "club": "Huddersfield",
+          "year": "2020"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2022"
+        },
+        {
+          "club": "Fulham",
+          "year": "2023"
+        },
+        {
+          "club": "Rapid Vienna",
+          "year": "2023"
+        },
+        {
+          "club": "Fulham",
+          "year": "2024"
+        },
+        {
+          "club": "NAC Breda",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 303,
+        "goals": 7,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aleksandre Amisulashvili",
@@ -73,9 +306,29 @@
       "age": 19,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Iberia 1999",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jemali-Giorgi Jinjolava",
@@ -85,7 +338,55 @@
       "club": "Iberia 1999 Tbilisi",
       "appearances": 2,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2018"
+        },
+        {
+          "club": "F. Benidorm CD",
+          "year": "2018"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2019"
+        },
+        {
+          "club": "FC Locomotive",
+          "year": "2020"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2020"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2022"
+        },
+        {
+          "club": "FC ViOn",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 167,
+        "goals": 11,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Armel Zohouri",
@@ -93,9 +394,49 @@
       "age": 24,
       "nationality": "Ivory Coast",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nice",
+          "year": "2020"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2020"
+        },
+        {
+          "club": "Nice",
+          "year": "2021"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2021"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2022"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 138,
+        "goals": 3,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Kobuladze",
@@ -103,9 +444,61 @@
       "age": 29,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "L-Georgia Kyiv",
+          "year": "2014"
+        },
+        {
+          "club": "Ingulets-2",
+          "year": "2015"
+        },
+        {
+          "club": "Ingulets-3",
+          "year": "2016"
+        },
+        {
+          "club": "Ingulets-2",
+          "year": "2017"
+        },
+        {
+          "club": "Ingulets",
+          "year": "2018"
+        },
+        {
+          "club": "FC Gagra",
+          "year": "2019"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2023"
+        },
+        {
+          "club": "Kaysar",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 11,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Gogsadze",
@@ -115,7 +508,27 @@
       "club": "Iberia 1999 Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Iberia 1999",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -125,9 +538,29 @@
       "age": 21,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bakar Kardava",
@@ -135,9 +568,41 @@
       "age": 31,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Gagra",
+          "year": "2013"
+        },
+        {
+          "club": "Tskhinvali",
+          "year": "2015"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2017"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 13,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giorgi Kutsia",
@@ -145,9 +610,69 @@
       "age": 26,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 17,
+      "appearances": 2,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2017"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2019"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2019"
+        },
+        {
+          "club": "Rabotnicki",
+          "year": "2022"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2022"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2023"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2023"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2024"
+        },
+        {
+          "club": "Veres Rivne",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        },
+        {
+          "club": "Veres Rivne",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 13,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Irakli Bidzinashvili",
@@ -155,19 +680,107 @@
       "age": 29,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 7,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2015"
+        },
+        {
+          "club": "Artsakh Erewan",
+          "year": "2018"
+        },
+        {
+          "club": "Jelgava",
+          "year": "2019"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2022"
+        },
+        {
+          "club": "Zhenis",
+          "year": "2024"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 33,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Lucas Café",
       "position": "Attacking Midfield",
-      "age": 22,
+      "age": 23,
       "nationality": "Brazil",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 15,
-      "goals": 1,
-      "assists": 2
+      "appearances": 3,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Novorizontino",
+          "year": "2024"
+        },
+        {
+          "club": "Inter Limeira",
+          "year": "2024"
+        },
+        {
+          "club": "Boavista",
+          "year": "2025"
+        },
+        {
+          "club": "Novorizontino",
+          "year": "2025"
+        },
+        {
+          "club": "FC Van",
+          "year": "2025"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 9,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -177,19 +790,79 @@
       "age": 26,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 1
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "WIT Georgia",
+          "year": "2018"
+        },
+        {
+          "club": "FC Samtredia",
+          "year": "2023"
+        },
+        {
+          "club": "Zlin",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 180,
+        "goals": 25,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andria Bartishvili",
       "position": "Left Winger",
-      "age": 16,
+      "age": 17,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kolkheti Poti",
+          "year": "2025"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        },
+        {
+          "club": "Kolkheti Poti",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paata Ghudushauri",
@@ -197,9 +870,57 @@
       "age": 28,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 7,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "WIT Georgia",
+          "year": "2016"
+        },
+        {
+          "club": "Career break",
+          "year": "2019"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2020"
+        },
+        {
+          "club": "Dinamo Batumi",
+          "year": "2022"
+        },
+        {
+          "club": "Bnei Sakhnin",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2025"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 237,
+        "goals": 44,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vakho Bedoshvili",
@@ -207,9 +928,57 @@
       "age": 22,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Gorda",
+          "year": "2022"
+        },
+        {
+          "club": "Tbilisi",
+          "year": "2022"
+        },
+        {
+          "club": "FC Irao Tbilisi",
+          "year": "2023"
+        },
+        {
+          "club": "FC Gareji",
+          "year": "2025"
+        },
+        {
+          "club": "FC Orbi",
+          "year": "2025"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2025"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2026"
+        },
+        {
+          "club": "Pari NN",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Givi Khachidze",
@@ -219,7 +988,27 @@
       "club": "Iberia 1999 Tbilisi",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amiran Dzagania",
@@ -227,9 +1016,33 @@
       "age": 24,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 5,
-      "goals": 1,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "WIT Georgia",
+          "year": "2022"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 153,
+        "goals": 56,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guram Goshteliani",
@@ -237,9 +1050,61 @@
       "age": 29,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 4,
-      "goals": 1,
-      "assists": 0
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Saburtalo",
+          "year": "2013"
+        },
+        {
+          "club": "FC Dila",
+          "year": "2019"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2020"
+        },
+        {
+          "club": "Pirin",
+          "year": "2020"
+        },
+        {
+          "club": "FC Telavi",
+          "year": "2022"
+        },
+        {
+          "club": "Saburtalo",
+          "year": "2022"
+        },
+        {
+          "club": "FC Telavi",
+          "year": "2023"
+        },
+        {
+          "club": "Dolny Kubin",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 48,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tornike Akhvlediani",
@@ -247,9 +1112,61 @@
       "age": 26,
       "nationality": "Georgia",
       "club": "Iberia 1999 Tbilisi",
-      "appearances": 4,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Zestafoni",
+          "year": "2019"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2020"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2021"
+        },
+        {
+          "club": "Dinamo Tbilisi",
+          "year": "2021"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2022"
+        },
+        {
+          "club": "FC Samtredia",
+          "year": "2023"
+        },
+        {
+          "club": "Torpedo Kutaisi",
+          "year": "2023"
+        },
+        {
+          "club": "FC Telavi",
+          "year": "2024"
+        },
+        {
+          "club": "Iberia 1999",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 30,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

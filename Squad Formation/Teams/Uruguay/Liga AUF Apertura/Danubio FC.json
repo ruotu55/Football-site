@@ -8,22 +8,75 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "URU1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Mauro Goicoechea",
       "position": "Goalkeeper",
-      "age": 37,
+      "age": 38,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2006"
+        },
+        {
+          "club": "Roma",
+          "year": "2012"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2013"
+        },
+        {
+          "club": "Otelul Galati",
+          "year": "2014"
+        },
+        {
+          "club": "Arouca",
+          "year": "2014"
+        },
+        {
+          "club": "Toulouse",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Boston River",
+          "year": "2022"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 309,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 365,
+        "clean_sheets": 94
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kevin Martínez",
@@ -33,7 +86,27 @@
       "club": "Danubio FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -43,9 +116,81 @@
       "age": 31,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 5,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2012"
+        },
+        {
+          "club": "Atlético",
+          "year": "2014"
+        },
+        {
+          "club": "Getafe",
+          "year": "2014"
+        },
+        {
+          "club": "Atlético",
+          "year": "2016"
+        },
+        {
+          "club": "Braga",
+          "year": "2016"
+        },
+        {
+          "club": "Atlético",
+          "year": "2017"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2017"
+        },
+        {
+          "club": "Atlético",
+          "year": "2018"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2018"
+        },
+        {
+          "club": "Santos",
+          "year": "2021"
+        },
+        {
+          "club": "FC Juárez",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Nacional",
+          "year": "2023"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 283,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joaquín Pereyra",
@@ -53,9 +198,81 @@
       "age": 31,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 16,
-      "goals": 2,
-      "assists": 0
+      "appearances": 8,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2015"
+        },
+        {
+          "club": "Villa Teresa",
+          "year": "2016"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2016"
+        },
+        {
+          "club": "Boston River",
+          "year": "2016"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2017"
+        },
+        {
+          "club": "Boston River",
+          "year": "2018"
+        },
+        {
+          "club": "San Luis",
+          "year": "2018"
+        },
+        {
+          "club": "Boston River",
+          "year": "2019"
+        },
+        {
+          "club": "AC Barnechea",
+          "year": "2019"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2020"
+        },
+        {
+          "club": "Boston River",
+          "year": "2021"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2022"
+        },
+        {
+          "club": "Correcaminos",
+          "year": "2025"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 235,
+        "goals": 8,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo Rinaldi",
@@ -65,7 +282,31 @@
       "club": "Danubio FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Kimberley",
+          "year": "2023"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Felipe Cabrera",
@@ -75,7 +316,27 @@
       "club": "Danubio FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Martín Jourdan",
@@ -85,7 +346,43 @@
       "club": "Danubio FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Plaza Colonia",
+          "year": "2021"
+        },
+        {
+          "club": "Olimpo",
+          "year": "2024"
+        },
+        {
+          "club": "Acassuso",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tomás Cavanagh",
@@ -93,9 +390,41 @@
       "age": 25,
       "nationality": "Argentina",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2023"
+        },
+        {
+          "club": "Tigre",
+          "year": "2024"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "year": "2024"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Saravia",
@@ -104,8 +433,28 @@
       "nationality": "Uruguay",
       "club": "Danubio FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leandro Sosa",
@@ -113,9 +462,45 @@
       "age": 35,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2011"
+        },
+        {
+          "club": "Aldosivi",
+          "year": "2016"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2017"
+        },
+        {
+          "club": "AO Xanthi",
+          "year": "2019"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 382,
+        "goals": 13,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Santiago Sosa",
@@ -125,7 +510,27 @@
       "club": "Danubio FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Facundo Balatti",
@@ -133,9 +538,29 @@
       "age": 17,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 5,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Camilo Mayada",
@@ -143,9 +568,49 @@
       "age": 35,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2009"
+        },
+        {
+          "club": "River Plate",
+          "year": "2015"
+        },
+        {
+          "club": "San Luis",
+          "year": "2019"
+        },
+        {
+          "club": "Libertad",
+          "year": "2021"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2023"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 15,
+        "assists": 29,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +620,73 @@
       "age": 33,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2011"
+        },
+        {
+          "club": "FC Locarno",
+          "year": "2014"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2015"
+        },
+        {
+          "club": "Nacional",
+          "year": "2016"
+        },
+        {
+          "club": "Tiburones Rojos",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "CS Emelec",
+          "year": "2020"
+        },
+        {
+          "club": "Peñarol",
+          "year": "2023"
+        },
+        {
+          "club": "Alianza Lima",
+          "year": "2024"
+        },
+        {
+          "club": "Mvd City Torque",
+          "year": "2025"
+        },
+        {
+          "club": "U. de Chile",
+          "year": "2025"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 451,
+        "goals": 57,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iván Rossi",
@@ -165,9 +694,73 @@
       "age": 32,
       "nationality": "Argentina",
       "club": "Danubio FC",
-      "appearances": 4,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Banfield",
+          "year": "2013"
+        },
+        {
+          "club": "River Plate",
+          "year": "2016"
+        },
+        {
+          "club": "Huracán",
+          "year": "2018"
+        },
+        {
+          "club": "River Plate",
+          "year": "2019"
+        },
+        {
+          "club": "Colo-Colo",
+          "year": "2019"
+        },
+        {
+          "club": "Sambenedettese",
+          "year": "2021"
+        },
+        {
+          "club": "Marítimo",
+          "year": "2021"
+        },
+        {
+          "club": "Junior FC",
+          "year": "2022"
+        },
+        {
+          "club": "Platense",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Juventud",
+          "year": "2024"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Juan Millán",
@@ -177,7 +770,31 @@
       "club": "Danubio FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Racing Club",
+          "year": "2021"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Máximo Cabral",
@@ -187,7 +804,35 @@
       "club": "Danubio FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Rocha FC",
+          "year": "2021"
+        },
+        {
+          "club": "Cerrito",
+          "year": "2025"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emiliano Figueroa",
@@ -195,9 +840,29 @@
       "age": 19,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Velázquez",
@@ -207,7 +872,27 @@
       "club": "Danubio FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mateo Peralta",
@@ -215,9 +900,29 @@
       "age": 19,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
-      "goals": 1,
-      "assists": 0
+      "appearances": 9,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 70,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Axel Montaña",
@@ -225,9 +930,37 @@
       "age": 20,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2024"
+        },
+        {
+          "club": "Cerrito",
+          "year": "2025"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +970,65 @@
       "age": 28,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 5,
+      "appearances": 8,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Villa Española",
+          "year": "2019"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2019"
+        },
+        {
+          "club": "Villa Española",
+          "year": "2020"
+        },
+        {
+          "club": "Rentistas",
+          "year": "2021"
+        },
+        {
+          "club": "Racing Club",
+          "year": "2021"
+        },
+        {
+          "club": "CA Fénix",
+          "year": "2023"
+        },
+        {
+          "club": "FC Sheriff",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Colón FC",
+          "year": "2025"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 163,
+        "goals": 35,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enrique Femia",
@@ -247,9 +1036,41 @@
       "age": 23,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "CA Progreso",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "CA Cerro",
+          "year": "2023"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 87,
+        "goals": 3,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enzo Cabrera",
@@ -257,9 +1078,33 @@
       "age": 22,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "IA Río Negro",
+          "year": "2023"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastián Fernández",
@@ -269,7 +1114,63 @@
       "club": "Danubio FC",
       "appearances": 6,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Miramar",
+          "year": "2004"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2007"
+        },
+        {
+          "club": "Banfield",
+          "year": "2008"
+        },
+        {
+          "club": "Defensor SC",
+          "year": "2009"
+        },
+        {
+          "club": "Banfield",
+          "year": "2009"
+        },
+        {
+          "club": "Málaga CF",
+          "year": "2010"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2013"
+        },
+        {
+          "club": "Nacional",
+          "year": "2014"
+        },
+        {
+          "club": "Liverpool FC",
+          "year": "2021"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 654,
+        "goals": 149,
+        "assists": 69,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ivo Costantino",
@@ -277,19 +1178,95 @@
       "age": 27,
       "nationality": "Argentina",
       "club": "Danubio FC",
-      "appearances": 5,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "San Martín (SJ)",
+          "year": "2021"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2022"
+        },
+        {
+          "club": "Dep. Español",
+          "year": "2022"
+        },
+        {
+          "club": "Comunicaciones",
+          "year": "2023"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2023"
+        },
+        {
+          "club": "Atlanta",
+          "year": "2024"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2024"
+        },
+        {
+          "club": "Dep. Morón",
+          "year": "2025"
+        },
+        {
+          "club": "Belgrano",
+          "year": "2025"
+        },
+        {
+          "club": "Danubio FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 15,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicolas Azambuja",
       "position": "Centre-Forward",
-      "age": 17,
+      "age": 18,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 1,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Píriz",
@@ -297,9 +1274,29 @@
       "age": 20,
       "nationality": "Uruguay",
       "club": "Danubio FC",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Danubio FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

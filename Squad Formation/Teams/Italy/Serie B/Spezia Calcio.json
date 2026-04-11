@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "IT2"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 19,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -28,7 +29,21 @@
           "club": "Spezia Calcio",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 46,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 76,
+        "clean_sheets": 9
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Boris Radunović",
@@ -100,7 +115,21 @@
           "club": "Cagliari",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 223,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 251,
+        "clean_sheets": 73
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mouhamadou Sarr",
@@ -108,7 +137,7 @@
       "age": 29,
       "nationality": "Senegal",
       "club": "Spezia Calcio",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -160,12 +189,26 @@
           "club": "Spezia Calcio",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 158,
+        "clean_sheets": 41
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Loria",
       "position": "Goalkeeper",
-      "age": 26,
+      "age": 27,
       "nationality": "Italy",
       "club": "Spezia Calcio",
       "appearances": 0,
@@ -200,7 +243,21 @@
           "club": "Pisa",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 205,
+        "clean_sheets": 47
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -210,7 +267,7 @@
       "age": 23,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 19,
+      "appearances": 9,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -246,7 +303,21 @@
           "club": "Spezia Calcio",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 156,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Petko Hristov",
@@ -254,7 +325,7 @@
       "age": 27,
       "nationality": "Bulgaria",
       "club": "Spezia Calcio",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -302,7 +373,21 @@
           "club": "Spezia Calcio",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 261,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Ruggero",
@@ -310,7 +395,7 @@
       "age": 25,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 25,
+      "appearances": 24,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -346,7 +431,21 @@
           "club": "Spezia Calcio",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 209,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ales Mateju",
@@ -354,7 +453,7 @@
       "age": 29,
       "nationality": "Czech Republic",
       "club": "Spezia Calcio",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -398,7 +497,21 @@
           "club": "Spezia Calcio",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 339,
+        "goals": 6,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrea Bertoncini",
@@ -406,15 +519,29 @@
       "age": 19,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 5,
-      "goals": 1,
+      "appearances": 0,
+      "goals": 0,
       "assists": 0,
       "transfer_history": [
         {
           "club": "Spezia Calcio",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 7,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Pietro Beruatto",
@@ -422,7 +549,7 @@
       "age": 27,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 29,
+      "appearances": 28,
       "goals": 1,
       "assists": 3,
       "transfer_history": [
@@ -462,7 +589,21 @@
           "club": "Pisa",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 310,
+        "goals": 7,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Leonardo Sernicola",
@@ -546,7 +687,21 @@
           "club": "Cremonese",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 316,
+        "goals": 18,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giuseppe Aurelio",
@@ -554,8 +709,8 @@
       "age": 26,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 29,
-      "goals": 6,
+      "appearances": 27,
+      "goals": 5,
       "assists": 3,
       "transfer_history": [
         {
@@ -598,7 +753,21 @@
           "club": "Spezia Calcio",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 50,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luca Vignali",
@@ -606,9 +775,9 @@
       "age": 30,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 24,
+      "appearances": 23,
       "goals": 1,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Spezia Calcio",
@@ -642,7 +811,21 @@
           "club": "Como",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 355,
+        "goals": 26,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -652,9 +835,9 @@
       "age": 19,
       "nationality": "Switzerland",
       "club": "Spezia Calcio",
-      "appearances": 28,
-      "goals": 3,
-      "assists": 3,
+      "appearances": 13,
+      "goals": 0,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Spezia Calcio",
@@ -664,7 +847,21 @@
           "club": "Roma",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 133,
+        "goals": 14,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ádám Nagy",
@@ -672,7 +869,7 @@
       "age": 30,
       "nationality": "Hungary",
       "club": "Spezia Calcio",
-      "appearances": 23,
+      "appearances": 21,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -700,7 +897,21 @@
           "club": "Pisa",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 309,
+        "goals": 4,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 88,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Christian Comotto",
@@ -708,9 +919,9 @@
       "age": 17,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 24,
+      "appearances": 22,
       "goals": 0,
-      "assists": 1,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "AC Milan Youth",
@@ -720,12 +931,26 @@
           "club": "Spezia Calcio",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 84,
+        "goals": 18,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Filippo Bandinelli",
       "position": "Central Midfield",
-      "age": 30,
+      "age": 31,
       "nationality": "Italy",
       "club": "Spezia Calcio",
       "appearances": 12,
@@ -776,7 +1001,21 @@
           "club": "Spezia Calcio",
           "year": "2023"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 352,
+        "goals": 21,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mattia Valoti",
@@ -864,7 +1103,21 @@
           "club": "Spezia Calcio",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 350,
+        "goals": 70,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alessandro Bellemo",
@@ -872,7 +1125,7 @@
       "age": 30,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 0,
       "assists": 1,
       "transfer_history": [
@@ -932,7 +1185,21 @@
           "club": "Sampdoria",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 381,
+        "goals": 19,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Szymon Żurkowski",
@@ -984,7 +1251,21 @@
           "club": "Spezia Calcio",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 253,
+        "goals": 33,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francesco Cassata",
@@ -992,7 +1273,7 @@
       "age": 28,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 0,
       "assists": 2,
       "transfer_history": [
@@ -1056,7 +1337,21 @@
           "club": "Spezia Calcio",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 282,
+        "goals": 17,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamse Shagaxle",
@@ -1092,7 +1387,21 @@
           "club": "Spezia Calcio",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emanuele Adamo",
@@ -1100,7 +1409,7 @@
       "age": 27,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 30,
+      "appearances": 29,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -1140,7 +1449,21 @@
           "club": "Spezia Calcio",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 313,
+        "goals": 26,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -1150,7 +1473,7 @@
       "age": 22,
       "nationality": "Serbia",
       "club": "Spezia Calcio",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 2,
       "assists": 2,
       "transfer_history": [
@@ -1174,7 +1497,21 @@
           "club": "Spezia Calcio",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 188,
+        "goals": 91,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriele Artistico",
@@ -1182,8 +1519,8 @@
       "age": 23,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 29,
-      "goals": 12,
+      "appearances": 27,
+      "goals": 11,
       "assists": 0,
       "transfer_history": [
         {
@@ -1238,7 +1575,21 @@
           "club": "Lazio",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 197,
+        "goals": 67,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Laurs Skjellerup",
@@ -1246,7 +1597,7 @@
       "age": 23,
       "nationality": "Denmark",
       "club": "Spezia Calcio",
-      "appearances": 6,
+      "appearances": 4,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -1270,7 +1621,21 @@
           "club": "Sassuolo",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 146,
+        "goals": 24,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Giuseppe Di Serio",
@@ -1278,7 +1643,7 @@
       "age": 24,
       "nationality": "Italy",
       "club": "Spezia Calcio",
-      "appearances": 22,
+      "appearances": 21,
       "goals": 2,
       "assists": 1,
       "transfer_history": [
@@ -1310,7 +1675,21 @@
           "club": "Atalanta",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 216,
+        "goals": 33,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gianluca Lapadula",
@@ -1318,8 +1697,8 @@
       "age": 36,
       "nationality": "Peru",
       "club": "Spezia Calcio",
-      "appearances": 13,
-      "goals": 4,
+      "appearances": 12,
+      "goals": 3,
       "assists": 1,
       "transfer_history": [
         {
@@ -1426,7 +1805,21 @@
           "club": "Spezia Calcio",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 505,
+        "goals": 197,
+        "assists": 46,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 42,
+        "goals": 10,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

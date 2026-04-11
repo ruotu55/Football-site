@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "SIN1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,65 @@
       "age": 35,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 14,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2008"
+        },
+        {
+          "club": "LionsXII",
+          "year": "2012"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2016"
+        },
+        {
+          "club": "Nongbua FC",
+          "year": "2017"
+        },
+        {
+          "club": "Trat FC",
+          "year": "2019"
+        },
+        {
+          "club": "Samut Prakan C.",
+          "year": "2020"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2021"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2022"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2026"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 246,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 342,
+        "clean_sheets": 60
+      },
+      "national_team_career_totals": {
+        "appearances": 65,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 96,
+        "clean_sheets": 20
+      }
     },
     {
       "name": "Ainun Nuha Ilyasir",
@@ -31,9 +88,37 @@
       "age": 20,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -45,7 +130,43 @@
       "club": "Young Lions",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2020"
+        },
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Military",
+          "year": "2024"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 50,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enrico Walmrath",
@@ -53,9 +174,37 @@
       "age": 19,
       "nationality": "Brazil",
       "club": "Young Lions",
-      "appearances": 15,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marcus Mosses",
@@ -63,9 +212,49 @@
       "age": 21,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 10,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Singapore Cubs",
+          "year": "2016"
+        },
+        {
+          "club": "LCS Youth",
+          "year": "2021"
+        },
+        {
+          "club": "Mattar Sailors",
+          "year": "2022"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joilson",
@@ -73,9 +262,37 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Young Lions",
-      "appearances": 11,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "River-PI",
+          "year": "2024"
+        },
+        {
+          "club": "Juazeirense-BA",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Iryan Fandi",
@@ -83,9 +300,41 @@
       "age": 19,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 6,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Home Utd Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Military",
+          "year": "2024"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdil Qaiyyim",
@@ -93,9 +342,85 @@
       "age": 36,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Warriors Res.",
+          "year": "2007"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2009"
+        },
+        {
+          "club": "Home Utd Reserv",
+          "year": "2011"
+        },
+        {
+          "club": "Unknown",
+          "year": "2012"
+        },
+        {
+          "club": "LionsXII",
+          "year": "2012"
+        },
+        {
+          "club": "Warriors FC",
+          "year": "2013"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2014"
+        },
+        {
+          "club": "Home United",
+          "year": "2015"
+        },
+        {
+          "club": "Geylang",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Balestier Khals",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 278,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Levi Farris",
@@ -103,9 +428,37 @@
       "age": 18,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 16,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Balestier K. R.",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2026"
+        },
+        {
+          "club": "Balestier K. R.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Junki Kenn Yoshimura",
@@ -113,9 +466,41 @@
       "age": 21,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Niigata Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Albirex N. (S)",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Luth Harith Fathi",
@@ -123,19 +508,91 @@
       "age": 18,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 10,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LCS Youth",
+          "year": "2022"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrew Aw",
       "position": "Right-Back",
-      "age": 22,
+      "age": 23,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Tampines Rovers",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 86,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aqil Yazid",
@@ -145,7 +602,47 @@
       "club": "Young Lions",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 52,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Fairuz Fazli",
@@ -153,9 +650,41 @@
       "age": 21,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 13,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2022"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 59,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adam Reefdy",
@@ -165,7 +694,39 @@
       "club": "Young Lions",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2023"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -177,7 +738,43 @@
       "club": "Young Lions",
       "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ajay Robson",
@@ -185,9 +782,45 @@
       "age": 22,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 9,
-      "goals": 1,
-      "assists": 0
+      "appearances": 6,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hougang Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Military",
+          "year": "2024"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 51,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danial Herwan",
@@ -195,9 +828,29 @@
       "age": null,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 10,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harith Danish Irwan",
@@ -205,9 +858,37 @@
       "age": 17,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 13,
-      "goals": 2,
-      "assists": 0
+      "appearances": 11,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joshua Little",
@@ -215,9 +896,37 @@
       "age": 18,
       "nationality": "Japan",
       "club": "Young Lions",
-      "appearances": 3,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LC Sailors",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2026"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Caelan Cheong",
@@ -225,9 +934,37 @@
       "age": 20,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 15,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -237,9 +974,53 @@
       "age": 23,
       "nationality": "Brazil",
       "club": "Young Lions",
-      "appearances": 16,
-      "goals": 4,
-      "assists": 1
+      "appearances": 12,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Volta Redonda",
+          "year": "2023"
+        },
+        {
+          "club": "CSA",
+          "year": "2023"
+        },
+        {
+          "club": "Boavista",
+          "year": "2024"
+        },
+        {
+          "club": "Maricá FC",
+          "year": "2024"
+        },
+        {
+          "club": "Boavista",
+          "year": "2025"
+        },
+        {
+          "club": "Bangu-RJ",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Louka Tan",
@@ -249,7 +1030,31 @@
       "club": "Young Lions",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LCS Youth",
+          "year": "2020"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Harry Spence",
@@ -259,17 +1064,85 @@
       "club": "Young Lions",
       "appearances": 14,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "LС Sailors Res",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "LС Sailors Res",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathan Mao",
       "position": "Right Winger",
-      "age": 17,
+      "age": 18,
       "nationality": "Singapore",
       "club": "Young Lions",
       "appearances": 8,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Home Utd Youth",
+          "year": "2018"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2024"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        },
+        {
+          "club": "LC Sailors",
+          "year": "2027"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sérgio Mendonça",
@@ -277,9 +1150,37 @@
       "age": 22,
       "nationality": "Brazil",
       "club": "Young Lions",
-      "appearances": 16,
-      "goals": 8,
-      "assists": 1
+      "appearances": 13,
+      "goals": 5,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "América-RN",
+          "year": "2023"
+        },
+        {
+          "club": "Maricá FC",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 11,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amir Syafiz",
@@ -289,7 +1190,51 @@
       "club": "Young Lions",
       "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Young Lions",
+          "year": "2021"
+        },
+        {
+          "club": "Military",
+          "year": "2023"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2024"
+        },
+        {
+          "club": "Military",
+          "year": "2025"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2025"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Hougang Utd.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 7,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kian Ghadessy",
@@ -297,9 +1242,37 @@
       "age": 20,
       "nationality": "Singapore",
       "club": "Young Lions",
-      "appearances": 3,
-      "goals": 2,
-      "assists": 0
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Military",
+          "year": "2024"
+        },
+        {
+          "club": "Young Lions",
+          "year": "2025"
+        },
+        {
+          "club": "Military",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "VIE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -23,7 +24,59 @@
       "club": "PVF-CAND FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ha Noi FC",
+          "year": "2017"
+        },
+        {
+          "club": "Hanoi B FC",
+          "year": "2018"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2019"
+        },
+        {
+          "club": "Phu Tho FC",
+          "year": "2020"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2020"
+        },
+        {
+          "club": "CAND FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2021"
+        },
+        {
+          "club": "CAND FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 26,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Minh Long Phi",
@@ -31,9 +84,41 @@
       "age": 31,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hanoi T&amp;T FC",
+          "year": "2015"
+        },
+        {
+          "club": "Quang Nam FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 35,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thai Hieu Truong",
@@ -43,7 +128,51 @@
       "club": "PVF-CAND FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2018"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2021"
+        },
+        {
+          "club": "Lam Dong",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "Dong Nai",
+          "year": "2023"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 2,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,19 +182,69 @@
       "age": 29,
       "nationality": "Brazil",
       "club": "PVF-CAND FC",
-      "appearances": 22,
+      "appearances": 5,
       "goals": 0,
-      "assists": 1
-    },
-    {
-      "name": "Alain Eyenga",
-      "position": "Centre-Back",
-      "age": 30,
-      "nationality": "Cameroon",
-      "club": "PVF-CAND FC",
-      "appearances": 16,
-      "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "São Caetano",
+          "year": "2014"
+        },
+        {
+          "club": "SV Schackendorf",
+          "year": "2016"
+        },
+        {
+          "club": "TSV Grunbach",
+          "year": "2017"
+        },
+        {
+          "club": "1.CfR Pforzheim",
+          "year": "2019"
+        },
+        {
+          "club": "U. Fürstenwalde",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "Memphis 901",
+          "year": "2022"
+        },
+        {
+          "club": "Duhok SC",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Adalah",
+          "year": "2025"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 172,
+        "goals": 11,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ly Duc Pham",
@@ -73,9 +252,57 @@
       "age": 23,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 8,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ba Ria-Vung Tau",
+          "year": "2023"
+        },
+        {
+          "club": "Nutifood JMG",
+          "year": "2023"
+        },
+        {
+          "club": "Nutifood JMG",
+          "year": "2024"
+        },
+        {
+          "club": "HAGL FC",
+          "year": "2024"
+        },
+        {
+          "club": "Nutifood JMG",
+          "year": "2025"
+        },
+        {
+          "club": "CAHN FC",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2026"
+        },
+        {
+          "club": "CAHN FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hieu Minh Nguyen",
@@ -85,7 +312,59 @@
       "club": "PVF-CAND FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anh Viet Doan",
@@ -95,7 +374,55 @@
       "club": "PVF-CAND FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Dak Lak FC",
+          "year": "2020"
+        },
+        {
+          "club": "Quang Ninh FC",
+          "year": "2020"
+        },
+        {
+          "club": "Sai Gon FC",
+          "year": "2021"
+        },
+        {
+          "club": "Binh Duong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Binh Phuoc FC",
+          "year": "2023"
+        },
+        {
+          "club": "Dong Thap FC",
+          "year": "2024"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Duc Anh Nguyen Nhu",
@@ -103,9 +430,49 @@
       "age": 26,
       "nationality": "Germany",
       "club": "PVF-CAND FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Kray",
+          "year": "2019"
+        },
+        {
+          "club": "SV Straelen",
+          "year": "2020"
+        },
+        {
+          "club": "FC Kray",
+          "year": "2021"
+        },
+        {
+          "club": "Hai Phong FC",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bao Long Nguyen",
@@ -113,9 +480,53 @@
       "age": 21,
       "nationality": "Vietnam",
       "club": "PVF-CAND FC",
-      "appearances": 14,
+      "appearances": 13,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Chuong Dao",
@@ -123,9 +534,57 @@
       "age": 23,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Dung Nguyen",
@@ -135,7 +594,39 @@
       "club": "PVF-CAND FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hanoi T&amp;T FC",
+          "year": "2014"
+        },
+        {
+          "club": "Sai Gon FC",
+          "year": "2016"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2016"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 4,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anh Quan Vo",
@@ -145,7 +636,59 @@
       "club": "PVF-CAND FC",
       "appearances": 15,
       "goals": 1,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Thai Quy Truong",
@@ -155,7 +698,43 @@
       "club": "PVF-CAND FC",
       "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Quang Ninh FC",
+          "year": "2016"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2016"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2016"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 6,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Viet Truong Phung",
@@ -163,9 +742,61 @@
       "age": 27,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 11,
+      "appearances": 10,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ha Noi FC",
+          "year": "2018"
+        },
+        {
+          "club": "Ha Tinh FC",
+          "year": "2020"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2020"
+        },
+        {
+          "club": "CAND FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2021"
+        },
+        {
+          "club": "CAND FC",
+          "year": "2022"
+        },
+        {
+          "club": "Phu Tho FC",
+          "year": "2023"
+        },
+        {
+          "club": "CAHN FC",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Viet Ha",
@@ -173,9 +804,49 @@
       "age": 22,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PVF-CAND",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Phuong Nam Nguyen",
@@ -185,7 +856,35 @@
       "club": "PVF-CAND FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hoa Binh FC",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -195,19 +894,135 @@
       "age": 29,
       "nationality": "Scotland",
       "club": "PVF-CAND FC",
-      "appearances": 19,
-      "goals": 1,
-      "assists": 1
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Apol. Limassol",
+          "year": "2013"
+        },
+        {
+          "club": "Agia Napa",
+          "year": "2015"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2016"
+        },
+        {
+          "club": "Nea Salamis",
+          "year": "2017"
+        },
+        {
+          "club": "Apol. Limassol",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "Nea Salamis",
+          "year": "2019"
+        },
+        {
+          "club": "Karmiotissa",
+          "year": "2020"
+        },
+        {
+          "club": "AEL Limassol",
+          "year": "2021"
+        },
+        {
+          "club": "Achyronas FC",
+          "year": "2022"
+        },
+        {
+          "club": "AEZ Zakakiou",
+          "year": "2023"
+        },
+        {
+          "club": "Akritas Chlor.",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 228,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joseph Mpande",
       "position": "Central Midfield",
-      "age": 31,
+      "age": 32,
       "nationality": "Uganda",
       "club": "PVF-CAND FC",
-      "appearances": 12,
+      "appearances": 11,
       "goals": 1,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SC Villa Jogoo",
+          "year": "2009"
+        },
+        {
+          "club": "Unknown",
+          "year": "2010"
+        },
+        {
+          "club": "Bunamwaya",
+          "year": "2011"
+        },
+        {
+          "club": "Horizon FC",
+          "year": "2016"
+        },
+        {
+          "club": "Hantharwady Utd",
+          "year": "2018"
+        },
+        {
+          "club": "Hai Phong FC",
+          "year": "2019"
+        },
+        {
+          "club": "Nam Dinh FC",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 60,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Xuan Bac Nguyen",
@@ -217,7 +1032,55 @@
       "club": "PVF-CAND FC",
       "appearances": 15,
       "goals": 1,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cong Den Huynh",
@@ -227,7 +1090,55 @@
       "club": "PVF-CAND FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2019"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2020"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2021"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2021"
+        },
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Thuan Do",
@@ -237,7 +1148,43 @@
       "club": "PVF-CAND FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HCMC FC",
+          "year": "2018"
+        },
+        {
+          "club": "Binh Dinh FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 128,
+        "goals": 4,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Huy Hung Nguyen",
@@ -245,9 +1192,53 @@
       "age": 34,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 4,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SLNA FC",
+          "year": "2012"
+        },
+        {
+          "club": "Ha Noi Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Ha Noi Club",
+          "year": "2013"
+        },
+        {
+          "club": "Quang Nam FC",
+          "year": "2015"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2020"
+        },
+        {
+          "club": "Viettel FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 67,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Vu Tin Nguyen",
@@ -257,7 +1248,59 @@
       "club": "PVF-CAND FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ha Noi FC",
+          "year": "2017"
+        },
+        {
+          "club": "Sai Gon FC",
+          "year": "2017"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2020"
+        },
+        {
+          "club": "Pho Hien FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2021"
+        },
+        {
+          "club": "Quang Nam FC",
+          "year": "2022"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2022"
+        },
+        {
+          "club": "HCMC FC",
+          "year": "2023"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 106,
+        "goals": 6,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Trung Phong Phu",
@@ -265,19 +1308,91 @@
       "age": 27,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "HCMC FC",
+          "year": "2020"
+        },
+        {
+          "club": "Ba Ria-Vung Tau",
+          "year": "2021"
+        },
+        {
+          "club": "HCMC FC",
+          "year": "2021"
+        },
+        {
+          "club": "Ba Ria-Vung Tau",
+          "year": "2022"
+        },
+        {
+          "club": "HCMC FC",
+          "year": "2022"
+        },
+        {
+          "club": "Binh Phuoc FC",
+          "year": "2023"
+        },
+        {
+          "club": "Quang Nam FC",
+          "year": "2023"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ba Dat Thai",
       "position": "Attacking Midfield",
-      "age": 20,
+      "age": 21,
       "nationality": "Vietnam",
       "club": "PVF-CAND FC",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PVF F. Acad.",
+          "year": "2014"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 15,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -287,9 +1402,89 @@
       "age": 32,
       "nationality": "Palestine",
       "club": "PVF-CAND FC",
-      "appearances": 8,
+      "appearances": 2,
       "goals": 0,
-      "assists": 2
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hammarby",
+          "year": "2011"
+        },
+        {
+          "club": "Vasalunds IF",
+          "year": "2012"
+        },
+        {
+          "club": "Nyköpings BIS",
+          "year": "2013"
+        },
+        {
+          "club": "Åtvidabergs FF",
+          "year": "2016"
+        },
+        {
+          "club": "Kalmar FF",
+          "year": "2016"
+        },
+        {
+          "club": "Mjøndalen",
+          "year": "2018"
+        },
+        {
+          "club": "Kalmar FF",
+          "year": "2018"
+        },
+        {
+          "club": "GAIS",
+          "year": "2018"
+        },
+        {
+          "club": "Persebaya",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Mesaimeer",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Muharraq",
+          "year": "2021"
+        },
+        {
+          "club": "Nongbua FC",
+          "year": "2022"
+        },
+        {
+          "club": "Bangkok Utd.",
+          "year": "2022"
+        },
+        {
+          "club": "Nam Dinh FC",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2026"
+        },
+        {
+          "club": "Nam Dinh FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 308,
+        "goals": 89,
+        "assists": 55,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thanh Nhan Nguyen",
@@ -299,7 +1494,55 @@
       "club": "PVF-CAND FC",
       "appearances": 15,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Trang Nguyen",
@@ -309,7 +1552,39 @@
       "club": "PVF-CAND FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hue FC",
+          "year": "2019"
+        },
+        {
+          "club": "Quang Nam Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Quang Nam FC",
+          "year": "2020"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Samson Olaleye",
@@ -317,9 +1592,65 @@
       "age": 37,
       "nationality": "TM nationality id 185",
       "club": "PVF-CAND FC",
-      "appearances": 16,
+      "appearances": 15,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dong Thap FC",
+          "year": "2009"
+        },
+        {
+          "club": "Atl. Madrileño",
+          "year": "2011"
+        },
+        {
+          "club": "Braga",
+          "year": "2011"
+        },
+        {
+          "club": "Hanoi T&amp;T FC",
+          "year": "2011"
+        },
+        {
+          "club": "Buriram Utd.",
+          "year": "2017"
+        },
+        {
+          "club": "Ha Noi FC",
+          "year": "2018"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2019"
+        },
+        {
+          "club": "HCMC FC",
+          "year": "2021"
+        },
+        {
+          "club": "Quang Nam FC",
+          "year": "2023"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 74,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Van Vinh Nguyen",
@@ -329,7 +1660,75 @@
       "club": "PVF-CAND FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2020"
+        },
+        {
+          "club": "Binh Phuoc FC",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2022"
+        },
+        {
+          "club": "Phu Tho FC",
+          "year": "2022"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2023"
+        },
+        {
+          "club": "Binh Phuoc FC",
+          "year": "2023"
+        },
+        {
+          "club": "Thanh Hoa FC",
+          "year": "2024"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2024"
+        },
+        {
+          "club": "CAHN FC",
+          "year": "2025"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "Ninh Binh FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anh Tuan Nguyen",
@@ -337,9 +1736,57 @@
       "age": 20,
       "nationality": "Vietnam",
       "club": "PVF-CAND FC",
-      "appearances": 7,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Pho Hien FC",
+          "year": "2022"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2022"
+        },
+        {
+          "club": "Phu Tho FC",
+          "year": "2023"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2024"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2024"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2025"
+        },
+        {
+          "club": "PVF-CAND",
+          "year": "2025"
+        },
+        {
+          "club": "PVF F. Acad.",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

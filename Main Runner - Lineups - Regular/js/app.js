@@ -1,26 +1,37 @@
 import { FORMATIONS } from "./formations.js";
 import { appState, clearSlotPhotoIndices, getState, initLevels } from "./state.js";
-import { migratePlayerImages, projectAssetUrl } from "./paths.js";
+import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
 import {
+    applySwapSearchAllNationality,
+    applyPlayerPhotoFramingForSourceRelPath,
+    openSwapLogoModal,
+    refreshSwapLogoListFromSearch,
+    refreshSwapPlayerListFromSearch,
     renderHeader,
     renderPitch,
-    renderSwapList,
     scheduleTeamHeaderNameCenterShift,
     scheduleShortsTeamNameFit,
     shouldUseVideoQuestionLayout,
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
-import { filterTeams, showResults, filterLeagues } from "./teams.js";
+import { filterTeams, showResults } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
-import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
+import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
+import {
+    initThumbnailMaker,
+    syncThumbnailMakerSpecificTitle,
+    syncThumbnailMakerUiForQuizType,
+} from "./thumbnail-maker.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
+import { initTeamVoiceManager } from "./team-voice-manager.js";
+import { initSharedBackgroundTheme } from "../../shared/backgrounds/background-theme.js";
 import {
     applyDevLiveReloadControls,
     captureDevLiveReloadSnapshot,
@@ -31,9 +42,62 @@ import {
 
 const HEADER_LOGO_SCALE_STEP = 0.1;
 const HEADER_LOGO_SCALE_MIN_POSITIVE = 0.001;
+const PERFORMANCE_MODE_SESSION_KEY = "lineups:performance-mode";
+const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
+const PERFORMANCE_MODE_QUERY_VALUES = new Set(["1", "true", "on", "yes"]);
+const PERFORMANCE_MODE_QUERY_OFF_VALUES = new Set(["0", "false", "off", "no"]);
 
 const HEADER_LOGO_NUDGE_STEP = 6;
 const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
+const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
+
+function shouldBypassSessionJsonCache() {
+    return !!window.__RUNNER_LIVE_RELOAD__;
+}
+
+function applyPerformanceModeFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = String(params.get("perf") || "").trim().toLowerCase();
+    let enabled;
+    if (PERFORMANCE_MODE_QUERY_VALUES.has(raw)) {
+        enabled = true;
+    } else if (PERFORMANCE_MODE_QUERY_OFF_VALUES.has(raw)) {
+        enabled = false;
+    } else {
+        enabled = sessionStorage.getItem(PERFORMANCE_MODE_SESSION_KEY) === "1";
+    }
+    sessionStorage.setItem(PERFORMANCE_MODE_SESSION_KEY, enabled ? "1" : "0");
+    document.body.classList.toggle("performance-mode", enabled);
+    return enabled;
+}
+
+async function fetchJsonSessionCached(path, fallbackValue = null) {
+    const cacheKey = `${SESSION_JSON_CACHE_PREFIX}${path}`;
+    const bypass = shouldBypassSessionJsonCache();
+    if (!bypass) {
+        try {
+            const cached = sessionStorage.getItem(cacheKey);
+            if (cached) return JSON.parse(cached);
+        } catch {
+            // Ignore malformed session cache and fetch fresh copy.
+        }
+    }
+    try {
+        const res = await fetch(projectAssetUrl(path), { cache: "default" });
+        const data = await res.json();
+        if (!bypass) {
+            try {
+                sessionStorage.setItem(cacheKey, JSON.stringify(data));
+            } catch {
+                // Ignore quota/storage failures.
+            }
+        }
+        return data;
+    } catch (err) {
+        if (fallbackValue !== null) return fallbackValue;
+        throw err;
+    }
+}
 
 function sanitizeHeaderLogoScale(n) {
     const x = Number(n);
@@ -86,13 +150,74 @@ function applyHeaderLogoScale(scale) {
     }
 }
 
-function initHeaderLogoZoom() {
+function initHeaderLogoZoom(onClearTeamSelection) {
     const th = appState.els.teamHeader;
     const zoomOut = document.getElementById("team-header-zoom-out");
     const zoomIn = document.getElementById("team-header-zoom-in");
     const nudgeLeft = document.getElementById("team-header-nudge-left");
     const nudgeRight = document.getElementById("team-header-nudge-right");
+    const swapLogo = document.getElementById("team-header-swap-logo");
+    const fetchLogo = document.getElementById("team-header-fetch-logo");
+    const pitchSwapLogo = document.getElementById("pitch-swap-logo");
+    const clearTeamBtn = document.getElementById("team-header-clear-team");
+    if (pitchSwapLogo) {
+        pitchSwapLogo.onclick = () => {
+            openSwapLogoModal();
+        };
+    }
     if (!th || !zoomOut || !zoomIn || !nudgeLeft || !nudgeRight) return;
+    if (swapLogo) {
+        swapLogo.onclick = () => {
+            openSwapLogoModal();
+        };
+    }
+    if (clearTeamBtn) {
+        clearTeamBtn.onclick = () => {
+            if (typeof onClearTeamSelection === "function") {
+                onClearTeamSelection();
+            }
+        };
+    }
+    if (fetchLogo) {
+        fetchLogo.onclick = async () => {
+            const st = getState();
+            if (!st?.currentSquad) return;
+            if (fetchLogo.disabled) return;
+            const prevText = fetchLogo.textContent || "Get logo";
+            fetchLogo.disabled = true;
+            fetchLogo.textContent = "...";
+            try {
+                const res = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        squadType: st.squadType || "",
+                        selectedEntry: st.selectedEntry || {},
+                        currentSquadName: st.currentSquad?.name || st.selectedEntry?.name || "",
+                        currentSquadImagePath: st.currentSquad?.imagePath || "",
+                    }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data?.ok) {
+                    throw new Error(data?.error || "Could not fetch team logo.");
+                }
+                if (data?.relativePath) {
+                    const rel = String(data.relativePath);
+                    st.headerLogoOverrideRelPath = `${rel}${rel.includes("?") ? "&" : "?"}_logo=${Date.now()}`;
+                    if (st.currentSquad && typeof st.currentSquad === "object") {
+                        st.currentSquad.imagePath = rel;
+                    }
+                }
+                renderHeader();
+            } catch (err) {
+                const msg = err instanceof Error ? err.message : "Could not fetch team logo.";
+                window.alert(msg);
+            } finally {
+                fetchLogo.disabled = false;
+                fetchLogo.textContent = prevText;
+            }
+        };
+    }
     syncTeamHeaderLogoVarsFromLevel();
     zoomOut.onclick = () => {
         applyHeaderLogoScale(currentLevelHeaderLogoScale() - HEADER_LOGO_SCALE_STEP);
@@ -115,6 +240,325 @@ function initHeaderLogoZoom() {
 // ==========================================
 // SHARED UI HELPERS (Exported for Sub-Modules)
 // ==========================================
+
+const QUIZ_TYPE_VOICE_FILES = {
+    "nat-by-club": "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+    "club-by-nat": "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
+};
+const QUIZ_TITLE_VOICE_STATUS_ENDPOINT = "__quiz-title-voice/status";
+const QUIZ_TITLE_VOICE_GENERATE_ENDPOINT = "__quiz-title-voice/generate";
+const QUIZ_TITLE_VOICE_DELETE_ENDPOINT = "__quiz-title-voice/delete";
+const QUIZ_TITLE_FIXED_VOICE = "en-US-AndrewNeural";
+const quizTypeVoiceStatusByType = {};
+let quizTypePreviewAudioEl = null;
+let quizTypePreviewAudioSrc = "";
+
+function getQuizTypeBaseLabel(optionEl) {
+    const savedBase = optionEl?.dataset?.baseLabel;
+    if (savedBase) return savedBase;
+    const current = String(optionEl?.textContent || "").trim();
+    return current.replace(/\s+\[(?:VOL|X)\]$/i, "").trim();
+}
+
+function setQuizTypeOptionLabel(optionEl, hasVoice) {
+    if (!optionEl) return;
+    const baseLabel = getQuizTypeBaseLabel(optionEl);
+    optionEl.dataset.baseLabel = baseLabel;
+    quizTypeVoiceStatusByType[optionEl.value] = !!hasVoice;
+    optionEl.textContent = baseLabel;
+}
+
+function normalizeVoiceSrc(src) {
+    try {
+        return new URL(String(src || ""), window.location.href).href;
+    } catch {
+        return String(src || "").trim();
+    }
+}
+
+function stopQuizTypeVoicePreview() {
+    if (!quizTypePreviewAudioEl) return;
+    quizTypePreviewAudioEl.pause();
+    quizTypePreviewAudioEl.currentTime = 0;
+    quizTypePreviewAudioEl = null;
+    quizTypePreviewAudioSrc = "";
+}
+
+function playQuizTypeVoicePreview(src) {
+    const clipSrc = String(src || "").trim();
+    if (!clipSrc) return;
+    stopQuizTypeVoicePreview();
+    const audio = new Audio(clipSrc);
+    quizTypePreviewAudioEl = audio;
+    quizTypePreviewAudioSrc = clipSrc;
+    audio.addEventListener(
+        "ended",
+        () => {
+            if (quizTypePreviewAudioEl === audio) {
+                quizTypePreviewAudioEl = null;
+                quizTypePreviewAudioSrc = "";
+            }
+        },
+        { once: true },
+    );
+    audio.play().catch(() => {});
+}
+
+function endpointUrl(relPath) {
+    return projectAssetUrl(relPath);
+}
+
+function getSpecificTitleForQuizType(quizType) {
+    const { els } = appState;
+    const selectedType = String(els?.inQuizType?.value || "");
+    if (selectedType !== String(quizType || "")) return "";
+    if (!els?.inSpecificTitleToggle?.checked) return "";
+    return String(els?.inSpecificTitleText?.value || "").trim();
+}
+
+function setQuizTypeVoiceBusy(quizType, isBusy) {
+    const volBtns = document.querySelectorAll(`button[data-quiz-type-voice-vol="${quizType}"]`);
+    const delBtns = document.querySelectorAll(`button[data-quiz-type-voice-del="${quizType}"]`);
+    volBtns.forEach((volBtn) => {
+        volBtn.disabled = !!isBusy;
+        volBtn.textContent = isBusy ? "..." : "Vol";
+    });
+    delBtns.forEach((delBtn) => {
+        delBtn.disabled = !!isBusy || !quizTypeVoiceStatusByType[quizType];
+    });
+}
+
+async function fetchQuizTypeVoiceStatus(quizType, specificTitle = "") {
+    const params = new URLSearchParams({
+        quizType: String(quizType || ""),
+        specificTitle: String(specificTitle || ""),
+    });
+    const res = await fetch(`${endpointUrl(QUIZ_TITLE_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Status failed (${res.status})`);
+    const exists = !!body.exists;
+    quizTypeVoiceStatusByType[quizType] = exists;
+    return { exists, src: String(body?.src || "") };
+}
+
+async function ensureQuizTypeVoiceThenPlay(quizType) {
+    setQuizTypeVoiceBusy(quizType, true);
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
+    try {
+        const status = await fetchQuizTypeVoiceStatus(quizType, specificTitleText);
+        let previewSrc = status.src;
+        if (!status.exists) {
+            const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_GENERATE_ENDPOINT), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    quizType,
+                    voice: QUIZ_TITLE_FIXED_VOICE,
+                    specificTitle: specificTitleText,
+                }),
+            });
+            const body = await res.json().catch(() => ({}));
+            if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+            quizTypeVoiceStatusByType[quizType] = true;
+            previewSrc = String(body?.src || "");
+        }
+        renderQuizTypeVoiceStatusPanel();
+        playQuizTypeVoicePreview(previewSrc);
+    } catch (err) {
+        alert(`Could not generate quiz title voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setQuizTypeVoiceBusy(quizType, false);
+    }
+}
+
+async function resolveQuizTitleVoiceSrcForPlayback(quizType) {
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
+    const status = await fetchQuizTypeVoiceStatus(quizType, specificTitleText).catch(() => ({ exists: false, src: "" }));
+    if (status.exists && status.src) {
+        return String(status.src || "");
+    }
+    const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_GENERATE_ENDPOINT), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            quizType,
+            voice: QUIZ_TITLE_FIXED_VOICE,
+            specificTitle: specificTitleText,
+        }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+    quizTypeVoiceStatusByType[quizType] = true;
+    return String(body?.src || "");
+}
+
+window.__resolveQuizTitleVoiceSrc = resolveQuizTitleVoiceSrcForPlayback;
+
+async function deleteQuizTypeVoice(quizType) {
+    if (!quizTypeVoiceStatusByType[quizType]) return;
+    setQuizTypeVoiceBusy(quizType, true);
+    const specificTitleText = getSpecificTitleForQuizType(quizType);
+    try {
+        stopQuizTypeVoicePreview();
+        const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_DELETE_ENDPOINT), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ quizType, specificTitle: specificTitleText }),
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
+        quizTypeVoiceStatusByType[quizType] = false;
+        renderQuizTypeVoiceStatusPanel();
+    } catch (err) {
+        alert(`Could not delete quiz title voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setQuizTypeVoiceBusy(quizType, false);
+    }
+}
+
+function renderQuizTypeVoiceStatusPanel() {
+    const quizTypeSelect = appState?.els?.inQuizType;
+    if (!quizTypeSelect) return;
+    let panel = document.getElementById("quiz-type-voice-status");
+    if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "quiz-type-voice-status";
+        panel.style.marginTop = "0.4rem";
+        panel.style.display = "flex";
+        panel.style.flexDirection = "column";
+        panel.style.gap = "0.25rem";
+        panel.style.fontSize = "0.72rem";
+        panel.style.color = "rgba(255,255,255,0.9)";
+        const anchor = quizTypeSelect.nextElementSibling || quizTypeSelect;
+        anchor.insertAdjacentElement("afterend", panel);
+    }
+    panel.replaceChildren();
+
+    Array.from(quizTypeSelect.options || []).forEach((opt) => {
+        const row = document.createElement("div");
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.gap = "0.5rem";
+        row.style.padding = "0.15rem 0";
+
+        const text = document.createElement("span");
+        text.textContent = getQuizTypeBaseLabel(opt);
+        text.style.opacity = "0.92";
+
+        const controls = document.createElement("div");
+        controls.style.display = "inline-flex";
+        controls.style.alignItems = "center";
+        controls.style.gap = "0.3rem";
+
+        const volBtn = document.createElement("button");
+        volBtn.type = "button";
+        volBtn.textContent = "Vol";
+        volBtn.dataset.quizTypeVoiceVol = opt.value;
+        volBtn.style.padding = "0.12rem 0.4rem";
+        volBtn.style.borderRadius = "999px";
+        volBtn.style.border = "1px solid rgba(255,255,255,0.35)";
+        volBtn.style.background = "rgba(255,255,255,0.08)";
+        volBtn.style.color = "#fff";
+        volBtn.style.fontSize = "0.68rem";
+        volBtn.style.fontWeight = "700";
+        volBtn.onclick = () => { void ensureQuizTypeVoiceThenPlay(opt.value); };
+
+        const xBtn = document.createElement("button");
+        xBtn.type = "button";
+        xBtn.textContent = "X";
+        xBtn.dataset.quizTypeVoiceDel = opt.value;
+        xBtn.style.padding = "0.12rem 0.45rem";
+        xBtn.style.borderRadius = "999px";
+        xBtn.style.border = "1px solid rgba(239,68,68,0.7)";
+        xBtn.style.background = "rgba(239,68,68,0.2)";
+        xBtn.style.color = "#fff";
+        xBtn.style.fontSize = "0.68rem";
+        xBtn.style.fontWeight = "800";
+        xBtn.disabled = !quizTypeVoiceStatusByType[opt.value];
+        xBtn.onclick = () => { void deleteQuizTypeVoice(opt.value); };
+
+        controls.appendChild(volBtn);
+        controls.appendChild(xBtn);
+        row.appendChild(text);
+        row.appendChild(controls);
+        panel.appendChild(row);
+    });
+}
+
+function renderLandingTitleVoiceControls() {
+    const { els } = appState;
+    const quizType = String(els?.inQuizType?.value || "");
+    const host = document.getElementById("landing-title-voice-controls");
+    if (!host || !quizType) return;
+    const videoModeEnabled = !!getState()?.videoMode;
+    const hideForVideoFlow = videoModeEnabled || !!appState.isVideoPlaying;
+    host.hidden = hideForVideoFlow;
+    host.replaceChildren();
+    if (hideForVideoFlow) return;
+
+    const controls = document.createElement("div");
+    controls.style.display = "inline-flex";
+    controls.style.alignItems = "center";
+    controls.style.gap = "0.45rem";
+
+    const volBtn = document.createElement("button");
+    volBtn.type = "button";
+    volBtn.textContent = "Vol";
+    volBtn.dataset.quizTypeVoiceVol = quizType;
+    volBtn.style.padding = "0.2rem 0.62rem";
+    volBtn.style.borderRadius = "999px";
+    volBtn.style.border = "1px solid rgba(255,255,255,0.38)";
+    volBtn.style.background = "rgba(255,255,255,0.08)";
+    volBtn.style.color = "#fff";
+    volBtn.style.fontSize = "0.78rem";
+    volBtn.style.fontWeight = "800";
+    volBtn.style.cursor = "pointer";
+    volBtn.onclick = () => { void ensureQuizTypeVoiceThenPlay(quizType); };
+
+    const xBtn = document.createElement("button");
+    xBtn.type = "button";
+    xBtn.textContent = "X";
+    xBtn.dataset.quizTypeVoiceDel = quizType;
+    xBtn.style.padding = "0.2rem 0.66rem";
+    xBtn.style.borderRadius = "999px";
+    xBtn.style.border = "1px solid rgba(239,68,68,0.75)";
+    xBtn.style.background = "rgba(239,68,68,0.2)";
+    xBtn.style.color = "#fff";
+    xBtn.style.fontSize = "0.78rem";
+    xBtn.style.fontWeight = "900";
+    xBtn.style.cursor = "pointer";
+    xBtn.disabled = !quizTypeVoiceStatusByType[quizType];
+    xBtn.onclick = () => { void deleteQuizTypeVoice(quizType); };
+
+    controls.appendChild(volBtn);
+    controls.appendChild(xBtn);
+    host.appendChild(controls);
+}
+
+async function refreshQuizTypeVoiceLabels() {
+    const { els } = appState;
+    const quizTypeSelect = els?.inQuizType;
+    if (!quizTypeSelect) return;
+    const options = Array.from(quizTypeSelect.options || []);
+    if (options.length === 0) return;
+
+    await Promise.all(
+        options.map(async (opt) => {
+            let hasVoice = false;
+            try {
+                const status = await fetchQuizTypeVoiceStatus(opt.value, getSpecificTitleForQuizType(opt.value));
+                hasVoice = !!status.exists;
+            } catch {
+                hasVoice = false;
+            }
+            setQuizTypeOptionLabel(opt, hasVoice);
+        }),
+    );
+
+    applyCustomSelects();
+    renderQuizTypeVoiceStatusPanel();
+    renderLandingTitleVoiceControls();
+}
 
 export function updateSetupUI() {
     const { els } = appState;
@@ -167,8 +611,61 @@ export function populateSubTypes() {
         els.inQuizType.selectedIndex = 0;
     }
 
+    Array.from(els.inQuizType.options).forEach((opt) => {
+        opt.dataset.baseLabel = String(opt.textContent || "").trim();
+    });
+
     updateSetupUI();
     applyCustomSelects();
+    renderQuizTypeVoiceStatusPanel();
+    renderLandingTitleVoiceControls();
+    void refreshQuizTypeVoiceLabels();
+}
+
+function computeLandingDifficultyDistribution(totalQuestions) {
+    const total = Math.max(0, Number(totalQuestions) || 0);
+    if (total === 0) {
+        return { easy: 0, medium: 0, hard: 0, impossible: 0 };
+    }
+
+    const targetEasy = total * 0.4;
+    const targetMedium = total * 0.3;
+    const targetHard = total * 0.2;
+    const targetImpossible = total * 0.1;
+
+    let bestStrict = null;
+    let bestRelaxed = null;
+
+    for (let impossible = 0; impossible <= total; impossible += 1) {
+        for (let hard = impossible; hard <= total - impossible; hard += 1) {
+            for (let medium = hard; medium <= total - impossible - hard; medium += 1) {
+                const easy = total - impossible - hard - medium;
+                if (easy < medium) continue;
+
+                const score =
+                    Math.abs(easy - targetEasy) +
+                    Math.abs(medium - targetMedium) +
+                    Math.abs(hard - targetHard) +
+                    Math.abs(impossible - targetImpossible);
+                const candidate = { easy, medium, hard, impossible, score };
+                const isStrict = easy > medium && medium > hard && hard > impossible;
+
+                if (isStrict) {
+                    if (!bestStrict || candidate.score < bestStrict.score) bestStrict = candidate;
+                } else if (!bestRelaxed || candidate.score < bestRelaxed.score) {
+                    bestRelaxed = candidate;
+                }
+            }
+        }
+    }
+
+    const best = bestStrict || bestRelaxed || { easy: total, medium: 0, hard: 0, impossible: 0 };
+    return {
+        easy: best.easy,
+        medium: best.medium,
+        hard: best.hard,
+        impossible: best.impossible,
+    };
 }
 
 export function updateLanding() {
@@ -186,8 +683,9 @@ export function updateLanding() {
             ? "GUESS THE FOOTBALL<br>NATIONAL TEAM<br>NAME BY<br>PLAYERS' CLUB"
             : "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB";
     }
-
-    document.getElementById("landing-q-count").textContent = appState.totalLevelsCount - 3;
+    renderLandingTitleVoiceControls();
+    const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
+    document.getElementById("landing-q-count").textContent = totalQuestions;
     document.getElementById("val-easy").textContent = els.inEasy.value;
     document.getElementById("val-medium").textContent = els.inMedium.value;
     document.getElementById("val-hard").textContent = els.inHard.value;
@@ -195,7 +693,13 @@ export function updateLanding() {
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
-    document.getElementById("landing-special-badge").hidden = !showSpecial;
+    const levelState = getState();
+    const isWaitingForLandingSpecialBadgeReveal =
+        appState.isVideoPlaying && appState.landingSpecialBadgeRevealTimeoutId != null;
+    const hideSpecificTitleUntilPlayVideo =
+        !!levelState?.videoMode && (!appState.isVideoPlaying || isWaitingForLandingSpecialBadgeReveal);
+    document.getElementById("landing-special-badge").hidden =
+        !showSpecial || hideSpecificTitleUntilPlayVideo;
     document.getElementById("landing-special-text").textContent = els.inSpecificTitleText.value;
 
     const iconVal = els.inSpecificTitleIcon.value;
@@ -210,6 +714,8 @@ export function updateLanding() {
         iconSpan.hidden = false;
         iconImg.hidden = true;
     }
+
+    syncThumbnailMakerSpecificTitle();
 }
 
 // ==========================================
@@ -232,6 +738,15 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    initThumbnailMaker({ switchLevel });
+    applyPerformanceModeFromUrl();
+    initSharedBackgroundTheme(
+        document.getElementById("in-background-color"),
+        document.getElementById("in-background-effect"),
+        document.getElementById("in-background-opacity"),
+        document.getElementById("btn-save-background-opacity"),
+    );
+    await initTeamVoiceManager();
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;
         els.shortsModeBtn.setAttribute("aria-pressed", els.shortsModeToggle.checked ? "true" : "false");
@@ -241,7 +756,6 @@ async function init() {
     syncShortsModeFab();
 
     // Call initialized modules
-    initFloatingEmojis();
     initLevelControls();
     initSavedScripts({ populateSubTypes, updateSetupUI, updateLanding });
 
@@ -258,6 +772,7 @@ async function init() {
         captureDevLiveReloadSnapshot(appState, appState.els);
     };
     window.addEventListener("beforeunload", window.__captureRunnerState);
+    window.addEventListener("pagehide", window.__captureRunnerState);
 
     for (let i = 0; i < 11; i++) {
         const div = document.createElement("div");
@@ -271,12 +786,13 @@ async function init() {
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     const initialLevelIndex = didRestoreState
         ? Math.min(
-            Math.max(0, appState.currentLevelIndex),
+            Math.max(1, appState.currentLevelIndex),
             Math.max(0, appState.levelsData.length - 1),
         )
-        : 0;
+        : 1;
     switchLevel(initialLevelIndex);
     syncShortsModeFab();
+    initSavedTeamLayouts();
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && appState.isVideoPlaying) {
@@ -290,7 +806,9 @@ async function init() {
     els.inQuizType.onchange = () => {
         updateSetupUI();
         updateLanding();
+        syncThumbnailMakerUiForQuizType();
         renderSavedScripts();
+        renderHeader();
     };
 
     els.inEasy.oninput = updateLanding;
@@ -305,6 +823,12 @@ async function init() {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 20;
         initLevels(levels);
+        const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
+        const { easy, medium, hard, impossible } = computeLandingDifficultyDistribution(totalQuestions);
+        els.inEasy.value = String(easy);
+        els.inMedium.value = String(medium);
+        els.inHard.value = String(hard);
+        els.inImpossible.value = String(impossible);
         updateLanding();
         switchLevel(appState.currentLevelIndex);
     };
@@ -332,12 +856,57 @@ async function init() {
         els.videoModeBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
     }
 
+    function areAllLevelsVideoModeEnabled() {
+        return (appState.levelsData || []).every((lvl) => !!lvl.videoMode);
+    }
+
+    function syncApplyVideoAllButton(isEnabled) {
+        if (!els.applyVideoAllBtn) return;
+        const pressed = !!isEnabled;
+        els.applyVideoAllBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
+        if (pressed) {
+            els.applyVideoAllBtn.style.background = "#22c55e";
+            els.applyVideoAllBtn.style.color = "#001408";
+            els.applyVideoAllBtn.style.boxShadow = "0 2px 5px rgba(34, 197, 94, 0.45)";
+            els.applyVideoAllBtn.style.borderColor = "#22c55e";
+            return;
+        }
+        els.applyVideoAllBtn.style.background = "";
+        els.applyVideoAllBtn.style.color = "";
+        els.applyVideoAllBtn.style.boxShadow = "";
+        els.applyVideoAllBtn.style.borderColor = "";
+    }
+
     els.videoModeToggle.onchange = (e) => {
         const state = getState();
         state.videoMode = e.target.checked;
+        if (appState.currentLevelIndex === 0) {
+            const logoImg = appState.els?.logoPage?.querySelector(".logo-img-anim");
+            if (logoImg) {
+                if (state.videoMode && !appState.isVideoPlaying) {
+                    logoImg.classList.remove("reveal");
+                } else if (!state.videoMode && !appState.isVideoPlaying) {
+                    logoImg.classList.remove("reveal");
+                    void logoImg.offsetWidth;
+                    logoImg.classList.add("reveal");
+                }
+            }
+        }
         syncVideoModeButton(state.videoMode);
+        syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
+        refreshSaveTeamButtonUi();
+        if (!e.target.checked && appState.isVideoPlaying) {
+            stopVideoFlow();
+        }
+        const isQuestionLevel =
+            appState.currentLevelIndex > 1 &&
+            appState.currentLevelIndex < appState.totalLevelsCount;
+        if (isQuestionLevel) {
+            renderPitch();
+        }
         renderHeader();
-        renderPitch();
+        renderLandingTitleVoiceControls();
+        updateLanding();
     };
 
     if (els.videoModeBtn && els.videoModeToggle) {
@@ -348,57 +917,117 @@ async function init() {
     }
 
     els.applyVideoAllBtn.onclick = () => {
-        const isVideoOn = els.videoModeToggle.checked;
+        const nextVideoMode = !areAllLevelsVideoModeEnabled();
         appState.levelsData.forEach((lvl) => {
-            lvl.videoMode = isVideoOn;
+            lvl.videoMode = nextVideoMode;
         });
+        syncApplyVideoAllButton(nextVideoMode);
+        if (els.videoModeToggle.checked !== nextVideoMode) {
+            els.videoModeToggle.checked = nextVideoMode;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        }
     };
 
-    els.playVideoBtn.onclick = () => startVideoFlow();
+    els.playVideoBtn.onclick = () => {
+        renderLandingTitleVoiceControls();
+        startVideoFlow();
+        setTimeout(() => {
+            renderLandingTitleVoiceControls();
+        }, 0);
+    };
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
-    els.swapSearch.oninput = (e) => {
-        const q = e.target.value.toLowerCase();
-        const filtered = appState.swapAvailablePlayers.filter((p) => p.name.toLowerCase().includes(q));
-        renderSwapList(filtered);
+    els.swapSearch.oninput = () => {
+        refreshSwapPlayerListFromSearch();
     };
 
+    if (els.swapSearchAll) {
+        els.swapSearchAll.onclick = () => applySwapSearchAllNationality();
+    }
+
+    if (els.swapLogoClose && els.swapLogoModal) {
+        els.swapLogoClose.onclick = () => {
+            els.swapLogoModal.hidden = true;
+            appState.swapLogoPickContext = null;
+        };
+    }
+    if (els.swapLogoSearch) {
+        els.swapLogoSearch.oninput = () => refreshSwapLogoListFromSearch();
+    }
+    if (els.swapLogoReset) {
+        els.swapLogoReset.onclick = () => {
+            const ctx = appState.swapLogoPickContext;
+            const st = getState();
+            if (ctx?.kind === "slot") {
+                const k = String(ctx.slotIndex);
+                if (st.slotClubCrestOverrideRelPathBySlot) {
+                    delete st.slotClubCrestOverrideRelPathBySlot[k];
+                }
+                els.swapLogoModal.hidden = true;
+                appState.swapLogoPickContext = null;
+                renderPitch();
+                return;
+            }
+            st.headerLogoOverrideRelPath = null;
+            if (els.swapLogoModal) els.swapLogoModal.hidden = true;
+            appState.swapLogoPickContext = null;
+            renderHeader();
+        };
+    }
+
     // Load indexes
-    const fetchJsonNoCache = (path) => fetch(new URL(path, window.location.href), { cache: "no-store" }).then((r) => r.json());
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonNoCache("./data/teams-index.json"),
-        fetchJsonNoCache("./data/player-images.json").catch(() => ({ club: {}, nationality: {} })),
-        fetchJsonNoCache("./data/country-to-flagcode.json").catch(() => ({ codes: {} })),
+        fetchJsonSessionCached("data/teams-index.json"),
+        fetchJsonSessionCached("data/player-images.json", { club: {}, nationality: {} }),
+        fetchJsonSessionCached("data/country-to-flagcode.json", { codes: {} }),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);
     appState.flagcodes = flags.codes || {};
 
+    {
+      const quizIdx = appState.currentLevelIndex;
+      if (
+        quizIdx > 1 &&
+        quizIdx < appState.totalLevelsCount &&
+        getState()?.currentSquad
+      ) {
+        renderPitch();
+        renderHeader();
+      }
+    }
+
+    const clearCurrentTeamSelection = () => {
+        const state = getState();
+        if (!state) return;
+
+        state.currentSquad = null;
+        state.selectedEntry = null;
+        state.searchText = "";
+        state.customXi = null;
+        state.customNames = {};
+        state.headerLogoOverrideRelPath = null;
+        state.slotClubCrestOverrideRelPathBySlot = {};
+
+        els.teamSearch.value = "";
+        els.teamSearch.classList.remove("team-selected");
+        els.teamResults.replaceChildren();
+        clearSlotPhotoIndices();
+
+        renderHeader();
+        renderPitch();
+        refreshSaveTeamButtonUi();
+    };
+
     const handleSearchInput = () => {
         els.teamSearch.classList.remove("team-selected");
-        const mode = els.searchMode.value;
-
-        if (mode === "team") {
-            getState().searchText = els.teamSearch.value;
-            const results = filterTeams(els.teamSearch.value);
-            showResults(results);
-        } else {
-            const results = filterLeagues(els.teamSearch.value);
-            if (typeof showLeagueResults === 'function') {
-                showLeagueResults(results);
-            }
-        }
+        getState().searchText = els.teamSearch.value;
+        const results = filterTeams(els.teamSearch.value);
+        showResults(results);
     };
 
     els.teamSearch.onfocus = handleSearchInput;
     els.teamSearch.oninput = handleSearchInput;
-
-    els.searchMode.onchange = () => {
-        els.teamSearch.value = "";
-        els.teamSearch.classList.remove("team-selected");
-        els.teamResults.replaceChildren();
-        handleSearchInput();
-    };
 
     els.squadType.onchange = () => {
         const state = getState();
@@ -408,6 +1037,8 @@ async function init() {
         state.searchText = "";
         state.customXi = null;
         state.customNames = {};
+        state.headerLogoOverrideRelPath = null;
+        state.slotClubCrestOverrideRelPathBySlot = {};
 
         els.teamSearch.value = "";
         els.teamSearch.classList.remove("team-selected");
@@ -418,6 +1049,7 @@ async function init() {
         renderHeader();
         renderPitch();
         handleSearchInput();
+        refreshSaveTeamButtonUi();
     };
 
     els.formation.onchange = () => {
@@ -450,15 +1082,18 @@ async function init() {
         const player = appState.currentXi[i];
         if (!player) return;
         const state = getState();
-        if (shouldUseVideoQuestionLayout(state)) return;
+        if (shouldUseVideoQuestionLayout(state) && !e.target.closest(".slot-back")) return;
 
         const paths = playerPhotoPaths(player, state.displayMode);
         if (paths.length <= 1) return;
         const next = ((state.slotPhotoIndexBySlot.get(i) ?? 0) + 1) % paths.length;
         state.slotPhotoIndexBySlot.set(i, next);
-        const img = slot.querySelector(".slot-img");
+        const img = shouldUseVideoQuestionLayout(state)
+            ? slot.querySelector(".slot-back .slot-avatar .slot-img")
+            : slot.querySelector(".slot-avatar .slot-img");
         if (img) {
-            img.src = projectAssetUrl(paths[next]);
+            applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
+            img.src = projectAssetUrlFresh(paths[next]);
         }
     });
 
@@ -470,10 +1105,13 @@ async function init() {
         switchLevel(appState.currentLevelIndex);
     }
     updateLanding();
+    syncThumbnailMakerUiForQuizType();
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);
-    initHeaderLogoZoom();
+    syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
+    initHeaderLogoZoom(clearCurrentTeamSelection);
     document.fonts?.ready?.then(() => scheduleShortsTeamNameFit());
+    appState.refreshLandingUi = updateLanding;
 }
 
 // START

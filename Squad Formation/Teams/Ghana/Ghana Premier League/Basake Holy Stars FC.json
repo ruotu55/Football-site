@@ -9,21 +9,37 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GHPL"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
     {
       "name": "Dubi Kassi Tayi",
       "position": "Goalkeeper",
-      "age": 19,
+      "age": 20,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 21,
+      "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 37,
+        "clean_sheets": 17
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wahab Abubakar",
@@ -33,7 +49,35 @@
       "club": "Basake Holy Stars FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Accra Lions",
+          "year": "2022"
+        },
+        {
+          "club": "Shooting Stars",
+          "year": "2023"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 17,
+        "clean_sheets": 3
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Patrick Appiah",
@@ -43,17 +87,64 @@
       "club": "Basake Holy Stars FC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 11,
+        "clean_sheets": 4
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Asempa",
       "position": "Goalkeeper",
-      "age": 25,
+      "age": 26,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
       "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Karela United",
+          "year": "2022"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 61,
+        "clean_sheets": 18
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -63,9 +154,24 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 18,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jacob Boazee",
@@ -73,9 +179,29 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 22,
+      "appearances": 24,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 39,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sadat Zumah Ibrahim",
@@ -85,7 +211,22 @@
       "club": "Basake Holy Stars FC",
       "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ampem Dacosta",
@@ -94,8 +235,44 @@
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 12,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2019"
+        },
+        {
+          "club": "Ashanti Gold",
+          "year": "2020"
+        },
+        {
+          "club": "Gold Stars FC",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Emmanuel Kwame",
@@ -103,9 +280,24 @@
       "age": 18,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 15,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 41,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francis Asante",
@@ -113,9 +305,24 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 15,
+      "appearances": 17,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Peter Arhin",
@@ -125,7 +332,35 @@
       "club": "Basake Holy Stars FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sekondi Rospak",
+          "year": "2024"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2025"
+        },
+        {
+          "club": "Sekondi Rospak",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Jeff Tiero Eduku",
@@ -135,7 +370,27 @@
       "club": "Basake Holy Stars FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kingsford Baffoe",
@@ -145,7 +400,22 @@
       "club": "Basake Holy Stars FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Amponsah",
@@ -155,7 +425,31 @@
       "club": "Basake Holy Stars FC",
       "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2025"
+        },
+        {
+          "club": "Medeama",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -165,9 +459,69 @@
       "age": 33,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 16,
+      "appearances": 18,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Asante Kotoko",
+          "year": "2012"
+        },
+        {
+          "club": "Inter Allies",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Nabi Sheet",
+          "year": "2015"
+        },
+        {
+          "club": "Shabab Al-Sahel",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Arabi",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2020"
+        },
+        {
+          "club": "Fujairah SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Ahed",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 147,
+        "goals": 14,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francis Oteng",
@@ -175,9 +529,37 @@
       "age": 37,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 22,
-      "goals": 0,
-      "assists": 0
+      "appearances": 24,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Elmina Sharks",
+          "year": "2021"
+        },
+        {
+          "club": "Skyy FC",
+          "year": "2022"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "George Kissi Nana",
@@ -187,7 +569,22 @@
       "club": "Basake Holy Stars FC",
       "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Enis Boadi",
@@ -197,7 +594,22 @@
       "club": "Basake Holy Stars FC",
       "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gabriel Appiah",
@@ -207,7 +619,27 @@
       "club": "Basake Holy Stars FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Quaison Kofi Gideon",
@@ -215,9 +647,29 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 20,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Simba Sylvester",
@@ -225,9 +677,57 @@
       "age": 24,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 18,
+      "appearances": 20,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bodens BK",
+          "year": "2019"
+        },
+        {
+          "club": "TUFA",
+          "year": "2019"
+        },
+        {
+          "club": "IFK Luleå",
+          "year": "2020"
+        },
+        {
+          "club": "TUFA",
+          "year": "2020"
+        },
+        {
+          "club": "Dreams FC",
+          "year": "2021"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        },
+        {
+          "club": "Dreams FC",
+          "year": "2025"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 135,
+        "goals": 12,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Francis Adjei",
@@ -237,7 +737,43 @@
       "club": "Basake Holy Stars FC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2016"
+        },
+        {
+          "club": "Bechem United",
+          "year": "2021"
+        },
+        {
+          "club": "Unknown",
+          "year": "2021"
+        },
+        {
+          "club": "Ebusua Dwarfs",
+          "year": "2023"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Koffie Hagan",
@@ -245,9 +781,24 @@
       "age": 29,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 10,
+      "appearances": 12,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elim Jonnie Minimsaah",
@@ -257,7 +808,22 @@
       "club": "Basake Holy Stars FC",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -267,9 +833,24 @@
       "age": 19,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 25,
+      "appearances": 27,
       "goals": 8,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 57,
+        "goals": 16,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Augustine Owusu",
@@ -278,8 +859,28 @@
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Opoku",
@@ -289,7 +890,22 @@
       "club": "Basake Holy Stars FC",
       "appearances": 12,
       "goals": 3,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 29,
+        "goals": 6,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Victor Aidoo",
@@ -297,9 +913,49 @@
       "age": 27,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 0,
-      "goals": 0,
-      "assists": 0
+      "appearances": 1,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Real Tamale",
+          "year": "2022"
+        },
+        {
+          "club": "Hearts of Oak",
+          "year": "2022"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Karela United",
+          "year": "2024"
+        },
+        {
+          "club": "Holy Stars FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 11,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Richmond Somiah",
@@ -307,29 +963,104 @@
       "age": 29,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 9,
+      "appearances": 10,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Cosmos Marfo",
-      "position": "",
+      "position": "Centre-Forward",
       "age": 20,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Holy Stars FC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kojo Mahama",
-      "position": "",
+      "position": "Centre-Forward",
       "age": 21,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Patrick Ocran",
+      "position": "Centre-Forward",
+      "age": 25,
+      "nationality": "Ghana",
+      "club": "Basake Holy Stars FC",
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathew Mensah",
@@ -337,9 +1068,24 @@
       "age": 23,
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Gamor",
@@ -349,7 +1095,22 @@
       "club": "Basake Holy Stars FC",
       "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexander Cobbinah",
@@ -358,18 +1119,23 @@
       "nationality": "Ghana",
       "club": "Basake Holy Stars FC",
       "appearances": 0,
-      "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Patrick Ocran",
-      "position": "",
-      "age": 25,
-      "nationality": "Ghana",
-      "club": "Basake Holy Stars FC",
-      "appearances": 4,
-      "goals": 0,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

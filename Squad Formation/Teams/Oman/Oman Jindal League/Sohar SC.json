@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "OM1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,29 @@
       "age": 26,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 15,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 26,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mazen Al-Muqbali",
@@ -33,17 +54,57 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Ajmi",
       "position": "Goalkeeper",
-      "age": null,
+      "age": 20,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +114,37 @@
       "age": 25,
       "nationality": "Algeria",
       "club": "Sohar SC",
-      "appearances": 14,
+      "appearances": 17,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Chelghoum Laïd",
+          "year": "2023"
+        },
+        {
+          "club": "US Chaouia",
+          "year": "2024"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saif Al-Dhobari",
@@ -63,9 +152,33 @@
       "age": 28,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 14,
+      "appearances": 15,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2021"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salim Al-Shabibi",
@@ -73,9 +186,41 @@
       "age": 28,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 9,
+      "appearances": 11,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Nasr",
+          "year": "2020"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2021"
+        },
+        {
+          "club": "Bosher Club",
+          "year": "2024"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saeed Al-Salami",
@@ -85,7 +230,39 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Muscat Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Saif Al-Mamari",
@@ -93,9 +270,29 @@
       "age": 21,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 7,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hani Al-Naimi",
@@ -105,7 +302,35 @@
       "club": "Sohar SC",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Arabi Sohar",
+          "year": "2023"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Al-Motasem Al-Muqbali",
@@ -113,9 +338,24 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 7,
+      "appearances": 10,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Basil Al-Ruqadi",
@@ -125,7 +365,39 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Fanja SC",
+          "year": "2023"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        },
+        {
+          "club": "Fanja SC",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalid Al-Mujaini",
@@ -135,7 +407,22 @@
       "club": "Sohar SC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -145,9 +432,37 @@
       "age": 21,
       "nationality": "Mali",
       "club": "Sohar SC",
-      "appearances": 7,
+      "appearances": 10,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "US Tataouine",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulmalek Al-Mujini",
@@ -155,9 +470,33 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Mussanah C.",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hani Al-Qurtubi",
@@ -165,9 +504,29 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Shibli",
@@ -177,7 +536,31 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Oman Army",
+          "year": "2024"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Al-Hilali",
@@ -187,7 +570,22 @@
       "club": "Sohar SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Al-Shirawi",
@@ -197,7 +595,27 @@
       "club": "Sohar SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mazen Al-Saadi",
@@ -205,9 +623,57 @@
       "age": 30,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 5,
+      "appearances": 9,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Suwaiq",
+          "year": "2018"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Wahda SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Basel Al-Jabri",
@@ -217,7 +683,31 @@
       "club": "Sohar SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Rustaq",
+          "year": "2024"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Duane Muckette",
@@ -225,9 +715,65 @@
       "age": 30,
       "nationality": "Trinidad and Tobago",
       "club": "Sohar SC",
-      "appearances": 13,
+      "appearances": 16,
       "goals": 5,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "SF Bulls",
+          "year": "2014"
+        },
+        {
+          "club": "North East Stars",
+          "year": "2015"
+        },
+        {
+          "club": "Barreirense",
+          "year": "2016"
+        },
+        {
+          "club": "North East Stars",
+          "year": "2017"
+        },
+        {
+          "club": "Central FC",
+          "year": "2018"
+        },
+        {
+          "club": "Memphis 901",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "AC POS",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Khaboura SC",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ammar Al-Abdulsalam",
@@ -235,9 +781,29 @@
       "age": 24,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 10,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdul Rahim Al-Muqbali",
@@ -247,7 +813,27 @@
       "club": "Sohar SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Hamdani",
@@ -255,9 +841,29 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 14,
+      "appearances": 16,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wathaq Al-Farsi",
@@ -267,7 +873,22 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sultan Al-Sahli",
@@ -277,7 +898,22 @@
       "club": "Sohar SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mubarak Al-Khaili",
@@ -287,7 +923,22 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Osama Al-Farsi",
@@ -297,7 +948,27 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -307,9 +978,29 @@
       "age": 23,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 13,
+      "appearances": 16,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Idris Al-Muqbali",
@@ -317,9 +1008,24 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 6,
+      "appearances": 7,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al Mujaini",
@@ -327,9 +1033,29 @@
       "age": 21,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 9,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ammar Al-Rusheidi",
@@ -337,9 +1063,62 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 13,
+      "appearances": 16,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Mulham Al-Hadrami",
+      "position": "Right Winger",
+      "age": 22,
+      "nationality": "TM nationality id 126",
+      "club": "Sohar SC",
+      "appearances": 1,
       "goals": 0,
-      "assists": 3
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Dhofar Club",
+          "year": "2024"
+        },
+        {
+          "club": "Fanja SC",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Owen Atikor",
@@ -347,9 +1126,61 @@
       "age": 25,
       "nationality": "Nigeria",
       "club": "Sohar SC",
-      "appearances": 13,
+      "appearances": 16,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sporting Castle",
+          "year": "2020"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2022"
+        },
+        {
+          "club": "La Viena FC",
+          "year": "2022"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2023"
+        },
+        {
+          "club": "La Viena FC",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Qous FC",
+          "year": "2024"
+        },
+        {
+          "club": "La Viena FC",
+          "year": "2025"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Saud Al-Muqbali",
@@ -357,9 +1188,41 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 8,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ibri Club",
+          "year": "2023"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2025"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Mashaikhi",
@@ -367,9 +1230,29 @@
       "age": null,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 10,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Balushi",
@@ -377,9 +1260,41 @@
       "age": 36,
       "nationality": "TM nationality id 126",
       "club": "Sohar SC",
-      "appearances": 12,
+      "appearances": 16,
       "goals": 2,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Suwaiq",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Shabab SC",
+          "year": "2023"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Said Al-Hashemi",
@@ -389,7 +1304,22 @@
       "club": "Sohar SC",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Al-Mustafa Al-Mamari",
@@ -399,7 +1329,22 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Muqbali",
@@ -409,7 +1354,22 @@
       "club": "Sohar SC",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

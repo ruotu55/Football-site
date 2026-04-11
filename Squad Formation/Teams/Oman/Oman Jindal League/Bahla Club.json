@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "OM1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 37,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 10,
+      "appearances": 13,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nizwa Club",
+          "year": "2015"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Bashaer Club",
+          "year": "2022"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 56,
+        "clean_sheets": 16
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Al-Kindi",
@@ -31,9 +64,24 @@
       "age": 21,
       "nationality": "Oman",
       "club": "Bahla Club",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 3,
+        "clean_sheets": 1
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Khalid Yousef Al-Hinai",
@@ -43,7 +91,22 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 3,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Al-Muhtadi Al-Abri",
@@ -53,19 +116,169 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Hamra",
+          "year": "2022"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
+    {
+      "name": "Jerrin Jackie",
+      "position": "Centre-Back",
+      "age": 24,
+      "nationality": "Trinidad and Tobago",
+      "club": "Bahla Club",
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Canedo FC",
+          "year": "2021"
+        },
+        {
+          "club": "Coimbrões",
+          "year": "2023"
+        },
+        {
+          "club": "Canedo FC",
+          "year": "2023"
+        },
+        {
+          "club": "Mortágua",
+          "year": "2023"
+        },
+        {
+          "club": "Canedo FC",
+          "year": "2024"
+        },
+        {
+          "club": "Gouveia",
+          "year": "2025"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
     {
       "name": "Luke Vikeme Ndifon",
       "position": "Centre-Back",
       "age": 35,
       "nationality": "Cameroon",
       "club": "Bahla Club",
-      "appearances": 9,
+      "appearances": 13,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Jaish Res.",
+          "year": "2014"
+        },
+        {
+          "club": "YOSA",
+          "year": "2016"
+        },
+        {
+          "club": "Al-Shamal SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al-Markhiya SC",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Saham Club",
+          "year": "2021"
+        },
+        {
+          "club": "Sohar SC",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mahboob Al-Hadabi",
@@ -73,9 +286,37 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2023"
+        },
+        {
+          "club": "Oman Club",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Al-Hussein Al-Kazerouni",
@@ -85,7 +326,22 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 14,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Muntasir Al-Zadjali",
@@ -93,9 +349,37 @@
       "age": 23,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Seeb",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2022"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Shukhaili",
@@ -103,9 +387,37 @@
       "age": 32,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 6,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2019"
+        },
+        {
+          "club": "Ibri Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 33,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ahmed Al-Yahyaei",
@@ -115,17 +427,52 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mustafa Al-Ruqaishi",
       "position": "Right-Back",
-      "age": 33,
+      "age": 34,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Majed Al-Shakhili",
@@ -133,9 +480,33 @@
       "age": 24,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 10,
-      "goals": 1,
-      "assists": 2
+      "appearances": 14,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 2,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hatim Al-Ghaithi",
@@ -145,7 +516,22 @@
       "club": "Bahla Club",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qadhafi Al-Mahruqi",
@@ -153,22 +539,44 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 0,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Bashaer Club",
+          "year": "2018"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2020"
+        },
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
-    {
-      "name": "Jerrin Jackie",
-      "position": "Defensive Midfield",
-      "age": 24,
-      "nationality": "Trinidad and Tobago",
-      "club": "Bahla Club",
-      "appearances": 14,
-      "goals": 2,
-      "assists": 0
-    },
     {
       "name": "Younes Al-Riyami",
       "position": "Defensive Midfield",
@@ -177,7 +585,27 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdullah Al-Nabhani",
@@ -185,9 +613,29 @@
       "age": 32,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 8,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 26,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Moro",
@@ -195,9 +643,97 @@
       "age": 32,
       "nationality": "Togo",
       "club": "Bahla Club",
-      "appearances": 8,
+      "appearances": 11,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AIK",
+          "year": "2012"
+        },
+        {
+          "club": "Kairat Almaty",
+          "year": "2015"
+        },
+        {
+          "club": "Without Club",
+          "year": "2015"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2015"
+        },
+        {
+          "club": "Silkeborg IF",
+          "year": "2016"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Arambagh KS",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2021"
+        },
+        {
+          "club": "HB Tórshavn",
+          "year": "2021"
+        },
+        {
+          "club": "TB Tvøroyri",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Cebu",
+          "year": "2023"
+        },
+        {
+          "club": "Rajasthan Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Dembava",
+          "year": "2024"
+        },
+        {
+          "club": "Atmosfera",
+          "year": "2025"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 234,
+        "goals": 6,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faisal Al-Balushi",
@@ -205,9 +741,41 @@
       "age": 30,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 10,
+      "appearances": 14,
       "goals": 1,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Saham Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 49,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Omar Al-Hinai",
@@ -217,7 +785,22 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Mafraji",
@@ -225,9 +808,29 @@
       "age": 24,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 6,
+      "appearances": 9,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ammar Al-Khamisi",
@@ -235,9 +838,24 @@
       "age": 25,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 3,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ammar Saif",
@@ -245,9 +863,45 @@
       "age": 28,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 9,
+      "appearances": 12,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Al-Rustaq",
+          "year": "2020"
+        },
+        {
+          "club": "Dhofar Club",
+          "year": "2022"
+        },
+        {
+          "club": "Ibri Club",
+          "year": "2023"
+        },
+        {
+          "club": "Al-Rustaq",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 61,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anas Al-Qasabi",
@@ -257,7 +911,27 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Al-Qasim Al-Sulimi",
@@ -265,9 +939,29 @@
       "age": 26,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "appearances": 13,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 44,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Issam Al-Makzhoomi",
@@ -275,9 +969,29 @@
       "age": 25,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 5,
+      "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 20,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohammed Al-Aufi",
@@ -285,9 +999,37 @@
       "age": 22,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 1,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulmalik Al-Muqimi",
@@ -297,7 +1039,27 @@
       "club": "Bahla Club",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Bahla Club",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -309,7 +1071,43 @@
       "club": "Bahla Club",
       "appearances": 6,
       "goals": 4,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2022"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Seeb",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 23,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Faisal Al-Aghbari",
@@ -317,9 +1115,41 @@
       "age": 25,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 1,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Bashaer Club",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Suwaiq",
+          "year": "2022"
+        },
+        {
+          "club": "Ibri Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Wunda Ngana",
@@ -327,19 +1157,87 @@
       "age": 26,
       "nationality": "TM nationality id 85",
       "club": "Bahla Club",
-      "appearances": 4,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "JS Saoura",
+          "year": "2024"
+        },
+        {
+          "club": "Diables Noirs",
+          "year": "2024"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2025"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mohamed Khasib Al-Hosni",
       "position": "Right Winger",
-      "age": 31,
+      "age": 32,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Nahda",
+          "year": "2014"
+        },
+        {
+          "club": "Al-Nasr",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Nahda",
+          "year": "2021"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 25,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdulsalam Al-Shukaili",
@@ -347,9 +1245,24 @@
       "age": 29,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 10,
-      "goals": 7,
-      "assists": 3
+      "appearances": 14,
+      "goals": 8,
+      "assists": 3,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 21,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hamood Al-Baridi",
@@ -357,9 +1270,33 @@
       "age": 30,
       "nationality": "TM nationality id 126",
       "club": "Bahla Club",
-      "appearances": 4,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2023"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Musab Al-Riyami",
@@ -369,7 +1306,22 @@
       "club": "Bahla Club",
       "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Hosni Al-Mushaifri",
@@ -379,7 +1331,39 @@
       "club": "Bahla Club",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al-Suwaiq",
+          "year": "2021"
+        },
+        {
+          "club": "Al-Mussanah C.",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Bahla Club",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

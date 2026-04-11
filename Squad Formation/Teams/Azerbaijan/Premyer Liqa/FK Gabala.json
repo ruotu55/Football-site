@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "AZ1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,41 @@
       "age": 22,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 6,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Neftchi 2 Baku",
+          "year": "2021"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2022"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2026"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 97,
+        "clean_sheets": 19
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 10,
+        "clean_sheets": 4
+      }
     },
     {
       "name": "Salahat Agayev",
@@ -31,9 +64,73 @@
       "age": 35,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 21,
+      "appearances": 20,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Keshla",
+          "year": "2008"
+        },
+        {
+          "club": "MOIK",
+          "year": "2011"
+        },
+        {
+          "club": "Keshla",
+          "year": "2011"
+        },
+        {
+          "club": "Sumgayit",
+          "year": "2012"
+        },
+        {
+          "club": "Keshla",
+          "year": "2013"
+        },
+        {
+          "club": "Sumgayit",
+          "year": "2016"
+        },
+        {
+          "club": "Keshla",
+          "year": "2016"
+        },
+        {
+          "club": "Neftchi PFK",
+          "year": "2017"
+        },
+        {
+          "club": "Sabah FK",
+          "year": "2021"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2022"
+        },
+        {
+          "club": "FK Sabail",
+          "year": "2023"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 364,
+        "clean_sheets": 111
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 27,
+        "clean_sheets": 8
+      }
     },
     {
       "name": "Habib Hüshanov",
@@ -41,9 +138,33 @@
       "age": 18,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala 2",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 6,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +174,69 @@
       "age": 28,
       "nationality": "Brazil",
       "club": "FK Gabala",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Avaí FC",
+          "year": "2018"
+        },
+        {
+          "club": "Cuiabá-MT",
+          "year": "2020"
+        },
+        {
+          "club": "Avaí FC",
+          "year": "2021"
+        },
+        {
+          "club": "SC Sagamihara",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Brusque",
+          "year": "2023"
+        },
+        {
+          "club": "Operário VG",
+          "year": "2023"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "Botev Vratsa",
+          "year": "2023"
+        },
+        {
+          "club": "PERSIS",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Isaac Amoah",
@@ -63,9 +244,53 @@
       "age": 25,
       "nationality": "Ghana",
       "club": "FK Gabala",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Valladolid Prom",
+          "year": "2020"
+        },
+        {
+          "club": "Algeciras CF",
+          "year": "2022"
+        },
+        {
+          "club": "Valladolid Prom",
+          "year": "2023"
+        },
+        {
+          "club": "SD Tarazona",
+          "year": "2023"
+        },
+        {
+          "club": "Pogon Siedlce",
+          "year": "2024"
+        },
+        {
+          "club": "At. Sanluqueño",
+          "year": "2025"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Seydina Keita",
@@ -73,9 +298,57 @@
       "age": 33,
       "nationality": "Senegal",
       "club": "FK Gabala",
-      "appearances": 10,
+      "appearances": 9,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Molde FK",
+          "year": "2014"
+        },
+        {
+          "club": "Diambars FC",
+          "year": "2014"
+        },
+        {
+          "club": "Liepaja",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Panevezys",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Tadamon SC",
+          "year": "2024"
+        },
+        {
+          "club": "Panevezys",
+          "year": "2025"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 18,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Süleyman Damadayev",
@@ -83,9 +356,37 @@
       "age": 23,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 14,
+      "appearances": 12,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala 2",
+          "year": "2023"
+        },
+        {
+          "club": "Shamakhi",
+          "year": "2023"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 19,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Murad Musayev",
@@ -93,9 +394,45 @@
       "age": 31,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 24,
+      "appearances": 21,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala",
+          "year": "2013"
+        },
+        {
+          "club": "FK Sabail",
+          "year": "2017"
+        },
+        {
+          "club": "FK Shuvalan",
+          "year": "2018"
+        },
+        {
+          "club": "FK Zira 2",
+          "year": "2018"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salman Alasgarov",
@@ -105,7 +442,39 @@
       "club": "FK Gabala",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PFK Zaqatala",
+          "year": "2020"
+        },
+        {
+          "club": "FK Gabala 2",
+          "year": "2021"
+        },
+        {
+          "club": "Shamakhi",
+          "year": "2023"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Turan Manafov",
@@ -113,9 +482,65 @@
       "age": 27,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 19,
+      "appearances": 8,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "PFK Zaqatala",
+          "year": "2019"
+        },
+        {
+          "club": "FK Sabail",
+          "year": "2019"
+        },
+        {
+          "club": "Olymp. Volou",
+          "year": "2022"
+        },
+        {
+          "club": "FK Sabail",
+          "year": "2022"
+        },
+        {
+          "club": "Araz-Nakhchivan",
+          "year": "2023"
+        },
+        {
+          "club": "Kapaz PFK",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2025"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2026"
+        },
+        {
+          "club": "Stellenbosch FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 176,
+        "goals": 8,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nicat Aliyev",
@@ -123,9 +548,37 @@
       "age": 24,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sumqayit 2",
+          "year": "2020"
+        },
+        {
+          "club": "FK Gabala 2",
+          "year": "2022"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rüfat Ahmadov",
@@ -135,7 +588,47 @@
       "club": "FK Gabala",
       "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala",
+          "year": "2020"
+        },
+        {
+          "club": "Kapaz PFK",
+          "year": "2023"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        },
+        {
+          "club": "Turan Tovuz",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        },
+        {
+          "club": "Turan Tovuz",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 75,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nugay Rashidov",
@@ -143,9 +636,41 @@
       "age": 22,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 23,
-      "goals": 2,
-      "assists": 2
+      "appearances": 20,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "MOIK",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2023"
+        },
+        {
+          "club": "FK Gabala 2",
+          "year": "2023"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 32,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Eshqin Ahmadov",
@@ -153,9 +678,33 @@
       "age": 20,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 25,
-      "goals": 0,
-      "assists": 1
+      "appearances": 24,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala 2",
+          "year": "2022"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 37,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elnur Mustafayev",
@@ -165,7 +714,31 @@
       "club": "FK Gabala",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala 2",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +748,61 @@
       "age": 28,
       "nationality": "Spain",
       "club": "FK Gabala",
-      "appearances": 28,
+      "appearances": 24,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Valencia CF You",
+          "year": "2014"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "UD Logroñés",
+          "year": "2019"
+        },
+        {
+          "club": "CyD Leonesa",
+          "year": "2022"
+        },
+        {
+          "club": "UD Logroñés",
+          "year": "2022"
+        },
+        {
+          "club": "Atl. Baleares",
+          "year": "2023"
+        },
+        {
+          "club": "KMSK Deinze",
+          "year": "2024"
+        },
+        {
+          "club": "NK Varazdin",
+          "year": "2025"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 192,
+        "goals": 3,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sambou Sissoko",
@@ -185,9 +810,57 @@
       "age": 26,
       "nationality": "France",
       "club": "FK Gabala",
-      "appearances": 17,
+      "appearances": 7,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Tours FC",
+          "year": "2017"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2019"
+        },
+        {
+          "club": "Quevilly Rouen",
+          "year": "2020"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2021"
+        },
+        {
+          "club": "RFC Seraing",
+          "year": "2022"
+        },
+        {
+          "club": "Vorskla Poltava",
+          "year": "2024"
+        },
+        {
+          "club": "Valenciennes FC",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 226,
+        "goals": 8,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shahin Shahniyarov",
@@ -195,9 +868,33 @@
       "age": 21,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 27,
+      "appearances": 24,
       "goals": 0,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FK Gabala 2",
+          "year": "2022"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Farid Isgandarov",
@@ -205,9 +902,37 @@
       "age": 25,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 21,
+      "appearances": 17,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Neftchi 2 Baku",
+          "year": "2021"
+        },
+        {
+          "club": "FK Gabala 2",
+          "year": "2022"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Asif Mammadov",
@@ -217,7 +942,51 @@
       "club": "FK Gabala",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "MKT Araz",
+          "year": "2006"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2007"
+        },
+        {
+          "club": "Standard",
+          "year": "2007"
+        },
+        {
+          "club": "Keshla",
+          "year": "2008"
+        },
+        {
+          "club": "Khazar Lankaran",
+          "year": "2010"
+        },
+        {
+          "club": "Keshla",
+          "year": "2011"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2015"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 368,
+        "goals": 20,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Qadir Ramazanov",
@@ -227,7 +996,27 @@
       "club": "FK Gabala",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Salihu Nasiru",
@@ -237,7 +1026,27 @@
       "club": "FK Gabala",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 16,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +1056,33 @@
       "age": 22,
       "nationality": "Republic of the Congo",
       "club": "FK Gabala",
-      "appearances": 28,
-      "goals": 7,
-      "assists": 6
+      "appearances": 25,
+      "goals": 6,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Diables Noirs",
+          "year": "2022"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 56,
+        "goals": 12,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ziya Shakarkhanov",
@@ -257,9 +1090,33 @@
       "age": 18,
       "nationality": "Azerbaijan",
       "club": "FK Gabala",
-      "appearances": 5,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FK Gabala 2",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adriel Ba Loua",
@@ -267,9 +1124,65 @@
       "age": 29,
       "nationality": "Ivory Coast",
       "club": "FK Gabala",
-      "appearances": 26,
+      "appearances": 23,
       "goals": 4,
-      "assists": 5
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "ASEC Mimosas",
+          "year": "2016"
+        },
+        {
+          "club": "Vejle BK",
+          "year": "2016"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2018"
+        },
+        {
+          "club": "Karvina",
+          "year": "2018"
+        },
+        {
+          "club": "ASEC Mimosas",
+          "year": "2019"
+        },
+        {
+          "club": "Karvina",
+          "year": "2019"
+        },
+        {
+          "club": "Viktoria Plzeň",
+          "year": "2020"
+        },
+        {
+          "club": "Lech Poznan",
+          "year": "2021"
+        },
+        {
+          "club": "SM Caen",
+          "year": "2025"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 295,
+        "goals": 31,
+        "assists": 45,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Paulo Quimbila",
@@ -277,9 +1190,33 @@
       "age": 20,
       "nationality": "Angola",
       "club": "FK Gabala",
-      "appearances": 14,
+      "appearances": 12,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al-Ahli Club",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Prince Owusu",
@@ -287,9 +1224,29 @@
       "age": 20,
       "nationality": "Ghana",
       "club": "FK Gabala",
-      "appearances": 26,
-      "goals": 7,
-      "assists": 3
+      "appearances": 23,
+      "goals": 4,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 7,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Sangaré",
@@ -298,8 +1255,76 @@
       "nationality": "France",
       "club": "FK Gabala",
       "appearances": 19,
-      "goals": 3,
-      "assists": 0
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Andria",
+          "year": "2010"
+        },
+        {
+          "club": "Entente SSG",
+          "year": "2013"
+        },
+        {
+          "club": "FC Chambly Oise",
+          "year": "2014"
+        },
+        {
+          "club": "US Avranches",
+          "year": "2016"
+        },
+        {
+          "club": "AJ Auxerre",
+          "year": "2017"
+        },
+        {
+          "club": "Giresunspor",
+          "year": "2018"
+        },
+        {
+          "club": "Menemenspor",
+          "year": "2019"
+        },
+        {
+          "club": "US Créteil-L",
+          "year": "2020"
+        },
+        {
+          "club": "US Orléans",
+          "year": "2021"
+        },
+        {
+          "club": "Le Puy Foot",
+          "year": "2022"
+        },
+        {
+          "club": "Othellos Athien",
+          "year": "2023"
+        },
+        {
+          "club": "Hapoel Hadera",
+          "year": "2024"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 319,
+        "goals": 68,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismaheel Akinade",
@@ -307,9 +1332,89 @@
       "age": 32,
       "nationality": "Nigeria",
       "club": "FK Gabala",
-      "appearances": 17,
-      "goals": 4,
-      "assists": 1
+      "appearances": 10,
+      "goals": 1,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Bray Wanderers",
+          "year": "2012"
+        },
+        {
+          "club": "Bluebell United",
+          "year": "2015"
+        },
+        {
+          "club": "Bohemians",
+          "year": "2015"
+        },
+        {
+          "club": "Waterford FC",
+          "year": "2018"
+        },
+        {
+          "club": "HCMC FC",
+          "year": "2019"
+        },
+        {
+          "club": "Da Nang FC",
+          "year": "2020"
+        },
+        {
+          "club": "Ha Tinh FC",
+          "year": "2020"
+        },
+        {
+          "club": "Telecom Egypt SC",
+          "year": "2021"
+        },
+        {
+          "club": "Sheikh Russel",
+          "year": "2022"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Kelantan FC",
+          "year": "2023"
+        },
+        {
+          "club": "Kelantan Utd.",
+          "year": "2023"
+        },
+        {
+          "club": "Terengganu FC",
+          "year": "2024"
+        },
+        {
+          "club": "Without Club",
+          "year": "2025"
+        },
+        {
+          "club": "FC Andijon",
+          "year": "2025"
+        },
+        {
+          "club": "FK Gabala",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 325,
+        "goals": 86,
+        "assists": 50,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

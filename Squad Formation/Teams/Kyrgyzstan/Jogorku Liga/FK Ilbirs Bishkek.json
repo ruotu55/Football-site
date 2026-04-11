@@ -8,10 +8,11 @@
     "apiBase": "https://tmapi-alpha.transfermarkt.technology",
     "season": {
       "seasonId": 2025,
-      "label": "25/26",
-      "cyclicalName": "2026"
+      "label": "2026",
+      "cyclicalName": "2026",
+      "competitionId": "KG1L"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,45 @@
       "age": 25,
       "nationality": "Ukraine",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "FC Uzhgorod",
+          "year": "2019"
+        },
+        {
+          "club": "Kisvárda",
+          "year": "2022"
+        },
+        {
+          "club": "Tarpa",
+          "year": "2024"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 79,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 116,
+        "clean_sheets": 22
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ermek Kemelbekov",
@@ -33,7 +70,27 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Kuluev",
@@ -43,7 +100,27 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +130,29 @@
       "age": 19,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aitenir Balbakov",
@@ -63,9 +160,37 @@
       "age": 21,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2021"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 54,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aktan Abdykalilov",
@@ -73,9 +198,29 @@
       "age": 19,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nazar Vyzdryk",
@@ -83,9 +228,65 @@
       "age": 29,
       "nationality": "Ukraine",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 0,
+      "appearances": 2,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Zirka",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2019"
+        },
+        {
+          "club": "Nyva Vinnytsya",
+          "year": "2019"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Pärnu JK",
+          "year": "2020"
+        },
+        {
+          "club": "FK Ekranas",
+          "year": "2023"
+        },
+        {
+          "club": "Neptunas",
+          "year": "2023"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Kyrgyzaltyn",
+          "year": "2025"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 116,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aidar Muratbekov",
@@ -95,7 +296,27 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Bekzat Urmamatov",
@@ -105,7 +326,22 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Shakhsultan Jumabaev",
@@ -115,7 +351,27 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilya Bondarenko",
@@ -123,19 +379,59 @@
       "age": 18,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mukhammadyusuf Makhmudzhanov",
       "position": "Left-Back",
-      "age": 18,
+      "age": 19,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arseniy Kozhushko",
@@ -145,7 +441,22 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Erbol Bakirdinov",
@@ -153,9 +464,29 @@
       "age": 18,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 24,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nadzhibullo Alizhanov",
@@ -165,7 +496,35 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2024"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 42,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -175,9 +534,29 @@
       "age": 19,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 18,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Zhanbolot Ormonov",
@@ -187,7 +566,27 @@
       "club": "FK Ilbirs Bishkek",
       "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 17,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Taras Gevlych",
@@ -195,9 +594,57 @@
       "age": 25,
       "nationality": "Ukraine",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 1,
-      "goals": 1,
-      "assists": 0
+      "appearances": 3,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "LZS Stary Ujazd",
+          "year": "2019"
+        },
+        {
+          "club": "Śledziejowice",
+          "year": "2020"
+        },
+        {
+          "club": "Kryvbas-2",
+          "year": "2021"
+        },
+        {
+          "club": "Skoruk",
+          "year": "2021"
+        },
+        {
+          "club": "P. Wiekszyce",
+          "year": "2022"
+        },
+        {
+          "club": "FK Ekranas",
+          "year": "2023"
+        },
+        {
+          "club": "Neptunas",
+          "year": "2025"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 19,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrey Levkovets",
@@ -205,9 +652,65 @@
       "age": 29,
       "nationality": "Belarus",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 3,
-      "goals": 1,
-      "assists": 0
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "Smolevichi",
+          "year": "2016"
+        },
+        {
+          "club": "FC Baranovichi",
+          "year": "2018"
+        },
+        {
+          "club": "Granit",
+          "year": "2018"
+        },
+        {
+          "club": "Krumkachi",
+          "year": "2021"
+        },
+        {
+          "club": "FK Khujand",
+          "year": "2022"
+        },
+        {
+          "club": "FK Minsk",
+          "year": "2022"
+        },
+        {
+          "club": "Dzerzhinsk",
+          "year": "2023"
+        },
+        {
+          "club": "FK Smorgon",
+          "year": "2024"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 259,
+        "goals": 32,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Kanay Mederbekov",
@@ -215,9 +718,29 @@
       "age": 18,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Oleksandr Dovgyi",
@@ -225,9 +748,53 @@
       "age": 28,
       "nationality": "Ukraine",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "Ingulets-2",
+          "year": "2018"
+        },
+        {
+          "club": "Nevėžis",
+          "year": "2019"
+        },
+        {
+          "club": "Chayka",
+          "year": "2021"
+        },
+        {
+          "club": "Neptunas",
+          "year": "2022"
+        },
+        {
+          "club": "Tauras",
+          "year": "2025"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 13,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Arlen Imerov",
@@ -235,9 +802,29 @@
       "age": 18,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 30,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,19 +834,71 @@
       "age": 18,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 4,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 22,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Daniel Omarov",
       "position": "Second Striker",
-      "age": 20,
+      "age": 21,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 1,
+      "appearances": 3,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2023"
+        },
+        {
+          "club": "Alga Bishkek",
+          "year": "2025"
+        },
+        {
+          "club": "Bars",
+          "year": "2025"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 47,
+        "goals": 10,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilya Karpuk",
@@ -267,9 +906,81 @@
       "age": 28,
       "nationality": "Russia",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 15,
-      "goals": 4,
-      "assists": 0
+      "appearances": 4,
+      "goals": 3,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enisey",
+          "year": "2017"
+        },
+        {
+          "club": "FC Ryazan",
+          "year": "2018"
+        },
+        {
+          "club": "Lada Dimitrovgrad",
+          "year": "2019"
+        },
+        {
+          "club": "Enisey",
+          "year": "2020"
+        },
+        {
+          "club": "Volga Uljanovsk",
+          "year": "2020"
+        },
+        {
+          "club": "Enisey",
+          "year": "2021"
+        },
+        {
+          "club": "Zvezda Perm",
+          "year": "2021"
+        },
+        {
+          "club": "Enisey",
+          "year": "2022"
+        },
+        {
+          "club": "Tekstilshchik",
+          "year": "2022"
+        },
+        {
+          "club": "Chelyabinsk",
+          "year": "2023"
+        },
+        {
+          "club": "Irtysh Omsk",
+          "year": "2023"
+        },
+        {
+          "club": "Veles Moscow",
+          "year": "2024"
+        },
+        {
+          "club": "Ufa",
+          "year": "2025"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 189,
+        "goals": 48,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Amantur Isakov",
@@ -277,19 +988,59 @@
       "age": 17,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
-      "goals": 0,
-      "assists": 0
+      "appearances": 4,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 27,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Caleb Kopytin",
+      "name": "Kaleb Kopytin",
       "position": "Centre-Forward",
       "age": 17,
       "nationality": "Kyrgyzstan",
       "club": "FK Ilbirs Bishkek",
       "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alisher Rakhimzhanov",
@@ -297,9 +1048,45 @@
       "age": 22,
       "nationality": "Kazakhstan",
       "club": "FK Ilbirs Bishkek",
-      "appearances": 2,
+      "appearances": 3,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Kairat-Zhas",
+          "year": "2021"
+        },
+        {
+          "club": "Khan Tengri",
+          "year": "2023"
+        },
+        {
+          "club": "Altay Oskemen",
+          "year": "2024"
+        },
+        {
+          "club": "Khan Tengri",
+          "year": "2024"
+        },
+        {
+          "club": "Ilbirs Bishkek",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 113,
+        "goals": 19,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

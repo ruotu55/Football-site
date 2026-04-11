@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "FR1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,7 +21,7 @@
       "age": 20,
       "nationality": "Belgium",
       "club": "RC Strasbourg Alsace",
-      "appearances": 40,
+      "appearances": 26,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -52,7 +53,21 @@
           "club": "Chelsea",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 143,
+        "clean_sheets": 26
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Stefan Bajic",
@@ -88,7 +103,21 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 115,
+        "clean_sheets": 12
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Karl-Johan Johnsson",
@@ -96,7 +125,7 @@
       "age": 36,
       "nationality": "Sweden",
       "club": "RC Strasbourg Alsace",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -128,7 +157,21 @@
           "club": "R. Strasbourg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 409,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 600,
+        "clean_sheets": 112
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 7,
+        "clean_sheets": 3
+      }
     }
   ],
   "defenders": [
@@ -138,8 +181,8 @@
       "age": 22,
       "nationality": "France",
       "club": "RC Strasbourg Alsace",
-      "appearances": 33,
-      "goals": 2,
+      "appearances": 20,
+      "goals": 0,
       "assists": 1,
       "transfer_history": [
         {
@@ -150,7 +193,55 @@
           "club": "R. Strasbourg",
           "year": "2022"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 157,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Lucas Høgsberg",
+      "position": "Centre-Back",
+      "age": 19,
+      "nationality": "Denmark",
+      "club": "RC Strasbourg Alsace",
+      "appearances": 17,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Nordsjaelland",
+          "year": "2023"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 123,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Aarón Anselmino",
@@ -158,9 +249,9 @@
       "age": 20,
       "nationality": "Argentina",
       "club": "RC Strasbourg Alsace",
-      "appearances": 12,
-      "goals": 1,
-      "assists": 1,
+      "appearances": 2,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "Boca Juniors",
@@ -186,27 +277,21 @@
           "club": "R. Strasbourg",
           "year": "2026"
         }
-      ]
-    },
-    {
-      "name": "Lucas Høgsberg",
-      "position": "Centre-Back",
-      "age": 19,
-      "nationality": "Denmark",
-      "club": "RC Strasbourg Alsace",
-      "appearances": 33,
-      "goals": 0,
-      "assists": 0,
-      "transfer_history": [
-        {
-          "club": "Nordsjaelland",
-          "year": "2023"
-        },
-        {
-          "club": "R. Strasbourg",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 45,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Andrew Omobamidele",
@@ -214,7 +299,7 @@
       "age": 23,
       "nationality": "Republic of Ireland",
       "club": "RC Strasbourg Alsace",
-      "appearances": 30,
+      "appearances": 19,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -234,7 +319,21 @@
           "club": "Nott'm Forest",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 161,
+        "goals": 7,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ben Chilwell",
@@ -242,9 +341,9 @@
       "age": 29,
       "nationality": "England",
       "club": "RC Strasbourg Alsace",
-      "appearances": 28,
+      "appearances": 19,
       "goals": 0,
-      "assists": 3,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Leicester",
@@ -274,7 +373,21 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 318,
+        "goals": 16,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Guéla Doué",
@@ -282,9 +395,9 @@
       "age": 23,
       "nationality": "Ivory Coast",
       "club": "RC Strasbourg Alsace",
-      "appearances": 28,
+      "appearances": 20,
       "goals": 2,
-      "assists": 6,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Stade Rennais",
@@ -294,7 +407,21 @@
           "club": "R. Strasbourg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 124,
+        "goals": 4,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -304,7 +431,7 @@
       "age": 22,
       "nationality": "France",
       "club": "RC Strasbourg Alsace",
-      "appearances": 23,
+      "appearances": 18,
       "goals": 1,
       "assists": 1,
       "transfer_history": [
@@ -332,7 +459,21 @@
           "club": "R. Strasbourg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 132,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Maxi Oyedele",
@@ -340,7 +481,7 @@
       "age": 21,
       "nationality": "Poland",
       "club": "RC Strasbourg Alsace",
-      "appearances": 6,
+      "appearances": 3,
       "goals": 1,
       "assists": 0,
       "transfer_history": [
@@ -360,7 +501,21 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 11,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Rafael Luís",
@@ -368,7 +523,7 @@
       "age": 21,
       "nationality": "Portugal",
       "club": "RC Strasbourg Alsace",
-      "appearances": 14,
+      "appearances": 8,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -380,7 +535,21 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 85,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Valentín Barco",
@@ -388,9 +557,9 @@
       "age": 21,
       "nationality": "Argentina",
       "club": "RC Strasbourg Alsace",
-      "appearances": 37,
-      "goals": 2,
-      "assists": 9,
+      "appearances": 24,
+      "goals": 1,
+      "assists": 4,
       "transfer_history": [
         {
           "club": "Boca Juniors",
@@ -412,7 +581,51 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 3,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Samir El Mourabet",
+      "position": "Central Midfield",
+      "age": 20,
+      "nationality": "Morocco",
+      "club": "RC Strasbourg Alsace",
+      "appearances": 27,
+      "goals": 0,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "R. Strasbourg",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 96,
+        "goals": 5,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathis Amougou",
@@ -420,7 +633,7 @@
       "age": 20,
       "nationality": "France",
       "club": "RC Strasbourg Alsace",
-      "appearances": 16,
+      "appearances": 9,
       "goals": 0,
       "assists": 0,
       "transfer_history": [
@@ -436,23 +649,21 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Samir El Mourabet",
-      "position": "Central Midfield",
-      "age": 20,
-      "nationality": "Morocco",
-      "club": "RC Strasbourg Alsace",
-      "appearances": 37,
-      "goals": 1,
-      "assists": 2,
-      "transfer_history": [
-        {
-          "club": "R. Strasbourg",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 5,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Diego Moreira",
@@ -460,9 +671,9 @@
       "age": 21,
       "nationality": "Belgium",
       "club": "RC Strasbourg Alsace",
-      "appearances": 33,
-      "goals": 4,
-      "assists": 7,
+      "appearances": 23,
+      "goals": 3,
+      "assists": 5,
       "transfer_history": [
         {
           "club": "Chelsea",
@@ -480,7 +691,21 @@
           "club": "R. Strasbourg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 150,
+        "goals": 21,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Sebastian Nanasi",
@@ -488,9 +713,9 @@
       "age": 23,
       "nationality": "Sweden",
       "club": "RC Strasbourg Alsace",
-      "appearances": 23,
-      "goals": 5,
-      "assists": 4,
+      "appearances": 13,
+      "goals": 3,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Kristianstad FC",
@@ -516,7 +741,21 @@
           "club": "R. Strasbourg",
           "year": "2024"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 184,
+        "goals": 44,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 9,
+        "goals": 3,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Julio Enciso",
@@ -524,9 +763,9 @@
       "age": 22,
       "nationality": "Paraguay",
       "club": "RC Strasbourg Alsace",
-      "appearances": 30,
-      "goals": 9,
-      "assists": 3,
+      "appearances": 20,
+      "goals": 1,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Libertad",
@@ -548,7 +787,21 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 174,
+        "goals": 40,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 4,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -558,9 +811,9 @@
       "age": 23,
       "nationality": "Ivory Coast",
       "club": "RC Strasbourg Alsace",
-      "appearances": 33,
-      "goals": 13,
-      "assists": 5,
+      "appearances": 22,
+      "goals": 7,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "Margate FC",
@@ -578,7 +831,21 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 32,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Abdoul Ouattara",
@@ -586,39 +853,29 @@
       "age": 20,
       "nationality": "Ivory Coast",
       "club": "RC Strasbourg Alsace",
-      "appearances": 34,
-      "goals": 3,
+      "appearances": 23,
+      "goals": 2,
       "assists": 1,
       "transfer_history": [
         {
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
-    },
-    {
-      "name": "Samuel Amo-Ameyaw",
-      "position": "Right Winger",
-      "age": 19,
-      "nationality": "England",
-      "club": "RC Strasbourg Alsace",
-      "appearances": 31,
-      "goals": 1,
-      "assists": 4,
-      "transfer_history": [
-        {
-          "club": "Southampton",
-          "year": "2023"
-        },
-        {
-          "club": "R. Strasbourg",
-          "year": "2025"
-        },
-        {
-          "club": "Southampton",
-          "year": "2025"
-        }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 102,
+        "goals": 16,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Gessime Yassine",
@@ -626,9 +883,9 @@
       "age": 20,
       "nationality": "Morocco",
       "club": "RC Strasbourg Alsace",
-      "appearances": 26,
-      "goals": 3,
-      "assists": 10,
+      "appearances": 7,
+      "goals": 0,
+      "assists": 2,
       "transfer_history": [
         {
           "club": "USL Dunkerque",
@@ -638,39 +895,59 @@
           "club": "R. Strasbourg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 14,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
-      "name": "Emmanuel Emegha",
-      "position": "Centre-Forward",
-      "age": 23,
-      "nationality": "Netherlands",
+      "name": "Samuel Amo-Ameyaw",
+      "position": "Right Winger",
+      "age": 19,
+      "nationality": "England",
       "club": "RC Strasbourg Alsace",
-      "appearances": 11,
-      "goals": 7,
+      "appearances": 20,
+      "goals": 1,
       "assists": 2,
       "transfer_history": [
         {
-          "club": "Sparta R.",
-          "year": "2020"
-        },
-        {
-          "club": "Royal Antwerp",
-          "year": "2022"
-        },
-        {
-          "club": "Sturm Graz",
-          "year": "2022"
-        },
-        {
-          "club": "R. Strasbourg",
+          "club": "Southampton",
           "year": "2023"
         },
         {
-          "club": "Chelsea",
-          "year": "2026"
+          "club": "R. Strasbourg",
+          "year": "2025"
+        },
+        {
+          "club": "Southampton",
+          "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 112,
+        "goals": 23,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joaquín Panichelli",
@@ -678,9 +955,9 @@
       "age": 23,
       "nationality": "Argentina",
       "club": "RC Strasbourg Alsace",
-      "appearances": 39,
-      "goals": 20,
-      "assists": 4,
+      "appearances": 27,
+      "goals": 16,
+      "assists": 1,
       "transfer_history": [
         {
           "club": "Belgrano JV",
@@ -706,7 +983,67 @@
           "club": "R. Strasbourg",
           "year": "2025"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 48,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
+    },
+    {
+      "name": "Emmanuel Emegha",
+      "position": "Centre-Forward",
+      "age": 23,
+      "nationality": "Netherlands",
+      "club": "RC Strasbourg Alsace",
+      "appearances": 7,
+      "goals": 4,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sparta R.",
+          "year": "2020"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2022"
+        },
+        {
+          "club": "Sturm Graz",
+          "year": "2022"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2023"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 170,
+        "goals": 57,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "David Datro Fofana",
@@ -714,9 +1051,9 @@
       "age": 23,
       "nationality": "Ivory Coast",
       "club": "RC Strasbourg Alsace",
-      "appearances": 22,
-      "goals": 8,
-      "assists": 1,
+      "appearances": 4,
+      "goals": 0,
+      "assists": 0,
       "transfer_history": [
         {
           "club": "AFAD Djékanou",
@@ -766,7 +1103,21 @@
           "club": "R. Strasbourg",
           "year": "2026"
         }
-      ]
+      ],
+      "club_career_totals": {
+        "appearances": 139,
+        "goals": 49,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }

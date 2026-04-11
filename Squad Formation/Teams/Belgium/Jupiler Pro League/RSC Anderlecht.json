@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "BE1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season).",
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
     "missingLogoFile": true
   },
   "goalkeepers": [
@@ -21,9 +22,53 @@
       "age": 33,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 39,
+      "appearances": 30,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Club Brugge",
+          "year": "2010"
+        },
+        {
+          "club": "Waasland-Beveren",
+          "year": "2012"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2013"
+        },
+        {
+          "club": "Waasland-Beveren",
+          "year": "2013"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2015"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2018"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 299,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 371,
+        "clean_sheets": 105
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Justin Heekeren",
@@ -31,9 +76,45 @@
       "age": 25,
       "nationality": "Germany",
       "club": "RSC Anderlecht",
-      "appearances": 1,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RW Oberhausen",
+          "year": "2019"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2022"
+        },
+        {
+          "club": "Patro Eisden",
+          "year": "2024"
+        },
+        {
+          "club": "FC Schalke 04",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 169,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": 233,
+        "clean_sheets": 44
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Joachim Imbrechts",
@@ -41,9 +122,33 @@
       "age": 24,
       "nationality": "Sweden",
       "club": "RSC Anderlecht",
-      "appearances": 16,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Union SG",
+          "year": "2022"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 38,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 60,
+        "clean_sheets": 8
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "defenders": [
@@ -53,9 +158,41 @@
       "age": 22,
       "nationality": "Denmark",
       "club": "RSC Anderlecht",
-      "appearances": 36,
+      "appearances": 25,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lyngby BK Youth",
+          "year": "2019"
+        },
+        {
+          "club": "Lyngby BK",
+          "year": "2022"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 198,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Marco Kana",
@@ -63,9 +200,37 @@
       "age": 23,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 25,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2019"
+        },
+        {
+          "club": "KV Kortrijk",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 120,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 15,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mihajlo Ilić",
@@ -73,9 +238,57 @@
       "age": 22,
       "nationality": "Serbia",
       "club": "RSC Anderlecht",
-      "appearances": 12,
+      "appearances": 9,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Partizan Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Partizan U15",
+          "year": "2017"
+        },
+        {
+          "club": "Partizan",
+          "year": "2022"
+        },
+        {
+          "club": "Bologna",
+          "year": "2024"
+        },
+        {
+          "club": "Partizan",
+          "year": "2024"
+        },
+        {
+          "club": "Bologna",
+          "year": "2025"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        },
+        {
+          "club": "Bologna",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 148,
+        "goals": 13,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Moussa Diarra",
@@ -83,9 +296,41 @@
       "age": 25,
       "nationality": "Mali",
       "club": "RSC Anderlecht",
-      "appearances": 11,
+      "appearances": 5,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Toulouse",
+          "year": "2019"
+        },
+        {
+          "club": "Alavés",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        },
+        {
+          "club": "Alavés",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 182,
+        "goals": 1,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 5,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mathys Angély",
@@ -93,9 +338,37 @@
       "age": 18,
       "nationality": "France",
       "club": "RSC Anderlecht",
-      "appearances": 8,
-      "goals": 2,
-      "assists": 1
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Wolfsburg",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ludwig Augustinsson",
@@ -103,9 +376,69 @@
       "age": 31,
       "nationality": "Sweden",
       "club": "RSC Anderlecht",
-      "appearances": 26,
+      "appearances": 19,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Brommapojkarna",
+          "year": "2012"
+        },
+        {
+          "club": "IFK Göteborg",
+          "year": "2013"
+        },
+        {
+          "club": "Copenhagen",
+          "year": "2015"
+        },
+        {
+          "club": "Werder Bremen",
+          "year": "2017"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2021"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2022"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2023"
+        },
+        {
+          "club": "RCD Mallorca",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2023"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 428,
+        "goals": 14,
+        "assists": 72,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ilay Camara",
@@ -113,9 +446,45 @@
       "age": 23,
       "nationality": "Senegal",
       "club": "RSC Anderlecht",
-      "appearances": 22,
+      "appearances": 19,
       "goals": 1,
-      "assists": 2
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RWDM",
+          "year": "2023"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2024"
+        },
+        {
+          "club": "RWDM",
+          "year": "2025"
+        },
+        {
+          "club": "Standard Liège",
+          "year": "2025"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 4,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 3,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Killian Sardella",
@@ -123,19 +492,63 @@
       "age": 23,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 28,
+      "appearances": 25,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ali Maamar",
       "position": "Right-Back",
-      "age": 20,
+      "age": 21,
       "nationality": "Morocco",
       "club": "RSC Anderlecht",
-      "appearances": 23,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSCA Futures",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 71,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thomas Foket",
@@ -143,9 +556,45 @@
       "age": 31,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 5,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "KAA Gent",
+          "year": "2012"
+        },
+        {
+          "club": "KV Oostende",
+          "year": "2013"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2014"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2018"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 433,
+        "goals": 5,
+        "assists": 30,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "midfielders": [
@@ -155,9 +604,37 @@
       "age": 24,
       "nationality": "Netherlands",
       "club": "RSC Anderlecht",
-      "appearances": 30,
+      "appearances": 22,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ajax Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Go Ahead Eagles",
+          "year": "2022"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 17,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mats Rits",
@@ -165,9 +642,45 @@
       "age": 32,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 2,
+      "appearances": 1,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Germ. Beerschot",
+          "year": "2009"
+        },
+        {
+          "club": "Ajax",
+          "year": "2011"
+        },
+        {
+          "club": "KV Mechelen",
+          "year": "2013"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2018"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 498,
+        "goals": 44,
+        "assists": 48,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathan De Cat",
@@ -175,9 +688,37 @@
       "age": 17,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 37,
-      "goals": 3,
-      "assists": 5
+      "appearances": 29,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Unknown",
+          "year": "2015"
+        },
+        {
+          "club": "RSCA Futures",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 81,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Nathan-Dylan Saliba",
@@ -185,9 +726,33 @@
       "age": 22,
       "nationality": "Canada",
       "club": "RSC Anderlecht",
-      "appearances": 37,
-      "goals": 4,
-      "assists": 2
+      "appearances": 27,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Montréal",
+          "year": "2020"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 6,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Anas Tajaouart",
@@ -195,9 +760,33 @@
       "age": 20,
       "nationality": "Morocco",
       "club": "RSC Anderlecht",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 3
+      "appearances": 1,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSCA Futures",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 66,
+        "goals": 5,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mario Stroeykens",
@@ -205,9 +794,29 @@
       "age": 21,
       "nationality": "Democratic Republic of the Congo",
       "club": "RSC Anderlecht",
-      "appearances": 26,
+      "appearances": 20,
       "goals": 1,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 160,
+        "goals": 17,
+        "assists": 16,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Yari Verschaeren",
@@ -215,19 +824,99 @@
       "age": 24,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 27,
-      "goals": 1,
-      "assists": 2
+      "appearances": 19,
+      "goals": 0,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RSC Anderlecht",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 260,
+        "goals": 32,
+        "assists": 34,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Thorgan Hazard",
       "position": "Attacking Midfield",
-      "age": 32,
+      "age": 33,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 35,
-      "goals": 13,
-      "assists": 10
+      "appearances": 27,
+      "goals": 12,
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Lens",
+          "year": "2011"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2012"
+        },
+        {
+          "club": "Zulte Waregem",
+          "year": "2012"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2014"
+        },
+        {
+          "club": "Mönchengladbach",
+          "year": "2014"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2015"
+        },
+        {
+          "club": "Mönchengladbach",
+          "year": "2015"
+        },
+        {
+          "club": "Dortmund",
+          "year": "2019"
+        },
+        {
+          "club": "PSV",
+          "year": "2023"
+        },
+        {
+          "club": "Dortmund",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 547,
+        "goals": 113,
+        "assists": 117,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 47,
+        "goals": 9,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Alexis Flips",
@@ -235,9 +924,53 @@
       "age": 26,
       "nationality": "France",
       "club": "RSC Anderlecht",
-      "appearances": 2,
+      "appearances": 0,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AC Ajaccio",
+          "year": "2019"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2021"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2023"
+        },
+        {
+          "club": "Ankaragücü",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2024"
+        },
+        {
+          "club": "R Charleroi SC",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 185,
+        "goals": 22,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ],
   "attackers": [
@@ -247,9 +980,53 @@
       "age": 25,
       "nationality": "Mexico",
       "club": "RSC Anderlecht",
-      "appearances": 12,
-      "goals": 2,
-      "assists": 0
+      "appearances": 7,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zacatepec",
+          "year": "2019"
+        },
+        {
+          "club": "Chivas",
+          "year": "2019"
+        },
+        {
+          "club": "Monarcas Morelia",
+          "year": "2020"
+        },
+        {
+          "club": "Chivas",
+          "year": "2020"
+        },
+        {
+          "club": "Mazatlán FC",
+          "year": "2020"
+        },
+        {
+          "club": "UNAM Pumas",
+          "year": "2022"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 232,
+        "goals": 46,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 25,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Coba da Costa",
@@ -257,9 +1034,61 @@
       "age": 23,
       "nationality": "Guinea-Bissau",
       "club": "RSC Anderlecht",
-      "appearances": 18,
+      "appearances": 1,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "UD Almería Yout",
+          "year": "2014"
+        },
+        {
+          "club": "La Mojonera CF",
+          "year": "2018"
+        },
+        {
+          "club": "UD Maracena",
+          "year": "2020"
+        },
+        {
+          "club": "Berja CF",
+          "year": "2021"
+        },
+        {
+          "club": "Tabor Sezana",
+          "year": "2022"
+        },
+        {
+          "club": "UB Conquense",
+          "year": "2023"
+        },
+        {
+          "club": "Getafe",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        },
+        {
+          "club": "Getafe",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 64,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ibrahim Kanaté",
@@ -267,9 +1096,33 @@
       "age": 19,
       "nationality": "Mali",
       "club": "RSC Anderlecht",
-      "appearances": 25,
-      "goals": 3,
-      "assists": 0
+      "appearances": 15,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "RSCA Futures",
+          "year": "2025"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 34,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Tristan Degreef",
@@ -277,9 +1130,33 @@
       "age": 21,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 32,
-      "goals": 4,
-      "assists": 3
+      "appearances": 24,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "RSCA Futures",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 94,
+        "goals": 10,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Mihajlo Cvetkovic",
@@ -287,9 +1164,33 @@
       "age": 19,
       "nationality": "Serbia",
       "club": "RSC Anderlecht",
-      "appearances": 30,
-      "goals": 7,
-      "assists": 3
+      "appearances": 22,
+      "goals": 5,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Cukaricki",
+          "year": "2023"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 126,
+        "goals": 59,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Danylo Sikan",
@@ -297,9 +1198,57 @@
       "age": 24,
       "nationality": "Ukraine",
       "club": "RSC Anderlecht",
-      "appearances": 22,
-      "goals": 4,
-      "assists": 1
+      "appearances": 5,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "FC Mariupol",
+          "year": "2019"
+        },
+        {
+          "club": "Shakhtar D.",
+          "year": "2020"
+        },
+        {
+          "club": "FC Mariupol",
+          "year": "2020"
+        },
+        {
+          "club": "Shakhtar D.",
+          "year": "2021"
+        },
+        {
+          "club": "Hansa Rostock",
+          "year": "2022"
+        },
+        {
+          "club": "Shakhtar D.",
+          "year": "2022"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2025"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 43,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Adriano Bertaccini",
@@ -307,9 +1256,61 @@
       "age": 25,
       "nationality": "Belgium",
       "club": "RSC Anderlecht",
-      "appearances": 32,
-      "goals": 6,
-      "assists": 5
+      "appearances": 23,
+      "goals": 4,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "KRC Genk Youth",
+          "year": "2014"
+        },
+        {
+          "club": "Genk",
+          "year": "2019"
+        },
+        {
+          "club": "KMSK Deinze",
+          "year": "2019"
+        },
+        {
+          "club": "Genk",
+          "year": "2020"
+        },
+        {
+          "club": "A. Lustenau",
+          "year": "2020"
+        },
+        {
+          "club": "Thes Sport",
+          "year": "2021"
+        },
+        {
+          "club": "RFC Lüttich",
+          "year": "2023"
+        },
+        {
+          "club": "Sint-Truiden",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 201,
+        "goals": 87,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Elyèss Dao",
@@ -317,9 +1318,33 @@
       "age": 19,
       "nationality": "Morocco",
       "club": "RSC Anderlecht",
-      "appearances": 13,
+      "appearances": 0,
       "goals": 0,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Amiens SC",
+          "year": "2024"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 76,
+        "goals": 20,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     }
   ]
 }
