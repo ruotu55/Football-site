@@ -6,10 +6,12 @@ import {
   DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
   DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
   DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+  DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET,
   getDefaultPlayerPictureValues,
   getDefaultPlayerPictureValuesForCareerMode,
   getState,
   migrateShortsVideoOffLegacyNormalProfile,
+  migrateShortsVideoOnYOffset,
 } from "./state.js";
 import {
   projectAssetUrlFresh,
@@ -217,7 +219,7 @@ const CAREER_SILHOUETTE_MAX_REGULAR = 760;
 const CAREER_SILHOUETTE_BOTTOM_REGULAR = 525; /* legacy square was y=-235, h=760 */
 const CAREER_SILHOUETTE_MAX_SHORTS = 580;
 const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500; /* legacy square was y=-80, h=580 */
-/** Positive = move silhouette down in SVG user space (shorts + Video Mode). Layout uses SVG x/y, not CSS transform. */
+/** Positive = move silhouette down in SVG user space (shorts + Video Mode). */
 const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
 const CAREER_SILHOUETTE_CENTER_X_REGULAR = 505; /* 125 + 760/2 */
 const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500; /* 210 + 580/2 */
@@ -279,7 +281,10 @@ function applyCareerSilhouetteSvgImageRect(imageEl, isShorts, videoMode = false)
   imageEl.setAttribute("height", String(Math.round(hUx)));
 }
 
-function applyCareerSilhouetteAdjustments(silhouetteEl, st) {
+/** Extra Y clicks are now handled entirely by CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE (SVG y attribute). */
+const SHORTS_VIDEO_ON_EXTRA_Y_CLICKS = 0;
+
+function applyCareerSilhouetteAdjustments(silhouetteEl, st, extraYClicks = 0) {
   if (!silhouetteEl) return;
   const yOffset = Number(st?.silhouetteYOffset ?? DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET);
   const scaleX = Number(st?.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X);
@@ -290,7 +295,7 @@ function applyCareerSilhouetteAdjustments(silhouetteEl, st) {
   const safeScaleY = Number.isFinite(scaleY) ? scaleY : DEFAULT_PLAYER_SILHOUETTE_SCALE_Y;
 
   /* Width/height are absolute multipliers (1 = 100%); do not divide by DEFAULT or 0.85 would look like 1. */
-  const finalY = CAREER_SHADOW_UNIFORM_Y + safeYOffset * 2;
+  const finalY = CAREER_SHADOW_UNIFORM_Y + (safeYOffset + extraYClicks) * 2;
   const finalScaleX = CAREER_SHADOW_UNIFORM_SCALE * safeScaleX;
   const finalScaleY = CAREER_SHADOW_UNIFORM_SCALE * safeScaleY;
 
@@ -828,9 +833,11 @@ export function syncShortsCareerVideoPreviewLayers() {
   }
   const revealPhoto = document.getElementById("career-reveal-photo");
   const careerGrid = document.querySelector(".career-grid");
+  const statsPanel = document.getElementById("player-stats-panel");
   if (revealPhoto) {
     revealPhoto.classList.toggle("show", previewPostTimer || previewPreTimer);
     if (careerGrid) careerGrid.classList.toggle("reveal-active", previewPostTimer);
+    if (statsPanel) statsPanel.classList.toggle("reveal-active", previewPostTimer);
   }
 }
 
@@ -867,6 +874,125 @@ export function renderHeader() {
 /** Shared `teams.js` calls this after squad load; this runner has no pitch UI. */
 export function renderPitch() {}
 
+/* ═══════ Player Stats helpers (shorts video-mode-on info boxes) ═══════ */
+
+const SQUAD_POSITION_TO_BUCKET = {
+  Goalkeeper: "Goalkeeper",
+  "Centre-Back": "Defender",
+  "Left-Back": "Defender",
+  "Right-Back": "Defender",
+  Sweeper: "Defender",
+  "Defensive Midfield": "Midfielder",
+  "Central Midfield": "Midfielder",
+  "Attacking Midfield": "Midfielder",
+  "Left Midfield": "Midfielder",
+  "Right Midfield": "Midfielder",
+  "Left Winger": "Forward",
+  "Right Winger": "Forward",
+  "Centre-Forward": "Forward",
+  "Second Striker": "Forward",
+};
+
+function inferPositionBucketFromText(raw) {
+  const n = String(raw || "").trim().toLowerCase();
+  if (!n) return "";
+  if (n === "gk" || n.includes("goalkeeper") || n.includes("goal keeper")) return "Goalkeeper";
+  if (n.includes("sweeper") || n.includes("defender")) return "Defender";
+  if (n.includes("centre-back") || n.includes("center-back")) return "Defender";
+  if (/\b(cb|lb|rb|lcb|rcb|lwb|rwb)\b/.test(n)) return "Defender";
+  if (n.endsWith("-back") || n.includes("full-back") || n.includes("full back")) return "Defender";
+  if (n.includes("wing-back") || n.includes("wing back")) return "Defender";
+  if (n.includes("midfield")) return "Midfielder";
+  if (n.includes("winger") || n.includes("forward") || n.includes("striker")) return "Forward";
+  return "";
+}
+
+function mapSquadPositionToBucket(positionRaw) {
+  const key = String(positionRaw != null ? positionRaw : "").trim();
+  if (!key) return "";
+  if (Object.prototype.hasOwnProperty.call(SQUAD_POSITION_TO_BUCKET, key)) {
+    return SQUAD_POSITION_TO_BUCKET[key];
+  }
+  return inferPositionBucketFromText(key);
+}
+
+function formatPlayerCareerTotalStat(player, key) {
+  if (!player) return "";
+  const club = player.club_career_totals;
+  const nat = player.national_team_career_totals;
+  const vClub = club && club[key];
+  const vNat = nat && nat[key];
+  const nClub = vClub != null && Number.isFinite(Number(vClub)) ? Number(vClub) : null;
+  const nNat = vNat != null && Number.isFinite(Number(vNat)) ? Number(vNat) : null;
+  if (nClub === null && nNat === null) return "";
+  return String((nClub ?? 0) + (nNat ?? 0));
+}
+
+function formatPlayerPositionLabel(player) {
+  if (!player) return "";
+  return mapSquadPositionToBucket(player.position);
+}
+
+function createPlayerStatHeadIcon(kind) {
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("class", "player-stat-card__icon");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("width", "27");
+  svg.setAttribute("height", "27");
+  svg.setAttribute("aria-hidden", "true");
+
+  const strokeEl = (tag, attrs) => {
+    const el = document.createElementNS(NS, tag);
+    el.setAttribute("fill", "none");
+    el.setAttribute("stroke", "currentColor");
+    el.setAttribute("stroke-width", "1.65");
+    el.setAttribute("stroke-linecap", "round");
+    el.setAttribute("stroke-linejoin", "round");
+    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+    return el;
+  };
+
+  if (kind === "pitch") {
+    svg.append(
+      strokeEl("rect", { x: "3", y: "5", width: "18", height: "14", rx: "1.2" }),
+      strokeEl("line", { x1: "12", y1: "5", x2: "12", y2: "19" }),
+    );
+  } else if (kind === "ball") {
+    svg.append(
+      strokeEl("circle", { cx: "12", cy: "12", r: "7.5" }),
+      strokeEl("path", {
+        d: "M5.2 10c3.8 1.1 9.8 1.1 13.6 0M5.2 14c3.8-1.1 9.8-1.1 13.6 0M12 4.5v15",
+      }),
+    );
+  } else if (kind === "goal") {
+    svg.setAttribute("class", "player-stat-card__icon player-stat-card__icon--goal");
+    svg.append(
+      strokeEl("path", { d: "M5.2 7.8h13.6M5.2 7.8v9.4M18.8 7.8v9.4" }),
+      strokeEl("circle", { cx: "12", cy: "16.9", r: "2.7" }),
+      strokeEl("path", {
+        d: "M9.5 15.9c1.3.48 3.7.48 5 0M12 14.2v5.2",
+      }),
+    );
+  } else if (kind === "clubs") {
+    svg.append(
+      strokeEl("path", {
+        d: "M12 3.2l7.2 3.6v5.2c0 4.1-3.1 7.9-7.2 9.8-4.1-1.9-7.2-5.7-7.2-9.8V6.8L12 3.2z",
+      }),
+    );
+  } else if (kind === "position") {
+    svg.append(
+      strokeEl("circle", { cx: "12", cy: "8", r: "3.2" }),
+      strokeEl("path", {
+        d: "M5.5 20.5v-1.2a4.5 4.5 0 014.3-4.3h1.4a4.5 4.5 0 014.3 4.3v1.2",
+      }),
+    );
+  } else {
+    return null;
+  }
+  return svg;
+}
+
 export function renderCareer() {
   const state = getState();
   const isShorts = document.body.classList.contains("shorts-mode");
@@ -885,6 +1011,7 @@ export function renderCareer() {
 
   ensureCareerPictureModeProfiles(state);
   if (isShorts) migrateShortsVideoOffLegacyNormalProfile(state);
+  if (isShorts) migrateShortsVideoOnYOffset(state);
   applyCareerPictureModeToActiveState(state, isShorts);
   applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
 
@@ -1071,7 +1198,8 @@ export function renderCareer() {
   image.setAttribute("class", "career-silhouette career-silhouette--photo");
 
   /* Keep a uniform baseline, but still apply Adjust Picture offsets/scales. */
-  applyCareerSilhouetteAdjustments(image, state);
+  const extraY = (isShorts && state.videoMode) ? SHORTS_VIDEO_ON_EXTRA_Y_CLICKS : 0;
+  applyCareerSilhouetteAdjustments(image, state, extraY);
 
   const missingLabel = document.createElementNS(svgNamespace, "text");
   missingLabel.setAttribute("x", "500");
@@ -1097,7 +1225,7 @@ export function renderCareer() {
 
   const syncSilhouetteFromLoadedBitmap = () => {
     applyCareerSilhouetteSvgImageRect(image, isShorts, !!state.videoMode);
-    applyCareerSilhouetteAdjustments(image, state);
+    applyCareerSilhouetteAdjustments(image, state, extraY);
   };
 
   if (readyUrl) {
@@ -1136,8 +1264,10 @@ export function renderCareer() {
   if (typeof ResizeObserver !== "undefined") {
     const ro = new ResizeObserver(() => {
       if (!image.isConnected || !image.naturalWidth) return;
-      applyCareerSilhouetteSvgImageRect(image, isShorts, !!getState()?.videoMode);
-      applyCareerSilhouetteAdjustments(image, getState());
+      const curSt = getState();
+      const curExtraY = (isShorts && curSt?.videoMode) ? SHORTS_VIDEO_ON_EXTRA_Y_CLICKS : 0;
+      applyCareerSilhouetteSvgImageRect(image, isShorts, !!curSt?.videoMode);
+      applyCareerSilhouetteAdjustments(image, curSt, curExtraY);
     });
     ro.observe(svg);
   }
@@ -1271,7 +1401,9 @@ export function renderCareer() {
   };
 
   // Helper function to build dynamic slot content with logo, fallback text, and year
-  const generateSlotContent = (index) => {
+  const generateSlotContent = (index, slotOptions = {}) => {
+    const includeYear = slotOptions.includeYear !== false;
+    const statsPanelCompact = !!slotOptions.statsPanelCompact;
     let clubName = "";
     let year = "YYYY";
     let logoUrl = "";
@@ -1354,15 +1486,22 @@ export function renderCareer() {
                           ${innerContent}
                        </div>`;
 
+    const slotInnerStyle = statsPanelCompact
+      ? "animation: none"
+      : `animation-delay: -${(index * 0.4).toFixed(1)}s`;
+    const yearBlock = includeYear
+      ? `<div class="career-club-year-stack">
+                      <div class="career-club-year">${year}</div>
+                    </div>`
+      : "";
+
     return `
-      <div class="career-club-slot-inner" style="animation-delay: -${(index * 0.4).toFixed(1)}s">
+      <div class="career-club-slot-inner" style="${slotInnerStyle}">
           <div class="career-club-slot-visual">
               <div class="career-club-badge-scale" style="--career-badge-scale: ${slotScales[index]}; --career-year-inverse-scale: ${1 / slotScales[index]}; --career-year-nudge: ${slotYearNudges[index]}px">
                   <div class="career-club-emblem-scale">
                     <div class="career-club-emblem-slot">${imgOrText}</div>
-                    <div class="career-club-year-stack">
-                      <div class="career-club-year">${year}</div>
-                    </div>
+                    ${yearBlock}
                   </div>
               </div>
           </div>
@@ -1387,7 +1526,113 @@ export function renderCareer() {
   };
 
   if (isShorts) {
-    if (showShortsCareerGrid) {
+    if (showShortsCareerGrid && state.videoMode) {
+      /* ── Video Mode ON: player info boxes instead of team logos ── */
+      const statsPanel = document.createElement("div");
+      statsPanel.id = "player-stats-panel";
+      statsPanel.className = "player-stats-panel";
+
+      const statPlayer = hasRealPlayer ? state.careerPlayer : null;
+      const careerGamesStr = formatPlayerCareerTotalStat(statPlayer, "appearances");
+      const positionStr = formatPlayerPositionLabel(statPlayer);
+      const careerGoalsStr = formatPlayerCareerTotalStat(statPlayer, "goals");
+      const careerAssistsStr = formatPlayerCareerTotalStat(statPlayer, "assists");
+
+      const mkStatCard = (label, valueHtml, opts = {}) => {
+        const card = document.createElement("div");
+        card.className = "player-stat-card";
+        const head = document.createElement("div");
+        head.className = "player-stat-card__head";
+        if (opts.icon) {
+          const ic = createPlayerStatHeadIcon(opts.icon);
+          if (ic) head.appendChild(ic);
+        }
+        const lab = document.createElement("span");
+        lab.className = "player-stat-card__label";
+        if (opts.nudgeLabelRight) lab.classList.add("player-stat-card__label--nudge-right");
+        if (opts.nudgeLabelStrong) lab.classList.add("player-stat-card__label--nudge-strong");
+        lab.textContent = label;
+        head.appendChild(lab);
+        const value = document.createElement("div");
+        value.className = "player-stat-card__value";
+        if (typeof valueHtml === "string") {
+          value.textContent = valueHtml;
+        } else {
+          value.appendChild(valueHtml);
+        }
+        card.append(head, value);
+        return card;
+      };
+
+      /* Career Clubs card with compact logos */
+      const clubsValueEl = document.createElement("div");
+      clubsValueEl.className = "player-stat-card__value player-stat-card__value--clubs";
+      const clubsTrack = document.createElement("div");
+      clubsTrack.className = "player-stat-clubs-track";
+      const clubSlotRows = [];
+      for (let i = 0; i < n; ) {
+        const remaining = n - i;
+        const take = remaining >= 4 ? 4 : remaining;
+        clubSlotRows.push(Array.from({ length: take }, (_, k) => i + k));
+        i += take;
+      }
+      for (const rowIndices of clubSlotRows) {
+        const rowEl = document.createElement("div");
+        rowEl.className = "player-stat-clubs-row";
+        if (rowIndices.length === 4) rowEl.classList.add("player-stat-clubs-row--four");
+        for (const idx of rowIndices) {
+          const slot = document.createElement("div");
+          slot.className = "player-stat-club-item career-club-slot";
+          slot.innerHTML = generateSlotContent(idx, {
+            includeYear: false,
+            statsPanelCompact: true,
+          });
+          appendCareerSlotZoomControls(slot, idx, n, true);
+          rowEl.appendChild(slot);
+        }
+        clubsTrack.appendChild(rowEl);
+      }
+      clubsValueEl.appendChild(clubsTrack);
+      const clubsCard = document.createElement("div");
+      clubsCard.className = "player-stat-card player-stat-card--clubs";
+      const clubLogoRows = Math.max(1, clubSlotRows.length);
+      clubsCard.style.setProperty("--player-stat-club-rows", String(clubLogoRows));
+      clubsCard.classList.add("player-stat-card--clubs-expanded");
+      clubsTrack.classList.add("player-stat-clubs-track--expanded");
+      const clubsHead = document.createElement("div");
+      clubsHead.className = "player-stat-card__head";
+      const clubsIcon = createPlayerStatHeadIcon("clubs");
+      if (clubsIcon) clubsHead.appendChild(clubsIcon);
+      const clubsLab = document.createElement("span");
+      clubsLab.className = "player-stat-card__label";
+      clubsLab.textContent = "Career Clubs";
+      clubsHead.appendChild(clubsLab);
+      clubsCard.append(clubsHead, clubsValueEl);
+
+      /* Layout: [ Games+Position | Clubs | Goals+Assists ] */
+      const rowMain = document.createElement("div");
+      rowMain.className = "player-stats-panel__row player-stats-panel__row--main";
+      const colLeft = document.createElement("div");
+      colLeft.className = "player-stats-panel__column";
+      colLeft.append(
+        mkStatCard("Career games", careerGamesStr, { icon: "pitch", nudgeLabelStrong: true }),
+        mkStatCard("Position", positionStr, { icon: "position" }),
+      );
+      const colRight = document.createElement("div");
+      colRight.className = "player-stats-panel__column";
+      colRight.append(
+        mkStatCard("Career Goals", careerGoalsStr, { icon: "goal", nudgeLabelRight: true }),
+        mkStatCard("Career assists", careerAssistsStr, { icon: "ball", nudgeLabelStrong: true }),
+      );
+      rowMain.append(colLeft, clubsCard, colRight);
+
+      const statsMatrix = document.createElement("div");
+      statsMatrix.className = "player-stats-panel__matrix";
+      statsMatrix.appendChild(rowMain);
+      statsPanel.appendChild(statsMatrix);
+      wrap.appendChild(statsPanel);
+    } else if (showShortsCareerGrid) {
+      /* ── Video Mode OFF: original team logo grid ── */
       const gridContainer = document.createElement("div");
       gridContainer.className = "career-grid career-grid--shorts-split";
       /* data-team-count drives css/modes/shorts-career-club-count-map.css */
@@ -1637,6 +1882,7 @@ export function renderCareer() {
   }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
   const careerGrid = wrap.querySelector(".career-grid");
+  const statsPanelEl = wrap.querySelector("#player-stats-panel");
   const revealOverlay = wrap.querySelector("#career-reveal-overlay");
   const revealName = wrap.querySelector("#career-reveal-name");
   if (revealPhoto) {
@@ -1644,6 +1890,9 @@ export function renderCareer() {
   }
   if (careerGrid) {
     careerGrid.classList.toggle("reveal-active", previewPostTimer);
+  }
+  if (statsPanelEl) {
+    statsPanelEl.classList.toggle("reveal-active", previewPostTimer);
   }
   if (revealOverlay) {
     revealOverlay.classList.toggle("show", previewPostTimer);
@@ -1701,7 +1950,7 @@ function renderCareerPictureControls(wrap, state) {
       <span>Up / Down</span>
       <div class="career-picture-controls-actions career-picture-controls-actions--favorite">
         <button type="button" data-action="up">▲</button>
-        <strong data-value="y">${state.silhouetteYOffset || 0}</strong>
+        <strong data-value="y">${(state.silhouetteYOffset || 0) - (isShorts && state.videoMode ? DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET : 0)}</strong>
         <button type="button" data-action="down">▼</button>
         <button
           type="button"
@@ -1756,7 +2005,8 @@ function renderCareerPictureControls(wrap, state) {
       }
       persistCareerPictureModeFromActiveState(st, layoutShorts);
 
-      panel.querySelector('[data-value="y"]').textContent = st.silhouetteYOffset || 0;
+      const yDisplayBias = (layoutShorts && st?.videoMode) ? DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET : 0;
+      panel.querySelector('[data-value="y"]').textContent = (st.silhouetteYOffset || 0) - yDisplayBias;
       panel.querySelector('[data-value="x"]').textContent = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
       panel.querySelector('[data-value="ys"]').textContent = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
       const favoriteBtn = panel.querySelector('[data-action="favorite"]');
@@ -1769,7 +2019,8 @@ function renderCareerPictureControls(wrap, state) {
       const activeWrap = document.getElementById("career-wrap");
       const silhouette = activeWrap?.querySelector(".career-silhouette");
       if (silhouette) {
-        applyCareerSilhouetteAdjustments(silhouette, st);
+        const picExtraY = (layoutShorts && st?.videoMode) ? SHORTS_VIDEO_ON_EXTRA_Y_CLICKS : 0;
+        applyCareerSilhouetteAdjustments(silhouette, st, picExtraY);
       }
       applyCareerRevealAdjustments(
         activeWrap,

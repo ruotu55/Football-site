@@ -6,6 +6,8 @@ export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 /** Shorts “Adjust Picture (Video Off)” baseline width/height multipliers. */
 export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 1.0;
+/** Shorts "Video On" baseline Y-offset — player starts lower so it sits below the stats panel. */
+export const DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET = 13;
 
 export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   return {
@@ -22,7 +24,11 @@ export function getDefaultPlayerPictureValues(isShortsLayout = false) {
 /** Defaults for the active Adjust Picture profile (shorts splits Video On vs Video Off). */
 export function getDefaultPlayerPictureValuesForCareerMode(isShortsLayout, videoMode) {
   if (!isShortsLayout) return getDefaultPlayerPictureValues(false);
-  if (videoMode) return getDefaultPlayerPictureValues(true);
+  if (videoMode) return {
+    silhouetteYOffset: DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET,
+    silhouetteScaleX: DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X,
+    silhouetteScaleY: DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y,
+  };
   return {
     silhouetteYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
     silhouetteScaleX: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
@@ -41,6 +47,19 @@ export function migrateShortsVideoOffLegacyNormalProfile(st) {
   ) {
     st.silhouetteShortsNormalScaleX = DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X;
     st.silhouetteShortsNormalScaleY = DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y;
+  }
+}
+
+/** One-time migrate: old Video On Y default was 0; new default is 13. */
+export function migrateShortsVideoOnYOffset(st) {
+  if (!st) return;
+  const approxS = (value, expected) => Math.abs(Number(value ?? expected) - expected) < 0.001;
+  if (
+    approxS(st.silhouetteShortsVideoYOffset, 0) &&
+    approxS(st.silhouetteShortsVideoScaleX, DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) &&
+    approxS(st.silhouetteShortsVideoScaleY, DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y)
+  ) {
+    st.silhouetteShortsVideoYOffset = DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET;
   }
 }
 
@@ -200,7 +219,7 @@ export function initLevels(count) {
       silhouetteNormalYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
       silhouetteNormalScaleX: regularPictureDefaults.silhouetteScaleX,
       silhouetteNormalScaleY: regularPictureDefaults.silhouetteScaleY,
-      silhouetteShortsVideoYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+      silhouetteShortsVideoYOffset: DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET,
       silhouetteShortsVideoScaleX: shortsPictureDefaults.silhouetteScaleX,
       silhouetteShortsVideoScaleY: shortsPictureDefaults.silhouetteScaleY,
       silhouetteShortsNormalYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
