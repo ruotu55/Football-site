@@ -69,9 +69,113 @@ import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js"
 const INTERNATIONAL_POOL_URL = "data/international-club-pool-by-nationality.json";
 const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
 const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
+const TEAM_NAME_OVERRIDES_STORAGE_KEY = "lineups-regular:club-by-nat-team-name-overrides:v1";
 const AUTO_365_PHOTO_RE = /(^|\/)auto - 365scores(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const AUTO_FUTGG_PHOTO_RE = /(^|\/)auto - fut\.gg(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const autoPhotoLastSourceBySlot = new Map();
+let teamNameOverridesCache = null;
+
+function normalizeQuizTypeForTeamNameOverride(quizType) {
+  return quizType === "club-by-nat" ? "club-by-nat" : "nat-by-club";
+}
+
+function isClubByNatHeaderEditContext(state = getState(), quizTypeRaw = appState.els.inQuizType?.value) {
+  if (!state?.currentSquad) return false;
+  if (state.squadType !== "club") return false;
+  return normalizeQuizTypeForTeamNameOverride(quizTypeRaw) === "club-by-nat";
+}
+
+function getCanonicalTeamIdentity(state = getState()) {
+  if (!state) return "";
+  const fromPath = String(state.selectedEntry?.path || "").trim();
+  if (fromPath) return fromPath;
+  const fromEntryName = String(state.selectedEntry?.name || "").trim().toLowerCase();
+  if (fromEntryName) return `name:${fromEntryName}`;
+  const fromSquadName = String(state.currentSquad?.name || "").trim().toLowerCase();
+  if (fromSquadName) return `name:${fromSquadName}`;
+  return "";
+}
+
+function getBaseTeamName(state = getState()) {
+  if (!state) return "";
+  return String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
+}
+
+function readTeamNameOverrides() {
+  if (teamNameOverridesCache) return teamNameOverridesCache;
+  let parsed = {};
+  try {
+    parsed = JSON.parse(localStorage.getItem(TEAM_NAME_OVERRIDES_STORAGE_KEY) || "{}");
+  } catch {
+    parsed = {};
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    parsed = {};
+  }
+  teamNameOverridesCache = parsed;
+  return teamNameOverridesCache;
+}
+
+function persistTeamNameOverrides() {
+  if (!teamNameOverridesCache || typeof teamNameOverridesCache !== "object") {
+    teamNameOverridesCache = {};
+  }
+  try {
+    localStorage.setItem(
+      TEAM_NAME_OVERRIDES_STORAGE_KEY,
+      JSON.stringify(teamNameOverridesCache)
+    );
+  } catch {
+    // Ignore storage quota/privacy failures; current session still works.
+  }
+}
+
+function getTeamNameOverrideKey(state = getState(), quizTypeRaw = appState.els.inQuizType?.value) {
+  const quizType = normalizeQuizTypeForTeamNameOverride(quizTypeRaw);
+  const identity = getCanonicalTeamIdentity(state);
+  if (!identity) return "";
+  return `${quizType}::${identity}`;
+}
+
+export function resolveHeaderTeamDisplayName(
+  state = getState(),
+  quizTypeRaw = appState.els.inQuizType?.value || "nat-by-club"
+) {
+  const baseName = getBaseTeamName(state);
+  if (!baseName) return "";
+  if (!isClubByNatHeaderEditContext(state, quizTypeRaw)) {
+    return baseName;
+  }
+  const key = getTeamNameOverrideKey(state, quizTypeRaw);
+  if (!key) return baseName;
+  const raw = readTeamNameOverrides()[key];
+  const custom = String(raw || "").trim();
+  return custom || baseName;
+}
+
+export function renameCurrentClubByNatTeamName(nextNameRaw) {
+  const state = getState();
+  if (!isClubByNatHeaderEditContext(state)) return false;
+  const key = getTeamNameOverrideKey(state);
+  if (!key) return false;
+  const baseName = getBaseTeamName(state);
+  const nextName = String(nextNameRaw || "").trim();
+  const normalizedBase = baseName.toLowerCase();
+  const normalizedNext = nextName.toLowerCase();
+  const overrides = readTeamNameOverrides();
+  if (!nextName || normalizedNext === normalizedBase) {
+    delete overrides[key];
+  } else {
+    overrides[key] = nextName;
+  }
+  persistTeamNameOverrides();
+  renderHeader();
+  return true;
+}
+
+export function isCurrentHeaderTeamNameEditable() {
+  return isClubByNatHeaderEditContext(getState(), appState.els.inQuizType?.value);
+}
 export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
     return Promise.resolve();
@@ -1141,6 +1245,7 @@ export function renderHeader() {
   syncTeamHeaderLogoVarsFromLevel();
   const state = getState();
   const { els } = appState;
+  const quizType = appState.els.inQuizType?.value || "nat-by-club";
   const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
 
   document.body.classList.toggle("video-mode-on", !!state.videoMode);
@@ -1187,17 +1292,17 @@ export function renderHeader() {
     scheduleShortsTeamNameFit();
     return;
   }
-  if (els.headerName) els.headerName.textContent = state.currentSquad.name || state.selectedEntry.name;
+  const displayedHeaderTeamName = resolveHeaderTeamDisplayName(state, quizType);
+  if (els.headerName) els.headerName.textContent = displayedHeaderTeamName;
   if (clearTeamBtn) clearTeamBtn.hidden = false;
   syncTeamVoiceControls(
-    String(state.currentSquad?.name || state.selectedEntry?.name || ""),
+    displayedHeaderTeamName,
     appState.els.inQuizType?.value || "nat-by-club"
   );
   if (els.teamVoiceControls) {
     els.teamVoiceControls.hidden = !state.currentSquad || appState.isVideoPlaying;
   }
   if (els.headerLogo) {
-    const quizType = appState.els.inQuizType?.value || "nat-by-club";
     const chain = getHeaderLogoUrlChain(
       state,
       state.currentSquad,

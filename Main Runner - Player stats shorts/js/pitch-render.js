@@ -14,6 +14,7 @@ import {
   migrateShortsVideoOnYOffset,
 } from "./state.js";
 import {
+  projectAssetUrl,
   projectAssetUrlFresh,
   careerReadyPhotoRelPath,
   CAREER_NO_PHOTO_LABEL,
@@ -31,6 +32,30 @@ import {
   saveCareerPictureFavorite,
 } from "./career-size-favorites.js";
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
+
+/** Map demonyms / variants to `data/country-to-flagcode.json` keys. */
+function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
+  const raw = String(nationalityRaw || "").trim();
+  if (!raw) return "";
+  const n = raw
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  if (n === "portuguese") return "Portugal";
+  if (n === "english") return "England";
+  return raw;
+}
+
+function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
+  const natLabel = playerStatsNationalityLabelForFlagcode(nationalityRaw);
+  if (!natLabel) return null;
+  if (natLabel === "England") {
+    return projectAssetUrl("Nationality images/Europe/England.png");
+  }
+  const code = appState.flagcodes[natLabel];
+  if (!code) return null;
+  return `https://flagcdn.com/w320/${String(code).toLowerCase()}.png`;
+}
 
 export const CAREER_BADGE_SCALE_MIN = 0.5;
 export const CAREER_BADGE_SCALE_MAX = 2.25;
@@ -1711,6 +1736,29 @@ export function renderCareer() {
       revealShell.classList.remove("is-tall-player");
       revealImg.hidden = true;
       revealFallback.hidden = false;
+    }
+
+    /* ── Waving national flag behind the player (inside the photo shell, below the img) ── */
+    const flagStatPlayer = hasRealPlayer ? state.careerPlayer : null;
+    const flagUrl = hasRealPlayer ? resolvePlayerStatsNationalityFlagUrl(flagStatPlayer?.nationality) : null;
+    if (flagUrl) {
+      const natForAlt = playerStatsNationalityLabelForFlagcode(flagStatPlayer?.nationality);
+      const flagWrap = document.createElement("div");
+      flagWrap.id = "player-stats-national-flag";
+      flagWrap.className = "player-stats-national-flag";
+      revealShell.appendChild(flagWrap);
+      void import("./player-stats-flag-three.js")
+        .then((m) => {
+          if (!flagWrap.isConnected) return;
+          m.mountPlayerStatsThreeFlag(
+            flagWrap,
+            flagUrl,
+            natForAlt ? `${natForAlt} flag` : "National flag",
+          );
+        })
+        .catch(() => {
+          flagWrap.remove();
+        });
     }
 
     revealShell.appendChild(revealImg);

@@ -7,6 +7,7 @@ import {
   clearPitchWrapTransitionOverride,
   renderHeader,
   renderPitch,
+  resolveHeaderTeamDisplayName,
   shouldUseVideoQuestionLayout,
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
@@ -310,10 +311,8 @@ function revealCurrentLevel() {
     const isLastQuestionBeforeOutro =
       appState.currentLevelIndex + 1 === appState.totalLevelsCount;
     if (!isLastQuestionBeforeOutro) {
-      const teamDisplayName = String(
-        state?.currentSquad?.name || state?.selectedEntry?.name || ""
-      ).trim();
       const quizType = els.inQuizType?.value || "nat-by-club";
+      const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
       playTheAnswerIs(true, teamDisplayName, quizType);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();

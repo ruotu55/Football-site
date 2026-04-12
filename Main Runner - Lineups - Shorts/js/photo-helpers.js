@@ -156,6 +156,25 @@ export function nationalityPhotoKey(entry, playerName) {
   return `${entry.region}|${entry.name}|${playerName}`;
 }
 
+function sanitizePhotoKeyPart(raw) {
+  return String(raw || "")
+    .trim()
+    .replace(/\//g, "")
+    .replace(/\\/g, "")
+    .replace(/\.\./g, "")
+    .replace(/[<>:"|?*]/g, "")
+    .replace(/[. ]+$/g, "");
+}
+
+function photoKeyPartVariants(raw) {
+  const base = String(raw || "").trim();
+  if (!base) return [];
+  const out = [base];
+  const sanitized = sanitizePhotoKeyPart(base);
+  if (sanitized && sanitized !== base) out.push(sanitized);
+  return out;
+}
+
 /** Last name / final segment — matches typical broadcast lineup labels */
 export function pitchLabelFromPlayerName(fullName) {
   const parts = String(fullName || "")
@@ -175,9 +194,17 @@ export function playerPhotoPaths(player, displayMode) {
 
   // 1. Direct key match based on the CURRENT squad we are looking at
   if (state.squadType === "club") {
-    const k = clubPhotoKey(state.selectedEntry, state.currentSquad, name);
-    if (k && appState.playerImages.club?.[k]) {
-      appState.playerImages.club[k].forEach((p) => paths.add(p));
+    const country = state.selectedEntry?.country || "";
+    const league = state.selectedEntry?.league || "";
+    const squadNameVariants = photoKeyPartVariants(state.currentSquad?.name);
+    const playerNameVariants = photoKeyPartVariants(name);
+    for (const squadName of squadNameVariants) {
+      for (const playerName of playerNameVariants) {
+        const k = `${country}|${league}|${squadName}|${playerName}`;
+        if (appState.playerImages.club?.[k]) {
+          appState.playerImages.club[k].forEach((p) => paths.add(p));
+        }
+      }
     }
   } else if (state.squadType === "nationality") {
     const k = nationalityPhotoKey(state.selectedEntry, name);
@@ -188,9 +215,16 @@ export function playerPhotoPaths(player, displayMode) {
 
   // 2. Scan ALL club folders for this player's specific club (as noted in their JSON profile)
   if (player.club && appState.playerImages.club) {
-    const clubSuffix = `|${player.club}|${name}`;
+    const clubVariants = photoKeyPartVariants(player.club);
+    const playerNameVariants = photoKeyPartVariants(name);
     for (const key in appState.playerImages.club) {
-      if (key.endsWith(clubSuffix)) {
+      if (
+        clubVariants.some((clubName) =>
+          playerNameVariants.some((playerName) =>
+            key.endsWith(`|${clubName}|${playerName}`)
+          )
+        )
+      ) {
         appState.playerImages.club[key].forEach((p) => paths.add(p));
       }
     }

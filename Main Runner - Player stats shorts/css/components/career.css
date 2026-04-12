@@ -1024,17 +1024,17 @@ body.shorts-mode .player-stats-panel {
   --player-stat-beige-deep: #b5a088;
   --player-stat-ink: #000000;
   --player-stat-matte-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
-  --player-stat-head-font: clamp(0.504rem, 1.485vw, 0.738rem);
-  --player-stat-value-font: clamp(1rem, 3vw, 1.5rem);
-  --player-stat-equal-cell: clamp(1.8rem, 5.5vh, 3rem);
-  --player-stats-grid-gap: clamp(0.25rem, 0.8vw, 0.45rem);
+  --player-stat-head-font: clamp(0.454rem, 1.337vw, 0.664rem);
+  --player-stat-value-font: clamp(0.9rem, 2.7vw, 1.35rem);
+  --player-stat-equal-cell: clamp(1.62rem, 4.95vh, 2.7rem);
+  --player-stats-grid-gap: clamp(0.225rem, 0.72vw, 0.405rem);
 
   position: absolute;
   left: 50%;
   top: clamp(0.15rem, 0.6vh, 0.4rem);
   transform: translateX(-50%);
   z-index: 280;
-  width: min(96%, 420px);
+  width: min(86%, 378px);
   box-sizing: border-box;
   padding: 0;
   border: none;
@@ -1123,7 +1123,7 @@ body.shorts-mode .player-stats-panel__column > .player-stat-card {
 
 /* Side column values: scale font to fit narrow cards (e.g. "Midfielder"). */
 body.shorts-mode .player-stats-panel__column .player-stat-card__value {
-  font-size: clamp(0.72rem, 2.4vw, 1.3rem);
+  font-size: clamp(0.55rem, 1.8vw, 0.95rem);
 }
 
 body.shorts-mode .player-stats-panel__row > .player-stat-card:not(.player-stat-card--clubs-expanded),
@@ -1378,12 +1378,12 @@ body.shorts-mode .player-stat-card__value--clubs .player-stat-club-item {
 }
 
 body.shorts-mode .player-stat-card__value--clubs .career-club-placeholder {
-  width: clamp(1.8rem, 7vw, 3rem);
-  height: clamp(1.8rem, 7vw, 3rem);
-  min-width: 1.8rem;
-  min-height: 1.8rem;
-  max-width: min(3rem, 24vw);
-  max-height: min(3rem, 24vw);
+  width: clamp(1.076rem, 4.005vw, 1.814rem);
+  height: clamp(1.076rem, 4.005vw, 1.814rem);
+  min-width: 1.076rem;
+  min-height: 1.076rem;
+  max-width: min(1.814rem, 12.31vw);
+  max-height: min(1.814rem, 12.31vw);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -1396,8 +1396,8 @@ body.shorts-mode .player-stat-card__value--clubs .career-club-placeholder {
 }
 
 body.shorts-mode .player-stat-card__value--clubs .career-club-placeholder:empty {
-  min-width: 1.8rem;
-  min-height: 1.8rem;
+  min-width: 1.076rem;
+  min-height: 1.076rem;
 }
 
 body.shorts-mode .player-stat-card__value--clubs .career-club-logo-img {
@@ -1478,4 +1478,49 @@ body.shorts-mode #player-stats-panel .career-club-emblem-scale > .career-badge-c
 /* Video countdown: show stats panel */
 body.shorts-mode.play-video-active.shorts-question-countdown .player-stats-panel {
   opacity: inherit;
+}
+
+/* ── Waving national flag behind the player (shorts) ── */
+/* Lives inside .career-reveal-photo so the player image composites on top. */
+.player-stats-national-flag {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  transform: translateY(-10%) scale(0.8);
+}
+
+/* Player image must sit above the flag canvas. */
+.career-reveal-photo-img {
+  position: relative;
+  z-index: 1;
+}
+
+.career-reveal-photo-fallback {
+  z-index: 1;
+}
+
+.player-stats-national-flag__canvas-host {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  user-select: none;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.player-stats-national-flag__canvas-host canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
 }

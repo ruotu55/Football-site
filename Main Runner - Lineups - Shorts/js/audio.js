@@ -27,6 +27,8 @@ const paths = {
 let bgMusic = null;
 let currentBgmIndex = 0;
 let currentVoice = null;
+/** Resolves `playRulesShortsLanding` when the clip ends or `stopAllAudio` interrupts. */
+let pendingShortsRulesVoiceFinish = null;
 /** Single ticking track for countdown (no overlapping clips). */
 let tickingAudioEl = null;
 
@@ -206,6 +208,11 @@ export function stopAllAudio() {
     bgMusicTargetVolume = STARTING_VOL;
     bgMusic.volume = bgMusicTargetVolume;
   }
+  if (pendingShortsRulesVoiceFinish) {
+    const finish = pendingShortsRulesVoiceFinish;
+    pendingShortsRulesVoiceFinish = null;
+    finish();
+  }
   if (currentVoice) {
     currentVoice.pause();
     currentVoice.currentTime = 0;
@@ -295,6 +302,143 @@ export function playWelcomeShortsLanding() {
   });
 }
 
+function getRulesVoicePath(quizType) {
+  if (quizType === "club-by-nat") {
+    return paths.guessNat;
+  }
+  return paths.guessClub;
+}
+
+function isShortsModeActive() {
+  return (
+    document.body.classList.contains("shorts-mode") ||
+    document.documentElement.classList.contains("shorts-mode")
+  );
+}
+
+/** Encode each path segment so spaces, `'`, `!` in filenames work in `file:` and `http:` URLs. */
+function toAbsoluteBundledVoiceUrl(rel) {
+  const s = String(rel || "").trim();
+  if (!s) return s;
+  if (/^(https?:|blob:|data:)/i.test(s)) {
+    return s;
+  }
+  const segments = s.split("/");
+  const encoded = segments.map((seg) => {
+    if (seg === "" || seg === "." || seg === "..") return seg;
+    return encodeURIComponent(seg);
+  });
+  const pathPart = encoded.join("/");
+  try {
+    return new URL(pathPart, document.baseURI || window.location.href).href;
+  } catch {
+    return s;
+  }
+}
+
+/**
+ * Play one quiz-title clip for shorts (resolves promise when clip ends or errors).
+ * Does not call `__resolveQuizTitleVoiceSrc` — `clipSrc` must be a usable URL string.
+ */
+function playShortsQuizTitleMediaClip(clipSrc, options = {}) {
+  const onPlaybackStart =
+    typeof options.onPlaybackStart === "function" ? options.onPlaybackStart : null;
+  const duckBgmForClip = !!options.duckBgm;
+  const notifyPlaybackStart = () => {
+    if (onPlaybackStart) onPlaybackStart();
+  };
+  return new Promise((resolve) => {
+    const src = String(clipSrc || "").trim();
+    if (!src) {
+      notifyPlaybackStart();
+      resolve();
+      return;
+    }
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      if (pendingShortsRulesVoiceFinish === finish) {
+        pendingShortsRulesVoiceFinish = null;
+      }
+      if (duckBgmForClip) {
+        restoreTimeout = setTimeout(() => {
+          fadeBgm(NORMAL_VOL, 1000);
+        }, 1000);
+      }
+      resolve();
+    };
+    pendingShortsRulesVoiceFinish = finish;
+    if (currentVoice) {
+      currentVoice.pause();
+      currentVoice.currentTime = 0;
+    }
+    if (duckBgmForClip) {
+      clearTimeout(duckingTimeout);
+      clearTimeout(restoreTimeout);
+      fadeBgm(DUCKED_VOL, 0);
+    }
+    currentVoice = new Audio(src);
+    currentVoice.volume = 1;
+    currentVoice.addEventListener("playing", notifyPlaybackStart, { once: true });
+    currentVoice.addEventListener("ended", finish, { once: true });
+    currentVoice.addEventListener(
+      "error",
+      () => {
+        console.warn("Quiz title audio error:", src);
+        notifyPlaybackStart();
+        finish();
+      },
+      { once: true }
+    );
+    currentVoice.play().catch((err) => {
+      console.warn("Voice play error:", err);
+      notifyPlaybackStart();
+      finish();
+    });
+  });
+}
+
+/**
+ * Bundled “Game name” MP3 only (no async API). Use for Play Video from landing so the line always plays.
+ * Resolves relative paths against the page URL so `../Voices/...` works from `index.html`.
+ */
+export function playBundledQuizTitleShorts(quizType, options = {}) {
+  if (!isShortsModeActive()) {
+    return Promise.resolve();
+  }
+  const rel = getRulesVoicePath(quizType);
+  const absSrc = toAbsoluteBundledVoiceUrl(rel);
+  return playShortsQuizTitleMediaClip(absSrc, options);
+}
+
+/** Max wait for async `__resolveQuizTitleVoiceSrc` before using bundled guessNat/guessClub (offline / slow API). */
+const QUIZ_TITLE_VOICE_RESOLVE_TIMEOUT_MS = 1200;
+
+/** Quiz title / competition rules clip for shorts Play Video; optional `onPlaybackStart` when audio actually plays. */
+export function playRulesShortsLanding(quizType, options = {}) {
+  if (!isShortsModeActive()) {
+    return Promise.resolve();
+  }
+  const playClip = (src) => playShortsQuizTitleMediaClip(String(src || "").trim(), options);
+  const playFallback = () => playClip(toAbsoluteBundledVoiceUrl(getRulesVoicePath(quizType)));
+  const resolver = window.__resolveQuizTitleVoiceSrc;
+  if (typeof resolver !== "function") {
+    return playFallback();
+  }
+  const resolvedSrc = Promise.resolve(resolver(quizType)).then(
+    (s) => String(s || "").trim(),
+    () => ""
+  );
+  const timeoutSrc = new Promise((resolve) => {
+    setTimeout(() => resolve(""), QUIZ_TITLE_VOICE_RESOLVE_TIMEOUT_MS);
+  });
+  return Promise.race([resolvedSrc, timeoutSrc]).then((clipSrc) => {
+    if (clipSrc) return playClip(clipSrc);
+    return playFallback();
+  });
+}
+
 export function playRules(quizType, delayMs = 1000) {
   const playFallback = () => {
     if (quizType === "club-by-nat") {
@@ -331,9 +475,21 @@ export function revealVoiceDirForQuizType(quizType) {
     : "../Voices/Nationality teams names/";
 }
 
+/** Map squad/header names to bundled voice file stem when the on-disk filename differs. Keys are lowercased. */
+const TEAM_NAME_VOICE_FILE_ALIASES = {
+  "sporting cp": "Sporting Lisbon",
+};
+
+function resolveTeamNameVoiceFileStem(displayName) {
+  const trimmed = String(displayName || "").trim();
+  if (!trimmed) return "";
+  const alias = TEAM_NAME_VOICE_FILE_ALIASES[trimmed.toLowerCase()];
+  return alias || trimmed;
+}
+
 /** If a clip exists under the quiz-type folder, play it like other reveal voices; otherwise no-op (no BGM duck). */
 function playTeamNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
-  const base = String(displayName || "").trim();
+  const base = resolveTeamNameVoiceFileStem(displayName);
   if (!base) return;
   const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
   let i = 0;
@@ -366,7 +522,7 @@ function playTeamNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
 }
 
 export function buildTeamNameVoiceSrc(displayName, quizType, ext = ".mp3") {
-  const cleanName = String(displayName || "").trim();
+  const cleanName = resolveTeamNameVoiceFileStem(displayName);
   if (!cleanName) return "";
   const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
   return `${revealVoiceDirForQuizType(quizType)}${encodeURIComponent(cleanName)}${cleanExt}`;

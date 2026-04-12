@@ -869,6 +869,8 @@ body.shorts-mode .career-reveal-photo::after {
 body.shorts-mode .career-reveal-photo .career-reveal-photo-img {
     object-fit: contain;
     object-position: center bottom;
+    opacity: 1 !important;
+    filter: brightness(0) !important;
 }
 
 .career-reveal-photo-fallback {
@@ -1090,6 +1092,8 @@ body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-co
 /* Shorts-only fit correction: keep the regular shell animation, but preserve the old smaller portrait sizing.
    Fold in --career-reveal-* (set from JS) so Adjust Picture — Shorts (Video Off) actually moves/scales the portrait. */
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 1;
+    filter: brightness(0);
     transform: translateY(calc(var(--career-reveal-y, -10%) + 9%))
         scale(
             calc(var(--career-reveal-scale-x, 1.08) * (13 / 18)),

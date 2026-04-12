@@ -14,7 +14,8 @@ import {
 } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
-const STAGE_VIDEO_TRANSITION_MS = 1020;
+/** Match Career Path - Shorts `levels.js` + `transitions.css` video stage (0.82s). */
+const STAGE_VIDEO_TRANSITION_MS = 820;
 const STAGE_VIDEO_ENTER_TRANSITION_MS = STAGE_VIDEO_TRANSITION_MS;
 
 export function switchLevel(index) {
@@ -148,7 +149,11 @@ export function switchLevel(index) {
           const quizType = document.getElementById("in-quiz-type").value;
           playRules(quizType);
         }
-      } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {
+      } else if (
+        !isLogo &&
+        !isShorts &&
+        appState.currentLevelIndex < appState.totalLevelsCount - 1
+      ) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
     }
@@ -156,7 +161,45 @@ export function switchLevel(index) {
 
   if (stageMain) {
     const isShorts = document.body.classList.contains("shorts-mode");
-    
+
+    /** Same as Career Path - Shorts: instant handoff only from logo (0) → first question during Play Video. */
+    const isShortsFromLogoToFirstQuestion =
+      isShorts &&
+      prevIndex === 0 &&
+      idx >= 2 &&
+      idx < appState.totalLevelsCount &&
+      appState.isVideoPlaying;
+    if (isShortsFromLogoToFirstQuestion) {
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim"
+      );
+      updateDOMContent();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          void stageMain.offsetWidth;
+          stageMain.classList.add("stage-enter-video-anim");
+          if (progressContainer) {
+            progressContainer.classList.remove(
+              "progress-out-reg",
+              "progress-out-shorts",
+              "progress-in-reg",
+              "progress-in-shorts"
+            );
+            void progressContainer.offsetWidth;
+            progressContainer.classList.add("progress-in-shorts");
+          }
+          setTimeout(() => {
+            stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+          }, STAGE_VIDEO_ENTER_TRANSITION_MS);
+        });
+      });
+      refreshSaveTeamButtonUi();
+      return;
+    }
+
     const exitClass = "stage-exit-video-anim";
     const enterClass = "stage-enter-video-anim";
     const transitionDelay = STAGE_VIDEO_TRANSITION_MS;

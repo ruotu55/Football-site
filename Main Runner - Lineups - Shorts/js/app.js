@@ -6,11 +6,14 @@ import { switchLevel } from "./levels.js";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
+    isCurrentHeaderTeamNameEditable,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
     refreshSwapPlayerListFromSearch,
+    renameCurrentClubByNatTeamName,
     renderHeader,
     renderPitch,
+    resolveHeaderTeamDisplayName,
     scheduleTeamHeaderNameCenterShift,
     scheduleShortsTeamNameFit,
     shouldUseVideoQuestionLayout,
@@ -1040,6 +1043,25 @@ async function init() {
             img.src = projectAssetUrlFresh(paths[next]);
         }
     });
+
+    if (els.headerName) {
+        els.headerName.addEventListener("dblclick", () => {
+            if (appState.isVideoPlaying) return;
+            if (!isCurrentHeaderTeamNameEditable()) return;
+            const state = getState();
+            if (!state?.currentSquad) return;
+            const currentDisplay = resolveHeaderTeamDisplayName(
+                state,
+                els.inQuizType?.value || "nat-by-club"
+            );
+            const nextName = window.prompt(
+                "Enter a custom team name for this nationality quiz.\nLeave empty to reset.",
+                currentDisplay || ""
+            );
+            if (nextName === null) return;
+            renameCurrentClubByNatTeamName(nextName);
+        });
+    }
 
     populateSubTypes();
     applyDevLiveReloadControls(els, devLiveReloadSnapshot);

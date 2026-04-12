@@ -293,9 +293,21 @@ export function revealVoiceDirForQuizType(quizType) {
     : "../Voices/Nationality teams names/";
 }
 
+/** Map squad/header names to bundled voice file stem when the on-disk filename differs. Keys are lowercased. */
+const TEAM_NAME_VOICE_FILE_ALIASES = {
+  "sporting cp": "Sporting Lisbon",
+};
+
+function resolveTeamNameVoiceFileStem(displayName) {
+  const trimmed = String(displayName || "").trim();
+  if (!trimmed) return "";
+  const alias = TEAM_NAME_VOICE_FILE_ALIASES[trimmed.toLowerCase()];
+  return alias || trimmed;
+}
+
 /** If a clip exists under the quiz-type folder, play it like other reveal voices; otherwise no-op (no BGM duck). */
 function playTeamNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
-  const base = String(displayName || "").trim();
+  const base = resolveTeamNameVoiceFileStem(displayName);
   if (!base) return;
   const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
   let i = 0;
@@ -328,7 +340,7 @@ function playTeamNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
 }
 
 export function buildTeamNameVoiceSrc(displayName, quizType, ext = ".mp3") {
-  const cleanName = String(displayName || "").trim();
+  const cleanName = resolveTeamNameVoiceFileStem(displayName);
   if (!cleanName) return "";
   const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
   return `${revealVoiceDirForQuizType(quizType)}${encodeURIComponent(cleanName)}${cleanExt}`;
