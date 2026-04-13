@@ -35,7 +35,20 @@ export function syncPitchWrapTransitionToVideoReveal(flipSlotCount) {
 }
 
 export function clearPitchWrapTransitionOverride() {
-  appState.els.pitchWrap?.style.removeProperty("--pitch-wrap-height-duration");
+  const pw = appState.els.pitchWrap;
+  if (pw) {
+    pw.style.removeProperty("--pitch-wrap-height-duration");
+    pw.classList.remove("pitch-wrap-snap-height");
+  }
+  /* Clean up inline overrides left by performSyncedPostTimerReveal */
+  const th = appState.els.teamHeader;
+  if (th) {
+    th.style.removeProperty("transition");
+    const rs = th.querySelector(".team-header-logo-reveal-stack");
+    const li = th.querySelector(".team-header-logo-inner");
+    if (rs) rs.style.removeProperty("animation");
+    if (li) li.style.removeProperty("animation");
+  }
 }
 
 /** Apply --header-logo-scale / --header-logo-nudge-x from the current level (per-level; regular + shorts). */
@@ -1132,6 +1145,117 @@ export function applyVideoQuestionPostTimerFlip() {
       requestAnimationFrame(() => {
         inner.classList.add("flipped");
       });
+    });
+  });
+}
+
+/**
+ * Synced post-timer reveal — natural CSS height transitions, matched timing.
+ *
+ * Both header and pitch keep their natural CSS height transitions (no snapping,
+ * no FLIP).  The key improvements over the original:
+ *
+ *  1. ALL durations are unified to the total card-flip time
+ *  2. Header transition delay removed (was 0.4 s — caused desync)
+ *  3. Header content fly-in driven by Web Animation with the same duration
+ *     (replaces the CSS animation that had its own timing)
+ *  4. Card flips staggered as before
+ *
+ * Everything starts at the same instant and finishes together.
+ */
+export function performSyncedPostTimerReveal() {
+  const state = getState();
+  if (!shouldUseVideoQuestionLayout(state)) return;
+
+  const { els } = appState;
+  const pitchWrap = els.pitchWrap;
+  const teamHeader = els.teamHeader;
+  const pitchSlots = els.pitchSlots;
+  if (!pitchWrap || !teamHeader || !pitchSlots) return;
+
+  /* ── Ensure flip-card slots exist ─────────────────────────── */
+  let occupied = pitchSlots.querySelectorAll(".player-slot.has-player");
+  if (
+    occupied.length === 0 ||
+    ![...occupied].every((el) => el.querySelector(".slot-inner"))
+  ) {
+    renderPitch();
+    occupied = pitchSlots.querySelectorAll(".player-slot.has-player");
+  }
+
+  const slots = [...occupied].filter((el) => el.querySelector(".slot-inner"));
+  const n = slots.length;
+  if (n === 0) {
+    renderHeader();
+    return;
+  }
+
+  const dur =
+    n > 1
+      ? (n - 1) * SLOT_FLIP_STAGGER_SEC + SLOT_FLIP_DURATION_SEC
+      : SLOT_FLIP_DURATION_SEC;
+  const durMs = dur * 1000;
+  const ease = "cubic-bezier(0.25, 1, 0.5, 1)";
+
+  /* ── Align transition durations BEFORE the class change ───── */
+
+  /* Header: override CSS transition → same duration, ZERO delay */
+  teamHeader.style.transition =
+    `height ${dur}s ${ease}, margin ${dur}s ${ease}`;
+
+  /* Pitch: sync via the CSS custom-property the stylesheet reads */
+  pitchWrap.style.setProperty("--pitch-wrap-height-duration", `${dur}s`);
+
+  /* ── Trigger the layout change ───────────────────────────────
+   *  renderHeader toggles video-hidden → video-revealed.
+   *  Both height transitions start from THIS style recalc. */
+  renderHeader();
+
+  /* ── Replace CSS animations on header content with synced
+   *  Web Animations so they share the exact same duration ──── */
+  const revealStack = teamHeader.querySelector(
+    ".team-header-logo-reveal-stack"
+  );
+  const logoInner = teamHeader.querySelector(".team-header-logo-inner");
+  if (revealStack)
+    revealStack.style.setProperty("animation", "none", "important");
+  if (logoInner)
+    logoInner.style.setProperty("animation", "none", "important");
+
+  /* Team crest + name fly in from above */
+  if (revealStack) {
+    revealStack.animate(
+      [
+        { transform: "translateY(-100vh)", opacity: 0 },
+        { transform: "translateY(0)", opacity: 1 },
+      ],
+      { duration: durMs, easing: ease }
+    );
+  }
+
+  /* Crest subtle scale pop */
+  if (logoInner) {
+    const s =
+      parseFloat(
+        getComputedStyle(teamHeader).getPropertyValue("--header-logo-scale")
+      ) || 1;
+    logoInner.animate(
+      [
+        { transform: `scale(${(1.2 * s).toFixed(4)})` },
+        { transform: `scale(${s.toFixed(4)})` },
+      ],
+      { duration: durMs, easing: ease }
+    );
+  }
+
+  /* ── Staggered player card flips ─────────────────────────── */
+  requestAnimationFrame(() => {
+    slots.forEach((slotEl) => {
+      const inner = slotEl.querySelector(".slot-inner");
+      if (!inner || inner.classList.contains("flipped")) return;
+      const idx = Number(slotEl.dataset.slotIndex) || 0;
+      inner.style.transitionDelay = `${idx * SLOT_FLIP_STAGGER_SEC}s`;
+      inner.classList.add("flipped");
     });
   });
 }

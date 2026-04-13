@@ -8,6 +8,8 @@ import { renderCareer, renderHeader, syncCareerSlotControlsVisibility } from "./
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
+/** Must stay in sync with the stage transition in `js/levels.js` (820ms). */
+const STAGE_TRANSITION_MS = 820;
 
 function setVideoRevealPostTimerActive(isActive) {
   appState.videoRevealPostTimerActive = !!isActive;
@@ -80,6 +82,102 @@ function clearShortsQuestionCountdown() {
   document.body.classList.remove("shorts-question-countdown");
 }
 
+/** Shared cleanup for countdown timer UI — used by both timer-reach-0 and manual stop. */
+function cleanupCountdownState() {
+  clearInterval(appState.videoInterval);
+  clearTimeout(appState.videoTimeout);
+  stopTicking();
+  clearShortsQuestionCountdown();
+  const { els } = appState;
+  els.countdownTimer.hidden = true;
+  els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
+}
+
+/**
+ * Trigger the post-timer answer reveal animation.
+ * Shared by both timer-finish and manual stop so the transition is always identical.
+ * Returns the delay (ms) to wait before the next action.
+ */
+function triggerAnswerReveal(options = {}) {
+  const { playAudio = true } = options;
+
+  if (appState.currentLevelIndex <= 1) return 1000;
+
+  const isLastQuestionBeforeOutro =
+    appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+  if (isLastQuestionBeforeOutro) return 0;
+
+  if (playAudio) {
+    const state = getState();
+    const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+    playTheAnswerIs(true, playerDisplayName);
+  }
+  setVideoRevealPostTimerActive(true);
+  refreshCurrentQuestionPreview();
+  return 3000;
+}
+
+/**
+ * Apply all layout changes to exit video mode.
+ * Called while stage is faded out so the user never sees abrupt layout shifts.
+ */
+function applyTeardownLayout() {
+  setVideoRevealPostTimerActive(false);
+  clearCinematicRevealFx();
+  document.body.classList.remove("play-video-active");
+  const { els } = appState;
+  const state = getState();
+  if (els.careerWrap) {
+    els.careerWrap.classList.toggle("video-mode-enabled", !!state?.videoMode);
+  }
+  els.playVideoBtn.hidden = false;
+  els.panelFab.hidden = false;
+  renderProgressSteps(appState.totalLevelsCount, switchLevel);
+  if (els.quizProgressContainer) els.quizProgressContainer.hidden = false;
+  if (els.sideTextRight) els.sideTextRight.hidden = true;
+  if (appState.currentLevelIndex === 0) {
+    const logoImg = els.logoPage.querySelector('.logo-img-anim');
+    if (logoImg) logoImg.classList.remove('reveal');
+  }
+  const careerGrid = document.querySelector(".career-grid");
+  if (careerGrid) careerGrid.classList.remove("reveal-active");
+  syncCareerSlotControlsVisibility();
+  refreshCurrentQuestionPreview();
+}
+
+/**
+ * Complete UI teardown after video mode ends.
+ * Uses the same stage fade-out / fade-in animation as switchLevel()
+ * so the layout change is hidden behind the fade.
+ */
+function finishVideoTeardown() {
+  if (appState.isVideoPlaying) return;
+  const stageMain = document.getElementById("stage-main");
+
+  if (stageMain) {
+    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+    stageMain.classList.add("stage-exit-video-anim");
+
+    setTimeout(() => {
+      applyTeardownLayout();
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
+          void stageMain.offsetWidth;
+          stageMain.classList.add("stage-enter-video-anim");
+
+          setTimeout(() => {
+            stageMain.classList.remove("stage-enter-video-anim");
+          }, STAGE_TRANSITION_MS);
+        });
+      });
+    }, STAGE_TRANSITION_MS);
+  } else {
+    applyTeardownLayout();
+  }
+}
+
 function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
@@ -98,43 +196,27 @@ function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
 export function stopVideoFlow() {
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
+
+  const wasOnQuestion = appState.isVideoPlaying &&
+    appState.currentLevelIndex > 1 &&
+    appState.currentLevelIndex < appState.totalLevelsCount;
+
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
-  setVideoRevealPostTimerActive(false);
-  document.body.classList.remove("play-video-active");
-  clearShortsQuestionCountdown();
-  clearInterval(appState.videoInterval);
-  clearTimeout(appState.videoTimeout);
-  clearCinematicRevealFx();
-  stopAllAudio(); 
-  const { els } = appState;
-  const state = getState();
-  if (els.careerWrap) {
-    els.careerWrap.classList.toggle("video-mode-enabled", !!state?.videoMode);
-  }
-  els.playVideoBtn.hidden = false;
-  els.countdownTimer.hidden = true;
-  els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
-  els.panelFab.hidden = false;
-  renderProgressSteps(appState.totalLevelsCount, switchLevel);
-  if (els.quizProgressContainer) {
-    els.quizProgressContainer.hidden = false;
-  }
-  if (els.sideTextRight) {
-    els.sideTextRight.hidden = true;
-  }
-  if (appState.currentLevelIndex === 0) {
-    const logoImg = els.logoPage.querySelector('.logo-img-anim');
-    if (logoImg) {
-      logoImg.classList.remove('reveal');
+  cleanupCountdownState();
+  stopAllAudio();
+
+  if (wasOnQuestion) {
+    const flipDelay = triggerAnswerReveal({ playAudio: false });
+    if (flipDelay > 0) {
+      appState.videoTimeout = setTimeout(() => {
+        finishVideoTeardown();
+      }, flipDelay);
+      return;
     }
   }
-  const careerGrid = document.querySelector(".career-grid");
-  if (careerGrid) {
-    careerGrid.classList.remove("reveal-active");
-  }
-  syncCareerSlotControlsVisibility();
-  refreshCurrentQuestionPreview();
+
+  finishVideoTeardown();
 }
 
 export function startVideoFlow() {
@@ -249,7 +331,7 @@ function runVideoStep() {
     if (isOutro) {
       return; 
     }
-    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 3000;
     if (isShorts && appState.currentLevelIndex === 1) {
       delay = 1000;
     }
@@ -257,7 +339,7 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 12;
+    let count = isShorts ? 5 : 3;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");
@@ -316,18 +398,13 @@ function runVideoStep() {
           els.countdownTimer.classList.remove("pulse");
         }
       } else {
-        clearInterval(appState.videoInterval);
-        stopTicking();
-        els.countdownTimer.hidden = true;
-        els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
+        cleanupCountdownState();
         const skipRevealToOutro =
           isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount;
         if (skipRevealToOutro) {
-          setVideoRevealPostTimerActive(false);
           switchLevel(appState.currentLevelIndex + 1);
           runVideoStep();
         } else {
-          clearShortsQuestionCountdown();
           revealCurrentLevel();
         }
       }
@@ -336,25 +413,7 @@ function runVideoStep() {
 }
 
 function revealCurrentLevel() {
-  const { els } = appState;
-  const state = getState();
-  let flipDelay = 1000;
-  const isShorts = document.body.classList.contains("shorts-mode");
-  if (appState.currentLevelIndex > 1) {
-    const isLastQuestionBeforeOutro =
-      appState.currentLevelIndex + 1 === appState.totalLevelsCount;
-    if (!isLastQuestionBeforeOutro) {
-      const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
-      // In Play Video mode, always announce the revealed player when a name clip exists.
-      playTheAnswerIs(true, playerDisplayName);
-      setVideoRevealPostTimerActive(true);
-      refreshCurrentQuestionPreview();
-      flipDelay = 4000;
-    } else {
-      /* Bonus: no answer reveal — go straight to outro after the question timer. */
-      flipDelay = 0;
-    }
-  }
+  const flipDelay = triggerAnswerReveal({ playAudio: true });
   appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;
     setVideoRevealPostTimerActive(false);

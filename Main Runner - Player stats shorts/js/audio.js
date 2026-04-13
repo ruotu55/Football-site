@@ -280,6 +280,42 @@ export function playWelcomeShortsLanding() {
   });
 }
 
+/** Shorts: play quiz-title clip with onPlaybackStart callback; resolves when clip ends. */
+export function playRulesShortsLanding(quizType, options = {}) {
+  if (!document.body.classList.contains("shorts-mode")) {
+    return Promise.resolve();
+  }
+  const onPlaybackStart =
+    typeof options.onPlaybackStart === "function" ? options.onPlaybackStart : null;
+  const src =
+    quizType === "player-by-career" || quizType === "player-by-career-stats"
+      ? paths.guessCareer
+      : quizType === "club-by-nat"
+        ? paths.guessNat
+        : paths.guessClub;
+  return new Promise((resolve) => {
+    if (currentVoice) {
+      currentVoice.pause();
+      currentVoice.currentTime = 0;
+    }
+    currentVoice = new Audio(src);
+    currentVoice.volume = 1;
+    if (onPlaybackStart) {
+      currentVoice.addEventListener("playing", () => onPlaybackStart(), { once: true });
+    }
+    currentVoice.addEventListener("ended", () => resolve(), { once: true });
+    currentVoice.addEventListener("error", () => {
+      if (onPlaybackStart) onPlaybackStart();
+      resolve();
+    }, { once: true });
+    currentVoice.play().catch((err) => {
+      console.warn("Voice play error:", err);
+      if (onPlaybackStart) onPlaybackStart();
+      resolve();
+    });
+  });
+}
+
 export function playRules(quizType) {
   if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
     playVoice(paths.guessCareer, 1000);

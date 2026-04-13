@@ -3,13 +3,12 @@ import { switchLevel } from "./levels.js";
 import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import {
-  applyVideoQuestionPostTimerFlip,
   clearPitchWrapTransitionOverride,
+  performSyncedPostTimerReveal,
   renderHeader,
   renderPitch,
   resolveHeaderTeamDisplayName,
   shouldUseVideoQuestionLayout,
-  syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
@@ -34,30 +33,111 @@ function refreshCurrentQuestionPreview() {
   const postReveal = appState.videoRevealPostTimerActive;
 
   if (postReveal && useVideoQ) {
-    const pitchSlots = appState.els.pitchSlots;
-    const occupied = pitchSlots?.querySelectorAll(".player-slot.has-player") ?? [];
-    const flipReady =
-      occupied.length > 0 &&
-      [...occupied].every((el) => el.querySelector(".slot-inner"));
-
-    if (!flipReady) {
-      renderPitch();
-      const filled = pitchSlots?.querySelectorAll(".player-slot.has-player");
-      const n = filled?.length ?? 0;
-      syncPitchWrapTransitionToVideoReveal(n);
-      renderHeader();
-      applyVideoQuestionPostTimerFlip();
-      return;
-    }
-    syncPitchWrapTransitionToVideoReveal(occupied.length);
-    renderHeader();
-    applyVideoQuestionPostTimerFlip();
+    performSyncedPostTimerReveal();
     return;
   }
 
   clearPitchWrapTransitionOverride();
   renderPitch();
   renderHeader();
+}
+
+/** Shared cleanup for countdown timer UI — used by both timer-reach-0 and manual stop. */
+function cleanupCountdownState() {
+  clearInterval(appState.videoInterval);
+  clearTimeout(appState.videoTimeout);
+  stopTicking();
+  const { els } = appState;
+  els.countdownTimer.hidden = true;
+  els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
+}
+
+/**
+ * Trigger the post-timer answer reveal animation.
+ * Shared by both timer-finish and manual stop so the transition is always identical.
+ * Returns the delay (ms) to wait before the next action.
+ */
+function triggerAnswerReveal(options = {}) {
+  const { playAudio = true } = options;
+
+  if (appState.currentLevelIndex <= 1) return 1000;
+
+  const isLastQuestionBeforeOutro =
+    appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+  if (isLastQuestionBeforeOutro) return 0;
+
+  if (playAudio) {
+    const { els } = appState;
+    const state = getState();
+    const quizType = els.inQuizType?.value || "nat-by-club";
+    const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
+    playTheAnswerIs(true, teamDisplayName, quizType);
+  }
+  setVideoRevealPostTimerActive(true);
+  refreshCurrentQuestionPreview();
+  return 3000;
+}
+
+/**
+ * Apply all layout changes to exit video mode.
+ * Called while stage is faded out so the user never sees the pitch shrink/shift.
+ */
+function applyTeardownLayout() {
+  setVideoRevealPostTimerActive(false);
+  clearPitchWrapTransitionOverride();
+  document.body.classList.remove("play-video-active");
+  const { els } = appState;
+  /* Snap pitch height instantly (no CSS transition) while stage is invisible. */
+  if (els.pitchWrap) els.pitchWrap.classList.add("pitch-wrap-snap-height");
+  if (els.teamHeader) els.teamHeader.classList.remove("video-hidden", "video-revealed");
+  els.playVideoBtn.hidden = false;
+  els.panelFab.hidden = false;
+  renderProgressSteps(appState.totalLevelsCount, switchLevel);
+  if (els.quizProgressContainer) els.quizProgressContainer.hidden = false;
+  if (els.sideTextRight) els.sideTextRight.hidden = true;
+  if (appState.currentLevelIndex === 0) {
+    const logoImg = els.logoPage.querySelector('.logo-img-anim');
+    if (logoImg) logoImg.classList.remove('reveal');
+  }
+  refreshCurrentQuestionPreview();
+}
+
+/**
+ * Complete UI teardown after video mode ends.
+ * Uses the same stage fade-out / fade-in animation as switchLevel()
+ * so the layout change (pitch height, header) is hidden behind the fade.
+ */
+function finishVideoTeardown() {
+  if (appState.isVideoPlaying) return;
+  const stageMain = document.getElementById("stage-main");
+  const { els } = appState;
+
+  if (stageMain) {
+    /* ── Same stage-exit as switchLevel ── */
+    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+    stageMain.classList.add("stage-exit-video-anim");
+
+    setTimeout(() => {
+      /* Stage is faded out — apply layout changes invisibly. */
+      applyTeardownLayout();
+
+      /* ── Same stage-enter as switchLevel ── */
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
+          void stageMain.offsetWidth;
+          stageMain.classList.add("stage-enter-video-anim");
+
+          setTimeout(() => {
+            stageMain.classList.remove("stage-enter-video-anim");
+            if (els.pitchWrap) els.pitchWrap.classList.remove("pitch-wrap-snap-height");
+          }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+        });
+      });
+    }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+  } else {
+    applyTeardownLayout();
+  }
 }
 
 function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
@@ -78,33 +158,27 @@ function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
 export function stopVideoFlow() {
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
+
+  const wasOnQuestion = appState.isVideoPlaying &&
+    appState.currentLevelIndex > 1 &&
+    appState.currentLevelIndex < appState.totalLevelsCount;
+
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
-  setVideoRevealPostTimerActive(false);
-  clearPitchWrapTransitionOverride();
-  document.body.classList.remove("play-video-active");
-  clearInterval(appState.videoInterval);
-  clearTimeout(appState.videoTimeout);
-  stopAllAudio(); 
-  const { els } = appState;
-  els.playVideoBtn.hidden = false;
-  els.countdownTimer.hidden = true;
-  els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
-  els.panelFab.hidden = false;
-  renderProgressSteps(appState.totalLevelsCount, switchLevel);
-  if (els.quizProgressContainer) {
-    els.quizProgressContainer.hidden = false;
-  }
-  if (els.sideTextRight) {
-    els.sideTextRight.hidden = true;
-  }
-  if (appState.currentLevelIndex === 0) {
-    const logoImg = els.logoPage.querySelector('.logo-img-anim');
-    if (logoImg) {
-      logoImg.classList.remove('reveal');
+  cleanupCountdownState();
+  stopAllAudio();
+
+  if (wasOnQuestion) {
+    const flipDelay = triggerAnswerReveal({ playAudio: false });
+    if (flipDelay > 0) {
+      appState.videoTimeout = setTimeout(() => {
+        finishVideoTeardown();
+      }, flipDelay);
+      return;
     }
   }
-  refreshCurrentQuestionPreview();
+
+  finishVideoTeardown();
 }
 
 export function startVideoFlow() {
@@ -206,7 +280,7 @@ function runVideoStep() {
     if (isOutro) {
       return; 
     }
-    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 3000;
     if (isShorts && appState.currentLevelIndex === 1) {
       delay = 1000;
     }
@@ -214,7 +288,7 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 12;
+    let count = isShorts ? 5 : 3;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");
@@ -270,14 +344,10 @@ function runVideoStep() {
           els.countdownTimer.classList.remove("pulse");
         }
       } else {
-        clearInterval(appState.videoInterval);
-        stopTicking();
-        els.countdownTimer.hidden = true;
-        els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
+        cleanupCountdownState();
         const skipRevealToOutro =
           isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount;
         if (skipRevealToOutro) {
-          setVideoRevealPostTimerActive(false);
           const jumpToIndex = appState.currentLevelIndex + 1;
           switchLevel(jumpToIndex);
           const nextState = getState();
@@ -304,24 +374,7 @@ function runVideoStep() {
 }
 
 function revealCurrentLevel() {
-  const { els } = appState;
-  const state = getState();
-  let flipDelay = 1000;
-  if (appState.currentLevelIndex > 1) {
-    const isLastQuestionBeforeOutro =
-      appState.currentLevelIndex + 1 === appState.totalLevelsCount;
-    if (!isLastQuestionBeforeOutro) {
-      const quizType = els.inQuizType?.value || "nat-by-club";
-      const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
-      playTheAnswerIs(true, teamDisplayName, quizType);
-      setVideoRevealPostTimerActive(true);
-      refreshCurrentQuestionPreview();
-      flipDelay = 4000;
-    } else {
-      /* Bonus: no answer reveal — go straight to outro after the question timer. */
-      flipDelay = 0;
-    }
-  }
+  const flipDelay = triggerAnswerReveal({ playAudio: true });
   appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;
     setVideoRevealPostTimerActive(false);

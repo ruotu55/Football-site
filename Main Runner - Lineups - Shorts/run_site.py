@@ -44,8 +44,8 @@ TEAM_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_TEAM_VOICE = "en-US-AndrewNeural"
 QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / "Voices" / "Game name"
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
-    "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
-    "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
+    "nat-by-club": "shorts-Guess the football national team name by players' club !!!.mp3",
+    "club-by-nat": "shorts-Guess the football team name by players' nationality !!!.mp3",
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
     "nat-by-club": "GUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB",

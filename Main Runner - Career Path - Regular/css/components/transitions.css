@@ -1,21 +1,21 @@
 /* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
-/* Hint compositor for smoother timeline transitions during video playback. */
+/* Compositor-friendly: animate transform/opacity only (filter: blur() is costly during motion). */
 .stage-main,
 .logo-img-anim,
 .landing-page {
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 @keyframes stage-exit-epic {
-  0% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+  0% { transform: translateY(0); opacity: 1; }
   /* Old screen clears out towards the bottom */
-  100% { transform: translateY(100vh); opacity: 0; filter: blur(2px); }
+  100% { transform: translateY(100vh); opacity: 0; }
 }
 
 @keyframes stage-enter-epic {
   /* New team screen slides IN FROM THE TOP (-100vh) like a window shade */
-  0% { transform: translateY(-100vh); opacity: 0; filter: blur(2px); }
-  100% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+  0% { transform: translateY(-100vh); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
 .stage-exit-anim {
@@ -31,12 +31,10 @@
   0% {
     transform: scale(1) translateY(0);
     opacity: 1;
-    filter: blur(0);
   }
   100% {
     transform: scale(1.14) translateY(-1.2vh);
     opacity: 0;
-    filter: blur(10px);
   }
 }
 
@@ -44,12 +42,10 @@
   0% {
     transform: scale(1.14) translateY(-1.2vh);
     opacity: 0;
-    filter: blur(10px);
   }
   100% {
     transform: scale(1) translateY(0);
     opacity: 1;
-    filter: blur(0);
   }
 }
 
@@ -63,9 +59,9 @@
 
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
 @keyframes logo-bounce-out {
-  0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
-  20% { transform: scale(1.15) translateY(-20px); opacity: 1; filter: blur(0); }
-  100% { transform: scale(0.1) translateY(300px); opacity: 0; filter: blur(5px); }
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  20% { transform: scale(1.15) translateY(-20px); opacity: 1; }
+  100% { transform: scale(0.1) translateY(300px); opacity: 0; }
 }
 .logo-img-anim.bounce-out {
   animation: logo-bounce-out 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards !important;
@@ -82,8 +78,8 @@
 
 /* NEW: Cool Shift Animation for Regular Mode */
 @keyframes logo-shift-top-right {
-  0% { transform: scale(1) translate(0, 0); opacity: 1; filter: blur(0px); }
-  100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; filter: blur(0px); }
+  0% { transform: scale(1) translate(0, 0); opacity: 1; }
+  100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; }
 }
 .logo-img-anim.shift-top-right {
   animation: logo-shift-top-right 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;

@@ -1314,6 +1314,7 @@ export function renderHeader() {
     els.teamHeader.classList.remove("video-revealed");
   }
 
+
   const logoBlock = document.getElementById("team-header-logo-block");
   const fetchLogoBtn = document.getElementById("team-header-fetch-logo");
   const swapLogoBtn = document.getElementById("team-header-swap-logo");

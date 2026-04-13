@@ -121,29 +121,26 @@ body.play-video-active .team-header.video-hidden .team-header-logo {
     opacity: 0;
     letter-spacing: 0.22em;
     transform: translateY(68vh) scale(0.88);
-    filter: blur(10px);
     text-shadow: 0 0 0 rgba(255, 255, 255, 0);
   }
   62% {
     opacity: 1;
     letter-spacing: 0.1em;
     transform: translateY(-0.62rem) scale(1.035);
-    filter: blur(0);
     text-shadow: 0 0 18px rgba(255, 255, 255, 0.36), 0 8px 20px rgba(0, 0, 0, 0.65);
   }
   100% {
     opacity: 1;
     letter-spacing: 0.05em;
     transform: translateY(-0.4rem) scale(1);
-    filter: blur(0);
     text-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
   }
 }
 
 @keyframes logo-fly-in {
   /* FIXED: Starts from -100vh (top) with no positive translateY to avoid the "pitch jump" */
-  0% { transform: scale(1.2) translateY(-100vh); opacity: 0; filter: blur(10px); }
-  100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0px); }
+  0% { transform: scale(1.2) translateY(-100vh); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 .team-header.video-revealed .team-header-logo {
