@@ -354,14 +354,19 @@ export function playTeamNameVoiceIfExists(displayName, quizType = "nat-by-club",
 export function playTheAnswerIs(
   includeVoice = true,
   teamDisplayName = "",
-  quizType = "nat-by-club"
+  quizType = "nat-by-club",
+  /** ms before team name clip after `canplay`; default ducks BGM then plays. Use `0` when synced to UI (e.g. panel slide). */
+  teamNameVoiceDelayMs = 600
 ) {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
   
   if (includeVoice) {
-    // Dong plays immediately. BGM ducks over 0.6s, then the name clip plays if present.
-    playTeamNameVoiceIfExistsInDir(teamDisplayName, 600, revealVoiceDirForQuizType(quizType));
+    playTeamNameVoiceIfExistsInDir(
+      teamDisplayName,
+      teamNameVoiceDelayMs,
+      revealVoiceDirForQuizType(quizType)
+    );
   }
 }
 

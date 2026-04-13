@@ -196,11 +196,11 @@ body.thumbnail-maker-active #pitch-wrap::after {
 
 body.thumbnail-maker-active #pitch-wrap .pitch-surface {
   /* Hard override base pitch sizing in thumbnail mode */
-  width: min(100vw, calc((100vh - 22.8vh - 8px) * 1.5 * 1.44)) !important;
+  width: min(100vw, calc((100vh - 22.8vh - 8px) * var(--pitch-plan-ratio) * 1.44)) !important;
   max-width: 100vw !important;
   height: auto !important;
   max-height: calc(100vh - 22.8vh - 8px) !important;
-  aspect-ratio: 1.5 / 1 !important;
+  aspect-ratio: var(--pitch-plan-ratio) / 1 !important;
   transform: rotateX(38deg) translateY(-11%) scale(1.06) !important;
   transform-origin: center center !important;
   position: relative;
@@ -246,8 +246,7 @@ body.thumbnail-maker-active #pitch-wrap .slot-label-container {
 }
 
 /* Thumbnail mode: keep logos completely static (no floating animation). */
-body.thumbnail-maker-active #pitch-wrap .player-slot.has-player .slot-avatar,
-body.thumbnail-maker-active #pitch-wrap .player-slot.has-player .slot-label-container {
+body.thumbnail-maker-active #pitch-wrap .player-slot.has-player > .slot-mount {
   animation: none !important;
 }
 

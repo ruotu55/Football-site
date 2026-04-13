@@ -1,40 +1,117 @@
-/* css/components/team-header.css */
+/* css/components/team-header.css — full-height sliding side panel over the pitch */
+
+/* Wrapper in index.html: no layout box; keeps #team-header under .app (no .stage perspective). */
+.team-header-mount,
+#team-header-mount {
+  display: contents;
+}
 
 .team-header {
   --header-logo-scale: 1;
   --header-logo-nudge-x: 0px;
-  /* Regular: shift crest+title so the title’s center sits on the viewport center */
   --team-header-name-center-shift: 0px;
+  /* Same family as page --bg-stage, a bit darker so the panel reads as its own band */
+  --team-panel-bg: color-mix(in srgb, var(--bg-stage) 82%, black 18%);
+
+  /* Viewport-fixed: node must live outside .stage (see #team-header-mount in index.html) */
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(20.25vw, 17.82rem);
+  min-width: 8.91rem;
+  max-width: 21.06rem;
+  height: auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Below --z-lineups-floating-chrome (480); under-crest −/+ sit lower than top FAB row */
+  z-index: 160;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  background-color: var(--team-panel-bg);
+  box-shadow: 15px 0 30px rgba(0, 0, 0, 0.7);
+  border-right: 2px solid #000;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 420;
-  width: 95%;
-  margin: 0 auto;
-  pointer-events: none;
-  flex-shrink: 0;
-  height: 25vh;
-  transition: height 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s, margin 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
-  position: relative;
+  color: #fff;
+
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-out;
+  will-change: transform;
 }
-.team-header[hidden] { display: none; }
+
+/* Full-panel hatch: random two-way diagonals + gaps (see js/team-header-hatch.js).
+   No solid fill here — panel color is on .team-header so a mask only softens the hatch near the logo. */
+.team-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--team-header-hatch-bg);
+  background-size: var(--team-header-hatch-tile, 132px) var(--team-header-hatch-tile, 132px);
+  background-repeat: repeat;
+  /* Stronger fade around crest + title: ~half strength at center, wide smooth ramp */
+  -webkit-mask-image: radial-gradient(
+    ellipse 118% 68% at 50% 29%,
+    rgba(0, 0, 0, 0.44) 0%,
+    rgba(0, 0, 0, 0.58) 14%,
+    rgba(0, 0, 0, 0.74) 30%,
+    rgba(0, 0, 0, 0.88) 50%,
+    rgba(0, 0, 0, 1) 76%
+  );
+  mask-image: radial-gradient(
+    ellipse 118% 68% at 50% 29%,
+    rgba(0, 0, 0, 0.44) 0%,
+    rgba(0, 0, 0, 0.58) 14%,
+    rgba(0, 0, 0, 0.74) 30%,
+    rgba(0, 0, 0, 0.88) 50%,
+    rgba(0, 0, 0, 1) 76%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.team-header.team-header--show {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.team-header[hidden] {
+  display: none;
+}
 
 .team-header-cluster.team-header-logo-block {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 0;
-  max-width: 100%;
+  width: 100%;
   position: relative;
   z-index: 2;
   pointer-events: auto;
+  /* Equal horizontal inset so logo + title share the same geometric centerline; extra top inset lowers the control row */
+  padding-top: max(1.2rem, calc(env(safe-area-inset-top, 0px) + 0.75rem));
+  padding-right: 0.65rem;
+  padding-left: 0.65rem;
+  padding-bottom: 38%;
+  box-sizing: border-box;
 }
 
 .team-header-logo-reveal-stack {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .team-header-controls-row {
@@ -43,72 +120,115 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  margin-bottom: 0.4rem;
+  gap: 0.45rem;
+  margin-bottom: 0.2835rem;
   flex-shrink: 0;
+  width: 100%;
 }
 
-/* Video / preview: hide crest zoom + nudge only — keep "Swap logo" usable (Video mode on / Play Video). */
-body.play-video-active .team-header-logo-zoom,
-body.play-video-active .team-header-logo-nudge {
-  display: none;
+/* Play Video: hide chrome but keep layout geometry (display:none was collapsing the panel vs normal) */
+body.play-video-active .team-header-logo-zoom {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 body.play-video-active .team-header-controls-row,
 body.play-video-active .team-header-fetch-logo-btn,
 body.play-video-active .team-header-swap-logo-btn,
 body.play-video-active .team-header-clear-team-btn {
-  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
-.team-header.video-preview-revealed .team-header-logo-zoom,
-.team-header.video-preview-revealed .team-header-logo-nudge {
-  display: none;
-}
+/* Do not hide logo zoom here: .video-preview-revealed is on for most quiz levels when
+   video mode is off, which made +/− permanently invisible (see getVideoQuestionPreviewState). */
 
-/* No swap for national XI — collapse empty control group */
 .team-header-logo-swap:has(> button[hidden]) {
   display: none;
 }
 
-.team-header-logo-nudge {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.35rem;
-}
-
 .team-header-main-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
-  max-width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   position: relative;
 }
 
-/* Crest immediately left of name; whole cluster shifted so name is horizontally centered */
-.team-header-title-cluster {
+.team-side-panel-column {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  transform: translateX(var(--team-header-name-center-shift, 0px));
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.team-side-panel-logo-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Stepped up ~10% vs prior step (was min(16.04vh, 6.56rem)) */
+  margin-top: min(14.44vh, 5.9rem);
+  flex-shrink: 0;
+}
+
+/* Bounding box for crest + corner clear control */
+.team-side-panel-logo-frame {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+/* Clear (X) sits on the crest — top-right of the logo box */
+.team-side-panel-clear-on-logo {
+  position: absolute;
+  top: 0.15rem;
+  right: 0.15rem;
+  z-index: 8;
+  width: 1.85rem;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  border-radius: 0.35rem;
+  font-size: 0.95rem;
+  line-height: 1;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+}
+
+.team-side-panel-clear-on-logo:active {
+  transform: scale(0.94);
+}
+
+.team-header-logo-shift {
+  transform: translateX(var(--header-logo-nudge-x, 0px));
+  will-change: transform;
+}
+
+.team-header-logo-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(var(--header-logo-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .team-voice-controls {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  position: absolute;
-  right: -6.25rem;
-  top: 50%;
-  transform: translateY(-50%);
+  justify-content: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  margin-top: 0.315rem;
   pointer-events: auto;
-  z-index: 3;
 }
 
 .team-voice-controls[hidden] {
@@ -151,83 +271,75 @@ body.play-video-active .team-voice-controls {
   display: none;
 }
 
-.team-header-logo-fly-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-}
-
-.team-header-logo-shift {
-  transform: translateX(var(--header-logo-nudge-x, 0px));
-  will-change: transform;
-}
-
-.team-header-logo-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: scale(var(--header-logo-scale, 1));
-  transform-origin: center center;
-  will-change: transform;
-}
-
 .team-header-logo-zoom {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   flex-shrink: 0;
+}
+
+/* Under crest −/+ only: z-index so scaled crest doesn’t paint over these (layout unchanged) */
+.team-header-logo-zoom--under-crest {
+  position: relative;
+  z-index: 5;
+  margin-top: 0.315rem;
+  margin-bottom: 0.09rem;
+}
+
+.team-header-logo-block.team-header-logo-block--empty .team-header-logo-zoom {
+  display: none !important;
 }
 
 .team-header-logo-block.team-header-logo-block--empty .team-header-controls-row {
   display: none;
 }
 
-/* When the crest image failed to load, keep "Swap logo" reachable (zoom/nudge stay hidden). */
 .team-header-logo-block.team-header-logo-block--empty.team-header-show-swap-logo .team-header-controls-row {
   display: flex;
 }
-.team-header-logo-block.team-header-logo-block--empty.team-header-show-swap-logo .team-header-logo-zoom,
-.team-header-logo-block.team-header-logo-block--empty.team-header-show-swap-logo .team-header-logo-nudge {
-  display: none;
-}
 
 .team-header-swap-logo-btn {
-  min-width: 4.5rem;
-  font-size: 0.62rem;
+  min-width: 4rem;
+  font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
+/* Left of the crest, same vertical band as the logo (.team-side-panel-logo-frame is position: relative) */
 .team-header-fetch-logo-btn {
-  position: static;
-  transform: none;
-  z-index: 3;
-  min-width: 4.7rem;
-  height: 1.8rem;
-  padding: 0 0.6rem;
-  font-size: 0.62rem;
+  position: absolute;
+  right: 100%;
+  top: 52%;
+  transform: translateY(-50%);
+  margin-right: 0.4rem;
+  z-index: 6;
+  min-width: 4.5rem;
+  height: 1.65rem;
+  padding: 0 0.5rem;
+  font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin-right: 0.65rem;
   flex-shrink: 0;
+}
+
+.team-header-fetch-logo-btn:active {
+  transform: translateY(-50%) scale(0.96);
 }
 
 .team-header-zoom-btn {
   box-sizing: border-box;
-  min-width: 2rem;
-  height: 1.75rem;
-  padding: 0 0.45rem;
+  min-width: 1.85rem;
+  height: 1.6rem;
+  padding: 0 0.4rem;
   border: 2px solid rgba(255, 255, 255, 0.85);
   border-radius: 0.35rem;
   background: rgba(0, 0, 0, 0.55);
   color: #fff;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 800;
   line-height: 1;
   font-family: system-ui, "Segoe UI", sans-serif;
@@ -236,9 +348,12 @@ body.play-video-active .team-voice-controls {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
-.team-header-nudge-btn {
-  min-width: 2.1rem;
-  font-size: 0.85rem;
+/* Must stay absolute on the crest; never inherit .team-header-zoom-btn positioning */
+.team-header-zoom-btn.team-side-panel-clear-on-logo {
+  position: absolute;
+  top: 0.15rem;
+  right: 0.15rem;
+  z-index: 8;
 }
 
 .team-header-zoom-btn:hover {
@@ -257,7 +372,7 @@ body.play-video-active .team-voice-controls {
 }
 
 .team-header-clear-team-btn {
-  min-width: 2.1rem;
+  min-width: 1.95rem;
   color: #fff;
   background: rgba(120, 18, 18, 0.75);
   border-color: rgba(255, 190, 190, 0.95);
@@ -268,114 +383,149 @@ body.play-video-active .team-voice-controls {
   border-color: #fff;
 }
 
-/* FIX: Shift the header up slightly in regular mode without affecting the pitch layout */
-body:not(.shorts-mode) .team-header {
-  position: relative;
-  top: -0.5vh;
+/* Bottom flag band (matches reference layout) */
+.team-side-panel-flag-section {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  min-height: 5.5rem;
+  z-index: 2;
+  pointer-events: none;
+  box-sizing: border-box;
 }
 
-body:not(.shorts-mode) .team-header-name {
-  text-align: left;
+/* Rotation + placement on the wrap (same geometry as former img-only transform) */
+.team-side-panel-flag-image-wrap {
+  position: absolute;
+  bottom: -10%;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  transform: rotate(-8deg);
+  transform-origin: center center;
+  pointer-events: none;
 }
 
-body.shorts-mode .team-header {
-  --team-header-name-center-shift: 0px;
-}
-
-/* Regular: club / national header crest layout box */
-body:not(.shorts-mode) .team-header[data-squad-type="club"] .team-header-logo {
-  height: 6.53rem;
-  width: 11.88rem;
-}
-
-body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-logo {
-  height: 5.28rem;
-  width: 9.6rem;
-}
-
-.team-header.video-hidden {
-  height: 0vh;
-  margin-top: 0;
-  margin-bottom: 0;
+.team-side-panel-flag-section.team-side-panel-flag-section--empty {
+  opacity: 0;
+  height: 0;
+  min-height: 0;
   overflow: hidden;
 }
 
-/* Play Video: do not animate header height (1s + 0.4s delay). Otherwise the column stays
-   tall briefly and .stage-main flex-centering makes the pitch look low, then it “rises”. */
-body.play-video-active .team-header.video-hidden {
-  transition: none !important;
+.team-side-panel-flag-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  display: block;
+  /* No filter — contrast/saturation shifts whites toward grey and can read as brown on St George etc. */
+  filter: none;
 }
 
-.team-header.video-hidden .team-header-logo-reveal-stack {
-  opacity: 0;
-  transform: translateY(-100vh);
-  transition: none;
+.team-side-panel-flag-image[hidden] {
+  display: none !important;
 }
 
-.team-header.video-revealed {
-  height: 25vh;
-  overflow: visible;
+/* Decorative overlay removed: any gradient on red/white reads as grey/brown vs true flag colors */
+.team-side-panel-flag-shading {
+  display: none;
 }
 
-.team-header.video-revealed .team-header-logo-reveal-stack {
-  animation: logo-fly-in 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s both;
-  transform-origin: center center;
+body:not(.shorts-mode) .team-header[data-squad-type="club"] .team-header-logo {
+  height: 10.4rem;
+  width: 19rem;
+  max-width: min(19rem, calc(100% - 0.5rem));
 }
 
-.team-header.video-revealed .team-header-logo-inner {
-  animation: logo-inner-pop 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s both;
-  transform-origin: center center;
-}
-
-@keyframes logo-fly-in {
-  0% {
-    transform: translateY(-100vh);
-    opacity: 0;
-    filter: blur(10px);
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-    filter: blur(0px);
-  }
-}
-
-@keyframes logo-inner-pop {
-  0% {
-    transform: scale(calc(1.2 * var(--header-logo-scale, 1)));
-  }
-  100% {
-    transform: scale(var(--header-logo-scale, 1));
-  }
+body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-logo {
+  height: 9.2rem;
+  width: 16.8rem;
+  max-width: min(16.8rem, calc(100% - 0.5rem));
 }
 
 .team-header-logo {
-  height: 6.6rem;
-  width: 12rem;
   object-fit: contain;
   object-position: center center;
   image-rendering: auto;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6)) drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.6));
   transform: translateZ(0);
 }
-.team-header-logo[hidden] { display: none; }
 
-.team-header-name {
-  flex: 0 1 auto;
+.team-header-logo[hidden] {
+  display: none;
+}
+
+.team-header-name.team-side-panel-country-name {
+  /* Grid: stable centering at any inline font-size from the fitter (flex + raw text was inconsistent) */
+  align-self: stretch;
   min-width: 0;
-  margin: 0;
-  padding: 0;
+  /* ~10% tighter vs prior step — sits higher with crest block */
+  margin: 0.886rem 0 0;
+  padding-inline: 0.35rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  align-content: start;
   text-align: center;
   font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
-  font-size: clamp(3.7rem, 9vh, 6.3rem);
-  font-weight: 800;
+  font-size: clamp(2.025rem, 3.75vw, 3.225rem);
+  font-weight: 900;
+  font-style: italic;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.05;
   color: #ffffff;
-  text-shadow: 0 8px 24px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6);
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
+  letter-spacing: 0.08em;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.85);
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Tight stack only when two+ words (single word keeps h2 line-height: 1.05) */
+.team-header-name.team-side-panel-country-name:has(.team-header-name-line + .team-header-name-line) {
+  line-height: 1;
+}
+
+/* Full-width row; grid centers the inner token for any font-size */
+.team-header-name-line {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  margin: 0;
+  line-height: 1.12;
+}
+
+.team-header-name-inner {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100%;
+  font-size: inherit;
+  /* Symmetric vs parent letter-spacing: 0.08em */
+  padding-left: 0.08em;
+  padding-right: 0.08em;
+  box-sizing: border-box;
+}
+
+.team-header-name-line + .team-header-name-line {
+  margin-top: 0.04em;
+}
+
+body.shorts-mode .team-header {
+  width: min(24.3vw, 8.91rem);
+  min-width: 7.29rem;
+}
+
+body.shorts-mode .team-side-panel-logo-wrap {
+  margin-top: min(7.88vh, 2.63rem);
+}
+
+body.shorts-mode .team-header-name.team-side-panel-country-name {
+  font-size: clamp(1.5rem, 4.8vw, 2.025rem);
 }

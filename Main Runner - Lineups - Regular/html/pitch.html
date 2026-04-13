@@ -1,4 +1,46 @@
 <div class="pitch-wrap" id="pitch-wrap" hidden>
+  <!-- Full-height side panel over the pitch (slides from left); crest/flag from project data only -->
+  <div class="team-header" id="team-header" hidden>
+    <div class="team-header-cluster team-header-logo-block" id="team-header-logo-block">
+      <div class="team-header-logo-reveal-stack">
+        <div class="team-header-controls-row" aria-label="Team crest actions">
+          <div class="team-header-logo-swap" aria-label="Pick crest from Other Teams">
+            <button type="button" id="team-header-swap-logo" class="team-header-zoom-btn team-header-swap-logo-btn" hidden>Swap logo</button>
+          </div>
+        </div>
+        <div class="team-header-main-row">
+          <div class="team-side-panel-column">
+            <div class="team-side-panel-logo-wrap">
+              <div class="team-side-panel-logo-frame">
+                <button type="button" id="team-header-fetch-logo" class="team-header-zoom-btn team-header-fetch-logo-btn" hidden>Get logo</button>
+                <button type="button" id="team-header-clear-team" class="team-header-zoom-btn team-header-clear-team-btn team-side-panel-clear-on-logo" hidden aria-label="Clear selected team">X</button>
+                <div class="team-header-logo-shift">
+                  <div class="team-header-logo-inner">
+                    <img id="team-header-logo" class="team-header-logo" src="" alt="Team logo or crest" hidden />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="team-header-logo-zoom team-header-logo-zoom--under-crest" aria-label="Logo size">
+              <button type="button" id="team-header-zoom-out" class="team-header-zoom-btn" aria-label="Smaller logo">-</button>
+              <button type="button" id="team-header-zoom-in" class="team-header-zoom-btn" aria-label="Larger logo">+</button>
+            </div>
+            <h2 id="team-header-name" class="team-header-name team-side-panel-country-name"></h2>
+            <div id="team-voice-controls" class="team-voice-controls" hidden>
+              <button type="button" id="team-voice-play" class="team-voice-btn team-voice-play" aria-label="Generate and play voice">Vol</button>
+              <button type="button" id="team-voice-delete" class="team-voice-btn team-voice-delete" aria-label="Delete generated voice">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="team-side-panel-flag-section" id="team-side-panel-flag-section">
+      <div class="team-side-panel-flag-image-wrap">
+        <img id="team-header-flag" class="team-side-panel-flag-image" src="" alt="" width="320" height="200" hidden />
+      </div>
+      <div class="team-side-panel-flag-shading" aria-hidden="true"></div>
+    </div>
+  </div>
   <button type="button" id="pitch-swap-logo" class="pitch-swap-logo-btn" hidden aria-label="Swap team crest">Swap logo</button>
   <div id="lineups-inline-team-picker" class="lineups-inline-team-picker" hidden>
     <div class="lineups-inline-team-picker-title">No Team Selected</div>

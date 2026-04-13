@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=20260409ap-thumbnail-thinner-opaque-lines" />
+    <link rel="stylesheet" href="css/styles.css?v=20260413-clear-x-fix" />
   </head>
   <body>
     <div class="app">
@@ -34,6 +34,9 @@
         </svg>
         <span id="countdown-text">3</span>
       </div>
+
+      <!-- #team-header is moved here after load so position:fixed is viewport-tall (not clipped by .stage perspective) -->
+      <div id="team-header-mount" class="team-header-mount"></div>
       
       <aside class="control-panel" id="control-panel"></aside>
       <aside class="control-panel right-panel" id="right-panel" hidden></aside>
@@ -76,12 +79,17 @@
           'html/landing.html',
           'html/outro.html',
           'html/thumbnail-maker.html',
-          'html/header.html',
           'html/pitch.html'
         ];
 
         for (const url of stageComponents) {
           await loadComponent(url, 'stage-main');
+        }
+
+        const teamHeaderEl = document.getElementById('team-header');
+        const teamHeaderMount = document.getElementById('team-header-mount');
+        if (teamHeaderEl && teamHeaderMount) {
+          teamHeaderMount.appendChild(teamHeaderEl);
         }
 
         const script = document.createElement('script');

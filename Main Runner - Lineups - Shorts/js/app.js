@@ -152,8 +152,6 @@ function initHeaderLogoZoom(onClearTeamSelection) {
     const th = appState.els.teamHeader;
     const zoomOut = document.getElementById("team-header-zoom-out");
     const zoomIn = document.getElementById("team-header-zoom-in");
-    const nudgeLeft = document.getElementById("team-header-nudge-left");
-    const nudgeRight = document.getElementById("team-header-nudge-right");
     const swapLogo = document.getElementById("team-header-swap-logo");
     const fetchLogo = document.getElementById("team-header-fetch-logo");
     const pitchSwapLogo = document.getElementById("pitch-swap-logo");
@@ -163,7 +161,7 @@ function initHeaderLogoZoom(onClearTeamSelection) {
             openSwapLogoModal();
         };
     }
-    if (!th || !zoomOut || !zoomIn || !nudgeLeft || !nudgeRight) return;
+    if (!th || !zoomOut || !zoomIn) return;
     if (swapLogo) {
         swapLogo.onclick = () => {
             openSwapLogoModal();
@@ -225,10 +223,6 @@ function initHeaderLogoZoom(onClearTeamSelection) {
         applyHeaderLogoScale(currentLevelHeaderLogoScale() + HEADER_LOGO_SCALE_STEP);
         scheduleTeamHeaderNameCenterShift();
     };
-    nudgeLeft.onclick = () =>
-        applyHeaderLogoNudge(currentLevelHeaderLogoNudge() - HEADER_LOGO_NUDGE_STEP);
-    nudgeRight.onclick = () =>
-        applyHeaderLogoNudge(currentLevelHeaderLogoNudge() + HEADER_LOGO_NUDGE_STEP);
     window.addEventListener("resize", () => {
         scheduleTeamHeaderNameCenterShift();
         scheduleShortsTeamNameFit();
@@ -730,6 +724,9 @@ async function init() {
         const div = document.createElement("div");
         div.className = "player-slot empty";
         div.dataset.slotIndex = String(i);
+        const mount = document.createElement("div");
+        mount.className = "slot-mount";
+        div.appendChild(mount);
         els.pitchSlots.appendChild(div);
     }
 

@@ -4,6 +4,7 @@ import {
   clearPitchWrapTransitionOverride,
   renderHeader,
   renderPitch,
+  shouldUseVideoQuestionLayout,
 } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow, setBgMusicForLevel } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
@@ -76,6 +77,21 @@ export function switchLevel(index) {
 
   const stageMain = document.getElementById("stage-main");
   const progressContainer = els.quizProgressContainer;
+  const teamHeaderEl = els.teamHeader;
+  /** #team-header is outside .stage-main; mirror video fade with the pitch (see transitions.css). */
+  const teamHeaderVideoExit =
+    !!appState.isVideoPlaying &&
+    !!teamHeaderEl &&
+    prevIndex >= 2 &&
+    prevIndex < appState.totalLevelsCount;
+  /* Do not run enter fade into a question hold: panel stays off until post-timer reveal. */
+  const teamHeaderVideoEnter =
+    !!appState.isVideoPlaying &&
+    !!teamHeaderEl &&
+    index >= 2 &&
+    index < appState.totalLevelsCount &&
+    !!state.currentSquad &&
+    !(state.videoMode && shouldUseVideoQuestionLayout(state));
 
   const updateDOMContent = () => {
     const isLogo = appState.currentLevelIndex === 0;
@@ -107,7 +123,13 @@ export function switchLevel(index) {
       els.thumbnailMakerPage.hidden = true;
     }
     els.pitchWrap.hidden = true;
-    els.teamHeader.hidden = true;
+    if (els.teamHeader) {
+      els.teamHeader.hidden = true;
+      els.teamHeader.classList.remove("team-header--show");
+      appState.teamSidebarAnimGeneration += 1;
+      appState.teamSidebarLastOpen = false;
+      appState.teamSidebarLastKey = "";
+    }
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
@@ -160,17 +182,11 @@ export function switchLevel(index) {
       els.logoPage.hidden = isShorts;
 
       els.teamHeader.hidden = false;
+      els.teamHeader.classList.remove("video-hidden", "video-revealed");
       if (appState.isVideoPlaying && state.videoMode && state.currentSquad) {
-        /* Start the next video question already in its pre-timer layout so the field
-           does not shift after the fade-in begins. */
-        els.teamHeader.classList.remove("video-revealed");
-        els.teamHeader.classList.add("video-hidden");
         /* Pitch height was transitioning from stale values / long reveal duration — snap once. */
         clearPitchWrapTransitionOverride();
         els.pitchWrap.classList.add("pitch-wrap-snap-height");
-      } else {
-        els.teamHeader.classList.remove("video-hidden");
-        els.teamHeader.classList.remove("video-revealed");
       }
       els.pitchWrap.hidden = false;
       renderPitch();
@@ -214,6 +230,7 @@ export function switchLevel(index) {
         "stage-enter-anim",
         "stage-enter-video-anim"
       );
+      teamHeaderEl?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
       pendingLogoToLandingContentReveal = true;
       updateDOMContent();
       pendingLogoToLandingContentReveal = false;
@@ -255,12 +272,18 @@ export function switchLevel(index) {
         "stage-enter-anim",
         "stage-enter-video-anim"
       );
+      teamHeaderEl?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
       setTimeout(() => {
         updateDOMContent();
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             void stageMain.offsetWidth;
             stageMain.classList.add("stage-enter-video-anim");
+            if (teamHeaderVideoEnter && teamHeaderEl) {
+              teamHeaderEl.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
+              void teamHeaderEl.offsetWidth;
+              teamHeaderEl.classList.add("team-header-stage-enter-video-anim");
+            }
             if (progressContainer) {
               progressContainer.classList.remove(
                 "progress-out-reg",
@@ -273,6 +296,7 @@ export function switchLevel(index) {
             }
             setTimeout(() => {
               stageMain.classList.remove("stage-enter-video-anim");
+              teamHeaderEl?.classList.remove("team-header-stage-enter-video-anim");
             }, 820);
           });
         });
@@ -287,6 +311,10 @@ export function switchLevel(index) {
 
     stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
     stageMain.classList.add(exitClass);
+    if (teamHeaderVideoExit && teamHeaderEl) {
+      teamHeaderEl.classList.remove("team-header-stage-enter-video-anim");
+      teamHeaderEl.classList.add("team-header-stage-exit-video-anim");
+    }
 
     if (progressContainer) {
       progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
@@ -300,6 +328,13 @@ export function switchLevel(index) {
           stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
           void stageMain.offsetWidth;
           stageMain.classList.add(enterClass);
+          if (teamHeaderEl) {
+            teamHeaderEl.classList.remove("team-header-stage-exit-video-anim");
+          }
+          if (teamHeaderVideoEnter && teamHeaderEl) {
+            void teamHeaderEl.offsetWidth;
+            teamHeaderEl.classList.add("team-header-stage-enter-video-anim");
+          }
 
           if (progressContainer) {
             progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
@@ -309,6 +344,7 @@ export function switchLevel(index) {
 
           setTimeout(() => {
             stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+            teamHeaderEl?.classList.remove("team-header-stage-enter-video-anim");
           }, 820);
         });
       });

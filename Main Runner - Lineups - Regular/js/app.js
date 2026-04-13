@@ -31,6 +31,7 @@ import {
     syncThumbnailMakerUiForQuizType,
 } from "./thumbnail-maker.js";
 import { bindDomElements } from "./dom-bindings.js";
+import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initTeamVoiceManager } from "./team-voice-manager.js";
@@ -155,10 +156,9 @@ function applyHeaderLogoScale(scale) {
 
 function initHeaderLogoZoom(onClearTeamSelection) {
     const th = appState.els.teamHeader;
-    const zoomOut = document.getElementById("team-header-zoom-out");
-    const zoomIn = document.getElementById("team-header-zoom-in");
-    const nudgeLeft = document.getElementById("team-header-nudge-left");
-    const nudgeRight = document.getElementById("team-header-nudge-right");
+    const zoomPairs = [
+        [document.getElementById("team-header-zoom-out"), document.getElementById("team-header-zoom-in")],
+    ].filter(([a, b]) => a && b);
     const swapLogo = document.getElementById("team-header-swap-logo");
     const fetchLogo = document.getElementById("team-header-fetch-logo");
     const pitchSwapLogo = document.getElementById("pitch-swap-logo");
@@ -168,7 +168,7 @@ function initHeaderLogoZoom(onClearTeamSelection) {
             openSwapLogoModal();
         };
     }
-    if (!th || !zoomOut || !zoomIn || !nudgeLeft || !nudgeRight) return;
+    if (!th || zoomPairs.length === 0) return;
     if (swapLogo) {
         swapLogo.onclick = () => {
             openSwapLogoModal();
@@ -222,18 +222,18 @@ function initHeaderLogoZoom(onClearTeamSelection) {
         };
     }
     syncTeamHeaderLogoVarsFromLevel();
-    zoomOut.onclick = () => {
+    const onHeaderZoomOut = () => {
         applyHeaderLogoScale(currentLevelHeaderLogoScale() - HEADER_LOGO_SCALE_STEP);
         scheduleTeamHeaderNameCenterShift();
     };
-    zoomIn.onclick = () => {
+    const onHeaderZoomIn = () => {
         applyHeaderLogoScale(currentLevelHeaderLogoScale() + HEADER_LOGO_SCALE_STEP);
         scheduleTeamHeaderNameCenterShift();
     };
-    nudgeLeft.onclick = () =>
-        applyHeaderLogoNudge(currentLevelHeaderLogoNudge() - HEADER_LOGO_NUDGE_STEP);
-    nudgeRight.onclick = () =>
-        applyHeaderLogoNudge(currentLevelHeaderLogoNudge() + HEADER_LOGO_NUDGE_STEP);
+    for (const [zOut, zIn] of zoomPairs) {
+        zOut.onclick = onHeaderZoomOut;
+        zIn.onclick = onHeaderZoomIn;
+    }
     window.addEventListener("resize", () => {
         scheduleTeamHeaderNameCenterShift();
         scheduleShortsTeamNameFit();
@@ -741,6 +741,7 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    refreshTeamHeaderHatchGrid(appState.els.teamHeader);
     initThumbnailMaker({ switchLevel });
     applyPerformanceModeFromUrl();
     initSharedBackgroundTheme(
@@ -781,6 +782,9 @@ async function init() {
         const div = document.createElement("div");
         div.className = "player-slot empty";
         div.dataset.slotIndex = String(i);
+        const mount = document.createElement("div");
+        mount.className = "slot-mount";
+        div.appendChild(mount);
         els.pitchSlots.appendChild(div);
     }
 

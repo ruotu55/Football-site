@@ -92,7 +92,7 @@ export const appState = {
   otherTeamsLogoNames: null,
   swapLogoThumbCacheToken: "0",
   swapLogoPickContext: null,
-  /** One-shot: next `renderPitch` skips staggered flip-card transition (swap picker). */
+  /** One-shot: next `renderPitch` skips flip-card transition (swap picker). */
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,

@@ -29,6 +29,8 @@
   position: relative;
   z-index: 2;
   pointer-events: auto;
+  /* Lower the top control row (+/−, swap) slightly */
+  padding-top: max(0.55rem, env(safe-area-inset-top, 0px));
 }
 
 .team-header-logo-reveal-stack {
@@ -44,36 +46,29 @@
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
+  margin-top: min(1.2vh, 0.45rem);
   margin-bottom: 0.4rem;
   flex-shrink: 0;
 }
 
-body.play-video-active .team-header-logo-zoom,
-body.play-video-active .team-header-logo-nudge {
-  display: none;
+/* Play Video: hide chrome but keep layout geometry (display:none was collapsing vs normal) */
+body.play-video-active .team-header-logo-zoom {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 body.play-video-active .team-header-controls-row,
 body.play-video-active .team-header-fetch-logo-btn,
 body.play-video-active .team-header-swap-logo-btn,
 body.play-video-active .team-header-clear-team-btn {
-  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
-.team-header.video-preview-revealed .team-header-logo-zoom,
-.team-header.video-preview-revealed .team-header-logo-nudge {
-  display: none;
-}
+/* Same as Regular: keep +/− visible when .video-preview-revealed (common mid-quiz state). */
 
 .team-header-logo-swap:has(> button[hidden]) {
   display: none;
-}
-
-.team-header-logo-nudge {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.35rem;
 }
 
 .team-header-main-row {
@@ -187,8 +182,7 @@ body.play-video-active .team-voice-controls {
 .team-header-logo-block.team-header-logo-block--empty.team-header-show-swap-logo .team-header-controls-row {
   display: flex;
 }
-.team-header-logo-block.team-header-logo-block--empty.team-header-show-swap-logo .team-header-logo-zoom,
-.team-header-logo-block.team-header-logo-block--empty.team-header-show-swap-logo .team-header-logo-nudge {
+.team-header-logo-block.team-header-logo-block--empty.team-header-show-swap-logo .team-header-logo-zoom {
   display: none;
 }
 
@@ -233,11 +227,6 @@ body.play-video-active .team-voice-controls {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
-.team-header-nudge-btn {
-  min-width: 2.1rem;
-  font-size: 0.85rem;
-}
-
 .team-header-zoom-btn:hover {
   background: rgba(255, 255, 255, 0.2);
   border-color: #fff;
@@ -268,7 +257,7 @@ body.play-video-active .team-voice-controls {
 /* FIX: Shift the header up slightly in regular mode without affecting the pitch layout */
 body:not(.shorts-mode) .team-header {
   position: relative;
-  top: -0.5vh;
+  top: -0.605vh;
 }
 
 body:not(.shorts-mode) .team-header-name {

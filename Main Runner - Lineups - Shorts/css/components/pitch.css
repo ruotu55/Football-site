@@ -11,8 +11,8 @@
   flex-shrink: 0;
   position: relative;
   margin: 0; 
-  transition: height var(--pitch-wrap-height-duration, 0.6s) cubic-bezier(0.25, 1, 0.5, 1),
-    transform var(--pitch-wrap-height-duration, 0.6s) cubic-bezier(0.25, 1, 0.5, 1);
+  transition: height var(--pitch-wrap-height-duration, 0.78s) cubic-bezier(0.25, 1, 0.5, 1),
+    transform var(--pitch-wrap-height-duration, 0.78s) cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .pitch-wrap.pitch-wrap-snap-height {
@@ -165,8 +165,8 @@ body:not(.shorts-mode) .team-header.video-hidden + .pitch-wrap {
 
 .player-slot {
   position: absolute;
-  /* +2% vs former 9.11%: larger circles / photos / flags / crests; .slot-name font unchanged */
-  width: calc(9.11% * 1.02);
+  /* Base 9.11% * 1.02, then +10% diameter; .slot-name font unchanged */
+  width: calc(9.11% * 1.02 * 1.1);
   aspect-ratio: 1 / 1;
   --slot-scale: 1;
   transform: translate(-50%, -50%) translateZ(60px) rotateX(-38deg) scale(var(--slot-scale));
@@ -175,6 +175,21 @@ body:not(.shorts-mode) .team-header.video-hidden + .pitch-wrap {
   background: transparent;
   overflow: visible;
   pointer-events: auto;
+}
+
+/* Persists across player swap; float runs here so inner DOM can be replaced without resetting bob */
+.slot-mount {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.player-slot.has-player > .slot-mount {
+  pointer-events: auto;
+  animation: float-up-down 4s ease-in-out infinite;
 }
 
 /* Video mode: scale only flag / club logo on the card front (see --slot-badge-scale on .slot-badge-scale-wrap) */
@@ -316,7 +331,7 @@ body.play-video-active .pitch-swap-logo-btn {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.78s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .slot-inner.flipped {
   transform: rotateY(180deg);
@@ -368,12 +383,12 @@ body.play-video-active .pitch-swap-logo-btn {
   inset: 0;
   border-radius: 50%;
   border: none;
-  /* Solid black ring: padding gutter is pure #000 (no compositing with the image). */
+  /* White ring: padding gutter is solid (no compositing with the image). */
   /* % is of the circle’s width so every slot gets the same proportion; clamp avoids chunky rings on large/shorts slots. */
-  --slot-ring: clamp(1px, 1.35%, 1.75px);
+  --slot-ring: clamp(2px, 1.7%, 2.35px);
   padding: var(--slot-ring);
   box-sizing: border-box;
-  background-color: #000000;
+  background-color: #ffffff;
   overflow: hidden;
   /* No inset shadow — it read as extra black/bevel and looked uneven (esp. national / club-logo video front). */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
@@ -393,10 +408,10 @@ body.play-video-active .pitch-swap-logo-btn {
 }
 
 .slot-avatar--no-photo {
-  background-color: #000000;
+  background-color: #ffffff;
 }
 
-/* Gloss only inside the inner disc (inset matches ring so it never tints the black band) */
+/* Gloss only inside the inner disc (inset matches ring so it never tints the white band) */
 .slot-avatar::before {
   content: '';
   position: absolute;
@@ -463,22 +478,6 @@ body.play-video-active .pitch-swap-logo-btn {
 .slot-photo-delete-btn:disabled {
   opacity: 0.7;
   cursor: wait;
-}
-
-/* Animate the avatar to float slowly up and down when a player is in the slot */
-.player-slot.has-player .slot-avatar {
-  animation: float-up-down 4s ease-in-out infinite;
-}
-
-/* Custom keyframe to float the label without breaking its 3D centering */
-@keyframes float-up-down-label {
-  0%, 100% { transform: translateX(-50%) translateZ(30px) translate3d(0, 0, 0); }
-  50% { transform: translateX(-50%) translateZ(30px) translate3d(0, -12px, 0); }
-}
-
-/* Animate the label to move in perfect sync with the avatar */
-.player-slot.has-player .slot-label-container {
-  animation: float-up-down-label 4s ease-in-out infinite;
 }
 
 .slot-img { width: 100%; height: 100%; object-fit: cover; }

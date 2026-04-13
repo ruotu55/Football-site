@@ -130,7 +130,7 @@ export function getHeaderLogoUrlChain(state, squad, squadType, selectedEntryName
   const pushUnique = (u) => {
     if (u && !chain.includes(u)) chain.push(u);
   };
-  if (quizType === "nat-by-club") {
+  if (quizType === "nat-by-club" && squadType === "national") {
     const teamName = String(squad?.name || selectedEntryName || "").trim();
     getNationalTeamLogoLoadUrls(teamName).forEach(pushUnique);
     return chain;

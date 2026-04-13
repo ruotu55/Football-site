@@ -13,12 +13,23 @@ import {
 
 const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
 
-/** Delay between each slot starting the logo→player flip (wave / one-by-one). */
-const SLOT_FLIP_STAGGER_SEC = 0.09;
+/** Seconds between each slot starting the logo→player flip; `0` = all flip together. */
+const SLOT_FLIP_STAGGER_SEC = 0;
 /** Must match `.slot-inner` `transition` duration in css/components/pitch.css */
-const SLOT_FLIP_DURATION_SEC = 0.6;
+const SLOT_FLIP_DURATION_SEC = 0.78;
 
-/** Time from first flip start until last flip finishes (sync with pitch height transition). */
+/** Stable wrapper: float animation runs here so `renderSlot` can replace only inner content without resetting bob. */
+function getOrCreateSlotMount(slotEl) {
+  let mount = slotEl.querySelector(":scope > .slot-mount");
+  if (!mount) {
+    mount = document.createElement("div");
+    mount.className = "slot-mount";
+    slotEl.appendChild(mount);
+  }
+  return mount;
+}
+
+/** Time from flip start until all flips finish (sync with pitch height transition). */
 export function getVideoRevealSyncedPitchTransitionSec(flipSlotCount) {
   const n = Math.max(0, Math.floor(Number(flipSlotCount)) || 0);
   if (n <= 1) return SLOT_FLIP_DURATION_SEC;
@@ -725,7 +736,8 @@ function getSlotFrontFaceScale(state, slotIndex) {
 }
 
 /** Video mode only: +/- for front-face flag (club XI) or club logo (national XI); not the player photo. */
-function appendSlotBadgeZoomControls(slotEl, slotIndex) {
+/** @param {HTMLElement} rootEl `.slot-mount` (flip-card + badge controls live here). */
+function appendSlotBadgeZoomControls(rootEl, slotIndex) {
   const state = getState();
   const controls = document.createElement("div");
   controls.className = "slot-badge-controls";
@@ -750,7 +762,7 @@ function appendSlotBadgeZoomControls(slotEl, slotIndex) {
       const maxScale = isNational ? 3.0 : 3.0;
       const next = Math.min(maxScale, Math.max(minScale, cur + sign * SLOT_BADGE_SCALE_STEP));
       arr[slotIndex] = next;
-      const wrap = slotEl.querySelector(".slot-badge-scale-wrap");
+      const wrap = rootEl.querySelector(".slot-badge-scale-wrap");
       if (wrap) wrap.style.setProperty("--slot-badge-scale", String(next));
     });
     return b;
@@ -774,12 +786,13 @@ function appendSlotBadgeZoomControls(slotEl, slotIndex) {
     });
     controls.appendChild(crestPick);
   }
-  slotEl.appendChild(controls);
+  rootEl.appendChild(controls);
 }
 
 function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayout) {
   const state = getState();
-  slotEl.replaceChildren();
+  const mount = getOrCreateSlotMount(slotEl);
+  mount.replaceChildren();
   slotEl.classList.remove("has-player", "empty");
   if (!player) {
     slotEl.classList.add("empty");
@@ -962,7 +975,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     back.append(backAvatar, labelContainer);
 
     inner.append(front, back);
-    slotEl.appendChild(inner);
+    mount.appendChild(inner);
     slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
     if (shouldFlipToPlayers) {
       if (appState.suppressPitchSlotFlipAnimation) {
@@ -983,7 +996,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       }
     }
     if (state.videoMode && !appState.isVideoPlaying) {
-      appendSlotBadgeZoomControls(slotEl, slotIndex);
+      appendSlotBadgeZoomControls(mount, slotIndex);
     }
   } else {
     const avatar = document.createElement("div");
@@ -1014,7 +1027,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         state.slotPhotoIndexBySlot.delete(slotIndex);
         avatar.classList.add("slot-avatar--no-photo");
         appendAvatarTeamFallback(avatar, player);
-        appendAutoPhotoFetchButton(slotEl, slotIndex, player);
+        appendAutoPhotoFetchButton(mount, slotIndex, player);
       };
       avatar.appendChild(img);
       applyPlayerPhotoFramingForSourceRelPath(img, rel);
@@ -1023,9 +1036,9 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       state.slotPhotoIndexBySlot.delete(slotIndex);
       avatar.classList.add("slot-avatar--no-photo");
       appendAvatarTeamFallback(avatar, player);
-      appendAutoPhotoFetchButton(slotEl, slotIndex, player);
+      appendAutoPhotoFetchButton(mount, slotIndex, player);
     }
-    appendAutoPhotoFetchButton(slotEl, slotIndex, player);
+    appendAutoPhotoFetchButton(mount, slotIndex, player);
 
     const labelContainer = document.createElement("div");
     labelContainer.className = "slot-label-container";
@@ -1058,7 +1071,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     labelContainer.append(label, swapBtn);
     slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
-    slotEl.append(avatar, labelContainer);
+    mount.append(avatar, labelContainer);
   }
 }
 
@@ -1127,7 +1140,7 @@ export function applyVideoQuestionPostTimerFlip() {
 }
 
 /**
- * Toggle Video Mode on a question level: flip cards in place with the same stagger as Play Video,
+ * Toggle Video Mode on a question level: flip cards in place together (same timing as Play Video),
  * instead of renderPitch() replaceChildren (which nukes nodes and makes motion feel stuck).
  * @returns {boolean} true if handled; false → caller should renderPitch().
  */

@@ -61,6 +61,46 @@
   animation: stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
+/* #team-header lives outside .stage-main (fixed side panel); match pitch fade without resetting translateX. */
+@keyframes team-header-stage-exit-video-reveal {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+@keyframes team-header-stage-enter-video-reveal {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.team-header.team-header-stage-exit-video-anim,
+.team-header.team-header-stage-enter-video-anim {
+  transition: none !important;
+}
+
+.team-header.team-header-stage-exit-video-anim {
+  animation: team-header-stage-exit-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+.team-header.team-header-stage-enter-video-anim {
+  animation: team-header-stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
 @keyframes logo-bounce-out {
   0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }

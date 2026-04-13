@@ -29,8 +29,8 @@ const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
 /** Match Career Path - Shorts `levels.js` + `transitions.css` video stage (0.82s). */
 const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
 const SHORTS_STAGE_ENTER_MS = 820;
-/** Added to base question countdown (5s shorts / 3s regular) so each tick stays an equal slice of the longer total. */
-const QUESTION_COUNTDOWN_EXTRA_MS = 1500;
+/** Added to base question countdown (3s steps) so each tick stays an equal slice of the longer total. */
+const QUESTION_COUNTDOWN_EXTRA_MS = 0;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
 const TICKING_LEAD_BEFORE_RED_MS = 1500;
 /** Last-resort if `playing` never fires (blocked audio, etc.); keep high so slow title-voice generate does not start the bar early. */
@@ -362,12 +362,12 @@ function runVideoStep() {
       }, SHORTS_LANDING_PRE_WELCOME_DELAY_MS);
       return;
     }
-    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 3000;
     appState.videoTimeout = setTimeout(() => {
       revealCurrentLevel();
     }, delay);
   } else {
-    const baseSteps = isShorts ? 5 : 3;
+    const baseSteps = 3;
     let count = baseSteps;
     const totalDurationMs = baseSteps * 1000 + QUESTION_COUNTDOWN_EXTRA_MS;
     const totalTime = totalDurationMs / 1000;
@@ -524,10 +524,10 @@ function revealCurrentLevel() {
     if (!isLastQuestionBeforeOutro) {
       const quizType = els.inQuizType?.value || "nat-by-club";
       const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
-      playTheAnswerIs(true, teamDisplayName, quizType);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
-      flipDelay = 4000;
+      playTheAnswerIs(true, teamDisplayName, quizType, 0);
+      flipDelay = 3000;
     } else {
       /* Bonus: no answer reveal — go straight to outro after the question timer. */
       flipDelay = 0;

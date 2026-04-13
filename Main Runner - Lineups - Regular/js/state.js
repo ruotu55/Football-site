@@ -11,6 +11,7 @@ export const appState = {
     controlPanel: null,
     headerName: null,
     headerLogo: null,
+    headerFlag: null,
     teamVoiceControls: null,
     teamVoicePlay: null,
     teamVoiceDelete: null,
@@ -106,7 +107,7 @@ export const appState = {
   swapLogoThumbCacheToken: "0",
   /** While swap-logo modal is open: `null` = team header crest; `{ kind: "slot", slotIndex }` = national XI slot front. */
   swapLogoPickContext: null,
-  /** One-shot: next `renderPitch` skips staggered flip-card transition (swap picker). */
+  /** One-shot: next `renderPitch` skips flip-card transition (swap picker). */
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
@@ -116,6 +117,10 @@ export const appState = {
   landingSpecialBadgeRevealTimeoutId: null,
   videoInterval: null,
   videoTimeout: null,
+  /** Team side panel: cancel stale slide-in rAF chains. */
+  teamSidebarAnimGeneration: 0,
+  teamSidebarLastOpen: false,
+  teamSidebarLastKey: "",
   currentXi: [],
   allGlobalPlayers: null,
 };

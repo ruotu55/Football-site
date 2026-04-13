@@ -87,6 +87,7 @@ export function stopVideoFlow() {
   clearTimeout(appState.videoTimeout);
   stopAllAudio(); 
   const { els } = appState;
+  els.teamHeader?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
   els.playVideoBtn.hidden = false;
   els.countdownTimer.hidden = true;
   els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
@@ -195,10 +196,8 @@ function runVideoStep() {
   const isQuestionLevel = appState.currentLevelIndex > 1 && !isOutro;
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
-  if (isQuestionLevel && els.teamHeader) {
+  if (isQuestionLevel) {
     clearPitchWrapTransitionOverride();
-    els.teamHeader.classList.remove("video-revealed");
-    els.teamHeader.classList.add("video-hidden");
   }
   if (isIntro || isOutro) {
     els.countdownTimer.hidden = true;
@@ -206,7 +205,7 @@ function runVideoStep() {
     if (isOutro) {
       return; 
     }
-    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 3000;
     if (isShorts && appState.currentLevelIndex === 1) {
       delay = 1000;
     }
@@ -214,7 +213,7 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 12;
+    let count = 3;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");
@@ -247,7 +246,7 @@ function runVideoStep() {
         circleEl.style.strokeDashoffset = dashLength * ratio;
       }, 50);
     }
-    const delayToTick = (count - (isShorts ? 4.0 : 3.0)) * 1000;
+    const delayToTick = Math.max(0, (count - (isShorts ? 4.0 : 3.0)) * 1000);
     setTimeout(() => { if (appState.isVideoPlaying) playTicking(); }, delayToTick);
     const stopTickDelay = totalTime * 1000;
     setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
@@ -313,10 +312,11 @@ function revealCurrentLevel() {
     if (!isLastQuestionBeforeOutro) {
       const quizType = els.inQuizType?.value || "nat-by-club";
       const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
-      playTheAnswerIs(true, teamDisplayName, quizType);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
-      flipDelay = 4000;
+      /* Panel opens here; team clip used to wait 600ms for duck — start with the window. */
+      playTheAnswerIs(true, teamDisplayName, quizType, 0);
+      flipDelay = 3000;
     } else {
       /* Bonus: no answer reveal — go straight to outro after the question timer. */
       flipDelay = 0;

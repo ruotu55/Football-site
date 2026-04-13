@@ -249,7 +249,7 @@ function runVideoStep() {
     if (isOutro) {
       return; 
     }
-    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 3000;
     if (isShorts && appState.currentLevelIndex === 1) {
       delay = 1000;
     }
@@ -257,7 +257,7 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = isShorts ? 5 : 12;
+    let count = 3;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");
@@ -293,7 +293,7 @@ function runVideoStep() {
         circleEl.style.strokeDashoffset = dashLength * ratio;
       }, 50);
     }
-    const delayToTick = (count - (isShorts ? 4.0 : 3.0)) * 1000;
+    const delayToTick = Math.max(0, (count - (isShorts ? 4.0 : 3.0)) * 1000);
     setTimeout(() => { if (appState.isVideoPlaying) playTicking(); }, delayToTick);
     const stopTickDelay = totalTime * 1000;
     setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
@@ -349,7 +349,7 @@ function revealCurrentLevel() {
       playTheAnswerIs(true, playerDisplayName);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
-      flipDelay = 4000;
+      flipDelay = 3000;
     } else {
       /* Bonus: no answer reveal — go straight to outro after the question timer. */
       flipDelay = 0;
