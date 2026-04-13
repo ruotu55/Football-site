@@ -34,55 +34,27 @@ import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
 
 const CAREER_REVEAL_NAME_FIT_ABS_MIN_PX = 11;
-/** Soft floor: only if it still fits; otherwise binary search wins (no clip). Non-shorts fit only. */
-const SHORTS_REVEAL_RED_MIN_OF_CSS_MAX = 0.74;
-const SHORTS_REVEAL_RED_MIN_VS_TOP_RATIO = 1.65;
 let careerRevealNameFitResizeHooked = false;
 
+function getShortsNineSixteenColumnWidthPx() {
+  const stage = document.getElementById("stage-main") || document.querySelector(".stage-main");
+  const sw = stage?.clientWidth || 0;
+  if (sw > 8) return sw;
+  return Math.min(window.innerWidth, (9 / 16) * window.innerHeight);
+}
+
 function getCareerRevealNameFitBudgetPx(revealNameEl) {
+  const isShorts = document.body.classList.contains("shorts-mode");
   const cw = Math.max(0, revealNameEl.clientWidth);
   const rw = Math.max(0, revealNameEl.getBoundingClientRect().width);
+  if (isShorts) {
+    const columnPx = getShortsNineSixteenColumnWidthPx();
+    const fromColumn = Math.max(0, columnPx - 14);
+    const fromEl = Math.max(cw, rw) > 8 ? Math.min(Math.max(cw, rw) - 6, fromColumn) : fromColumn;
+    return Math.max(24, Math.min(fromEl, fromColumn));
+  }
   const fromCss = Math.min(window.innerWidth * 0.9, 1000);
   return Math.max(cw, rw, fromCss) - 8;
-}
-
-const careerRevealNameResizeObserved = new WeakSet();
-let careerRevealNameResizeObserver = null;
-
-function ensureCareerRevealNameResizeObserved(el) {
-  if (typeof ResizeObserver === "undefined" || !el || careerRevealNameResizeObserved.has(el)) return;
-  careerRevealNameResizeObserved.add(el);
-  if (!careerRevealNameResizeObserver) {
-    let roTid = 0;
-    careerRevealNameResizeObserver = new ResizeObserver(() => {
-      window.clearTimeout(roTid);
-      roTid = window.setTimeout(() => {
-        const n = document.getElementById("career-reveal-name");
-        if (n) fitCareerRevealNameLines(n);
-      }, 32);
-    });
-  }
-  careerRevealNameResizeObserver.observe(el);
-}
-
-/** Refit after layout, webfonts, and delayed paints. */
-function scheduleCareerRevealNameFit(revealNameEl) {
-  if (!revealNameEl) return;
-  ensureCareerRevealNameResizeObserved(revealNameEl);
-  const run = () => fitCareerRevealNameLines(revealNameEl);
-  if (document.fonts?.ready) {
-    document.fonts.ready.then(() => {
-      requestAnimationFrame(() => requestAnimationFrame(run));
-    });
-  } else {
-    requestAnimationFrame(() => requestAnimationFrame(run));
-  }
-  if (document.body.classList.contains("shorts-mode")) {
-    window.setTimeout(run, 100);
-    /* Name pop uses 0.28s delay + 0.9s animation; refit after transform settles. */
-    window.setTimeout(run, 400);
-    window.setTimeout(run, 1300);
-  }
 }
 
 function hookCareerRevealNameFitOnResize() {
@@ -101,24 +73,10 @@ function hookCareerRevealNameFitOnResize() {
 /** Shrink only lines that overflow the reveal name box (white top / red bottom independent). */
 function fitCareerRevealNameLines(revealNameEl) {
   if (!revealNameEl) return;
-  /*
-   * Shorts: do not binary-fit — scrollWidth vs. budget mis-measures often (tiny maxW / wrong column),
-   * shrinking "MADDISON"-class names to ~10px. Sizes come from shorts.css only; clear stale inline px.
-   */
-  if (document.body.classList.contains("shorts-mode")) {
-    revealNameEl.querySelectorAll(".career-reveal-name-top, .career-reveal-name-bottom").forEach((el) => {
-      el.style.removeProperty("font-size");
-    });
-    return;
-  }
-  const baseMaxW = getCareerRevealNameFitBudgetPx(revealNameEl);
-  if (baseMaxW <= 8) return;
-
-  const topEl = revealNameEl.querySelector(".career-reveal-name-top");
-  const bottomEl = revealNameEl.querySelector(".career-reveal-name-bottom");
-
-  const fitLine = (el, maxW, minResultPx = CAREER_REVEAL_NAME_FIT_ABS_MIN_PX) => {
-    if (!el || !String(el.textContent || "").trim() || maxW <= 8) return;
+  const maxW = getCareerRevealNameFitBudgetPx(revealNameEl);
+  if (maxW <= 8) return;
+  const fitLine = (el) => {
+    if (!el || !String(el.textContent || "").trim()) return;
     el.style.removeProperty("font-size");
     void el.offsetWidth;
     const computed = getComputedStyle(el);
@@ -133,60 +91,10 @@ function fitCareerRevealNameLines(revealNameEl) {
       if (el.scrollWidth <= maxW) lo = mid;
       else hi = mid;
     }
-    const floored = Math.max(lo, minResultPx);
-    el.style.fontSize = `${floored}px`;
-    /* Hard floor was forcing a size larger than the search result → overflow + .stage clips. Prefer fit. */
-    if (el.scrollWidth > maxW) {
-      el.style.fontSize = `${lo}px`;
-    }
-    let guard = 0;
-    while (el.scrollWidth > maxW && guard < 56) {
-      const cur = parseFloat(getComputedStyle(el).fontSize);
-      if (!Number.isFinite(cur) || cur <= CAREER_REVEAL_NAME_FIT_ABS_MIN_PX) break;
-      el.style.fontSize = `${Math.max(CAREER_REVEAL_NAME_FIT_ABS_MIN_PX, cur - 0.5)}px`;
-      void el.offsetWidth;
-      guard += 1;
-    }
-    /* Eat subpixel slack: largest size ≤ maxPx that still fits maxW (red was landing undersized). */
-    let curGrow = parseFloat(getComputedStyle(el).fontSize);
-    if (Number.isFinite(curGrow) && curGrow > 0) {
-      for (let s = 0; s < 56; s++) {
-        const next = Math.min(maxPx, curGrow + 0.5);
-        if (next <= curGrow + 0.001) break;
-        el.style.fontSize = `${next}px`;
-        void el.offsetWidth;
-        if (el.scrollWidth <= maxW) curGrow = next;
-        else {
-          el.style.fontSize = `${curGrow}px`;
-          break;
-        }
-      }
-    }
+    el.style.fontSize = `${lo}px`;
   };
-
-  fitLine(topEl, baseMaxW);
-
-  let minRedPx = CAREER_REVEAL_NAME_FIT_ABS_MIN_PX;
-  if (bottomEl && String(bottomEl.textContent || "").trim()) {
-    bottomEl.style.removeProperty("font-size");
-    void bottomEl.offsetWidth;
-    const redCssMax = parseFloat(getComputedStyle(bottomEl).fontSize);
-    if (Number.isFinite(redCssMax) && redCssMax > 0) {
-      minRedPx = Math.max(
-        CAREER_REVEAL_NAME_FIT_ABS_MIN_PX,
-        redCssMax * SHORTS_REVEAL_RED_MIN_OF_CSS_MAX
-      );
-    }
-    if (topEl && String(topEl.textContent || "").trim()) {
-      const topPx = parseFloat(getComputedStyle(topEl).fontSize);
-      if (Number.isFinite(topPx) && topPx > 0) {
-        minRedPx = Math.max(minRedPx, topPx * SHORTS_REVEAL_RED_MIN_VS_TOP_RATIO);
-      }
-    }
-  }
-
-  /* Same width budget as white line; extra red-only shrink was making long surnames tiny. */
-  fitLine(bottomEl, baseMaxW, minRedPx);
+  fitLine(revealNameEl.querySelector(".career-reveal-name-top"));
+  fitLine(revealNameEl.querySelector(".career-reveal-name-bottom"));
 }
 
 export const CAREER_BADGE_SCALE_MIN = 0.5;
@@ -2311,7 +2219,9 @@ export function renderCareer() {
   if (revealName) {
     revealName.classList.toggle("show", previewPostTimer);
     hookCareerRevealNameFitOnResize();
-    scheduleCareerRevealNameFit(revealName);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => fitCareerRevealNameLines(revealName));
+    });
   }
   if (!document.body.classList.contains("shorts-mode")) {
     wrap.classList.toggle("cinematic-reveal-active", previewPostTimer);

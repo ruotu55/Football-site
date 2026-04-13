@@ -1314,18 +1314,17 @@ body.shorts-mode .career-reveal-photo-fallback {
 }
 
 /* Shorts: keep the name at the top of the screen above the player image.
-   Width is % of .career-wrap (9:16 column). Fluid type uses min(vw,vh); no JS shrink on reveal lines. */
+   Width is % of .career-wrap (inside .stage-main = 9:16 column), not vw — vw spans black pillarbox and broke text fitting. */
 body.shorts-mode .career-reveal-name {
     position: absolute;
     left: 50%;
     top: max(0.75rem, env(safe-area-inset-top, 0px));
     bottom: auto;
     transform: translateX(-50%);
-    /* Narrow band for side air (was 86%; −4pp → 82%). Padding stays light; JS fit has layout guard. */
     width: min(92%, 100%);
     max-width: 100%;
     box-sizing: border-box;
-    padding: 0 clamp(0.22rem, 1.2vmin, 0.52rem);
+    padding: 0 clamp(0.2rem, 1.2vmin, 0.55rem);
     text-align: center;
     pointer-events: none;
     opacity: 0;
@@ -1336,8 +1335,8 @@ body.shorts-mode .career-reveal-name {
 body.shorts-mode .career-reveal-name-top {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 800;
-    /* vh caps vw on pillarboxed desktop; shorts reveal uses CSS only (no JS binary fit). */
-    font-size: clamp(1.45rem, min(4.2vw, 6.2vh), 3.2rem);
+    /* ~5% smaller than legacy; fitCareerRevealNameLines still shrinks to same width budget. */
+    font-size: clamp(1.28rem, 3.61vw, 2.85rem);
     line-height: 0.9;
     letter-spacing: 0.1em;
     color: #ffffff;
@@ -1348,7 +1347,8 @@ body.shorts-mode .career-reveal-name-top {
 body.shorts-mode .career-reveal-name-bottom {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 900;
-    font-size: clamp(2.95rem, min(9.5vw, 13vh), 8.25rem);
+    /* White line × ~0.95; red line × another ~0.95 vs previous red (≈10% smaller than old red). */
+    font-size: clamp(2.62rem, 8.12vw, 7.58rem);
     line-height: 0.88;
     letter-spacing: 0.03em;
     color: #ef4444;
@@ -1431,9 +1431,9 @@ body.shorts-mode .career-reveal-name.show {
 
 /* Shorts Video Mode OFF: slightly smaller than full reveal, still uses most of the shorts width. */
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-name-top {
-    font-size: clamp(1.18rem, min(3.45vw, 5vh), 2.45rem);
+    font-size: clamp(1rem, 2.95vw, 2.09rem);
 }
 
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-name-bottom {
-    font-size: clamp(2.15rem, min(7.4vw, 10.5vh), 6rem);
+    font-size: clamp(1.9rem, 6.77vw, 5.6rem);
 }

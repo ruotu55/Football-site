@@ -39,8 +39,8 @@ PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
 QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / "Voices" / "Game name"
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
-    "player-by-career": "shorts-Guess the football player by career path !!!.mp3",
-    "player-by-career-stats": "shorts-Guess the football player by career path !!!.mp3",
+    "player-by-career": "Guess the football player by career path !!!.mp3",
+    "player-by-career-stats": "Guess the football player by career path !!!.mp3",
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
     "player-by-career": "GUESS THE FOOTBALL PLAYER BY CAREER PATH",

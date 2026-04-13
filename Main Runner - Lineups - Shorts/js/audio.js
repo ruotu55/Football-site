@@ -1,7 +1,7 @@
 const paths = {
   welcome: "../Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
-  guessNat: "../Voices/Game name/shorts-Guess the football team name by players' nationality !!!.mp3",
-  guessClub: "../Voices/Game name/shorts-Guess the football national team name by players' club !!!.mp3",
+  guessNat: "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
+  guessClub: "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
   warmUp: "../Voices/Levels/Worm up round dont mess this one .mp3",
   serious: "../Voices/Levels/OK now it's getting serious.mp3",
   nerds: "../Voices/Levels/Only true football nerd know this!!!.mp3",
@@ -175,14 +175,8 @@ export function startBgMusic() {
   // Start with a random song from the list
   currentBgmIndex = Math.floor(Math.random() * paths.bgmPlaylist.length);
   bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
-  const isShorts =
-    document.body.classList.contains("shorts-mode") ||
-    document.documentElement.classList.contains("shorts-mode");
-  // Shorts Play Video can begin on level 2 without calling switchLevel(); setBgMusicForLevel would
-  // never run and BGM would stay at STARTING_VOL until the first level advance.
-  const initialVol = isShorts ? NORMAL_VOL : STARTING_VOL;
-  bgMusicTargetVolume = initialVol;
-  bgMusic.volume = initialVol;
+  bgMusicTargetVolume = STARTING_VOL;
+  bgMusic.volume = bgMusicTargetVolume;
   bindBgmEventHandlers(bgMusic);
   bgMusic.play().catch(err => console.warn("BGM play error:", err));
 }

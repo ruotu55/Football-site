@@ -102,128 +102,6 @@ function clearShortsQuestionCountdown() {
   appState.els.countdownTimer.classList.remove("countdown-timer-stage-enter");
 }
 
-/** Shared cleanup for countdown timer UI — used by both timer-reach-0 and manual stop. */
-function cleanupCountdownState() {
-  clearInterval(appState.videoInterval);
-  clearTimeout(appState.videoTimeout);
-  clearTimeout(appState.tickingLeadTimeout);
-  appState.tickingLeadTimeout = null;
-  stopTicking();
-  clearShortsQuestionCountdown();
-  const { els } = appState;
-  els.countdownTimer.hidden = true;
-  els.countdownTimer.classList.remove(
-    "pulse",
-    "timer-green",
-    "timer-yellow",
-    "timer-shake",
-    "timer-phase-green",
-    "timer-phase-orange",
-    "timer-phase-yellow",
-    "timer-phase-red",
-    "countdown-timer-stage-enter"
-  );
-  const fillEl = document.getElementById("countdown-bar-fill");
-  if (fillEl) {
-    fillEl.style.transition = "";
-    fillEl.style.width = "";
-  }
-}
-
-/**
- * Trigger the post-timer answer reveal animation.
- * Shared by both timer-finish and manual stop so the transition is always identical.
- * Returns the delay (ms) to wait before the next action.
- */
-function triggerAnswerReveal(options = {}) {
-  const { playAudio = true } = options;
-  const isShorts = document.body.classList.contains("shorts-mode");
-
-  if (isShorts && appState.currentLevelIndex === 1) return 0;
-  if (appState.currentLevelIndex <= 1) return 1000;
-
-  const isLastQuestionBeforeOutro =
-    appState.currentLevelIndex + 1 === appState.totalLevelsCount;
-  if (isLastQuestionBeforeOutro) return 0;
-
-  if (playAudio) {
-    const { els } = appState;
-    const state = getState();
-    const quizType = els.inQuizType?.value || "nat-by-club";
-    const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
-    playTheAnswerIs(true, teamDisplayName, quizType);
-  }
-  setVideoRevealPostTimerActive(true);
-  refreshCurrentQuestionPreview();
-  return 3000;
-}
-
-/**
- * Apply all layout changes to exit video mode.
- * Called while stage is faded out so the user never sees abrupt layout shifts.
- */
-function applyTeardownLayout() {
-  setVideoRevealPostTimerActive(false);
-  clearPitchWrapTransitionOverride();
-  document.body.classList.remove("play-video-active");
-  document.body.classList.remove("shorts-play-pre-countdown");
-  shortsSyncIntroVoiceCountdownOnce = false;
-  const { els } = appState;
-  if (els.pitchWrap) els.pitchWrap.classList.add("pitch-wrap-snap-height");
-  if (els.teamHeader) els.teamHeader.classList.remove("video-hidden", "video-revealed");
-  els.playVideoBtn.hidden = false;
-  els.panelFab.hidden = false;
-  renderProgressSteps(appState.totalLevelsCount, switchLevel);
-  if (els.quizProgressContainer) {
-    els.quizProgressContainer.hidden = false;
-  }
-  if (els.sideTextRight) {
-    els.sideTextRight.hidden = true;
-  }
-  if (appState.currentLevelIndex === 0) {
-    const logoImg = els.logoPage?.querySelector(".logo-img-anim");
-    if (logoImg) {
-      logoImg.classList.remove("reveal");
-    }
-  }
-  refreshCurrentQuestionPreview();
-}
-
-/**
- * Complete UI teardown after video mode ends.
- * Uses the same stage fade-out / fade-in animation as switchLevel()
- * so the layout change is hidden behind the fade.
- */
-function finishVideoTeardown() {
-  if (appState.isVideoPlaying) return;
-  const stageMain = document.getElementById("stage-main");
-  const { els } = appState;
-
-  if (stageMain) {
-    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
-    stageMain.classList.add("stage-exit-video-anim");
-
-    setTimeout(() => {
-      applyTeardownLayout();
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
-          void stageMain.offsetWidth;
-          stageMain.classList.add("stage-enter-video-anim");
-
-          setTimeout(() => {
-            stageMain.classList.remove("stage-enter-video-anim");
-            if (els.pitchWrap) els.pitchWrap.classList.remove("pitch-wrap-snap-height");
-          }, SHORTS_STAGE_CONTENT_SWAP_MS);
-        });
-      });
-    }, SHORTS_STAGE_CONTENT_SWAP_MS);
-  } else {
-    applyTeardownLayout();
-  }
-}
-
 function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
@@ -242,27 +120,53 @@ function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
 export function stopVideoFlow() {
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
-
-  const wasOnQuestion = appState.isVideoPlaying &&
-    appState.currentLevelIndex > 1 &&
-    appState.currentLevelIndex < appState.totalLevelsCount;
-
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
-  cleanupCountdownState();
+  setVideoRevealPostTimerActive(false);
+  clearPitchWrapTransitionOverride();
+  document.body.classList.remove("play-video-active");
+  document.body.classList.remove("shorts-play-pre-countdown");
+  clearShortsQuestionCountdown();
+  clearInterval(appState.videoInterval);
+  clearTimeout(appState.videoTimeout);
+  clearTimeout(appState.tickingLeadTimeout);
+  appState.tickingLeadTimeout = null;
   stopAllAudio();
-
-  if (wasOnQuestion) {
-    const flipDelay = triggerAnswerReveal({ playAudio: false });
-    if (flipDelay > 0) {
-      appState.videoTimeout = setTimeout(() => {
-        finishVideoTeardown();
-      }, flipDelay);
-      return;
+  shortsSyncIntroVoiceCountdownOnce = false;
+  const { els } = appState;
+  els.playVideoBtn.hidden = false;
+  els.countdownTimer.hidden = true;
+  els.countdownTimer.classList.remove(
+    "pulse",
+    "timer-green",
+    "timer-yellow",
+    "timer-shake",
+    "timer-phase-green",
+    "timer-phase-orange",
+    "timer-phase-yellow",
+    "timer-phase-red",
+    "countdown-timer-stage-enter"
+  );
+  const fillEl = document.getElementById("countdown-bar-fill");
+  if (fillEl) {
+    fillEl.style.transition = "";
+    fillEl.style.width = "";
+  }
+  els.panelFab.hidden = false;
+  renderProgressSteps(appState.totalLevelsCount, switchLevel);
+  if (els.quizProgressContainer) {
+    els.quizProgressContainer.hidden = false;
+  }
+  if (els.sideTextRight) {
+    els.sideTextRight.hidden = true;
+  }
+  if (appState.currentLevelIndex === 0) {
+    const logoImg = els.logoPage?.querySelector(".logo-img-anim");
+    if (logoImg) {
+      logoImg.classList.remove("reveal");
     }
   }
-
-  finishVideoTeardown();
+  refreshCurrentQuestionPreview();
 }
 
 function isShortsMode() {
@@ -458,7 +362,7 @@ function runVideoStep() {
       }, SHORTS_LANDING_PRE_WELCOME_DELAY_MS);
       return;
     }
-    let delay = appState.currentLevelIndex === 0 ? 1000 : 3000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 4000;
     appState.videoTimeout = setTimeout(() => {
       revealCurrentLevel();
     }, delay);
@@ -557,14 +461,35 @@ function runVideoStep() {
           els.countdownTimer.hidden = false;
           setBarToCountdownMoment(count);
         } else {
-          cleanupCountdownState();
+          clearInterval(appState.videoInterval);
+          clearTimeout(appState.tickingLeadTimeout);
+          appState.tickingLeadTimeout = null;
+          stopTicking();
+          els.countdownTimer.hidden = true;
+          els.countdownTimer.classList.remove(
+            "pulse",
+            "timer-green",
+            "timer-yellow",
+            "timer-shake",
+            "timer-phase-green",
+            "timer-phase-orange",
+            "timer-phase-yellow",
+            "timer-phase-red"
+          );
+          if (fillEl) {
+            fillEl.style.transition = "";
+            fillEl.style.width = "";
+          }
           const skipRevealToOutro =
             appState.currentLevelIndex + 1 === appState.totalLevelsCount;
           if (skipRevealToOutro) {
+            setVideoRevealPostTimerActive(false);
+            clearTimeout(appState.videoTimeout);
             switchLevel(appState.currentLevelIndex + 1);
             runVideoStepAfterLevelSwitchIfNeeded();
             return;
           }
+          clearShortsQuestionCountdown();
           revealCurrentLevel();
         }
       }, tickMs);
@@ -586,7 +511,28 @@ function runVideoStep() {
 }
 
 function revealCurrentLevel() {
-  const flipDelay = triggerAnswerReveal({ playAudio: true });
+  const { els } = appState;
+  const state = getState();
+  let flipDelay = 1000;
+  const isShorts = document.body.classList.contains("shorts-mode");
+  if (isShorts && appState.currentLevelIndex === 1) {
+    flipDelay = 0;
+  }
+  if (appState.currentLevelIndex > 1) {
+    const isLastQuestionBeforeOutro =
+      appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+    if (!isLastQuestionBeforeOutro) {
+      const quizType = els.inQuizType?.value || "nat-by-club";
+      const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
+      playTheAnswerIs(true, teamDisplayName, quizType);
+      setVideoRevealPostTimerActive(true);
+      refreshCurrentQuestionPreview();
+      flipDelay = 4000;
+    } else {
+      /* Bonus: no answer reveal — go straight to outro after the question timer. */
+      flipDelay = 0;
+    }
+  }
   appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;
     setVideoRevealPostTimerActive(false);

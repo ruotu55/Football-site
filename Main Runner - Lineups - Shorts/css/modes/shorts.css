@@ -148,7 +148,7 @@ body.shorts-mode .team-header {
     z-index: 500;
     height: 20vh;
     /* Stronger upward pull + tighter gaps: large crest must not push the name onto the pitch */
-    margin-top: 3.25vh;
+    margin-top: -6.75vh;
     margin-bottom: 0.5rem;
     padding-top: 1vh;
     box-sizing: border-box;
@@ -175,13 +175,12 @@ body.shorts-mode.play-video-active .team-header.video-hidden {
 
 body.shorts-mode .team-header.video-revealed {
     height: 20vh !important;
-    margin-top: 3.25vh !important;
+    margin-top: -6.75vh !important;
     margin-bottom: 0.5rem !important;
     overflow: visible;
     opacity: 1;
     animation: none;
 }
-
 
 body.shorts-mode .team-header-logo-block {
     width: 100%;
@@ -226,19 +225,6 @@ body.shorts-mode .team-header[data-squad-type="club"] .team-header-logo-fly-grou
 /* "Guess the national team name by players' club" (national XI): flag + name 1% viewport down */
 body.shorts-mode .team-header[data-squad-type="national"] .team-header-title-cluster {
     transform: translateY(calc(0.01 * 100vh));
-}
-
-/* Video Mode off only: move crest/flag + team name 10% viewport up (same cluster as above). */
-body.shorts-mode:not(.video-mode-on) .team-header .team-header-title-cluster {
-    transform: translateY(calc(-0.1 * 100vh));
-}
-
-body.shorts-mode:not(.video-mode-on) .team-header[data-squad-type="club"] .team-header-title-cluster {
-    transform: translateY(calc((0.012 - 0.1) * 100vh));
-}
-
-body.shorts-mode:not(.video-mode-on) .team-header[data-squad-type="national"] .team-header-title-cluster {
-    transform: translateY(calc((0.01 - 0.1) * 100vh));
 }
 
 body.shorts-mode .team-header-main-row {
@@ -338,14 +324,14 @@ body.shorts-mode .pitch-wrap {
     position: relative;
     z-index: 1;
     align-items: flex-start;
-    margin-top: -2.5vh;
+    margin-top: 2.5vh;
     padding-top: 0;
-    transform: scale(0.77164) translateY(5vh);
+    transform: scale(0.77164) translateY(0);
     transform-origin: top center;
 }
 
 body.shorts-mode .team-header.video-hidden+.pitch-wrap {
-    transform: scale(0.90024) translateY(17vh);
+    transform: scale(0.90024) translateY(10vh);
 }
 
 body.shorts-mode .pitch-surface {
@@ -369,7 +355,7 @@ body.shorts-mode .slot-name {
 body.shorts-mode .quiz-progress {
     flex-direction: row;
     top: auto;
-    bottom: 3.5rem;
+    bottom: calc(3.5rem + 7vh);
     left: 50%;
     right: auto;
     transform: translateX(-50%);

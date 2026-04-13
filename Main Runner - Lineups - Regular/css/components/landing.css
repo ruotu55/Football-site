@@ -117,11 +117,13 @@ body.play-video-active #landing-title-voice-controls {
   animation: none;
   opacity: 0;
   transform: scale(1.02);
+  filter: blur(2px);
 }
 .landing-page.landing-content-awaiting-shift .landing-q-badge {
   animation: none;
   opacity: 0;
   transform: perspective(500px) rotateX(5deg) scale(1.02);
+  filter: blur(2px);
 }
 .landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) {
   visibility: hidden;
@@ -138,20 +140,24 @@ body.play-video-active #landing-title-voice-controls {
   from {
     opacity: 0;
     transform: scale(1.14) translateY(-1.2vh);
+    filter: blur(10px);
   }
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
+    filter: blur(0);
   }
 }
 @keyframes landing-info-fade-in-tilted {
   from {
     opacity: 0;
     transform: perspective(500px) rotateX(5deg) scale(1.14) translateY(-1.2vh);
+    filter: blur(10px);
   }
   to {
     opacity: 1;
     transform: perspective(500px) rotateX(5deg) scale(1) translateY(0);
+    filter: blur(0);
   }
 }
 /* Container bobs vertically only (same idea as .float-up-down); tilt lives on .landing-special-badge so entrance matches title. */
@@ -165,10 +171,12 @@ body.play-video-active #landing-title-voice-controls {
   from {
     opacity: 0;
     transform: scale(1.14) translateY(-1.2vh) rotate(-6deg);
+    filter: blur(10px);
   }
   to {
     opacity: 1;
     transform: scale(1) translateY(0) rotate(-6deg);
+    filter: blur(0);
   }
 }
 
@@ -429,10 +437,12 @@ body.play-video-active .outro-thumbnail-maker-btn {
   0% {
     transform: translateY(-100vh);
     opacity: 0;
+    filter: blur(2px);
   }
   100% {
     transform: translateY(0);
     opacity: 1;
+    filter: blur(0);
   }
 }
 
