@@ -257,6 +257,8 @@ const CAREER_REVEAL_BASE_SCALE = 1.08;
 /** Same units as Adjust Picture ▼/▲ (one tick = ±1 on `silhouetteYOffset`). */
 const PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS = 15;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
+/** Synchronous cache: src → resolved trimmed URL (stored after first successful resolve). */
+const careerPlayerResolvedUrlSync = new Map();
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
 const CAREER_PLAYER_TRIM_ALPHA_THRESHOLD = 12;
 const CAREER_PLAYER_TRIM_MARGIN_PX = 8;
@@ -264,8 +266,7 @@ const CAREER_PLAYER_TRIM_MARGIN_PX = 8;
 /** Regular: compact “video edit” caps only while Video Mode is on and not during Play Video. Shorts: follow Video Mode whenever it is on. */
 function useCareerSilhouetteVideoOnCapsForRender(isShorts, state) {
   if (!state?.videoMode) return false;
-  if (isShorts) return true;
-  return !appState.isVideoPlaying;
+  return true;
 }
 
 function getCareerSilhouetteSizingCaps(isShorts, videoMode) {
@@ -458,7 +459,7 @@ export function applyCareerPictureModeToActiveState(st, isShortsLayout) {
     }
     return;
   }
-  if (st.videoMode && !appState.isVideoPlaying) {
+  if (st.videoMode) {
     st.silhouetteYOffset = Number(st.silhouetteVideoYOffset);
     st.silhouetteScaleX = Number(st.silhouetteVideoScaleX);
     st.silhouetteScaleY = Number(st.silhouetteVideoScaleY);
@@ -709,13 +710,13 @@ async function resolveCareerPlayerPhotoUrl(src) {
         el.src = src;
       });
       const bounds = measureCareerPlayerOpaqueBoundsNatural(img);
-      if (!bounds) return src;
+      if (!bounds) { careerPlayerResolvedUrlSync.set(src, src); return src; }
 
       const canvas = document.createElement("canvas");
       canvas.width = bounds.sw;
       canvas.height = bounds.sh;
       const ctx = canvas.getContext("2d");
-      if (!ctx) return src;
+      if (!ctx) { careerPlayerResolvedUrlSync.set(src, src); return src; }
       ctx.drawImage(
         img,
         bounds.sx,
@@ -731,9 +732,12 @@ async function resolveCareerPlayerPhotoUrl(src) {
       const blob = await new Promise((resolve) => {
         canvas.toBlob((b) => resolve(b), "image/png");
       });
-      if (!blob) return src;
-      return URL.createObjectURL(blob);
+      if (!blob) { careerPlayerResolvedUrlSync.set(src, src); return src; }
+      const url = URL.createObjectURL(blob);
+      careerPlayerResolvedUrlSync.set(src, url);
+      return url;
     } catch {
+      careerPlayerResolvedUrlSync.set(src, src);
       return src;
     }
   })();
@@ -845,14 +849,31 @@ export function cleanCareerHistory(history) {
       }
   }
 
+  /* Remove consecutive duplicate clubs. */
   let h3 = [];
   for (let i = 0; i < h2.length; i++) {
       const currentName = resolveClubAlias(h2[i].club);
       if (h3.length > 0 && resolveClubAlias(h3[h3.length - 1].club) === currentName) {
-          continue; 
+          continue;
       }
       h3.push(h2[i]);
   }
+
+  /* Filter out "Without Club" entries. */
+  h3 = h3.filter(item => {
+      const name = String(item.club || "").trim().toLowerCase();
+      return name && name !== "without club";
+  });
+
+  /* Remove non-consecutive duplicates — keep first occurrence only. */
+  const seen = new Set();
+  h3 = h3.filter(item => {
+      const key = resolveClubAlias(item.club);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+  });
+
   return h3;
 }
 
@@ -1073,19 +1094,27 @@ export function renderCareer() {
   );
   const wrap = document.getElementById("career-wrap");
   document.getElementById("player-stats-panel")?.remove();
-  document.getElementById("career-reveal-overlay")?.remove();
-  document.getElementById("career-reveal-name")?.remove();
+  const _revealOverlay = document.getElementById("career-reveal-overlay");
+  if (_revealOverlay && !_revealOverlay.style.opacity) _revealOverlay.remove();
+  const _revealName = document.getElementById("career-reveal-name");
+  if (_revealName && !_revealName.style.opacity) _revealName.remove();
+  /* Preserve the old flag element so we can reuse it if the same player/nationality
+     is rendered again (avoids destroying and recreating the Three.js scene each level switch). */
+  let preservedFlag = null;
+  let preservedFlagUrl = null;
   {
     const prevFlag = document.getElementById("player-stats-national-flag");
-    if (typeof prevFlag?._playerStatsThreeFlagCleanup === "function") {
-      prevFlag._playerStatsThreeFlagCleanup();
+    if (prevFlag) {
+      preservedFlagUrl = prevFlag.dataset.flagSrc || null;
+      /* Detach from the DOM so wrap.innerHTML = "" won't destroy it */
+      prevFlag.remove();
+      preservedFlag = prevFlag;
     }
-    prevFlag?.remove();
   }
   if (!wrap) return;
   wrap.classList.toggle(
     "video-mode-enabled",
-    !!state.videoMode && !appState.isVideoPlaying,
+    !!state.videoMode,
   );
 
   ensureCareerPictureModeProfiles(state);
@@ -1335,25 +1364,44 @@ export function renderCareer() {
   };
 
   if (readyUrl) {
-    image.setAttribute("visibility", "hidden");
-    missingLabel.setAttribute("visibility", "hidden");
-    image.addEventListener("load", () => {
+    /* If the trimmed photo URL was already resolved in a prior render, use it
+       synchronously so the silhouette is visible immediately — no hidden→load flash. */
+    const syncUrl = careerPlayerResolvedUrlSync.get(readyUrl);
+    if (syncUrl) {
+      image.setAttribute("href", syncUrl);
       showImage();
-      syncSilhouetteFromLoadedBitmap();
-    });
-    image.addEventListener("error", () => showMissing());
-    void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
-      if (!image.isConnected) return;
-      image.setAttribute("href", resolvedUrl || readyUrl);
-      /* Cached bitmap: load may not fire. */
+      /* Rect fitting needs naturalWidth/Height which may not be ready on a fresh
+         <image> element even with a cached blob URL.  Try now, fall back to load event. */
+      image.addEventListener("load", () => {
+        syncSilhouetteFromLoadedBitmap();
+      });
       requestAnimationFrame(() => {
         if (!image.isConnected) return;
         if (image.naturalWidth && image.naturalHeight) {
-          showImage();
           syncSilhouetteFromLoadedBitmap();
         }
       });
-    });
+    } else {
+      image.setAttribute("visibility", "hidden");
+      missingLabel.setAttribute("visibility", "hidden");
+      image.addEventListener("load", () => {
+        showImage();
+        syncSilhouetteFromLoadedBitmap();
+      });
+      image.addEventListener("error", () => showMissing());
+      void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+        if (!image.isConnected) return;
+        image.setAttribute("href", resolvedUrl || readyUrl);
+        /* Cached bitmap: load may not fire. */
+        requestAnimationFrame(() => {
+          if (!image.isConnected) return;
+          if (image.naturalWidth && image.naturalHeight) {
+            showImage();
+            syncSilhouetteFromLoadedBitmap();
+          }
+        });
+      });
+    }
   } else {
     if (hasRealPlayer) {
       showMissing();
@@ -1774,18 +1822,35 @@ export function renderCareer() {
     clubsValueEl.className = "player-stat-card__value player-stat-card__value--clubs";
     const clubsTrack = document.createElement("div");
     clubsTrack.className = "player-stat-clubs-track";
-    /** Rows of up to 4 slot indices: full rows of 4, last row 1–3 centered by CSS. */
+    /**
+     * Layout rules:
+     *   1–4  → single row
+     *   5    → 3 + 2
+     *   6    → 3 + 3
+     *   7    → 4 + 3
+     *   8    → 4 + 4
+     *   9+   → ceil/floor split into 2 rows
+     */
     const clubSlotRows = [];
-    for (let i = 0; i < n; ) {
-      const remaining = n - i;
-      const take = remaining >= 4 ? 4 : remaining;
-      clubSlotRows.push(Array.from({ length: take }, (_, k) => i + k));
-      i += take;
+    if (n <= 4) {
+      clubSlotRows.push(Array.from({ length: n }, (_, k) => k));
+    } else {
+      const topRowMap = { 5: 3, 6: 3, 7: 4, 8: 4, 9: 5 };
+      const row1Count = topRowMap[n] || Math.ceil(n / 2);
+      clubSlotRows.push(Array.from({ length: row1Count }, (_, k) => k));
+      clubSlotRows.push(Array.from({ length: n - row1Count }, (_, k) => row1Count + k));
     }
-    for (const rowIndices of clubSlotRows) {
+    for (let ri = 0; ri < clubSlotRows.length; ri++) {
+      const rowIndices = clubSlotRows[ri];
       const rowEl = document.createElement("div");
       rowEl.className = "player-stat-clubs-row";
-      if (rowIndices.length === 4) rowEl.classList.add("player-stat-clubs-row--four");
+      /* Odd layouts (5,7,9): offset the bottom row so logos sit between the ones above. */
+      if (ri === 1 && clubSlotRows.length === 2 && clubSlotRows[0].length !== rowIndices.length) {
+        rowEl.classList.add("player-stat-clubs-row--offset");
+        /* offset = half the space-evenly slot from the top row: 100% / (2 * (topCount + 1)) */
+        const topCount = clubSlotRows[0].length;
+        rowEl.style.setProperty("--player-stat-row-offset", `calc(100% / ${2 * (topCount + 1)})`);
+      }
       for (const idx of rowIndices) {
         const slot = document.createElement("div");
         slot.className = "player-stat-club-item career-club-slot";
@@ -1794,16 +1859,47 @@ export function renderCareer() {
           statsPanelCompact: true,
         });
         appendCareerSlotZoomControls(slot, idx, n, false);
+        /* Add X remove button into the badge controls row. */
+        const controls = slot.querySelector(".career-badge-controls");
+        if (controls) {
+          const removeBtn = document.createElement("button");
+          removeBtn.type = "button";
+          removeBtn.className = "career-badge-zoom-btn career-club-remove-btn";
+          removeBtn.textContent = "✕";
+          removeBtn.title = "Remove this club";
+          removeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            const st = getState();
+            const hist = st.careerHistory || [];
+            if (idx < hist.length) {
+              hist.splice(idx, 1);
+              st.careerHistory = hist;
+              st.careerClubsCount = hist.length;
+              if (appState.els.inCareerClubs) appState.els.inCareerClubs.value = hist.length;
+              renderCareer();
+            }
+          });
+          controls.appendChild(removeBtn);
+        }
         rowEl.appendChild(slot);
       }
       clubsTrack.appendChild(rowEl);
     }
+    /* Scale logos based on total count — fewer clubs = bigger logos. */
+    const clubSizeMap = {
+      1: "8rem", 2: "7rem", 3: "6rem", 4: "5.5rem",
+      5: "4.8rem", 6: "4.8rem", 7: "4.8rem", 8: "4.8rem",
+      9: "4.2rem", 10: "4.2rem", 11: "3rem", 12: "2.8rem",
+    };
+    const clubSize = clubSizeMap[n] || `${Math.max(1.2, 4.5 - n * 0.25)}rem`;
+    clubsTrack.style.setProperty("--player-stat-club-size", clubSize);
+    /* More spacing when fewer clubs so they don't crowd together. */
+    const clubGapMap = { 1: "0rem", 2: "3rem", 3: "2rem", 4: "1.5rem", 5: "0.8rem", 6: "0.6rem", 7: "0.4rem", 8: "0.3rem", 9: "0.25rem", 10: "0.2rem", 11: "0.15rem", 12: "0.1rem" };
+    clubsTrack.style.setProperty("--player-stat-club-gap", clubGapMap[n] || "0.28rem");
     clubsValueEl.appendChild(clubsTrack);
     const clubsCard = document.createElement("div");
     clubsCard.className = "player-stat-card player-stat-card--clubs";
-    const clubLogoRows = Math.max(1, clubSlotRows.length);
-    clubsCard.style.setProperty("--player-stat-club-rows", String(clubLogoRows));
-    /* Always expanded: single row still needs header + beige min-content (logos + −/+) — non-expanded fixed 2×cell caused overflow + bogus scrollbar. */
     clubsCard.classList.add("player-stat-card--clubs-expanded");
     clubsTrack.classList.add("player-stat-clubs-track--expanded");
     const clubsHead = document.createElement("div");
@@ -1894,23 +1990,44 @@ export function renderCareer() {
 
     const flagUrl = hasRealPlayer ? resolvePlayerStatsNationalityFlagUrl(statPlayer?.nationality) : null;
     if (flagUrl) {
-      const natForAlt = playerStatsNationalityLabelForFlagcode(statPlayer?.nationality);
-      const flagWrap = document.createElement("div");
-      flagWrap.id = "player-stats-national-flag";
-      flagWrap.className = "player-stats-national-flag";
-      wrap.appendChild(flagWrap);
-      void import("./player-stats-flag-three.js")
-        .then((m) => {
-          if (!flagWrap.isConnected) return;
-          m.mountPlayerStatsThreeFlag(
-            flagWrap,
-            flagUrl,
-            natForAlt ? `${natForAlt} flag` : "National flag",
-          );
-        })
-        .catch(() => {
-          flagWrap.remove();
-        });
+      /* Reuse the preserved Three.js flag if the URL hasn't changed (same player/nationality).
+         This avoids tearing down and rebuilding the entire Three.js scene on every level switch. */
+      if (preservedFlag && preservedFlagUrl === flagUrl) {
+        wrap.appendChild(preservedFlag);
+        preservedFlag = null;
+      } else {
+        /* Different flag needed — dispose old one and create fresh. */
+        if (preservedFlag) {
+          if (typeof preservedFlag._playerStatsThreeFlagCleanup === "function") {
+            preservedFlag._playerStatsThreeFlagCleanup();
+          }
+          preservedFlag = null;
+        }
+        const natForAlt = playerStatsNationalityLabelForFlagcode(statPlayer?.nationality);
+        const flagWrap = document.createElement("div");
+        flagWrap.id = "player-stats-national-flag";
+        flagWrap.className = "player-stats-national-flag";
+        flagWrap.dataset.flagSrc = flagUrl;
+        wrap.appendChild(flagWrap);
+        void import("./player-stats-flag-three.js")
+          .then((m) => {
+            if (!flagWrap.isConnected) return;
+            m.mountPlayerStatsThreeFlag(
+              flagWrap,
+              flagUrl,
+              natForAlt ? `${natForAlt} flag` : "National flag",
+            );
+          })
+          .catch(() => {
+            flagWrap.remove();
+          });
+      }
+    } else if (preservedFlag) {
+      /* No flag needed — clean up the preserved one. */
+      if (typeof preservedFlag._playerStatsThreeFlagCleanup === "function") {
+        preservedFlag._playerStatsThreeFlagCleanup();
+      }
+      preservedFlag = null;
     }
   }
 

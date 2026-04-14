@@ -147,7 +147,7 @@ export function startVideoFlow() {
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   if (els.careerWrap) {
-    if (isShorts && appState.currentLevelIndex > 1 && appState.currentLevelIndex < appState.totalLevelsCount) {
+    if (state.videoMode) {
       els.careerWrap.classList.add("video-mode-enabled");
     } else {
       els.careerWrap.classList.remove("video-mode-enabled");
@@ -216,7 +216,7 @@ function runVideoStep() {
   const isQuestionLevel = appState.currentLevelIndex > 1 && !isOutro;
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
-  if (els.careerWrap && isShorts && isQuestionLevel) {
+  if (els.careerWrap && isQuestionLevel) {
     els.careerWrap.classList.add("video-mode-enabled");
   }
   if (isQuestionLevel && els.teamHeader) {
@@ -338,17 +338,67 @@ function revealCurrentLevel() {
     if (!appState.isVideoPlaying) return;
     setVideoRevealPostTimerActive(false);
     let jumpToIndex = appState.currentLevelIndex + 1;
-    if (jumpToIndex <= appState.totalLevelsCount) {
-      switchLevel(jumpToIndex);
-      const nextState = getState();
-      const isNextOutro = jumpToIndex === appState.totalLevelsCount;
-      if (appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.careerPlayer)) {
-        runVideoStep();
+
+    /* Fade OUT all visible content on the current level. */
+    const { els } = appState;
+    const fadeTargets = [
+      els.careerWrap,
+      els.teamHeader,
+      document.getElementById("career-reveal-overlay"),
+      document.getElementById("career-reveal-name"),
+      document.getElementById("player-stats-panel"),
+      document.querySelector(".player-stats-national-flag"),
+    ].filter(Boolean);
+
+    for (const el of fadeTargets) {
+      const comp = getComputedStyle(el);
+      el.style.opacity = comp.opacity;
+      el.style.animation = "none";
+      void el.offsetWidth;
+      el.style.transition = "opacity 0.4s ease";
+      el.style.opacity = "0";
+    }
+
+    /* After the fade-out completes, switch to the next level. */
+    setTimeout(() => {
+      if (!appState.isVideoPlaying) return;
+      document.getElementById("career-reveal-overlay")?.remove();
+      document.getElementById("career-reveal-name")?.remove();
+      clearCinematicRevealFx();
+
+      if (jumpToIndex <= appState.totalLevelsCount) {
+        switchLevel(jumpToIndex, { immediate: true });
+
+        const newWrap = els.careerWrap;
+        const newHeader = els.teamHeader;
+        const fadeInTargets = [newWrap, newHeader].filter(Boolean);
+        for (const el of fadeInTargets) {
+          el.style.animation = "";
+          el.style.transition = "none";
+          el.style.opacity = "0";
+        }
+        void (newWrap || document.body).offsetWidth;
+        for (const el of fadeInTargets) {
+          el.style.transition = "opacity 0.5s ease";
+          el.style.opacity = "1";
+        }
+        setTimeout(() => {
+          for (const el of fadeInTargets) {
+            el.style.transition = "";
+            el.style.opacity = "";
+          }
+        }, 520);
+
+        const nextState = getState();
+        const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+        if (appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.careerPlayer)) {
+          runVideoStep();
+        } else {
+          stopVideoFlow();
+        }
       } else {
         stopVideoFlow();
       }
-    } else {
-      stopVideoFlow();
-    }
+    }, 420);
   }, flipDelay);
 }

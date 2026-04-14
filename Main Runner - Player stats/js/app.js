@@ -636,6 +636,35 @@ async function init() {
         els.shortsCirclePreviewCount.addEventListener("change", applyShortsCirclePreviewFromControls);
     }
 
+    /* Test club count control — checkbox activates, number adds/removes team slots. */
+    const clubsPreviewToggle = document.getElementById("career-clubs-preview-toggle");
+    if (clubsPreviewToggle && els.inCareerClubs) {
+        const applyClubCount = () => {
+            if (!clubsPreviewToggle.checked) return;
+            const val = Math.min(12, Math.max(1, parseInt(els.inCareerClubs.value, 10) || 5));
+            els.inCareerClubs.value = val;
+            const state = getState();
+            const history = state.careerHistory || [];
+            if (val > history.length) {
+                /* Add empty slots to reach the target count. */
+                while (history.length < val) history.push({});
+            } else if (val < history.length) {
+                /* Remove from the end to reach the target count. */
+                history.length = val;
+            }
+            state.careerHistory = history;
+            state.careerClubsCount = val;
+            renderCareer();
+        };
+        clubsPreviewToggle.addEventListener("change", () => {
+            if (clubsPreviewToggle.checked) {
+                applyClubCount();
+            }
+        });
+        els.inCareerClubs.addEventListener("input", applyClubCount);
+        els.inCareerClubs.addEventListener("change", applyClubCount);
+    }
+
     els.shortsModeToggle.onchange = (e) => {
         const state = getState();
         const wasShorts = document.body.classList.contains("shorts-mode");

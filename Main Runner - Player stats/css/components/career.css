@@ -131,15 +131,15 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   width: 100%; height: 100%;
   overflow: visible;
   pointer-events: none;
-  /* Road + player image share this layer; moved another 5% higher */
-  transform: rotateX(15deg) translateY(-20%);
+  /* Road + player image share this layer; moved another 5% higher, shifted 5vw left */
+  transform: rotateX(15deg) translateX(-5vw) translateY(-20%);
   /* Above .player-stats-national-flag (z-index 4) so silhouette + SVG backdrop composite on top of the 3D flag */
   z-index: 12;
   isolation: isolate;
 }
 
 .career-silhouette {
-  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1)); 
+  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82)); 
   transform-origin: 50% 100%; 
   opacity: 1;
   pointer-events: none;
@@ -153,17 +153,59 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   will-change: filter, transform;
 }
 
-/* Video mode: opaque black silhouette so the 3D flag (below .career-svg) never shows through the player (Play Video clears .video-mode-enabled on the wrap). */
+/* Video mode: 3D silhouette — very dark with subtle shirt/body contour texture, player identity hidden. */
 body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed) {
   opacity: 1;
-  filter: brightness(0) contrast(1.2);
-  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+  filter:
+    brightness(0)
+    contrast(0)
+    brightness(0.18)
+    contrast(3.5)
+    saturate(0)
+    /* Tight top-left highlight edge — simulates rim light */
+    drop-shadow(-1px -1px 2px rgba(180, 210, 255, 0.25))
+    /* Close sharp shadow — gives depth/lift off the background */
+    drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.85))
+    /* Medium body shadow — 3D volume */
+    drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6))
+    /* Large soft ambient shadow — grounds the figure */
+    drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
+    /* Subtle cool glow halo */
+    drop-shadow(0 0 6px rgba(160, 200, 240, 0.15));
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
 }
 
 body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
   opacity: 1;
-  filter: brightness(0) contrast(1.2);
-  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+  filter:
+    brightness(0)
+    contrast(0)
+    brightness(0.18)
+    contrast(3.5)
+    saturate(0)
+    drop-shadow(-1px -1px 2px rgba(180, 210, 255, 0.25))
+    drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.85))
+    drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6))
+    drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 0 6px rgba(160, 200, 240, 0.15));
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+  animation: silhouette-sway 6s ease-in-out 0.5s infinite alternate, silhouette-shake 4.8s ease-in-out 0.5s infinite alternate;
+  transform-origin: 50% 100%;
+}
+
+/* Slow left-right sway — just two endpoints, alternate + ease-in-out
+   gives a natural pendulum feel with no hard reversals */
+@keyframes silhouette-sway {
+  0%   { translate: 0 0; }
+  50%  { translate: -6px 0; }
+  100% { translate: 6px 0; }
+}
+
+/* Rotation shake — same approach */
+@keyframes silhouette-shake {
+  0%   { rotate: 0deg; }
+  50%  { rotate: -2.5deg; }
+  100% { rotate: 2.5deg; }
 }
 
 .career-photo-missing-label {
@@ -329,7 +371,7 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
       drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
       drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
       drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
-    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
   }
   100% {
     opacity: 0;
@@ -338,7 +380,7 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
       brightness(0)
       blur(3px)
       drop-shadow(0 0 22px rgba(184, 247, 232, 0.42));
-    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 26%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 26%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
   }
 }
 
@@ -369,7 +411,7 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
       drop-shadow(0 16px 32px rgba(0, 0, 0, 0.8))
       drop-shadow(0 0 28px rgba(204, 255, 243, 0.48))
       drop-shadow(0 0 72px rgba(120, 214, 192, 0.26));
-    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
     opacity: 1;
   }
 }
@@ -583,13 +625,9 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
 @keyframes career-question-surface-enter {
   0% {
     opacity: 0;
-    filter: blur(10px);
-    transform: rotateX(15deg) translateY(-14.5%) scale(1.14);
   }
   100% {
     opacity: 1;
-    filter: blur(0);
-    transform: rotateX(15deg) translateY(-20%) scale(1);
   }
 }
 
@@ -1081,7 +1119,7 @@ body:not(.shorts-mode) .player-stats-panel__matrix {
   min-width: 0;
   box-sizing: border-box;
   background: transparent;
-  border-radius: 0.1rem;
+  border-radius: 0.75rem;
   overflow: visible;
 }
 
@@ -1118,7 +1156,7 @@ body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card {
 }
 
 body:not(.shorts-mode) .player-stats-panel__row--main > .player-stat-card--clubs-expanded {
-  flex: 1.42 1 0;
+  flex: 1.56 1 0;
   min-width: 0;
 }
 
@@ -1133,7 +1171,7 @@ body:not(.shorts-mode) .player-stats-national-flag {
   position: fixed;
   left: 50%;
   top: 40%;
-  transform: translate(calc(-50% - 15vw), -50%);
+  transform: translate(calc(-50% - 21.5vw), -50%);
   /* Below .career-svg (z-index 12) so silhouette + SVG backdrop sit on top; .career-reveal-overlay (260) stays above when shown */
   z-index: 4;
   display: flex;
@@ -1174,9 +1212,9 @@ body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card:not(.play
 }
 
 body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card--clubs-expanded {
-  height: auto;
-  /* Navy band (~1 cell) + beige grows one cell per logo row — no inner scroll. */
-  min-height: calc((1 + var(--player-stat-club-rows, 1)) * var(--player-stat-equal-cell));
+  /* Fixed height: match the two side cards stacked (2 × 2-cell cards + gap). */
+  height: calc(4 * var(--player-stat-equal-cell) + var(--player-stats-grid-gap));
+  min-height: 0;
   background: transparent;
 }
 
@@ -1186,9 +1224,15 @@ body:not(.shorts-mode) .player-stat-card {
   gap: 0;
   min-width: 0;
   min-height: 0;
-  border-radius: 0.12rem;
+  border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 body:not(.shorts-mode) .player-stat-card__head {
@@ -1200,31 +1244,24 @@ body:not(.shorts-mode) .player-stat-card__head {
   font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
   font-weight: 800;
   font-size: var(--player-stat-head-font);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #f8fafc;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  color: #f0f6ff;
+  text-shadow: 0 0 8px rgba(100, 180, 255, 0.5), 0 1px 3px rgba(0, 0, 0, 0.6);
   padding: 0.28rem 0.38rem;
   line-height: 1.12;
   flex: 1 1 0;
   min-height: 0;
   box-sizing: border-box;
   overflow: hidden;
-  background-color: var(--player-stat-navy-deep);
-  /* Repo root: Images/Backgrounds/stats image.jpg — textured blue header (cover per card). */
-  background-image:
-    var(--player-stat-matte-noise),
+  background:
     linear-gradient(
       180deg,
-      rgba(0, 18, 48, 0.42) 0%,
-      rgba(0, 12, 36, 0.28) 50%,
-      rgba(0, 8, 28, 0.38) 100%
-    ),
-    url("../../../Images/Backgrounds/stats%20image.jpg");
-  background-size: auto, auto, cover;
-  background-position: center, center, center;
-  background-repeat: repeat, no-repeat, no-repeat;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+      rgba(0, 30, 80, 0.72) 0%,
+      rgba(0, 18, 55, 0.58) 50%,
+      rgba(0, 12, 42, 0.68) 100%
+    );
+  border-bottom: 1px solid rgba(100, 180, 255, 0.15);
 }
 
 /* Fixed header band on every stats card (Clubs + sides) — same pixel height as one equal cell. */
@@ -1247,7 +1284,7 @@ body:not(.shorts-mode) .player-stat-card__icon {
   margin-left: 0;
   color: #fff;
   opacity: 0.95;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 0 4px rgba(100, 180, 255, 0.4)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
 }
 
 /* Goal glyph sits low in the viewBox; nudge up to align with cap height. */
@@ -1281,157 +1318,95 @@ body:not(.shorts-mode) .player-stat-card__value {
   justify-content: center;
   box-sizing: border-box;
   overflow: hidden;
-  color: #000000;
+  color: #ffffff;
   font-size: var(--player-stat-value-font);
   font-weight: 900;
   font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
   line-height: 1;
-  background-color: #c5c5c5;
-  /* Repo root: Images/Backgrounds/Light grey background.jfif */
-  background-image:
+  text-shadow: 0 0 10px rgba(100, 200, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+  background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.12) 0%,
-      transparent 42%,
-      rgba(0, 0, 0, 0.06) 100%
-    ),
-    url("../../../Images/Backgrounds/Light%20grey%20background.jfif");
-  background-size: auto, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      rgba(10, 25, 50, 0.55) 0%,
+      rgba(5, 15, 35, 0.65) 100%
+    );
+  border-top: 1px solid rgba(100, 180, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs {
-  padding: 0.28rem 0.32rem;
-  align-items: stretch;
+  padding: 0.38rem 0.42rem;
+  align-items: center;
   justify-content: center;
   color: var(--player-stat-ink);
   font-size: inherit;
-  /* clip: hidden+visible on the other axis forces overflow-y:auto in browsers → inner scrollbar */
-  overflow-x: clip;
-  overflow-y: visible;
+  overflow: hidden;
 }
 
 body:not(.shorts-mode) .player-stat-card--clubs-expanded .player-stat-card__value--clubs {
-  flex: 1 1 auto;
+  flex: 1 1 0;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  min-height: max(
-    calc(var(--player-stat-club-rows, 2) * var(--player-stat-equal-cell)),
-    min-content
-  );
-  overflow-x: clip;
-  overflow-y: visible;
+  min-height: 0;
+  overflow: hidden;
 }
 
 body:not(.shorts-mode) .player-stat-clubs-track {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
-  align-content: center;
-  gap: 0.28rem;
+  align-items: center;
+  gap: 0.32rem;
   width: 100%;
-  min-height: 0;
-  flex: 1 1 auto;
-  overflow-x: clip;
-  overflow-y: visible;
+  height: 100%;
+  flex: 1 1 0;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
 body:not(.shorts-mode) .player-stat-clubs-track--expanded {
-  flex: 0 0 auto;
-  flex-shrink: 0;
+  flex: 1 1 0;
   align-self: stretch;
   width: 100%;
   max-width: 100%;
-  justify-content: flex-start;
-  align-content: flex-start;
-  gap: 0.38rem;
-  padding-top: 0.1rem;
-  overflow-y: visible;
+  justify-content: center;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.2rem 0;
 }
 
-/* 8-column grid: 4 logos span 2 cols each; partial rows centered. */
+/* Clubs row: flex row with centered logos that scale based on count. */
 body:not(.shorts-mode) .player-stat-clubs-row {
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  justify-items: center;
-  align-items: start;
-  gap: 0.28rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: var(--player-stat-club-gap, 0.28rem);
   width: 100%;
   min-height: 0;
-  flex-shrink: 0;
+  flex: 1 1 0;
+}
+
+/* Offset row: bottom row with fewer items, shifted so logos sit between the ones above. */
+body:not(.shorts-mode) .player-stat-clubs-row--offset {
+  padding-inline: var(--player-stat-row-offset, 0);
+  box-sizing: border-box;
 }
 
 body:not(.shorts-mode) .player-stat-clubs-row .player-stat-club-item {
-  width: 100%;
+  width: var(--player-stat-club-size, 3.5rem);
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
 }
 
-body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(1) {
-  grid-column: 1 / 3;
-}
-
-body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(2) {
-  grid-column: 3 / 5;
-}
-
-body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(3) {
-  grid-column: 5 / 7;
-}
-
-body:not(.shorts-mode) .player-stat-clubs-row--four .player-stat-club-item:nth-child(4) {
-  grid-column: 7 / 9;
-}
-
-/* Three logos in one row: centered in 8 cols (each span 2). */
-body:not(.shorts-mode)
-  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
-  .player-stat-club-item:nth-child(1):nth-last-child(3) {
-  grid-column: 2 / 4;
-}
-
-body:not(.shorts-mode)
-  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
-  .player-stat-club-item:nth-child(2):nth-last-child(2) {
-  grid-column: 4 / 6;
-}
-
-body:not(.shorts-mode)
-  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
-  .player-stat-club-item:nth-child(3):nth-last-child(1) {
-  grid-column: 6 / 8;
-}
-
-/* Two logos: centered pair with gutter. */
-body:not(.shorts-mode)
-  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
-  .player-stat-club-item:nth-child(1):nth-last-child(2) {
-  grid-column: 2 / 4;
-}
-
-body:not(.shorts-mode)
-  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
-  .player-stat-club-item:nth-child(2):nth-last-child(1) {
-  grid-column: 6 / 8;
-}
-
-body:not(.shorts-mode)
-  .player-stat-clubs-row:not(.player-stat-clubs-row--four)
-  .player-stat-club-item:only-child {
-  grid-column: 4 / 6;
-}
-
+/* Club item sizing is driven by --player-stat-club-size set in JS based on total count. */
 body:not(.shorts-mode) .player-stat-club-item {
   flex: 0 0 auto;
   position: relative;
-  max-width: 100%;
+  width: var(--player-stat-club-size, 3.5rem);
+  height: var(--player-stat-club-size, 3.5rem);
   pointer-events: auto;
   padding: 0;
   background: transparent;
@@ -1444,12 +1419,21 @@ body:not(.shorts-mode) .player-stat-club-item .career-club-slot-inner {
   animation: none !important;
 }
 
-/* Nudge crests down ~5% of slot height; all rows (stats panel clubs only). */
+/* X remove button — red version of the +/- zoom buttons, inline in the controls row. */
+body:not(.shorts-mode) .career-club-remove-btn {
+  background: #dc2626 !important;
+  color: #fff !important;
+}
+body:not(.shorts-mode) .career-club-remove-btn:hover {
+  background: #b91c1c !important;
+}
+
+/* Crests centered in fixed-height clubs box. */
 body:not(.shorts-mode)
   .player-stat-card__value--clubs
   .player-stat-club-item
   .career-club-slot-inner {
-  transform: translateY(5%);
+  transform: none;
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-emblem-scale > .career-badge-controls {
@@ -1465,17 +1449,13 @@ body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-emblem-scale
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs .player-stat-club-item {
-  padding-bottom: 1.5rem; /* room for − / + after crest translateY(5%) + larger logos; same when controls hidden */
+  padding-bottom: 0.4rem;
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder {
-  /* Team crest box in stats panel (+10% vs prior step) */
-  width: clamp(2.772rem, 10.296vw, 4.673rem);
-  height: clamp(2.772rem, 10.296vw, 4.673rem);
-  min-width: 2.772rem;
-  min-height: 2.772rem;
-  max-width: min(4.673rem, 31.68vw);
-  max-height: min(4.673rem, 31.68vw);
+  /* Size driven by --player-stat-club-size set in JS based on club count. */
+  width: var(--player-stat-club-size, 3.5rem);
+  height: var(--player-stat-club-size, 3.5rem);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -1488,8 +1468,8 @@ body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder 
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder:empty {
-  min-width: 2.772rem;
-  min-height: 2.772rem;
+  min-width: 2rem;
+  min-height: 2rem;
 }
 
 body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-logo-img {

@@ -1,0 +1,104 @@
+{
+  "description": "Data sources and locations for all project images. Use when refreshing or updating image content.",
+  "version": "1.1",
+  "imageSpec": {
+    "path": ".Storage/General values/image.json",
+    "purpose": "Standard size, format and background for team logos (and future player photos)"
+  },
+  "nationalityImages": {
+    "folder": "Images/Nationality",
+    "structure": {
+      "pattern": "ContinentName/CountryName.png",
+      "example": "Europe/Germany.png"
+    },
+    "sources": {
+      "flags": {
+        "name": "FlagCDN",
+        "urlPattern": "https://flagcdn.com/w640/{iso2}.png",
+        "iso2": "ISO 3166-1 alpha-2 code, lowercase (e.g. de, gb, us)"
+      },
+      "countryList": {
+        "name": "ISO-3166 Countries with Regional Codes",
+        "url": "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv",
+        "fields": ["name", "alpha-2", "region", "sub-region", "intermediate-region"]
+      }
+    },
+    "extras": {
+      "ukNations": {
+        "England": "gb-eng",
+        "Scotland": "gb-sct",
+        "Wales": "gb-wls",
+        "Northern Ireland": "gb-nir"
+      }
+    },
+    "scripts": [
+      ".Storage/Legacy/Legacy - Scripts/download_world_flags.py",
+      ".Storage/Legacy/Legacy - Scripts/download_europe_flags.py"
+    ]
+  },
+  "teamsImages": {
+    "folder": "Images/Teams",
+    "structure": {
+      "pattern": "Country/League/<Official Transfermarkt club name>.png",
+      "example": "England/Premier League/Arsenal FC.png",
+      "note": "Basenames match Squad Formation/Teams JSON filenames (official TM names), not old slug filenames."
+    },
+    "canonicalPipeline": {
+      "description": "Current workflow: squad JSON lists transfermarktClubId; logos align to the same official names.",
+      "crestCdn": {
+        "name": "Transfermarkt (tmssl)",
+        "urlPattern": "https://tmssl.akamaized.net/images/wappen/big/{transfermarktClubId}.png",
+        "sameAsApiField": "get_club(id).data.crestUrl"
+      },
+      "scripts": [
+        "Main Runner/scripts/download_missing_club_logos.py",
+        "Main Runner/scripts/align_team_images_with_squads.py"
+      ]
+    },
+    "sources": {
+      "firstDivision": {
+        "name": "luukhopman/football-logos",
+        "apiBase": "https://api.github.com/repos/luukhopman/football-logos/contents/logos",
+        "leagues": [
+          "England%20-%20Premier%20League",
+          "England%20-%20Championship",
+          "Spain%20-%20LaLiga",
+          "Spain%20-%20LaLiga2",
+          "Italy%20-%20Serie%20A",
+          "Italy%20-%20Serie%20B",
+          "France%20-%20Ligue%201",
+          "France%20-%20Ligue%202",
+          "Germany%20-%20Bundesliga",
+          "Germany%20-%202.%20Bundesliga"
+        ],
+        "note": "Append league path to apiBase; each item has download_url"
+      },
+      "secondDivision": {
+        "name": "football-logos.cc",
+        "format": "ZIP collections",
+        "zips": [
+          "https://assets.football-logos.cc/collections/england-efl-championship-2025-2026.football-logos.cc.zip",
+          "https://assets.football-logos.cc/collections/spain-la-liga-2-2025-2026.football-logos.cc.zip",
+          "https://assets.football-logos.cc/collections/italy-serie-b-2025-2026.football-logos.cc.zip",
+          "https://assets.football-logos.cc/collections/france-ligue-2-2025-2026.football-logos.cc.zip",
+          "https://assets.football-logos.cc/collections/germany-2-bundesliga-2025-2026.football-logos.cc.zip"
+        ],
+        "note": "Update year in URL for new season (e.g. 2026-2027). Optional initial bulk import; canonical names/IDs now come from Squad Formation + Transfermarkt."
+      }
+    },
+    "scripts": [
+      "Main Runner/scripts/download_missing_club_logos.py",
+      "Main Runner/scripts/align_team_images_with_squads.py",
+      ".Storage/Legacy/Legacy - Scripts/download_and_normalize_league_logos.py",
+      ".Storage/Legacy/Legacy - Scripts/download_second_division_logos.py"
+    ]
+  },
+  "playersImages": {
+    "status": "Reset — player image sources and automation removed; to be redefined from scratch",
+    "folder": "Images/Players",
+    "subfolders": {
+      "clubImages": "Images/Players/Club images",
+      "nationalityImages": "Images/Players/Nationality images"
+    }
+  }
+}

@@ -6,7 +6,7 @@ import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
 
-export function switchLevel(index) {
+export function switchLevel(index, { immediate = false } = {}) {
   if (index === 0) {
     index = 1;
   }
@@ -240,7 +240,7 @@ export function switchLevel(index) {
     }
   };
 
-  if (stageMain) {
+  if (stageMain && !immediate) {
     const isShorts = document.body.classList.contains("shorts-mode");
     const isLogoToLanding = prevIndex === 0 && index === 1 && !isShorts;
     if (isLogoToLanding) {
