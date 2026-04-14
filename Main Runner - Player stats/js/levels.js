@@ -6,7 +6,10 @@ import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
 
-export function switchLevel(index, { immediate = false } = {}) {
+export function switchLevel(
+  index,
+  { immediate = false, syncFullViewportVideoStage = false, beforeDomUpdate = null } = {},
+) {
   if (index === 0) {
     index = 1;
   }
@@ -322,9 +325,71 @@ export function switchLevel(index, { immediate = false } = {}) {
     const exitClass = "stage-exit-video-anim";
     const enterClass = "stage-enter-video-anim";
     const transitionDelay = 820;
-    
-    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+
+    /*
+     * Mounted on `.app` (not inside `#stage-main`) — see `pitch-render.js`.
+     * Layers that already position with `transform` must use fade-only keyframes so we
+     * do not replace `translateX(-50%)` etc. (avoids a horizontal snap at transition start).
+     */
+    const syncExtraFullVideoIds = syncFullViewportVideoStage
+      ? ["floating-background", "countdown-timer"]
+      : [];
+    /*
+     * Reveal overlay/name: fade out on exit with the old level, but do NOT run enter fade —
+     * that animation forces opacity 0→1 and briefly shows the default (small) reveal layout
+     * before `.show` is applied when the answer clip runs.
+     */
+    const syncExtraFadePanelIds = syncFullViewportVideoStage
+      ? ["player-stats-panel", "career-picture-controls-floating"]
+      : [];
+    const syncExtraFadeRevealIds = syncFullViewportVideoStage
+      ? ["career-reveal-overlay", "career-reveal-name"]
+      : [];
+    const exitFadeOnlyClass = "stage-exit-video-anim-fade-only";
+    const enterFadeOnlyClass = "stage-enter-video-anim-fade-only";
+    const exitRevealOverlayRegClass = "stage-exit-career-reveal-overlay-reg";
+    const exitRevealOverlaySafeClass = "stage-exit-career-reveal-overlay-safe";
+    const exitRevealNameClass = "stage-exit-career-reveal-name-fade";
+    const getSyncExtraFull = () =>
+      syncExtraFullVideoIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const getSyncExtraFadePanels = () =>
+      syncExtraFadePanelIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const getSyncExtraFadeReveal = () =>
+      syncExtraFadeRevealIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const getSyncExtraFadeAll = () => [...getSyncExtraFadePanels(), ...getSyncExtraFadeReveal()];
+
+    const stripStageAnim = (el) => {
+      el.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim",
+        exitFadeOnlyClass,
+        enterFadeOnlyClass,
+        exitRevealOverlayRegClass,
+        exitRevealOverlaySafeClass,
+        exitRevealNameClass,
+      );
+    };
+
+    stripStageAnim(stageMain);
+    for (const el of getSyncExtraFull()) stripStageAnim(el);
+    for (const el of getSyncExtraFadeAll()) stripStageAnim(el);
     stageMain.classList.add(exitClass);
+    for (const el of getSyncExtraFull()) el.classList.add(exitClass);
+    for (const el of getSyncExtraFadePanels()) el.classList.add(exitFadeOnlyClass);
+    if (syncFullViewportVideoStage) {
+      const revealOverlay = document.getElementById("career-reveal-overlay");
+      if (revealOverlay) {
+        revealOverlay.classList.add(
+          document.getElementById("career-wrap")?.classList.contains("video-mode-enabled")
+            ? exitRevealOverlaySafeClass
+            : exitRevealOverlayRegClass,
+        );
+      }
+      const revealName = document.getElementById("career-reveal-name");
+      if (revealName) revealName.classList.add(exitRevealNameClass);
+    }
 
     if (progressContainer) {
         progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
@@ -332,13 +397,28 @@ export function switchLevel(index, { immediate = false } = {}) {
     }
 
     setTimeout(() => {
+      if (typeof beforeDomUpdate === "function") beforeDomUpdate();
       updateDOMContent();
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
-          void stageMain.offsetWidth; 
+          stripStageAnim(stageMain);
+          void stageMain.offsetWidth;
           stageMain.classList.add(enterClass);
-          
+          /* Re-query: `updateDOMContent` replaces stats panel / reveal nodes. */
+          for (const el of getSyncExtraFull()) {
+            stripStageAnim(el);
+            void el.offsetWidth;
+            el.classList.add(enterClass);
+          }
+          for (const el of getSyncExtraFadePanels()) {
+            stripStageAnim(el);
+            void el.offsetWidth;
+            el.classList.add(enterFadeOnlyClass);
+          }
+          for (const el of getSyncExtraFadeReveal()) {
+            stripStageAnim(el);
+          }
+
           if (progressContainer) {
               progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
               void progressContainer.offsetWidth;
@@ -346,7 +426,9 @@ export function switchLevel(index, { immediate = false } = {}) {
           }
 
           setTimeout(() => {
-              stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+              stripStageAnim(stageMain);
+              for (const el of getSyncExtraFull()) stripStageAnim(el);
+              for (const el of getSyncExtraFadeAll()) stripStageAnim(el);
           }, 820);
         });
       });

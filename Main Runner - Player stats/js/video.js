@@ -7,6 +7,10 @@ import { renderCareer, renderHeader, syncCareerSlotControlsVisibility } from "./
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
+/** Must match `transitionDelay` in `levels.js` and each `.stage-*-video-anim` duration in `transitions.css`. */
+const STAGE_VIDEO_LEVEL_SWITCH_MS = 820;
+/** Exit + enter so the next `runVideoStep` runs after the new level has fully faded in (like landing → first question). */
+const STAGE_VIDEO_LEVEL_FULL_CYCLE_MS = STAGE_VIDEO_LEVEL_SWITCH_MS * 2;
 
 function setVideoRevealPostTimerActive(isActive) {
   const on = !!isActive;
@@ -337,68 +341,27 @@ function revealCurrentLevel() {
   appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;
     setVideoRevealPostTimerActive(false);
-    let jumpToIndex = appState.currentLevelIndex + 1;
+    const jumpToIndex = appState.currentLevelIndex + 1;
 
-    /* Fade OUT all visible content on the current level. */
-    const { els } = appState;
-    const fadeTargets = [
-      els.careerWrap,
-      els.teamHeader,
-      document.getElementById("career-reveal-overlay"),
-      document.getElementById("career-reveal-name"),
-      document.getElementById("player-stats-panel"),
-      document.querySelector(".player-stats-national-flag"),
-    ].filter(Boolean);
+    if (jumpToIndex <= appState.totalLevelsCount) {
+      /* Full viewport (stage + floating background + timer) exits, then the next level enters like landing → first question. */
+      switchLevel(jumpToIndex, {
+        syncFullViewportVideoStage: true,
+        beforeDomUpdate: clearCinematicRevealFx,
+      });
 
-    for (const el of fadeTargets) {
-      const comp = getComputedStyle(el);
-      el.style.opacity = comp.opacity;
-      el.style.animation = "none";
-      void el.offsetWidth;
-      el.style.transition = "opacity 0.4s ease";
-      el.style.opacity = "0";
-    }
-
-    /* After the fade-out completes, switch to the next level. */
-    setTimeout(() => {
-      if (!appState.isVideoPlaying) return;
-      document.getElementById("career-reveal-overlay")?.remove();
-      document.getElementById("career-reveal-name")?.remove();
-      clearCinematicRevealFx();
-
-      if (jumpToIndex <= appState.totalLevelsCount) {
-        switchLevel(jumpToIndex, { immediate: true });
-
-        const newWrap = els.careerWrap;
-        const newHeader = els.teamHeader;
-        const fadeInTargets = [newWrap, newHeader].filter(Boolean);
-        for (const el of fadeInTargets) {
-          el.style.animation = "";
-          el.style.transition = "none";
-          el.style.opacity = "0";
-        }
-        void (newWrap || document.body).offsetWidth;
-        for (const el of fadeInTargets) {
-          el.style.transition = "opacity 0.5s ease";
-          el.style.opacity = "1";
-        }
-        setTimeout(() => {
-          for (const el of fadeInTargets) {
-            el.style.transition = "";
-            el.style.opacity = "";
-          }
-        }, 520);
-
-        const nextState = getState();
-        const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+      const nextState = getState();
+      const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+      appState.videoTimeout = setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
         if (appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.careerPlayer)) {
           runVideoStep();
         } else {
           stopVideoFlow();
         }
-      } else {
-        stopVideoFlow();
-      }
-    }, 420);
+      }, STAGE_VIDEO_LEVEL_FULL_CYCLE_MS + 50);
+    } else {
+      stopVideoFlow();
+    }
   }, flipDelay);
 }
