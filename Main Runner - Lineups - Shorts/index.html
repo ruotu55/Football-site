@@ -38,7 +38,10 @@
           <div class="countdown-bar-gloss" aria-hidden="true"></div>
         </div>
       </div>
-      
+
+      <!-- #team-header is moved here after load so position:fixed is viewport-tall (not clipped by .stage perspective) -->
+      <div id="team-header-mount" class="team-header-mount"></div>
+
       <aside class="control-panel" id="control-panel"></aside>
       <aside class="control-panel right-panel" id="right-panel" hidden></aside>
 
@@ -49,6 +52,12 @@
       </main>
 
       <div id="modal-container"></div>
+
+      <!-- Shots safe-zone overlay (toggled via "Shots size" control) -->
+      <div id="shots-size-overlay" class="shots-size-overlay" hidden>
+        <div class="shots-size-overlay__top"></div>
+        <div class="shots-size-overlay__bottom"></div>
+      </div>
 
     </div>
 
@@ -79,12 +88,17 @@
           'html/shorts-stage-stub.html',
           'html/landing.html',
           'html/outro.html',
-          'html/header.html',
           'html/pitch.html'
         ];
 
         for (const url of stageComponents) {
           await loadComponent(url, 'stage-main');
+        }
+
+        const teamHeaderEl = document.getElementById('team-header');
+        const teamHeaderMount = document.getElementById('team-header-mount');
+        if (teamHeaderEl && teamHeaderMount) {
+          teamHeaderMount.appendChild(teamHeaderEl);
         }
 
         const script = document.createElement('script');

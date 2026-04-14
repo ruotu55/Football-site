@@ -92,7 +92,7 @@
   position: absolute;
   top: 0.35rem;
   right: 0.45rem;
-  z-index: 50;
+  z-index: 72;
   pointer-events: auto;
   box-sizing: border-box;
   min-width: 4.5rem;
@@ -122,16 +122,6 @@
 /* Apply the 10% larger shrunken state ONLY to regular mode */
 body:not(.shorts-mode) .pitch-wrap {
   height: 72.6vh; 
-}
-
-/* When the video header is hidden, the pitch claims the extra space */
-.team-header.video-hidden + .pitch-wrap {
-  height: 88vh;
-}
-
-/* Ensure regular mode also respects the 88vh hidden state */
-body:not(.shorts-mode) .team-header.video-hidden + .pitch-wrap {
-  height: 88vh;
 }
 
 .pitch-surface {

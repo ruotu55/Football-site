@@ -140,7 +140,7 @@ export const appState = {
   teamsIndex: { clubs: [], nationalities: [] },
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
-  totalLevelsCount: 20,
+  totalLevelsCount: 7,
   currentLevelIndex: 0,
   levelsData: [],
   swapActiveSlotIndex: -1,

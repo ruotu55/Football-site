@@ -53,6 +53,11 @@
     </label>
   </div>
 
+  <label class="field" style="flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
+    <span class="label" style="margin: 0;">Shots size</span>
+    <input type="checkbox" id="in-shots-size-toggle" style="width: 1.2rem; height: 1.2rem; margin: 0; cursor: pointer; accent-color: var(--accent);" />
+  </label>
+
   <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
     <input type="number" id="in-easy" value="10" min="0" />
     <input type="number" id="in-medium" value="5" min="0" />
@@ -93,7 +98,7 @@
   <label class="field">
     <span class="label">Total Levels</span>
     <div style="display: flex; gap: 0.5rem;">
-      <input type="number" id="quiz-levels-input" value="20" min="1" max="100" style="flex: 1;" />
+      <input type="number" id="quiz-levels-input" value="4" min="1" max="100" style="flex: 1;" />
       <button type="button" id="update-levels-btn" class="panel-toggle">Apply</button>
     </div>
   </label>

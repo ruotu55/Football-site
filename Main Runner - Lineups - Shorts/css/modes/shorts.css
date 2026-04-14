@@ -138,186 +138,20 @@ body.shorts-mode .landing-special-badge-container {
     animation: float-up-down-special-badge-shorts 3.2s ease-in-out infinite;
 }
 
-/* Stacking: pitch comes after header in DOM; without position+z-index it captures clicks over the header */
-body.shorts-mode .team-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-    z-index: 500;
-    height: 20vh;
-    /* Stronger upward pull + tighter gaps: large crest must not push the name onto the pitch */
-    margin-top: -8.17vh;
-    margin-bottom: 0.5rem;
-    padding-top: 0.81vh;
-    box-sizing: border-box;
-    gap: 0.32rem;
-    width: 100%;
-    transition: height 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s, margin 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
-}
+/* Side panel is now position:fixed (team-header.css) — no in-flow layout needed here.
+   Shorts-specific sizing lives in team-header.css `body.shorts-mode .team-header { ... }`. */
 
-body.shorts-mode .team-header[hidden] {
-    display: none !important;
-}
-
-body.shorts-mode .team-header.video-hidden {
-    height: 0vh !important;
-    margin-top: 0vh !important;
-    margin-bottom: 0 !important;
-    overflow: hidden;
-    opacity: 0;
-}
-
-body.shorts-mode.play-video-active .team-header.video-hidden {
-    transition: none !important;
-}
-
-body.shorts-mode .team-header.video-revealed {
-    height: 20vh !important;
-    margin-top: -8.17vh !important;
-    margin-bottom: 0.5rem !important;
-    overflow: visible;
-    opacity: 1;
-    animation: none;
-}
-
-body.shorts-mode .team-header-logo-block {
-    width: 100%;
-    max-width: 100%;
-    align-items: center;
-}
-
-body.shorts-mode .team-header-logo-reveal-stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-}
-
-/* Crest / flag above team name (same DOM order: fly-group then h2) */
-body.shorts-mode .team-header-title-cluster {
-    flex-direction: column;
-    gap: 0.18rem;
-    transform: none;
-    align-items: stretch;
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    padding: 0 0.35rem;
-}
-
-/*
- * "Guess the football team name by players' nationality" (club XI): slight vertical shift for crest + name.
- * Fly-group Y is cleared here so the whole cluster moves together (no double offset).
- */
-body.shorts-mode .team-header[data-squad-type="club"] .team-header-title-cluster {
-    transform: translateY(calc(0.00972 * 100vh));
-}
-
-body.shorts-mode .team-header[data-squad-type="club"] .team-header-logo-fly-group {
-    transform: translate(-0.45rem, 0);
-}
-
-/* "Guess the national team name by players' club" (national XI): flag + name 1% viewport down */
-body.shorts-mode .team-header[data-squad-type="national"] .team-header-title-cluster {
-    transform: translateY(calc(0.0081 * 100vh));
-}
-
-body.shorts-mode .team-header-main-row {
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-}
-
-/* Keep VOL / X visible on-screen in Shorts, beside the team name. */
-body.shorts-mode .team-voice-controls {
-    right: clamp(0.25rem, 2vw, 1rem);
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 6;
-}
-
-body.shorts-mode .team-header-logo-fly-group {
-    order: -1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 100%;
-    /* Collapse extra flow space from the 2× crest so the h2 sits like pre-zoom layout */
-    margin-bottom: -0.95rem;
-    /* ~5% of 20vh header band upward; slight left to correct optical center */
-    transform: translate(-0.45rem, calc(-0.0605 * 20vh));
-    transform-origin: center center;
-}
-
-body.shorts-mode .team-header-logo-shift,
-body.shorts-mode .team-header-logo-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Shorts: club / national header crest (2× prior compact size) */
-body.shorts-mode .team-header-logo {
+/* Shorts: club / national header crest — smaller than regular panel */
+body.shorts-mode .team-header[data-squad-type="club"] .team-header-logo {
     height: 4.5rem;
     width: 5.9rem;
-    object-fit: contain;
-    object-position: center center;
-    margin: 0 auto;
-    flex-shrink: 0;
+    max-width: min(5.9rem, calc(100% - 0.5rem));
 }
 
-/* National: flag above country name — ~10% smaller than prior Shorts sizing */
 body.shorts-mode .team-header[data-squad-type="national"] .team-header-logo {
     height: 4.39rem;
     width: 5.74rem;
-}
-
-/* One line; JS shrinks font to fit — do not clip with overflow:hidden */
-body.shorts-mode .team-header .team-header-name {
-    font-size: clamp(1.8rem, 5.5vh, 3.8rem);
-    white-space: nowrap;
-    text-wrap: unset;
-    text-align: center;
-    line-height: 1.15;
-    margin: 0.446rem 0 0;
-    padding: 0;
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-    box-sizing: border-box;
-    overflow: visible;
-    transform: none;
-    display: block;
-    align-items: unset;
-}
-
-body.shorts-mode .team-header-controls-row {
-    position: relative;
-    z-index: 2;
-    pointer-events: auto;
-    margin-bottom: 0.1rem;
-}
-
-/* Keep header vertical layout stable in shorts while video is playing. */
-body.shorts-mode.play-video-active .team-header-controls-row {
-    display: flex; /* Override generic play-video hide (display:none). */
-    visibility: hidden;
-    pointer-events: none;
-}
-
-body.shorts-mode .team-header-cluster.team-header-logo-block {
-    pointer-events: auto;
+    max-width: min(5.74rem, calc(100% - 0.5rem));
 }
 
 body.shorts-mode .pitch-wrap {
@@ -326,12 +160,8 @@ body.shorts-mode .pitch-wrap {
     align-items: flex-start;
     margin-top: 2.5vh;
     padding-top: 0;
-    transform: scale(0.77164) translateY(0);
+    transform: scale(0.77164) translateY(15%);
     transform-origin: top center;
-}
-
-body.shorts-mode .team-header.video-hidden+.pitch-wrap {
-    transform: scale(0.90024) translateY(10vh);
 }
 
 body.shorts-mode .pitch-surface {
@@ -414,7 +244,7 @@ body.shorts-mode .quiz-progress .line {
 
 /* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: max(2.65rem, 8.5vh);
+    top: max(2.65rem, 18.5vh);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -554,4 +384,42 @@ body.shorts-mode #outro-page:not([hidden]) .action-sub-bottom {
         transform: translateY(0) scale(1);
         opacity: 1;
     }
+}
+
+/* =========================================
+   SHOTS SIZE – Safe-zone overlay
+   Shows the area obscured by platform UI
+   (YouTube Shorts / TikTok / Reels)
+   on 1080×1920 (9:16):
+     Top    ~20%  (search bar, status bar)
+     Bottom ~20%  (channel name, buttons)
+   ========================================= */
+.shots-size-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.shots-size-overlay__top,
+.shots-size-overlay__bottom {
+    position: absolute;
+    left: calc((100vw - min(56.25vh, 100vw)) / 2);
+    width: min(56.25vh, 100vw);
+    background: rgba(255, 0, 0, 0.18);
+    box-sizing: border-box;
+}
+
+/* Top danger zone – slightly above the countdown timer (~18.5vh) */
+.shots-size-overlay__top {
+    top: 0;
+    height: 17vh;
+    border-bottom: 2px dashed rgba(255, 70, 70, 0.8);
+}
+
+/* Bottom danger zone – slightly below the levels bar (~3.5rem + 7vh) */
+.shots-size-overlay__bottom {
+    bottom: 0;
+    height: 14vh;
+    border-top: 2px dashed rgba(255, 70, 70, 0.8);
 }

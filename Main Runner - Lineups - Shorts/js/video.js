@@ -134,6 +134,7 @@ export function stopVideoFlow() {
   stopAllAudio();
   shortsSyncIntroVoiceCountdownOnce = false;
   const { els } = appState;
+  els.teamHeader?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
   els.playVideoBtn.hidden = false;
   els.countdownTimer.hidden = true;
   els.countdownTimer.classList.remove(
@@ -325,10 +326,8 @@ function runVideoStep() {
   clearTimeout(appState.tickingLeadTimeout);
   appState.tickingLeadTimeout = null;
   stopTicking();
-  if (isQuestionLevel && els.teamHeader) {
+  if (isQuestionLevel) {
     clearPitchWrapTransitionOverride();
-    els.teamHeader.classList.remove("video-revealed");
-    els.teamHeader.classList.add("video-hidden");
   }
   if (isIntro || isOutro) {
     els.countdownTimer.hidden = true;

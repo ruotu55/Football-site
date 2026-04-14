@@ -305,7 +305,7 @@ body.shorts-mode .quiz-progress .line {
 
 /* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: max(2.65rem, 8.5vh);
+    top: max(2.65rem, 18.5vh);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1436,4 +1436,42 @@ body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-e
 
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-name-bottom {
     font-size: clamp(1.9rem, 6.77vw, 5.6rem);
+}
+
+/* =========================================
+   SHOTS SIZE – Safe-zone overlay
+   Shows the area obscured by platform UI
+   (YouTube Shorts / TikTok / Reels)
+   on 1080×1920 (9:16):
+     Top    ~17vh  (search bar, status bar)
+     Bottom ~14vh  (channel name, buttons)
+   ========================================= */
+.shots-size-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.shots-size-overlay__top,
+.shots-size-overlay__bottom {
+    position: absolute;
+    left: calc((100vw - min(56.25vh, 100vw)) / 2);
+    width: min(56.25vh, 100vw);
+    background: rgba(255, 0, 0, 0.18);
+    box-sizing: border-box;
+}
+
+/* Top danger zone */
+.shots-size-overlay__top {
+    top: 0;
+    height: 17vh;
+    border-bottom: 2px dashed rgba(255, 70, 70, 0.8);
+}
+
+/* Bottom danger zone */
+.shots-size-overlay__bottom {
+    bottom: 0;
+    height: 14vh;
+    border-top: 2px dashed rgba(255, 70, 70, 0.8);
 }

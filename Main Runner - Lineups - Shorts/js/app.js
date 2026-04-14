@@ -26,6 +26,7 @@ import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 import { bindDomElements } from "./dom-bindings.js";
+import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initTeamVoiceManager } from "./team-voice-manager.js";
@@ -685,6 +686,7 @@ async function init() {
     const devLiveReloadSnapshot = consumeDevLiveReloadSnapshot();
 
     bindDomElements();
+    refreshTeamHeaderHatchGrid(appState.els.teamHeader);
     applyPerformanceModeFromUrl();
     initSharedBackgroundTheme(
         document.getElementById("in-background-color"),
@@ -766,6 +768,10 @@ async function init() {
     els.inSpecificTitleToggle.onchange = updateLanding;
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;
+
+    els.inShotsSizeToggle.onchange = () => {
+        els.shotsSizeOverlay.hidden = !els.inShotsSizeToggle.checked;
+    };
 
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);

@@ -110,14 +110,10 @@ export function switchLevel(index) {
       els.logoPage.hidden = isShorts;
 
       els.teamHeader.hidden = false;
+      els.teamHeader.classList.remove("video-hidden", "video-revealed");
       if (appState.isVideoPlaying && state.videoMode && state.currentSquad) {
-        els.teamHeader.classList.remove("video-revealed");
-        els.teamHeader.classList.add("video-hidden");
         clearPitchWrapTransitionOverride();
         els.pitchWrap.classList.add("pitch-wrap-snap-height");
-      } else {
-        els.teamHeader.classList.remove("video-hidden");
-        els.teamHeader.classList.remove("video-revealed");
       }
       els.pitchWrap.hidden = false;
       renderPitch();
@@ -169,6 +165,8 @@ export function switchLevel(index) {
       idx >= 2 &&
       idx < appState.totalLevelsCount &&
       appState.isVideoPlaying;
+    const teamHeaderEl = document.getElementById("team-header");
+
     if (isShortsFromLogoToFirstQuestion) {
       stageMain.classList.remove(
         "stage-exit-anim",
@@ -176,11 +174,17 @@ export function switchLevel(index) {
         "stage-enter-anim",
         "stage-enter-video-anim"
       );
+      teamHeaderEl?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
       updateDOMContent();
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           void stageMain.offsetWidth;
           stageMain.classList.add("stage-enter-video-anim");
+          if (teamHeaderEl) {
+            teamHeaderEl.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
+            void teamHeaderEl.offsetWidth;
+            teamHeaderEl.classList.add("team-header-stage-enter-video-anim");
+          }
           if (progressContainer) {
             progressContainer.classList.remove(
               "progress-out-reg",
@@ -193,6 +197,7 @@ export function switchLevel(index) {
           }
           setTimeout(() => {
             stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+            teamHeaderEl?.classList.remove("team-header-stage-enter-video-anim");
           }, STAGE_VIDEO_ENTER_TRANSITION_MS);
         });
       });
@@ -206,6 +211,10 @@ export function switchLevel(index) {
 
     stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
     stageMain.classList.add(exitClass);
+    if (teamHeaderEl) {
+      teamHeaderEl.classList.remove("team-header-stage-enter-video-anim");
+      teamHeaderEl.classList.add("team-header-stage-exit-video-anim");
+    }
 
     if (progressContainer) {
         progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
@@ -217,9 +226,17 @@ export function switchLevel(index) {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
-          void stageMain.offsetWidth; 
+          void stageMain.offsetWidth;
           stageMain.classList.add(enterClass);
-          
+
+          if (teamHeaderEl) {
+            teamHeaderEl.classList.remove("team-header-stage-exit-video-anim");
+            if (teamHeaderEl.classList.contains("team-header--show")) {
+              void teamHeaderEl.offsetWidth;
+              teamHeaderEl.classList.add("team-header-stage-enter-video-anim");
+            }
+          }
+
           if (progressContainer) {
               progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
               void progressContainer.offsetWidth;
@@ -228,6 +245,7 @@ export function switchLevel(index) {
 
           setTimeout(() => {
               stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+              teamHeaderEl?.classList.remove("team-header-stage-enter-video-anim");
           }, STAGE_VIDEO_ENTER_TRANSITION_MS);
         });
       });

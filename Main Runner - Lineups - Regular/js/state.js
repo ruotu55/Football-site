@@ -95,7 +95,7 @@ export const appState = {
   internationalClubPoolLoadPromise: null,
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
-  totalLevelsCount: 20,
+  totalLevelsCount: 32,
   currentLevelIndex: 0,
   levelsData: [],
   swapActiveSlotIndex: -1,

@@ -15,6 +15,7 @@ export function bindDomElements() {
     els.controlPanel = document.getElementById("control-panel");
     els.headerName = document.getElementById("team-header-name");
     els.headerLogo = document.getElementById("team-header-logo");
+    els.headerFlag = document.getElementById("team-header-flag");
     els.teamVoiceControls = document.getElementById("team-voice-controls");
     els.teamVoicePlay = document.getElementById("team-voice-play");
     els.teamVoiceDelete = document.getElementById("team-voice-delete");
@@ -84,4 +85,6 @@ export function bindDomElements() {
     els.searchMode = document.getElementById("search-mode");
     els.btnLevelsControl = document.getElementById("btn-levels-control");
     els.rightPanel = document.getElementById("right-panel");
+    els.inShotsSizeToggle = document.getElementById("in-shots-size-toggle");
+    els.shotsSizeOverlay = document.getElementById("shots-size-overlay");
 }

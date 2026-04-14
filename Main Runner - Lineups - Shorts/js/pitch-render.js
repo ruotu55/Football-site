@@ -76,6 +76,10 @@ import {
 } from "./paths.js";
 import { normalizeForSearch } from "./search-normalize.js";
 import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
+import {
+  applyTeamHeaderStripesFromFlagImage,
+  resetTeamHeaderStripeVars,
+} from "./flag-stripe-colors.js";
 
 const INTERNATIONAL_POOL_URL = "data/international-club-pool-by-nationality.json";
 const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
@@ -105,6 +109,61 @@ function getCanonicalTeamIdentity(state = getState()) {
   const fromSquadName = String(state.currentSquad?.name || "").trim().toLowerCase();
   if (fromSquadName) return `name:${fromSquadName}`;
   return "";
+}
+
+/** Identity for side-panel slide: team, level, and XI so team / player / level changes re-animate. */
+function getTeamSidebarSlideKey(state = getState()) {
+  if (!state?.currentSquad) return "";
+  const id = getCanonicalTeamIdentity(state);
+  const xiSig = (appState.currentXi || [])
+    .filter(Boolean)
+    .map((p) => String(p.name || "").trim())
+    .join("\u001f");
+  return `${state.squadType}|${id}|L${appState.currentLevelIndex}|${xiSig}`;
+}
+
+/**
+ * Slide panel out/in with CSS transition (reflow between off → on).
+ * When `wantsOpen` is false or `#team-header` is [hidden], panel stays off-screen.
+ */
+function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
+  const th = els.teamHeader;
+  if (!th) {
+    return;
+  }
+  if (th.hidden || !wantsOpen) {
+    appState.teamSidebarAnimGeneration += 1;
+    th.classList.remove("team-header--show");
+    appState.teamSidebarLastOpen = false;
+    appState.teamSidebarLastKey = "";
+    return;
+  }
+  const key = String(slideKey || "");
+  const needSlideIn =
+    !appState.teamSidebarLastOpen || key !== appState.teamSidebarLastKey;
+  if (needSlideIn) {
+    appState.teamSidebarAnimGeneration += 1;
+    const gen = appState.teamSidebarAnimGeneration;
+    th.classList.remove("team-header--show");
+    void th.offsetWidth;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (gen !== appState.teamSidebarAnimGeneration) {
+          return;
+        }
+        if (th.hidden) {
+          return;
+        }
+        th.classList.add("team-header--show");
+        appState.teamSidebarLastOpen = true;
+        appState.teamSidebarLastKey = key;
+      });
+    });
+  } else {
+    th.classList.add("team-header--show");
+    appState.teamSidebarLastOpen = true;
+    appState.teamSidebarLastKey = key;
+  }
 }
 
 function getBaseTeamName(state = getState()) {
@@ -829,7 +888,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         const flagUrl =
           natLabel === "England"
             ? projectAssetUrl("Nationality images/Europe/England.png")
-            : `https://flagcdn.com/w320/${code.toLowerCase()}.png`;
+            : `https://flagcdn.com/w640/${code.toLowerCase()}.png`;
         const img = document.createElement("img");
         img.className = "slot-img";
         img.src = flagUrl;
@@ -1198,34 +1257,38 @@ export function syncQuestionPitchVideoModeInPlace(state = getState()) {
 let teamHeaderShiftRaf = 0;
 
 function updateTeamHeaderNameCenterShift() {
-  const { els } = appState;
-  const th = els.teamHeader;
+  const th = appState.els.teamHeader;
   if (!th) {
     return;
   }
-  if (th.hidden || document.body.classList.contains("shorts-mode")) {
-    th.style.setProperty("--team-header-name-center-shift", "0px");
-    return;
+  /* Side panel: title is centered in the column; no horizontal shift */
+  th.style.setProperty("--team-header-name-center-shift", "0px");
+}
+
+function resolveTeamHeaderFlagCountryLabel(state) {
+  if (!state?.currentSquad) return "";
+  if (state.squadType === "national") {
+    return String(state.currentSquad.name || "").trim();
   }
-  const img = els.headerLogo;
-  const cluster = th.querySelector(".team-header-title-cluster");
-  if (!cluster || !img || img.hidden) {
-    th.style.setProperty("--team-header-name-center-shift", "0px");
-    return;
+  if (state.squadType === "club") {
+    const fromEntry = String(state.selectedEntry?.country || "").trim();
+    if (fromEntry) return fromEntry;
+    const squadName = String(state.currentSquad?.name || "").trim();
+    const hit = appState.teamsIndex?.clubs?.find((c) => c.name === squadName);
+    return String(hit?.country || "").trim();
   }
-  const inner = th.querySelector(".team-header-logo-inner");
-  if (!inner) {
-    th.style.setProperty("--team-header-name-center-shift", "0px");
-    return;
+  return "";
+}
+
+function getTeamHeaderFlagUrl(countryLabel) {
+  const label = String(countryLabel || "").trim();
+  if (!label) return null;
+  const code = appState.flagcodes[label];
+  if (!code) return null;
+  if (label === "England") {
+    return projectAssetUrl("Nationality images/Europe/England.png");
   }
-  /* Layout width only — ignores transform: scale() so zooming the crest does not move the title */
-  const crestW = inner.offsetWidth || inner.getBoundingClientRect().width;
-  const cs = getComputedStyle(cluster);
-  let gapPx = parseFloat(cs.columnGap);
-  if (!Number.isFinite(gapPx)) gapPx = parseFloat(cs.gap);
-  if (!Number.isFinite(gapPx)) gapPx = 32;
-  const shift = -0.5 * (crestW + gapPx);
-  th.style.setProperty("--team-header-name-center-shift", `${shift}px`);
+  return `https://flagcdn.com/w640/${String(code).toLowerCase()}.png`;
 }
 
 /** Centers the team name on the viewport with the crest immediately to its left (regular mode only). */
@@ -1237,7 +1300,193 @@ export function scheduleTeamHeaderNameCenterShift() {
   });
 }
 
-let shortsNameFitRaf = 0;
+let teamHeaderNameFitRaf = 0;
+
+function escapeHtmlForSidePanelName(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** Extra px toward column center (negative = left in LTR) */
+const SIDE_PANEL_NAME_CENTER_FINE_PX = -6;
+
+function applySidePanelNameLineCenterNudge(nameEl) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const inners = nameEl.querySelectorAll(".team-header-name-inner");
+      if (!inners.length) return;
+      inners.forEach((inner) => {
+        inner.style.removeProperty("transform");
+      });
+      void nameEl.offsetWidth;
+
+      const anchor = nameEl.closest(".team-side-panel-column") || nameEl;
+      const ar = anchor.getBoundingClientRect();
+      const wantX = ar.left + ar.width / 2;
+
+      inners.forEach((inner) => {
+        const ir = inner.getBoundingClientRect();
+        const haveX = ir.left + ir.width / 2;
+        const dx = wantX - haveX;
+        const total = dx + SIDE_PANEL_NAME_CENTER_FINE_PX;
+        if (Math.abs(total) < 0.005) return;
+        inner.style.transform = `translateX(${total}px)`;
+      });
+    });
+  });
+}
+
+/** Regular: one word per line when multi-word; shrink whole title uniformly. */
+function fitRegularSidePanelTeamHeaderNameImpl() {
+  const nameEl = appState.els.headerName;
+  const th = appState.els.teamHeader;
+  if (!nameEl || !th || th.hidden) {
+    return;
+  }
+  if (document.body.classList.contains("shorts-mode")) {
+    return;
+  }
+
+  const raw = String(nameEl.dataset.headerPlain ?? nameEl.textContent ?? "").trim();
+  nameEl.style.removeProperty("font-size");
+  nameEl.style.removeProperty("text-align");
+
+  if (!raw) {
+    nameEl.textContent = "";
+    nameEl.removeAttribute("data-header-plain");
+    nameEl.style.removeProperty("white-space");
+    return;
+  }
+
+  const words = raw.split(/\s+/).filter(Boolean);
+  nameEl.innerHTML = words
+    .map(
+      (w) =>
+        `<span class="team-header-name-line"><span class="team-header-name-inner">${escapeHtmlForSidePanelName(
+          w
+        )}</span></span>`
+    )
+    .join("");
+  nameEl.style.whiteSpace = "normal";
+
+  void nameEl.offsetWidth;
+
+  const clearTitleInnerFontSizes = () => {
+    nameEl.querySelectorAll(".team-header-name-inner").forEach((el) => {
+      el.style.removeProperty("font-size");
+      el.style.removeProperty("transform");
+    });
+  };
+  clearTitleInnerFontSizes();
+
+  const cs = getComputedStyle(nameEl);
+  const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+  const thRect = th.getBoundingClientRect();
+  const logoBlock = th.querySelector(".team-header-logo-block");
+  const lbRect = logoBlock?.getBoundingClientRect();
+  const lbCs = logoBlock ? getComputedStyle(logoBlock) : null;
+  const lbPadX = lbCs
+    ? (parseFloat(lbCs.paddingLeft) || 0) + (parseFloat(lbCs.paddingRight) || 0)
+    : 0;
+  const fromName = Math.max(
+    nameEl.clientWidth,
+    nameEl.getBoundingClientRect().width
+  );
+  const fromLb = lbRect ? lbRect.width - lbPadX : 0;
+  let containerW = Math.max(fromName, fromLb, thRect.width - lbPadX);
+  if (containerW < 48) {
+    containerW = thRect.width || fromLb || fromName;
+  }
+  if (containerW < 48) {
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  const maxW = Math.max(120, containerW - padX);
+  const tol = 12;
+  const maxLineScrollWidth = () => {
+    const inners = nameEl.querySelectorAll(".team-header-name-inner");
+    if (inners.length) {
+      let m = 0;
+      inners.forEach((el) => {
+        m = Math.max(m, el.scrollWidth);
+      });
+      return m;
+    }
+    return nameEl.scrollWidth;
+  };
+  const fits = () => maxLineScrollWidth() <= maxW + tol;
+
+  const hardMinPx = 14;
+  const setInnerFontSizesPx = (px) => {
+    nameEl.querySelectorAll(".team-header-name-inner").forEach((el) => {
+      el.style.removeProperty("transform");
+      el.style.fontSize = `${px}px`;
+    });
+    nameEl.style.textAlign = "center";
+    void nameEl.offsetWidth;
+  };
+
+  if (fits()) {
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  const firstInner = nameEl.querySelector(".team-header-name-inner");
+  const hi = Math.max(
+    hardMinPx,
+    parseFloat(
+      firstInner ? getComputedStyle(firstInner).fontSize : getComputedStyle(nameEl).fontSize
+    ) || 48
+  );
+
+  setInnerFontSizesPx(hardMinPx);
+  if (!fits()) {
+    setInnerFontSizesPx(hi);
+    const w = Math.max(1, maxLineScrollWidth());
+    setInnerFontSizesPx(Math.max(hardMinPx, hi * ((maxW + tol) / w)));
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  setInnerFontSizesPx(hi);
+  if (fits()) {
+    nameEl.style.removeProperty("font-size");
+    clearTitleInnerFontSizes();
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  let goodLo = hardMinPx;
+  let badHi = hi;
+  while (badHi - goodLo > 0.4) {
+    const mid = (goodLo + badHi) / 2;
+    setInnerFontSizesPx(mid);
+    if (fits()) {
+      goodLo = mid;
+    } else {
+      badHi = mid;
+    }
+  }
+  setInnerFontSizesPx(goodLo);
+  if (!fits()) {
+    const w = Math.max(1, maxLineScrollWidth());
+    const innerEl = nameEl.querySelector(".team-header-name-inner");
+    const cur =
+      parseFloat(innerEl ? getComputedStyle(innerEl).fontSize : "") || goodLo;
+    setInnerFontSizesPx(Math.max(hardMinPx, cur * ((maxW + tol) / w)));
+  }
+  nameEl.style.textAlign = "center";
+  applySidePanelNameLineCenterNudge(nameEl);
+}
+
 
 function fitShortsTeamHeaderNameImpl() {
   const nameEl = appState.els.headerName;
@@ -1247,12 +1496,20 @@ function fitShortsTeamHeaderNameImpl() {
   }
   if (!document.body.classList.contains("shorts-mode")) {
     nameEl.style.removeProperty("font-size");
+    nameEl.querySelectorAll(".team-header-name-inner").forEach((el) => {
+      el.style.removeProperty("font-size");
+      el.style.removeProperty("transform");
+    });
     return;
   }
-  const cluster = nameEl.closest(".team-header-title-cluster");
+  const plain = String(nameEl.dataset.headerPlain ?? nameEl.textContent ?? "").trim();
+  if (plain) {
+    nameEl.textContent = plain;
+  }
+  const column = nameEl.closest(".team-side-panel-column");
   const maxW = Math.max(
     64,
-    cluster?.clientWidth ?? th.clientWidth ?? th.getBoundingClientRect().width
+    column?.clientWidth ?? th.clientWidth ?? th.getBoundingClientRect().width
   );
 
   nameEl.style.removeProperty("font-size");
@@ -1289,15 +1546,24 @@ function fitShortsTeamHeaderNameImpl() {
   }
 }
 
-/** Shorts: keep the title on one line and shrink font until it fits the column. */
-export function scheduleShortsTeamNameFit() {
-  cancelAnimationFrame(shortsNameFitRaf);
-  shortsNameFitRaf = requestAnimationFrame(() => {
+/** Regular + shorts: refit title after layout / mode. */
+export function scheduleTeamHeaderSidePanelNameFit() {
+  cancelAnimationFrame(teamHeaderNameFitRaf);
+  teamHeaderNameFitRaf = requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      shortsNameFitRaf = 0;
-      fitShortsTeamHeaderNameImpl();
+      teamHeaderNameFitRaf = 0;
+      if (document.body.classList.contains("shorts-mode")) {
+        fitShortsTeamHeaderNameImpl();
+      } else {
+        fitRegularSidePanelTeamHeaderNameImpl();
+      }
     });
   });
+}
+
+/** Shorts: one-line shrink fit. Same scheduler as regular side panel. */
+export function scheduleShortsTeamNameFit() {
+  scheduleTeamHeaderSidePanelNameFit();
 }
 
 export function renderHeader() {
@@ -1305,7 +1571,7 @@ export function renderHeader() {
   const state = getState();
   const { els } = appState;
   const quizType = appState.els.inQuizType?.value || "nat-by-club";
-  const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
+  const { previewPostTimer } = getVideoQuestionPreviewState(state);
 
   document.body.classList.toggle("video-mode-on", !!state.videoMode);
   document.body.classList.toggle("play-video-active", !!appState.isVideoPlaying);
@@ -1314,17 +1580,7 @@ export function renderHeader() {
     const st = state.squadType;
     els.teamHeader.dataset.squadType = st === "national" ? "national" : "club";
     els.teamHeader.classList.toggle("video-preview-revealed", previewPostTimer);
-  }
-
-  if (previewPreTimer) {
-    els.teamHeader.classList.remove("video-revealed");
-    els.teamHeader.classList.add("video-hidden");
-  } else if (previewPostTimer) {
-    els.teamHeader.classList.remove("video-hidden");
-    els.teamHeader.classList.add("video-revealed");
-  } else if (!state.videoMode) {
-    els.teamHeader.classList.remove("video-hidden");
-    els.teamHeader.classList.remove("video-revealed");
+    els.teamHeader.classList.remove("video-hidden", "video-revealed");
   }
 
   const logoBlock = document.getElementById("team-header-logo-block");
@@ -1332,10 +1588,24 @@ export function renderHeader() {
   const swapLogoBtn = document.getElementById("team-header-swap-logo");
   const clearTeamBtn = document.getElementById("team-header-clear-team");
   const pitchSwapBtn = document.getElementById("pitch-swap-logo");
+  const flagSectionEl = document.getElementById("team-side-panel-flag-section");
 
   if (!state.currentSquad) {
-    if (els.headerName) els.headerName.textContent = "";
+    if (els.headerName) {
+      els.headerName.textContent = "";
+      els.headerName.removeAttribute("data-header-plain");
+      els.headerName.style.removeProperty("font-size");
+      els.headerName.style.removeProperty("white-space");
+    }
     if (els.headerLogo) els.headerLogo.hidden = true;
+    if (els.headerFlag) {
+      els.headerFlag.hidden = true;
+      els.headerFlag.removeAttribute("src");
+    }
+    resetTeamHeaderStripeVars(els.teamHeader);
+    if (flagSectionEl) {
+      flagSectionEl.classList.add("team-side-panel-flag-section--empty");
+    }
     if (fetchLogoBtn) fetchLogoBtn.hidden = true;
     if (swapLogoBtn) swapLogoBtn.hidden = true;
     if (clearTeamBtn) clearTeamBtn.hidden = true;
@@ -1346,12 +1616,56 @@ export function renderHeader() {
       logoBlock.classList.add("team-header-logo-block--empty");
       logoBlock.classList.remove("team-header-show-swap-logo");
     }
+    syncTeamSidebarPanel(els, false, "");
     scheduleTeamHeaderNameCenterShift();
-    scheduleShortsTeamNameFit();
+    scheduleTeamHeaderSidePanelNameFit();
     return;
   }
   const displayedHeaderTeamName = resolveHeaderTeamDisplayName(state, quizType);
-  if (els.headerName) els.headerName.textContent = displayedHeaderTeamName;
+  if (els.headerName) {
+    els.headerName.textContent = displayedHeaderTeamName;
+    els.headerName.dataset.headerPlain = displayedHeaderTeamName;
+  }
+  if (els.headerFlag) {
+    const flagLabel = resolveTeamHeaderFlagCountryLabel(state);
+    const flagUrl = getTeamHeaderFlagUrl(flagLabel);
+    els.headerFlag.alt = flagLabel ? `Flag for ${flagLabel}` : "";
+    if (flagUrl) {
+      if (/^https?:\/\//i.test(flagUrl)) {
+        els.headerFlag.crossOrigin = "anonymous";
+      } else {
+        els.headerFlag.removeAttribute("crossorigin");
+      }
+      els.headerFlag.onload = () => {
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+        applyTeamHeaderStripesFromFlagImage(els.headerFlag, els.teamHeader);
+      };
+      els.headerFlag.onerror = () => {
+        els.headerFlag.hidden = true;
+        els.headerFlag.removeAttribute("src");
+        resetTeamHeaderStripeVars(els.teamHeader);
+        if (flagSectionEl) {
+          flagSectionEl.classList.add("team-side-panel-flag-section--empty");
+        }
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+      };
+      els.headerFlag.src = flagUrl;
+      els.headerFlag.hidden = false;
+      if (els.headerFlag.complete) {
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+        applyTeamHeaderStripesFromFlagImage(els.headerFlag, els.teamHeader);
+      }
+    } else {
+      els.headerFlag.hidden = true;
+      els.headerFlag.removeAttribute("src");
+      resetTeamHeaderStripeVars(els.teamHeader);
+      scheduleTeamHeaderNameCenterShift();
+      scheduleTeamHeaderSidePanelNameFit();
+    }
+  }
   if (clearTeamBtn) clearTeamBtn.hidden = false;
   syncTeamVoiceControls(
     displayedHeaderTeamName,
@@ -1371,7 +1685,10 @@ export function renderHeader() {
     if (chain.length) {
       const logoImg = els.headerLogo;
       let chainIndex = 0;
-      logoImg.onload = () => scheduleTeamHeaderNameCenterShift();
+      logoImg.onload = () => {
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+      };
       logoImg.onerror = () => {
         chainIndex += 1;
         if (chainIndex < chain.length) {
@@ -1386,11 +1703,13 @@ export function renderHeader() {
           logoBlock.classList.add("team-header-logo-block--empty");
         }
         scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
       };
       logoImg.src = chain[0];
       logoImg.hidden = false;
       if (logoImg.complete) {
         scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
       }
     } else {
       els.headerLogo.hidden = true;
@@ -1400,9 +1719,9 @@ export function renderHeader() {
     state.squadType === "club" &&
     state.currentSquad &&
     quizType !== "club-by-nat";
-  const headerCollapsed =
-    Boolean(els.teamHeader?.classList.contains("video-hidden"));
+  const headerCollapsed = !els.teamHeader?.classList.contains("team-header--show");
   if (swapLogoBtn) {
+    /* Video mode collapses the header — use pitch-level control instead */
     swapLogoBtn.hidden = !showSwapLogo || (state.videoMode && headerCollapsed);
   }
   if (pitchSwapBtn) {
@@ -1421,6 +1740,24 @@ export function renderHeader() {
       showSwapLogo && empty
     );
   }
+  if (flagSectionEl && els.headerFlag) {
+    const noFlag =
+      els.headerFlag.hidden || !els.headerFlag.getAttribute("src");
+    flagSectionEl.classList.toggle("team-side-panel-flag-section--empty", noFlag);
+  }
+  /* Video mode on + question layout: hide side panel until post-reveal (countdown or manual preview).
+     Same during Play Video so the strip opens only after the timer, not between levels. */
+  const hideSidebarInVideoHold =
+    shouldUseVideoQuestionLayout(state) && state.videoMode && !previewPostTimer;
+  const sidebarWantsOpen =
+    !!state.currentSquad &&
+    !els.teamHeader.hidden &&
+    !hideSidebarInVideoHold;
+  syncTeamSidebarPanel(
+    els,
+    sidebarWantsOpen,
+    sidebarWantsOpen ? getTeamSidebarSlideKey(state) : ""
+  );
   scheduleTeamHeaderNameCenterShift();
-  scheduleShortsTeamNameFit();
+  scheduleTeamHeaderSidePanelNameFit();
 }

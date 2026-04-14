@@ -303,6 +303,10 @@ async function init() {
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;
 
+    els.inShotsSizeToggle.onchange = () => {
+        els.shotsSizeOverlay.hidden = !els.inShotsSizeToggle.checked;
+    };
+
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 20;

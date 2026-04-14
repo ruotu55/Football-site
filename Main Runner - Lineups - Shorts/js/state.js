@@ -82,7 +82,7 @@ export const appState = {
   internationalClubPoolLoadPromise: null,
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
-  totalLevelsCount: 20,
+  totalLevelsCount: 7,
   currentLevelIndex: 0,
   levelsData: [],
   swapActiveSlotIndex: -1,
@@ -96,6 +96,9 @@ export const appState = {
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
+  teamSidebarAnimGeneration: 0,
+  teamSidebarLastOpen: false,
+  teamSidebarLastKey: "",
   /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
   refreshLandingUi: null,
   /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
