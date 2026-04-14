@@ -1,13 +1,13 @@
 // js/emojis.js
 
 export const EMOJI_IMAGES = [
-  "../emojies/active-character-dribbling-removebg-preview.png",
-  "../emojies/positive-character-with-ball-removebg-preview.png",
-  "../emojies/round-characters-playing-football-removebg-preview.png",
-  "../emojies/_Pngtree_soccer_ball_in_goal_net_3581900-removebg-preview.png",
-  "../emojies/5842fe18a6515b1e0ad75b3d-removebg-preview.png",
-  "../emojies/5842fe21a6515b1e0ad75b3e-removebg-preview.png",
-  "../emojies/_Pngtree_mens_sports_red_football_shoes_9097428-removebg-preview.png",
+  "../Images/Emojis/active-character-dribbling-removebg-preview.png",
+  "../Images/Emojis/positive-character-with-ball-removebg-preview.png",
+  "../Images/Emojis/round-characters-playing-football-removebg-preview.png",
+  "../Images/Emojis/_Pngtree_soccer_ball_in_goal_net_3581900-removebg-preview.png",
+  "../Images/Emojis/5842fe18a6515b1e0ad75b3d-removebg-preview.png",
+  "../Images/Emojis/5842fe21a6515b1e0ad75b3e-removebg-preview.png",
+  "../Images/Emojis/_Pngtree_mens_sports_red_football_shoes_9097428-removebg-preview.png",
 ];
 
 export function initFloatingEmojis() {

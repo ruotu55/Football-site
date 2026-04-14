@@ -1,28 +1,28 @@
 const paths = {
-  welcome: "../Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
-  guessNat: "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
-  guessClub: "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
-  guessCareer: "../Voices/Game name/Guess the football player by career path !!!.mp3",
-  warmUp: "../Voices/Levels/Worm up round dont mess this one .mp3",
-  serious: "../Voices/Levels/OK now it's getting serious.mp3",
-  nerds: "../Voices/Levels/Only true football nerd know this!!!.mp3",
-  genius: "../Voices/Levels/If you get this you are basically a genius!!!.mp3",
+  welcome: "../.Storage/Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
+  guessNat: "../.Storage/Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
+  guessClub: "../.Storage/Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+  guessCareer: "../.Storage/Voices/Game name/Guess the football player by career path !!!.mp3",
+  warmUp: "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",
+  serious: "../.Storage/Voices/Levels/OK now it's getting serious.mp3",
+  nerds: "../.Storage/Voices/Levels/Only true football nerd know this!!!.mp3",
+  genius: "../.Storage/Voices/Levels/If you get this you are basically a genius!!!.mp3",
   bgmPlaylist: [
-    "../Voices/Ringhton/Balada Gitana - House of the Gipsies.mp3",
-    "../Voices/Ringhton/Chica Linda - Quincas Moreira.mp3",
-    "../Voices/Ringhton/Delta - TrackTribe.mp3",
-    "../Voices/Ringhton/Los Cabos - House of the Gipsies.mp3",
-    "../Voices/Ringhton/Orquidario - Quincas Moreira.mp3",
-    "../Voices/Ringhton/Swing Haven 1 - Los Angeles - Reed Mathis.mp3",
-    "../Voices/Ringhton/Swing Haven 2 - St. Louis - Reed Mathis.mp3",
-    "../Voices/Ringhton/Swing Haven 6 - New Orleans - Reed Mathis.mp3",
-    "../Voices/Ringhton/Up And At Em - Nathan Moore.mp3"
+    "../.Storage/Voices/Ringhton/Balada Gitana - House of the Gipsies.mp3",
+    "../.Storage/Voices/Ringhton/Chica Linda - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Delta - TrackTribe.mp3",
+    "../.Storage/Voices/Ringhton/Los Cabos - House of the Gipsies.mp3",
+    "../.Storage/Voices/Ringhton/Orquidario - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 1 - Los Angeles - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 2 - St. Louis - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 6 - New Orleans - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Up And At Em - Nathan Moore.mp3"
   ],
-  dong: "../Voices/the answer is/dong.wav",
-  commentBelow: "../Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  commentBelowLegacy: "../Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  commentBelowEncodedQ: "../Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  ticking: "../Voices/Ticking sound/ticking sound.mp3"
+  dong: "../.Storage/Voices/the answer is/dong.wav",
+  commentBelow: "../.Storage/Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowLegacy: "../.Storage/Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  commentBelowEncodedQ: "../.Storage/Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  ticking: "../.Storage/Voices/Ticking sound/ticking sound.mp3"
 };
 
 let bgMusic = null;

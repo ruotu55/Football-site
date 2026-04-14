@@ -34,10 +34,10 @@ from xml.sax.saxutils import escape as xml_escape
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
-PLAYER_VOICE_DIR = PROJECT_ROOT / "Voices" / "Players Names"
+PLAYER_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Players Names"
 PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
-QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name"
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "player-by-career": "Guess the football player by career path !!!.mp3",
     "player-by-career-stats": "Guess the football player by career path !!!.mp3",
@@ -464,10 +464,10 @@ def _resolve_team_logo_target(body: dict) -> tuple[Path, str]:
     country = _safe_path_component(body.get("countryHint"))
     league = _safe_path_component(body.get("leagueHint"))
     if country and league:
-        rel = f"Teams Images/{country}/{league}/{team_name}.png"
+        rel = f"Images/Teams/{country}/{league}/{team_name}.png"
         return (PROJECT_ROOT / rel).resolve(), rel
 
-    rel = f"Teams Images/(1) Other Teams/{team_name}.png"
+    rel = f"Images/Teams/(1) Other Teams/{team_name}.png"
     return (PROJECT_ROOT / rel).resolve(), rel
 
 
@@ -688,7 +688,7 @@ def _generate_azure_speech_mp3(text: str, voice: str, out_path: Path) -> None:
     out_path.write_bytes(audio_bytes)
 
 def _load_runner_saved_scripts():  # noqa: D401
-    path = PROJECT_ROOT / "dev_server_saved_scripts.py"
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_saved_scripts.py"
     spec = importlib.util.spec_from_file_location("_fc_runner_saved_scripts", path)
     mod = importlib.util.module_from_spec(spec)
     if spec.loader is None:

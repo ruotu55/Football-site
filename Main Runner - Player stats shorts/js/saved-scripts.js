@@ -14,15 +14,15 @@ const KEY_FOLDER_STATES = "footballQuizFolderStates_placholder2_shorts_v1";
 const FIXED_SHORTS_MODE = true;
 
 const SPECIFIC_TITLE_ICON_PATH_MAP = {
-    "icons/specific-title/premier-league.png": "icons/specific-title/Premier League.png",
-    "icons/specific-title/la-liga.png": "icons/specific-title/La Liga.png",
-    "icons/specific-title/serie-a.png": "icons/specific-title/Seria A.png",
-    "icons/specific-title/bundesliga.png": "icons/specific-title/Bundesliga.png",
-    "icons/specific-title/ligue-1.png": "icons/specific-title/Ligue 1.png",
-    "icons/specific-title/fifa-world-cup.png": "icons/specific-title/World Cup 2026.png",
-    "icons/specific-title/uefa-champions-league.png": "icons/specific-title/Champions League.png",
-    "icons/specific-title/uefa-europa-league.png": "icons/specific-title/Europa League.png",
-    "icons/specific-title/uefa-conference-league.png": "icons/specific-title/Conference League.png",
+    "Images/Icons/specific-title/premier-league.png": "Images/Icons/specific-title/Premier League.png",
+    "Images/Icons/specific-title/la-liga.png": "Images/Icons/specific-title/La Liga.png",
+    "Images/Icons/specific-title/serie-a.png": "Images/Icons/specific-title/Seria A.png",
+    "Images/Icons/specific-title/bundesliga.png": "Images/Icons/specific-title/Bundesliga.png",
+    "Images/Icons/specific-title/ligue-1.png": "Images/Icons/specific-title/Ligue 1.png",
+    "Images/Icons/specific-title/fifa-world-cup.png": "Images/Icons/specific-title/World Cup 2026.png",
+    "Images/Icons/specific-title/uefa-champions-league.png": "Images/Icons/specific-title/Champions League.png",
+    "Images/Icons/specific-title/uefa-europa-league.png": "Images/Icons/specific-title/Europa League.png",
+    "Images/Icons/specific-title/uefa-conference-league.png": "Images/Icons/specific-title/Conference League.png",
 };
 
 function normalizeSpecificTitleIconPath(iconPath) {

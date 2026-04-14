@@ -1351,7 +1351,7 @@ export function renderCareer() {
       return projectAssetUrl(`Teams Images/${team.country}/${team.league}/${team.name}.png`);
     }
     if (team.region) {
-      return projectAssetUrl(`Nationality images/${team.region}/${team.name}.png`);
+      return projectAssetUrl(`Images/Nationality/${team.region}/${team.name}.png`);
     }
     const other = getClubLogoOtherTeamsUrl(team.name);
     return other || "";
@@ -1511,7 +1511,7 @@ export function renderCareer() {
 
     if (foundClubEntry && foundClubEntry.path) {
       out.push(
-        foundClubEntry.path.replace("Squad Formation/Teams/", "Teams Images/").replace(".json", ".png")
+        foundClubEntry.path.replace(".Storage/Squad Formation/Teams/", "Images/Teams/").replace(".json", ".png")
       );
     }
 
@@ -1573,7 +1573,7 @@ export function renderCareer() {
             isCustomImage = true;
         } else {
             if (foundClub && foundClub.path) {
-                logoUrl = foundClub.path.replace('Squad Formation/Teams/', 'Teams Images/').replace('.json', '.png');
+                logoUrl = foundClub.path.replace('.Storage/Squad Formation/Teams/', 'Images/Teams/').replace('.json', '.png');
             }
         }
         if (foundClub?.country && foundClub?.league) {

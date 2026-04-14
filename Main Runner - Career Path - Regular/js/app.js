@@ -27,7 +27,7 @@ import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initPlayerVoiceManager } from "./player-voice-manager.js";
-import { initSharedBackgroundTheme } from "../../shared/backgrounds/background-theme.js";
+import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -100,8 +100,8 @@ async function fetchJsonSessionCached(path, fallbackValue = null) {
 // ==========================================
 
 const QUIZ_TYPE_VOICE_FILES = {
-    "player-by-career": "../Voices/Game name/Guess the football player by career path !!!.mp3",
-    "player-by-career-stats": "../Voices/Game name/Guess the football player by career path !!!.mp3",
+    "player-by-career": "../.Storage/Voices/Game name/Guess the football player by career path !!!.mp3",
+    "player-by-career-stats": "../.Storage/Voices/Game name/Guess the football player by career path !!!.mp3",
 };
 const QUIZ_TITLE_VOICE_STATUS_ENDPOINT = "__quiz-title-voice/status";
 const QUIZ_TITLE_VOICE_GENERATE_ENDPOINT = "__quiz-title-voice/generate";
@@ -950,9 +950,9 @@ async function init() {
 
     // Load indexes
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonSessionCached("data/teams-index.json"),
-        fetchJsonSessionCached("data/player-images.json", { club: {}, nationality: {} }),
-        fetchJsonSessionCached("data/country-to-flagcode.json", { codes: {} }),
+        fetchJsonSessionCached(".Storage/data/teams-index.json"),
+        fetchJsonSessionCached(".Storage/data/player-images.json", { club: {}, nationality: {} }),
+        fetchJsonSessionCached(".Storage/data/country-to-flagcode.json", { codes: {} }),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);

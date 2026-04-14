@@ -81,7 +81,7 @@ import {
   resetTeamHeaderStripeVars,
 } from "./flag-stripe-colors.js";
 
-const INTERNATIONAL_POOL_URL = "data/international-club-pool-by-nationality.json";
+const INTERNATIONAL_POOL_URL = ".Storage/data/international-club-pool-by-nationality.json";
 const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
 const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
 const TEAM_NAME_OVERRIDES_STORAGE_KEY = "lineups-shorts:club-by-nat-team-name-overrides:v1";
@@ -462,7 +462,7 @@ export function renderSwapList(players) {
 }
 
 const OTHER_TEAMS_LOGOS_LIVE_PATH = "__other-teams-logos.json";
-const OTHER_TEAMS_LOGOS_STATIC_FALLBACK = "data/other-teams-logos.json";
+const OTHER_TEAMS_LOGOS_STATIC_FALLBACK = ".Storage/data/other-teams-logos.json";
 
 async function loadOtherTeamsLogoNamesForModal() {
   const fetchNames = async (rel) => {
@@ -887,7 +887,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         // England: repo St George asset (not Union Jack / generic CDN crop).
         const flagUrl =
           natLabel === "England"
-            ? projectAssetUrl("Nationality images/Europe/England.png")
+            ? projectAssetUrl("Images/Nationality/Europe/England.png")
             : `https://flagcdn.com/w640/${code.toLowerCase()}.png`;
         const img = document.createElement("img");
         img.className = "slot-img";
@@ -1286,7 +1286,7 @@ function getTeamHeaderFlagUrl(countryLabel) {
   const code = appState.flagcodes[label];
   if (!code) return null;
   if (label === "England") {
-    return projectAssetUrl("Nationality images/Europe/England.png");
+    return projectAssetUrl("Images/Nationality/Europe/England.png");
   }
   return `https://flagcdn.com/w640/${String(code).toLowerCase()}.png`;
 }

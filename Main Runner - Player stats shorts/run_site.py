@@ -25,7 +25,7 @@ RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
 
 def _load_runner_saved_scripts():  # noqa: D401
-    path = PROJECT_ROOT / "dev_server_saved_scripts.py"
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_saved_scripts.py"
     spec = importlib.util.spec_from_file_location("_fc_runner_saved_scripts", path)
     mod = importlib.util.module_from_spec(spec)
     if spec.loader is None:

@@ -47,7 +47,7 @@ function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
   const natLabel = playerStatsNationalityLabelForFlagcode(nationalityRaw);
   if (!natLabel) return null;
   if (natLabel === "England") {
-    return projectAssetUrl("Nationality images/Europe/England.png");
+    return projectAssetUrl("Images/Nationality/Europe/England.png");
   }
   const code = appState.flagcodes[natLabel];
   if (!code) return null;
@@ -1472,7 +1472,7 @@ export function renderCareer() {
 
     if (foundClubEntry && foundClubEntry.path) {
       out.push(
-        foundClubEntry.path.replace("Squad Formation/Teams/", "Teams Images/").replace(".json", ".png")
+        foundClubEntry.path.replace(".Storage/Squad Formation/Teams/", "Images/Teams/").replace(".json", ".png")
       );
     }
 
@@ -1533,7 +1533,7 @@ export function renderCareer() {
             isCustomImage = true;
         } else {
             if (foundClub && foundClub.path) {
-                logoUrl = foundClub.path.replace('Squad Formation/Teams/', 'Teams Images/').replace('.json', '.png');
+                logoUrl = foundClub.path.replace('.Storage/Squad Formation/Teams/', 'Images/Teams/').replace('.json', '.png');
             }
         }
     }

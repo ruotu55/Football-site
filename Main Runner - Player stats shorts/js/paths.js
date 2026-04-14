@@ -21,8 +21,9 @@ export function migratePlayerImages(raw) {
 export function normalizeTeamPath(path) {
   if (!path || typeof path !== "string") return path;
   return path
-    .replace(/\.\.\/Squad Formation\/Squad Formation\//g, "Squad Formation/")
-    .replace(/\.\.\/Squad Formation\//g, "Squad Formation/");
+    .replace(/^\.\.\//,  "")
+    .replace(/\.Storage\/Squad Formation\/\.Storage\/Squad Formation\//g, ".Storage/Squad Formation/")
+    .replace(/^Squad Formation\//g, ".Storage/Squad Formation/");
 }
 
 /** Resolve a path relative to the Football Channel repo root (shared asset folders sit next to each runner). */
@@ -50,7 +51,7 @@ export function projectAssetUrlFresh(relativePath) {
 }
 
 /** Relative to project root (Football Channel). PNGs named like "{Player Name}.png" */
-export const CAREER_READY_PHOTOS_DIR = "Player Images No Background/Ready photos";
+export const CAREER_READY_PHOTOS_DIR = "Images/Players No Background/Ready photos";
 
 export function careerReadyPhotoRelPath(playerName) {
   if (!playerName || typeof playerName !== "string") return null;

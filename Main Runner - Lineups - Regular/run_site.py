@@ -35,14 +35,14 @@ from xml.sax.saxutils import escape as xml_escape
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
-OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Teams Images" / "(1) Other Teams"
+OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Images/Teams" / "(1) Other Teams"
 TEAM_VOICE_DIR_BY_QUIZ_TYPE = {
-    "club-by-nat": PROJECT_ROOT / "Voices" / "Team names",
-    "nat-by-club": PROJECT_ROOT / "Voices" / "Nationality teams names",
+    "club-by-nat": PROJECT_ROOT / ".Storage" / "Voices" / "Team names",
+    "nat-by-club": PROJECT_ROOT / ".Storage" / "Voices" / "Nationality teams names",
 }
 TEAM_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_TEAM_VOICE = "en-US-AndrewNeural"
-QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name"
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
     "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
@@ -78,10 +78,10 @@ ELEVENLABS_OUTPUT_FORMAT = "mp3_44100_128"
 DEFAULT_ELEVENLABS_API_KEY = "0f5a57c70ec1b1c8f6d5e121dc257d098997632020d4891bb392feb9e0510700"
 DEFAULT_ELEVENLABS_VOICE_ID = "yl2ZDV1MzN4HbQJbMihG"
 DEFAULT_ELEVENLABS_MODEL_ID = "eleven_v3"
-PLAYER_IMAGES_INDEX_PATH = PROJECT_ROOT / "data" / "player-images.json"
-PLAYER_IMAGE_OVERRIDES_PATH = PROJECT_ROOT / "data" / "player-photo-overrides.json"
-PLAYERS_IMAGES_CLUB_ROOT = PROJECT_ROOT / "Players images" / "Club images"
-PLAYERS_IMAGES_NATIONALITY_ROOT = PROJECT_ROOT / "Players images" / "Nationality images"
+PLAYER_IMAGES_INDEX_PATH = PROJECT_ROOT / ".Storage" / "data" / "player-images.json"
+PLAYER_IMAGE_OVERRIDES_PATH = PROJECT_ROOT / ".Storage" / "data" / "player-photo-overrides.json"
+PLAYERS_IMAGES_CLUB_ROOT = PROJECT_ROOT / "Images/Players" / "Club images"
+PLAYERS_IMAGES_NATIONALITY_ROOT = PROJECT_ROOT / "Images/Players" / "Nationality images"
 FOOTBALL_LOGOS_AUTOCOMPLETE_URL = "https://football-logos.cc/ac.json"
 
 EAFC26_CSV_URL = (
@@ -1145,10 +1145,10 @@ def _resolve_team_logo_target(body: dict) -> tuple[Path, str]:
         country = _safe_path_component(selected_entry.get("country"))
         league = _safe_path_component(selected_entry.get("league"))
         if country and league:
-            rel = f"Teams Images/{country}/{league}/{squad_name}.png"
+            rel = f"Images/Teams/{country}/{league}/{squad_name}.png"
             return (PROJECT_ROOT / rel).resolve(), rel
 
-    rel = f"Teams Images/(1) Other Teams/{squad_name}.png"
+    rel = f"Images/Teams/(1) Other Teams/{squad_name}.png"
     return (PROJECT_ROOT / rel).resolve(), rel
 
 
@@ -1421,7 +1421,7 @@ def _generate_azure_speech_mp3(text: str, voice: str, out_path: Path) -> None:
     out_path.write_bytes(audio_bytes)
 
 def _load_runner_saved_scripts():  # noqa: D401
-    path = PROJECT_ROOT / "dev_server_saved_scripts.py"
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_saved_scripts.py"
     spec = importlib.util.spec_from_file_location("_fc_runner_saved_scripts", path)
     mod = importlib.util.module_from_spec(spec)
     if spec.loader is None:
@@ -1434,7 +1434,7 @@ _runner_saved_mod = _load_runner_saved_scripts()
 
 
 def _load_runner_json_blob():  # noqa: D401
-    path = PROJECT_ROOT / "dev_server_runner_blob.py"
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_runner_blob.py"
     spec = importlib.util.spec_from_file_location("_fc_runner_json_blob", path)
     mod = importlib.util.module_from_spec(spec)
     if spec.loader is None:
@@ -1584,7 +1584,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 if entry.is_file() and entry.suffix.lower() == ".png":
                     names.append(entry.stem)
         payload = json.dumps(
-            {"dir": "Teams Images/(1) Other Teams", "names": names},
+            {"dir": "Images/Teams/(1) Other Teams", "names": names},
             ensure_ascii=False,
         ).encode("utf-8")
         self.send_response(200)

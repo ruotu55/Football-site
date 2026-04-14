@@ -2,8 +2,8 @@ import { appState, getState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 
 /** Loose crests: drop a PNG named exactly like the squad JSON `club` string (e.g. Atlético de Madrid.png). */
-const TEAMS_IMAGES_OTHER_TEAMS_DIR = "Teams Images/(1) Other Teams";
-const NATIONAL_TEAM_LOGOS_DIR = "National Team Logos";
+const TEAMS_IMAGES_OTHER_TEAMS_DIR = "Images/Teams/(1) Other Teams";
+const NATIONAL_TEAM_LOGOS_DIR = "Images/National Team Logos";
 
 const NATIONALITY_TO_TEAM_LOGO_NAME = {
   american: "United States",
@@ -73,7 +73,7 @@ export function getClubLogoUrl(clubName) {
   if (!teamsIndex || !teamsIndex.clubs) return null;
   const clubEntry = teamsIndex.clubs.find((c) => c.name === clubName);
   if (clubEntry && clubEntry.country && clubEntry.league) {
-    return projectAssetUrl(`Teams Images/${clubEntry.country}/${clubEntry.league}/${clubEntry.name}.png`);
+    return projectAssetUrl(`Images/Teams/${clubEntry.country}/${clubEntry.league}/${clubEntry.name}.png`);
   }
   return null;
 }

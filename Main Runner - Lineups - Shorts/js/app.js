@@ -30,7 +30,7 @@ import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initTeamVoiceManager } from "./team-voice-manager.js";
-import { initSharedBackgroundTheme } from "../../shared/backgrounds/background-theme.js";
+import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     applyDevLiveReloadControls,
     captureDevLiveReloadSnapshot,
@@ -235,8 +235,8 @@ function initHeaderLogoZoom(onClearTeamSelection) {
 // ==========================================
 
 const QUIZ_TYPE_VOICE_FILES = {
-    "nat-by-club": "../Voices/Game name/Guess the football national team name by players' club !!!.mp3",
-    "club-by-nat": "../Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
+    "nat-by-club": "../.Storage/Voices/Game name/Guess the football national team name by players' club !!!.mp3",
+    "club-by-nat": "../.Storage/Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
 };
 const QUIZ_TITLE_VOICE_STATUS_ENDPOINT = "__quiz-title-voice/status";
 const QUIZ_TITLE_VOICE_GENERATE_ENDPOINT = "__quiz-title-voice/generate";
@@ -927,9 +927,9 @@ async function init() {
 
     // Load indexes
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonSessionCached("data/teams-index.json"),
-        fetchJsonSessionCached("data/player-images.json", { club: {}, nationality: {} }),
-        fetchJsonSessionCached("data/country-to-flagcode.json", { codes: {} }),
+        fetchJsonSessionCached(".Storage/data/teams-index.json"),
+        fetchJsonSessionCached(".Storage/data/player-images.json", { club: {}, nationality: {} }),
+        fetchJsonSessionCached(".Storage/data/country-to-flagcode.json", { codes: {} }),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);

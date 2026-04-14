@@ -26,7 +26,7 @@ from urllib.parse import quote, unquote, urlparse
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
-QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name"
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "player-by-career-stats": "Guess the football player by career stats !!!.mp3",
     "player-by-career": "Guess the football player by career path !!!.mp3",
@@ -45,7 +45,7 @@ DEFAULT_ELEVENLABS_MODEL_ID = "eleven_v3"
 FIXED_QUIZ_TITLE_VOICE = "en-US-AndrewNeural"
 
 def _load_runner_saved_scripts():  # noqa: D401
-    path = PROJECT_ROOT / "dev_server_saved_scripts.py"
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_saved_scripts.py"
     spec = importlib.util.spec_from_file_location("_fc_runner_saved_scripts", path)
     mod = importlib.util.module_from_spec(spec)
     if spec.loader is None:

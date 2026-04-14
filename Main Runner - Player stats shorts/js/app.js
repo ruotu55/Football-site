@@ -26,7 +26,7 @@ import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
-import { initSharedBackgroundTheme } from "../../shared/backgrounds/background-theme.js";
+import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -581,9 +581,9 @@ async function init() {
 
     // Load indexes
     const [idx, photos, flags] = await Promise.all([
-        fetchJsonSessionCached("data/teams-index.json"),
-        fetchJsonSessionCached("data/player-images.json", { club: {}, nationality: {} }),
-        fetchJsonSessionCached("data/country-to-flagcode.json", { codes: {} }),
+        fetchJsonSessionCached(".Storage/data/teams-index.json"),
+        fetchJsonSessionCached(".Storage/data/player-images.json", { club: {}, nationality: {} }),
+        fetchJsonSessionCached(".Storage/data/country-to-flagcode.json", { codes: {} }),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);
