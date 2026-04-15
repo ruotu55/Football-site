@@ -117,6 +117,54 @@ body:not(.shorts-mode) .career-wrap {
   height: 72.6vh;
 }
 
+/*
+ * Regular + player: hold stats panel + entire career stage (road, clubs, silhouette, flag)
+ * until silhouette + flag are ready, then one shared fade in JS (`career-team-unified-reveal-in`).
+ */
+body:not(.shorts-mode).career-player-visual-pending #player-stats-panel {
+  opacity: 0 !important;
+  animation: none !important;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode).career-player-visual-pending #career-wrap {
+  opacity: 0 !important;
+}
+
+body:not(.shorts-mode).career-player-visual-pending #career-wrap .career-svg,
+body:not(.shorts-mode).career-player-visual-pending #career-wrap .career-slots {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+@keyframes career-team-unified-fade-in {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+#career-wrap.career-team-unified-reveal-in,
+#player-stats-panel.career-team-unified-reveal-in {
+  animation: career-team-unified-fade-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+/* Stats panel uses backdrop-filter on cards — ANY opacity fade shifts their
+   perceived colour.  Kill the enter/reveal animation so the panel appears at
+   full opacity instantly; stage-main's blur transition covers the visual. */
+#player-stats-panel.career-team-unified-reveal-in,
+#player-stats-panel.stage-enter-video-anim-panel {
+  animation: none !important;
+}
+#player-stats-panel.stage-exit-video-anim-panel {
+  animation-duration: 0.06s !important;
+}
+
+
 .team-header.video-hidden ~ .career-wrap {
   height: 72.6vh;
 }
@@ -189,7 +237,7 @@ body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.re
     drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
     drop-shadow(0 0 6px rgba(160, 200, 240, 0.15));
   transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
-  animation: silhouette-sway 6s ease-in-out 0.5s infinite alternate, silhouette-shake 4.8s ease-in-out 0.5s infinite alternate;
+  animation: silhouette-sway 6s ease-in-out infinite alternate, silhouette-shake 4.8s ease-in-out infinite alternate;
   transform-origin: 50% 100%;
 }
 
@@ -332,10 +380,15 @@ body.career-cinematic-reveal .career-wrap .player-stats-national-flag,
 body.career-cinematic-reveal .quiz-progress,
 body.career-cinematic-reveal .team-header,
 body.career-cinematic-reveal .side-text,
-body.career-cinematic-reveal #floating-background {
-  filter: blur(8px);
-  opacity: 0.22;
-  transition: filter 0.45s ease, opacity 0.45s ease;
+body.career-cinematic-reveal #floating-background,
+body.career-cinematic-reveal #landing-shirt {
+  filter: blur(8px) !important;
+  opacity: 0.22 !important;
+  /* Kill ALL animations so nothing can override the dimmed state.
+     The blur is cleared in the same JS frame before enter animations start,
+     so the snap from dimmed→default is never rendered. */
+  animation: none !important;
+  transition: none !important;
 }
 
 body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-image-group {
@@ -619,15 +672,18 @@ body:not(.shorts-mode) .career-reveal-name.show {
 /* Video question-to-question: animate incoming road/player layer (avoid pop-in). */
 body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-svg,
 body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
-  animation: career-question-surface-enter 0.82s cubic-bezier(0.25, 1, 0.5, 1) both;
+  animation: career-question-surface-enter 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
 
 @keyframes career-question-surface-enter {
   0% {
     opacity: 0;
+    filter: blur(6px);
   }
   100% {
     opacity: 1;
+    filter: blur(0);
   }
 }
 

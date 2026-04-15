@@ -106,13 +106,14 @@ function buildPole(scene) {
   mesh.receiveShadow = true;
   group.add(mesh);
 
-  /* Silver cap / finial – polished chrome look */
+  /* Wooden cap / finial – matches the pole */
   const capGeo = new THREE.SphereGeometry(1.0, 24, 16);
   const capMat = new THREE.MeshPhongMaterial({
-    color: 0xc0c0c0,
-    specular: 0xffffff,
-    shininess: 120,
-    emissive: 0x111111,
+    map: woodTex,
+    color: 0x6b3a1f,
+    specular: 0x3a2010,
+    shininess: 25,
+    emissive: 0x1a0800,
   });
   const cap = new THREE.Mesh(capGeo, capMat);
   cap.position.set(0, FLAG_H / 2 + 2.2, 0);
@@ -236,7 +237,7 @@ function createFlagMaterial(flagTexture) {
 /* ------------------------------------------------------------------ */
 /* Main export                                                         */
 /* ------------------------------------------------------------------ */
-export function mountPlayerStatsThreeFlag(flagWrap, flagUrl, ariaLabel) {
+export function mountPlayerStatsThreeFlag(flagWrap, flagUrl, ariaLabel, onFirstPaint = null) {
   const host = document.createElement("div");
   host.className = "player-stats-national-flag__canvas-host";
   if (ariaLabel) host.setAttribute("aria-label", ariaLabel);
@@ -291,14 +292,15 @@ export function mountPlayerStatsThreeFlag(flagWrap, flagUrl, ariaLabel) {
 
   function layoutRenderer() {
     if (!host.isConnected || !renderer || !camera) return;
-    const maxH = Math.min(window.innerHeight * 0.896, 563);
+    /* Fixed size so the flag is identical across all levels regardless of aspect ratio */
+    const fixedRatio = sizeW / sizeH;                       /* 30/20 = 1.5 */
+    const maxH = Math.min(window.innerHeight * 0.605, 381);
     const wrapW = Math.floor(flagWrap.getBoundingClientRect().width);
-    let w = Math.max(384, wrapW);
-    const ratio = host.dataset.flagAspect ? Number(host.dataset.flagAspect) : sizeW / sizeH;
-    let h = Math.round(w / ratio);
+    let w = Math.max(259, wrapW);
+    let h = Math.round(w / fixedRatio);
     if (h > maxH) {
       h = Math.floor(maxH);
-      w = Math.round(h * ratio);
+      w = Math.round(h * fixedRatio);
     }
     host.style.width = `${w}px`;
     host.style.height = `${h}px`;
@@ -423,6 +425,7 @@ export function mountPlayerStatsThreeFlag(flagWrap, flagUrl, ariaLabel) {
       /* ---- Animation state (per-instance) ---- */
       let elapsed = 0;
       let prevTimestamp = 0;
+      let didNotifyFirstPaint = false;
 
       /* ---- Animation loop ---- */
       const tick = (timestamp) => {
@@ -529,6 +532,14 @@ export function mountPlayerStatsThreeFlag(flagWrap, flagUrl, ariaLabel) {
         }
 
         renderer.render(scene, camera);
+        if (!didNotifyFirstPaint) {
+          didNotifyFirstPaint = true;
+          try {
+            onFirstPaint?.();
+          } catch (_) {
+            /* ignore */
+          }
+        }
         rafId = requestAnimationFrame(tick);
       };
 
@@ -538,7 +549,15 @@ export function mountPlayerStatsThreeFlag(flagWrap, flagUrl, ariaLabel) {
       rafId = requestAnimationFrame((ts) => { prevTimestamp = ts; tick(ts); });
     },
     undefined,
-    () => { disposeAll(); flagWrap.remove(); },
+    () => {
+      try {
+        onFirstPaint?.();
+      } catch (_) {
+        /* ignore */
+      }
+      disposeAll();
+      flagWrap.remove();
+    },
   );
 
   flagWrap._playerStatsThreeFlagCleanup = () => {

@@ -29,36 +29,134 @@
 /* Video reveal transition: move from big-player reveal to next question smoothly. */
 @keyframes stage-exit-video-reveal {
   0% {
-    transform: scale(1) translateY(0);
+    transform: none;
     opacity: 1;
     filter: blur(0);
   }
   100% {
-    transform: scale(1.14) translateY(-1.2vh);
+    transform: none;
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(6px);
   }
 }
 
 @keyframes stage-enter-video-reveal {
   0% {
-    transform: scale(1.14) translateY(-1.2vh);
+    transform: none;
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(6px);
   }
   100% {
-    transform: scale(1) translateY(0);
+    transform: none;
     opacity: 1;
     filter: blur(0);
   }
 }
 
 .stage-exit-video-anim {
-  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 .stage-enter-video-anim {
-  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+/*
+ * Floating panels on `.app` (countdown, stats, picture controls) have their own
+ * `transform` for positioning (e.g. translateX(-50%)).  The stage keyframes pin
+ * `transform: none` to protect preserve-3d — that would snap these panels to the
+ * wrong position.  Use opacity-only on enter (see note on `stage-enter-video-reveal`); no transform override.
+ */
+@keyframes video-panel-fade-out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Play Video answer reveal: stats panel is dimmed via `body.career-cinematic-reveal` (opacity 0.22, blur 8px).
+   The default panel exit snaps keyframe 0% to opacity 1 — that reads as boxes “popping” stronger then fading. */
+@keyframes video-panel-fade-out-from-cinematic-reveal {
+  0% {
+    opacity: 0.22;
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+@keyframes video-panel-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.stage-exit-video-anim-panel {
+  animation: video-panel-fade-out 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+.stage-enter-video-anim-panel {
+  animation: video-panel-fade-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+
+/*
+ * Reveal overlay: keyframes must pin transform + filter while fading, or replacing
+ * `career-reveal-overlay-rise` snaps back to base `blur(16px)` for a frame.
+ */
+@keyframes video-stage-fade-out-reveal-overlay-reg {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.16);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(1.16);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+@keyframes video-stage-fade-out-reveal-overlay-safe {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+.stage-exit-video-anim--reveal-overlay-reg {
+  animation: video-stage-fade-out-reveal-overlay-reg 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+.stage-exit-video-anim--reveal-overlay-safe {
+  animation: video-stage-fade-out-reveal-overlay-safe 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+/* Reveal name: pin transform while fading so `career-reveal-name-pop` is not replaced by layout snap. */
+@keyframes video-stage-fade-out-reveal-name {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.stage-exit-video-anim--reveal-name {
+  animation: video-stage-fade-out-reveal-name 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */

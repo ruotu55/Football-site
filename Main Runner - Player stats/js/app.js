@@ -617,6 +617,32 @@ async function init() {
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;
 
+    /* Landing shirt: double-click to edit the number; saved per-level. */
+    const shirtEl = document.getElementById("landing-shirt");
+    const shirtNum = document.getElementById("landing-shirt-number");
+    if (shirtEl && shirtNum) {
+        shirtEl.addEventListener("dblclick", () => {
+            shirtNum.contentEditable = "true";
+            shirtNum.focus();
+            const sel = window.getSelection();
+            sel.selectAllChildren(shirtNum);
+        });
+        const commitShirtNumber = () => {
+            shirtNum.contentEditable = "false";
+            const text = shirtNum.textContent.trim();
+            if (!text) shirtNum.textContent = "?";
+            const st = getState();
+            if (st) st.shirtNumber = shirtNum.textContent;
+        };
+        shirtNum.addEventListener("blur", commitShirtNumber);
+        shirtNum.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                shirtNum.blur();
+            }
+        });
+    }
+
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 20;

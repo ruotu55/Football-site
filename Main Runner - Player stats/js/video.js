@@ -3,14 +3,13 @@ import { switchLevel } from "./levels.js";
 import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderCareer, renderHeader, syncCareerSlotControlsVisibility } from "./pitch-render.js";
+import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
-/** Must match `transitionDelay` in `levels.js` and each `.stage-*-video-anim` duration in `transitions.css`. */
-const STAGE_VIDEO_LEVEL_SWITCH_MS = 820;
 /** Exit + enter so the next `runVideoStep` runs after the new level has fully faded in (like landing → first question). */
-const STAGE_VIDEO_LEVEL_FULL_CYCLE_MS = STAGE_VIDEO_LEVEL_SWITCH_MS * 2;
+const STAGE_VIDEO_LEVEL_FULL_CYCLE_MS = STAGE_VIDEO_LEVEL_TRANSITION_MS + STAGE_VIDEO_LEVEL_ENTER_MS;
 
 function setVideoRevealPostTimerActive(isActive) {
   const on = !!isActive;
@@ -29,6 +28,7 @@ function refreshCurrentQuestionPreview() {
 function clearCinematicRevealFx() {
   clearTimeout(appState.careerRevealFxTimeout);
   appState.careerRevealFxTimeout = null;
+  appState.holdCinematicBackdropForPlayVideoStage = false;
   document.body.classList.remove("career-cinematic-reveal");
   document.body.classList.remove("career-reveal-sync-drop");
   const { els } = appState;
@@ -340,14 +340,13 @@ function revealCurrentLevel() {
   }
   appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;
-    setVideoRevealPostTimerActive(false);
     const jumpToIndex = appState.currentLevelIndex + 1;
 
     if (jumpToIndex <= appState.totalLevelsCount) {
       /* Full viewport (stage + floating background + timer) exits, then the next level enters like landing → first question. */
       switchLevel(jumpToIndex, {
         syncFullViewportVideoStage: true,
-        beforeDomUpdate: clearCinematicRevealFx,
+        afterPlayVideoStageEnterDone: clearCinematicRevealFx,
       });
 
       const nextState = getState();

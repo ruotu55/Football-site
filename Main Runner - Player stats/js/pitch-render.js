@@ -28,6 +28,32 @@ import {
   saveCareerPictureFavorite,
 } from "./career-size-favorites.js";
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
+import { STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
+
+/** One shared fade for `#player-stats-panel` + `#career-wrap` after silhouette/flag gate (regular + player). */
+function runCareerTeamUnifiedRevealFade() {
+  const stats = document.getElementById("player-stats-panel");
+  const career = document.getElementById("career-wrap");
+  stats?.classList.remove("stage-exit-video-anim-panel", "stage-enter-video-anim-panel");
+  career?.classList.remove(
+    "video-question-enter-anim",
+    "stage-exit-video-anim",
+    "stage-enter-video-anim",
+    "stage-exit-video-anim-panel",
+    "stage-enter-video-anim-panel",
+  );
+  stats?.classList.add("career-team-unified-reveal-in");
+  career?.classList.add("career-team-unified-reveal-in");
+  if (appState._careerTeamUnifiedRevealTimeoutId != null) {
+    clearTimeout(appState._careerTeamUnifiedRevealTimeoutId);
+  }
+  appState._careerTeamUnifiedRevealTimeoutId = window.setTimeout(() => {
+    stats?.classList.remove("career-team-unified-reveal-in");
+    career?.classList.remove("career-team-unified-reveal-in");
+    appState.careerTeamVisualGateDone = false;
+    appState._careerTeamUnifiedRevealTimeoutId = null;
+  }, STAGE_VIDEO_LEVEL_ENTER_MS);
+}
 
 /** Map demonyms / variants to `data/country-to-flagcode.json` keys (same idea as Lineups club slots). */
 function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
@@ -1112,6 +1138,11 @@ export function renderCareer() {
     }
   }
   if (!wrap) return;
+  appState.careerTeamVisualGateDone = false;
+  if (appState._careerTeamUnifiedRevealTimeoutId != null) {
+    clearTimeout(appState._careerTeamUnifiedRevealTimeoutId);
+    appState._careerTeamUnifiedRevealTimeoutId = null;
+  }
   wrap.classList.toggle(
     "video-mode-enabled",
     !!state.videoMode,
@@ -1225,6 +1256,48 @@ export function renderCareer() {
 
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
+  const gateStatPlayer = hasRealPlayer ? state.careerPlayer : null;
+  const gateFlagUrl =
+    !isShorts && hasRealPlayer ? resolvePlayerStatsNationalityFlagUrl(gateStatPlayer?.nationality) : null;
+  const useTeamUnifiedVisualGate = !isShorts && hasRealPlayer && appState.isVideoPlaying;
+  const playerVisualGate = useTeamUnifiedVisualGate ? { silhouette: false, flag: false } : null;
+  function tryReleasePlayerFlagVisualGate() {
+    if (!playerVisualGate || !wrap.classList.contains("career-player-visual-pending")) return;
+    if (!playerVisualGate.silhouette || !playerVisualGate.flag) return;
+    wrap.classList.remove("career-player-visual-pending");
+    document.body.classList.remove("career-player-visual-pending");
+    appState.careerTeamVisualGatePending = false;
+    appState.careerTeamVisualGateDone = true;
+    runCareerTeamUnifiedRevealFade();
+  }
+  function markSilhouetteGateReady() {
+    if (!playerVisualGate || playerVisualGate.silhouette) return;
+    playerVisualGate.silhouette = true;
+    tryReleasePlayerFlagVisualGate();
+  }
+  function markFlagGateReady() {
+    if (!playerVisualGate || playerVisualGate.flag) return;
+    playerVisualGate.flag = true;
+    tryReleasePlayerFlagVisualGate();
+  }
+  if (useTeamUnifiedVisualGate) {
+    wrap.classList.add("career-player-visual-pending");
+    document.body.classList.add("career-player-visual-pending");
+    appState.careerTeamVisualGatePending = true;
+    if (!gateFlagUrl) {
+      markFlagGateReady();
+    }
+    const gateFallbackMs = 7000;
+    setTimeout(() => {
+      markFlagGateReady();
+      markSilhouetteGateReady();
+    }, gateFallbackMs);
+  } else {
+    wrap.classList.remove("career-player-visual-pending");
+    document.body.classList.remove("career-player-visual-pending");
+    appState.careerTeamVisualGatePending = false;
+  }
+
   const showShortsCareerGrid = hasRealPlayer || shortsPreviewActive;
   wrap.classList.toggle("career-no-player", !hasRealPlayer && !shortsPreviewActive);
   const readyRel = careerReadyPhotoRelPath(playerName);
@@ -1347,11 +1420,13 @@ export function renderCareer() {
     missingLabel.textContent = label;
     image.setAttribute("visibility", "hidden");
     missingLabel.setAttribute("visibility", "visible");
+    markSilhouetteGateReady();
   };
 
   const showImage = () => {
     image.setAttribute("visibility", "visible");
     missingLabel.setAttribute("visibility", "hidden");
+    markSilhouetteGateReady();
   };
 
   const syncSilhouetteFromLoadedBitmap = () => {
@@ -1995,6 +2070,7 @@ export function renderCareer() {
       if (preservedFlag && preservedFlagUrl === flagUrl) {
         wrap.appendChild(preservedFlag);
         preservedFlag = null;
+        markFlagGateReady();
       } else {
         /* Different flag needed — dispose old one and create fresh. */
         if (preservedFlag) {
@@ -2016,9 +2092,11 @@ export function renderCareer() {
               flagWrap,
               flagUrl,
               natForAlt ? `${natForAlt} flag` : "National flag",
+              markFlagGateReady,
             );
           })
           .catch(() => {
+            markFlagGateReady();
             flagWrap.remove();
           });
       }
@@ -2070,7 +2148,9 @@ export function renderCareer() {
   }
   if (!document.body.classList.contains("shorts-mode")) {
     wrap.classList.toggle("cinematic-reveal-active", previewPostTimer);
-    document.body.classList.toggle("career-cinematic-reveal", previewPostTimer);
+    const cinematicBackdropOn =
+      previewPostTimer || !!appState.holdCinematicBackdropForPlayVideoStage;
+    document.body.classList.toggle("career-cinematic-reveal", cinematicBackdropOn);
     if (appState.els.teamHeader) {
       appState.els.teamHeader.classList.toggle("cinematic-reveal", previewPostTimer);
     }

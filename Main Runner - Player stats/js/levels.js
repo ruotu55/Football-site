@@ -2,13 +2,38 @@ import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { getVideoQuestionPreviewState, renderHeader, renderCareer } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
+
+/** Classes removed before each video stage transition step (see `css/components/transitions.css`). */
+const VIDEO_STAGE_ANIM_CLASSES = [
+  "stage-exit-video-anim",
+  "stage-enter-video-anim",
+  "stage-exit-video-anim-panel",
+  "stage-enter-video-anim-panel",
+  "stage-exit-video-anim--reveal-overlay-reg",
+  "stage-exit-video-anim--reveal-overlay-safe",
+  "stage-exit-video-anim--reveal-name",
+  "career-team-unified-reveal-in",
+  "video-question-enter-anim",
+];
+
+function stripVideoStageLayerAnims(el) {
+  if (!el) return;
+  el.classList.remove("stage-exit-anim", "stage-enter-anim", ...VIDEO_STAGE_ANIM_CLASSES);
+}
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
 
 export function switchLevel(
   index,
-  { immediate = false, syncFullViewportVideoStage = false, beforeDomUpdate = null } = {},
+  {
+    immediate = false,
+    syncFullViewportVideoStage = false,
+    beforeDomUpdate = null,
+    afterPlayVideoStageDomUpdate = null,
+    afterPlayVideoStageEnterDone = null,
+  } = {},
 ) {
   if (index === 0) {
     index = 1;
@@ -109,9 +134,14 @@ export function switchLevel(
   }
   els.teamResults.replaceChildren();
 
-  renderProgressSteps(appState.totalLevelsCount, switchLevel);
-
   const stageMain = document.getElementById("stage-main");
+  /* Play Video fade: rebuilding progress here scrolls the strip and shifts layout before opacity runs. */
+  const deferPlayVideoProgressRefresh =
+    !!syncFullViewportVideoStage && !immediate && !!stageMain;
+  if (!deferPlayVideoProgressRefresh) {
+    renderProgressSteps(appState.totalLevelsCount, switchLevel);
+  }
+
   const progressContainer = els.quizProgressContainer;
 
   const updateDOMContent = () => {
@@ -144,6 +174,10 @@ export function switchLevel(
       els.careerWrap.hidden = true;
     }
     document.getElementById("player-stats-panel")?.remove();
+    /* Reveal overlay + name float on `.app` (position: fixed, outside career-wrap).
+       Remove them so they don't bleed through on non-question pages. */
+    document.getElementById("career-reveal-overlay")?.remove();
+    document.getElementById("career-reveal-name")?.remove();
     els.teamHeader.hidden = true;
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
@@ -198,7 +232,12 @@ export function switchLevel(
 
       renderCareer();
       renderHeader();
-      if (isQuestionToQuestionTransition && els.careerWrap) {
+      if (
+        isQuestionToQuestionTransition &&
+        els.careerWrap &&
+        !appState.careerTeamVisualGatePending &&
+        !appState.careerTeamVisualGateDone
+      ) {
         els.careerWrap.classList.remove("video-question-enter-anim");
         void els.careerWrap.offsetWidth;
         els.careerWrap.classList.add("video-question-enter-anim");
@@ -206,7 +245,7 @@ export function switchLevel(
           if (els.careerWrap) {
             els.careerWrap.classList.remove("video-question-enter-anim");
           }
-        }, 820);
+        }, STAGE_VIDEO_LEVEL_ENTER_MS);
       }
 
       const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
@@ -227,6 +266,17 @@ export function switchLevel(
     const sharedBg = document.getElementById("shared-bg-layer");
     if (sharedBg) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
+    }
+
+    /* Floating shirt: visible on landing + question levels, hidden on logo/outro.
+       Each level stores its own number in state.shirtNumber. */
+    const shirtEl = document.getElementById("landing-shirt");
+    const shirtNum = document.getElementById("landing-shirt-number");
+    if (shirtEl) {
+      shirtEl.hidden = isLogo || isOutro;
+      if (shirtNum && !isLogo && !isOutro) {
+        shirtNum.textContent = state.shirtNumber || "?";
+      }
     }
     
     if (isOutro && prevIndex !== appState.totalLevelsCount) {
@@ -315,7 +365,7 @@ export function switchLevel(
             }
             setTimeout(() => {
               stageMain.classList.remove("stage-enter-video-anim");
-            }, 820);
+            }, STAGE_VIDEO_LEVEL_TRANSITION_MS);
           });
         });
       }, 820);
@@ -324,112 +374,195 @@ export function switchLevel(
 
     const exitClass = "stage-exit-video-anim";
     const enterClass = "stage-enter-video-anim";
-    const transitionDelay = 820;
+    const transitionDelay = STAGE_VIDEO_LEVEL_TRANSITION_MS;
 
     /*
-     * Mounted on `.app` (not inside `#stage-main`) — see `pitch-render.js`.
-     * Layers that already position with `transform` must use fade-only keyframes so we
-     * do not replace `translateX(-50%)` etc. (avoids a horizontal snap at transition start).
+     * Play Video question → question: opacity-only fade. HUD on `.app` (see `pitch-render.js`);
+     * `#floating-background` is also faded to prevent a flash when cinematic-reveal is cleared.
      */
-    const syncExtraFullVideoIds = syncFullViewportVideoStage
-      ? ["floating-background", "countdown-timer"]
-      : [];
-    /*
-     * Reveal overlay/name: fade out on exit with the old level, but do NOT run enter fade —
-     * that animation forces opacity 0→1 and briefly shows the default (small) reveal layout
-     * before `.show` is applied when the answer clip runs.
-     */
-    const syncExtraFadePanelIds = syncFullViewportVideoStage
-      ? ["player-stats-panel", "career-picture-controls-floating"]
-      : [];
-    const syncExtraFadeRevealIds = syncFullViewportVideoStage
-      ? ["career-reveal-overlay", "career-reveal-name"]
-      : [];
-    const exitFadeOnlyClass = "stage-exit-video-anim-fade-only";
-    const enterFadeOnlyClass = "stage-enter-video-anim-fade-only";
-    const exitRevealOverlayRegClass = "stage-exit-career-reveal-overlay-reg";
-    const exitRevealOverlaySafeClass = "stage-exit-career-reveal-overlay-safe";
-    const exitRevealNameClass = "stage-exit-career-reveal-name-fade";
-    const getSyncExtraFull = () =>
-      syncExtraFullVideoIds.map((id) => document.getElementById(id)).filter(Boolean);
-    const getSyncExtraFadePanels = () =>
-      syncExtraFadePanelIds.map((id) => document.getElementById(id)).filter(Boolean);
-    const getSyncExtraFadeReveal = () =>
-      syncExtraFadeRevealIds.map((id) => document.getElementById(id)).filter(Boolean);
-    const getSyncExtraFadeAll = () => [...getSyncExtraFadePanels(), ...getSyncExtraFadeReveal()];
+    const countdownEl = document.getElementById("countdown-timer");
+    const playerStatsEl = document.getElementById("player-stats-panel");
+    const pictureControlsEl = document.getElementById("career-picture-controls-floating");
+    const revealOverlayEl = document.getElementById("career-reveal-overlay");
+    const revealNameEl = document.getElementById("career-reveal-name");
+    const floatingBgEl = document.getElementById("floating-background");
+    const shirtFloatEl = document.getElementById("landing-shirt");
 
-    const stripStageAnim = (el) => {
-      el.classList.remove(
-        "stage-exit-anim",
-        "stage-exit-video-anim",
-        "stage-enter-anim",
-        "stage-enter-video-anim",
-        exitFadeOnlyClass,
-        enterFadeOnlyClass,
-        exitRevealOverlayRegClass,
-        exitRevealOverlaySafeClass,
-        exitRevealNameClass,
-      );
-    };
-
-    stripStageAnim(stageMain);
-    for (const el of getSyncExtraFull()) stripStageAnim(el);
-    for (const el of getSyncExtraFadeAll()) stripStageAnim(el);
-    stageMain.classList.add(exitClass);
-    for (const el of getSyncExtraFull()) el.classList.add(exitClass);
-    for (const el of getSyncExtraFadePanels()) el.classList.add(exitFadeOnlyClass);
+    stripVideoStageLayerAnims(stageMain);
+    stripVideoStageLayerAnims(progressContainer);
     if (syncFullViewportVideoStage) {
-      const revealOverlay = document.getElementById("career-reveal-overlay");
-      if (revealOverlay) {
-        revealOverlay.classList.add(
-          document.getElementById("career-wrap")?.classList.contains("video-mode-enabled")
-            ? exitRevealOverlaySafeClass
-            : exitRevealOverlayRegClass,
-        );
+      stripVideoStageLayerAnims(countdownEl);
+      stripVideoStageLayerAnims(playerStatsEl);
+      stripVideoStageLayerAnims(pictureControlsEl);
+      stripVideoStageLayerAnims(revealOverlayEl);
+      stripVideoStageLayerAnims(revealNameEl);
+      stripVideoStageLayerAnims(floatingBgEl);
+      stripVideoStageLayerAnims(shirtFloatEl);
+      appState.holdCinematicBackdropForPlayVideoStage = true;
+    }
+
+    stageMain.classList.add(exitClass);
+    const cinematicActive = document.body.classList.contains("career-cinematic-reveal");
+    if (syncFullViewportVideoStage) {
+      /* Floating panels on `.app` use panel fade (no transform override) to keep their positioning.
+         When cinematic-reveal is active, CSS `animation: none !important` blocks class-based
+         animations, so we force-fade with inline !important styles instead. */
+      const cinematicExitEasing = "opacity 0.82s cubic-bezier(0.22, 1, 0.36, 1)";
+      if (countdownEl) countdownEl.classList.add("stage-exit-video-anim-panel");
+      if (shirtFloatEl) shirtFloatEl.classList.add("stage-exit-video-anim-panel");
+      if (playerStatsEl) {
+        if (cinematicActive) {
+          playerStatsEl.style.setProperty("transition", cinematicExitEasing, "important");
+          playerStatsEl.style.setProperty("opacity", "0", "important");
+        } else {
+          playerStatsEl.classList.add("stage-exit-video-anim-panel");
+        }
       }
-      const revealName = document.getElementById("career-reveal-name");
-      if (revealName) revealName.classList.add(exitRevealNameClass);
+      if (pictureControlsEl) pictureControlsEl.classList.add("stage-exit-video-anim-panel");
+      if (floatingBgEl) {
+        if (cinematicActive) {
+          floatingBgEl.style.setProperty("transition", cinematicExitEasing, "important");
+          floatingBgEl.style.setProperty("opacity", "0", "important");
+        } else {
+          floatingBgEl.classList.add("stage-exit-video-anim-panel");
+        }
+      }
+      if (revealOverlayEl) {
+        /* Overlay is on `.app` (not inside #career-wrap), so the `.career-wrap.video-mode-enabled`
+           CSS show-animation selector never matches — it always uses the `reg` rise animation
+           ending at scale(1.16).  The exit must match that scale to avoid a visible shrink. */
+        revealOverlayEl.classList.add("stage-exit-video-anim--reveal-overlay-reg");
+      }
+      if (revealNameEl) revealNameEl.classList.add("stage-exit-video-anim--reveal-name");
     }
 
     if (progressContainer) {
+      if (syncFullViewportVideoStage) {
+        progressContainer.classList.remove(
+          "progress-in-reg",
+          "progress-in-shorts",
+          "progress-out-reg",
+          "progress-out-shorts",
+        );
+        stripVideoStageLayerAnims(progressContainer);
+        if (cinematicActive) {
+          progressContainer.style.setProperty("transition", "opacity 0.82s cubic-bezier(0.22, 1, 0.36, 1)", "important");
+          progressContainer.style.setProperty("opacity", "0", "important");
+        } else {
+          /* Use panel fade (opacity-only) — the stage animation overrides
+             `transform: translateY(-50%)` causing the bar to jump on strip. */
+          progressContainer.classList.add("stage-exit-video-anim-panel");
+        }
+      } else {
         progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
         progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      }
     }
 
     setTimeout(() => {
+      if (syncFullViewportVideoStage) {
+        /* Match `setVideoRevealPostTimerActive(false)` in video.js — only after exit fade (see timeout above). */
+        appState.videoRevealPostTimerActive = false;
+        document.body.classList.toggle("career-play-video-answer-reveal", false);
+      }
       if (typeof beforeDomUpdate === "function") beforeDomUpdate();
       updateDOMContent();
+      if (syncFullViewportVideoStage) {
+        /* `holdCinematicBackdropForPlayVideoStage` stays true through the enter animation
+           so any re-render keeps `career-cinematic-reveal` on body. It is cleared in the
+           enter-done cleanup alongside `afterPlayVideoStageEnterDone`. */
+        if (typeof afterPlayVideoStageDomUpdate === "function") afterPlayVideoStageDomUpdate();
+      }
+      if (deferPlayVideoProgressRefresh) {
+        renderProgressSteps(appState.totalLevelsCount, switchLevel);
+      }
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          stripStageAnim(stageMain);
+          /* Clear cinematic blur NOW — before any enter animation class is added.
+             Everything is still invisible (exit animation fill = opacity 0) so the
+             snap from dimmed→default is never rendered.  All elements then
+             participate in the normal unified enter fade from opacity 0→1. */
+          if (syncFullViewportVideoStage) {
+            appState.holdCinematicBackdropForPlayVideoStage = false;
+            if (typeof afterPlayVideoStageEnterDone === "function") afterPlayVideoStageEnterDone();
+          }
+
+          stripVideoStageLayerAnims(stageMain);
           void stageMain.offsetWidth;
           stageMain.classList.add(enterClass);
-          /* Re-query: `updateDOMContent` replaces stats panel / reveal nodes. */
-          for (const el of getSyncExtraFull()) {
-            stripStageAnim(el);
-            void el.offsetWidth;
-            el.classList.add(enterClass);
-          }
-          for (const el of getSyncExtraFadePanels()) {
-            stripStageAnim(el);
-            void el.offsetWidth;
-            el.classList.add(enterFadeOnlyClass);
-          }
-          for (const el of getSyncExtraFadeReveal()) {
-            stripStageAnim(el);
+
+          if (syncFullViewportVideoStage) {
+            const cdIn = document.getElementById("countdown-timer");
+            if (cdIn) {
+              stripVideoStageLayerAnims(cdIn);
+              cdIn.classList.add("stage-enter-video-anim-panel");
+            }
+            const statsIn = document.getElementById("player-stats-panel");
+            if (statsIn) {
+              statsIn.style.removeProperty("opacity");
+              statsIn.style.removeProperty("transition");
+              stripVideoStageLayerAnims(statsIn);
+              if (!appState.careerTeamVisualGatePending && !appState.careerTeamVisualGateDone) {
+                statsIn.classList.add("stage-enter-video-anim-panel");
+              }
+            }
+            const picIn = document.getElementById("career-picture-controls-floating");
+            if (picIn) {
+              stripVideoStageLayerAnims(picIn);
+              picIn.classList.add("stage-enter-video-anim-panel");
+            }
+            const bgIn = document.getElementById("floating-background");
+            if (bgIn) {
+              bgIn.style.removeProperty("opacity");
+              bgIn.style.removeProperty("transition");
+              stripVideoStageLayerAnims(bgIn);
+              bgIn.classList.add("stage-enter-video-anim-panel");
+            }
+            const shirtIn = document.getElementById("landing-shirt");
+            if (shirtIn) {
+              stripVideoStageLayerAnims(shirtIn);
+              shirtIn.classList.add("stage-enter-video-anim-panel");
+            }
+            /* Next question: overlay + name start hidden — no enter animation (avoids opacity 0→1 flash). */
+            stripVideoStageLayerAnims(document.getElementById("career-reveal-overlay"));
+            stripVideoStageLayerAnims(document.getElementById("career-reveal-name"));
           }
 
           if (progressContainer) {
+            if (syncFullViewportVideoStage) {
+              progressContainer.style.removeProperty("opacity");
+              progressContainer.style.removeProperty("transition");
+              progressContainer.classList.remove(
+                "progress-in-reg",
+                "progress-in-shorts",
+                "progress-out-reg",
+                "progress-out-shorts",
+              );
+              stripVideoStageLayerAnims(progressContainer);
+              /* Use panel fade (opacity-only) — the stage animation overrides
+                 `transform: translateY(-50%)` causing the bar to jump on strip. */
+              progressContainer.classList.add("stage-enter-video-anim-panel");
+            } else {
               progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
               void progressContainer.offsetWidth;
               progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+            }
           }
 
           setTimeout(() => {
-              stripStageAnim(stageMain);
-              for (const el of getSyncExtraFull()) stripStageAnim(el);
-              for (const el of getSyncExtraFadeAll()) stripStageAnim(el);
-          }, 820);
+            stripVideoStageLayerAnims(stageMain);
+            stripVideoStageLayerAnims(progressContainer);
+            if (syncFullViewportVideoStage) {
+              stripVideoStageLayerAnims(document.getElementById("countdown-timer"));
+              stripVideoStageLayerAnims(document.getElementById("player-stats-panel"));
+              stripVideoStageLayerAnims(document.getElementById("career-wrap"));
+              stripVideoStageLayerAnims(document.getElementById("career-picture-controls-floating"));
+              stripVideoStageLayerAnims(document.getElementById("floating-background"));
+              stripVideoStageLayerAnims(document.getElementById("career-reveal-overlay"));
+              stripVideoStageLayerAnims(document.getElementById("career-reveal-name"));
+              stripVideoStageLayerAnims(document.getElementById("landing-shirt"));
+            }
+          }, STAGE_VIDEO_LEVEL_ENTER_MS);
         });
       });
     }, transitionDelay);

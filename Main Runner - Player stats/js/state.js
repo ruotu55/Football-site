@@ -124,6 +124,12 @@ export const appState = {
   careerActiveSlotIndex: -1,
   swapAvailablePlayers: [],
   isVideoPlaying: false,
+  /** Play Video: keep `body.career-cinematic-reveal` through exit until next question DOM is built. */
+  holdCinematicBackdropForPlayVideoStage: false,
+  /** Regular + player: stats + career wait for silhouette/flag, then one unified fade (see `pitch-render.js`). */
+  careerTeamVisualGatePending: false,
+  careerTeamVisualGateDone: false,
+  _careerTeamUnifiedRevealTimeoutId: null,
   videoRevealPostTimerActive: false,
   /** Shorts-only: show career club circles without a player (tune css/modes/shorts-career-club-count-map.css). */
   careerShortsCirclePreview: { enabled: false, count: 5 },
