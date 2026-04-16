@@ -1,3 +1,5 @@
+import { appState } from "./state.js";
+
 const paths = {
   welcome: "../.Storage/Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
   guessNat: "../.Storage/Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
@@ -22,6 +24,9 @@ const paths = {
   commentBelow: "../.Storage/Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowLegacy: "../.Storage/Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowEncodedQ: "../.Storage/Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGet: "../.Storage/Voices/Ending Guess/How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGetLegacy: "../.Storage/Voices/Ending Guess/How many did you get? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGetEncodedQ: "../.Storage/Voices/Ending Guess/How many did you get%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../.Storage/Voices/Ticking sound/ticking sound.mp3"
 };
 
@@ -273,6 +278,7 @@ export function playVoice(src, delayMs = 1000) {
 }
 
 export function playWelcome() {
+  if (!appState.isVideoPlaying) return;
   if (document.body.classList.contains("shorts-mode")) return;
   // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
   playVoice(paths.welcome, 500);
@@ -280,6 +286,7 @@ export function playWelcome() {
 
 /** Shorts landing: welcome only over BGM (no duck); resolves when the clip ends. Pre-delay lives in video.js. */
 export function playWelcomeShortsLanding() {
+  if (!appState.isVideoPlaying) return Promise.resolve();
   if (!document.body.classList.contains("shorts-mode")) {
     return Promise.resolve();
   }
@@ -313,7 +320,111 @@ function getRulesVoicePath(quizType) {
   return paths.guessClub;
 }
 
+function isShortsModeActive() {
+  return (
+    document.body.classList.contains("shorts-mode") ||
+    document.documentElement.classList.contains("shorts-mode")
+  );
+}
+
+/** Encode each path segment so spaces, `'`, `!` in filenames work in `file:` and `http:` URLs. */
+function toAbsoluteBundledVoiceUrl(rel) {
+  const s = String(rel || "").trim();
+  if (!s) return s;
+  if (/^(https?:|blob:|data:)/i.test(s)) {
+    return s;
+  }
+  const segments = s.split("/");
+  const encoded = segments.map((seg) => {
+    if (seg === "" || seg === "." || seg === "..") return seg;
+    return encodeURIComponent(seg);
+  });
+  const pathPart = encoded.join("/");
+  try {
+    return new URL(pathPart, document.baseURI || window.location.href).href;
+  } catch {
+    return s;
+  }
+}
+
+/**
+ * Play one quiz-title clip for shorts (resolves promise when clip ends or errors).
+ * Does not call `__resolveQuizTitleVoiceSrc` — `clipSrc` must be a usable URL string.
+ */
+function playShortsQuizTitleMediaClip(clipSrc, options = {}) {
+  const onPlaybackStart =
+    typeof options.onPlaybackStart === "function" ? options.onPlaybackStart : null;
+  const duckBgmForClip = !!options.duckBgm;
+  const notifyPlaybackStart = () => {
+    if (onPlaybackStart) onPlaybackStart();
+  };
+  return new Promise((resolve) => {
+    const src = String(clipSrc || "").trim();
+    if (!src) {
+      notifyPlaybackStart();
+      resolve();
+      return;
+    }
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      if (pendingShortsRulesVoiceFinish === finish) {
+        pendingShortsRulesVoiceFinish = null;
+      }
+      if (duckBgmForClip) {
+        restoreTimeout = setTimeout(() => {
+          fadeBgm(NORMAL_VOL, 1000);
+        }, 1000);
+      }
+      resolve();
+    };
+    pendingShortsRulesVoiceFinish = finish;
+    if (currentVoice) {
+      currentVoice.pause();
+      currentVoice.currentTime = 0;
+    }
+    if (duckBgmForClip) {
+      clearTimeout(duckingTimeout);
+      clearTimeout(restoreTimeout);
+      fadeBgm(DUCKED_VOL, 0);
+    }
+    currentVoice = new Audio(src);
+    currentVoice.volume = 1;
+    currentVoice.addEventListener("playing", notifyPlaybackStart, { once: true });
+    currentVoice.addEventListener("ended", finish, { once: true });
+    currentVoice.addEventListener(
+      "error",
+      () => {
+        console.warn("Quiz title audio error:", src);
+        notifyPlaybackStart();
+        finish();
+      },
+      { once: true }
+    );
+    currentVoice.play().catch((err) => {
+      console.warn("Voice play error:", err);
+      notifyPlaybackStart();
+      finish();
+    });
+  });
+}
+
+/**
+ * Bundled “Game name” MP3 only (no async API). Use for Play Video on first question so the line always plays.
+ */
+export function playBundledQuizTitleShorts(quizType, options = {}) {
+  if (!appState.isVideoPlaying) return Promise.resolve();
+  if (!isShortsModeActive()) {
+    return Promise.resolve();
+  }
+  const rel = getRulesVoicePath(quizType);
+  const absSrc = toAbsoluteBundledVoiceUrl(rel);
+  return playShortsQuizTitleMediaClip(absSrc, options);
+}
+
 export function playRulesShortsLanding(quizType, options = {}) {
+  if (!appState.isVideoPlaying) return Promise.resolve();
   if (!document.body.classList.contains("shorts-mode")) {
     return Promise.resolve();
   }
@@ -368,6 +479,7 @@ export function playRulesShortsLanding(quizType, options = {}) {
 }
 
 export function playRules(quizType, delayMs = 1000) {
+  if (!appState.isVideoPlaying) return;
   const playFallback = () => {
     playVoice(getRulesVoicePath(quizType), delayMs);
   };
@@ -444,17 +556,46 @@ export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
   
-  if (includeVoice) {
+  if (includeVoice && appState.isVideoPlaying) {
     // Reveal uses player name clip only.
     playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
   }
 }
 
 export function playCommentBelow() {
-  // Removed the dong sound here so it doesn't interrupt the transition.
-  // Delay is set to 100ms so it starts 0.5s earlier than before.
-  // CSS page drop transition (`stage-enter-anim`).
-  const candidates = [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
+  if (!appState.isVideoPlaying) return;
+  const endingType = typeof window.__getSelectedEndingType === "function"
+    ? window.__getSelectedEndingType()
+    : "think-you-know";
+  playEndingVoice(endingType);
+}
+
+export function playEndingVoice(endingType) {
+  if (!appState.isVideoPlaying) return;
+  // Try server-generated voice first via resolver, then fall back to bundled files.
+  const resolver = window.__resolveEndingVoiceSrc;
+  if (typeof resolver === "function") {
+    Promise.resolve(resolver(endingType))
+      .then((src) => {
+        const clipSrc = String(src || "").trim();
+        if (clipSrc) {
+          playVoice(clipSrc, 100);
+        } else {
+          playEndingVoiceFallback(endingType);
+        }
+      })
+      .catch(() => {
+        playEndingVoiceFallback(endingType);
+      });
+    return;
+  }
+  playEndingVoiceFallback(endingType);
+}
+
+function playEndingVoiceFallback(endingType) {
+  const candidates = endingType === "how-many"
+    ? [paths.howManyDidYouGet, paths.howManyDidYouGetLegacy, paths.howManyDidYouGetEncodedQ]
+    : [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
   let i = 0;
   const tryNext = () => {
     if (i >= candidates.length) return;
@@ -484,11 +625,12 @@ export function playCommentBelow() {
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
+  if (!appState.isVideoPlaying) return;
   if (document.body.classList.contains("shorts-mode")) return;
   clearTimeout(progressTimeout);
   
-  const questionIndex = levelIndex - 1; 
-  const totalQuestions = totalLevelsCount - 3; // Minus Logo, Landing, Outro
+  const questionIndex = levelIndex;
+  const totalQuestions = totalLevelsCount - 2; // Minus Logo, Outro
 
   if (questionIndex === 1) {
     playVoice(paths.warmUp, 1000);

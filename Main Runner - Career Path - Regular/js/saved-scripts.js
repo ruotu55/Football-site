@@ -7,6 +7,7 @@ import {
 import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
+import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_career_regular_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_career_regular_fcbnew";
@@ -250,6 +251,7 @@ export function initSavedScripts(callbacks) {
             landing: {
                 gameMode: "career",
                 quizType: els.inQuizType.value,
+                endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
                 specificToggle: els.inSpecificTitleToggle.checked,
                 specificText: els.inSpecificTitleText.value,
                 specificIcon: els.inSpecificTitleIcon.value,
@@ -263,6 +265,7 @@ export function initSavedScripts(callbacks) {
                 totalLevels: els.quizLevelsInput.value,
                 shortsMode: FIXED_SHORTS_MODE,
             },
+            transitions: captureTransitionSettings(),
             levels: levelsToSave,
         };
         savedScripts.push(newScript);
@@ -577,11 +580,15 @@ async function loadScript(script) {
         els.inMedium.value = script.landing.medium || 5;
         els.inHard.value = script.landing.hard || 3;
         els.inImpossible.value = script.landing.impossible || 1;
+        if (els.inEndingType) {
+            els.inEndingType.value = script.landing.endingType || "think-you-know";
+            els.inEndingType.dispatchEvent(new Event("change"));
+        }
     }
 
     if (script.lineup) {
         els.videoModeToggle.checked = !!script.lineup.videoMode;
-        els.quizLevelsInput.value = script.lineup.totalLevels || 20;
+        els.quizLevelsInput.value = script.lineup.totalLevels || 29;
         if (els.shortsModeToggle) {
             els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
             els.shortsModeToggle.disabled = true;
@@ -594,6 +601,8 @@ async function loadScript(script) {
     }
 
     if (uiCallbacks.syncShortsCirclePreviewPanel) uiCallbacks.syncShortsCirclePreviewPanel();
+
+    applyTransitionSettings(script.transitions || null);
 
     if(uiCallbacks.updateLanding) uiCallbacks.updateLanding();
 

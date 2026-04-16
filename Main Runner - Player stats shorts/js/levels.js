@@ -1,7 +1,8 @@
 import { appState, getState, migrateShortsVideoOffLegacyNormalProfile } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers } from "./pitch-render.js";
-import { playRules, playWelcomeShortsLanding, playProgressVoice, playCommentBelow } from "./audio.js";
+import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers, refreshCareerPictureControlsDisplay } from "./pitch-render.js";
+import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { runTransition, transitionSettings } from "./transitions.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -15,64 +16,44 @@ export function switchLevel(index) {
   appState.currentLevelIndex = idx;
   const state = getState();
   const { els } = appState;
-  const isQuestionLevel = idx > 1 && idx < appState.totalLevelsCount;
+  const isQuestionLevel = idx >= 1 && idx < appState.totalLevelsCount;
   if (isQuestionLevel && !state.careerPlayer) {
-    const baselineQuestionState = appState.levelsData[2];
+    const baselineQuestionState = appState.levelsData[1];
     if (baselineQuestionState && baselineQuestionState !== state) {
-      migrateShortsVideoOffLegacyNormalProfile(baselineQuestionState);
       state.careerClubsCount = baselineQuestionState.careerClubsCount;
-      state.silhouetteYOffset = baselineQuestionState.silhouetteYOffset;
-      state.silhouetteScaleX = baselineQuestionState.silhouetteScaleX;
-      state.silhouetteScaleY = baselineQuestionState.silhouetteScaleY;
-      state.silhouetteVideoYOffset = baselineQuestionState.silhouetteVideoYOffset;
-      state.silhouetteVideoScaleX = baselineQuestionState.silhouetteVideoScaleX;
-      state.silhouetteVideoScaleY = baselineQuestionState.silhouetteVideoScaleY;
-      state.silhouetteNormalYOffset = baselineQuestionState.silhouetteNormalYOffset;
-      state.silhouetteNormalScaleX = baselineQuestionState.silhouetteNormalScaleX;
-      state.silhouetteNormalScaleY = baselineQuestionState.silhouetteNormalScaleY;
-      state.silhouetteShortsVideoYOffset =
-        baselineQuestionState.silhouetteShortsVideoYOffset ??
-        baselineQuestionState.silhouetteShortsNormalYOffset ??
-        baselineQuestionState.silhouetteVideoYOffset;
-      state.silhouetteShortsVideoScaleX =
-        baselineQuestionState.silhouetteShortsVideoScaleX ??
-        baselineQuestionState.silhouetteShortsNormalScaleX ??
-        baselineQuestionState.silhouetteVideoScaleX;
-      state.silhouetteShortsVideoScaleY =
-        baselineQuestionState.silhouetteShortsVideoScaleY ??
-        baselineQuestionState.silhouetteShortsNormalScaleY ??
-        baselineQuestionState.silhouetteVideoScaleY;
-      state.silhouetteShortsNormalYOffset =
-        baselineQuestionState.silhouetteShortsNormalYOffset ??
-        baselineQuestionState.silhouetteNormalYOffset;
-      state.silhouetteShortsNormalScaleX =
-        baselineQuestionState.silhouetteShortsNormalScaleX ??
-        baselineQuestionState.silhouetteNormalScaleX;
-      state.silhouetteShortsNormalScaleY =
-        baselineQuestionState.silhouetteShortsNormalScaleY ??
-        baselineQuestionState.silhouetteNormalScaleY;
-      state.careerSlotBadgeScales = Array.isArray(baselineQuestionState.careerSlotBadgeScales)
-        ? [...baselineQuestionState.careerSlotBadgeScales]
-        : [];
-      state.careerSlotBadgeScalesRegular = Array.isArray(baselineQuestionState.careerSlotBadgeScalesRegular)
-        ? [...baselineQuestionState.careerSlotBadgeScalesRegular]
-        : [...state.careerSlotBadgeScales];
-      state.careerSlotBadgeScalesShorts = Array.isArray(baselineQuestionState.careerSlotBadgeScalesShorts)
-        ? [...baselineQuestionState.careerSlotBadgeScalesShorts]
-        : [...state.careerSlotBadgeScales];
-      state.careerSlotYearNudges = Array.isArray(baselineQuestionState.careerSlotYearNudges)
-        ? [...baselineQuestionState.careerSlotYearNudges]
-        : [];
+      /* Each level starts with fresh default picture settings. */
+      state.silhouetteYOffset = 0;
+      state.silhouetteScaleX = 1.0;
+      state.silhouetteScaleY = 1.0;
+      state.silhouetteVideoYOffset = 0;
+      state.silhouetteVideoScaleX = 1.0;
+      state.silhouetteVideoScaleY = 1.0;
+      state.silhouetteNormalYOffset = 0;
+      state.silhouetteNormalScaleX = 1.0;
+      state.silhouetteNormalScaleY = 1.0;
+      state.silhouetteShortsVideoYOffset = 13;
+      state.silhouetteShortsVideoScaleX = 0.85;
+      state.silhouetteShortsVideoScaleY = 1.0;
+      state.silhouetteShortsNormalYOffset = 0;
+      state.silhouetteShortsNormalScaleX = 1.0;
+      state.silhouetteShortsNormalScaleY = 1.0;
+      state.careerSlotBadgeScales = [];
+      state.careerSlotBadgeScalesRegular = [];
+      state.careerSlotBadgeScalesShorts = [];
+      state.careerSlotYearNudges = [];
     }
   }
+  /* Immediately refresh the Adjust Picture panel so it shows the new level's values without waiting for transitions. */
+  refreshCareerPictureControlsDisplay(state);
+
   const isShortsNow = document.body.classList.contains("shorts-mode");
   const isQuestionToQuestionTransition =
-    index !== prevIndex &&
+    idx !== prevIndex &&
     !isShortsNow &&
-    prevIndex > 1 &&
+    prevIndex >= 1 &&
     prevIndex < appState.totalLevelsCount &&
-    index > 1 &&
-    index < appState.totalLevelsCount;
+    idx >= 1 &&
+    idx < appState.totalLevelsCount;
 
   els.squadType.value = state.squadType;
   els.formation.value = state.formationId;
@@ -108,16 +89,16 @@ export function switchLevel(index) {
   }
   els.teamResults.replaceChildren();
 
-  renderProgressSteps(appState.totalLevelsCount, switchLevel);
-
   const stageMain = document.getElementById("stage-main");
   const progressContainer = els.quizProgressContainer;
 
   const updateDOMContent = () => {
+    renderProgressSteps(appState.totalLevelsCount, switchLevel);
+
     const isLogo = appState.currentLevelIndex === 0;
-    const isLanding = appState.currentLevelIndex === 1;
-    const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     const isShorts = document.body.classList.contains("shorts-mode");
+    const isLanding = appState.currentLevelIndex === 1 && !isShorts;
+    const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     if (els.landingPage && !isLanding) {
       els.landingPage.classList.remove(
         "landing-content-awaiting-shift",
@@ -132,7 +113,7 @@ export function switchLevel(index) {
     }
     
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = isLanding || !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
     }
 
     els.logoPage.hidden = true;
@@ -146,10 +127,10 @@ export function switchLevel(index) {
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
-      if (!isLogo && !isShorts) {
+      if (!isLogo && !isShorts && !isOutro) {
         logoImg.classList.add("shift-top-right");
         logoImg.classList.remove("reveal");
-      } else if (isLogo) {
+      } else if (isLogo || isOutro) {
         logoImg.classList.remove("shift-top-right");
       }
     }
@@ -169,15 +150,8 @@ export function switchLevel(index) {
         }
       }
     } else if (isLanding) {
-      els.logoPage.hidden = isShorts;
+      els.logoPage.hidden = true;
       els.landingPage.hidden = false;
-      if (isShorts && appState.isVideoPlaying) {
-        import("./video.js").then((mod) => {
-          if (typeof mod.scheduleShortsLandingSpecialBadgeAfterPlayVideo === "function") {
-            mod.scheduleShortsLandingSpecialBadgeAfterPlayVideo();
-          }
-        });
-      }
       if (pendingLogoToLandingContentReveal) {
         els.landingPage.classList.add("landing-content-awaiting-shift");
         els.landingPage.classList.remove("landing-content-slide-in");
@@ -222,20 +196,14 @@ export function switchLevel(index) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
     
-    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+    if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
       playCommentBelow();
     }
 
     if (appState.isVideoPlaying) {
       if (isLanding) {
-        if (isShorts) {
-          if (prevIndex !== 0) {
-            void playWelcomeShortsLanding();
-          }
-        } else {
-          const quizType = document.getElementById("in-quiz-type").value;
-          playRules(quizType);
-        }
+        const quizType = document.getElementById("in-quiz-type").value;
+        playRules(quizType);
       } else if (
         !isLogo &&
         !isShorts &&
@@ -325,38 +293,92 @@ export function switchLevel(index) {
       return;
     }
 
-    const exitClass = "stage-exit-video-anim";
-    const enterClass = "stage-enter-video-anim";
-    const transitionDelay = 820;
-
-    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
-    stageMain.classList.add(exitClass);
-
-    if (progressContainer) {
-      progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
-      progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
-    }
-
-    setTimeout(() => {
+    const isShortsFromLogoToFirstQuestion =
+      isShorts &&
+      prevIndex === 0 &&
+      idx >= 1 &&
+      idx < appState.totalLevelsCount &&
+      appState.isVideoPlaying;
+    if (isShortsFromLogoToFirstQuestion) {
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim"
+      );
       updateDOMContent();
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
           void stageMain.offsetWidth;
-          stageMain.classList.add(enterClass);
-
+          stageMain.classList.add("stage-enter-video-anim");
           if (progressContainer) {
-            progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+            progressContainer.classList.remove(
+              "progress-out-reg",
+              "progress-out-shorts",
+              "progress-in-reg",
+              "progress-in-shorts"
+            );
             void progressContainer.offsetWidth;
-            progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+            progressContainer.classList.add("progress-in-shorts");
           }
-
           setTimeout(() => {
             stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
           }, 820);
         });
       });
-    }, transitionDelay);
+      return;
+    }
+
+    const useCustomTransition = transitionSettings.effect !== "none";
+
+    if (useCustomTransition) {
+      stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim", "stage-enter-anim", "stage-enter-video-anim");
+      if (progressContainer) {
+        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
+        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      }
+      appState._transitionDone = runTransition(() => {
+        updateDOMContent();
+        if (progressContainer) {
+          progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+          void progressContainer.offsetWidth;
+          progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+        }
+      });
+    } else {
+      const exitClass = "stage-exit-video-anim";
+      const enterClass = "stage-enter-video-anim";
+      const transitionDelay = 820;
+
+      stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+      stageMain.classList.add(exitClass);
+
+      if (progressContainer) {
+        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
+        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      }
+
+      setTimeout(() => {
+        updateDOMContent();
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
+            void stageMain.offsetWidth;
+            stageMain.classList.add(enterClass);
+
+            if (progressContainer) {
+              progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+              void progressContainer.offsetWidth;
+              progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+            }
+
+            setTimeout(() => {
+              stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+            }, 820);
+          });
+        });
+      }, transitionDelay);
+    }
   } else {
     updateDOMContent();
   }

@@ -175,6 +175,44 @@ body.play-video-active .shorts-mode-btn {
   mix-blend-mode: soft-light;
 }
 
+/* Rolling ball synced to question countdown (duration from JS --shorts-soccer-run-ms) */
+html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
+  display: none;
+}
+
+.countdown-bar-track .soccer {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 5;
+  --soccer-dim: clamp(1.45rem, 6.5vw, 2.25rem);
+  width: var(--soccer-dim);
+  height: var(--soccer-dim);
+  box-sizing: border-box;
+  background: url(https://upload.wikimedia.org/wikipedia/en/e/ec/Soccer_ball.svg) center /
+    var(--soccer-dim) var(--soccer-dim) no-repeat;
+  pointer-events: none;
+  transform: translateY(-50%) rotate(0deg);
+  will-change: left, transform;
+}
+
+.countdown-bar-track .soccer.countdown-soccer-rolling {
+  animation: shorts-countdown-soccer-roll linear forwards;
+  animation-delay: 50ms;
+  animation-duration: calc(var(--shorts-soccer-run-ms, 3000) * 1ms);
+}
+
+@keyframes shorts-countdown-soccer-roll {
+  0% {
+    left: calc(100% - var(--soccer-dim));
+    transform: translateY(-50%) rotate(360deg);
+  }
+  100% {
+    left: 0;
+    transform: translateY(-50%) rotate(-360deg);
+  }
+}
+
 .countdown-timer.timer-phase-green {
   --bar-stripe-a: #15803d;
   --bar-stripe-b: #4ade80;

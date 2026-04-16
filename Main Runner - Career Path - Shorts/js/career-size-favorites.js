@@ -4,7 +4,7 @@ import {
   DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
 } from "./state.js";
 
-const KEY_CAREER_SIZE_FAVORITES = "footballQuizCareerSizeFavorites_career_shorts_fcbnew_v1";
+const KEY_CAREER_SIZE_FAVORITES = "footballQuizCareerSizeFavorites_career_regular_fcbnew_v1";
 const FILE_API_PATH = "/api/career-size-favorites";
 const PLAYER_PREFIX = "player::";
 const CLUB_PREFIX = "club::";

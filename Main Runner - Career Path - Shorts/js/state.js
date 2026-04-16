@@ -1,15 +1,19 @@
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
-export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.85;
-export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
-/** Shorts “Adjust Picture (Video Off)” baseline width/height multipliers. */
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 1.0;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 1.0;
+export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.90;
+export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 0.90;
+export const DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET = 3;
+/** Shorts “Adjust Picture (Video Off)” baseline values. */
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = -7;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 0.90;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 0.90;
 
 export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   return {
-    silhouetteYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+    silhouetteYOffset: isShortsLayout
+      ? DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET
+      : DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
     silhouetteScaleX: isShortsLayout
       ? DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X
       : DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
@@ -24,7 +28,7 @@ export function getDefaultPlayerPictureValuesForCareerMode(isShortsLayout, video
   if (!isShortsLayout) return getDefaultPlayerPictureValues(false);
   if (videoMode) return getDefaultPlayerPictureValues(true);
   return {
-    silhouetteYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+    silhouetteYOffset: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET,
     silhouetteScaleX: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
     silhouetteScaleY: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y,
   };
@@ -100,6 +104,7 @@ export const appState = {
     inSpecificTitleToggle: null,
     inSpecificTitleText: null,
     inSpecificTitleIcon: null,
+    inEndingType: null,
     inEasy: null,
     inMedium: null,
     inHard: null,
@@ -140,7 +145,7 @@ export const appState = {
   teamsIndex: { clubs: [], nationalities: [] },
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
-  totalLevelsCount: 7,
+  totalLevelsCount: 6,
   currentLevelIndex: 0,
   levelsData: [],
   swapActiveSlotIndex: -1,
@@ -175,9 +180,9 @@ export function initLevels(count) {
     const shortsPictureDefaults = getDefaultPlayerPictureValues(true);
     return {
       isLogo: i === 0,
-      isIntro: i === 1,
-      isBonus: i === count + 2,
-      isOutro: i === count + 3,
+      isIntro: false,
+      isBonus: i === count + 1,
+      isOutro: i === count + 2,
       gameMode: "career",
       squadType: els.squadType ? els.squadType.value : "club",
       selectedEntry: null,
@@ -205,7 +210,7 @@ export function initLevels(count) {
       silhouetteNormalYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
       silhouetteNormalScaleX: regularPictureDefaults.silhouetteScaleX,
       silhouetteNormalScaleY: regularPictureDefaults.silhouetteScaleY,
-      silhouetteShortsVideoYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+      silhouetteShortsVideoYOffset: DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET,
       silhouetteShortsVideoScaleX: shortsPictureDefaults.silhouetteScaleX,
       silhouetteShortsVideoScaleY: shortsPictureDefaults.silhouetteScaleY,
       silhouetteShortsNormalYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
@@ -220,8 +225,8 @@ export function initLevels(count) {
     };
   };
   
-  for (let i = 0; i <= count + 3; i++) {
-    const shouldResetLateQuestionLevels = i === count + 1 || i === count + 2;
+  for (let i = 0; i <= count + 2; i++) {
+    const shouldResetLateQuestionLevels = i === count || i === count + 1;
     if (shouldResetLateQuestionLevels || !appState.levelsData[i]) {
       newLevels.push(buildDefaultLevel(i));
     } else {
@@ -229,9 +234,9 @@ export function initLevels(count) {
     }
   }
   appState.levelsData = newLevels;
-  appState.totalLevelsCount = count + 3;
-  if (appState.currentLevelIndex > count + 3) {
-    appState.currentLevelIndex = count + 3;
+  appState.totalLevelsCount = count + 2;
+  if (appState.currentLevelIndex > count + 2) {
+    appState.currentLevelIndex = count + 2;
   }
 }
 

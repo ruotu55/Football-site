@@ -63,6 +63,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inMedium: els.inMedium?.value ?? null,
             inHard: els.inHard?.value ?? null,
             inImpossible: els.inImpossible?.value ?? null,
+            inEndingType: els.inEndingType?.value ?? null,
             inSpecificTitleToggle: !!els.inSpecificTitleToggle?.checked,
             inShotsSizeToggle: !!els.inShotsSizeToggle?.checked,
             inSpecificTitleText: els.inSpecificTitleText?.value ?? null,
@@ -84,6 +85,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.inMedium && c.inMedium != null) els.inMedium.value = c.inMedium;
     if (els.inHard && c.inHard != null) els.inHard.value = c.inHard;
     if (els.inImpossible && c.inImpossible != null) els.inImpossible.value = c.inImpossible;
+    if (els.inEndingType && c.inEndingType != null) els.inEndingType.value = c.inEndingType;
     if (els.inSpecificTitleToggle) els.inSpecificTitleToggle.checked = !!c.inSpecificTitleToggle;
     if (els.inShotsSizeToggle) {
         els.inShotsSizeToggle.checked = !!c.inShotsSizeToggle;
@@ -107,9 +109,9 @@ export function applyDevLiveReloadControls(els, snapshot) {
     }
 }
 
-export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 20) {
+export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 4) {
     if (!snapshot || !Number.isFinite(snapshot.totalLevelsCount)) return fallbackCount;
-    return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 3);
+    return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 2);
 }
 
 export function restoreDevLiveReloadState(appState, snapshot) {
@@ -117,11 +119,11 @@ export function restoreDevLiveReloadState(appState, snapshot) {
     const levels = snapshot.levelsData.map(deserializeLevel).filter(Boolean);
     if (levels.length === 0) return false;
 
-    const totalLevelsCount = Math.max(4, Math.floor(coerceNumber(snapshot.totalLevelsCount, levels.length)));
+    const totalLevelsCount = Math.max(3, Math.floor(coerceNumber(snapshot.totalLevelsCount, levels.length)));
     appState.totalLevelsCount = totalLevelsCount;
     appState.levelsData = levels;
     appState.currentLevelIndex = Math.min(
-        Math.max(0, Math.floor(coerceNumber(snapshot.currentLevelIndex, 2))),
+        Math.max(0, Math.floor(coerceNumber(snapshot.currentLevelIndex, 1))),
         Math.max(0, appState.levelsData.length - 1),
     );
     if (snapshot.careerShortsCirclePreview && typeof snapshot.careerShortsCirclePreview === "object") {

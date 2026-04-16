@@ -50,7 +50,7 @@ export function consumeDevLiveReloadSnapshot() {
 export function captureDevLiveReloadSnapshot(appState, els) {
     if (!isLiveReloadSession()) return;
     if (!appState || !Array.isArray(appState.levelsData) || appState.levelsData.length === 0) return;
-    if (!Number.isFinite(appState.totalLevelsCount) || appState.totalLevelsCount < 4) return;
+    if (!Number.isFinite(appState.totalLevelsCount) || appState.totalLevelsCount < 3) return;
     if (!Number.isFinite(appState.currentLevelIndex)) return;
     const payload = {
         version: 1,
@@ -69,6 +69,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inSpecificTitleIcon: els.inSpecificTitleIcon?.value ?? null,
             shortsModeToggle: FIXED_SHORTS_MODE,
             inQuizType: els.inQuizType?.value ?? null,
+            inEndingType: els.inEndingType?.value ?? null,
             squadType: els.squadType?.value ?? null,
             displayMode: els.displayMode?.value ?? null,
             formation: els.formation?.value ?? null,
@@ -101,6 +102,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
         els.shortsModeToggle.disabled = true;
     }
     if (els.inQuizType && c.inQuizType != null) els.inQuizType.value = c.inQuizType;
+    if (els.inEndingType && c.inEndingType != null) els.inEndingType.value = c.inEndingType;
     if (els.squadType && c.squadType != null) els.squadType.value = c.squadType;
     if (els.displayMode && c.displayMode != null) els.displayMode.value = c.displayMode;
     if (els.formation && c.formation != null) els.formation.value = c.formation;
@@ -113,9 +115,9 @@ export function applyDevLiveReloadControls(els, snapshot) {
     }
 }
 
-export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 20) {
+export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 4) {
     if (!snapshot || !Number.isFinite(snapshot.totalLevelsCount)) return fallbackCount;
-    return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 3);
+    return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 2);
 }
 
 export function restoreDevLiveReloadState(appState, snapshot) {
@@ -123,7 +125,7 @@ export function restoreDevLiveReloadState(appState, snapshot) {
     const levels = snapshot.levelsData.map(deserializeLevel).filter(Boolean);
     if (levels.length === 0) return false;
 
-    const totalLevelsCount = Math.max(4, Math.floor(coerceNumber(snapshot.totalLevelsCount, levels.length)));
+    const totalLevelsCount = Math.max(3, Math.floor(coerceNumber(snapshot.totalLevelsCount, levels.length)));
     appState.totalLevelsCount = totalLevelsCount;
     appState.levelsData = levels;
     appState.currentLevelIndex = Math.min(

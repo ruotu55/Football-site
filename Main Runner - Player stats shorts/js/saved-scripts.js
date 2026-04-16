@@ -7,6 +7,7 @@ import {
 import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
+import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_placholder2_shorts_v1";
 const KEY_FOLDERS = "footballQuizFolders_placholder2_shorts_v1";
@@ -27,6 +28,23 @@ const SPECIFIC_TITLE_ICON_PATH_MAP = {
 
 function normalizeSpecificTitleIconPath(iconPath) {
     return SPECIFIC_TITLE_ICON_PATH_MAP[iconPath] || iconPath || "";
+}
+
+/** Old saves included a dedicated landing level at index 1 (`isIntro: true`). */
+function migrateShortsLevelsRemoveLegacyLanding(levels) {
+    if (!Array.isArray(levels) || levels.length < 3) return levels;
+    const first = levels[1];
+    if (!first || first.isIntro !== true) return levels;
+    const migrated = levels.slice();
+    migrated.splice(1, 1);
+    const total = migrated.length - 1;
+    return migrated.map((lvl, i) => ({
+        ...lvl,
+        isLogo: i === 0,
+        isIntro: false,
+        isOutro: i === total,
+        isBonus: i === total - 1,
+    }));
 }
 
 const SAVE_SERVER = createSavedScriptsServerSync("playerstats_shorts", {
@@ -264,6 +282,7 @@ export function initSavedScripts(callbacks) {
             landing: {
                 gameMode: "career",
                 quizType: els.inQuizType.value,
+                endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
                 specificToggle: els.inSpecificTitleToggle.checked,
                 specificText: els.inSpecificTitleText.value,
                 specificIcon: els.inSpecificTitleIcon.value,
@@ -277,6 +296,7 @@ export function initSavedScripts(callbacks) {
                 totalLevels: els.quizLevelsInput.value,
                 shortsMode: FIXED_SHORTS_MODE,
             },
+            transitions: captureTransitionSettings(),
             levels: levelsToSave,
         };
         savedScripts.push(newScript);
@@ -584,6 +604,10 @@ async function loadScript(script) {
     if(uiCallbacks.updateSetupUI) uiCallbacks.updateSetupUI(); 
 
     if (script.landing) {
+        if (els.inEndingType) {
+            els.inEndingType.value = script.landing.endingType || "think-you-know";
+            els.inEndingType.dispatchEvent(new Event("change"));
+        }
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
         els.inSpecificTitleText.value = script.landing.specificText || "";
         els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
@@ -595,7 +619,7 @@ async function loadScript(script) {
 
     if (script.lineup) {
         els.videoModeToggle.checked = !!script.lineup.videoMode;
-        els.quizLevelsInput.value = script.lineup.totalLevels || 20;
+        els.quizLevelsInput.value = script.lineup.totalLevels || 4;
         if (els.shortsModeToggle) {
             els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
             els.shortsModeToggle.disabled = true;
@@ -609,10 +633,13 @@ async function loadScript(script) {
 
     if (uiCallbacks.syncShortsCirclePreviewPanel) uiCallbacks.syncShortsCirclePreviewPanel();
 
+    applyTransitionSettings(script.transitions || null);
+
     if(uiCallbacks.updateLanding) uiCallbacks.updateLanding();
 
-    appState.totalLevelsCount = script.levels.length - 1;
-    appState.levelsData = script.levels.map(lvl => ({
+    const migratedLevels = migrateShortsLevelsRemoveLegacyLanding(script.levels);
+    appState.totalLevelsCount = migratedLevels.length - 1;
+    appState.levelsData = migratedLevels.map(lvl => ({
         ...lvl,
         gameMode: lvl.gameMode || gameMode, 
         silhouetteYOffset: lvl.silhouetteYOffset || 0,

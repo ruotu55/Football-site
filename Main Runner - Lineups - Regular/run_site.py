@@ -48,8 +48,17 @@ QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
-    "nat-by-club": "Hey everyone, let's start. ... GUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB!!",
-    "club-by-nat": "Hey everyone, let's start. ... GUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY!!",
+    "nat-by-club": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB!!",
+    "club-by-nat": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY!!",
+}
+ENDING_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Ending Guess"
+ENDING_VOICE_FILE_BY_TYPE = {
+    "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+}
+ENDING_VOICE_PROMPT_BY_TYPE = {
+    "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
+    "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
 }
 EDGE_TTS_VOICES = (
     FIXED_TEAM_VOICE,
@@ -1199,6 +1208,17 @@ def _normalize_quiz_title_voice_inputs(
     return qt, prompt, QUIZ_TITLE_VOICE_DIR / out_name
 
 
+def _normalize_ending_voice_inputs(
+    ending_type: str | None,
+) -> tuple[str, str, Path]:
+    et = str(ending_type or "").strip()
+    if et not in ENDING_VOICE_FILE_BY_TYPE:
+        raise ValueError("Unsupported ending type.")
+    filename = ENDING_VOICE_FILE_BY_TYPE[et]
+    prompt = ENDING_VOICE_PROMPT_BY_TYPE.get(et) or filename.removesuffix(".mp3")
+    return et, prompt, ENDING_VOICE_DIR / filename
+
+
 def _project_relative_web_path(path: Path) -> str:
     rel_parts = path.relative_to(PROJECT_ROOT).parts
     return "/" + "/".join(quote(p, safe="") for p in rel_parts)
@@ -1834,6 +1854,90 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self._write_json(200, {"ok": True, "removed": removed})
         return True
 
+    def _try_serve_ending_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ending-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part:
+                continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
+                query.get("endingType"),
+            )
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        self._write_json(
+            200,
+            {
+                "ok": True,
+                "exists": out_path.is_file(),
+                "src": _project_relative_web_path(out_path) if out_path.is_file() else "",
+            },
+        )
+        return True
+
+    def _try_generate_ending_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ending-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            _ending_type, prompt_text, out_path = _normalize_ending_voice_inputs(
+                body.get("endingType"),
+            )
+            voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
+            if not voice:
+                raise ValueError("Unsupported voice.")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        provider = "elevenlabs"
+        try:
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+        except Exception as exc:  # noqa: BLE001
+            self._write_json(502, {"ok": False, "error": str(exc)})
+            return True
+        if not out_path.exists() or out_path.stat().st_size <= 0:
+            self._write_json(502, {"ok": False, "error": "ElevenLabs generation failed."})
+            return True
+        self._write_json(
+            200,
+            {
+                "ok": True,
+                "src": _project_relative_web_path(out_path),
+                "voice": chosen_voice,
+                "model": model,
+                "provider": provider,
+            },
+        )
+        return True
+
+    def _try_delete_ending_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ending-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
+                body.get("endingType"),
+            )
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        removed = 0
+        if out_path.exists():
+            out_path.unlink(missing_ok=True)
+            removed = 1
+        self._write_json(200, {"ok": True, "removed": removed})
+        return True
+
     def _try_delete_player_photo(self) -> bool:
         parsed = urlparse(self.path)
         if parsed.path.rstrip("/") != "/__player-photo/delete":
@@ -2055,6 +2159,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if self._try_serve_quiz_title_voice_status():
             return
+        if self._try_serve_ending_voice_status():
+            return
         if self._try_serve_other_teams_logos_json():
             return
         if self._is_live_reload_endpoint():
@@ -2078,6 +2184,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_generate_quiz_title_voice():
             return
         if self._try_delete_quiz_title_voice():
+            return
+        if self._try_generate_ending_voice():
+            return
+        if self._try_delete_ending_voice():
             return
         if self._try_fetch_team_logo():
             return

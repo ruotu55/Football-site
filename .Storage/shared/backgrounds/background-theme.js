@@ -6,8 +6,10 @@ const STORAGE_OPACITY_PROFILES_BUCKET = "shared_background_opacity_profiles_v1";
 const STYLE_TAG_ID = "shared-background-theme-style";
 const ROOT_COLOR_ATTR = "data-shared-background-color";
 const ROOT_EFFECT_ATTR = "data-shared-background-effect";
-const DEFAULT_LINE_OPACITY_PERCENT = 1;
+const DEFAULT_LINE_OPACITY_PERCENT = 3.5;
 const EMOJI_EFFECT_CONTAINER_ID = "shared-background-emojis";
+const QUESTION_MARKS_EFFECT_CONTAINER_ID = "shared-background-question-marks";
+const SOCCER_BALLS_EFFECT_CONTAINER_ID = "shared-background-soccer-balls";
 const EMOJI_IMAGES = [
   "../Images/Emojis/active-character-dribbling-removebg-preview.png",
   "../Images/Emojis/positive-character-with-ball-removebg-preview.png",
@@ -51,8 +53,7 @@ function ensureEmojiEffectContainer() {
 
 function populateEmojiEffectContainer(container) {
   if (!container) return;
-  const isShorts = document.body.classList.contains("shorts-mode");
-  const flowAxis = isShorts ? "vertical" : "horizontal";
+  const flowAxis = "horizontal";
   if (container.dataset.flowAxis !== flowAxis) {
     container.replaceChildren();
     container.dataset.flowAxis = flowAxis;
@@ -69,11 +70,7 @@ function populateEmojiEffectContainer(container) {
       img.className = "shared-bg-emoji";
       img.style.width = "75px";
       img.style.height = "75px";
-      if (isShorts) {
-        img.style.left = `${5 + (row * (90 / (numRows - 1)))}%`;
-      } else {
-        img.style.top = `${5 + (row * (90 / (numRows - 1)))}vh`;
-      }
+      img.style.top = `${5 + (row * (90 / (numRows - 1)))}vh`;
       img.style.animationDuration = `${duration}s`;
       const timeSlot = duration / itemsPerRow;
       const baseDelay = i * timeSlot;
@@ -90,6 +87,106 @@ function syncEmojiEffect(effectId) {
   if (effectId === "floating-emojis") {
     const activeContainer = container || ensureEmojiEffectContainer();
     populateEmojiEffectContainer(activeContainer);
+    return;
+  }
+  if (container) {
+    container.remove();
+  }
+}
+
+function ensureQuestionMarksEffectContainer() {
+  let container = document.getElementById(QUESTION_MARKS_EFFECT_CONTAINER_ID);
+  if (!container) {
+    container = document.createElement("div");
+    container.id = QUESTION_MARKS_EFFECT_CONTAINER_ID;
+    container.className = "shared-bg-question-marks";
+    document.body.appendChild(container);
+  }
+  return container;
+}
+
+function populateQuestionMarksEffectContainer(container) {
+  if (!container) return;
+  const isShorts = document.body.classList.contains("shorts-mode");
+  const flowAxis = isShorts ? "vertical" : "horizontal";
+  if (container.dataset.flowAxis !== flowAxis) {
+    container.replaceChildren();
+    container.dataset.flowAxis = flowAxis;
+  }
+  if (container.childElementCount > 0) return;
+  const count = 58;
+  for (let i = 0; i < count; i += 1) {
+    const span = document.createElement("span");
+    span.className = "shared-bg-question";
+    span.textContent = "?";
+    span.setAttribute("aria-hidden", "true");
+    span.style.left = `${Math.random() * 100}%`;
+    span.style.fontSize = `${16 + Math.random() * 40}px`;
+    const duration = 16 + Math.random() * 24;
+    span.style.animationDuration = `${duration}s`;
+    const driftVw = (Math.random() - 0.5) * 42;
+    span.style.setProperty("--q-drift", `${driftVw}vw`);
+    span.style.setProperty("--q-rot", `${(Math.random() - 0.5) * 18}deg`);
+    span.style.animationDelay = `-${Math.random() * duration}s`;
+    container.appendChild(span);
+  }
+}
+
+function syncQuestionMarksEffect(effectId) {
+  const container = document.getElementById(QUESTION_MARKS_EFFECT_CONTAINER_ID);
+  if (effectId === "rising-question-marks") {
+    const activeContainer = container || ensureQuestionMarksEffectContainer();
+    populateQuestionMarksEffectContainer(activeContainer);
+    return;
+  }
+  if (container) {
+    container.remove();
+  }
+}
+
+function ensureSoccerBallsEffectContainer() {
+  let container = document.getElementById(SOCCER_BALLS_EFFECT_CONTAINER_ID);
+  if (!container) {
+    container = document.createElement("div");
+    container.id = SOCCER_BALLS_EFFECT_CONTAINER_ID;
+    container.className = "shared-bg-soccer-balls";
+    document.body.appendChild(container);
+  }
+  return container;
+}
+
+function populateSoccerBallsEffectContainer(container) {
+  if (!container) return;
+  const isShorts = document.body.classList.contains("shorts-mode");
+  const flowAxis = isShorts ? "vertical" : "horizontal";
+  if (container.dataset.flowAxis !== flowAxis) {
+    container.replaceChildren();
+    container.dataset.flowAxis = flowAxis;
+  }
+  if (container.childElementCount > 0) return;
+  const count = 58;
+  for (let i = 0; i < count; i += 1) {
+    const span = document.createElement("span");
+    span.className = "shared-bg-soccer-ball";
+    span.textContent = "\u26BD";
+    span.setAttribute("aria-hidden", "true");
+    span.style.left = `${Math.random() * 100}%`;
+    span.style.fontSize = `${16 + Math.random() * 40}px`;
+    const duration = 16 + Math.random() * 24;
+    span.style.animationDuration = `${duration}s`;
+    const driftVw = (Math.random() - 0.5) * 42;
+    span.style.setProperty("--sb-drift", `${driftVw}vw`);
+    span.style.setProperty("--sb-rot", `${(Math.random() - 0.5) * 18}deg`);
+    span.style.animationDelay = `-${Math.random() * duration}s`;
+    container.appendChild(span);
+  }
+}
+
+function syncSoccerBallsEffect(effectId) {
+  const container = document.getElementById(SOCCER_BALLS_EFFECT_CONTAINER_ID);
+  if (effectId === "rising-soccer-balls") {
+    const activeContainer = container || ensureSoccerBallsEffectContainer();
+    populateSoccerBallsEffectContainer(activeContainer);
     return;
   }
   if (container) {
@@ -321,8 +418,9 @@ const EFFECTS = [
   { id: "sun-rays-top-left", label: "Sun effect top left" },
   { id: "center-rings", label: "Center circles" },
   { id: "floating-emojis", label: "Floating emojis" },
+  { id: "rising-question-marks", label: "Rising question marks" },
   { id: "diagonal-flow", label: "Diagonal flow" },
-  { id: "diamond-grid", label: "Diamond grid" },
+  { id: "rising-soccer-balls", label: "Rising soccer balls" },
 ];
 
 function getEffectBackground(effectId, colorHex, opacityPercent) {
@@ -343,6 +441,8 @@ function getEffectBackground(effectId, colorHex, opacityPercent) {
     case "sun-rays-top-right":
     case "sun-rays-top-left":
     case "floating-emojis":
+    case "rising-question-marks":
+    case "rising-soccer-balls":
       return `${colorHex}`;
     case "center-rings":
       return `${colorHex}`;
@@ -354,19 +454,12 @@ function getEffectBackground(effectId, colorHex, opacityPercent) {
     repeating-linear-gradient(to right, rgba(255, 255, 255, 0.03) 0 120px, rgba(0, 0, 0, 0.04) 120px 240px),
     ${colorHex}`;
     case "diagonal-flow":
-      return `
-    repeating-linear-gradient(-28deg, ${whiteLine} 0 66px, ${color10} 66px 132px),
-    ${colorHex}`;
+      return `${colorHex}`;
     case "wave-bands":
       return `
     radial-gradient(140% 80% at 0% 100%, ${whiteMid} 0 36%, ${WHITE_0} 62%),
     radial-gradient(140% 80% at 100% 0%, ${whiteSoft} 0 34%, ${WHITE_0} 60%),
     repeating-linear-gradient(0deg, ${blackSoft} 0 48px, ${WHITE_0} 48px 96px),
-    ${colorHex}`;
-    case "diamond-grid":
-      return `
-    repeating-linear-gradient(45deg, ${whiteLine} 0 38px, ${color10} 38px 76px),
-    repeating-linear-gradient(-45deg, ${WHITE_0} 0 38px, ${color10} 38px 76px),
     ${colorHex}`;
     case "soft-vignette":
       return `
@@ -386,17 +479,17 @@ function getEffectAnimation(effectId) {
     case "sun-rays-top-right":
     case "sun-rays-top-left":
     case "floating-emojis":
+    case "rising-question-marks":
+    case "rising-soccer-balls":
       return "none";
     case "center-rings":
       return "none";
     case "football-pitch":
       return "shared-bg-football-pitch 200s linear infinite";
     case "diagonal-flow":
-      return "shared-bg-diagonal-flow 170s linear infinite";
+      return "none";
     case "wave-bands":
       return "shared-bg-wave-bands 170s linear infinite";
-    case "diamond-grid":
-      return "shared-bg-diamond-grid 200s linear infinite";
     case "soft-vignette":
       return "shared-bg-soft-vignette 220s linear infinite";
     case "sun-rays":
@@ -408,8 +501,7 @@ function getEffectAnimation(effectId) {
 function getShortsEffectAnimation(effectId, defaultAnimation) {
   switch (effectId) {
     case "diagonal-flow":
-      // Regular slides horizontally; shorts should slide vertically in the 9:16 frame.
-      return "shared-bg-diagonal-flow-shorts 170s linear infinite";
+      return "none";
     default:
       return defaultAnimation;
   }
@@ -422,17 +514,17 @@ function getEffectBackgroundSize(effectId) {
     case "sun-rays-top-right":
     case "sun-rays-top-left":
     case "floating-emojis":
+    case "rising-question-marks":
+    case "rising-soccer-balls":
       return "100% 100%";
     case "center-rings":
       return "100% 100%";
     case "football-pitch":
       return "100% 100%, 100% 100%, 100% 100%, 240% 100%, 100% 100%";
     case "diagonal-flow":
-      return "340% 340%, 100% 100%";
+      return "100% 100%";
     case "wave-bands":
       return "220% 220%, 220% 220%, 240% 240%, 100% 100%";
-    case "diamond-grid":
-      return "220% 220%, 220% 220%, 100% 100%";
     case "soft-vignette":
       return "180% 180%, 100% 100%, 100% 100%";
     case "sun-rays":
@@ -641,7 +733,47 @@ ${vignetteCss("sun-rays-top-left")}
   );
 }
 
-:root[${ROOT_EFFECT_ATTR}="floating-emojis"] body.shorts-mode .shared-bg-emojis {
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] .shared-bg-emoji {
+  position: absolute;
+  right: -250px;
+  object-fit: contain;
+  opacity: clamp(0.06, calc(var(--shared-line-opacity, 3.5) * 0.25), 0.8);
+  filter: grayscale(100%);
+  animation: shared-bg-emoji-float linear infinite;
+}
+
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] .app {
+  position: relative;
+  z-index: 1;
+}
+`;
+    case "rising-question-marks":
+      return `
+:root[${ROOT_EFFECT_ATTR}="rising-question-marks"] body {
+  position: relative;
+}
+
+:root[${ROOT_EFFECT_ATTR}="rising-question-marks"] .shared-bg-question-marks {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+}
+
+:root[${ROOT_EFFECT_ATTR}="rising-question-marks"] body.shorts-mode .shared-bg-question-marks {
   inset: auto;
   top: 0;
   left: 50%;
@@ -650,46 +782,125 @@ ${vignetteCss("sun-rays-top-left")}
   height: 100vh;
   -webkit-mask-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.03) 50%,
-    rgba(0, 0, 0, 0.3) 100%
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
   );
   mask-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.03) 50%,
-    rgba(0, 0, 0, 0.3) 100%
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
   );
 }
 
-:root[${ROOT_EFFECT_ATTR}="floating-emojis"] .shared-bg-emoji {
+:root[${ROOT_EFFECT_ATTR}="rising-question-marks"] .shared-bg-question {
   position: absolute;
-  right: -250px;
-  object-fit: contain;
-  opacity: clamp(0.06, calc(var(--shared-line-opacity, 1) * 0.25), 0.8);
-  filter: grayscale(100%);
-  animation: shared-bg-emoji-float linear infinite;
+  bottom: -12vh;
+  line-height: 1;
+  font-weight: 800;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  color: rgba(255, 255, 255, 0.38);
+  user-select: none;
+  animation: shared-bg-question-rise linear infinite;
+  will-change: transform, opacity;
 }
 
-:root[${ROOT_EFFECT_ATTR}="floating-emojis"] body.shorts-mode .shared-bg-emoji {
-  right: auto;
-  top: -250px;
-  animation-name: shared-bg-emoji-float-down;
+:root[${ROOT_EFFECT_ATTR}="rising-question-marks"] .app {
+  position: relative;
+  z-index: 1;
+}
+`;
+    case "rising-soccer-balls":
+      return `
+:root[${ROOT_EFFECT_ATTR}="rising-soccer-balls"] body {
+  position: relative;
 }
 
-:root[${ROOT_EFFECT_ATTR}="floating-emojis"] .app {
+:root[${ROOT_EFFECT_ATTR}="rising-soccer-balls"] .shared-bg-soccer-balls {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+}
+
+:root[${ROOT_EFFECT_ATTR}="rising-soccer-balls"] body.shorts-mode .shared-bg-soccer-balls {
+  inset: auto;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(56.25vh, 100vw);
+  height: 100vh;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+}
+
+:root[${ROOT_EFFECT_ATTR}="rising-soccer-balls"] .shared-bg-soccer-ball {
+  position: absolute;
+  bottom: -12vh;
+  line-height: 1;
+  user-select: none;
+  animation: shared-bg-soccer-ball-rise linear infinite;
+  will-change: transform, opacity;
+}
+
+:root[${ROOT_EFFECT_ATTR}="rising-soccer-balls"] .app {
   position: relative;
   z-index: 1;
 }
 `;
     case "diagonal-flow":
-    case "diamond-grid":
       return `
 :root[${ROOT_EFFECT_ATTR}="${effectId}"] body {
   position: relative;
+  overflow: hidden;
 }
 
 :root[${ROOT_EFFECT_ATTR}="${effectId}"] body::before {
+  content: "";
+  position: fixed;
+  top: -10vh;
+  left: -100vw;
+  width: 300vw;
+  height: 120vh;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(-28deg, ${whiteLine} 0 66px, ${color10} 66px 132px);
+  animation: shared-bg-diagonal-flow 20s linear infinite;
+}
+
+:root[${ROOT_EFFECT_ATTR}="${effectId}"] body.shorts-mode::before {
+  top: -100vh;
+  left: -10vw;
+  width: 120vw;
+  height: 300vh;
+  animation: shared-bg-diagonal-flow-shorts 20s linear infinite;
+}
+
+:root[${ROOT_EFFECT_ATTR}="${effectId}"] body::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -800,14 +1011,50 @@ function getEffectKeyframesCss() {
   }
 }
 
+@keyframes shared-bg-question-rise {
+  0% {
+    transform: translateX(-50%) translate(0, 0) rotate(var(--q-rot, 0deg));
+    opacity: 0;
+  }
+  7% {
+    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+  }
+  93% {
+    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+  }
+  100% {
+    transform: translateX(-50%) translate(var(--q-drift, 0vw), -128vh) rotate(var(--q-rot, 0deg));
+    opacity: 0;
+  }
+}
+
+@keyframes shared-bg-soccer-ball-rise {
+  0% {
+    transform: translateX(-50%) translate(0, 0) rotate(var(--sb-rot, 0deg));
+    opacity: 0;
+  }
+  7% {
+    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+  }
+  93% {
+    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+  }
+  100% {
+    transform: translateX(-50%) translate(var(--sb-drift, 0vw), -128vh) rotate(var(--sb-rot, 0deg));
+    opacity: 0;
+  }
+}
+
+/* One loop = exactly one stripe repeat along the gradient (-28deg, 0–132px stops).
+   Using 100vw/100vh caused a visible jump because that distance rarely matches the pattern period. */
 @keyframes shared-bg-diagonal-flow {
-  0% { background-position: 40% 0%, center center; }
-  100% { background-position: -40% 0%, center center; }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-132px / sin(28deg))); }
 }
 
 @keyframes shared-bg-diagonal-flow-shorts {
-  0% { background-position: 0% 40%, center center; }
-  100% { background-position: 0% -40%, center center; }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(calc(-132px / cos(28deg))); }
 }
 
 @keyframes shared-bg-wave-bands {
@@ -815,15 +1062,41 @@ function getEffectKeyframesCss() {
   100% { background-position: -20% 100%, 120% 0%, -30% 0%, center center; }
 }
 
-@keyframes shared-bg-diamond-grid {
-  0% { background-position: 0% 0%, 0% 0%, center center; }
-  100% { background-position: -30% 20%, 30% -20%, center center; }
-}
-
 @keyframes shared-bg-soft-vignette {
   0% { background-position: 50% 50%, 50% 50%, center center; }
   100% { background-position: 48% 52%, 52% 48%, center center; }
 }
+`;
+}
+
+/**
+ * Generate CSS that mirrors the body background effect onto .ball-layer-1
+ * so the ball-drop preloader shows the same background instead of flat colour.
+ * Only active when the preloader is NOT in reveal mode.
+ */
+function getBallPreloaderEffectCss(effectId, colorHex, opacityPercent, background, backgroundSize, animation) {
+  const sel = `.ball-preloader:not(.revealing) .ball-layer-1`;
+  const extraCss = getEffectExtraCss(effectId, colorHex, opacityPercent);
+
+  /* Duplicate body::before / body::after rules for .ball-layer-1::before / ::after */
+  let pseudoCss = "";
+  /* Match   <anything> body::before { ... }  and  <anything> body::after { ... } */
+  const pseudoRe = /([^\n{]*)\bbody::(before|after)\s*\{([^}]+)\}/g;
+  let m;
+  while ((m = pseudoRe.exec(extraCss)) !== null) {
+    const pseudo = m[2]; // "before" or "after"
+    const props = m[3];
+    pseudoCss += `\n${sel}::${pseudo} { ${props} }\n`;
+  }
+
+  return `
+/* Ball-preloader background effect mirror */
+${sel} {
+  background: ${background};
+  background-size: ${backgroundSize};
+  animation: ${animation};
+}
+${pseudoCss}
 `;
 }
 
@@ -870,8 +1143,11 @@ function applyTheme(colorId, effectId, opacityPercent = DEFAULT_LINE_OPACITY_PER
 
 ${getEffectKeyframesCss()}
 ${getEffectExtraCss(normalizedEffectId, selectedColor.hex, normalizedOpacity)}
+${getBallPreloaderEffectCss(normalizedEffectId, selectedColor.hex, normalizedOpacity, background, backgroundSize, animation)}
 `;
   syncEmojiEffect(normalizedEffectId);
+  syncQuestionMarksEffect(normalizedEffectId);
+  syncSoccerBallsEffect(normalizedEffectId);
   try {
     localStorage.setItem(STORAGE_COLOR_KEY, normalizedColorId);
     localStorage.setItem(STORAGE_EFFECT_KEY, normalizedEffectId);

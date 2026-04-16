@@ -6,13 +6,12 @@ import {
   renderPitch,
 } from "./pitch-render.js";
 import {
-  playRules,
-  playWelcomeShortsLanding,
   playProgressVoice,
   playCommentBelow,
   setBgMusicForLevel,
 } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
+import { runTransition, transitionSettings } from "./transitions.js";
 
 /** Match Career Path - Shorts `levels.js` + `transitions.css` video stage (0.82s). */
 const STAGE_VIDEO_TRANSITION_MS = 820;
@@ -63,30 +62,33 @@ export function switchLevel(index) {
   }
   els.teamResults.replaceChildren();
 
-  renderProgressSteps(appState.totalLevelsCount, switchLevel);
-
   const stageMain = document.getElementById("stage-main");
   const progressContainer = els.quizProgressContainer;
 
   const updateDOMContent = () => {
+    renderProgressSteps(appState.totalLevelsCount, switchLevel);
+
     const isLogo = appState.currentLevelIndex === 0;
-    const isLanding = appState.currentLevelIndex === 1;
     const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     const isShorts = document.body.classList.contains("shorts-mode");
 
     if (els.quizProgressContainer) {
-      els.quizProgressContainer.hidden = (isLogo || isLanding || isOutro) && appState.isVideoPlaying;
+      els.quizProgressContainer.hidden = (isLogo || isOutro) && appState.isVideoPlaying;
     }
     
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = isLanding || !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = !((isLogo || isOutro) && appState.isVideoPlaying);
     }
 
     els.logoPage.hidden = true;
     els.landingPage.hidden = true;
     els.outroPage.hidden = true;
     els.pitchWrap.hidden = true;
-    els.teamHeader.hidden = true;
+    if (appState._preserveTeamSidebar) {
+      // Custom transition between quiz levels: keep sidebar visible in place
+    } else {
+      els.teamHeader.hidden = true;
+    }
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
@@ -100,9 +102,6 @@ export function switchLevel(index) {
     if (isLogo) {
       els.logoPage.hidden = false;
       if (logoImg) logoImg.classList.remove("shift-top-right", "bounce-out");
-    } else if (isLanding) {
-      els.logoPage.hidden = isShorts; 
-      els.landingPage.hidden = false;
     } else if (isOutro) {
       els.logoPage.hidden = isShorts;
       els.outroPage.hidden = false;
@@ -117,7 +116,9 @@ export function switchLevel(index) {
       }
       els.pitchWrap.hidden = false;
       renderPitch();
-      renderHeader();
+      // Skip header update when sidebar is preserved — it will be called
+      // after the overlay reveals so the old team stays visible during transition.
+      if (!appState._preserveTeamSidebar) renderHeader();
       if (appState.isVideoPlaying && state.videoMode && state.currentSquad && els.pitchWrap) {
         void els.pitchWrap.offsetHeight;
         setTimeout(() => {
@@ -128,24 +129,15 @@ export function switchLevel(index) {
 
     const sharedBg = document.getElementById("shared-bg-layer");
     if (sharedBg) {
-      sharedBg.hidden = !(isLogo || isLanding || isOutro);
+      sharedBg.hidden = !(isLogo || isOutro);
     }
     
-    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+    if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
       playCommentBelow();
     }
 
     if (appState.isVideoPlaying) {
-      if (isLanding) {
-        if (isShorts) {
-          if (prevIndex !== 0) {
-            void playWelcomeShortsLanding();
-          }
-        } else {
-          const quizType = document.getElementById("in-quiz-type").value;
-          playRules(quizType);
-        }
-      } else if (
+      if (
         !isLogo &&
         !isShorts &&
         appState.currentLevelIndex < appState.totalLevelsCount - 1
@@ -162,7 +154,7 @@ export function switchLevel(index) {
     const isShortsFromLogoToFirstQuestion =
       isShorts &&
       prevIndex === 0 &&
-      idx >= 2 &&
+      idx >= 1 &&
       idx < appState.totalLevelsCount &&
       appState.isVideoPlaying;
     const teamHeaderEl = document.getElementById("team-header");
@@ -192,8 +184,6 @@ export function switchLevel(index) {
               "progress-in-reg",
               "progress-in-shorts"
             );
-            void progressContainer.offsetWidth;
-            progressContainer.classList.add("progress-in-shorts");
           }
           setTimeout(() => {
             stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
@@ -205,51 +195,78 @@ export function switchLevel(index) {
       return;
     }
 
-    const exitClass = "stage-exit-video-anim";
-    const enterClass = "stage-enter-video-anim";
-    const transitionDelay = STAGE_VIDEO_TRANSITION_MS;
+    const useCustomTransition = transitionSettings.effect !== "none";
 
-    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
-    stageMain.classList.add(exitClass);
-    if (teamHeaderEl) {
-      teamHeaderEl.classList.remove("team-header-stage-enter-video-anim");
-      teamHeaderEl.classList.add("team-header-stage-exit-video-anim");
-    }
+    if (useCustomTransition) {
+      stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim", "stage-enter-anim", "stage-enter-video-anim");
+      teamHeaderEl?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
+      // Keep sidebar in place when both prev and next are quiz levels
+      const prevIsQuiz = prevIndex >= 1 && prevIndex < appState.totalLevelsCount;
+      const nextIsQuiz = idx >= 1 && idx < appState.totalLevelsCount;
+      const sidebarPreserved = prevIsQuiz && nextIsQuiz;
+      appState._preserveTeamSidebar = sidebarPreserved;
 
-    if (progressContainer) {
-        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
-        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
-    }
+      appState._transitionDone = runTransition(() => {
+        updateDOMContent();
+        appState._preserveTeamSidebar = false;
 
-    setTimeout(() => {
-      updateDOMContent();
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
-          void stageMain.offsetWidth;
-          stageMain.classList.add(enterClass);
+        // Overlay still covers the screen — snap sidebar to closed instantly
+        // (no CSS transition) so the new level is revealed with it off-screen.
+        if (sidebarPreserved && els.teamHeader) {
+          els.teamHeader.style.transition = "none";
+          els.teamHeader.classList.remove("team-header--show");
+          appState.teamSidebarAnimGeneration += 1;
+          appState.teamSidebarLastOpen = false;
+          appState.teamSidebarLastKey = "";
+          void els.teamHeader.offsetWidth;
+          els.teamHeader.style.transition = "";
+        }
 
-          if (teamHeaderEl) {
-            teamHeaderEl.classList.remove("team-header-stage-exit-video-anim");
-            if (teamHeaderEl.classList.contains("team-header--show")) {
-              void teamHeaderEl.offsetWidth;
-              teamHeaderEl.classList.add("team-header-stage-enter-video-anim");
-            }
-          }
-
-          if (progressContainer) {
-              progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
-              void progressContainer.offsetWidth;
-              progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
-          }
-
-          setTimeout(() => {
-              stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
-              teamHeaderEl?.classList.remove("team-header-stage-enter-video-anim");
-          }, STAGE_VIDEO_ENTER_TRANSITION_MS);
-        });
+        if (progressContainer) {
+          progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+        }
+      }).then(() => {
+        // Overlay is gone — slide sidebar in fresh for the new level
+        if (sidebarPreserved && els.teamHeader && !els.teamHeader.hidden) {
+          renderHeader();
+        }
       });
-    }, transitionDelay);
+    } else {
+      const exitClass = "stage-exit-video-anim";
+      const enterClass = "stage-enter-video-anim";
+      const transitionDelay = STAGE_VIDEO_TRANSITION_MS;
+
+      stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+      stageMain.classList.add(exitClass);
+      if (teamHeaderEl) {
+        teamHeaderEl.classList.remove("team-header-stage-enter-video-anim");
+        teamHeaderEl.classList.add("team-header-stage-exit-video-anim");
+      }
+
+      setTimeout(() => {
+        updateDOMContent();
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
+            void stageMain.offsetWidth;
+            stageMain.classList.add(enterClass);
+
+            if (teamHeaderEl) {
+              teamHeaderEl.classList.remove("team-header-stage-exit-video-anim");
+              if (teamHeaderEl.classList.contains("team-header--show")) {
+                void teamHeaderEl.offsetWidth;
+                teamHeaderEl.classList.add("team-header-stage-enter-video-anim");
+              }
+            }
+
+            setTimeout(() => {
+                stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+                teamHeaderEl?.classList.remove("team-header-stage-enter-video-anim");
+            }, STAGE_VIDEO_ENTER_TRANSITION_MS);
+          });
+        });
+      }, transitionDelay);
+    }
   } else {
     updateDOMContent();
   }

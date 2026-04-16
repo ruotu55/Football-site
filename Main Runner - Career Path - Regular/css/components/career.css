@@ -114,6 +114,7 @@
 
 body:not(.shorts-mode) .career-wrap {
   height: 72.6vh;
+  width: 90%;
 }
 
 .team-header.video-hidden ~ .career-wrap {
@@ -533,25 +534,15 @@ body:not(.shorts-mode) .career-reveal-name-bottom {
 }
 
 body:not(.shorts-mode) .career-reveal-name.show {
-  animation: career-reveal-name-pop 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+  animation: career-reveal-name-fade-in 0.92s ease both;
 }
 
-@keyframes career-reveal-name-pop {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(56px) scale(0.9);
-    filter: blur(10px);
-  }
-  18% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-    filter: blur(0);
-  }
+
+@keyframes career-reveal-name-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
+
 
 /* Video question-to-question: animate incoming road/player layer (avoid pop-in). */
 body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-svg,
@@ -574,9 +565,9 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
 
 .career-path-outer {
   fill: none;
-  stroke: #e2e8f0; 
+  stroke: #e2e8f0;
   stroke-width: 26;
-  stroke-linecap: butt;
+  stroke-linecap: round;
   stroke-linejoin: round;
   transition: filter 0.45s ease, opacity 0.45s ease;
 }
@@ -585,17 +576,17 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
   fill: none;
   stroke: #0a1118;
   stroke-width: 18;
-  stroke-linecap: butt;
+  stroke-linecap: round;
   stroke-linejoin: round;
   transition: filter 0.45s ease, opacity 0.45s ease;
 }
 
 .career-path-dash {
   fill: none;
-  stroke: #ffffff; 
+  stroke: #ffffff;
   stroke-width: 4;
   stroke-dasharray: 20 20;
-  stroke-linecap: butt;
+  stroke-linecap: round;
   stroke-linejoin: round;
   animation: dash-flow 1.5s linear infinite;
   transition: filter 0.45s ease, opacity 0.45s ease;

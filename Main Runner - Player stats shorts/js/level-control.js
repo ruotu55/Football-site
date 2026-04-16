@@ -33,7 +33,7 @@ export function renderLevelsReorderList() {
 
     const container = document.getElementById("levels-reorder-container");
     
-    for (let i = 2; i < appState.totalLevelsCount; i++) {
+    for (let i = 1; i < appState.totalLevelsCount; i++) {
         const lvl = appState.levelsData[i];
         const item = document.createElement("div");
         item.className = "level-reorder-item";
@@ -44,7 +44,7 @@ export function renderLevelsReorderList() {
 
         const num = document.createElement("span");
         num.className = "level-num";
-        num.textContent = (i - 1).toString().padStart(2, '0');
+        num.textContent = i.toString().padStart(2, '0');
 
         const name = document.createElement("span");
         name.className = "level-name";

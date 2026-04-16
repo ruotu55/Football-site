@@ -35,35 +35,6 @@
   text-shadow: 0 6px 18px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5);
   animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
 }
-.landing-q-badge {
-  position: relative;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.6);
-  border: 3px solid #fff;
-  padding: 0.5rem 1.6rem;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  margin-bottom: 2.5rem;
-  transform: perspective(500px) rotateX(5deg);
-  animation: float-up-down-tilted 3.2s ease-in-out infinite; /* Slightly tilted animation */
-}
-.q-number { color: #fff; font-family: "Barlow Condensed"; font-size: 2.8rem; font-weight: 800; line-height: 1; }
-.q-text { color: #fff; font-family: "Barlow Condensed"; font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.2rem; }
-.bonus-pill { 
-  background: var(--lime); 
-  color: #fff; 
-  font-family: "Barlow Condensed"; 
-  font-size: 1.6rem; 
-  font-weight: 800; 
-  padding: 0.15rem 0.9rem; 
-  border-radius: 25px; 
-  line-height: 1; 
-  margin-top: 0.2rem; 
-}
-
 .difficulty-box {
   position: relative;
   z-index: 10;
@@ -105,10 +76,6 @@ body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .difficulty-
   animation: none;
   transform: translateY(-120vh);
 }
-body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .landing-q-badge {
-  animation: none;
-  transform: translateY(-120vh) perspective(500px) rotateX(5deg);
-}
 body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) {
   visibility: hidden;
   pointer-events: none;
@@ -123,10 +90,6 @@ body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .landing-spe
   from { transform: translateY(-120vh); }
   to { transform: translateY(0); }
 }
-@keyframes landing-info-slide-from-top-tilted {
-  from { transform: translateY(-120vh) perspective(500px) rotateX(5deg); }
-  to { transform: translateY(0) perspective(500px) rotateX(5deg); }
-}
 @keyframes landing-special-badge-slide-from-top {
   from { transform: translateY(calc(-50% - 120vh)) rotate(-6deg); }
   to { transform: translateY(-50%) rotate(-6deg); }
@@ -139,10 +102,6 @@ body:not(.shorts-mode) .landing-page.landing-content-slide-in .landing-title {
 body:not(.shorts-mode) .landing-page.landing-content-slide-in .landing-subtitle {
   animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
     float-up-down 3.2s ease-in-out 0.65s infinite;
-}
-body:not(.shorts-mode) .landing-page.landing-content-slide-in .landing-q-badge {
-  animation: landing-info-slide-from-top-tilted 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
-    float-up-down-tilted 3.2s ease-in-out 0.65s infinite;
 }
 body:not(.shorts-mode) .landing-page.landing-content-slide-in .difficulty-box {
   animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
@@ -353,9 +312,16 @@ body.shorts-mode.play-video-active .landing-page:not([hidden]) .landing-special-
   animation: outro-page-float-sync 3.2s ease-in-out infinite;
 }
 
-#outro-page:not([hidden]) .outro-top-row,
 #outro-page:not([hidden]) .outro-bottom-row {
   animation: outro-content-follow-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* Center logo: keep static like headings (row animation moved entire .outro-top-row from above). */
+#outro-page:not([hidden]) .outro-top-row .logo-img-anim {
+  animation: none;
+  opacity: 1;
+  transform: none;
+  filter: none;
 }
 
 #outro-page:not([hidden]) .action-like {

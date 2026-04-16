@@ -72,6 +72,7 @@ export const appState = {
     inSpecificTitleToggle: null,
     inSpecificTitleText: null,
     inSpecificTitleIcon: null,
+    inEndingType: null,
     inEasy: null,
     inMedium: null,
     inHard: null,

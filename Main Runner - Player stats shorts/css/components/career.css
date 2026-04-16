@@ -522,24 +522,12 @@ body:not(.shorts-mode) .career-reveal-name-bottom {
 }
 
 body:not(.shorts-mode) .career-reveal-name.show {
-  animation: career-reveal-name-pop 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+  animation: career-reveal-name-fade-in 0.92s ease both;
 }
 
-@keyframes career-reveal-name-pop {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(56px) scale(0.9);
-    filter: blur(10px);
-  }
-  18% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-    filter: blur(0);
-  }
+@keyframes career-reveal-name-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* Video question-to-question: animate incoming road/player layer (avoid pop-in). */

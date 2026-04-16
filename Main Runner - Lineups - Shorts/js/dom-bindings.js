@@ -71,6 +71,7 @@ export function bindDomElements() {
     els.inSpecificTitleToggle = document.getElementById("in-specific-title-toggle");
     els.inSpecificTitleText = document.getElementById("in-specific-title-text");
     els.inSpecificTitleIcon = document.getElementById("in-specific-title-icon");
+    els.inEndingType = document.getElementById("in-ending-type");
     els.inEasy = document.getElementById("in-easy");
     els.inMedium = document.getElementById("in-medium");
     els.inHard = document.getElementById("in-hard");

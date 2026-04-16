@@ -20,16 +20,12 @@ import {
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js";
+import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260416-ball";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
+import { initTransitionsUI } from "./transitions.js";
 import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
-import {
-    initThumbnailMaker,
-    syncThumbnailMakerSpecificTitle,
-    syncThumbnailMakerUiForQuizType,
-} from "./thumbnail-maker.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
@@ -248,6 +244,260 @@ const QUIZ_TYPE_VOICE_FILES = {
     "nat-by-club": "../.Storage/Voices/Game name/Guess the football national team name by players' club !!!.mp3",
     "club-by-nat": "../.Storage/Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
 };
+
+// ==========================================
+// ENDING TYPE VOICE CONTROLS
+// ==========================================
+const ENDING_TYPE_TEXTS = {
+    "think-you-know": "THINK YOU KNOW THE ANSWER?",
+    "how-many": "HOW MANY DID YOU GET?",
+};
+const ENDING_VOICE_STATUS_ENDPOINT = "__ending-voice/status";
+const ENDING_VOICE_GENERATE_ENDPOINT = "__ending-voice/generate";
+const ENDING_VOICE_DELETE_ENDPOINT = "__ending-voice/delete";
+const ENDING_VOICE_FIXED_VOICE = "en-US-AndrewNeural";
+const endingTypeVoiceStatusByType = {};
+let endingTypePreviewAudioEl = null;
+let endingTypePreviewAudioSrc = "";
+
+function getEndingTypeBaseLabel(optionEl) {
+    const savedBase = optionEl?.dataset?.baseLabel;
+    if (savedBase) return savedBase;
+    return String(optionEl?.textContent || "").trim();
+}
+
+function setEndingTypeOptionLabel(optionEl, hasVoice) {
+    if (!optionEl) return;
+    const baseLabel = getEndingTypeBaseLabel(optionEl);
+    optionEl.dataset.baseLabel = baseLabel;
+    endingTypeVoiceStatusByType[optionEl.value] = !!hasVoice;
+    optionEl.textContent = baseLabel;
+}
+
+function stopEndingTypeVoicePreview() {
+    if (!endingTypePreviewAudioEl) return;
+    endingTypePreviewAudioEl.pause();
+    endingTypePreviewAudioEl.currentTime = 0;
+    endingTypePreviewAudioEl = null;
+    endingTypePreviewAudioSrc = "";
+}
+
+function playEndingTypeVoicePreview(src) {
+    const clipSrc = String(src || "").trim();
+    if (!clipSrc) return;
+    stopEndingTypeVoicePreview();
+    const audio = new Audio(clipSrc);
+    endingTypePreviewAudioEl = audio;
+    endingTypePreviewAudioSrc = clipSrc;
+    audio.addEventListener("ended", () => {
+        if (endingTypePreviewAudioEl === audio) {
+            endingTypePreviewAudioEl = null;
+            endingTypePreviewAudioSrc = "";
+        }
+    }, { once: true });
+    audio.play().catch(() => {});
+}
+
+function setEndingTypeVoiceBusy(endingType, isBusy) {
+    const volBtns = document.querySelectorAll(`button[data-ending-type-voice-vol="${endingType}"]`);
+    const delBtns = document.querySelectorAll(`button[data-ending-type-voice-del="${endingType}"]`);
+    volBtns.forEach((volBtn) => {
+        volBtn.disabled = !!isBusy;
+        volBtn.textContent = isBusy ? "..." : "Vol";
+    });
+    delBtns.forEach((delBtn) => {
+        delBtn.disabled = !!isBusy || !endingTypeVoiceStatusByType[endingType];
+    });
+}
+
+async function fetchEndingTypeVoiceStatus(endingType) {
+    const params = new URLSearchParams({ endingType: String(endingType || "") });
+    const res = await fetch(`${endpointUrl(ENDING_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Status failed (${res.status})`);
+    const exists = !!body.exists;
+    endingTypeVoiceStatusByType[endingType] = exists;
+    return { exists, src: String(body?.src || "") };
+}
+
+async function ensureEndingTypeVoiceThenPlay(endingType) {
+    setEndingTypeVoiceBusy(endingType, true);
+    try {
+        const status = await fetchEndingTypeVoiceStatus(endingType);
+        let previewSrc = status.src;
+        if (!status.exists) {
+            const res = await fetch(endpointUrl(ENDING_VOICE_GENERATE_ENDPOINT), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    endingType,
+                    voice: ENDING_VOICE_FIXED_VOICE,
+                }),
+            });
+            const body = await res.json().catch(() => ({}));
+            if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+            endingTypeVoiceStatusByType[endingType] = true;
+            previewSrc = String(body?.src || "");
+        }
+        renderEndingTypeVoiceStatusPanel();
+        playEndingTypeVoicePreview(previewSrc);
+    } catch (err) {
+        alert(`Could not generate ending voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setEndingTypeVoiceBusy(endingType, false);
+    }
+}
+
+async function resolveEndingVoiceSrcForPlayback(endingType) {
+    const status = await fetchEndingTypeVoiceStatus(endingType).catch(() => ({ exists: false, src: "" }));
+    if (status.exists && status.src) {
+        return String(status.src || "");
+    }
+    const res = await fetch(endpointUrl(ENDING_VOICE_GENERATE_ENDPOINT), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            endingType,
+            voice: ENDING_VOICE_FIXED_VOICE,
+        }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+    endingTypeVoiceStatusByType[endingType] = true;
+    return String(body?.src || "");
+}
+
+window.__resolveEndingVoiceSrc = resolveEndingVoiceSrcForPlayback;
+
+async function deleteEndingTypeVoice(endingType) {
+    if (!endingTypeVoiceStatusByType[endingType]) return;
+    setEndingTypeVoiceBusy(endingType, true);
+    try {
+        stopEndingTypeVoicePreview();
+        const res = await fetch(endpointUrl(ENDING_VOICE_DELETE_ENDPOINT), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ endingType }),
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
+        endingTypeVoiceStatusByType[endingType] = false;
+        renderEndingTypeVoiceStatusPanel();
+    } catch (err) {
+        alert(`Could not delete ending voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setEndingTypeVoiceBusy(endingType, false);
+    }
+}
+
+function renderEndingTypeVoiceStatusPanel() {
+    const endingTypeSelect = appState?.els?.inEndingType;
+    if (!endingTypeSelect) return;
+    let panel = document.getElementById("ending-type-voice-status");
+    if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "ending-type-voice-status";
+        panel.style.marginTop = "0.4rem";
+        panel.style.display = "flex";
+        panel.style.flexDirection = "column";
+        panel.style.gap = "0.25rem";
+        panel.style.fontSize = "0.72rem";
+        panel.style.color = "rgba(255,255,255,0.9)";
+        const anchor = endingTypeSelect.nextElementSibling || endingTypeSelect;
+        anchor.insertAdjacentElement("afterend", panel);
+    }
+    panel.replaceChildren();
+
+    Array.from(endingTypeSelect.options || []).forEach((opt) => {
+        const row = document.createElement("div");
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.gap = "0.5rem";
+        row.style.padding = "0.15rem 0";
+
+        const text = document.createElement("span");
+        text.textContent = getEndingTypeBaseLabel(opt);
+        text.style.opacity = "0.92";
+
+        const controls = document.createElement("div");
+        controls.style.display = "inline-flex";
+        controls.style.alignItems = "center";
+        controls.style.gap = "0.3rem";
+
+        const volBtn = document.createElement("button");
+        volBtn.type = "button";
+        volBtn.textContent = "Vol";
+        volBtn.dataset.endingTypeVoiceVol = opt.value;
+        volBtn.style.padding = "0.12rem 0.4rem";
+        volBtn.style.borderRadius = "999px";
+        volBtn.style.border = "1px solid rgba(255,255,255,0.35)";
+        volBtn.style.background = "rgba(255,255,255,0.08)";
+        volBtn.style.color = "#fff";
+        volBtn.style.fontSize = "0.68rem";
+        volBtn.style.fontWeight = "700";
+        volBtn.onclick = () => { void ensureEndingTypeVoiceThenPlay(opt.value); };
+
+        const xBtn = document.createElement("button");
+        xBtn.type = "button";
+        xBtn.textContent = "X";
+        xBtn.dataset.endingTypeVoiceDel = opt.value;
+        xBtn.style.padding = "0.12rem 0.45rem";
+        xBtn.style.borderRadius = "999px";
+        xBtn.style.border = "1px solid rgba(239,68,68,0.7)";
+        xBtn.style.background = "rgba(239,68,68,0.2)";
+        xBtn.style.color = "#fff";
+        xBtn.style.fontSize = "0.68rem";
+        xBtn.style.fontWeight = "800";
+        xBtn.disabled = !endingTypeVoiceStatusByType[opt.value];
+        xBtn.onclick = () => { void deleteEndingTypeVoice(opt.value); };
+
+        controls.appendChild(volBtn);
+        controls.appendChild(xBtn);
+        row.appendChild(text);
+        row.appendChild(controls);
+        panel.appendChild(row);
+    });
+}
+
+async function refreshEndingTypeVoiceLabels() {
+    const { els } = appState;
+    const endingTypeSelect = els?.inEndingType;
+    if (!endingTypeSelect) return;
+    const options = Array.from(endingTypeSelect.options || []);
+    if (options.length === 0) return;
+    await Promise.all(
+        options.map(async (opt) => {
+            let hasVoice = false;
+            try {
+                const status = await fetchEndingTypeVoiceStatus(opt.value);
+                hasVoice = !!status.exists;
+            } catch {
+                hasVoice = false;
+            }
+            setEndingTypeOptionLabel(opt, hasVoice);
+        }),
+    );
+    applyCustomSelects();
+    renderEndingTypeVoiceStatusPanel();
+}
+
+function getSelectedEndingType() {
+    return String(appState?.els?.inEndingType?.value || "think-you-know");
+}
+
+function updateOutroText() {
+    const endingType = getSelectedEndingType();
+    const outroTitle = document.getElementById("outro-title");
+    const outroSubtitle = document.getElementById("outro-subtitle");
+    if (outroTitle) {
+        outroTitle.textContent = ENDING_TYPE_TEXTS[endingType] || ENDING_TYPE_TEXTS["think-you-know"];
+    }
+    if (outroSubtitle) {
+        outroSubtitle.textContent = "LET US KNOW IN THE COMMENTS!";
+    }
+}
+
+window.__getSelectedEndingType = getSelectedEndingType;
 const QUIZ_TITLE_VOICE_STATUS_ENDPOINT = "__quiz-title-voice/status";
 const QUIZ_TITLE_VOICE_GENERATE_ENDPOINT = "__quiz-title-voice/generate";
 const QUIZ_TITLE_VOICE_DELETE_ENDPOINT = "__quiz-title-voice/delete";
@@ -671,6 +921,12 @@ function computeLandingDifficultyDistribution(totalQuestions) {
     };
 }
 
+function setLandingDifficultySpan(id, value) {
+    const el = document.getElementById(id);
+    if (!el || el.getAttribute("contenteditable") === "true") return;
+    el.textContent = value;
+}
+
 export function updateLanding() {
     const { els } = appState;
     const type = els.inQuizType.value;
@@ -687,12 +943,10 @@ export function updateLanding() {
             : "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB";
     }
     renderLandingTitleVoiceControls();
-    const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
-    document.getElementById("landing-q-count").textContent = totalQuestions;
-    document.getElementById("val-easy").textContent = els.inEasy.value;
-    document.getElementById("val-medium").textContent = els.inMedium.value;
-    document.getElementById("val-hard").textContent = els.inHard.value;
-    document.getElementById("val-impossible").textContent = els.inImpossible.value;
+    setLandingDifficultySpan("val-easy", els.inEasy.value);
+    setLandingDifficultySpan("val-medium", els.inMedium.value);
+    setLandingDifficultySpan("val-hard", els.inHard.value);
+    setLandingDifficultySpan("val-impossible", els.inImpossible.value);
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
@@ -708,7 +962,9 @@ export function updateLanding() {
     const iconVal = els.inSpecificTitleIcon.value;
     const iconImg = document.getElementById("landing-special-icon-img");
     const iconSpan = document.getElementById("landing-special-icon");
-    if (iconVal.startsWith("icons/")) {
+    const useSpecificTitleImage =
+        iconVal.startsWith("icons/") || iconVal.startsWith("Images/");
+    if (useSpecificTitleImage) {
         iconImg.src = projectAssetUrl(iconVal);
         iconImg.hidden = false;
         iconSpan.hidden = true;
@@ -718,7 +974,49 @@ export function updateLanding() {
         iconImg.hidden = true;
     }
 
-    syncThumbnailMakerSpecificTitle();
+}
+
+function wireLandingDifficultyValEditors(els) {
+    const pairs = [
+        ["val-easy", els.inEasy],
+        ["val-medium", els.inMedium],
+        ["val-hard", els.inHard],
+        ["val-impossible", els.inImpossible],
+    ];
+    for (const [spanId, input] of pairs) {
+        const span = document.getElementById(spanId);
+        if (!span || !input) continue;
+        span.addEventListener("dblclick", () => {
+            span.contentEditable = "true";
+            span.focus();
+            const sel = window.getSelection();
+            if (sel) {
+                sel.removeAllRanges();
+                const r = document.createRange();
+                r.selectNodeContents(span);
+                sel.addRange(r);
+            }
+        });
+        const commit = () => {
+            if (span.getAttribute("contenteditable") !== "true") return;
+            span.contentEditable = "false";
+            let n = parseInt(String(span.textContent || "").replace(/\D/g, ""), 10);
+            if (!Number.isFinite(n) || n < 0) n = 0;
+            input.value = String(n);
+            updateLanding();
+        };
+        span.addEventListener("blur", commit);
+        span.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                span.blur();
+            } else if (e.key === "Escape") {
+                e.preventDefault();
+                span.textContent = input.value;
+                span.contentEditable = "false";
+            }
+        });
+    }
 }
 
 // ==========================================
@@ -742,7 +1040,6 @@ async function init() {
 
     bindDomElements();
     refreshTeamHeaderHatchGrid(appState.els.teamHeader);
-    initThumbnailMaker({ switchLevel });
     applyPerformanceModeFromUrl();
     initSharedBackgroundTheme(
         document.getElementById("in-background-color"),
@@ -761,6 +1058,7 @@ async function init() {
 
     // Call initialized modules
     initLevelControls();
+    initTransitionsUI();
     initSavedScripts({ populateSubTypes, updateSetupUI, updateLanding });
 
     FORMATIONS.forEach((f) => {
@@ -788,9 +1086,18 @@ async function init() {
         els.pitchSlots.appendChild(div);
     }
 
-    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 20);
+    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 29);
     initLevels(initialLevelCount);
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
+    if (!didRestoreState) {
+        const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
+        const { easy, medium, hard, impossible } =
+            computeLandingDifficultyDistribution(totalQuestions);
+        els.inEasy.value = String(easy);
+        els.inMedium.value = String(medium);
+        els.inHard.value = String(hard);
+        els.inImpossible.value = String(impossible);
+    }
     const initialLevelIndex = didRestoreState
         ? Math.min(
             Math.max(1, appState.currentLevelIndex),
@@ -813,22 +1120,28 @@ async function init() {
     els.inQuizType.onchange = () => {
         updateSetupUI();
         updateLanding();
-        syncThumbnailMakerUiForQuizType();
         renderSavedScripts();
         renderHeader();
+    };
+
+    els.inEndingType.onchange = () => {
+        updateOutroText();
+        updateLanding();
+        renderEndingTypeVoiceStatusPanel();
     };
 
     els.inEasy.oninput = updateLanding;
     els.inMedium.oninput = updateLanding;
     els.inHard.oninput = updateLanding;
     els.inImpossible.oninput = updateLanding;
+    wireLandingDifficultyValEditors(els);
     els.inSpecificTitleToggle.onchange = updateLanding;
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;
 
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
-        if (isNaN(levels) || levels < 1) levels = 20;
+        if (isNaN(levels) || levels < 1) levels = 29;
         initLevels(levels);
         const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
         const { easy, medium, hard, impossible } = computeLandingDifficultyDistribution(totalQuestions);
@@ -1124,6 +1437,9 @@ async function init() {
     }
 
     populateSubTypes();
+    renderEndingTypeVoiceStatusPanel();
+    void refreshEndingTypeVoiceLabels();
+    updateOutroText();
     applyDevLiveReloadControls(els, devLiveReloadSnapshot);
     applyFixedShortsMode(els);
     updateSetupUI();
@@ -1131,7 +1447,6 @@ async function init() {
         switchLevel(appState.currentLevelIndex);
     }
     updateLanding();
-    syncThumbnailMakerUiForQuizType();
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);
     syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());

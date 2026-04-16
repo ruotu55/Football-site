@@ -23,6 +23,7 @@ import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
+import { initTransitionsUI } from "./transitions.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
@@ -40,6 +41,264 @@ import {
     getInitialLevelCountFromSnapshot,
     restoreDevLiveReloadState,
 } from "./dev-live-reload-state.js";
+
+// ==========================================
+// ENDING TYPE VOICE CONTROLS
+// ==========================================
+const ENDING_TYPE_TEXTS = {
+    "think-you-know": "THINK YOU KNOW<br>THE ANSWER?",
+    "how-many": "HOW MANY<br>DID YOU GET?",
+};
+const ENDING_VOICE_STATUS_ENDPOINT = "__ending-voice/status";
+const ENDING_VOICE_GENERATE_ENDPOINT = "__ending-voice/generate";
+const ENDING_VOICE_DELETE_ENDPOINT = "__ending-voice/delete";
+const ENDING_VOICE_FIXED_VOICE = "en-US-AndrewNeural";
+const endingTypeVoiceStatusByType = {};
+let endingTypePreviewAudioEl = null;
+let endingTypePreviewAudioSrc = "";
+
+function endpointUrl(relPath) {
+    return projectAssetUrl(relPath);
+}
+
+function getEndingTypeBaseLabel(optionEl) {
+    const savedBase = optionEl?.dataset?.baseLabel;
+    if (savedBase) return savedBase;
+    return String(optionEl?.textContent || "").trim();
+}
+
+function setEndingTypeOptionLabel(optionEl, hasVoice) {
+    if (!optionEl) return;
+    const baseLabel = getEndingTypeBaseLabel(optionEl);
+    optionEl.dataset.baseLabel = baseLabel;
+    endingTypeVoiceStatusByType[optionEl.value] = !!hasVoice;
+    optionEl.textContent = baseLabel;
+}
+
+function stopEndingTypeVoicePreview() {
+    if (!endingTypePreviewAudioEl) return;
+    endingTypePreviewAudioEl.pause();
+    endingTypePreviewAudioEl.currentTime = 0;
+    endingTypePreviewAudioEl = null;
+    endingTypePreviewAudioSrc = "";
+}
+
+function playEndingTypeVoicePreview(src) {
+    const clipSrc = String(src || "").trim();
+    if (!clipSrc) return;
+    stopEndingTypeVoicePreview();
+    const audio = new Audio(clipSrc);
+    endingTypePreviewAudioEl = audio;
+    endingTypePreviewAudioSrc = clipSrc;
+    audio.addEventListener("ended", () => {
+        if (endingTypePreviewAudioEl === audio) {
+            endingTypePreviewAudioEl = null;
+            endingTypePreviewAudioSrc = "";
+        }
+    }, { once: true });
+    audio.play().catch(() => {});
+}
+
+function setEndingTypeVoiceBusy(endingType, isBusy) {
+    const volBtns = document.querySelectorAll(`button[data-ending-type-voice-vol="${endingType}"]`);
+    const delBtns = document.querySelectorAll(`button[data-ending-type-voice-del="${endingType}"]`);
+    volBtns.forEach((volBtn) => {
+        volBtn.disabled = !!isBusy;
+        volBtn.textContent = isBusy ? "..." : "Vol";
+    });
+    delBtns.forEach((delBtn) => {
+        delBtn.disabled = !!isBusy || !endingTypeVoiceStatusByType[endingType];
+    });
+}
+
+async function fetchEndingTypeVoiceStatus(endingType) {
+    const params = new URLSearchParams({ endingType: String(endingType || "") });
+    const res = await fetch(`${endpointUrl(ENDING_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Status failed (${res.status})`);
+    const exists = !!body.exists;
+    endingTypeVoiceStatusByType[endingType] = exists;
+    return { exists, src: String(body?.src || "") };
+}
+
+async function ensureEndingTypeVoiceThenPlay(endingType) {
+    setEndingTypeVoiceBusy(endingType, true);
+    try {
+        const status = await fetchEndingTypeVoiceStatus(endingType);
+        let previewSrc = status.src;
+        if (!status.exists) {
+            const res = await fetch(endpointUrl(ENDING_VOICE_GENERATE_ENDPOINT), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    endingType,
+                    voice: ENDING_VOICE_FIXED_VOICE,
+                }),
+            });
+            const body = await res.json().catch(() => ({}));
+            if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+            endingTypeVoiceStatusByType[endingType] = true;
+            previewSrc = String(body?.src || "");
+        }
+        renderEndingTypeVoiceStatusPanel();
+        playEndingTypeVoicePreview(previewSrc);
+    } catch (err) {
+        alert(`Could not generate ending voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setEndingTypeVoiceBusy(endingType, false);
+    }
+}
+
+async function resolveEndingVoiceSrcForPlayback(endingType) {
+    const status = await fetchEndingTypeVoiceStatus(endingType).catch(() => ({ exists: false, src: "" }));
+    if (status.exists && status.src) {
+        return String(status.src || "");
+    }
+    const res = await fetch(endpointUrl(ENDING_VOICE_GENERATE_ENDPOINT), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            endingType,
+            voice: ENDING_VOICE_FIXED_VOICE,
+        }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok || !body?.ok) throw new Error(body?.error || `Generate failed (${res.status})`);
+    endingTypeVoiceStatusByType[endingType] = true;
+    return String(body?.src || "");
+}
+
+window.__resolveEndingVoiceSrc = resolveEndingVoiceSrcForPlayback;
+
+async function deleteEndingTypeVoice(endingType) {
+    if (!endingTypeVoiceStatusByType[endingType]) return;
+    setEndingTypeVoiceBusy(endingType, true);
+    try {
+        stopEndingTypeVoicePreview();
+        const res = await fetch(endpointUrl(ENDING_VOICE_DELETE_ENDPOINT), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ endingType }),
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
+        endingTypeVoiceStatusByType[endingType] = false;
+        renderEndingTypeVoiceStatusPanel();
+    } catch (err) {
+        alert(`Could not delete ending voice.\n${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+        setEndingTypeVoiceBusy(endingType, false);
+    }
+}
+
+function renderEndingTypeVoiceStatusPanel() {
+    const endingTypeSelect = appState?.els?.inEndingType;
+    if (!endingTypeSelect) return;
+    let panel = document.getElementById("ending-type-voice-status");
+    if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "ending-type-voice-status";
+        panel.style.marginTop = "0.4rem";
+        panel.style.display = "flex";
+        panel.style.flexDirection = "column";
+        panel.style.gap = "0.25rem";
+        panel.style.fontSize = "0.72rem";
+        panel.style.color = "rgba(255,255,255,0.9)";
+        const anchor = endingTypeSelect.nextElementSibling || endingTypeSelect;
+        anchor.insertAdjacentElement("afterend", panel);
+    }
+    panel.replaceChildren();
+
+    Array.from(endingTypeSelect.options || []).forEach((opt) => {
+        const row = document.createElement("div");
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.gap = "0.5rem";
+        row.style.padding = "0.15rem 0";
+
+        const text = document.createElement("span");
+        text.textContent = getEndingTypeBaseLabel(opt);
+        text.style.opacity = "0.92";
+
+        const controls = document.createElement("div");
+        controls.style.display = "inline-flex";
+        controls.style.alignItems = "center";
+        controls.style.gap = "0.3rem";
+
+        const volBtn = document.createElement("button");
+        volBtn.type = "button";
+        volBtn.textContent = "Vol";
+        volBtn.dataset.endingTypeVoiceVol = opt.value;
+        volBtn.style.padding = "0.12rem 0.4rem";
+        volBtn.style.borderRadius = "999px";
+        volBtn.style.border = "1px solid rgba(255,255,255,0.35)";
+        volBtn.style.background = "rgba(255,255,255,0.08)";
+        volBtn.style.color = "#fff";
+        volBtn.style.fontSize = "0.68rem";
+        volBtn.style.fontWeight = "700";
+        volBtn.onclick = () => { void ensureEndingTypeVoiceThenPlay(opt.value); };
+
+        const xBtn = document.createElement("button");
+        xBtn.type = "button";
+        xBtn.textContent = "X";
+        xBtn.dataset.endingTypeVoiceDel = opt.value;
+        xBtn.style.padding = "0.12rem 0.45rem";
+        xBtn.style.borderRadius = "999px";
+        xBtn.style.border = "1px solid rgba(239,68,68,0.7)";
+        xBtn.style.background = "rgba(239,68,68,0.2)";
+        xBtn.style.color = "#fff";
+        xBtn.style.fontSize = "0.68rem";
+        xBtn.style.fontWeight = "800";
+        xBtn.disabled = !endingTypeVoiceStatusByType[opt.value];
+        xBtn.onclick = () => { void deleteEndingTypeVoice(opt.value); };
+
+        controls.appendChild(volBtn);
+        controls.appendChild(xBtn);
+        row.appendChild(text);
+        row.appendChild(controls);
+        panel.appendChild(row);
+    });
+}
+
+async function refreshEndingTypeVoiceLabels() {
+    const { els } = appState;
+    const endingTypeSelect = els?.inEndingType;
+    if (!endingTypeSelect) return;
+    const options = Array.from(endingTypeSelect.options || []);
+    if (options.length === 0) return;
+    await Promise.all(
+        options.map(async (opt) => {
+            let hasVoice = false;
+            try {
+                const status = await fetchEndingTypeVoiceStatus(opt.value);
+                hasVoice = !!status.exists;
+            } catch {
+                hasVoice = false;
+            }
+            setEndingTypeOptionLabel(opt, hasVoice);
+        }),
+    );
+    applyCustomSelects();
+    renderEndingTypeVoiceStatusPanel();
+}
+
+function getSelectedEndingType() {
+    return String(appState?.els?.inEndingType?.value || "think-you-know");
+}
+
+function updateOutroText() {
+    const endingType = getSelectedEndingType();
+    const outroTitle = document.getElementById("outro-title");
+    const outroSubtitle = document.getElementById("outro-subtitle");
+    if (outroTitle) {
+        outroTitle.innerHTML = ENDING_TYPE_TEXTS[endingType] || ENDING_TYPE_TEXTS["think-you-know"];
+    }
+    if (outroSubtitle) {
+        outroSubtitle.textContent = "LET US KNOW IN THE COMMENTS!";
+    }
+}
+
+window.__getSelectedEndingType = getSelectedEndingType;
 
 const PERFORMANCE_MODE_SESSION_KEY = "lineups:performance-mode";
 const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
@@ -138,14 +397,13 @@ function shortsLandingTitleFromQuizSubtype(els) {
 export function updateLanding() {
     const { els } = appState;
     const title = document.getElementById("landing-title");
+    if (!title) return;
     const isShorts = document.body.classList.contains("shorts-mode");
 
     title.innerHTML = isShorts
         ? shortsLandingTitleFromQuizSubtype(els)
         : "GUESS THE PLAYER<br>BY CAREER STATS";
 
-    const landingQCount = document.getElementById("landing-q-count");
-    if (landingQCount) landingQCount.textContent = appState.totalLevelsCount - 3;
     const valEasy = document.getElementById("val-easy");
     if (valEasy) valEasy.textContent = els.inEasy.value;
     const valMedium = document.getElementById("val-medium");
@@ -156,8 +414,12 @@ export function updateLanding() {
     if (valImpossible) valImpossible.textContent = els.inImpossible.value;
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
-    document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
+    const specificTitleSettings = document.getElementById("specific-title-settings");
+    if (specificTitleSettings) {
+        specificTitleSettings.style.display = showSpecial ? "flex" : "none";
+    }
     const badgeEl = document.getElementById("landing-special-badge");
+    if (!badgeEl) return;
     if (isShorts && showSpecial) {
         if (!appState.isVideoPlaying) {
             badgeEl.hidden = true;
@@ -165,11 +427,15 @@ export function updateLanding() {
     } else {
         badgeEl.hidden = !showSpecial;
     }
-    document.getElementById("landing-special-text").textContent = els.inSpecificTitleText.value;
+    const landingSpecialText = document.getElementById("landing-special-text");
+    if (landingSpecialText) {
+        landingSpecialText.textContent = els.inSpecificTitleText.value;
+    }
 
     const iconVal = els.inSpecificTitleIcon.value;
     const iconImg = document.getElementById("landing-special-icon-img");
     const iconSpan = document.getElementById("landing-special-icon");
+    if (!iconImg || !iconSpan) return;
     if (iconVal.startsWith("icons/")) {
         iconImg.src = projectAssetUrl(iconVal);
         iconImg.hidden = false;
@@ -253,6 +519,7 @@ async function init() {
 
     // Call initialized modules
     initLevelControls();
+    initTransitionsUI();
     initSavedScripts({
         populateSubTypes,
         updateSetupUI,
@@ -260,7 +527,7 @@ async function init() {
         syncShortsCirclePreviewPanel,
     });
 
-    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 20);
+    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 4);
     initLevels(initialLevelCount);
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     const initialLevelIndex = didRestoreState
@@ -288,6 +555,12 @@ async function init() {
         renderSavedScripts();
     };
 
+    els.inEndingType.onchange = () => {
+        updateOutroText();
+        updateLanding();
+        renderEndingTypeVoiceStatusPanel();
+    };
+
     if (els.btnPictureControls) {
         els.btnPictureControls.onclick = () => {
             els.rightPanel.hidden = false;
@@ -309,7 +582,7 @@ async function init() {
 
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
-        if (isNaN(levels) || levels < 1) levels = 20;
+        if (isNaN(levels) || levels < 1) levels = 4;
         initLevels(levels);
         updateLanding();
         switchLevel(appState.currentLevelIndex);
@@ -420,7 +693,7 @@ async function init() {
             stopVideoFlow();
         }
         const isQuestionLevel =
-            appState.currentLevelIndex > 1 &&
+            appState.currentLevelIndex >= 1 &&
             appState.currentLevelIndex < appState.totalLevelsCount;
         if (isQuestionLevel) {
             renderCareer();
@@ -662,6 +935,23 @@ async function init() {
             els.inCareerClubs.value = finalCount;
         }
 
+        /* Reset picture settings to defaults when selecting a new player. */
+        state.silhouetteYOffset = 0;
+        state.silhouetteScaleX = 1.0;
+        state.silhouetteScaleY = 1.0;
+        state.silhouetteVideoYOffset = 0;
+        state.silhouetteVideoScaleX = 1.0;
+        state.silhouetteVideoScaleY = 1.0;
+        state.silhouetteNormalYOffset = 0;
+        state.silhouetteNormalScaleX = 1.0;
+        state.silhouetteNormalScaleY = 1.0;
+        state.silhouetteShortsVideoYOffset = 13;
+        state.silhouetteShortsVideoScaleX = 0.85;
+        state.silhouetteShortsVideoScaleY = 1.0;
+        state.silhouetteShortsNormalYOffset = 0;
+        state.silhouetteShortsNormalScaleX = 1.0;
+        state.silhouetteShortsNormalScaleY = 1.0;
+
         const sourceClub = (pData._clubItem && pData._clubItem.name) ? pData._clubItem.name : "";
         const context = teamLabel || sourceClub || "";
         if (els.careerSelectedInfo) {
@@ -756,6 +1046,9 @@ async function init() {
     wireControlPanelToggle(els);
 
     populateSubTypes();
+    renderEndingTypeVoiceStatusPanel();
+    void refreshEndingTypeVoiceLabels();
+    updateOutroText();
     updateLanding();
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);

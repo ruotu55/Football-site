@@ -1,81 +1,65 @@
 import { appState, getState, migrateShortsVideoOffLegacyNormalProfile } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers } from "./pitch-render.js";
+import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers, refreshCareerPictureControlsDisplay } from "./pitch-render.js";
 import {
   playRules,
-  playWelcomeShortsLanding,
   playProgressVoice,
   playCommentBelow,
   setBgMusicForLevel,
 } from "./audio.js";
+import { runTransition, transitionSettings } from "./transitions.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
 
 export function switchLevel(index) {
+  let idx = index;
+  if (document.body.classList.contains("shorts-mode") && idx === 0) {
+    idx = 1;
+  }
   const prevIndex = appState.currentLevelIndex;
-  appState.currentLevelIndex = index;
+  appState.currentLevelIndex = idx;
   setBgMusicForLevel(appState.currentLevelIndex);
   const state = getState();
   const { els } = appState;
-  const isQuestionLevel = index > 1 && index < appState.totalLevelsCount;
+  const isQuestionLevel = index >= 1 && index < appState.totalLevelsCount;
   if (isQuestionLevel && !state.careerPlayer) {
-    const baselineQuestionState = appState.levelsData[2];
+    const baselineQuestionState = appState.levelsData[1];
     if (baselineQuestionState && baselineQuestionState !== state) {
-      migrateShortsVideoOffLegacyNormalProfile(baselineQuestionState);
       state.careerClubsCount = baselineQuestionState.careerClubsCount;
-      state.silhouetteYOffset = baselineQuestionState.silhouetteYOffset;
-      state.silhouetteScaleX = baselineQuestionState.silhouetteScaleX;
-      state.silhouetteScaleY = baselineQuestionState.silhouetteScaleY;
-      state.silhouetteVideoYOffset = baselineQuestionState.silhouetteVideoYOffset;
-      state.silhouetteVideoScaleX = baselineQuestionState.silhouetteVideoScaleX;
-      state.silhouetteVideoScaleY = baselineQuestionState.silhouetteVideoScaleY;
-      state.silhouetteNormalYOffset = baselineQuestionState.silhouetteNormalYOffset;
-      state.silhouetteNormalScaleX = baselineQuestionState.silhouetteNormalScaleX;
-      state.silhouetteNormalScaleY = baselineQuestionState.silhouetteNormalScaleY;
-      state.silhouetteShortsVideoYOffset =
-        baselineQuestionState.silhouetteShortsVideoYOffset ??
-        baselineQuestionState.silhouetteShortsNormalYOffset ??
-        baselineQuestionState.silhouetteVideoYOffset;
-      state.silhouetteShortsVideoScaleX =
-        baselineQuestionState.silhouetteShortsVideoScaleX ??
-        baselineQuestionState.silhouetteShortsNormalScaleX ??
-        baselineQuestionState.silhouetteVideoScaleX;
-      state.silhouetteShortsVideoScaleY =
-        baselineQuestionState.silhouetteShortsVideoScaleY ??
-        baselineQuestionState.silhouetteShortsNormalScaleY ??
-        baselineQuestionState.silhouetteVideoScaleY;
-      state.silhouetteShortsNormalYOffset =
-        baselineQuestionState.silhouetteShortsNormalYOffset ??
-        baselineQuestionState.silhouetteNormalYOffset;
-      state.silhouetteShortsNormalScaleX =
-        baselineQuestionState.silhouetteShortsNormalScaleX ??
-        baselineQuestionState.silhouetteNormalScaleX;
-      state.silhouetteShortsNormalScaleY =
-        baselineQuestionState.silhouetteShortsNormalScaleY ??
-        baselineQuestionState.silhouetteNormalScaleY;
-      state.careerSlotBadgeScales = Array.isArray(baselineQuestionState.careerSlotBadgeScales)
-        ? [...baselineQuestionState.careerSlotBadgeScales]
-        : [];
-      state.careerSlotBadgeScalesRegular = Array.isArray(baselineQuestionState.careerSlotBadgeScalesRegular)
-        ? [...baselineQuestionState.careerSlotBadgeScalesRegular]
-        : [...state.careerSlotBadgeScales];
-      state.careerSlotBadgeScalesShorts = Array.isArray(baselineQuestionState.careerSlotBadgeScalesShorts)
-        ? [...baselineQuestionState.careerSlotBadgeScalesShorts]
-        : [...state.careerSlotBadgeScales];
-      state.careerSlotYearNudges = Array.isArray(baselineQuestionState.careerSlotYearNudges)
-        ? [...baselineQuestionState.careerSlotYearNudges]
-        : [];
+      /* Each level starts with fresh default picture settings (3 / 0.90 / 0.90). */
+      state.silhouetteYOffset = 3;
+      state.silhouetteScaleX = 0.90;
+      state.silhouetteScaleY = 0.90;
+      state.silhouetteVideoYOffset = 3;
+      state.silhouetteVideoScaleX = 0.90;
+      state.silhouetteVideoScaleY = 0.90;
+      state.silhouetteNormalYOffset = 3;
+      state.silhouetteNormalScaleX = 0.90;
+      state.silhouetteNormalScaleY = 0.90;
+      state.silhouetteShortsVideoYOffset = 3;
+      state.silhouetteShortsVideoScaleX = 0.90;
+      state.silhouetteShortsVideoScaleY = 0.90;
+      state.silhouetteShortsNormalYOffset = -7;
+      state.silhouetteShortsNormalScaleX = 0.90;
+      state.silhouetteShortsNormalScaleY = 0.90;
+      state.careerSlotBadgeScales = [];
+      state.careerSlotBadgeScalesRegular = [];
+      state.careerSlotBadgeScalesShorts = [];
+      state.careerSlotYearNudges = [];
     }
   }
   const isShortsNow = document.body.classList.contains("shorts-mode");
   const isQuestionToQuestionTransition =
-    index !== prevIndex &&
+    idx !== prevIndex &&
     !isShortsNow &&
-    prevIndex > 1 &&
+    prevIndex >= 1 &&
     prevIndex < appState.totalLevelsCount &&
-    index > 1 &&
-    index < appState.totalLevelsCount;
+    idx >= 1 &&
+    idx < appState.totalLevelsCount;
+
+  /* Immediately refresh the Adjust Picture panel so it shows the new level's values without waiting for transitions. */
+  refreshCareerPictureControlsDisplay(state);
 
   els.squadType.value = state.squadType;
   els.formation.value = state.formationId;
@@ -111,16 +95,16 @@ export function switchLevel(index) {
   }
   els.teamResults.replaceChildren();
 
-  renderProgressSteps(appState.totalLevelsCount, switchLevel);
-
   const stageMain = document.getElementById("stage-main");
   const progressContainer = els.quizProgressContainer;
 
   const updateDOMContent = () => {
+    renderProgressSteps(appState.totalLevelsCount, switchLevel);
+
     const isLogo = appState.currentLevelIndex === 0;
-    const isLanding = appState.currentLevelIndex === 1;
-    const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     const isShorts = document.body.classList.contains("shorts-mode");
+    const isLanding = appState.currentLevelIndex === 1 && !isShorts;
+    const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     if (els.landingPage && !isLanding) {
       els.landingPage.classList.remove(
         "landing-content-awaiting-shift",
@@ -135,7 +119,7 @@ export function switchLevel(index) {
     }
     
     if (els.sideTextRight) {
-      els.sideTextRight.hidden = isLanding || !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
+      els.sideTextRight.hidden = !((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
     }
 
     els.logoPage.hidden = true;
@@ -149,10 +133,10 @@ export function switchLevel(index) {
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
-      if (!isLogo && !isShorts) {
+      if (!isLogo && !isShorts && !isOutro) {
         logoImg.classList.add("shift-top-right");
         logoImg.classList.remove("reveal");
-      } else if (isLogo) {
+      } else if (isLogo || isOutro) {
         logoImg.classList.remove("shift-top-right");
       }
     }
@@ -172,16 +156,8 @@ export function switchLevel(index) {
         }
       }
     } else if (isLanding) {
-      if (isShorts) {
-        els.logoPage.hidden = false;
-        els.landingPage.hidden = true;
-      } else {
-        els.logoPage.hidden = true;
-        els.landingPage.hidden = false;
-      }
-      if (isShorts && appState.isVideoPlaying) {
-        appState.refreshLandingUi?.();
-      }
+      els.logoPage.hidden = true;
+      els.landingPage.hidden = false;
       if (pendingLogoToLandingContentReveal) {
         els.landingPage.classList.add("landing-content-awaiting-shift");
         els.landingPage.classList.remove("landing-content-slide-in");
@@ -207,6 +183,14 @@ export function switchLevel(index) {
 
       renderCareer();
       renderHeader();
+
+      // During video playback, ensure the new level loads in hidden/silhouette
+      // state so the player isn't briefly shown revealed before runVideoStep.
+      if (appState.isVideoPlaying && isShorts && !isLogo && !isLanding && !isOutro) {
+        document.body.classList.add("shorts-play-pre-countdown");
+        syncShortsCareerVideoPreviewLayers();
+      }
+
       if (isQuestionToQuestionTransition && els.careerWrap) {
         els.careerWrap.classList.remove("video-question-enter-anim");
         void els.careerWrap.offsetWidth;
@@ -226,20 +210,14 @@ export function switchLevel(index) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
     
-    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+    if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
       playCommentBelow();
     }
 
     if (appState.isVideoPlaying) {
       if (isLanding) {
-        if (isShorts) {
-          if (prevIndex !== 0) {
-            void playWelcomeShortsLanding();
-          }
-        } else {
-          const quizType = document.getElementById("in-quiz-type").value;
-          playRules(quizType);
-        }
+        const quizType = document.getElementById("in-quiz-type").value;
+        playRules(quizType);
       } else if (
         !isLogo &&
         !isShorts &&
@@ -332,8 +310,8 @@ export function switchLevel(index) {
     const isShortsFromLogoToFirstQuestion =
       isShorts &&
       prevIndex === 0 &&
-      index >= 2 &&
-      index < appState.totalLevelsCount &&
+      idx >= 1 &&
+      idx < appState.totalLevelsCount &&
       appState.isVideoPlaying;
     if (isShortsFromLogoToFirstQuestion) {
       stageMain.classList.remove(
@@ -365,38 +343,75 @@ export function switchLevel(index) {
       return;
     }
 
-    const exitClass = "stage-exit-video-anim";
-    const enterClass = "stage-enter-video-anim";
-    const transitionDelay = 820;
+    const useCustomTransition = transitionSettings.effect !== "none";
 
-    stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
-    stageMain.classList.add(exitClass);
+    if (useCustomTransition) {
+      stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim", "stage-enter-anim", "stage-enter-video-anim");
+      if (progressContainer) {
+        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
+        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      }
+      appState._transitionDone = runTransition(() => {
+        // Disable CSS transitions on all animated elements so they appear
+        // instantly in their final position when the overlay reveals.
+        const careerWrap = els.careerWrap;
+        const teamHeader = els.teamHeader;
+        const careerGrid = document.querySelector(".career-grid");
+        const careerSilhouette = document.querySelector(".career-silhouette");
+        const revealPhoto = document.getElementById("career-reveal-photo");
+        const snapEls = [careerWrap, teamHeader, careerGrid, careerSilhouette, revealPhoto];
+        snapEls.forEach(el => { if (el) el.style.transition = "none"; });
 
-    if (progressContainer) {
-      progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
-      progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
-    }
+        updateDOMContent();
 
-    setTimeout(() => {
-      updateDOMContent();
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
-          void stageMain.offsetWidth;
-          stageMain.classList.add(enterClass);
+        // Re-query elements that may have been recreated by renderCareer
+        const freshGrid = document.querySelector(".career-grid");
+        const freshSil = document.querySelector(".career-silhouette");
+        const freshPhoto = document.getElementById("career-reveal-photo");
+        const allEls = [...snapEls, freshGrid, freshSil, freshPhoto];
+        // Flush the instant layout, then restore transitions
+        allEls.forEach(el => { if (el) { void el.offsetWidth; el.style.transition = ""; } });
 
-          if (progressContainer) {
-            progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
-            void progressContainer.offsetWidth;
-            progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
-          }
-
-          setTimeout(() => {
-            stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
-          }, 820);
-        });
+        if (progressContainer) {
+          progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+          void progressContainer.offsetWidth;
+          progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+        }
       });
-    }, transitionDelay);
+    } else {
+      const exitClass = "stage-exit-video-anim";
+      const enterClass = "stage-enter-video-anim";
+      const transitionDelay = 820;
+
+      stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+      stageMain.classList.add(exitClass);
+
+      if (progressContainer) {
+        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
+        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      }
+
+      setTimeout(() => {
+        updateDOMContent();
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim");
+            void stageMain.offsetWidth;
+            stageMain.classList.add(enterClass);
+
+            if (progressContainer) {
+              progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+              void progressContainer.offsetWidth;
+              progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+            }
+
+            setTimeout(() => {
+              stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
+            }, 820);
+          });
+        });
+      }, transitionDelay);
+    }
   } else {
     updateDOMContent();
   }

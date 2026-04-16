@@ -131,6 +131,11 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
   if (!th) {
     return;
   }
+  // During overlay transitions between quiz levels, keep sidebar exactly as-is
+  if (appState._preserveTeamSidebar && appState.teamSidebarLastOpen) {
+    appState.teamSidebarLastKey = String(slideKey || "");
+    return;
+  }
   if (th.hidden || !wantsOpen) {
     appState.teamSidebarAnimGeneration += 1;
     th.classList.remove("team-header--show");
@@ -138,7 +143,6 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
     appState.teamSidebarLastKey = "";
     return;
   }
-  const key = String(slideKey || "");
   const needSlideIn =
     !appState.teamSidebarLastOpen || key !== appState.teamSidebarLastKey;
   if (needSlideIn) {
@@ -1059,11 +1063,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         });
       }
     }
-    if (
-      state.videoMode &&
-      !appState.isVideoPlaying &&
-      !document.body.classList.contains("thumbnail-maker-active")
-    ) {
+    if (state.videoMode && !appState.isVideoPlaying) {
       appendSlotBadgeZoomControls(mount, slotIndex);
     }
   } else {
@@ -1144,11 +1144,9 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
 export function renderPitch() {
   const state = getState();
-  const isThumbnailMakerMode = document.body.classList.contains("thumbnail-maker-active");
-  const effectiveFormationId = isThumbnailMakerMode ? "451" : state.formationId;
-  const formation = formationById(effectiveFormationId);
+  const formation = formationById(state.formationId);
   const displayMode = state.displayMode;
-  const useVideoQuestionLayout = isThumbnailMakerMode ? true : shouldUseVideoQuestionLayout(state);
+  const useVideoQuestionLayout = shouldUseVideoQuestionLayout(state);
   const inlineTeamPicker = document.getElementById("lineups-inline-team-picker");
   if (inlineTeamPicker) {
     inlineTeamPicker.hidden = !!state.currentSquad;
@@ -1160,13 +1158,13 @@ export function renderPitch() {
   } else if (
     state.customXi &&
     state.customXi.length === formation.slots.length &&
-    state.lastFormationId === effectiveFormationId
+    state.lastFormationId === state.formationId
   ) {
     xi = state.customXi;
   } else {
     xi = pickStartingXI(formation, state.currentSquad);
     state.customXi = [...xi];
-    state.lastFormationId = effectiveFormationId;
+    state.lastFormationId = state.formationId;
   }
 
   appState.currentXi = xi;

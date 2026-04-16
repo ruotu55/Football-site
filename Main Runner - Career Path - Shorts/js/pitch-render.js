@@ -3,6 +3,9 @@
 import {
   appState,
   DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X,
+  DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET,
+  DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET,
+  DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
   DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
   DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
   DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
@@ -73,6 +76,8 @@ function hookCareerRevealNameFitOnResize() {
 /** Shrink only lines that overflow the reveal name box (white top / red bottom independent). */
 function fitCareerRevealNameLines(revealNameEl) {
   if (!revealNameEl) return;
+  // Skip fitting in shorts mode — let CSS handle sizing (matches Player stats shorts behaviour)
+  if (document.body.classList.contains("shorts-mode")) return;
   const maxW = getCareerRevealNameFitBudgetPx(revealNameEl);
   if (maxW <= 8) return;
   const fitLine = (el) => {
@@ -883,7 +888,7 @@ export function openCareerEditModal(slotIndex) {
 
 export function shouldUseVideoQuestionLayout(state = getState()) {
   if (!state || !state.careerPlayer) return false;
-  return appState.currentLevelIndex > 1 && appState.currentLevelIndex < appState.totalLevelsCount;
+  return appState.currentLevelIndex >= 1 && appState.currentLevelIndex < appState.totalLevelsCount;
 }
 
 export function getVideoQuestionPreviewState(state = getState()) {
@@ -923,12 +928,20 @@ export function renderHeader() {
   const state = getState();
   const { els } = appState;
   const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
+  const isShorts = document.body.classList.contains("shorts-mode");
+  /* Level-1 career (etc.): previewPreTimer is false because shouldUseVideoQuestionLayout is false — still collapse header in Video Mode so layout matches question / Play Video. */
+  const shortsCareerVideoHeaderCollapse =
+    isShorts &&
+    !!state.videoMode &&
+    !previewPostTimer &&
+    els.careerWrap &&
+    !els.careerWrap.hidden;
 
   if (els.teamHeader) {
     els.teamHeader.dataset.squadType = state.squadType;
   }
 
-  if (previewPreTimer) {
+  if ((previewPreTimer || shortsCareerVideoHeaderCollapse) && els.teamHeader) {
     // Force the same pre-countdown geometry on every question level.
     els.teamHeader.classList.remove("video-revealed");
     els.teamHeader.classList.add("video-hidden");
@@ -942,7 +955,7 @@ export function renderHeader() {
 
   const nm = state.careerPlayer?.name?.trim();
   if (els.headerName) {
-    els.headerName.textContent = nm ? nm.toUpperCase() : CAREER_NO_PLAYER_LABEL;
+    els.headerName.textContent = nm ? nm.toUpperCase() : "";
   }
   syncPlayerVoiceControls(nm || "");
   if (els.headerLogo) els.headerLogo.hidden = true;
@@ -1083,6 +1096,9 @@ export function renderCareer() {
   }
 
   wrap.innerHTML = "";
+  /* Remove stray reveal name from older builds (was appended outside .career-wrap). */
+  const oldRevealName = document.getElementById("career-reveal-name");
+  if (oldRevealName) oldRevealName.remove();
 
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
@@ -2206,7 +2222,7 @@ export function renderCareer() {
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
   const careerGrid = wrap.querySelector(".career-grid");
   const revealOverlay = wrap.querySelector("#career-reveal-overlay");
-  const revealName = wrap.querySelector("#career-reveal-name");
+  const revealName = document.getElementById("career-reveal-name");
   if (revealPhoto) {
     revealPhoto.classList.toggle("show", previewPostTimer || (isShorts && previewPreTimer));
   }
@@ -2258,6 +2274,16 @@ function mountCareerPictureControlsPanel(panel) {
 function renderCareerPictureControls(wrap, state) {
   if (!wrap) return;
   const isShorts = document.body.classList.contains("shorts-mode");
+  const isShortsVideo = isShorts && state.videoMode;
+  const yDisplayOffset = isShorts
+    ? (isShortsVideo ? DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET : DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET)
+    : 0;
+  const scaleXDisplayOffset = isShorts
+    ? (isShortsVideo ? (1.0 - DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) : (1.0 - DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X))
+    : 0;
+  const scaleYDisplayOffset = isShorts
+    ? (isShortsVideo ? (1.0 - DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) : (1.0 - DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X))
+    : 0;
   const useShortsPanelLayout = false;
   const inPlayVideoFlow = shouldUseVideoQuestionLayout(state);
   const hide = appState.isVideoPlaying || inPlayVideoFlow;
@@ -2273,7 +2299,7 @@ function renderCareerPictureControls(wrap, state) {
       <span>Up / Down</span>
       <div class="career-picture-controls-actions career-picture-controls-actions--favorite">
         <button type="button" data-action="up">▲</button>
-        <strong data-value="y">${state.silhouetteYOffset || 0}</strong>
+        <strong data-value="y">${(state.silhouetteYOffset || 0) - yDisplayOffset}</strong>
         <button type="button" data-action="down">▼</button>
         <button
           type="button"
@@ -2288,7 +2314,7 @@ function renderCareerPictureControls(wrap, state) {
       <span>Width</span>
       <div class="career-picture-controls-actions">
         <button type="button" data-action="narrow">-</button>
-        <strong data-value="x">${(state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2)}</strong>
+        <strong data-value="x">${((state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + scaleXDisplayOffset).toFixed(2)}</strong>
         <button type="button" data-action="wide">+</button>
       </div>
     </label>
@@ -2296,7 +2322,7 @@ function renderCareerPictureControls(wrap, state) {
       <span>Height</span>
       <div class="career-picture-controls-actions">
         <button type="button" data-action="short">-</button>
-        <strong data-value="ys">${(state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2)}</strong>
+        <strong data-value="ys">${((state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + scaleYDisplayOffset).toFixed(2)}</strong>
         <button type="button" data-action="tall">+</button>
       </div>
     </label>
@@ -2328,9 +2354,17 @@ function renderCareerPictureControls(wrap, state) {
       }
       persistCareerPictureModeFromActiveState(st, layoutShorts);
 
-      panel.querySelector('[data-value="y"]').textContent = st.silhouetteYOffset || 0;
-      panel.querySelector('[data-value="x"]').textContent = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
-      panel.querySelector('[data-value="ys"]').textContent = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
+      /* Compute display offsets dynamically so they stay correct after video mode toggles. */
+      const layoutShortsVideo = layoutShorts && st.videoMode;
+      const dynYOffset = layoutShorts
+        ? (layoutShortsVideo ? DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET : DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET)
+        : 0;
+      const dynScaleOffset = layoutShorts
+        ? (layoutShortsVideo ? (1.0 - DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) : (1.0 - DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X))
+        : 0;
+      panel.querySelector('[data-value="y"]').textContent = (st.silhouetteYOffset || 0) - dynYOffset;
+      panel.querySelector('[data-value="x"]').textContent = ((st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + dynScaleOffset).toFixed(2);
+      panel.querySelector('[data-value="ys"]').textContent = ((st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + dynScaleOffset).toFixed(2);
       const favoriteBtn = panel.querySelector('[data-action="favorite"]');
       if (favoriteBtn) {
         const isFavorite = hasCareerPictureFavorite(st);
@@ -2375,9 +2409,27 @@ function renderCareerPictureControls(wrap, state) {
     }
   }
 
-  panel.querySelector('[data-value="y"]').textContent = state.silhouetteYOffset || 0;
-  panel.querySelector('[data-value="x"]').textContent = (state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
-  panel.querySelector('[data-value="ys"]').textContent = (state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
+  refreshCareerPictureControlsDisplay(state);
+}
+
+/** Immediately update the Adjust Picture panel values from the given state. */
+export function refreshCareerPictureControlsDisplay(state) {
+  const panel = document.getElementById("career-picture-controls-floating");
+  if (!panel || !state) return;
+  const isShorts = document.body.classList.contains("shorts-mode");
+  const isShortsVideo = isShorts && state.videoMode;
+  const yOff = isShorts
+    ? (isShortsVideo ? DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET : DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET)
+    : 0;
+  const scaleOff = isShorts
+    ? (isShortsVideo ? (1.0 - DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) : (1.0 - DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X))
+    : 0;
+  const yEl = panel.querySelector('[data-value="y"]');
+  const xEl = panel.querySelector('[data-value="x"]');
+  const ysEl = panel.querySelector('[data-value="ys"]');
+  if (yEl) yEl.textContent = (state.silhouetteYOffset || 0) - yOff;
+  if (xEl) xEl.textContent = ((state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + scaleOff).toFixed(2);
+  if (ysEl) ysEl.textContent = ((state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + scaleOff).toFixed(2);
   const favoriteBtn = panel.querySelector('[data-action="favorite"]');
   if (favoriteBtn) {
     const isFavorite = hasCareerPictureFavorite(state);

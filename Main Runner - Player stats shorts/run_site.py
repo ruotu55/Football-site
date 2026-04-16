@@ -40,6 +40,15 @@ _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
 DEFAULT_PORT = 8887
 CAREER_SIZE_FAVORITES_FILE = RUNNER_DIR / "storage" / "career-size-favorites.json"
+ENDING_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Ending Guess"
+ENDING_VOICE_FILE_BY_TYPE = {
+    "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+}
+ENDING_VOICE_PROMPT_BY_TYPE = {
+    "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
+    "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
+}
 LIVE_RELOAD_POLL_SECONDS = 0.6
 LIVE_RELOAD_HEARTBEAT_SECONDS = 2.0
 LIVE_RELOAD_IGNORED_DIRS = {".git", ".hg", ".svn", ".idea", ".vscode", "__pycache__", "node_modules", "storage"}
@@ -129,6 +138,22 @@ def _write_size_favorites_file(data: dict[str, dict[str, float]]) -> None:
     )
 
 
+def _normalize_ending_voice_inputs(
+    ending_type: str | None,
+) -> tuple[str, str, Path]:
+    et = str(ending_type or "").strip()
+    if et not in ENDING_VOICE_FILE_BY_TYPE:
+        raise ValueError("Unsupported ending type.")
+    filename = ENDING_VOICE_FILE_BY_TYPE[et]
+    prompt = ENDING_VOICE_PROMPT_BY_TYPE.get(et) or filename.removesuffix(".mp3")
+    return et, prompt, ENDING_VOICE_DIR / filename
+
+
+def _project_relative_web_path(path: Path) -> str:
+    rel_parts = path.relative_to(PROJECT_ROOT).parts
+    return "/" + "/".join(quote(p, safe="") for p in rel_parts)
+
+
 def _iter_watchable_files() -> list[Path]:
     files: list[Path] = []
     for root, dirs, filenames in os.walk(RUNNER_DIR):
@@ -214,6 +239,87 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _read_json_body(self) -> dict:
+        content_len = int(self.headers.get("Content-Length", "0"))
+        if content_len > 2_000_000:
+            raise ValueError("Payload too large")
+        raw = self.rfile.read(max(content_len, 0))
+        return json.loads(raw.decode("utf-8") if raw else "{}")
+
+    def _try_serve_ending_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ending-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part:
+                continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
+                query.get("endingType"),
+            )
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        self._send_json(
+            200,
+            {
+                "ok": True,
+                "exists": out_path.is_file(),
+                "src": _project_relative_web_path(out_path) if out_path.is_file() else "",
+            },
+        )
+        return True
+
+    def _try_generate_ending_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ending-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            _ending_type, prompt_text, out_path = _normalize_ending_voice_inputs(
+                body.get("endingType"),
+            )
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        # Return the existing file if already generated
+        if out_path.exists() and out_path.stat().st_size > 0:
+            self._send_json(
+                200,
+                {
+                    "ok": True,
+                    "src": _project_relative_web_path(out_path),
+                },
+            )
+            return True
+        # Voice generation not available in this runner — report not found
+        self._send_json(502, {"ok": False, "error": "Voice generation not available in this runner."})
+        return True
+
+    def _try_delete_ending_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ending-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
+                body.get("endingType"),
+            )
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        removed = 0
+        if out_path.exists():
+            out_path.unlink(missing_ok=True)
+            removed = 1
+        self._send_json(200, {"ok": True, "removed": removed})
+        return True
+
     def _send_live_reload_stream(self) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -252,6 +358,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if self._try_serve_ending_voice_status():
             return
         if self._is_live_reload_endpoint():
             self._send_live_reload_stream()
@@ -298,6 +406,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if self._try_generate_ending_voice():
+            return
+        if self._try_delete_ending_voice():
             return
         if not self._is_size_favorites_endpoint():
             self._send_json(404, {"error": "Not found"})

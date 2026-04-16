@@ -185,12 +185,11 @@ body.shorts-mode .slot-name {
 body.shorts-mode .quiz-progress {
     flex-direction: row;
     top: auto;
-    bottom: calc(3.5rem + 7vh);
+    bottom: calc(3.5rem + 5vh);
     left: 50%;
     right: auto;
     transform: translateX(-50%);
     width: auto;
-    max-width: 50vh;
     justify-content: center;
 }
 
@@ -214,32 +213,32 @@ body.shorts-mode .quiz-progress-track {
 
 body.shorts-mode .quiz-progress-scroll {
     flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: visible;
     padding: 0.2rem 0.6rem;
     height: auto;
-    width: 21rem;
-    scroll-behavior: smooth;
+    width: auto;
+    gap: 0.4rem;
 }
 
 body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
-    display: block;
-    height: 4px;
+    display: none;
 }
 
-body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
+body.shorts-mode .quiz-progress .step-dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.15rem;
 }
 
-body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-body.shorts-mode .quiz-progress .line {
-    width: 15px;
-    height: 4px;
-    margin: 0 0.3rem;
+body.shorts-mode .quiz-progress .step-dots::before,
+body.shorts-mode .quiz-progress .step-dots::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 /* High enough to clear pitch crests; still below the very top of the frame */
@@ -342,6 +341,9 @@ body.shorts-mode .stage-enter-anim {
 /* Outro only: move logo, headings, and like/subscribe up; quiz bar stays on .stage (sibling). */
 body.shorts-mode #outro-page:not([hidden]) {
     --outro-float-base-y: -10vh;
+    /* Shift whole outro stack down 10% of viewport (shorts end card). */
+    padding-top: 10vh;
+    box-sizing: border-box;
 }
 
 body.shorts-mode .outro-top-row .outro-action {

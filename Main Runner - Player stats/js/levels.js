@@ -3,6 +3,7 @@ import { renderProgressSteps } from "./progress.js";
 import { getVideoQuestionPreviewState, renderHeader, renderCareer } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
+import { runTransition, transitionSettings } from "./transitions.js";
 
 /** Classes removed before each video stage transition step (see `css/components/transitions.css`). */
 const VIDEO_STAGE_ANIM_CLASSES = [
@@ -135,16 +136,12 @@ export function switchLevel(
   els.teamResults.replaceChildren();
 
   const stageMain = document.getElementById("stage-main");
-  /* Play Video fade: rebuilding progress here scrolls the strip and shifts layout before opacity runs. */
-  const deferPlayVideoProgressRefresh =
-    !!syncFullViewportVideoStage && !immediate && !!stageMain;
-  if (!deferPlayVideoProgressRefresh) {
-    renderProgressSteps(appState.totalLevelsCount, switchLevel);
-  }
 
   const progressContainer = els.quizProgressContainer;
 
   const updateDOMContent = () => {
+    renderProgressSteps(appState.totalLevelsCount, switchLevel);
+
     const isLogo = appState.currentLevelIndex === 0;
     const isLanding = appState.currentLevelIndex === 1;
     const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
@@ -182,10 +179,10 @@ export function switchLevel(
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
-      if (!isLogo && !isShorts) {
+      if (!isLogo && !isShorts && !isOutro) {
         logoImg.classList.add("shift-top-right");
         logoImg.classList.remove("reveal");
-      } else if (isLogo) {
+      } else if (isLogo || isOutro) {
         logoImg.classList.remove("shift-top-right");
       }
     }
@@ -279,7 +276,7 @@ export function switchLevel(
       }
     }
     
-    if (isOutro && prevIndex !== appState.totalLevelsCount) {
+    if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
       playCommentBelow();
     }
 
@@ -371,6 +368,24 @@ export function switchLevel(
       }, 820);
       return;
     }
+
+    const useCustomTransition = transitionSettings.effect !== "none";
+
+    if (useCustomTransition) {
+      stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim", "stage-enter-anim", "stage-enter-video-anim");
+      if (progressContainer) {
+        progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
+        progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
+      }
+      appState._transitionDone = runTransition(() => {
+        updateDOMContent();
+        if (progressContainer) {
+          progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
+          void progressContainer.offsetWidth;
+          progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
+        }
+      });
+    } else {
 
     const exitClass = "stage-exit-video-anim";
     const enterClass = "stage-enter-video-anim";
@@ -473,9 +488,6 @@ export function switchLevel(
            enter-done cleanup alongside `afterPlayVideoStageEnterDone`. */
         if (typeof afterPlayVideoStageDomUpdate === "function") afterPlayVideoStageDomUpdate();
       }
-      if (deferPlayVideoProgressRefresh) {
-        renderProgressSteps(appState.totalLevelsCount, switchLevel);
-      }
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           /* Clear cinematic blur NOW — before any enter animation class is added.
@@ -566,6 +578,7 @@ export function switchLevel(
         });
       });
     }, transitionDelay);
+    } // end else (default CSS transition)
   } else {
     updateDOMContent();
   }

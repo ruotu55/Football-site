@@ -68,6 +68,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inSpecificTitleIcon: els.inSpecificTitleIcon?.value ?? null,
             shortsModeToggle: FIXED_SHORTS_MODE,
             inQuizType: els.inQuizType?.value ?? null,
+            inEndingType: els.inEndingType?.value ?? null,
             squadType: els.squadType?.value ?? null,
             displayMode: els.displayMode?.value ?? null,
             formation: els.formation?.value ?? null,
@@ -95,6 +96,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
         els.shortsModeToggle.disabled = true;
     }
     if (els.inQuizType && c.inQuizType != null) els.inQuizType.value = c.inQuizType;
+    if (els.inEndingType && c.inEndingType != null) els.inEndingType.value = c.inEndingType;
     if (els.squadType && c.squadType != null) els.squadType.value = c.squadType;
     if (els.displayMode && c.displayMode != null) els.displayMode.value = c.displayMode;
     if (els.formation && c.formation != null) els.formation.value = c.formation;
@@ -107,7 +109,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     }
 }
 
-export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 20) {
+export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 29) {
     if (!snapshot || !Number.isFinite(snapshot.totalLevelsCount)) return fallbackCount;
     return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 3);
 }

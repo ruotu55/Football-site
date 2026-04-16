@@ -35,35 +35,6 @@
   text-shadow: 0 6px 18px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5);
   animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
 }
-.landing-q-badge {
-  position: relative;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.6);
-  border: 3px solid #fff;
-  padding: 0.5rem 1.6rem;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  margin-bottom: 2.5rem;
-  transform: perspective(500px) rotateX(5deg);
-  animation: float-up-down-tilted 3.2s ease-in-out infinite; /* Slightly tilted animation */
-}
-.q-number { color: #fff; font-family: "Barlow Condensed"; font-size: 2.8rem; font-weight: 800; line-height: 1; }
-.q-text { color: #fff; font-family: "Barlow Condensed"; font-size: 2rem; font-weight: 800; line-height: 1; margin-top: 0.2rem; }
-.bonus-pill { 
-  background: var(--lime); 
-  color: #fff; 
-  font-family: "Barlow Condensed"; 
-  font-size: 1.6rem; 
-  font-weight: 800; 
-  padding: 0.15rem 0.9rem; 
-  border-radius: 25px; 
-  line-height: 1; 
-  margin-top: 0.2rem; 
-}
-
 .difficulty-box {
   position: relative;
   z-index: 10;
@@ -297,9 +268,16 @@ body:not(.shorts-mode) .landing-special-badge-container:not([hidden]) {
   animation: outro-page-float-sync 3.2s ease-in-out infinite;
 }
 
-#outro-page:not([hidden]) .outro-top-row,
 #outro-page:not([hidden]) .outro-bottom-row {
   animation: outro-content-follow-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* Center logo: keep static like headings (row animation moved entire .outro-top-row from above). */
+#outro-page:not([hidden]) .outro-top-row .logo-img-anim {
+  animation: none;
+  opacity: 1;
+  transform: none;
+  filter: none;
 }
 
 #outro-page:not([hidden]) .action-like {

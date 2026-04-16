@@ -37,8 +37,8 @@
   /* Extra bottom room so the bonus step label (absolute, below the circle) stays inside the scrollport */
   padding: 0.6rem 0.2rem 1.35rem;
   height: 24.55rem;
-  scroll-behavior: smooth;
-  scrollbar-width: none; 
+  scroll-behavior: auto;
+  scrollbar-width: none;
   -ms-overflow-style: none; 
 }
 
@@ -56,32 +56,44 @@
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  line-height: 1;
   background: rgba(17, 17, 17, 0.8);
   flex-shrink: 0;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: background-color 0.8s ease-in-out, border-color 0.8s ease-in-out, color 0.8s ease-in-out;
+  transition: none;
 }
 
 .quiz-progress .line {
   flex-shrink: 0;
   width: 4px;
-  height: 20px; 
+  height: 20px;
   background: rgba(255, 255, 255, 0.25);
   margin: 0.4rem 0;
   border-radius: 2px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  transition: background-color 0.8s ease-in-out;
+  transition: none;
 }
 
-.bonus-step { position: relative; }
+.bonus-step {
+  position: relative;
+  background: #d32f2f !important;
+}
+.bonus-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.5rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  text-transform: uppercase;
+}
 .bonus-step-label {
-  position: absolute;
-  bottom: -1.2rem;
-  font-size: 0.6rem;
-  color: #ffca28;
-  font-weight: 800;
-  letter-spacing: 1px;
+  display: none;
 }
 
 .difficulty-label {

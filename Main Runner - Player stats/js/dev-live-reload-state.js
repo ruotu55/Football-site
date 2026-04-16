@@ -66,6 +66,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inSpecificTitleToggle: !!els.inSpecificTitleToggle?.checked,
             inSpecificTitleText: els.inSpecificTitleText?.value ?? null,
             inSpecificTitleIcon: els.inSpecificTitleIcon?.value ?? null,
+            inEndingType: els.inEndingType?.value ?? null,
             shortsModeToggle: FIXED_SHORTS_MODE,
             shortsCirclePreviewToggle: !!els.shortsCirclePreviewToggle?.checked,
             shortsCirclePreviewCount: els.shortsCirclePreviewCount?.value ?? null,
@@ -86,6 +87,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.inSpecificTitleToggle) els.inSpecificTitleToggle.checked = !!c.inSpecificTitleToggle;
     if (els.inSpecificTitleText && c.inSpecificTitleText != null) els.inSpecificTitleText.value = c.inSpecificTitleText;
     if (els.inSpecificTitleIcon && c.inSpecificTitleIcon != null) els.inSpecificTitleIcon.value = c.inSpecificTitleIcon;
+    if (els.inEndingType && c.inEndingType != null) els.inEndingType.value = c.inEndingType;
     if (els.shortsModeToggle) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
         els.shortsModeToggle.disabled = true;
@@ -101,7 +103,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     }
 }
 
-export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 20) {
+export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 29) {
     if (!snapshot || !Number.isFinite(snapshot.totalLevelsCount)) return fallbackCount;
     return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 3);
 }

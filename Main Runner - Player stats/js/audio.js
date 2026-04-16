@@ -22,6 +22,9 @@ const paths = {
   commentBelow: "../.Storage/Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowLegacy: "../.Storage/Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowEncodedQ: "../.Storage/Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGet: "../.Storage/Voices/Ending Guess/How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGetLegacy: "../.Storage/Voices/Ending Guess/How many did you get? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGetEncodedQ: "../.Storage/Voices/Ending Guess/How many did you get%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../.Storage/Voices/Ticking sound/ticking sound.mp3"
 };
 
@@ -204,25 +207,28 @@ export function playVoice(src, delayMs = 1000) {
   if (currentVoice) {
     currentVoice.pause();
   }
-  
+
   clearTimeout(duckingTimeout);
   clearTimeout(restoreTimeout);
-  
+
   // 1. Immediately start smoothly fading down over the delay period
   fadeBgm(DUCKED_VOL, delayMs);
 
   // 2. Play the voice after the delay finishes
-  duckingTimeout = setTimeout(() => {
-    currentVoice = new Audio(src);
-    currentVoice.play().catch(err => console.warn("Voice play error:", err));
-    
-    // 3. When voice finishes, wait 1s, then smoothly fade back up
-    currentVoice.addEventListener('ended', () => {
-      restoreTimeout = setTimeout(() => {
-        fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
-      }, 1000); // wait 1s after voice ends
-    });
-  }, delayMs);
+  return new Promise((resolve) => {
+    duckingTimeout = setTimeout(() => {
+      currentVoice = new Audio(src);
+      currentVoice.play().catch(err => console.warn("Voice play error:", err));
+
+      // 3. When voice finishes, wait 1s, then smoothly fade back up
+      currentVoice.addEventListener('ended', () => {
+        resolve();
+        restoreTimeout = setTimeout(() => {
+          fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
+        }, 1000); // wait 1s after voice ends
+      });
+    }, delayMs);
+  });
 }
 
 export function playTicking() {
@@ -242,34 +248,34 @@ export function stopTicking() {
 }
 
 export function playRules(quizType, delayMs = 1000) {
+  if (!appState.isVideoPlaying) return Promise.resolve();
   const playFallback = () => {
     if (quizType === "club-by-nat") {
-      playVoice(paths.guessNat, delayMs);
+      return playVoice(paths.guessNat, delayMs);
     } else if (quizType === "nat-by-club") {
-      playVoice(paths.guessClub, delayMs);
+      return playVoice(paths.guessClub, delayMs);
     } else if (quizType === "player-by-career" || quizType === "player-by-career-stats") {
       // Career runners keep their own quiz types but use the shared intro game-name voice set.
-      playVoice(paths.guessClub, delayMs);
+      return playVoice(paths.guessClub, delayMs);
     } else {
-      playVoice(paths.guessNat, delayMs);
+      return playVoice(paths.guessNat, delayMs);
     }
   };
   const resolver = window.__resolveQuizTitleVoiceSrc;
   if (typeof resolver !== "function") {
-    playFallback();
-    return;
+    return playFallback();
   }
-  Promise.resolve(resolver(quizType))
+  return Promise.resolve(resolver(quizType))
     .then((src) => {
       const clipSrc = String(src || "").trim();
       if (clipSrc) {
-        playVoice(clipSrc, delayMs);
+        return playVoice(clipSrc, delayMs);
       } else {
-        playFallback();
+        return playFallback();
       }
     })
     .catch(() => {
-      playFallback();
+      return playFallback();
     });
 }
 
@@ -327,16 +333,45 @@ export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
 
-  if (includeVoice) {
+  if (includeVoice && appState.isVideoPlaying) {
     playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
   }
 }
 
 export function playCommentBelow() {
-  // Removed the dong sound here so it doesn't interrupt the transition.
-  // Delay is set to 100ms so it starts 0.5s earlier than before.
-  // CSS page drop transition (`stage-enter-anim`).
-  const candidates = [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
+  if (!appState.isVideoPlaying) return;
+  const endingType = typeof window.__getSelectedEndingType === "function"
+    ? window.__getSelectedEndingType()
+    : "think-you-know";
+  playEndingVoice(endingType);
+}
+
+export function playEndingVoice(endingType) {
+  if (!appState.isVideoPlaying) return;
+  // Try server-generated voice first via resolver, then fall back to bundled files.
+  const resolver = window.__resolveEndingVoiceSrc;
+  if (typeof resolver === "function") {
+    Promise.resolve(resolver(endingType))
+      .then((src) => {
+        const clipSrc = String(src || "").trim();
+        if (clipSrc) {
+          playVoice(clipSrc, 100);
+        } else {
+          playEndingVoiceFallback(endingType);
+        }
+      })
+      .catch(() => {
+        playEndingVoiceFallback(endingType);
+      });
+    return;
+  }
+  playEndingVoiceFallback(endingType);
+}
+
+function playEndingVoiceFallback(endingType) {
+  const candidates = endingType === "how-many"
+    ? [paths.howManyDidYouGet, paths.howManyDidYouGetLegacy, paths.howManyDidYouGetEncodedQ]
+    : [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
   let i = 0;
   const tryNext = () => {
     if (i >= candidates.length) return;
@@ -366,6 +401,7 @@ export function playCommentBelow() {
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
+  if (!appState.isVideoPlaying) return;
   clearTimeout(progressTimeout);
   
   const questionIndex = levelIndex - 1; 

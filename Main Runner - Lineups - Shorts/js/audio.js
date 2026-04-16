@@ -1,3 +1,5 @@
+import { appState } from "./state.js";
+
 const paths = {
   welcome: "../.Storage/Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
   guessNat: "../.Storage/Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
@@ -21,6 +23,9 @@ const paths = {
   commentBelow: "../.Storage/Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowLegacy: "../.Storage/Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
   commentBelowEncodedQ: "../.Storage/Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGet: "../.Storage/Voices/Ending Guess/How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGetLegacy: "../.Storage/Voices/Ending Guess/How many did you get? let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  howManyDidYouGetEncodedQ: "../.Storage/Voices/Ending Guess/How many did you get%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../.Storage/Voices/Ticking sound/ticking sound.mp3"
 };
 
@@ -272,6 +277,7 @@ export function stopTicking() {
 }
 
 export function playWelcome() {
+  if (!appState.isVideoPlaying) return;
   if (document.body.classList.contains("shorts-mode")) return;
   // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
   playVoice(paths.welcome, 500);
@@ -279,6 +285,7 @@ export function playWelcome() {
 
 /** Shorts landing: welcome only over BGM (no duck); resolves when the clip ends. Pre-delay lives in video.js. */
 export function playWelcomeShortsLanding() {
+  if (!appState.isVideoPlaying) return Promise.resolve();
   if (!document.body.classList.contains("shorts-mode")) {
     return Promise.resolve();
   }
@@ -404,6 +411,7 @@ function playShortsQuizTitleMediaClip(clipSrc, options = {}) {
  * Resolves relative paths against the page URL so `../Voices/...` works from `index.html`.
  */
 export function playBundledQuizTitleShorts(quizType, options = {}) {
+  if (!appState.isVideoPlaying) return Promise.resolve();
   if (!isShortsModeActive()) {
     return Promise.resolve();
   }
@@ -417,6 +425,7 @@ const QUIZ_TITLE_VOICE_RESOLVE_TIMEOUT_MS = 1200;
 
 /** Quiz title / competition rules clip for shorts Play Video; optional `onPlaybackStart` when audio actually plays. */
 export function playRulesShortsLanding(quizType, options = {}) {
+  if (!appState.isVideoPlaying) return Promise.resolve();
   if (!isShortsModeActive()) {
     return Promise.resolve();
   }
@@ -440,6 +449,7 @@ export function playRulesShortsLanding(quizType, options = {}) {
 }
 
 export function playRules(quizType, delayMs = 1000) {
+  if (!appState.isVideoPlaying) return;
   const playFallback = () => {
     if (quizType === "club-by-nat") {
       playVoice(paths.guessNat, delayMs);
@@ -543,7 +553,7 @@ export function playTheAnswerIs(
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
   
-  if (includeVoice) {
+  if (includeVoice && appState.isVideoPlaying) {
     playTeamNameVoiceIfExistsInDir(
       teamDisplayName,
       teamNameVoiceDelayMs,
@@ -553,10 +563,38 @@ export function playTheAnswerIs(
 }
 
 export function playCommentBelow() {
-  // Removed the dong sound here so it doesn't interrupt the transition.
-  // Delay is set to 100ms so it starts 0.5s earlier than before.
-  // CSS page drop transition (`stage-enter-anim`).
-  const candidates = [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
+  if (!appState.isVideoPlaying) return;
+  const endingType = typeof window.__getSelectedEndingType === "function"
+    ? window.__getSelectedEndingType()
+    : "think-you-know";
+  playEndingVoice(endingType);
+}
+
+export function playEndingVoice(endingType) {
+  if (!appState.isVideoPlaying) return;
+  const resolver = window.__resolveEndingVoiceSrc;
+  if (typeof resolver === "function") {
+    Promise.resolve(resolver(endingType))
+      .then((src) => {
+        const clipSrc = String(src || "").trim();
+        if (clipSrc) {
+          playVoice(clipSrc, 100);
+        } else {
+          playEndingVoiceFallback(endingType);
+        }
+      })
+      .catch(() => {
+        playEndingVoiceFallback(endingType);
+      });
+    return;
+  }
+  playEndingVoiceFallback(endingType);
+}
+
+function playEndingVoiceFallback(endingType) {
+  const candidates = endingType === "how-many"
+    ? [paths.howManyDidYouGet, paths.howManyDidYouGetLegacy, paths.howManyDidYouGetEncodedQ]
+    : [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
   let i = 0;
   const tryNext = () => {
     if (i >= candidates.length) return;
@@ -586,11 +624,12 @@ export function playCommentBelow() {
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
+  if (!appState.isVideoPlaying) return;
   if (document.body.classList.contains("shorts-mode")) return;
   clearTimeout(progressTimeout);
   
-  const questionIndex = levelIndex - 1; 
-  const totalQuestions = totalLevelsCount - 3; // Minus Logo, Landing, Outro
+  const questionIndex = levelIndex;
+  const totalQuestions = totalLevelsCount - 2; // Minus Logo, Outro
 
   if (questionIndex === 1) {
     playVoice(paths.warmUp, 1000);

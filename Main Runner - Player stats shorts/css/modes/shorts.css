@@ -6,7 +6,7 @@
 body.shorts-mode {
     background: #000000;
     /* Shared with .career-grid band math (siblings, not nested) */
-    --shorts-quiz-progress-bottom: 3.5rem;
+    --shorts-quiz-progress-bottom: calc(3.5rem + 5vh);
 }
 
 html.shorts-mode {
@@ -131,10 +131,6 @@ body.shorts-mode .shorts-landing-logo {
     animation: float-up-down 3.2s ease-in-out infinite;
 }
 
-body.shorts-mode .landing-q-badge {
-    display: none !important;
-}
-
 body.shorts-mode .difficulty-box {
     display: none !important;
 }
@@ -167,11 +163,12 @@ body.shorts-mode .team-header[hidden] {
 }
 
 body.shorts-mode .team-header.video-hidden {
-    height: 0vh !important;
-    margin-top: 0vh !important;
-    margin-bottom: 0 !important;
+    height: 20vh !important;
+    margin-top: clamp(-10vh, -8vmin, -6vh) !important;
+    margin-bottom: 0.5rem !important;
     overflow: hidden;
     opacity: 0;
+    pointer-events: none;
 }
 
 body.shorts-mode .team-header.video-revealed {
@@ -180,7 +177,6 @@ body.shorts-mode .team-header.video-revealed {
     margin-bottom: 0.5rem !important;
     overflow: visible;
     opacity: 1;
-    animation: header-slide-in-shorts 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 body.shorts-mode .team-header-logo {
@@ -251,7 +247,6 @@ body.shorts-mode .quiz-progress {
     right: auto;
     transform: translateX(-50%);
     width: auto;
-    max-width: 50vh;
     justify-content: center;
 }
 
@@ -269,12 +264,28 @@ body.shorts-mode .quiz-progress-track {
 
 body.shorts-mode .quiz-progress-scroll {
     flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: visible;
     padding: 0.2rem 0.6rem;
     height: auto;
-    width: 21rem;
-    scroll-behavior: smooth;
+    width: auto;
+    gap: 0.4rem;
+}
+
+body.shorts-mode .quiz-progress .step-dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.15rem;
+}
+
+body.shorts-mode .quiz-progress .step-dots::before,
+body.shorts-mode .quiz-progress .step-dots::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 body.shorts-mode .quiz-progress .step {
@@ -284,23 +295,7 @@ body.shorts-mode .quiz-progress .step {
 }
 
 body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
-    display: block;
-    height: 4px;
-}
-
-body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-}
-
-body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-body.shorts-mode .quiz-progress .line {
-    width: 15px;
-    height: 4px;
-    margin: 0 0.3rem;
+    display: none;
 }
 
 /* High enough to clear pitch crests; still below the very top of the frame */
@@ -409,6 +404,9 @@ body.shorts-mode .stage-enter-anim {
 /* Outro only: move logo, headings, and like/subscribe up; quiz bar stays on .stage (sibling). */
 body.shorts-mode #outro-page:not([hidden]) {
     --outro-float-base-y: -10vh;
+    /* Shift whole outro stack down 10% of viewport (shorts end card). */
+    padding-top: 10vh;
+    box-sizing: border-box;
 }
 
 body.shorts-mode .outro-top-row .outro-action {
@@ -550,12 +548,7 @@ body.shorts-mode .career-grid--shorts-split {
 }
 
 body.shorts-mode .career-grid.reveal-active {
-    opacity: 0;
-    filter: blur(10px);
-    transform: translateX(-50%)
-        translateY(calc(var(--shorts-club-grid-shift-y, 0px) - 0.4rem))
-        scale(var(--shorts-club-grid-scale, 1));
-    pointer-events: none;
+    display: none !important;
 }
 
 body.shorts-mode .career-grid-row {
@@ -869,8 +862,6 @@ body.shorts-mode .career-reveal-photo::after {
 body.shorts-mode .career-reveal-photo .career-reveal-photo-img {
     object-fit: contain;
     object-position: center bottom;
-    opacity: 1 !important;
-    filter: brightness(0) !important;
 }
 
 .career-reveal-photo-fallback {
@@ -1093,7 +1084,6 @@ body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-co
    Fold in --career-reveal-* (set from JS) so Adjust Picture — Shorts (Video Off) actually moves/scales the portrait. */
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 1;
-    filter: brightness(0);
     transform: translateY(calc(var(--career-reveal-y, -10%) + 9%))
         scale(
             calc(var(--career-reveal-scale-x, 1.08) * (13 / 18)),
@@ -1147,24 +1137,14 @@ body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-q
     mask-image: none;
 }
 
-/* Shorts Video Mode OFF: keep background present but blurred behind the player. */
+/* Shorts Video Mode OFF: hide career grid completely on reveal (Player Stats shows stats, not career path). */
 body.shorts-mode:not(.play-video-active) .career-grid.reveal-active {
-    opacity: 0.22;
-    filter: blur(7px);
-    transform: translateX(-50%)
-        translateY(calc(var(--shorts-club-grid-shift-y, 0px) - 0.25rem))
-        scale(var(--shorts-club-grid-scale, 1));
+    display: none !important;
 }
 
-/* Pre-countdown Play Video: same dimmed grid as preview so we do not run the 0.45s opacity/filter transition
-   from preview values to the fully-hidden .reveal-active base (reads as the portrait / shadow flickering). */
+/* Pre-countdown Play Video: hide career grid completely on reveal. */
 body.shorts-mode.play-video-active:not(.shorts-question-countdown) .career-grid.reveal-active {
-    opacity: 0.22;
-    filter: blur(7px);
-    transform: translateX(-50%)
-        translateY(calc(var(--shorts-club-grid-shift-y, 0px) - 0.25rem))
-        scale(var(--shorts-club-grid-scale, 1));
-    pointer-events: none;
+    display: none !important;
 }
 
 /* Shorts: hide "No image / No photo" fallback label on reveal layer. */
@@ -1175,40 +1155,39 @@ body.shorts-mode .career-reveal-photo-fallback {
 /* Shorts: keep the name at the top of the screen above the player image. */
 body.shorts-mode .career-reveal-name {
     position: absolute;
-    left: 50%;
-    top: max(0.75rem, env(safe-area-inset-top, 0px));
-    bottom: auto;
-    transform: translateX(-50%);
-    width: min(90vw, 1000px);
+    left: 0;
+    right: 0;
+    top: 1rem;
+    margin: 0 auto;
+    width: 90%;
     text-align: center;
     pointer-events: none;
     opacity: 0;
     z-index: 540;
 }
 
-/* Same red / white stack and scale as body:not(.shorts-mode) .career-reveal-name-* in career.css */
 body.shorts-mode .career-reveal-name-top {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 800;
-    font-size: clamp(1.35rem, 3.8vw, 3rem);
-    line-height: 0.9;
+    font-size: 3.6vmin;
+    line-height: 1;
     letter-spacing: 0.1em;
     color: #ffffff;
-    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
 }
 
 body.shorts-mode .career-reveal-name-bottom {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 900;
-    font-size: clamp(2.9rem, 9vw, 8.4rem);
-    line-height: 0.88;
+    font-size: 7.2vmin;
+    line-height: 1;
     letter-spacing: 0.03em;
     color: #ef4444;
-    text-shadow: 0 8px 26px rgba(0, 0, 0, 0.9), 0 0 16px rgba(239, 68, 68, 0.36);
+    text-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 12px rgba(239, 68, 68, 0.36);
 }
 
 body.shorts-mode .career-reveal-name.show {
-    animation: career-reveal-name-pop-top 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+    animation: career-reveal-name-fade-in 0.92s ease both;
 }
 
 @keyframes career-reveal-overlay-rise-shorts-smooth {
@@ -1263,31 +1242,11 @@ body.shorts-mode .career-reveal-name.show {
     }
 }
 
-@keyframes career-reveal-name-pop-top {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-56px) scale(0.9);
-        filter: blur(10px);
-    }
-    18% {
-        opacity: 1;
-        filter: blur(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1);
-        filter: blur(0);
-    }
+@keyframes career-reveal-name-fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-/* Shorts Video Mode OFF: keep the same style, just scale the name block down. */
-body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-name-top {
-    font-size: clamp(0.95rem, 2.6vw, 1.9rem);
-}
-
-body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-name-bottom {
-    font-size: clamp(1.9rem, 6vw, 5.2rem);
-}
 
 /* =========================================
    SHOTS SIZE – Safe-zone overlay

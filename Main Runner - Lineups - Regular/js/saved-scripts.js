@@ -8,6 +8,7 @@ import {
 import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
+import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_lineups_regular_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_lineups_regular_fcbnew";
@@ -210,6 +211,7 @@ export function initSavedScripts(callbacks) {
             landing: {
                 gameMode: "lineup",
                 quizType: els.inQuizType.value,
+                endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
                 specificToggle: els.inSpecificTitleToggle.checked,
                 specificText: els.inSpecificTitleText.value,
                 specificIcon: els.inSpecificTitleIcon.value,
@@ -223,6 +225,7 @@ export function initSavedScripts(callbacks) {
                 totalLevels: els.quizLevelsInput.value,
                 shortsMode: FIXED_SHORTS_MODE
             },
+            transitions: captureTransitionSettings(),
             levels: levelsToSave
         };
 
@@ -479,6 +482,10 @@ async function loadScript(script) {
     if(uiCallbacks.updateSetupUI) uiCallbacks.updateSetupUI(); 
 
     if (script.landing) {
+        if (els.inEndingType) {
+            els.inEndingType.value = script.landing.endingType || "think-you-know";
+            els.inEndingType.dispatchEvent(new Event("change"));
+        }
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
         els.inSpecificTitleText.value = script.landing.specificText || "";
         els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
@@ -490,7 +497,7 @@ async function loadScript(script) {
 
     if (script.lineup) {
         els.videoModeToggle.checked = !!script.lineup.videoMode;
-        els.quizLevelsInput.value = script.lineup.totalLevels || 20;
+        els.quizLevelsInput.value = script.lineup.totalLevels || 29;
         if (els.shortsModeToggle) {
             els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
             els.shortsModeToggle.disabled = true;
@@ -501,6 +508,8 @@ async function loadScript(script) {
     if (els.shortsModeBtn && els.shortsModeToggle) {
         els.shortsModeBtn.setAttribute("aria-pressed", FIXED_SHORTS_MODE ? "true" : "false");
     }
+
+    applyTransitionSettings(script.transitions || null);
 
     if(uiCallbacks.updateLanding) uiCallbacks.updateLanding();
 

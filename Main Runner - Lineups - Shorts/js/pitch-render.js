@@ -131,6 +131,11 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
   if (!th) {
     return;
   }
+  // During overlay transitions between quiz levels, keep sidebar exactly as-is
+  if (appState._preserveTeamSidebar && appState.teamSidebarLastOpen) {
+    appState.teamSidebarLastKey = String(slideKey || "");
+    return;
+  }
   if (th.hidden || !wantsOpen) {
     appState.teamSidebarAnimGeneration += 1;
     th.classList.remove("team-header--show");
@@ -348,7 +353,7 @@ import { syncTeamVoiceControls } from "./team-voice-manager.js";
 
 export function shouldUseVideoQuestionLayout(state = getState()) {
   if (!state || !state.currentSquad) return false;
-  return appState.currentLevelIndex > 1 && appState.currentLevelIndex < appState.totalLevelsCount;
+  return appState.currentLevelIndex >= 1 && appState.currentLevelIndex < appState.totalLevelsCount;
 }
 
 export function getVideoQuestionPreviewState(state = getState()) {

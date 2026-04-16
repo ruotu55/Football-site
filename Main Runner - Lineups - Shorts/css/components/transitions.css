@@ -166,3 +166,112 @@ body.shorts-mode .team-header.team-header-stage-enter-video-anim {
   opacity: 0.85;
   filter: blur(0);
 }
+/* ── Grid Transition Overlay ──────────────────────────────────────── */
+.grid-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: repeat(var(--gt-columns, 14), 1fr);
+  gap: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.grid-transition-overlay > div {
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+/* ── Bars Transition Overlays ─────────────────────────────────────── */
+.bars-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.bars-transition-overlay > span {
+  position: relative;
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+}
+
+.bars-transition-overlay.bars-left {
+  flex-direction: column;
+}
+
+.bars-transition-overlay.bars-left > span {
+  height: 100%;
+  width: 0%;
+}
+
+.bars-transition-overlay.bars-top > span {
+  height: 0%;
+  width: 100%;
+}
+
+/* ── Curtain Close Transition ─────────────────────────────────────── */
+.curtain-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.curtain-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50.5%;
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  will-change: transform;
+}
+
+.curtain-top {
+  top: 0;
+}
+
+.curtain-bottom {
+  top: 50%;
+}
+
+/* ── Skew Wipe Transition ─────────────────────────────────────────── */
+.skew-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: -25%;
+  width: 150%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  transform: scaleX(0) skewX(-40deg);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ── Shorts Mode: constrain transitions to 9:16 viewport ─────────── */
+body.shorts-mode .grid-transition-overlay,
+body.shorts-mode .bars-transition-overlay,
+body.shorts-mode .curtain-transition-overlay {
+  inset: auto;
+  top: 0;
+  left: calc((100vw - min(56.25vh, 100vw)) / 2);
+  width: min(56.25vh, 100vw);
+  height: 100vh;
+}
+
+body.shorts-mode .skew-transition-overlay {
+  --shorts-w: min(56.25vh, 100vw);
+  left: calc((100vw - var(--shorts-w)) / 2 - var(--shorts-w) * 0.25);
+  width: calc(var(--shorts-w) * 1.5);
+  height: 100vh;
+}

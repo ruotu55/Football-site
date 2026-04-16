@@ -63,6 +63,7 @@ export const appState = {
     inSpecificTitleToggle: null,
     inSpecificTitleText: null,
     inSpecificTitleIcon: null,
+    inEndingType: null,
     inEasy: null,
     inMedium: null,
     inHard: null,
@@ -82,7 +83,7 @@ export const appState = {
   internationalClubPoolLoadPromise: null,
   playerImages: { club: {}, nationality: {} },
   flagcodes: {},
-  totalLevelsCount: 7,
+  totalLevelsCount: 6,
   currentLevelIndex: 0,
   levelsData: [],
   swapActiveSlotIndex: -1,
@@ -187,13 +188,13 @@ export function initLevels(count) {
   const { els } = appState;
   const newLevels = [];
   
-  for (let i = 0; i <= count + 3; i++) {
+  for (let i = 0; i <= count + 2; i++) {
     newLevels.push(
       appState.levelsData[i] || {
         isLogo: i === 0,
-        isIntro: i === 1,
-        isBonus: i === count + 2,
-        isOutro: i === count + 3,
+        isIntro: false,
+        isBonus: i === count + 1,
+        isOutro: i === count + 2,
         gameMode: "lineup",
         squadType: els.squadType ? els.squadType.value : "club",
         selectedEntry: null,
@@ -238,9 +239,9 @@ export function initLevels(count) {
     ensureSlotFrontFaceScales(last);
   }
   appState.levelsData = newLevels;
-  appState.totalLevelsCount = count + 3;
-  if (appState.currentLevelIndex > count + 3) {
-    appState.currentLevelIndex = count + 3;
+  appState.totalLevelsCount = count + 2;
+  if (appState.currentLevelIndex > count + 2) {
+    appState.currentLevelIndex = count + 2;
   }
 }
 

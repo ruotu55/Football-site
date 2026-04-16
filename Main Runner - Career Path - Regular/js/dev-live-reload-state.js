@@ -59,6 +59,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
         levelsData: appState.levelsData.map(serializeLevel).filter(Boolean),
         controls: {
             quizLevelsInput: els.quizLevelsInput?.value ?? null,
+            inEndingType: els.inEndingType?.value ?? null,
             inEasy: els.inEasy?.value ?? null,
             inMedium: els.inMedium?.value ?? null,
             inHard: els.inHard?.value ?? null,
@@ -79,6 +80,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (!snapshot || !snapshot.controls) return;
     const c = snapshot.controls;
     if (els.quizLevelsInput && c.quizLevelsInput != null) els.quizLevelsInput.value = c.quizLevelsInput;
+    if (els.inEndingType && c.inEndingType != null) els.inEndingType.value = c.inEndingType;
     if (els.inEasy && c.inEasy != null) els.inEasy.value = c.inEasy;
     if (els.inMedium && c.inMedium != null) els.inMedium.value = c.inMedium;
     if (els.inHard && c.inHard != null) els.inHard.value = c.inHard;
@@ -101,7 +103,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     }
 }
 
-export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 20) {
+export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 29) {
     if (!snapshot || !Number.isFinite(snapshot.totalLevelsCount)) return fallbackCount;
     return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 3);
 }

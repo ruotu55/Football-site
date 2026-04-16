@@ -14,6 +14,140 @@ import {
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
+
+/* ── GSAP lazy loader (shared with transitions.js) ────────────────── */
+let gsapLib = null;
+function loadGsap() {
+  if (gsapLib) return Promise.resolve(gsapLib);
+  return new Promise((resolve, reject) => {
+    if (window.gsap) { gsapLib = window.gsap; return resolve(gsapLib); }
+    const s = document.createElement("script");
+    s.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
+    s.onload = () => { gsapLib = window.gsap; resolve(gsapLib); };
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+/** Show the ball-drop preloader, run the GSAP animation, then resolve. */
+function playBallPreloader() {
+  const preloader = document.getElementById("ball-preloader");
+  const ball = preloader?.querySelector(".ball-preloader-ball");
+  if (!preloader || !ball) {
+    console.warn("[ball-preloader] element not found, skipping");
+    return Promise.resolve();
+  }
+
+  /* Reset ball to starting position */
+  ball.removeAttribute("style");
+  preloader.hidden = false;
+
+  /* Clone DOM background overlays (emojis, question marks) into the preloader if present. */
+  (function mirrorDomBackgroundOverlays() {
+    preloader.querySelectorAll(".ball-bg-mirror").forEach(el => el.remove());
+    ["shared-background-emojis", "shared-background-question-marks"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        const clone = el.cloneNode(true);
+        clone.removeAttribute("id");
+        clone.className = "ball-bg-mirror " + el.className;
+        clone.style.zIndex = "2";
+        preloader.appendChild(clone);
+      }
+    });
+  })();
+
+  return loadGsap().then((gsap) => {
+    /* Clear any leftover transforms from a previous run */
+    gsap.set(ball, { clearProps: "all" });
+
+    /* Read the stage colour so the scale-up blends with the background */
+    const stageColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--bg-stage").trim() || "#3c6553";
+
+    const layer1 = preloader.querySelector(".ball-layer-1");
+    const layer2 = preloader.querySelector(".ball-layer-2");
+
+    /* Both layers start fully solid (no hole) */
+    gsap.set(layer1, { "--reveal-r": "0px" });
+    gsap.set(layer2, { "--reveal-r": "0px" });
+
+    const maxR = Math.ceil(Math.hypot(window.innerWidth, window.innerHeight)) + "px";
+
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        gsap.set(ball, { top: "-130px" });
+
+        const tl = gsap.timeline();
+
+        /* 1. Ball bounces down to center */
+        tl.fromTo(
+          ball,
+          { top: "-130px" },
+          {
+            duration: 2,
+            top: "calc(50vh - 60px)",
+            ease: "bounce.out",
+          },
+        )
+        /* 2. Prepare: mask on the preloader + ball expansion */
+        .call(() => {
+          const sphere = preloader.querySelector(".ball-sphera");
+          const r = (sphere ?? ball).getBoundingClientRect();
+          const cx = Math.round(r.left + r.width / 2) + "px";
+          const cy = Math.round(r.top + r.height / 2) + "px";
+
+          /* Remove mirrored bg-effect elements and reset layer-1 to flat colour
+             so the reveal mask works cleanly against a solid background. */
+          preloader.querySelectorAll(".ball-bg-mirror").forEach(el => el.remove());
+          layer1.style.cssText = "";
+
+          /* Radial mask on the whole preloader — hole reveals landing */
+          preloader.style.setProperty("--reveal-cx", cx);
+          preloader.style.setProperty("--reveal-cy", cy);
+          preloader.classList.add("revealing");
+          gsap.set(preloader, { "--reveal-r": "0px" });
+
+          /* Scale ball well PAST the viewport so it never stops in view */
+          const diag = Math.hypot(window.innerWidth, window.innerHeight);
+          ball._expandScale = Math.ceil((diag * 3) / r.width);
+
+          /* Transform-origin at the visual centre of the ball */
+          const bRect = ball.getBoundingClientRect();
+          const ox = (r.left + r.width / 2) - bRect.left;
+          const oy = (r.top  + r.height / 2) - bRect.top;
+          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px` });
+        })
+        /* 3. Ball EXPANDS outward — constant speed, one take */
+        .to(ball, {
+          scale: () => ball._expandScale,
+          duration: 1.6,
+          ease: "none",
+        })
+        /* 4. Landing opens from inside while ball keeps going */
+        .to(preloader, {
+          "--reveal-r": maxR,
+          duration: 1.3,
+          ease: "none",
+        }, "<+=0.3")
+        /* 5. Done */
+        .set(preloader, {
+          onComplete: () => {
+            preloader.hidden = true;
+            preloader.classList.remove("revealing");
+            preloader.querySelectorAll(".ball-bg-mirror").forEach(el => el.remove());
+            layer1.removeAttribute("style");
+            gsap.set([ball, layer1, layer2], { clearProps: "all" });
+            resolve();
+          },
+        });
+      });
+    });
+  }).catch((err) => {
+    console.error("[ball-preloader] GSAP failed:", err);
+    preloader.hidden = true;
+  });
+}
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
 /** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
@@ -80,6 +214,9 @@ export function stopVideoFlow() {
   appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
+  /* Hide ball preloader if mid-animation */
+  const preloader = document.getElementById("ball-preloader");
+  if (preloader) { preloader.hidden = true; }
   setVideoRevealPostTimerActive(false);
   clearPitchWrapTransitionOverride();
   document.body.classList.remove("play-video-active");
@@ -147,22 +284,22 @@ export function startVideoFlow() {
   const isLanding = appState.currentLevelIndex === 1;
   const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
   if (els.quizProgressContainer) {
-    els.quizProgressContainer.hidden = false;
+    els.quizProgressContainer.hidden = isLogo || isLanding || isOutro;
   }
   if (els.sideTextRight) {
     els.sideTextRight.hidden = true;
   }
 
   startBgMusic();
-  if (appState.currentLevelIndex <= 1) {
+
+  if (appState.currentLevelIndex === 0) {
+    /* Logo page: play voice immediately, then do logo reveal */
     const quizType = els.inQuizType?.value || "nat-by-club";
     setTimeout(() => {
       if (!appState.isVideoPlaying) return;
       playRules(quizType, 0);
     }, INTRO_GAME_NAME_VOICE_DELAY_MS);
-  }
 
-  if (appState.currentLevelIndex === 0) {
     if (isShorts) {
       appState.videoTimeout = setTimeout(() => {
         if (!appState.isVideoPlaying) return;
@@ -184,13 +321,51 @@ export function startVideoFlow() {
     return;
   }
 
+  /* Landing page: 2s pause → ball-drop animation → landing revealed → voice */
+  if (appState.currentLevelIndex === 1) {
+    appState.videoTimeout = setTimeout(() => {
+      if (!appState.isVideoPlaying) return;
+      /* Play the quiz type voice as soon as the ball starts jumping,
+         then move to level 1 as soon as the voice finishes */
+      const quizType = els.inQuizType?.value || "nat-by-club";
+      playBallPreloader();
+      setTimeout(() => {
+        if (!appState.isVideoPlaying) return;
+        playRules(quizType, 0).then(() => {
+          if (!appState.isVideoPlaying) return;
+          /* Skip runVideoStep delays — go straight to level 2 */
+          switchLevel(2);
+          scheduleAfterTransition(() => {
+            if (!appState.isVideoPlaying) return;
+            runVideoStep();
+          }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+        });
+      }, INTRO_GAME_NAME_VOICE_DELAY_MS + 200);
+    }, 2000);
+    return;
+  }
+
   runVideoStep();
+}
+
+/** Wait for any running page-transition overlay, then run fn after 200ms.
+ *  Falls back to fallbackMs delay when no custom transition is active. */
+function scheduleAfterTransition(fn, fallbackMs = 0) {
+  if (appState._transitionDone) {
+    const p = appState._transitionDone;
+    appState._transitionDone = null;
+    p.then(() => { appState.videoTimeout = setTimeout(fn, 200); });
+  } else if (fallbackMs > 0) {
+    appState.videoTimeout = setTimeout(fn, fallbackMs);
+  } else {
+    fn();
+  }
 }
 
 function runVideoStep() {
   const { els } = appState;
   setVideoRevealPostTimerActive(false);
-  const isIntro = appState.currentLevelIndex < 2; 
+  const isIntro = appState.currentLevelIndex < 2;
   const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
   const isShorts = document.body.classList.contains("shorts-mode");
   const isQuestionLevel = appState.currentLevelIndex > 1 && !isOutro;
@@ -205,7 +380,7 @@ function runVideoStep() {
     if (isOutro) {
       return; 
     }
-    let delay = appState.currentLevelIndex === 0 ? 1000 : 3000;
+    let delay = appState.currentLevelIndex === 0 ? 1000 : 500;
     if (isShorts && appState.currentLevelIndex === 1) {
       delay = 1000;
     }
@@ -273,8 +448,10 @@ function runVideoStep() {
         stopTicking();
         els.countdownTimer.hidden = true;
         els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
+        const shortsEndingType = typeof window.__getSelectedEndingType === "function"
+          ? window.__getSelectedEndingType() : "think-you-know";
         const skipRevealToOutro =
-          isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount;
+          isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount && shortsEndingType !== "how-many";
         if (skipRevealToOutro) {
           setVideoRevealPostTimerActive(false);
           const jumpToIndex = appState.currentLevelIndex + 1;
@@ -285,7 +462,7 @@ function runVideoStep() {
             appState.currentLevelIndex === 1 ||
             isNextOutro ||
             (nextState.videoMode && nextState.currentSquad);
-          appState.videoTimeout = setTimeout(() => {
+          scheduleAfterTransition(() => {
             if (!appState.isVideoPlaying) return;
             if (appState.currentLevelIndex !== jumpToIndex) return;
             if (shouldContinueVideo) {
@@ -309,7 +486,10 @@ function revealCurrentLevel() {
   if (appState.currentLevelIndex > 1) {
     const isLastQuestionBeforeOutro =
       appState.currentLevelIndex + 1 === appState.totalLevelsCount;
-    if (!isLastQuestionBeforeOutro) {
+    const endingType = typeof window.__getSelectedEndingType === "function"
+      ? window.__getSelectedEndingType() : "think-you-know";
+    const skipBonusReveal = isLastQuestionBeforeOutro && endingType !== "how-many";
+    if (!skipBonusReveal) {
       const quizType = els.inQuizType?.value || "nat-by-club";
       const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
       setVideoRevealPostTimerActive(true);
@@ -332,7 +512,7 @@ function revealCurrentLevel() {
       const isNextOutro = jumpToIndex === appState.totalLevelsCount;
       const shouldContinueVideo =
         appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad);
-      appState.videoTimeout = setTimeout(() => {
+      scheduleAfterTransition(() => {
         if (!appState.isVideoPlaying) return;
         if (appState.currentLevelIndex !== jumpToIndex) return;
         if (shouldContinueVideo) {

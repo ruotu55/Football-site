@@ -51,6 +51,29 @@
 
     </div>
 
+    <!-- Ball-drop preloader (shown after Play Video on landing) -->
+    <div id="ball-preloader" class="ball-preloader" hidden>
+      <!-- Layer 2 (bottom): white — looks like ball expanding, opens to reveal landing -->
+      <div class="ball-layer ball-layer-2"></div>
+      <!-- Layer 1 (top): bg color — the background during bounce -->
+      <div class="ball-layer ball-layer-1"></div>
+      <!-- Soccer ball — bounces then scales up to fill screen -->
+      <div class="ball-preloader-ball">
+        <div class="ball-preloader-ball-scale">
+          <div class="ball">
+            <div class="ball-sphera">
+              <div class="ball-sphera__patch-top"><div class="line"></div></div>
+              <div class="ball-sphera__patch-middle--left"><div class="line"></div></div>
+              <div class="ball-sphera__patch-middle--right"><div class="line"></div></div>
+              <div class="ball-sphera__patch-center"></div>
+              <div class="ball-sphera__patch-bottom--left"><div class="line"></div></div>
+              <div class="ball-sphera__patch-bottom--right"><div class="line"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="module">
       async function loadComponent(url, elementId, isReplace = false) {
         try {
@@ -78,7 +101,6 @@
           'html/logo.html',
           'html/landing.html',
           'html/outro.html',
-          'html/thumbnail-maker.html',
           'html/pitch.html'
         ];
 
@@ -94,7 +116,7 @@
 
         const script = document.createElement('script');
         script.type = 'module';
-        script.src = 'js/app.js';
+        script.src = 'js/app.js?v=' + Date.now();
         document.body.appendChild(script);
       }
 
