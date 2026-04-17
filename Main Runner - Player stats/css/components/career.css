@@ -1190,8 +1190,13 @@ body:not(.shorts-mode) .player-stats-panel__column {
 }
 
 /* Main stats row: wider center strip for 4 clubs per row; side columns a bit narrower. */
-body:not(.shorts-mode) .player-stats-panel__row--main > .player-stats-panel__column {
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stats-panel__column:first-child {
   flex: 0.88 1 0;
+  margin-right: 1.8rem;
+}
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stats-panel__column:last-child {
+  flex: 0.88 1 0;
+  margin-left: 1.8rem;
 }
 
 body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card {
@@ -1290,8 +1295,8 @@ body:not(.shorts-mode) .player-stat-card__head {
   font-size: var(--player-stat-head-font);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #f0f6ff;
-  text-shadow: 0 0 8px rgba(100, 180, 255, 0.5), 0 1px 3px rgba(0, 0, 0, 0.6);
+  color: #b8c8dc;
+  text-shadow: 0 0 6px rgba(100, 180, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.5);
   padding: 0.28rem 0.38rem;
   line-height: 1.12;
   flex: 1 1 0;
@@ -1362,12 +1367,12 @@ body:not(.shorts-mode) .player-stat-card__value {
   justify-content: center;
   box-sizing: border-box;
   overflow: hidden;
-  color: #ffffff;
+  color: #c8d4e4;
   font-size: var(--player-stat-value-font);
   font-weight: 900;
   font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
   line-height: 1;
-  text-shadow: 0 0 10px rgba(100, 200, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 6px rgba(100, 200, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
   background:
     linear-gradient(
       180deg,

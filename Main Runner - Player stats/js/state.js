@@ -82,6 +82,8 @@ export const appState = {
     sideTextRight: null,
     shortsModeToggle: null,
     shortsModeBtn: null,
+    youtubeThumbnailsBtn: null,
+    sideTextLeft: null,
     setupShortsCirclePreviewField: null,
     shortsCirclePreviewToggle: null,
     shortsCirclePreviewCount: null,

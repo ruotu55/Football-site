@@ -146,6 +146,7 @@ export function switchLevel(
     const isLanding = appState.currentLevelIndex === 1;
     const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     const isShorts = document.body.classList.contains("shorts-mode");
+    const isYoutubeThumbnails = document.body.classList.contains("youtube-thumbnails-mode");
     if (els.landingPage && !isLanding) {
       els.landingPage.classList.remove(
         "landing-content-awaiting-shift",
@@ -156,11 +157,16 @@ export function switchLevel(
     if (els.careerWrap) els.careerWrap.style.marginTop = "";
 
     if (els.quizProgressContainer) {
-      els.quizProgressContainer.hidden = (isLogo || isLanding || isOutro) && appState.isVideoPlaying;
+      els.quizProgressContainer.hidden =
+        isYoutubeThumbnails ||
+        ((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
     }
-    
+
     if (els.sideTextRight) {
       els.sideTextRight.hidden = true;
+    }
+    if (els.sideTextLeft) {
+      els.sideTextLeft.hidden = isYoutubeThumbnails;
     }
 
     els.logoPage.hidden = true;
@@ -188,7 +194,7 @@ export function switchLevel(
     }
 
     if (isLogo) {
-      els.logoPage.hidden = false;
+      els.logoPage.hidden = isYoutubeThumbnails;
       if (logoImg) {
         logoImg.classList.remove("shift-top-right", "bounce-out");
         if (!appState.isVideoPlaying && !state.videoMode && prevIndex !== 0) {
@@ -202,7 +208,7 @@ export function switchLevel(
         }
       }
     } else if (isLanding) {
-      els.logoPage.hidden = isShorts;
+      els.logoPage.hidden = isShorts || isYoutubeThumbnails;
       els.landingPage.hidden = false;
       if (pendingLogoToLandingContentReveal) {
         els.landingPage.classList.add("landing-content-awaiting-shift");
@@ -217,7 +223,7 @@ export function switchLevel(
       els.logoPage.hidden = true;
       els.outroPage.hidden = false;
     } else {
-      els.logoPage.hidden = isShorts;
+      els.logoPage.hidden = isShorts || isYoutubeThumbnails;
 
       els.teamHeader.hidden = false;
       els.teamHeader.classList.remove("video-revealed");
@@ -270,8 +276,8 @@ export function switchLevel(
     const shirtEl = document.getElementById("landing-shirt");
     const shirtNum = document.getElementById("landing-shirt-number");
     if (shirtEl) {
-      shirtEl.hidden = isLogo || isOutro;
-      if (shirtNum && !isLogo && !isOutro) {
+      shirtEl.hidden = isLogo || isLanding || isOutro;
+      if (shirtNum && !isLogo && !isLanding && !isOutro) {
         shirtNum.textContent = state.shirtNumber || "?";
       }
     }
