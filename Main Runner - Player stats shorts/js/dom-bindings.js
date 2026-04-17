@@ -21,6 +21,7 @@ export function bindDomElements() {
     els.videoModeToggle = document.getElementById("video-mode-toggle");
     els.videoModeBtn = document.getElementById("video-mode-btn");
     els.applyVideoAllBtn = document.getElementById("apply-video-all-btn");
+    els.prodBtn = document.getElementById("prod-btn");
     els.playVideoBtn = document.getElementById("play-video-btn");
     els.shortsModeBtn = document.getElementById("shorts-mode-btn");
     els.countdownTimer = document.getElementById("countdown-timer");

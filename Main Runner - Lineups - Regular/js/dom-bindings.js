@@ -35,6 +35,7 @@ export function bindDomElements() {
     els.videoModeToggle = document.getElementById("video-mode-toggle");
     els.videoModeBtn = document.getElementById("video-mode-btn");
     els.applyVideoAllBtn = document.getElementById("apply-video-all-btn");
+    els.prodBtn = document.getElementById("prod-btn");
     els.playVideoBtn = document.getElementById("play-video-btn");
     els.shortsModeBtn = document.getElementById("shorts-mode-btn");
     els.countdownTimer = document.getElementById("countdown-timer");
@@ -82,6 +83,8 @@ export function bindDomElements() {
     els.logoPage = document.getElementById("logo-page");
     els.quizProgressContainer = document.getElementById("quiz-progress-container");
     els.sideTextRight = document.getElementById("side-text-right");
+    els.sideTextLeft = document.getElementById("side-text-left");
+    els.youtubeThumbnailsBtn = document.getElementById("btn-youtube-thumbnails");
     els.shortsModeToggle = document.getElementById("shorts-mode-toggle");
     els.searchMode = document.getElementById("search-mode");
     els.btnLevelsControl = document.getElementById("btn-levels-control");

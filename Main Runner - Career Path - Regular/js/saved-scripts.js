@@ -574,6 +574,17 @@ async function loadScript(script) {
 
     if (script.landing) {
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
+        const yesBtn = document.getElementById("specific-title-yes");
+        const noBtn = document.getElementById("specific-title-no");
+        if (yesBtn && noBtn) {
+            if (script.landing.specificToggle) {
+                yesBtn.setAttribute("aria-pressed", "true");
+                noBtn.setAttribute("aria-pressed", "false");
+            } else {
+                yesBtn.setAttribute("aria-pressed", "false");
+                noBtn.setAttribute("aria-pressed", "true");
+            }
+        }
         els.inSpecificTitleText.value = script.landing.specificText || "";
         els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
         els.inEasy.value = script.landing.easy || 10;

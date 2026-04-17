@@ -380,7 +380,7 @@ registry.set("skew-wipe", {
 
 /** Current transition settings (persisted with script saves). */
 export const transitionSettings = {
-  effect: "grid-overlay",
+  effect: "",
   random: false,
 };
 

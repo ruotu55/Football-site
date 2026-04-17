@@ -24,6 +24,14 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
+import {
+    isProdMode,
+    toggleProdMode,
+    runProdValidation,
+    showValidationModal,
+    markBackgroundColorConfirmed,
+    markBackgroundEffectConfirmed,
+} from "./prod-validation.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
@@ -801,6 +809,12 @@ async function init() {
         document.getElementById("in-background-opacity"),
         document.getElementById("btn-save-background-opacity"),
     );
+    {
+        const bgColorSel = document.getElementById("in-background-color");
+        const bgEffectSel = document.getElementById("in-background-effect");
+        if (bgColorSel) bgColorSel.addEventListener("change", () => markBackgroundColorConfirmed());
+        if (bgEffectSel) bgEffectSel.addEventListener("change", () => markBackgroundEffectConfirmed());
+    }
     await initPlayerVoiceManager();
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;
@@ -856,6 +870,11 @@ async function init() {
     };
 
     els.inEndingType.onchange = () => {
+        // Hide the disabled placeholder once a real option is chosen
+        const placeholderOpt = els.inEndingType.querySelector('option[value=""][disabled]');
+        if (placeholderOpt && els.inEndingType.value) {
+            placeholderOpt.hidden = true;
+        }
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
@@ -875,6 +894,25 @@ async function init() {
     els.inSpecificTitleToggle.onchange = updateLanding;
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;
+
+    {
+        const yesBtn = document.getElementById("specific-title-yes");
+        const noBtn = document.getElementById("specific-title-no");
+        if (yesBtn && noBtn) {
+            yesBtn.onclick = () => {
+                yesBtn.setAttribute("aria-pressed", "true");
+                noBtn.setAttribute("aria-pressed", "false");
+                els.inSpecificTitleToggle.checked = true;
+                els.inSpecificTitleToggle.dispatchEvent(new Event("change"));
+            };
+            noBtn.onclick = () => {
+                noBtn.setAttribute("aria-pressed", "true");
+                yesBtn.setAttribute("aria-pressed", "false");
+                els.inSpecificTitleToggle.checked = false;
+                els.inSpecificTitleToggle.dispatchEvent(new Event("change"));
+            };
+        }
+    }
 
     els.inShotsSizeToggle.onchange = () => {
         els.shotsSizeOverlay.hidden = !els.inShotsSizeToggle.checked;
@@ -1029,7 +1067,22 @@ async function init() {
         };
     }
 
-    els.playVideoBtn.onclick = () => startVideoFlow();
+    if (els.prodBtn) {
+        els.prodBtn.onclick = () => {
+            toggleProdMode();
+        };
+    }
+
+    els.playVideoBtn.onclick = () => {
+        if (isProdMode()) {
+            const result = runProdValidation();
+            if (!result.allPassed) {
+                showValidationModal(result);
+                return;
+            }
+        }
+        startVideoFlow();
+    };
 
     // --- CAREER EDIT MODAL EVENT HANDLERS ---
     

@@ -594,6 +594,13 @@ async function loadScript(script) {
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
         els.inSpecificTitleText.value = script.landing.specificText || "";
         els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
+        // Sync YES/NO buttons with restored toggle state
+        const specYes = document.getElementById("specific-title-yes");
+        const specNo = document.getElementById("specific-title-no");
+        if (specYes && specNo) {
+            specYes.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "true" : "false");
+            specNo.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "false" : "true");
+        }
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;
         els.inHard.value = script.landing.hard || 3;

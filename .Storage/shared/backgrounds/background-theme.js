@@ -420,6 +420,7 @@ const EFFECTS = [
   { id: "floating-emojis", label: "Floating emojis" },
   { id: "rising-question-marks", label: "Rising question marks" },
   { id: "diagonal-flow", label: "Diagonal flow" },
+  { id: "youtube-thumbnails", label: "YouTube thumbnails" },
   { id: "rising-soccer-balls", label: "Rising soccer balls" },
 ];
 
@@ -443,6 +444,7 @@ function getEffectBackground(effectId, colorHex, opacityPercent) {
     case "floating-emojis":
     case "rising-question-marks":
     case "rising-soccer-balls":
+    case "youtube-thumbnails":
       return `${colorHex}`;
     case "center-rings":
       return `${colorHex}`;
@@ -481,6 +483,7 @@ function getEffectAnimation(effectId) {
     case "floating-emojis":
     case "rising-question-marks":
     case "rising-soccer-balls":
+    case "youtube-thumbnails":
       return "none";
     case "center-rings":
       return "none";
@@ -516,6 +519,7 @@ function getEffectBackgroundSize(effectId) {
     case "floating-emojis":
     case "rising-question-marks":
     case "rising-soccer-balls":
+    case "youtube-thumbnails":
       return "100% 100%";
     case "center-rings":
       return "100% 100%";
@@ -868,6 +872,84 @@ ${vignetteCss("sun-rays-top-left")}
 }
 
 :root[${ROOT_EFFECT_ATTR}="rising-soccer-balls"] .app {
+  position: relative;
+  z-index: 1;
+}
+`;
+    case "youtube-thumbnails":
+      return `
+:root[${ROOT_EFFECT_ATTR}="youtube-thumbnails"] body {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Same as legacy thumbnail-maker #pitch-wrap::before / ::after (360 rays around a clear center). */
+:root[${ROOT_EFFECT_ATTR}="youtube-thumbnails"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  opacity: 0.24;
+  background:
+    repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(255, 255, 255, 0.62) 0deg 1deg,
+      rgba(255, 255, 255, 0.16) 1deg 3.4deg,
+      rgba(255, 255, 255, 0) 3.4deg 8.4deg
+    );
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+:root[${ROOT_EFFECT_ATTR}="youtube-thumbnails"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  opacity: 0.16;
+  background:
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.12) 66%,
+      rgba(255, 255, 255, 0.22) 100%
+    );
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 38%,
+    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+:root[${ROOT_EFFECT_ATTR}="youtube-thumbnails"] .app {
   position: relative;
   z-index: 1;
 }

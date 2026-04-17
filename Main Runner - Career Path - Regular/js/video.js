@@ -238,7 +238,7 @@ export function stopVideoFlow() {
   els.panelFab.hidden = false;
   renderProgressSteps(appState.totalLevelsCount, switchLevel);
   if (els.quizProgressContainer) {
-    els.quizProgressContainer.hidden = false;
+    els.quizProgressContainer.hidden = document.body.classList.contains("youtube-thumbnails-mode");
   }
   if (els.sideTextRight) {
     els.sideTextRight.hidden = true;
@@ -304,7 +304,8 @@ export function startVideoFlow() {
   const isLanding = appState.currentLevelIndex === 1;
   const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
   if (els.quizProgressContainer) {
-    els.quizProgressContainer.hidden = isLogo || isLanding || isOutro;
+    const yt = document.body.classList.contains("youtube-thumbnails-mode");
+    els.quizProgressContainer.hidden = yt || isLogo || isLanding || isOutro;
   }
   if (els.sideTextRight) {
     els.sideTextRight.hidden = true;

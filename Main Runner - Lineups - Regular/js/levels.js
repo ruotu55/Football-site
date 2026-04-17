@@ -102,6 +102,7 @@ export function switchLevel(index) {
     const isLanding = appState.currentLevelIndex === 1;
     const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
     const isShorts = document.body.classList.contains("shorts-mode");
+    const isYoutubeThumbnails = document.body.classList.contains("youtube-thumbnails-mode");
     if (els.landingPage && !isLanding) {
       els.landingPage.classList.remove(
         "landing-content-awaiting-shift",
@@ -111,11 +112,16 @@ export function switchLevel(index) {
     if (els.teamHeader) els.teamHeader.style.top = "";
 
     if (els.quizProgressContainer) {
-      els.quizProgressContainer.hidden = (isLogo || isLanding || isOutro) && appState.isVideoPlaying;
+      els.quizProgressContainer.hidden =
+        isYoutubeThumbnails ||
+        ((isLogo || isLanding || isOutro) && appState.isVideoPlaying);
     }
 
     if (els.sideTextRight) {
       els.sideTextRight.hidden = true;
+    }
+    if (els.sideTextLeft) {
+      els.sideTextLeft.hidden = isYoutubeThumbnails;
     }
 
     els.logoPage.hidden = true;
@@ -146,7 +152,7 @@ export function switchLevel(index) {
     }
 
     if (isLogo) {
-      els.logoPage.hidden = false;
+      els.logoPage.hidden = isYoutubeThumbnails;
       if (logoImg) {
         logoImg.classList.remove("shift-top-right", "bounce-out");
         if (!appState.isVideoPlaying && !state.videoMode && prevIndex !== 0) {
@@ -158,7 +164,7 @@ export function switchLevel(index) {
         }
       }
     } else if (isLanding) {
-      els.logoPage.hidden = isShorts;
+      els.logoPage.hidden = isShorts || isYoutubeThumbnails;
       els.landingPage.hidden = false;
       if (pendingLogoToLandingContentReveal) {
         els.landingPage.classList.add("landing-content-awaiting-shift");
@@ -173,7 +179,7 @@ export function switchLevel(index) {
       els.logoPage.hidden = true;
       els.outroPage.hidden = false;
     } else {
-      els.logoPage.hidden = isShorts;
+      els.logoPage.hidden = isShorts || isYoutubeThumbnails;
 
       els.teamHeader.hidden = false;
       els.teamHeader.classList.remove("video-hidden", "video-revealed");

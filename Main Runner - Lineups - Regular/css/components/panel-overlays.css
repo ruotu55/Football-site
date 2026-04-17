@@ -110,6 +110,33 @@
   filter: none;
 }
 
+.prod-btn {
+  left: auto;
+  right: 11rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 1px 4px rgba(255,255,255,0.15);
+}
+.prod-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5), 0 2px 6px rgba(255,255,255,0.2);
+}
+.prod-btn[aria-pressed="true"] {
+  background: #dc2626;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(220, 38, 38, 0.55);
+}
+.prod-btn[aria-pressed="true"]:hover {
+  background: #ef4444;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.55), 0 3px 8px rgba(239, 68, 68, 0.5);
+}
+
+body.play-video-active .prod-btn {
+  display: none !important;
+}
+
 .play-video-btn {
   left: auto;
   right: 1.5rem;
@@ -141,7 +168,7 @@
 
 .video-mode-btn {
   left: auto;
-  right: 11.5rem;
+  right: 15.5rem;
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 255, 255, 0.18);
@@ -180,6 +207,13 @@ body.play-video-active .shorts-mode-btn {
 
 .countdown-timer[hidden] {
   display: none !important;
+}
+
+/* YouTube thumbnails mode: hide countdown even when video flow sets hidden=false */
+body.youtube-thumbnails-mode .countdown-timer {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* SVG Ring styling */
@@ -247,4 +281,154 @@ body.play-video-active .shorts-mode-btn {
   0% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
   50% { transform: translateX(-50%) scale(1.15); filter: drop-shadow(0 0 10px #ef4444); }
   100% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
+}
+
+/* ── PROD Validation Modal ── */
+.prod-validation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+}
+.prod-validation-modal {
+  background: #1a1a2e;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  width: 540px;
+  max-width: 92vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  overflow: hidden;
+}
+.prod-validation-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  background: rgba(220,38,38,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.prod-validation-modal__header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ef4444;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.prod-validation-modal__close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0 0.3rem;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+.prod-validation-modal__close:hover { opacity: 1; }
+.prod-validation-modal__body {
+  padding: 0.8rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.prod-validation-section {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.2);
+}
+.prod-validation-section__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: left;
+  transition: background 0.15s;
+}
+.prod-validation-section__toggle:hover {
+  background: rgba(255,255,255,0.05);
+}
+.prod-validation-section__toggle .section-status {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.prod-validation-section__toggle .section-status.pass {
+  background: rgba(34,197,94,0.2);
+  color: #22c55e;
+}
+.prod-validation-section__toggle .section-status.fail {
+  background: rgba(239,68,68,0.2);
+  color: #ef4444;
+}
+.prod-validation-section__details {
+  display: none;
+  padding: 0 1rem 0.7rem 1rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+}
+.prod-validation-section__details.open { display: block; }
+.prod-validation-section__details ul {
+  margin: 0;
+  padding: 0 0 0 1.2rem;
+  list-style: disc;
+}
+.prod-validation-section__details li {
+  margin-bottom: 0.25rem;
+}
+.prod-validation-section__details li .fail-item {
+  color: #ef4444;
+}
+.prod-validation-section__details li .pass-item {
+  color: #22c55e;
+}
+
+/* Specific title YES/NO buttons */
+.specific-title-yn-group {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.specific-title-yn-btn {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 5px;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.specific-title-yn-btn:hover {
+  background: rgba(255,255,255,0.15);
+}
+.specific-title-yn-btn[aria-pressed="true"].yn-yes {
+  background: #22c55e;
+  color: #001408;
+  border-color: #22c55e;
+}
+.specific-title-yn-btn[aria-pressed="true"].yn-no {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
 }

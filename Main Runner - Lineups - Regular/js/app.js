@@ -25,6 +25,14 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
+import {
+    isProdMode,
+    toggleProdMode,
+    runProdValidation,
+    showValidationModal,
+    markBackgroundColorConfirmed,
+    markBackgroundEffectConfirmed,
+} from "./prod-validation.js";
 import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
@@ -408,7 +416,7 @@ function renderEndingTypeVoiceStatusPanel() {
     }
     panel.replaceChildren();
 
-    Array.from(endingTypeSelect.options || []).forEach((opt) => {
+    Array.from(endingTypeSelect.options || []).filter((opt) => opt.value && !opt.disabled).forEach((opt) => {
         const row = document.createElement("div");
         row.style.display = "flex";
         row.style.justifyContent = "space-between";
@@ -463,7 +471,7 @@ async function refreshEndingTypeVoiceLabels() {
     const { els } = appState;
     const endingTypeSelect = els?.inEndingType;
     if (!endingTypeSelect) return;
-    const options = Array.from(endingTypeSelect.options || []);
+    const options = Array.from(endingTypeSelect.options || []).filter((opt) => opt.value && !opt.disabled);
     if (options.length === 0) return;
     await Promise.all(
         options.map(async (opt) => {
@@ -752,18 +760,18 @@ function renderLandingTitleVoiceControls() {
     const controls = document.createElement("div");
     controls.style.display = "inline-flex";
     controls.style.alignItems = "center";
-    controls.style.gap = "0.45rem";
+    controls.style.gap = "0.585rem";
 
     const volBtn = document.createElement("button");
     volBtn.type = "button";
     volBtn.textContent = "Vol";
     volBtn.dataset.quizTypeVoiceVol = quizType;
-    volBtn.style.padding = "0.2rem 0.62rem";
+    volBtn.style.padding = "0.26rem 0.806rem";
     volBtn.style.borderRadius = "999px";
     volBtn.style.border = "1px solid rgba(255,255,255,0.38)";
     volBtn.style.background = "rgba(255,255,255,0.08)";
     volBtn.style.color = "#fff";
-    volBtn.style.fontSize = "0.78rem";
+    volBtn.style.fontSize = "1.014rem";
     volBtn.style.fontWeight = "800";
     volBtn.style.cursor = "pointer";
     volBtn.onclick = () => { void ensureQuizTypeVoiceThenPlay(quizType); };
@@ -772,12 +780,12 @@ function renderLandingTitleVoiceControls() {
     xBtn.type = "button";
     xBtn.textContent = "X";
     xBtn.dataset.quizTypeVoiceDel = quizType;
-    xBtn.style.padding = "0.2rem 0.66rem";
+    xBtn.style.padding = "0.26rem 0.858rem";
     xBtn.style.borderRadius = "999px";
     xBtn.style.border = "1px solid rgba(239,68,68,0.75)";
     xBtn.style.background = "rgba(239,68,68,0.2)";
     xBtn.style.color = "#fff";
-    xBtn.style.fontSize = "0.78rem";
+    xBtn.style.fontSize = "1.014rem";
     xBtn.style.fontWeight = "900";
     xBtn.style.cursor = "pointer";
     xBtn.disabled = !quizTypeVoiceStatusByType[quizType];
@@ -1047,6 +1055,13 @@ async function init() {
         document.getElementById("in-background-opacity"),
         document.getElementById("btn-save-background-opacity"),
     );
+
+    // Track explicit user selection for PROD validation
+    const bgColorSel = document.getElementById("in-background-color");
+    const bgEffectSel = document.getElementById("in-background-effect");
+    if (bgColorSel) bgColorSel.addEventListener("change", () => markBackgroundColorConfirmed());
+    if (bgEffectSel) bgEffectSel.addEventListener("change", () => markBackgroundEffectConfirmed());
+
     await initTeamVoiceManager();
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;
@@ -1139,6 +1154,24 @@ async function init() {
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;
 
+    // ── Specific title YES/NO buttons ──
+    const specificTitleYes = document.getElementById("specific-title-yes");
+    const specificTitleNo = document.getElementById("specific-title-no");
+    if (specificTitleYes && specificTitleNo) {
+        specificTitleYes.onclick = () => {
+            specificTitleYes.setAttribute("aria-pressed", "true");
+            specificTitleNo.setAttribute("aria-pressed", "false");
+            els.inSpecificTitleToggle.checked = true;
+            els.inSpecificTitleToggle.dispatchEvent(new Event("change"));
+        };
+        specificTitleNo.onclick = () => {
+            specificTitleNo.setAttribute("aria-pressed", "true");
+            specificTitleYes.setAttribute("aria-pressed", "false");
+            els.inSpecificTitleToggle.checked = false;
+            els.inSpecificTitleToggle.dispatchEvent(new Event("change"));
+        };
+    }
+
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 29;
@@ -1168,6 +1201,21 @@ async function init() {
             els.shortsModeToggle.checked = !els.shortsModeToggle.checked;
             els.shortsModeToggle.dispatchEvent(new Event("change"));
         };
+    }
+
+    function syncYoutubeThumbnailsButton() {
+        if (!els.youtubeThumbnailsBtn) return;
+        const on = document.body.classList.contains("youtube-thumbnails-mode");
+        els.youtubeThumbnailsBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    }
+
+    if (els.youtubeThumbnailsBtn) {
+        els.youtubeThumbnailsBtn.onclick = () => {
+            document.body.classList.toggle("youtube-thumbnails-mode");
+            syncYoutubeThumbnailsButton();
+            switchLevel(appState.currentLevelIndex);
+        };
+        syncYoutubeThumbnailsButton();
     }
 
     function syncVideoModeButton(isEnabled) {
@@ -1248,7 +1296,23 @@ async function init() {
         }
     };
 
+    // ── PROD button ──
+    if (els.prodBtn) {
+        els.prodBtn.onclick = () => {
+            toggleProdMode();
+            syncVideoModeButton(!!getState()?.videoMode);
+            syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
+        };
+    }
+
     els.playVideoBtn.onclick = () => {
+        if (isProdMode()) {
+            const result = runProdValidation();
+            if (!result.allPassed) {
+                showValidationModal(result);
+                return;
+            }
+        }
         renderLandingTitleVoiceControls();
         startVideoFlow();
         setTimeout(() => {

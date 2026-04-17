@@ -25,6 +25,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
+import { isProdMode, toggleProdMode, runProdValidation, showValidationModal, markBackgroundColorConfirmed, markBackgroundEffectConfirmed } from "./prod-validation.js";
 import { initSavedTeamLayouts, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
@@ -403,7 +404,7 @@ function renderEndingTypeVoiceStatusPanel() {
     }
     panel.replaceChildren();
 
-    Array.from(endingTypeSelect.options || []).forEach((opt) => {
+    Array.from(endingTypeSelect.options || []).filter((opt) => opt.value && !opt.disabled).forEach((opt) => {
         const row = document.createElement("div");
         row.style.display = "flex";
         row.style.justifyContent = "space-between";
@@ -458,7 +459,7 @@ async function refreshEndingTypeVoiceLabels() {
     const { els } = appState;
     const endingTypeSelect = els?.inEndingType;
     if (!endingTypeSelect) return;
-    const options = Array.from(endingTypeSelect.options || []);
+    const options = Array.from(endingTypeSelect.options || []).filter((opt) => opt.value && !opt.disabled);
     if (options.length === 0) return;
     await Promise.all(
         options.map(async (opt) => {
@@ -957,6 +958,10 @@ async function init() {
         document.getElementById("in-background-opacity"),
         document.getElementById("btn-save-background-opacity"),
     );
+    const bgColorSel = document.getElementById("in-background-color");
+    const bgEffectSel = document.getElementById("in-background-effect");
+    if (bgColorSel) bgColorSel.addEventListener("change", () => markBackgroundColorConfirmed());
+    if (bgEffectSel) bgEffectSel.addEventListener("change", () => markBackgroundEffectConfirmed());
     await initTeamVoiceManager();
     function syncShortsModeFab() {
         if (!els.shortsModeBtn || !els.shortsModeToggle) return;
@@ -1038,6 +1043,13 @@ async function init() {
     els.inSpecificTitleToggle.onchange = updateLanding;
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;
+
+    const specificTitleYes = document.getElementById("specific-title-yes");
+    const specificTitleNo = document.getElementById("specific-title-no");
+    if (specificTitleYes && specificTitleNo) {
+        specificTitleYes.onclick = () => { specificTitleYes.setAttribute("aria-pressed", "true"); specificTitleNo.setAttribute("aria-pressed", "false"); els.inSpecificTitleToggle.checked = true; els.inSpecificTitleToggle.dispatchEvent(new Event("change")); };
+        specificTitleNo.onclick = () => { specificTitleNo.setAttribute("aria-pressed", "true"); specificTitleYes.setAttribute("aria-pressed", "false"); els.inSpecificTitleToggle.checked = false; els.inSpecificTitleToggle.dispatchEvent(new Event("change")); };
+    }
 
     els.inShotsSizeToggle.onchange = () => {
         els.shotsSizeOverlay.hidden = !els.inShotsSizeToggle.checked;
@@ -1154,7 +1166,21 @@ async function init() {
         };
     }
 
-    els.playVideoBtn.onclick = () => startVideoFlow();
+    if (els.prodBtn) {
+        els.prodBtn.onclick = () => {
+            toggleProdMode();
+            syncVideoModeButton(!!getState()?.videoMode);
+            syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
+        };
+    }
+
+    els.playVideoBtn.onclick = () => {
+        if (isProdMode()) {
+            const result = runProdValidation();
+            if (!result.allPassed) { showValidationModal(result); return; }
+        }
+        startVideoFlow();
+    };
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
     els.swapSearch.oninput = () => {

@@ -77,6 +77,8 @@ export const appState = {
     sideTextRight: null,
     shortsModeToggle: null,
     shortsModeBtn: null,
+    youtubeThumbnailsBtn: null,
+    sideTextLeft: null,
   },
   teamsIndex: { clubs: [], nationalities: [] },
   /** Map nationality string -> players from club squads with NT caps; null until lazy-loaded. */
