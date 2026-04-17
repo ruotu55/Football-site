@@ -5,6 +5,7 @@ import {
   renderHeader,
   renderPitch,
   shouldUseVideoQuestionLayout,
+  preloadSquadImages,
 } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow, setBgMusicForLevel } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
@@ -306,6 +307,9 @@ export function switchLevel(index) {
       refreshSaveTeamButtonUi();
       return;
     }
+
+    // Preload images for the next level BEFORE transition starts
+    preloadSquadImages(state);
 
     const useCustomTransition = transitionSettings.effect !== "none";
 

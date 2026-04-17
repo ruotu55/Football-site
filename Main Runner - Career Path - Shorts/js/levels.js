@@ -1,6 +1,6 @@
 import { appState, getState, migrateShortsVideoOffLegacyNormalProfile } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers, refreshCareerPictureControlsDisplay } from "./pitch-render.js";
+import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers, refreshCareerPictureControlsDisplay, preloadCareerAssets } from "./pitch-render.js";
 import {
   playRules,
   playProgressVoice,
@@ -11,6 +11,26 @@ import { runTransition, transitionSettings } from "./transitions.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
+
+/** Called during the covered phase of a transition to make the timer bar visible and full.
+ *  The ball is started later, in beginQuestionCountdown, so it is perfectly in sync with the bar. */
+function _prepTimerBarWhileCovered() {
+  const timerEl = appState.els?.countdownTimer;
+  const fillEl = document.getElementById("countdown-bar-fill");
+  if (!timerEl) return;
+  timerEl.classList.remove(
+    "countdown-timer-stage-enter",
+    "timer-shake",
+    "timer-phase-orange",
+    "timer-phase-yellow",
+    "timer-phase-red"
+  );
+  timerEl.classList.add("timer-phase-green");
+  if (fillEl) {
+    fillEl.style.transition = "none";
+    fillEl.style.width = "100%";
+  }
+}
 
 export function switchLevel(index) {
   let idx = index;
@@ -343,6 +363,9 @@ export function switchLevel(index) {
       return;
     }
 
+    // Preload images for the next level BEFORE transition starts
+    preloadCareerAssets(state);
+
     const useCustomTransition = transitionSettings.effect !== "none";
 
     if (useCustomTransition) {
@@ -352,6 +375,12 @@ export function switchLevel(index) {
         progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
       }
       appState._transitionDone = runTransition(() => {
+        // If video.js flagged it, prep the timer bar now while the screen is covered
+        if (appState._prepTimerOnCover) {
+          appState._prepTimerOnCover = false;
+          _prepTimerBarWhileCovered();
+        }
+
         // Disable CSS transitions on all animated elements so they appear
         // instantly in their final position when the overlay reveals.
         const careerWrap = els.careerWrap;
@@ -392,6 +421,11 @@ export function switchLevel(index) {
       }
 
       setTimeout(() => {
+        // If video.js flagged it, prep the timer bar now while the screen is covered
+        if (appState._prepTimerOnCover) {
+          appState._prepTimerOnCover = false;
+          _prepTimerBarWhileCovered();
+        }
         updateDOMContent();
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {

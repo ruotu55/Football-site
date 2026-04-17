@@ -1019,7 +1019,7 @@ body.shorts-mode .player-stats-panel {
 
   position: absolute;
   left: 50%;
-  top: clamp(0.15rem, 0.6vh, 0.4rem);
+  top: clamp(0.8rem, 2.5vh, 1.4rem);
   transform: translateX(-50%);
   z-index: 280;
   width: min(86%, 378px);
@@ -1131,9 +1131,15 @@ body.shorts-mode .player-stat-card {
   gap: 0;
   min-width: 0;
   min-height: 0;
-  border-radius: 0.12rem;
+  border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 body.shorts-mode .player-stat-card__head {
@@ -1145,11 +1151,11 @@ body.shorts-mode .player-stat-card__head {
   font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
   font-weight: 800;
   font-size: var(--player-stat-head-font);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #f8fafc;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  padding: 0.18rem 0.28rem;
+  color: #b8c8dc;
+  text-shadow: 0 0 6px rgba(100, 180, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 0.28rem 0.38rem;
   line-height: 1.12;
   flex: 0 0 var(--player-stat-equal-cell);
   min-height: var(--player-stat-equal-cell);
@@ -1157,20 +1163,9 @@ body.shorts-mode .player-stat-card__head {
   max-height: var(--player-stat-equal-cell);
   box-sizing: border-box;
   overflow: hidden;
-  background-color: var(--player-stat-navy-deep);
-  background-image:
-    var(--player-stat-matte-noise),
-    linear-gradient(
-      180deg,
-      rgba(0, 18, 48, 0.42) 0%,
-      rgba(0, 12, 36, 0.28) 50%,
-      rgba(0, 8, 28, 0.38) 100%
-    ),
-    url("../../../Images/Backgrounds/stats%20image.jpg");
-  background-size: auto, auto, cover;
-  background-position: center, center, center;
-  background-repeat: repeat, no-repeat, no-repeat;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  background:
+    linear-gradient(180deg, rgba(0, 30, 80, 0.72) 0%, rgba(0, 18, 55, 0.58) 50%, rgba(0, 12, 42, 0.68) 100%);
+  border-bottom: 1px solid rgba(100, 180, 255, 0.15);
 }
 
 body.shorts-mode .player-stat-card__icon {
@@ -1215,7 +1210,7 @@ body.shorts-mode .player-stat-card__value {
   justify-content: center;
   box-sizing: border-box;
   overflow: hidden;
-  color: #000000;
+  color: #c8d4e4;
   font-size: var(--player-stat-value-font);
   font-weight: 900;
   font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
@@ -1224,20 +1219,11 @@ body.shorts-mode .player-stat-card__value {
   text-align: center;
   word-break: break-word;
   overflow-wrap: anywhere;
-  background-color: #c5c5c5;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.12) 0%,
-      transparent 42%,
-      rgba(0, 0, 0, 0.06) 100%
-    ),
-    url("../../../Images/Backgrounds/Light%20grey%20background.jfif");
-  background-size: auto, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  text-shadow: 0 0 6px rgba(100, 200, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+  background:
+    linear-gradient(180deg, rgba(10, 25, 50, 0.55) 0%, rgba(5, 15, 35, 0.65) 100%);
+  border-top: 1px solid rgba(100, 180, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* ── Clubs card value ── */
@@ -1477,19 +1463,47 @@ body.shorts-mode.play-video-active.shorts-question-countdown .player-stats-panel
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  z-index: 0;
+  /* Behind the portrait img (WebGL canvas can composite oddly at z-index 0). */
+  z-index: -1;
   opacity: 0.55;
   transform: translateY(-10%) scale(0.8);
+}
+
+/* Shorts: flag only while Video Mode “hidden player” chrome is active. `renderCareer` clears
+   `career-shorts-video-layout` + `#career-wrap.video-mode-enabled` during `previewPostTimer` (revealed
+   answer phase) and when Video Mode is off — so no flag on revealed portrait or Video Mode off grid. */
+body.shorts-mode #career-reveal-photo .player-stats-national-flag {
+  display: none !important;
+}
+
+body.shorts-mode .career-wrap.video-mode-enabled #career-reveal-photo .player-stats-national-flag,
+body.shorts-mode.career-shorts-video-layout #career-reveal-photo .player-stats-national-flag {
+  display: flex !important;
 }
 
 /* Player image must sit above the flag canvas. */
 .career-reveal-photo-img {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .career-reveal-photo-fallback {
-  z-index: 1;
+  z-index: 2;
+}
+
+/* Video-mode preview/countdown uses opacity ~0.35 + a soft bottom mask on the portrait; both read as
+   "see-through" over the waving flag. When the flag is mounted, keep the silhouette fully opaque. */
+body.shorts-mode .career-reveal-photo:has(.player-stats-national-flag) .career-reveal-photo-img {
+  opacity: 1 !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+.player-stats-national-flag__fallback-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .player-stats-national-flag__canvas-host {

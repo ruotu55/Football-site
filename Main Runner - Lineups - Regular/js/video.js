@@ -15,7 +15,7 @@ import {
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 
-/* ── GSAP lazy loader (shared with transitions.js) ────────────────── */
+/* ── GSAP lazy loader (eagerly kicked off at module load) ────────── */
 let gsapLib = null;
 function loadGsap() {
   if (gsapLib) return Promise.resolve(gsapLib);
@@ -28,6 +28,9 @@ function loadGsap() {
     document.head.appendChild(s);
   });
 }
+
+// Eagerly preload GSAP so the ball-preloader animation starts without network delay.
+loadGsap();
 
 /** Show the ball-drop preloader, run the GSAP animation, then resolve. */
 function playBallPreloader() {
@@ -249,26 +252,17 @@ export function startVideoFlow() {
   const state = getState();
   const { els } = appState;
   const isShorts = document.body.classList.contains("shorts-mode");
-  if (appState.currentLevelIndex > 1) {
-    if (!state.currentSquad) { 
-      alert("Please select a team and check the 'Video Mode' box first."); 
-      return; 
-    }
-    if (!state.videoMode) { 
-      alert("Please check the 'Video Mode' box first."); 
-      return; 
-    }
-  } else {
-    if (!state.videoMode) { 
-      alert("Please check the 'Video Mode' box first."); 
-      return; 
-    }
+  if (appState.currentLevelIndex > 1 && !state.currentSquad) {
+    alert("Please select a team first.");
+    return;
   }
-  if (appState.isVideoPlaying) { 
-    stopVideoFlow(); 
-    return; 
+  if (appState.isVideoPlaying) {
+    stopVideoFlow();
+    return;
   }
   appState.isVideoPlaying = true;
+  // Auto-enable video mode on ALL levels
+  appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
   appState.refreshLandingUi?.();
   scheduleLandingSpecialBadgeRevealAfterPlayVideo();
   setVideoRevealPostTimerActive(false);
@@ -355,7 +349,8 @@ function scheduleAfterTransition(fn, fallbackMs = 0) {
   if (appState._transitionDone) {
     const p = appState._transitionDone;
     appState._transitionDone = null;
-    p.then(() => { appState.videoTimeout = setTimeout(fn, 200); });
+    p.then(() => { appState.videoTimeout = setTimeout(fn, 200); })
+     .catch(() => { appState.videoTimeout = setTimeout(fn, fallbackMs || 200); });
   } else if (fallbackMs > 0) {
     appState.videoTimeout = setTimeout(fn, fallbackMs);
   } else {
@@ -491,12 +486,16 @@ function revealCurrentLevel() {
       ? window.__getSelectedEndingType() : "think-you-know";
     const skipBonusReveal = isLastQuestionBeforeOutro && endingType !== "how-many";
     if (!skipBonusReveal) {
-      const quizType = els.inQuizType?.value || "nat-by-club";
-      const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
-      setVideoRevealPostTimerActive(true);
-      refreshCurrentQuestionPreview();
-      /* Panel opens here; team clip used to wait 600ms for duck — start with the window. */
-      playTheAnswerIs(true, teamDisplayName, quizType, 0);
+      try {
+        const quizType = els.inQuizType?.value || "nat-by-club";
+        const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
+        setVideoRevealPostTimerActive(true);
+        refreshCurrentQuestionPreview();
+        /* Panel opens here; team clip used to wait 600ms for duck — start with the window. */
+        playTheAnswerIs(true, teamDisplayName, quizType, 0);
+      } catch (err) {
+        console.error("[revealCurrentLevel] reveal error:", err);
+      }
       flipDelay = 3000;
     } else {
       /* Bonus: no answer reveal — go straight to outro after the question timer. */

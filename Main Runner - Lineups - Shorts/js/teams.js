@@ -1,7 +1,7 @@
 // Application Security Requirement: load squad JSON only from curated index paths; avoid dynamic URL assembly from untrusted input.
 import { appState, clearSlotPhotoIndices, getState } from "./state.js";
 import { normalizeTeamPath, projectAssetUrl } from "./paths.js";
-import { renderHeader, renderPitch } from "./pitch-render.js";
+import { renderHeader, renderPitch, preloadSquadImages } from "./pitch-render.js";
 import { applySavedTeamLayoutAfterLoad, refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 
 // Specific team mappings to populate standard large tournament selections natively
@@ -187,6 +187,7 @@ export function showResults(items) {
 
         renderHeader();
         renderPitch();
+        preloadSquadImages(state);
         refreshSaveTeamButtonUi();
       } catch (e) {
         console.error(e);

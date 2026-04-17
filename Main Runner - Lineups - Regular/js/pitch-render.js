@@ -75,6 +75,7 @@ import {
   withProjectAssetCacheBust,
 } from "./paths.js";
 import { normalizeForSearch } from "./search-normalize.js";
+import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
 import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
 import {
   applyTeamHeaderStripesFromFlagImage,
@@ -950,12 +951,25 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         img.style.objectFit = "contain";
         img.style.display = "block";
 
+        // Use cache-first loading: check RAM cache before network
         let chainIndex = 0;
-        img.src = urlChain[chainIndex];
+        const trySetSrc = (idx) => {
+          const url = urlChain[idx];
+          const cached = getCachedImage(url);
+          if (cached) {
+            img.src = cached.src;
+            putCachedImage(url, img);
+          } else {
+            preloadImage(url); // ensure it goes through decode pipeline
+            img.src = url;
+          }
+        };
+        trySetSrc(chainIndex);
+        img.onload = () => { putCachedImage(urlChain[chainIndex], img); };
         img.onerror = () => {
           chainIndex += 1;
           if (chainIndex < urlChain.length) {
-            img.src = urlChain[chainIndex];
+            trySetSrc(chainIndex);
             return;
           }
           img.remove();
@@ -1001,7 +1015,15 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       };
       backAvatar.appendChild(img);
       applyPlayerPhotoFramingForSourceRelPath(img, rel);
-      img.src = projectAssetUrlFresh(rel);
+      const _photoUrl = projectAssetUrlFresh(rel);
+      const _cachedPhoto = getCachedImage(_photoUrl);
+      if (_cachedPhoto) {
+        img.src = _cachedPhoto.src;
+      } else {
+        preloadImage(_photoUrl);
+        img.src = _photoUrl;
+      }
+      img.onload = () => { putCachedImage(_photoUrl, img); };
     } else {
       state.slotPhotoIndexBySlot.delete(slotIndex);
       backAvatar.classList.add("slot-avatar--no-photo");
@@ -1099,7 +1121,15 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       };
       avatar.appendChild(img);
       applyPlayerPhotoFramingForSourceRelPath(img, rel);
-      img.src = projectAssetUrlFresh(rel);
+      const _photoUrl2 = projectAssetUrlFresh(rel);
+      const _cachedPhoto2 = getCachedImage(_photoUrl2);
+      if (_cachedPhoto2) {
+        img.src = _cachedPhoto2.src;
+      } else {
+        preloadImage(_photoUrl2);
+        img.src = _photoUrl2;
+      }
+      img.onload = () => { putCachedImage(_photoUrl2, img); };
     } else {
       state.slotPhotoIndexBySlot.delete(slotIndex);
       avatar.classList.add("slot-avatar--no-photo");
@@ -1140,6 +1170,38 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
     mount.append(avatar, labelContainer);
   }
+}
+
+/**
+ * Preload all images needed for the current squad into the RAM cache.
+ * Call this after a squad is loaded so level switches are instant.
+ */
+export function preloadSquadImages(state) {
+  if (!state || !state.currentSquad) return;
+  const urls = [];
+  const squad = state.currentSquad;
+
+  // Team header logo
+  if (squad.imagePath) {
+    urls.push(projectAssetUrlFresh(squad.imagePath));
+  }
+
+  // Player photos
+  const allPlayers = [
+    ...(squad.goalkeepers || []),
+    ...(squad.defenders || []),
+    ...(squad.midfielders || []),
+    ...(squad.attackers || []),
+  ];
+  for (const player of allPlayers) {
+    if (!player) continue;
+    const paths = playerPhotoPaths(player, state.displayMode);
+    for (const rel of paths) {
+      if (rel) urls.push(projectAssetUrlFresh(rel));
+    }
+  }
+
+  if (urls.length) preloadImages(urls);
 }
 
 export function renderPitch() {
@@ -1646,13 +1708,16 @@ export function renderHeader() {
       const logoImg = els.headerLogo;
       let chainIndex = 0;
       logoImg.onload = () => {
+        putCachedImage(chain[chainIndex], logoImg);
         scheduleTeamHeaderNameCenterShift();
         scheduleTeamHeaderSidePanelNameFit();
       };
       logoImg.onerror = () => {
         chainIndex += 1;
         if (chainIndex < chain.length) {
-          logoImg.src = chain[chainIndex];
+          const cachedLogo = getCachedImage(chain[chainIndex]);
+          logoImg.src = cachedLogo ? cachedLogo.src : chain[chainIndex];
+          if (!cachedLogo) preloadImage(chain[chainIndex]);
           return;
         }
         logoImg.hidden = true;
@@ -1665,9 +1730,16 @@ export function renderHeader() {
         scheduleTeamHeaderNameCenterShift();
         scheduleTeamHeaderSidePanelNameFit();
       };
-      logoImg.src = chain[0];
+      // Use cache-first: check RAM cache before network fetch
+      const cachedHeaderLogo = getCachedImage(chain[0]);
+      if (cachedHeaderLogo) {
+        logoImg.src = cachedHeaderLogo.src;
+      } else {
+        preloadImage(chain[0]);
+        logoImg.src = chain[0];
+      }
       logoImg.hidden = false;
-      if (logoImg.complete) {
+      if (logoImg.complete && logoImg.naturalWidth) {
         scheduleTeamHeaderNameCenterShift();
         scheduleTeamHeaderSidePanelNameFit();
       }

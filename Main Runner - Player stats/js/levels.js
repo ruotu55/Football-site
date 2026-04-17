@@ -1,6 +1,6 @@
 import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { getVideoQuestionPreviewState, renderHeader, renderCareer } from "./pitch-render.js";
+import { getVideoQuestionPreviewState, renderHeader, renderCareer, preloadCareerAssets } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
 import { runTransition, transitionSettings } from "./transitions.js";
@@ -375,6 +375,9 @@ export function switchLevel(
       return;
     }
 
+    // Preload images for the next level BEFORE transition starts
+    preloadCareerAssets(state);
+
     const useCustomTransition = transitionSettings.effect !== "none";
 
     if (useCustomTransition) {
@@ -384,6 +387,12 @@ export function switchLevel(
         progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
       }
       appState._transitionDone = runTransition(() => {
+        if (syncFullViewportVideoStage) {
+          appState.videoRevealPostTimerActive = false;
+          document.body.classList.remove("career-play-video-answer-reveal");
+          appState.holdCinematicBackdropForPlayVideoStage = false;
+          if (typeof afterPlayVideoStageEnterDone === "function") afterPlayVideoStageEnterDone();
+        }
         updateDOMContent();
         if (progressContainer) {
           progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");

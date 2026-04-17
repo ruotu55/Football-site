@@ -1,4 +1,5 @@
 import { appState, getState } from "./state.js";
+import { transitionSettings } from "./transitions.js";
 import { buildTeamNameVoiceSrc } from "./audio.js";
 import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
@@ -37,6 +38,7 @@ export function toggleProdMode() {
     if (els.prodBtn) {
         els.prodBtn.setAttribute("aria-pressed", prodModeActive ? "true" : "false");
     }
+    const effectSel = document.getElementById("in-transition-effect");
     if (prodModeActive) {
         // Turn on video mode for ALL levels
         appState.levelsData.forEach((lvl) => {
@@ -50,6 +52,11 @@ export function toggleProdMode() {
                 els.videoModeToggle.dispatchEvent(new Event("change"));
             }
         }
+        transitionSettings.effect = "";
+        if (effectSel) effectSel.selectedIndex = 0;
+    } else {
+        transitionSettings.effect = "grid-overlay";
+        if (effectSel) effectSel.value = "grid-overlay";
     }
 }
 

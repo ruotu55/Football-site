@@ -37,6 +37,8 @@ const TICKING_LEAD_BEFORE_RED_MS = 1500;
 const SHORTS_INTRO_VOICE_COUNTDOWN_FALLBACK_MS = 12000;
 /** Shorts: when Play Video is pressed on level 1 (first question), wait before quiz voice + countdown. */
 const PLAY_VIDEO_LEVEL_1_INTRO_DELAY_MS = 2000;
+/** Shorts level 1 only: extra wait before the countdown timer bar is shown and starts depleting (levels 2+ unchanged). */
+const SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS = 1000;
 
 /** Logo→first question: skip pre-countdown stage swap once so the bar lines up with title voice `playing`. */
 let shortsSyncIntroVoiceCountdownOnce = false;
@@ -132,6 +134,29 @@ function clearShortsQuestionCountdown() {
   clearShortsCountdownAuxTimeouts();
 }
 
+/**
+ * Prep the timer bar so it is already visible (full, green) before the
+ * transition cover lifts.  Called right before switchLevel() for levels 2+.
+ */
+function prepTimerBarForNextLevel() {
+  const { els } = appState;
+  const fillEl = document.getElementById("countdown-bar-fill");
+  els.countdownTimer.hidden = false;
+  els.countdownTimer.classList.remove(
+    "countdown-timer-stage-enter",
+    "timer-shake",
+    "timer-phase-orange",
+    "timer-phase-yellow",
+    "timer-phase-red"
+  );
+  els.countdownTimer.classList.add("timer-phase-green");
+  if (fillEl) {
+    fillEl.style.transition = "none";
+    fillEl.style.width = "100%";
+  }
+  clearShortsCountdownSoccer(els.countdownTimer);
+}
+
 function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
@@ -213,26 +238,17 @@ export function startVideoFlow() {
   const state = getState();
   const { els } = appState;
   const isShorts = isShortsMode();
-  if (appState.currentLevelIndex > 0) {
-    if (!state.currentSquad) { 
-      alert("Please select a team and check the 'Video Mode' box first."); 
-      return; 
-    }
-    if (!state.videoMode) { 
-      alert("Please check the 'Video Mode' box first."); 
-      return; 
-    }
-  } else {
-    if (!state.videoMode) { 
-      alert("Please check the 'Video Mode' box first."); 
-      return; 
-    }
+  if (appState.currentLevelIndex > 0 && !state.currentSquad) {
+    alert("Please select a team first.");
+    return;
   }
-  if (appState.isVideoPlaying) { 
-    stopVideoFlow(); 
-    return; 
+  if (appState.isVideoPlaying) {
+    stopVideoFlow();
+    return;
   }
   appState.isVideoPlaying = true;
+  // Auto-enable video mode on ALL levels
+  appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
   appState.refreshLandingUi?.();
   scheduleLandingSpecialBadgeRevealAfterPlayVideo();
   setVideoRevealPostTimerActive(false);
@@ -505,18 +521,48 @@ function runVideoStep() {
       if (isShorts) {
         document.body.classList.add("shorts-question-countdown");
       }
-      els.countdownTimer.hidden = false;
+      const isFirstLevel = appState.currentLevelIndex === 1;
+      const level1BarLagMs =
+        isShorts && isFirstLevel ? SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS : 0;
+      els.countdownTimer.hidden = level1BarLagMs > 0;
+
+      // Level 1: optional lag, then entrance animation; bar depletion aligns with startDelay.
+      // Levels 2+: bar was prepped by prepTimerBarForNextLevel(), start immediately
+      let startDelay = 50 + level1BarLagMs;
 
       if (isShorts) {
-        els.countdownTimer.classList.remove("countdown-timer-stage-enter");
-        void els.countdownTimer.offsetWidth;
-        els.countdownTimer.classList.add("countdown-timer-stage-enter");
-        setTimeout(() => {
+        const runFirstLevelEnterAndSoccer = () => {
+          if (!appState.isVideoPlaying) return;
           els.countdownTimer.classList.remove("countdown-timer-stage-enter");
-        }, SHORTS_STAGE_ENTER_MS + 50);
-      }
+          void els.countdownTimer.offsetWidth;
+          els.countdownTimer.classList.add("countdown-timer-stage-enter");
+          setTimeout(() => {
+            els.countdownTimer.classList.remove("countdown-timer-stage-enter");
+          }, SHORTS_STAGE_ENTER_MS + 50);
+          setTimeout(() => restartShortsCountdownSoccer(els.countdownTimer, totalDurationMs), 50);
+        };
+        if (isFirstLevel) {
+          if (level1BarLagMs > 0) {
+            shortsCountdownAuxTimeouts.push(
+              setTimeout(() => {
+                if (!appState.isVideoPlaying) return;
+                els.countdownTimer.hidden = false;
+                runFirstLevelEnterAndSoccer();
+              }, level1BarLagMs)
+            );
+          } else {
+            runFirstLevelEnterAndSoccer();
+          }
+        } else {
+          els.countdownTimer.classList.remove("countdown-timer-stage-enter");
+          void els.countdownTimer.offsetWidth;
+          els.countdownTimer.classList.add("countdown-timer-stage-enter");
+          setTimeout(() => {
+            els.countdownTimer.classList.remove("countdown-timer-stage-enter");
+          }, SHORTS_STAGE_ENTER_MS + 50);
+          setTimeout(() => restartShortsCountdownSoccer(els.countdownTimer, totalDurationMs), startDelay);
+        }
 
-      if (isShorts) {
         if (fillEl) {
           fillEl.style.transition = "none";
           fillEl.style.width = "100%";
@@ -524,11 +570,10 @@ function runVideoStep() {
           setTimeout(() => {
             fillEl.style.transition = `width ${totalDurationMs}ms linear`;
             fillEl.style.width = "0%";
-          }, 50);
+          }, startDelay);
         }
-        setTimeout(() => restartShortsCountdownSoccer(els.countdownTimer, totalDurationMs), 50);
         for (let step = 1; step < baseSteps; step++) {
-          const t = step * tickMs;
+          const t = startDelay + step * tickMs;
           shortsCountdownAuxTimeouts.push(
             setTimeout(() => {
               if (!appState.isVideoPlaying) return;
@@ -552,14 +597,15 @@ function runVideoStep() {
       }
 
       clearTimeout(appState.tickingLeadTimeout);
-      const msUntilTicking = Math.max(0, msUntilRed - TICKING_LEAD_BEFORE_RED_MS);
+      const tickingDelay = isShorts ? startDelay : 0;
+      const msUntilTicking = Math.max(0, tickingDelay + msUntilRed - TICKING_LEAD_BEFORE_RED_MS);
       appState.tickingLeadTimeout = setTimeout(() => {
         appState.tickingLeadTimeout = null;
         if (appState.isVideoPlaying) playTicking();
       }, msUntilTicking);
 
       if (isShorts) {
-        const countdownWallMs = 50 + totalDurationMs;
+        const countdownWallMs = startDelay + totalDurationMs;
         appState.videoInterval = setTimeout(() => {
           if (!appState.isVideoPlaying) return;
           finishQuestionCountdownAfterBar();
@@ -584,12 +630,11 @@ function runVideoStep() {
     if (isShorts) {
       els.countdownTimer.hidden = true;
       els.countdownTimer.classList.remove("countdown-timer-stage-enter");
-      let swapDelayMs = SHORTS_STAGE_CONTENT_SWAP_MS;
       if (shortsSyncIntroVoiceCountdownOnce) {
-        swapDelayMs = 0;
         shortsSyncIntroVoiceCountdownOnce = false;
       }
-      appState.videoTimeout = setTimeout(beginQuestionCountdown, swapDelayMs);
+      // Start countdown immediately so the bar animates in with the content
+      beginQuestionCountdown();
     } else {
       beginQuestionCountdown();
     }
@@ -630,13 +675,18 @@ function revealCurrentLevel() {
     setVideoRevealPostTimerActive(false);
     let jumpToIndex = appState.currentLevelIndex + 1;
     if (jumpToIndex <= appState.totalLevelsCount) {
+      const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+      const isShorts = document.body.classList.contains("shorts-mode");
+      // Signal levels.js to prep the bar during the cover phase (not before)
+      if (isShorts && !isNextOutro && jumpToIndex >= 2) {
+        appState._prepTimerOnCover = true;
+      }
       switchLevel(jumpToIndex);
       const nextState = getState();
-      const isNextOutro = jumpToIndex === appState.totalLevelsCount;
       const shouldContinueVideo =
         appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad);
       if (shouldContinueVideo) {
-        scheduleAfterTransition(() => runVideoStepAfterLevelSwitchIfNeeded());
+        scheduleAfterTransition(() => runVideoStepAfterLevelSwitchIfNeeded(), SHORTS_STAGE_CONTENT_SWAP_MS);
       } else {
         stopVideoFlow();
       }

@@ -9,7 +9,7 @@ import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./c
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 
-/* ── GSAP lazy loader ────────────────────────────────────────────── */
+/* ── GSAP lazy loader (eagerly kicked off at module load) ────────── */
 let gsapLib = null;
 function loadGsap() {
   if (gsapLib) return Promise.resolve(gsapLib);
@@ -22,6 +22,9 @@ function loadGsap() {
     document.head.appendChild(s);
   });
 }
+
+// Eagerly preload GSAP so the ball-preloader animation starts without network delay.
+loadGsap();
 
 /** Show the ball-drop preloader, run the GSAP animation, then resolve. */
 function playBallPreloader() {
@@ -248,26 +251,17 @@ export function startVideoFlow() {
   const state = getState();
   const { els } = appState;
   const isShorts = document.body.classList.contains("shorts-mode");
-  if (appState.currentLevelIndex > 1) {
-    if (!state.careerPlayer) { 
-      alert("Please select a player and check the 'Video Mode' box first."); 
-      return; 
-    }
-    if (!state.videoMode) { 
-      alert("Please check the 'Video Mode' box first."); 
-      return; 
-    }
-  } else {
-    if (!state.videoMode) { 
-      alert("Please check the 'Video Mode' box first."); 
-      return; 
-    }
+  if (appState.currentLevelIndex > 1 && !state.careerPlayer) {
+    alert("Please select a player first.");
+    return;
   }
-  if (appState.isVideoPlaying) { 
-    stopVideoFlow(); 
-    return; 
+  if (appState.isVideoPlaying) {
+    stopVideoFlow();
+    return;
   }
   appState.isVideoPlaying = true;
+  // Auto-enable video mode on ALL levels
+  appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   if (els.careerWrap) {

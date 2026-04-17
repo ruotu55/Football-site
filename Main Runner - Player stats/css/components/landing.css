@@ -432,6 +432,9 @@ body:not(.shorts-mode) .landing-shirt {
   transform: translateY(-50%);
   z-index: 170;
   width: clamp(9.1rem, 16.9vw, 15.6rem);
+  display: inline-block;
+  container-type: inline-size;
+  container-name: landing-shirt;
   animation: float-up-down 3.2s ease-in-out infinite;
   cursor: default;
   user-select: none;
@@ -444,47 +447,69 @@ body.shorts-mode .landing-shirt {
   display: none !important;
 }
 
-.landing-shirt__svg {
+.play-bold {
+  font-family: "Play", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-synthesis: none;
+}
+
+/* Same PNG silhouette as before — only color treatment: neutral / no hue,
+   softer edges (less white fringe), no drop-shadow halo. */
+.landing-shirt__img {
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  border: 0;
+  outline: none;
+  opacity: 0.52;
+  filter: grayscale(1) contrast(0.88) brightness(1.06);
 }
 
-.landing-shirt__body {
-  fill: rgba(255, 255, 255, 0.08);
-  stroke: rgba(255, 255, 255, 0.25);
-  stroke-width: 3.5;
-  stroke-linejoin: round;
-}
-
-.landing-shirt__trim {
-  stroke: rgba(255, 255, 255, 0.3);
-}
-
-.landing-shirt__number {
+/* Number: matte hollow / cut-out (no glows or drop-shadow). */
+#landing-shirt-number.landing-shirt__number {
   position: absolute;
-  top: 42%;
+  /* % of shirt box (image height): centers digit on chest; fixed px was too high with -50% Y. */
+  top: 41%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Barlow Condensed", "Arial Black", sans-serif;
-  font-size: clamp(3rem, 5.5vw, 5rem);
-  font-weight: 900;
-  color: #fff;
-  text-shadow:
-    0 0 12px rgba(100, 180, 255, 0.5),
-    0 2px 6px rgba(0, 0, 0, 0.6);
+  font-family: "Play", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-synthesis: none;
+  /* Another ×0.8 vs previous step (net ~64% of original clamps). */
+  font-size: clamp(2.08rem, 11.52vw, 12rem);
+  font-size: clamp(2.08rem, 38.4cqi, 12rem);
   line-height: 1;
-  pointer-events: none;
+  letter-spacing: 0.02em;
   text-align: center;
   min-width: 1.5em;
+  pointer-events: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: clamp(2.25px, 0.17cqi, 4.75px) rgba(195, 200, 198, 0.82);
+  paint-order: stroke fill;
+  opacity: 0.94;
+  text-shadow: none;
+  filter: none;
 }
 
-.landing-shirt__number[contenteditable="true"] {
+#landing-shirt-number.landing-shirt__number[contenteditable="true"] {
   pointer-events: auto;
   outline: none;
   cursor: text;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgba(200, 200, 200, 0.5);
+  /* Solid-ish fill while editing so caret and glyphs stay readable. */
+  color: rgba(205, 210, 208, 0.96);
+  -webkit-text-fill-color: rgba(205, 210, 208, 0.96);
+  -webkit-text-stroke: clamp(1.6px, 0.11cqi, 3.25px) rgba(160, 165, 163, 0.55);
+  opacity: 1;
+  text-shadow: none;
+  filter: none;
 }
 
 /* =========================================

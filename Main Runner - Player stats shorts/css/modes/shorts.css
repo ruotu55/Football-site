@@ -7,6 +7,8 @@ body.shorts-mode {
     background: #000000;
     /* Shared with .career-grid band math (siblings, not nested) */
     --shorts-quiz-progress-bottom: calc(3.5rem + 5vh);
+    /* Player stats shorts: nudge “hidden” portrait (silhouette + dimmed video) slightly down under stats/crest. */
+    --player-stats-hidden-player-nudge-y: 4%;
 }
 
 html.shorts-mode {
@@ -821,9 +823,10 @@ body.shorts-mode.play-video-active.shorts-question-countdown .career-silhouette 
 
 body.shorts-mode .career-reveal-photo {
     left: 50%;
-    transform: translateX(-50%) translateY(46%) scale(0.74);
+    transform: translateX(-50%) translateY(0) scale(1.04);
     transform-origin: center bottom;
-    filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+    filter: none;
+    opacity: 1;
     width: 100vw;
     max-width: 100vw;
     overflow: visible;
@@ -859,9 +862,37 @@ body.shorts-mode .career-reveal-photo::after {
     pointer-events: none;
 }
 
+/* Match Career Path - Shorts: no default silhouette on the img — dim / full-color states set `filter`
+   explicitly. A global brightness(0) here stayed in effect whenever post-reveal selectors did not match
+   (e.g. `play-video-active` cleared while the portrait still has `.show`), so the “revealed” player stayed black with the glow “aura”. */
 body.shorts-mode .career-reveal-photo .career-reveal-photo-img {
     object-fit: contain;
     object-position: center bottom;
+}
+
+/* Pre-rise / shell not in `.show`: solid black silhouette + aura (Player stats shorts only). */
+body.shorts-mode .career-reveal-photo:not(.show) .career-reveal-photo-img {
+    transform: translateY(calc(var(--career-reveal-y, -10%) + var(--player-stats-hidden-player-nudge-y)))
+      scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
+    filter:
+        brightness(0)
+        contrast(1.35)
+        drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
+        drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
+        drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
+    animation: silhouette-sway 6s ease-in-out infinite alternate, silhouette-shake 4.8s ease-in-out infinite alternate;
+}
+
+@keyframes silhouette-sway {
+    0%   { translate: 0 0; }
+    50%  { translate: -6px 0; }
+    100% { translate: 6px 0; }
+}
+
+@keyframes silhouette-shake {
+    0%   { rotate: 0deg; }
+    50%  { rotate: -2.5deg; }
+    100% { rotate: 2.5deg; }
 }
 
 .career-reveal-photo-fallback {
@@ -879,11 +910,11 @@ body.shorts-mode .career-reveal-photo .career-reveal-photo-img {
     line-height: 1.25;
 }
 
-/* Hidden: match overlay pre-show (no transition — keyframes drive .show). */
+/* Pre-reveal: player visible as dark silhouette (not hidden). */
 body.shorts-mode .career-reveal-photo:not(.show) {
-    transform: translateX(-50%) translateY(46%) scale(0.74);
-    opacity: 0;
-    filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    opacity: 1;
+    filter: none;
 }
 
 /* Video Mode off: career-reveal-overlay-rise */
@@ -1008,7 +1039,7 @@ body.shorts-mode .career-wrap.video-mode-enabled .career-reveal-photo-img {
 body.shorts-mode .career-wrap.video-mode-enabled:not(.play-video-active) .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
       scale(
         calc(var(--career-reveal-scale-x, 1.08) * 0.85),
         calc(var(--career-reveal-scale-y, 1.08) * 0.85)
@@ -1020,7 +1051,7 @@ body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap.video-
 body.shorts-mode.play-video-active.shorts-play-pre-countdown.career-shorts-video-layout .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
       scale(
         calc(var(--career-reveal-scale-x, 1.08) * 0.85),
         calc(var(--career-reveal-scale-y, 1.08) * 0.85)
@@ -1031,7 +1062,7 @@ body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap.video-
 body.shorts-mode.play-video-active.shorts-play-pre-countdown.career-shorts-video-layout .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
       scale(
         calc(var(--career-reveal-scale-x, 1.08) * 0.82),
         calc(var(--career-reveal-scale-y, 1.08) * 0.82)
@@ -1052,13 +1083,18 @@ body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-revea
 body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
 }
 
 /* Play Video: wrap often has no .video-mode-enabled — same portrait math as above, keyed off body.career-shorts-video-layout. */
 body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
       scale(
         calc(var(--career-reveal-scale-x, 1.08) * 0.85),
         calc(var(--career-reveal-scale-y, 1.08) * 0.85)
@@ -1078,6 +1114,11 @@ body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .care
 body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
 }
 
 /* Shorts-only fit correction: keep the regular shell animation, but preserve the old smaller portrait sizing.
@@ -1112,6 +1153,11 @@ body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-revea
 body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap.video-mode-enabled .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+      );
 }
 
 body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img,
@@ -1126,15 +1172,24 @@ body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .care
 body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
     opacity: 0.35;
     filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+      );
 }
 
-/* After countdown / while answering: solid portrait on top of crests (no bottom mask). Wrap/body video flags are often cleared post-reveal — #career-reveal-photo covers that case. */
+/* After countdown / while answering: solid portrait on top of crests (no bottom mask). Wrap/body video flags are often cleared post-reveal — #career-reveal-photo covers that case.
+   When .video-mode-enabled drops off the wrap, the dimmed-portrait rules no longer apply; without an explicit filter reset here, the base shorts silhouette filter on .career-reveal-photo-img stays in effect and the “revealed” player stays black. */
 body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown) .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img,
 body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown).career-shorts-video-layout .career-wrap .career-reveal-photo.show .career-reveal-photo-img,
 body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown) #career-reveal-photo.show .career-reveal-photo-img {
     clip-path: inset(0 0 0 0);
     -webkit-mask-image: none;
     mask-image: none;
+    opacity: 1;
+    /* Match play-video-active portrait filter (non-`none` keeps Chromium parent drop-shadow stable). */
+    filter: brightness(1) contrast(1) saturate(1);
 }
 
 /* Shorts Video Mode OFF: hide career grid completely on reveal (Player Stats shows stats, not career path). */

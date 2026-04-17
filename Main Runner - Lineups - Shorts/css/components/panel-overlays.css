@@ -270,7 +270,7 @@ html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
 .countdown-bar-track .soccer {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: calc(100% - var(--soccer-dim, 2.25rem));
   z-index: 5;
   --soccer-dim: clamp(1.45rem, 6.5vw, 2.25rem);
   width: var(--soccer-dim);
@@ -285,7 +285,7 @@ html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
 
 .countdown-bar-track .soccer.countdown-soccer-rolling {
   animation: shorts-countdown-soccer-roll linear forwards;
-  animation-delay: 50ms;
+  animation-delay: 0ms;
   animation-duration: calc(var(--shorts-soccer-run-ms, 3000) * 1ms);
 }
 

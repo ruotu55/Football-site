@@ -1,6 +1,6 @@
 import { appState, getState } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { getVideoQuestionPreviewState, renderHeader, renderCareer } from "./pitch-render.js";
+import { getVideoQuestionPreviewState, renderHeader, renderCareer, preloadCareerAssets } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow, setBgMusicForLevel } from "./audio.js";
 import { runTransition, transitionSettings } from "./transitions.js";
 
@@ -325,6 +325,10 @@ export function switchLevel(index) {
       }, 820);
       return;
     }
+
+    // Preload images for the next level BEFORE transition starts
+    // so they're in the RAM cache when renderCareer() runs mid-transition
+    preloadCareerAssets(state);
 
     const useCustomTransition = transitionSettings.effect !== "none";
 

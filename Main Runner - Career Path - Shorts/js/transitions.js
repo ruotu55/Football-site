@@ -2,8 +2,18 @@
 // Each transition is registered by id with show()/hide() that return Promises.
 
 import { appState } from "./state.js";
+import { waitForPendingImages, waitForDomImages } from "../../.Storage/shared/image-cache.js";
 
-/* ── GSAP lazy loader ──────────────────────────────────────────────── */
+/** Wait for images inside stage-main + any in-flight preloads (with timeout). */
+async function waitForTransitionImages() {
+  const stage = document.getElementById("stage-main");
+  await Promise.all([
+    waitForPendingImages(2500),
+    waitForDomImages(stage, 2500),
+  ]);
+}
+
+/* ── GSAP lazy loader (eagerly kicked off at module load) ─────────── */
 let gsapLib = null;
 function loadGsap() {
   if (gsapLib) return Promise.resolve(gsapLib);
@@ -16,6 +26,9 @@ function loadGsap() {
     document.head.appendChild(s);
   });
 }
+
+// Eagerly preload GSAP so first animation has zero network delay.
+loadGsap();
 
 /* ── Transition registry ───────────────────────────────────────────── */
 const registry = new Map();
@@ -172,6 +185,9 @@ registry.set("grid-overlay", {
     // Phase 2: swap content while overlay covers the screen
     try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); }
 
+    // Phase 2b: wait for images to decode before revealing
+    await waitForTransitionImages();
+
     // Phase 3: hide overlay (reveal new content)
     await overlay.hide(gsap, {
       transformOrigin: "50% 100%",
@@ -216,15 +232,25 @@ registry.set("bars-left", {
     container.style.opacity = "1";
     container.style.pointerEvents = "none";
 
+    // Phase 1: cover screen
     await new Promise(resolve => {
-      const tl = gsap.timeline({ ease: "power3.inOut", onComplete: resolve });
-      tl.to(tiles, {
+      gsap.to(tiles, {
         duration: 0.4,
         width: "100%",
         left: "0%",
         stagger: 0.03,
+        ease: "power3.inOut",
+        onComplete: resolve,
       });
-      tl.call(() => { try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); } });
+    });
+
+    // Phase 2: swap content + wait for images
+    try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); }
+    await waitForTransitionImages();
+
+    // Phase 3: reveal
+    await new Promise(resolve => {
+      const tl = gsap.timeline({ onComplete: resolve });
       tl.to(tiles, {
         duration: 0.4,
         width: "100%",
@@ -251,15 +277,25 @@ registry.set("bars-top", {
     container.style.opacity = "1";
     container.style.pointerEvents = "none";
 
+    // Phase 1: cover screen
     await new Promise(resolve => {
-      const tl = gsap.timeline({ ease: "power3.inOut", onComplete: resolve });
-      tl.to(tiles, {
+      gsap.to(tiles, {
         duration: 0.4,
         height: "100%",
         top: "0%",
         stagger: 0.03,
+        ease: "power3.inOut",
+        onComplete: resolve,
       });
-      tl.call(() => { try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); } });
+    });
+
+    // Phase 2: swap content + wait for images
+    try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); }
+    await waitForTransitionImages();
+
+    // Phase 3: reveal
+    await new Promise(resolve => {
+      const tl = gsap.timeline({ onComplete: resolve });
       tl.to(tiles, {
         duration: 0.4,
         height: "100%",
@@ -308,22 +344,24 @@ registry.set("curtain-close", {
     container.style.opacity = "1";
     container.style.pointerEvents = "none";
 
+    // Phase 1: close curtain
+    gsap.set(topHalf, { y: "-100%" });
+    gsap.set(bottomHalf, { y: "100%" });
     await new Promise(resolve => {
       const tl = gsap.timeline({ onComplete: resolve });
-
-      tl.set(topHalf, { y: "-100%" });
-      tl.set(bottomHalf, { y: "100%" });
-
-      // Close
       tl.to(topHalf, { duration: 0.4, y: "0%", ease: "power3.inOut" }, 0);
       tl.to(bottomHalf, { duration: 0.4, y: "0%", ease: "power3.inOut" }, 0);
+    });
 
-      // Swap content while fully covered
-      tl.call(() => { try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); } }, null, 0.45);
+    // Phase 2: swap content + wait for images
+    try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); }
+    await waitForTransitionImages();
 
-      // Open
-      tl.to(topHalf, { duration: 0.4, y: "-100%", ease: "power2" }, 0.6);
-      tl.to(bottomHalf, { duration: 0.4, y: "100%", ease: "power2" }, 0.6);
+    // Phase 3: open curtain
+    await new Promise(resolve => {
+      const tl = gsap.timeline({ onComplete: resolve });
+      tl.to(topHalf, { duration: 0.4, y: "-100%", ease: "power2" }, 0);
+      tl.to(bottomHalf, { duration: 0.4, y: "100%", ease: "power2" }, 0);
     });
 
     container.style.opacity = "0";
@@ -354,32 +392,31 @@ registry.set("skew-wipe", {
     el.style.opacity = "1";
     el.style.pointerEvents = "none";
 
+    // Phase 1: wipe in
+    gsap.set(el, { scaleX: 0, skewX: -40, transformOrigin: "left" });
     await new Promise(resolve => {
-      const tl = gsap.timeline({ onComplete: resolve });
-
-      // Start: hidden on the left, skewed
-      tl.set(el, { scaleX: 0, skewX: -40, transformOrigin: "left" });
-
-      // Wipe in: scale to full width, straighten skew
-      tl.to(el, {
+      gsap.to(el, {
         duration: 0.5,
         scaleX: 1,
         skewX: 0,
         ease: "cubic-bezier(0.770, 0.000, 0.175, 1.000)",
+        onComplete: resolve,
       });
+    });
 
-      // Swap content while fully covered
-      tl.call(() => { try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); } });
+    // Phase 2: swap content + wait for images
+    try { updateContentFn(); } catch (e) { console.error("Transition content swap error:", e); }
+    await waitForTransitionImages();
 
-      // Switch origin to right for exit
-      tl.set(el, { transformOrigin: "right" });
-
-      // Wipe out: scale away to the right with opposite skew
-      tl.to(el, {
+    // Phase 3: wipe out
+    gsap.set(el, { transformOrigin: "right" });
+    await new Promise(resolve => {
+      gsap.to(el, {
         duration: 0.5,
         scaleX: 0,
         skewX: 40,
         ease: "cubic-bezier(0.770, 0.000, 0.175, 1.000)",
+        onComplete: resolve,
       });
     });
 
@@ -392,9 +429,20 @@ registry.set("skew-wipe", {
 
 /** Current transition settings (persisted with script saves). */
 export const transitionSettings = {
-  effect: "",
+  effect: "grid-overlay",
   random: false,
 };
+
+function isProdModeFromUi() {
+  const btn = appState.els?.prodBtn || document.getElementById("prod-btn");
+  return btn?.getAttribute("aria-pressed") === "true";
+}
+
+/** Outside PROD, blank effect falls back to grid overlay. In PROD, empty means no implicit selection. */
+function resolveRuntimeTransitionEffectId(effectId) {
+  if (effectId) return effectId;
+  return isProdModeFromUi() ? "" : "grid-overlay";
+}
 
 /**
  * Run the currently selected transition.
@@ -437,6 +485,8 @@ export async function runTransition(updateContentFn) {
     }
   }
 
+  effectId = resolveRuntimeTransitionEffectId(effectId);
+
   const entry = registry.get(effectId);
   if (!entry) {
     updateContentFn();
@@ -445,13 +495,14 @@ export async function runTransition(updateContentFn) {
 
   transitionRunning = true;
 
-  // Safety timeout: force-clear overlay if transition hangs for more than 3 seconds
+  // Safety timeout: force-clear overlay if transition hangs for more than 6 seconds
+  // (includes up to 2.5s for image loading + transition animation time)
   const safetyTimer = setTimeout(() => {
     console.warn("Transition safety timeout — forcing overlay hide");
     forceHideAllOverlays();
     if (gsapLib) gsapLib.globalTimeline.clear();
     transitionRunning = false;
-  }, 3000);
+  }, 6000);
 
   try {
     await entry.run(updateContentFn);
@@ -489,7 +540,15 @@ export function initTransitionsUI() {
 
   // Sync UI -> settings
   if (effectSel) {
-    effectSel.value = transitionSettings.effect;
+    if (isProdModeFromUi()) {
+      transitionSettings.effect = "";
+      effectSel.selectedIndex = 0;
+    } else {
+      if (!transitionSettings.effect) {
+        transitionSettings.effect = "grid-overlay";
+      }
+      effectSel.value = transitionSettings.effect;
+    }
     effectSel.addEventListener("change", () => {
       transitionSettings.effect = effectSel.value;
     });
@@ -505,12 +564,19 @@ export function initTransitionsUI() {
 /** Apply settings from a loaded script save. */
 export function applyTransitionSettings(saved) {
   if (!saved) return;
-  transitionSettings.effect = saved.effect || "grid-overlay";
   transitionSettings.random = !!saved.random;
+  const prod = isProdModeFromUi();
+  transitionSettings.effect = prod ? "" : (saved.effect || "grid-overlay");
 
   const effectSel = document.getElementById("in-transition-effect");
   const randomChk = document.getElementById("in-transition-random");
-  if (effectSel) effectSel.value = transitionSettings.effect;
+  if (effectSel) {
+    if (prod) {
+      effectSel.selectedIndex = 0;
+    } else {
+      effectSel.value = transitionSettings.effect;
+    }
+  }
   if (randomChk) randomChk.checked = transitionSettings.random;
 }
 

@@ -36,6 +36,7 @@ import {
   saveCareerPictureFavorite,
 } from "./career-size-favorites.js";
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
+import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
 
 /** Map demonyms / variants to `data/country-to-flagcode.json` keys. */
 function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
@@ -564,9 +565,21 @@ function bindCareerLogoYearAlignment(root) {
       if (cacheKey && loadedSrc) {
         careerResolvedClubLogoSrcByKey.set(cacheKey, loadedSrc);
       }
+      if (loadedSrc && img.naturalWidth) putCachedImage(loadedSrc, img);
     };
-    if (img.complete && img.naturalWidth) runAfterLayout();
-    else img.addEventListener("load", runAfterLayout, { once: true });
+    // Try to resolve from RAM cache for instant display (no flicker)
+    const currentSrc = String(img.getAttribute("src") || "").trim();
+    const cached = currentSrc ? getCachedImage(currentSrc) : null;
+    if (cached) {
+      img.src = cached.src;
+      runAfterLayout();
+    } else if (img.complete && img.naturalWidth) {
+      runAfterLayout();
+    } else {
+      if (currentSrc) preloadImage(currentSrc);
+      img.addEventListener("load", runAfterLayout, { once: true });
+    }
+
     img.addEventListener("error", () => {
       const fallbackListRaw = img.dataset.fallbackList || "";
       const fallbackList = fallbackListRaw
@@ -577,7 +590,14 @@ function bindCareerLogoYearAlignment(root) {
       if (Number.isFinite(fallbackIndex) && fallbackIndex < fallbackList.length) {
         img.dataset.fallbackIndex = String(fallbackIndex + 1);
         img.hidden = false;
-        img.src = fallbackList[fallbackIndex];
+        const nextUrl = fallbackList[fallbackIndex];
+        const cachedFallback = getCachedImage(nextUrl);
+        if (cachedFallback) {
+          img.src = cachedFallback.src;
+        } else {
+          preloadImage(nextUrl);
+          img.src = nextUrl;
+        }
         return;
       }
       const b = img.closest(".career-club-badge-scale");
@@ -666,13 +686,8 @@ async function resolveCareerPlayerPhotoUrl(src) {
 
   const job = (async () => {
     try {
-      const img = await new Promise((resolve, reject) => {
-        const el = new Image();
-        el.decoding = "async";
-        el.onload = () => resolve(el);
-        el.onerror = () => reject(new Error("player photo load failed"));
-        el.src = src;
-      });
+      // Use RAM cache — avoids re-downloading on every level switch
+      const img = await preloadImage(src);
       const bounds = measureCareerPlayerOpaqueBoundsNatural(img);
       if (!bounds) return src;
 
@@ -1020,6 +1035,36 @@ function createPlayerStatHeadIcon(kind) {
     return null;
   }
   return svg;
+}
+
+/**
+ * Preload all images needed for the current career state into the RAM cache.
+ */
+export function preloadCareerAssets(state) {
+  if (!state) return;
+  const urls = [];
+  const playerName = state.careerPlayer?.name?.trim();
+  if (playerName) {
+    const readyRel = careerReadyPhotoRelPath(playerName);
+    if (readyRel) urls.push(projectAssetUrlFresh(readyRel));
+  }
+  const history = Array.isArray(state.careerHistory) ? state.careerHistory : [];
+  for (const entry of history) {
+    if (!entry) continue;
+    const clubName = entry.club || "";
+    if (entry.customImage) { urls.push(entry.customImage); continue; }
+    if (!clubName) continue;
+    const searchName = resolveClubAlias(clubName);
+    const foundClub = searchName ? findBestCareerClubEntry(searchName) : null;
+    if (foundClub && foundClub.path) {
+      const logoRel = foundClub.path.replace('.Storage/Squad Formation/Teams/', 'Images/Teams/').replace('.json', '.png');
+      urls.push(projectAssetUrlFresh(logoRel));
+    }
+    const displayName = String(foundClub?.name || clubName || searchName || "").trim();
+    const otherTeamsRel = getClubLogoOtherTeamsRelPath(displayName || clubName);
+    if (otherTeamsRel) urls.push(projectAssetUrlFresh(otherTeamsRel));
+  }
+  if (urls.length) preloadImages(urls);
 }
 
 export function renderCareer() {
@@ -1744,16 +1789,29 @@ export function renderCareer() {
 
     /* ── Waving national flag behind the player (inside the photo shell, below the img) ── */
     const flagStatPlayer = hasRealPlayer ? state.careerPlayer : null;
-    const flagUrl = hasRealPlayer ? resolvePlayerStatsNationalityFlagUrl(flagStatPlayer?.nationality) : null;
+    const flagUrl =
+      state.videoMode && hasRealPlayer
+        ? resolvePlayerStatsNationalityFlagUrl(flagStatPlayer?.nationality)
+        : null;
     if (flagUrl) {
       const natForAlt = playerStatsNationalityLabelForFlagcode(flagStatPlayer?.nationality);
       const flagWrap = document.createElement("div");
       flagWrap.id = "player-stats-national-flag";
       flagWrap.className = "player-stats-national-flag";
+
+      /* Static <img> fallback — always visible even if Three.js / WebGL fails. */
+      const flagFallbackImg = document.createElement("img");
+      flagFallbackImg.src = flagUrl;
+      flagFallbackImg.alt = natForAlt ? `${natForAlt} flag` : "National flag";
+      flagFallbackImg.className = "player-stats-national-flag__fallback-img";
+      flagWrap.appendChild(flagFallbackImg);
+
       revealShell.appendChild(flagWrap);
       void import("./player-stats-flag-three.js")
         .then((m) => {
           if (!flagWrap.isConnected) return;
+          /* Three.js loaded — remove static fallback, mount animated flag. */
+          flagFallbackImg.remove();
           m.mountPlayerStatsThreeFlag(
             flagWrap,
             flagUrl,
@@ -1761,7 +1819,7 @@ export function renderCareer() {
           );
         })
         .catch(() => {
-          flagWrap.remove();
+          /* Three.js failed — keep the static <img> fallback. */
         });
     }
 

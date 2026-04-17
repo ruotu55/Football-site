@@ -234,7 +234,10 @@ export function playVoice(src, delayMs = 1000) {
   return new Promise((resolve) => {
     duckingTimeout = setTimeout(() => {
       currentVoice = new Audio(src);
-      currentVoice.play().catch(err => console.warn("Voice play error:", err));
+      currentVoice.play().catch(err => {
+        console.warn("Voice play error:", err);
+        resolve();
+      });
 
       // 3. When voice finishes, wait 1s, then smoothly fade back up
       currentVoice.addEventListener('ended', () => {
@@ -243,6 +246,7 @@ export function playVoice(src, delayMs = 1000) {
           fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
         }, 1000); // wait 1s after voice ends
       });
+      currentVoice.addEventListener('error', () => resolve());
     }, delayMs);
   });
 }

@@ -17,6 +17,7 @@ import {
     syncCareerSlotControlsVisibility,
     applyCareerPictureModeToActiveState,
     persistCareerPictureModeFromActiveState,
+    preloadCareerAssets,
 } from "./pitch-render.js";
 import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
@@ -761,9 +762,8 @@ function setLandingDifficultySpan(id, value) {
 export function updateLanding() {
     const { els } = appState;
     const title = document.getElementById("landing-title");
-    const isShorts = document.body.classList.contains("shorts-mode");
 
-    title.innerHTML = isShorts ? "GUESS THE<br>FOOTBALL PLAYER<br>BY CAREER PATH" : "GUESS THE FOOTBALL PLAYER<br>BY CAREER PATH";
+    title.innerHTML = "GUESS THE FOOTBALL&nbsp;PLAYER<br>BY CAREER PATH";
     renderLandingTitleVoiceControls();
     setLandingDifficultySpan("val-easy", els.inEasy.value);
     setLandingDifficultySpan("val-medium", els.inMedium.value);
@@ -1410,6 +1410,10 @@ async function init() {
 
         state.careerPlayer = pData;
         state.careerHistory = cleanCareerHistory(pData.transfer_history || []);
+
+        // Eagerly preload all career logos + player photo into RAM cache
+        // so level switches are instant with no image loading lag.
+        preloadCareerAssets(state);
 
         const historyLen = state.careerHistory.length;
         const finalCount = Math.max(2, historyLen);

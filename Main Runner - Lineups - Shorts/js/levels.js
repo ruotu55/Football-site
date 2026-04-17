@@ -4,6 +4,7 @@ import {
   clearPitchWrapTransitionOverride,
   renderHeader,
   renderPitch,
+  preloadSquadImages,
 } from "./pitch-render.js";
 import {
   playProgressVoice,
@@ -16,6 +17,26 @@ import { runTransition, transitionSettings } from "./transitions.js";
 /** Match Career Path - Shorts `levels.js` + `transitions.css` video stage (0.82s). */
 const STAGE_VIDEO_TRANSITION_MS = 820;
 const STAGE_VIDEO_ENTER_TRANSITION_MS = STAGE_VIDEO_TRANSITION_MS;
+
+/** Called during the covered phase of a transition to make the timer bar visible and full.
+ *  The ball is started later, in beginQuestionCountdown, so it is perfectly in sync with the bar. */
+function _prepTimerBarWhileCovered() {
+  const timerEl = appState.els?.countdownTimer;
+  const fillEl = document.getElementById("countdown-bar-fill");
+  if (!timerEl) return;
+  timerEl.classList.remove(
+    "countdown-timer-stage-enter",
+    "timer-shake",
+    "timer-phase-orange",
+    "timer-phase-yellow",
+    "timer-phase-red"
+  );
+  timerEl.classList.add("timer-phase-green");
+  if (fillEl) {
+    fillEl.style.transition = "none";
+    fillEl.style.width = "100%";
+  }
+}
 
 export function switchLevel(index) {
   let idx = index;
@@ -195,6 +216,9 @@ export function switchLevel(index) {
       return;
     }
 
+    // Preload images for the next level BEFORE transition starts
+    preloadSquadImages(state);
+
     const useCustomTransition = transitionSettings.effect !== "none";
 
     if (useCustomTransition) {
@@ -207,6 +231,10 @@ export function switchLevel(index) {
       appState._preserveTeamSidebar = sidebarPreserved;
 
       appState._transitionDone = runTransition(() => {
+        if (appState._prepTimerOnCover) {
+          appState._prepTimerOnCover = false;
+          _prepTimerBarWhileCovered();
+        }
         updateDOMContent();
         appState._preserveTeamSidebar = false;
 
@@ -244,6 +272,10 @@ export function switchLevel(index) {
       }
 
       setTimeout(() => {
+        if (appState._prepTimerOnCover) {
+          appState._prepTimerOnCover = false;
+          _prepTimerBarWhileCovered();
+        }
         updateDOMContent();
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {

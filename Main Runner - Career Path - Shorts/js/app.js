@@ -17,6 +17,7 @@ import {
     syncCareerSlotControlsVisibility,
     applyCareerPictureModeToActiveState,
     persistCareerPictureModeFromActiveState,
+    preloadCareerAssets,
 } from "./pitch-render.js";
 import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
@@ -1287,6 +1288,10 @@ async function init() {
 
         state.careerPlayer = pData;
         state.careerHistory = cleanCareerHistory(pData.transfer_history || []);
+
+        // Eagerly preload all career logos + player photo into RAM cache
+        // so level switches are instant with no image loading lag.
+        preloadCareerAssets(state);
 
         const historyLen = state.careerHistory.length;
         const finalCount = Math.max(2, historyLen);
