@@ -25,10 +25,34 @@
   border-color: var(--accent);
 }
 .panel-section { display: none; flex-direction: column; gap: 1rem; }
-.panel-section.active { display: flex; }
+/* flex-shrink: 0 so the active section keeps its natural height (otherwise the
+   flex-column `.control-panel` squeezes it and clips the Bundled row at the bottom).
+   `.control-panel` already has `overflow-y: auto`, so the panel becomes scrollable. */
+.panel-section.active { display: flex; flex-shrink: 0; }
 
 /* ── Voice tab (#panel-voice) ─────────────────────────────────── */
-.voice-tab-root { display: flex; flex-direction: column; gap: 0.9rem; }
+/* Scroll the voice tab inside itself: flex takes the remaining panel height and
+   overflow-y gives the long list its own scrollbar (the outer `.control-panel` was
+   being defeated by something in the flex chain and wouldn't scroll). */
+#panel-voice.panel-section.active {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.voice-tab-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: calc(100vh - 12rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.5rem;
+}
+/* Voice sections themselves must keep their natural height so the inner scrollport
+   doesn't squish them to fit. */
+#panel-voice .voice-tab-section { flex-shrink: 0; }
 .voice-tab-language {
   display: flex; align-items: center; gap: 0.6rem;
   padding: 0.55rem 0.7rem;
@@ -57,6 +81,15 @@
 }
 .voice-tab-section__title { margin: 0 0 0.25rem; color: var(--accent, #ffca28); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
 .voice-tab-section__empty { color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; font-style: italic; }
+/* Setup panel's Background + Transition collapsibles get a bit more breathing room
+   than the dense voice rows so the form fields sit comfortably. */
+#panel-setup .voice-tab-section { gap: 1rem; padding: 0.9rem 1rem 1.1rem; }
+#panel-setup .voice-tab-section[open] { padding-bottom: 1.15rem; }
+#panel-setup .voice-tab-section__title { margin: 0 0 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.85rem; }
+#panel-setup .voice-tab-section > .field { gap: 0.45rem; }
+#panel-setup .voice-tab-section > .field + .field { margin-top: 0.2rem; }
+#panel-setup .voice-tab-section > button.panel-toggle { margin-top: 0.35rem; }
+#panel-setup .voice-tab-section > #transitions-settings { margin-top: 0; }
 .voice-tab-row {
   display: flex; align-items: center; gap: 0.45rem;
   padding: 0.35rem 0.1rem;

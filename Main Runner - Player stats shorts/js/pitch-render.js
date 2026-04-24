@@ -146,6 +146,9 @@ function createCareerGetPhotoControls(playerName, clubName) {
   const host = document.createElement("div");
   host.className = "career-get-photo-actions";
   host.hidden = true;
+  const btnRow = document.createElement("div");
+  btnRow.className = "career-get-photo-buttons-row";
+
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "career-get-photo-btn";
@@ -207,9 +210,129 @@ function createCareerGetPhotoControls(playerName, clubName) {
   panel.appendChild(rowErr);
   panel.appendChild(rowBtns);
   modal.appendChild(panel);
-  host.appendChild(btn);
+
+  const switchModal = document.createElement("div");
+  switchModal.className = "career-ready-photo-switch-modal";
+  switchModal.hidden = true;
+  switchModal.setAttribute("role", "dialog");
+  switchModal.setAttribute("aria-label", "Choose Ready photo");
+  const switchPanel = document.createElement("div");
+  switchPanel.className = "career-ready-photo-switch-modal__panel";
+  const switchTitle = document.createElement("div");
+  switchTitle.className = "career-ready-photo-switch-modal__title";
+  switchTitle.textContent = "Choose Ready photo";
+  const switchList = document.createElement("div");
+  switchList.className = "career-ready-photo-switch-modal__list";
+  const switchCloseRow = document.createElement("div");
+  switchCloseRow.className = "career-ready-photo-switch-modal__footer";
+  const switchBtnClose = document.createElement("button");
+  switchBtnClose.type = "button";
+  switchBtnClose.className = "career-ready-photo-switch-modal__btn-close";
+  switchBtnClose.textContent = "Close";
+  switchCloseRow.appendChild(switchBtnClose);
+  switchPanel.appendChild(switchTitle);
+  switchPanel.appendChild(switchList);
+  switchPanel.appendChild(switchCloseRow);
+  switchModal.appendChild(switchPanel);
+
+  let switchKeyHandler = null;
+
+  const closeSwitchModal = () => {
+    switchModal.classList.remove("career-ready-photo-switch-modal--portal");
+    if (switchModal.parentElement === document.body) {
+      host.appendChild(switchModal);
+    }
+    switchModal.hidden = true;
+    switchList.innerHTML = "";
+    if (switchKeyHandler) {
+      document.removeEventListener("keydown", switchKeyHandler);
+      switchKeyHandler = null;
+    }
+  };
+
+  const openSwitchModal = async () => {
+    closeModal();
+    switchList.innerHTML = "";
+    const loading = document.createElement("div");
+    loading.className = "career-ready-photo-switch-modal__loading";
+    loading.textContent = "Loading…";
+    switchList.appendChild(loading);
+    switchModal.classList.add("career-ready-photo-switch-modal--portal");
+    if (switchModal.parentElement !== document.body) {
+      document.body.appendChild(switchModal);
+    }
+    switchModal.hidden = false;
+    switchKeyHandler = (ev) => {
+      if (ev.key === "Escape") {
+        ev.preventDefault();
+        closeSwitchModal();
+      }
+    };
+    document.addEventListener("keydown", switchKeyHandler);
+
+    const indices = await listExistingReadyPhotoVariantIndices(playerName, clubName);
+    switchList.innerHTML = "";
+    if (!indices.length) {
+      const empty = document.createElement("div");
+      empty.className = "career-ready-photo-switch-modal__empty";
+      empty.textContent =
+        "No Ready photos found for this player (check folder name matches career club).";
+      switchList.appendChild(empty);
+      return;
+    }
+
+    const st = getState();
+    const cur = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
+
+    for (const v of indices) {
+      const url = await pickLoadableReadyPhotoUrlForVariant(playerName, clubName, v);
+      if (!url) continue;
+      const opt = document.createElement("button");
+      opt.type = "button";
+      opt.className = "career-ready-photo-switch-option";
+      if (v === cur) opt.classList.add("career-ready-photo-switch-option--current");
+      const stem = careerReadyPhotoStemForVariant(playerName, v);
+      const thumb = document.createElement("img");
+      thumb.className = "career-ready-photo-switch-option__img";
+      thumb.alt = stem || `Variant ${v}`;
+      thumb.decoding = "async";
+      thumb.src = url;
+      const cap = document.createElement("span");
+      cap.className = "career-ready-photo-switch-option__label";
+      cap.textContent = v === 1 ? "Primary" : `Variant ${v}`;
+      opt.appendChild(thumb);
+      opt.appendChild(cap);
+      opt.addEventListener("click", () => {
+        const st2 = getState();
+        if (st2) st2.careerReadyPhotoVariantIndex = v;
+        bumpProjectAssetCacheBust();
+        closeSwitchModal();
+        renderCareer();
+      });
+      switchList.appendChild(opt);
+    }
+  };
+
+  switchPanel.addEventListener("click", (e) => e.stopPropagation());
+  switchModal.addEventListener("click", () => {
+    closeSwitchModal();
+  });
+  switchBtnClose.addEventListener("click", closeSwitchModal);
+
+  btnRow.appendChild(btn);
+  const btnSwitch = document.createElement("button");
+  btnSwitch.type = "button";
+  btnSwitch.className = "career-get-photo-btn career-get-photo-btn--switch";
+  btnSwitch.textContent = "Switch";
+  btnSwitch.title = "Choose which saved Ready photo to display.";
+  btnSwitch.addEventListener("click", () => {
+    void openSwitchModal();
+  });
+  btnRow.appendChild(btnSwitch);
+  host.appendChild(btnRow);
   host.appendChild(hint);
   host.appendChild(modal);
+  host.appendChild(switchModal);
 
   const showHint = (text, isErr) => {
     hint.hidden = !text;
@@ -235,6 +358,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   };
 
   const openModal = () => {
+    closeSwitchModal();
     modal.classList.add("career-ready-photo-url-modal--portal");
     if (modal.parentElement !== document.body) {
       document.body.appendChild(modal);
@@ -302,6 +426,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     hide() {
       host.hidden = true;
       closeModal();
+      closeSwitchModal();
       showHint("", false);
     },
   };
@@ -1287,8 +1412,12 @@ export function preloadCareerAssets(state) {
   const urls = [];
   const playerName = state.careerPlayer?.name?.trim();
   if (playerName) {
-    const readyRel = careerReadyPhotoRelPath(playerName);
-    if (readyRel) urls.push(projectAssetUrlFresh(readyRel));
+    const club = careerReadyPhotoClubName(state);
+    for (let v = 1; v <= 8; v += 1) {
+      for (const rel of careerReadyPhotoRelCandidates(playerName, club, v)) {
+        urls.push(projectAssetUrlFresh(rel));
+      }
+    }
   }
   const history = Array.isArray(state.careerHistory) ? state.careerHistory : [];
   for (const entry of history) {
@@ -1435,21 +1564,24 @@ export function renderCareer() {
   document.body
     .querySelectorAll(".career-ready-photo-url-modal.career-ready-photo-url-modal--portal")
     .forEach((el) => el.remove());
+  document.body
+    .querySelectorAll(".career-ready-photo-switch-modal.career-ready-photo-switch-modal--portal")
+    .forEach((el) => el.remove());
   /* Clear X may live outside #career-wrap in shorts (same chrome mount as voice). */
   document.getElementById("career-clear-player-btn")?.remove();
-  /* Get photo bar must use the same mount so `position:fixed` + `top:5.5vh` matches the X (not #career-wrap perspective). */
-  if (isShorts) {
-    document.getElementById("player-voice-chrome-mount")?.querySelector(".career-get-photo-actions")?.remove();
-  }
+  /* Get photo bar may live in `#player-voice-chrome-mount` (outside #career-wrap). */
+  document.getElementById("player-voice-chrome-mount")?.querySelector(".career-get-photo-actions")?.remove();
 
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
   const showShortsCareerGrid = hasRealPlayer || shortsPreviewActive;
   wrap.classList.toggle("career-no-player", !hasRealPlayer && !shortsPreviewActive);
-  const readyRel = careerReadyPhotoRelPath(playerName);
-  const readyUrl = readyRel ? projectAssetUrlFresh(readyRel) : "";
-  const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
   const readyPhotoClub = hasRealPlayer ? careerReadyPhotoClubName(state) : "";
+  const readyPhotoVariantIdx = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
+  const readyPhotoPick = hasRealPlayer
+    ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoClub, readyPhotoVariantIdx)
+    : Promise.resolve("");
+  const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
   const getPhotoUi = hasRealPlayer ? createCareerGetPhotoControls(playerName, readyPhotoClub) : null;
   const careerGetPhotoSuppressed = () =>
     !!(getState()?.videoMode || appState.isVideoPlaying);
@@ -1565,35 +1697,38 @@ export function renderCareer() {
     applyCareerSilhouetteAdjustments(image, state, extraY);
   };
 
-  if (readyUrl) {
+  if (hasRealPlayer) {
     image.setAttribute("visibility", "hidden");
     missingLabel.setAttribute("visibility", "hidden");
-    image.addEventListener("load", () => {
-      if (getPhotoUi) getPhotoUi.hide();
-      showImage();
-      syncSilhouetteFromLoadedBitmap();
-    });
-    image.addEventListener("error", () => showMissing());
-    void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+    void readyPhotoPick.then((chosenUrl) => {
       if (!image.isConnected) return;
-      image.setAttribute("href", resolvedUrl || readyUrl);
-      /* Cached bitmap: load may not fire. */
-      requestAnimationFrame(() => {
+      if (!chosenUrl) {
+        showMissing();
+        return;
+      }
+      if (getPhotoUi) getPhotoUi.hide();
+      image.setAttribute("visibility", "hidden");
+      missingLabel.setAttribute("visibility", "hidden");
+      image.addEventListener("load", () => {
+        showImage();
+        syncSilhouetteFromLoadedBitmap();
+      });
+      image.addEventListener("error", () => showMissing());
+      void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
         if (!image.isConnected) return;
-        if (image.naturalWidth && image.naturalHeight) {
-          if (getPhotoUi) getPhotoUi.hide();
-          showImage();
-          syncSilhouetteFromLoadedBitmap();
-        }
+        image.setAttribute("href", resolvedUrl || chosenUrl);
+        requestAnimationFrame(() => {
+          if (!image.isConnected) return;
+          if (image.naturalWidth && image.naturalHeight) {
+            showImage();
+            syncSilhouetteFromLoadedBitmap();
+          }
+        });
       });
     });
   } else {
-    if (hasRealPlayer) {
-      showMissing();
-    } else {
-      image.setAttribute("visibility", "hidden");
-      missingLabel.setAttribute("visibility", "hidden");
-    }
+    image.setAttribute("visibility", "hidden");
+    missingLabel.setAttribute("visibility", "hidden");
   }
 
   imageGroup.appendChild(image);
@@ -1611,6 +1746,7 @@ export function renderCareer() {
     ro.observe(svg);
   }
   if (!hasRealPlayer && !shortsPreviewActive) {
+    document.getElementById("career-inline-player-picker")?.remove();
     const picker = document.createElement("div");
     picker.id = "career-inline-player-picker";
     picker.className = "career-inline-player-picker";
@@ -1627,7 +1763,11 @@ export function renderCareer() {
         <div class="career-inline-player-hint">Type player name to search.</div>
       </div>
     `;
-    wrap.appendChild(picker);
+    /* Mount on <body> so no transformed/filtered ancestor (career-wrap, stage, etc.)
+       interferes with the `position: fixed` centering — matches the Lineups Shorts team picker. */
+    document.body.appendChild(picker);
+  } else {
+    document.getElementById("career-inline-player-picker")?.remove();
   }
   if (hasRealPlayer) {
     const clearBtn = document.createElement("button");
@@ -1922,10 +2062,10 @@ export function renderCareer() {
       const shortsClubRemScale = 0.47;
       const scaleClubRem = (token) => scalePlayerStatsShortsClubRem(token, shortsClubRemScale);
       const clubSlotRows = [];
-      if (n <= 4) {
+      if (n <= 2) {
         clubSlotRows.push(Array.from({ length: n }, (_, k) => k));
       } else {
-        const topRowMap = { 5: 3, 6: 3, 7: 4, 8: 4, 9: 5 };
+        const topRowMap = { 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5 };
         const row1Count = topRowMap[n] || Math.ceil(n / 2);
         clubSlotRows.push(Array.from({ length: row1Count }, (_, k) => k));
         clubSlotRows.push(Array.from({ length: n - row1Count }, (_, k) => row1Count + k));
@@ -1976,14 +2116,14 @@ export function renderCareer() {
       const clubSizeMap = {
         1: "8rem",
         2: "7rem",
-        3: "6rem",
+        3: "5.5rem",
         4: "5.5rem",
         5: "4.8rem",
         6: "4.8rem",
-        7: "4.8rem",
-        8: "4.8rem",
-        9: "4.2rem",
-        10: "4.2rem",
+        7: "4.08rem",
+        8: "4.08rem",
+        9: "3.4rem",
+        10: "3.4rem",
         11: "3rem",
         12: "2.8rem",
       };
@@ -2098,30 +2238,41 @@ export function renderCareer() {
       revealShell.classList.toggle("is-tall-player", ratio >= 1.52);
     };
 
-    if (readyUrl) {
+    if (hasRealPlayer) {
       revealImg.hidden = true;
       revealFallback.hidden = true;
-      revealImg.addEventListener("load", () => {
-        if (getPhotoUi) getPhotoUi.hide();
-        updateShortsTallRevealClass();
-        revealImg.hidden = false;
-        revealFallback.hidden = true;
-      });
-      revealImg.addEventListener("error", () => {
-        revealShell.classList.remove("is-tall-player");
-        revealImg.hidden = true;
-        revealFallback.hidden = getPhotoUi ? true : false;
-        showGetPhotoUiIfAllowed();
-      });
-      void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+      void readyPhotoPick.then((chosenUrl) => {
         if (!revealImg.isConnected) return;
-        revealImg.src = resolvedUrl || readyUrl;
+        if (!chosenUrl) {
+          revealShell.classList.remove("is-tall-player");
+          revealImg.hidden = true;
+          revealFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+          return;
+        }
+        if (getPhotoUi) getPhotoUi.hide();
+        revealImg.hidden = true;
+        revealFallback.hidden = true;
+        revealImg.addEventListener("load", () => {
+          updateShortsTallRevealClass();
+          revealImg.hidden = false;
+          revealFallback.hidden = true;
+        });
+        revealImg.addEventListener("error", () => {
+          revealShell.classList.remove("is-tall-player");
+          revealImg.hidden = true;
+          revealFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+        });
+        void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
+          if (!revealImg.isConnected) return;
+          revealImg.src = resolvedUrl || chosenUrl;
+        });
       });
     } else {
       revealShell.classList.remove("is-tall-player");
       revealImg.hidden = true;
-      revealFallback.hidden = getPhotoUi ? true : false;
-      if (hasRealPlayer) showGetPhotoUiIfAllowed();
+      revealFallback.hidden = false;
     }
 
     /* ── Waving national flag behind the player (inside the photo shell, below the img) ── */
@@ -2273,27 +2424,37 @@ export function renderCareer() {
         ? "Size preview"
         : CAREER_NO_PLAYER_LABEL;
 
-    if (readyUrl) {
+    if (hasRealPlayer) {
       revealOverlayImg.hidden = true;
       revealOverlayFallback.hidden = true;
-      revealOverlayImg.addEventListener("load", () => {
-        if (getPhotoUi) getPhotoUi.hide();
-        revealOverlayImg.hidden = false;
-        revealOverlayFallback.hidden = true;
-      });
-      revealOverlayImg.addEventListener("error", () => {
-        revealOverlayImg.hidden = true;
-        revealOverlayFallback.hidden = getPhotoUi ? true : false;
-        showGetPhotoUiIfAllowed();
-      });
-      void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+      void readyPhotoPick.then((chosenUrl) => {
         if (!revealOverlayImg.isConnected) return;
-        revealOverlayImg.src = resolvedUrl || readyUrl;
+        if (!chosenUrl) {
+          revealOverlayImg.hidden = true;
+          revealOverlayFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+          return;
+        }
+        if (getPhotoUi) getPhotoUi.hide();
+        revealOverlayImg.hidden = true;
+        revealOverlayFallback.hidden = true;
+        revealOverlayImg.addEventListener("load", () => {
+          revealOverlayImg.hidden = false;
+          revealOverlayFallback.hidden = true;
+        });
+        revealOverlayImg.addEventListener("error", () => {
+          revealOverlayImg.hidden = true;
+          revealOverlayFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+        });
+        void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
+          if (!revealOverlayImg.isConnected) return;
+          revealOverlayImg.src = resolvedUrl || chosenUrl;
+        });
       });
     } else {
       revealOverlayImg.hidden = true;
-      revealOverlayFallback.hidden = getPhotoUi ? true : false;
-      if (hasRealPlayer) showGetPhotoUiIfAllowed();
+      revealOverlayFallback.hidden = false;
     }
 
     revealOverlay.appendChild(revealOverlayImg);

@@ -4,8 +4,8 @@
 </div>
 
 <div class="panel-tabs">
-  <button type="button" class="tab-btn active" id="tab-btn-landing">Landing</button>
-  <button type="button" class="tab-btn" id="tab-btn-setup">Setup</button>
+  <button type="button" class="tab-btn active" id="tab-btn-landing">Quiz</button>
+  <button type="button" class="tab-btn" id="tab-btn-setup">Look</button>
   <button type="button" class="tab-btn" id="tab-btn-voice">Voice</button>
   <button type="button" class="tab-btn" id="tab-btn-saved">Saved</button>
 </div>
@@ -111,48 +111,54 @@
   </div>
   <button type="button" id="apply-video-all-btn" class="panel-toggle" style="display:none; padding: 0.3rem 0.6rem; font-size: 0.8rem;">Apply Video Mode To All</button>
 
-  <label class="field">
-    <span class="label">Background Color</span>
-    <select id="in-background-color"></select>
-  </label>
-  <label class="field">
-    <span class="label">Background Effect</span>
-    <select id="in-background-effect"></select>
-  </label>
-  <label class="field">
-    <span class="label">Opacity</span>
-    <input type="number" id="in-background-opacity" value="3.5" min="0" max="10" step="0.1" />
-  </label>
-  <button type="button" id="btn-save-background-opacity" class="panel-toggle">Save Opacity For Color</button>
-
-  <div id="setup-career-silhouette-field" style="display: none; flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem;">
-    <span class="label" style="margin: 0; font-size: 0.8rem;">Background Silhouette</span>
-    <div style="display: flex; gap: 0.5rem; align-items: center;">
-      <button type="button" id="btn-silhouette-prev" class="panel-toggle" style="padding: 0.2rem 0.6rem;">&lt;</button>
-      <span id="silhouette-indicator" style="font-weight: bold; font-size: 0.8rem; width: 1.5rem; text-align: center;">1</span>
-      <button type="button" id="btn-silhouette-next" class="panel-toggle" style="padding: 0.2rem 0.6rem;">&gt;</button>
-    </div>
-  </div>
-
-  <button type="button" id="btn-transitions-control" class="panel-toggle" style="display: none; width: 100%; margin-top: 0.5rem; background: rgba(0,0,0,0.2); color: var(--accent); font-weight: 800; border: 1px dashed var(--accent);">Transitions</button>
-  <div id="transitions-settings" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.4rem; padding: 0.6rem; background: rgba(0,0,0,0.3); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+  <details class="voice-tab-section">
+    <summary class="voice-tab-section__title">Background</summary>
     <label class="field">
-      <span class="label">Transition Effect</span>
-      <select id="in-transition-effect">
-        <option value="" disabled hidden>Select transition...</option>
-        <option value="none">None (instant)</option>
-        <option value="grid-overlay" selected>Grid Overlay</option>
-        <option value="bars-left">Bars from Left</option>
-        <option value="bars-top">Bars from Top</option>
-        <option value="curtain-close">Curtain Close</option>
-        <option value="skew-wipe">Skew Wipe</option>
-      </select>
+      <span class="label">Background Color</span>
+      <select id="in-background-color"></select>
     </label>
-    <label class="field" style="flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
-      <span class="label" style="margin: 0;">Random transition</span>
-      <input type="checkbox" id="in-transition-random" style="width: 1.2rem; height: 1.2rem; margin: 0; cursor: pointer; accent-color: var(--accent);" />
+    <label class="field">
+      <span class="label">Background Effect</span>
+      <select id="in-background-effect"></select>
     </label>
-  </div>
+    <label class="field">
+      <span class="label">Opacity</span>
+      <input type="number" id="in-background-opacity" value="3.5" min="0" max="10" step="0.1" />
+    </label>
+    <button type="button" id="btn-save-background-opacity" class="panel-toggle">Save Opacity For Color</button>
+
+    <div id="setup-career-silhouette-field" style="display: none; flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem;">
+      <span class="label" style="margin: 0; font-size: 0.8rem;">Background Silhouette</span>
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <button type="button" id="btn-silhouette-prev" class="panel-toggle" style="padding: 0.2rem 0.6rem;">&lt;</button>
+        <span id="silhouette-indicator" style="font-weight: bold; font-size: 0.8rem; width: 1.5rem; text-align: center;">1</span>
+        <button type="button" id="btn-silhouette-next" class="panel-toggle" style="padding: 0.2rem 0.6rem;">&gt;</button>
+      </div>
+    </div>
+  </details>
+
+  <details class="voice-tab-section">
+    <summary class="voice-tab-section__title">Transition</summary>
+    <button type="button" id="btn-transitions-control" class="panel-toggle" style="display: none; width: 100%; margin-top: 0.5rem; background: rgba(0,0,0,0.2); color: var(--accent); font-weight: 800; border: 1px dashed var(--accent);">Transitions</button>
+    <div id="transitions-settings" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.4rem; padding: 0.6rem; background: rgba(0,0,0,0.3); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+      <label class="field">
+        <span class="label">Transition Effect</span>
+        <select id="in-transition-effect">
+          <option value="" disabled hidden>Select transition...</option>
+          <option value="none">None (instant)</option>
+          <option value="grid-overlay" selected>Grid Overlay</option>
+          <option value="bars-left">Bars from Left</option>
+          <option value="bars-top">Bars from Top</option>
+          <option value="curtain-close">Curtain Close</option>
+          <option value="skew-wipe">Skew Wipe</option>
+        </select>
+      </label>
+      <label class="field" style="flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
+        <span class="label" style="margin: 0;">Random transition</span>
+        <input type="checkbox" id="in-transition-random" style="width: 1.2rem; height: 1.2rem; margin: 0; cursor: pointer; accent-color: var(--accent);" />
+      </label>
+    </div>
+  </details>
 
   <div id="setup-pitch-controls" style="display: none;"></div>
 

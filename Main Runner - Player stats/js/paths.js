@@ -88,5 +88,5 @@ export function careerReadyPhotoRelPath(playerName, variantIndex) {
   return cands[0] || null;
 }
 
-export const CAREER_NO_PLAYER_LABEL = "No Player Selected";
+export const CAREER_NO_PLAYER_LABEL = "";
 export const CAREER_NO_PHOTO_LABEL = "- No image and No photo";

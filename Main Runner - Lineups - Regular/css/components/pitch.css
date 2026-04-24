@@ -23,13 +23,25 @@
 .pitch-wrap[hidden] { display: none; }
 
 .lineups-inline-team-picker {
+  /* Match Career Path Regular's picker viewport-Y. The career runners have a 25vh
+     team-header taking the top slot, so career-wrap sits ~26vh from viewport top and
+     picker @ 31% = ~48vh from viewport. Lineups' team-header is a fixed sidebar, so
+     pitch-wrap is centered alone (top ~13.7vh), so we need a bigger percentage (48%)
+     to land the picker at the same ~48vh viewport-Y. */
   position: absolute;
   left: 50%;
-  top: 31%;
+  top: 48%;
   transform: translate(-50%, -50%);
   z-index: 40;
-  width: min(22rem, 90%);
-  max-height: 18.5rem;
+  /* Career runner's picker resolves to 22rem on desktop. Set the Lineups picker to the
+     same exact 22rem via an aggressive combination so no inherited rule can widen it. */
+  box-sizing: border-box !important;
+  width: 22rem !important;
+  min-width: 22rem !important;
+  max-width: 22rem !important;
+  max-height: 18.5rem !important;
+  padding: 0.7rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
@@ -46,6 +58,41 @@
   display: none;
 }
 
+/* Strip the control-panel `.team-results` dark box + border so the empty-results area
+   matches the career player picker (flush with the panel) in both modes. */
+.lineups-inline-team-picker .lineups-inline-team-results,
+.lineups-inline-team-picker #team-results {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+  min-height: 6.2rem !important;
+  max-height: 12rem !important;
+  overflow-y: auto !important;
+}
+
+/* Empty-state hint, same size/colour as the career player picker's `.career-inline-player-hint`. */
+.lineups-inline-team-picker #team-results:empty::before {
+  content: "Type team name to search.";
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 0.55rem;
+  font-size: 0.82rem;
+  display: block;
+  width: 100%;
+}
+
+/* Shorts: match career inline player picker sizing (see career runners' shorts.css). */
+body.shorts-mode .lineups-inline-team-picker {
+  z-index: 600;
+  top: 50%;
+  width: min(25rem, 88%);
+  max-height: 20rem;
+  pointer-events: auto;
+}
+
 .lineups-inline-team-picker-title {
   color: var(--accent);
   font-size: 1.35rem;
@@ -60,6 +107,9 @@
   text-align: left;
 }
 
+/* Match `.career-inline-player-search` 1:1 — no font-family override, no focus/selected
+   skins. The career input uses the browser-default input font; `font-family: inherit`
+   here was making the search render in the site body font instead. */
 .lineups-inline-team-search {
   width: 100%;
   padding: 0.45rem 0.55rem;
@@ -68,26 +118,55 @@
   background: rgba(0, 0, 0, 0.3);
   color: #fff;
   font-size: 0.95rem;
-  font-family: inherit;
 }
 
 .lineups-inline-team-search:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(255, 202, 40, 0.2);
+  /* Career player search has no focus skin; reset to base look. */
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: none;
   outline: none;
 }
 
 .lineups-inline-team-search.team-selected {
-  background: var(--accent);
-  color: #000;
-  font-weight: 800;
-  border-color: var(--accent);
-  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.3);
+  /* Career player search has no selected skin; keep the default style. */
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-weight: normal;
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: none;
 }
 
+/* Results list — matching `.career-inline-player-results`. */
 .lineups-inline-team-results {
   min-height: 6.2rem;
   max-height: 12rem;
+}
+
+/* Each team result pill — match `.career-inline-player-result` (overrides the global
+   `.team-pick` from control-panel.css). */
+.lineups-inline-team-picker .team-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  width: 100%;
+  padding: 0.38rem 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lineups-inline-team-picker .team-pick:hover {
+  background: rgba(255, 202, 40, 0.22);
+}
+
+.lineups-inline-team-picker .team-pick small {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
 }
 
 /* When Video mode hides the team header, crest swap stays on the pitch (see renderHeader visibility). */
@@ -543,4 +622,10 @@ body.play-video-active .pitch-swap-logo-btn {
   background: var(--accent);
   color: #000;
   transform: scale(1.15);
+}
+
+/* Hide the pitch until a team is selected (no-team ⇔ picker visible). The `:has()` on
+   body triggers whenever the team picker element is not [hidden], i.e. no current squad. */
+body:has(#lineups-inline-team-picker:not([hidden])) #pitch-container {
+  visibility: hidden !important;
 }

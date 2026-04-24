@@ -1743,11 +1743,22 @@ export function renderHeader() {
       logoImg.onload = null;
       logoImg.onerror = null;
       let chainIndex = 0;
+      const expectedSrc = chain[0];
+      const revealIfFresh = () => {
+        if (isStaleHeaderRender()) return;
+        /* Only reveal if the element's current src is the one we kicked off — protects
+           against in-flight loads from previous renders finishing after us. */
+        const cur = logoImg.getAttribute("src") || "";
+        if (cur !== chain[chainIndex]) return;
+        logoImg.hidden = false;
+        logoImg.style.visibility = "";
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+      };
       logoImg.onload = () => {
         if (isStaleHeaderRender()) return;
         putCachedImage(chain[chainIndex], logoImg);
-        scheduleTeamHeaderNameCenterShift();
-        scheduleTeamHeaderSidePanelNameFit();
+        revealIfFresh();
       };
       logoImg.onerror = () => {
         if (isStaleHeaderRender()) return;
@@ -1759,6 +1770,7 @@ export function renderHeader() {
           return;
         }
         logoImg.hidden = true;
+        logoImg.style.visibility = "";
         logoImg.removeAttribute("src");
         const fetchLogoBtnErr = document.getElementById("team-header-fetch-logo");
         if (fetchLogoBtnErr) fetchLogoBtnErr.hidden = false;
@@ -1768,26 +1780,40 @@ export function renderHeader() {
         scheduleTeamHeaderNameCenterShift();
         scheduleTeamHeaderSidePanelNameFit();
       };
-      // Use cache-first: check RAM cache before network fetch
       const cachedHeaderLogo = getCachedImage(chain[0]);
-      if (cachedHeaderLogo) {
-        logoImg.src = cachedHeaderLogo.src;
-      } else {
-        preloadImage(chain[0]);
-        logoImg.src = chain[0];
+      const srcIsChanging = logoImg.getAttribute("src") !== expectedSrc;
+      /* Always hide visually BEFORE assigning src so the browser can't paint the old
+         bitmap for the current frame. Use visibility (layout stays) — display: none
+         via `hidden` can race with other code reading the img's layout. The reveal
+         below (or in onload) clears both hidden and visibility together. */
+      if (srcIsChanging) {
+        logoImg.style.visibility = "hidden";
       }
-      logoImg.hidden = false;
-      if (logoImg.complete && logoImg.naturalWidth) {
+      if (cachedHeaderLogo && cachedHeaderLogo.naturalWidth && cachedHeaderLogo.src === expectedSrc) {
+        /* Cached entry's src matches the URL we're asking for — safe to reuse. */
+        logoImg.src = expectedSrc;
+        logoImg.hidden = false;
+        logoImg.style.visibility = "";
         if (!isStaleHeaderRender()) {
           scheduleTeamHeaderNameCenterShift();
           scheduleTeamHeaderSidePanelNameFit();
         }
+      } else {
+        /* Not cached (or cache entry's src was mutated by a later render) — hide via
+           `hidden` too so `display: none` guarantees nothing stale paints, then wait
+           for onload. */
+        if (srcIsChanging) {
+          logoImg.hidden = true;
+        }
+        if (!cachedHeaderLogo) preloadImage(chain[0]);
+        logoImg.src = expectedSrc;
       }
     } else {
       els.headerLogo.onload = null;
       els.headerLogo.onerror = null;
       els.headerLogo.removeAttribute("src");
       els.headerLogo.hidden = true;
+      els.headerLogo.style.visibility = "";
     }
   }
   const showSwapLogo =

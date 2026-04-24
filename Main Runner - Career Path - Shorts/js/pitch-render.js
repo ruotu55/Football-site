@@ -1632,10 +1632,8 @@ export function renderCareer() {
     .forEach((el) => el.remove());
   /* Clear X may live outside #career-wrap in shorts (same chrome mount as voice). */
   document.getElementById("career-clear-player-btn")?.remove();
-  /* Get photo bar must use the same mount so `position:fixed` + `top:5.5vh` matches the X (not #career-wrap perspective). */
-  if (isShorts) {
-    document.getElementById("player-voice-chrome-mount")?.querySelector(".career-get-photo-actions")?.remove();
-  }
+  /* Get photo bar may live in `#player-voice-chrome-mount` (outside #career-wrap). */
+  document.getElementById("player-voice-chrome-mount")?.querySelector(".career-get-photo-actions")?.remove();
   /* Remove stray reveal name from older builds (was appended outside .career-wrap). */
   const oldRevealName = document.getElementById("career-reveal-name");
   if (oldRevealName) oldRevealName.remove();
@@ -1815,6 +1813,7 @@ export function renderCareer() {
     ro.observe(svg);
   }
   if (!hasRealPlayer && !shortsPreviewActive) {
+    document.getElementById("career-inline-player-picker")?.remove();
     const picker = document.createElement("div");
     picker.id = "career-inline-player-picker";
     picker.className = "career-inline-player-picker";
@@ -1831,7 +1830,11 @@ export function renderCareer() {
         <div class="career-inline-player-hint">Type player name to search.</div>
       </div>
     `;
-    wrap.appendChild(picker);
+    /* Mount on <body> so no transformed/filtered ancestor interferes with the
+       `position: fixed` centering — matches the Lineups Shorts team picker. */
+    document.body.appendChild(picker);
+  } else {
+    document.getElementById("career-inline-player-picker")?.remove();
   }
   if (hasRealPlayer) {
     const clearBtn = document.createElement("button");

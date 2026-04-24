@@ -2308,6 +2308,15 @@ body.play-video-active .career-get-photo-actions {
   pointer-events: none !important;
 }
 
+.career-get-photo-buttons-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
 .career-get-photo-btn {
   padding: 0.45rem 0.85rem;
   border-radius: 0.4rem;
@@ -2331,6 +2340,147 @@ body.play-video-active .career-get-photo-actions {
 .career-get-photo-btn:disabled {
   opacity: 0.55;
   cursor: wait;
+}
+
+.career-get-photo-btn--switch {
+  padding: 0.32rem 0.55rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.career-ready-photo-switch-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: 1rem;
+  padding-top: max(1rem, env(safe-area-inset-top, 0px));
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  pointer-events: none;
+  background: rgba(0, 8, 14, 0.78);
+}
+
+.career-ready-photo-switch-modal--portal {
+  z-index: 101000;
+  pointer-events: auto;
+}
+
+.career-ready-photo-switch-modal[hidden] {
+  display: none !important;
+}
+
+.career-ready-photo-switch-modal__panel {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: min(22rem, calc(100vw - 2rem));
+  max-width: 100%;
+  margin-top: min(10vh, 5rem);
+  padding: 0.85rem 0.95rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #0f1724;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.career-ready-photo-switch-modal__title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent, #ffca28);
+  text-align: center;
+}
+
+.career-ready-photo-switch-modal__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+  gap: 0.45rem;
+  max-height: min(52vh, 22rem);
+  overflow: auto;
+  padding: 0.1rem;
+}
+
+.career-ready-photo-switch-modal__loading,
+.career-ready-photo-switch-modal__empty {
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(248, 250, 252, 0.88);
+  padding: 0.75rem 0.35rem;
+}
+
+.career-ready-photo-switch-option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.28rem;
+  padding: 0.35rem;
+  margin: 0;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  color: #e8fff8;
+  font: inherit;
+  text-align: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.career-ready-photo-switch-option:hover {
+  border-color: rgba(200, 255, 244, 0.45);
+  background: rgba(20, 60, 52, 0.45);
+}
+
+.career-ready-photo-switch-option--current {
+  border-color: rgba(255, 202, 40, 0.75);
+  box-shadow: 0 0 0 1px rgba(255, 202, 40, 0.35);
+}
+
+.career-ready-photo-switch-option__img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.career-ready-photo-switch-option__label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.career-ready-photo-switch-modal__footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.15rem;
+}
+
+.career-ready-photo-switch-modal__btn-close {
+  padding: 0.35rem 1rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.career-ready-photo-switch-modal__btn-close:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .career-get-photo-hint {
@@ -2467,4 +2617,58 @@ body.shorts-mode .career-ready-photo-url-modal__panel {
 .career-ready-photo-url-modal__btn:disabled {
   opacity: 0.55;
   cursor: wait;
+}
+
+/* Chrome row: X | Get Photo | Switch — centered horizontally, equal button size. */
+#player-voice-chrome-mount {
+  display: flex !important;
+  position: fixed !important;
+  top: 5.5vh !important;
+  left: 0 !important;
+  right: 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  z-index: 200 !important;
+  pointer-events: none !important;
+}
+
+#player-voice-chrome-mount > .career-clear-player-btn,
+#player-voice-chrome-mount > .career-get-photo-actions {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  pointer-events: auto !important;
+}
+
+#player-voice-chrome-mount > .career-get-photo-actions {
+  flex-direction: row !important;
+  width: auto !important;
+  max-width: none !important;
+  gap: 0.4rem !important;
+}
+
+#player-voice-chrome-mount > .career-get-photo-actions .career-get-photo-buttons-row {
+  gap: 0.4rem !important;
+}
+
+#player-voice-chrome-mount .career-clear-player-btn,
+#player-voice-chrome-mount .career-get-photo-btn {
+  width: 5.5rem !important;
+  min-width: 5.5rem !important;
+  height: 2.4rem !important;
+  padding: 0 !important;
+  border-radius: 0.45rem !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
 }

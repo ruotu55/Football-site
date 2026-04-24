@@ -126,5 +126,5 @@ export function careerReadyPhotoRelCandidates(playerName, clubName, variantIndex
   return careerReadyPhotoRelCandidatesForStem(playerName, clubName, stem);
 }
 
-export const CAREER_NO_PLAYER_LABEL = "No Player Selected";
+export const CAREER_NO_PLAYER_LABEL = "";
 export const CAREER_NO_PHOTO_LABEL = "- No image and No photo";

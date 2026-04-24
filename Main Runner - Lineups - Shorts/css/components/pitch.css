@@ -23,7 +23,7 @@
 .lineups-inline-team-picker {
   position: absolute;
   left: 50%;
-  top: 31%;
+  top: 50%;
   transform: translate(-50%, -50%);
   z-index: 40;
   width: min(22rem, 90%);
@@ -42,6 +42,49 @@
 
 .lineups-inline-team-picker[hidden] {
   display: none;
+}
+
+/* Shorts: match career inline player picker sizing (see career runners' shorts.css).
+   Hoist out of `.pitch-wrap` so shorts-mode's scale(0.77) transform doesn't shrink the box. */
+body.shorts-mode .lineups-inline-team-picker {
+  position: fixed !important;
+  left: 50% !important;
+  top: 40% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 600 !important;
+  width: min(25rem, 88vw) !important;
+  max-width: min(25rem, 88vw) !important;
+  min-width: min(25rem, 88vw) !important;
+  max-height: 20rem !important;
+  pointer-events: auto;
+}
+
+/* Strip the control-panel `.team-results` dark box + border so the results area
+   matches the career player picker's empty results area (flush with the panel). */
+body.shorts-mode .lineups-inline-team-picker .lineups-inline-team-results,
+body.shorts-mode .lineups-inline-team-picker #team-results {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+  min-height: 6.2rem !important;
+  max-height: 12rem !important;
+  overflow-y: auto !important;
+}
+
+/* Empty-state hint, same size/colour as the career player picker's `.career-inline-player-hint`.
+   Shown via `:empty::before` so it appears whenever the results list has no children
+   (initial load + after clearing search), without JS having to manage it. */
+body.shorts-mode .lineups-inline-team-picker #team-results:empty::before {
+  content: "Type team name to search.";
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 0.55rem;
+  font-size: 0.82rem;
+  display: block;
+  width: 100%;
 }
 
 .lineups-inline-team-picker-title {

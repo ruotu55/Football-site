@@ -23,7 +23,7 @@ import { filterTeams, showResults } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
 import { applyCustomSelects } from "./custom-selects.js";
-import { getCurrentLanguage } from "./voice-tab.js";
+import { getCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
@@ -770,7 +770,7 @@ export function updateLanding() {
                 "Guess the football <br>national team name<br>by players' club";
         }
     } else if (type === "club-by-nat") {
-        title.innerHTML = "GUESS THE FOOTBALL<br>TEAM NAME BY<br>PLAYERS' NATIONALITY";
+        title.innerHTML = "GUESS THE FOOTBALL<br>TEAM NAME BY<br>PLAYERS NATIONALITY";
     } else {
         title.innerHTML = "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB";
     }
@@ -925,6 +925,8 @@ async function init() {
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
+        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+        renderVoiceTab();
     };
 
     els.inEasy.oninput = updateLanding;
@@ -1257,6 +1259,9 @@ async function init() {
             );
             if (nextName === null) return;
             renameCurrentClubByNatTeamName(nextName);
+            /* Refresh the Voice tab so the renamed team shows up (and the correct voice
+               file is probed/generated/played for the new display name). */
+            renderVoiceTab();
         });
     }
 

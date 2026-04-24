@@ -22,7 +22,7 @@ import {
 import { filterTeams, showResults } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260416-ball";
 import { applyCustomSelects } from "./custom-selects.js";
-import { getCurrentLanguage } from "./voice-tab.js";
+import { getCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
@@ -189,6 +189,12 @@ function initHeaderLogoZoom(onClearTeamSelection) {
                 onClearTeamSelection();
             }
         };
+        /* Re-parent the X to <body> so pitch-wrap's `perspective: 1200px` stops creating
+           a containing block for it — then `position: fixed; top: 5.5vh` anchors to the
+           viewport and matches the chrome-row X in Career Path / Four params / Player stats. */
+        if (clearTeamBtn.parentElement !== document.body) {
+            document.body.appendChild(clearTeamBtn);
+        }
     }
     if (fetchLogo) {
         fetchLogo.onclick = async () => {
@@ -805,8 +811,8 @@ export function updateLanding() {
 
     if (type === "club-by-nat") {
         title.innerHTML = isShorts
-            ? "GUESS THE FOOTBALL<br>TEAM NAME<br>BY PLAYERS'<br>NATIONALITY"
-            : "GUESS THE FOOTBALL<br>TEAM NAME BY<br>PLAYERS' NATIONALITY";
+            ? "GUESS THE FOOTBALL<br>TEAM NAME<br>BY PLAYERS<br>NATIONALITY"
+            : "GUESS THE FOOTBALL<br>TEAM NAME BY<br>PLAYERS NATIONALITY";
     } else {
         title.innerHTML = isShorts
             ? "GUESS THE FOOTBALL<br>NATIONAL TEAM<br>NAME BY<br>PLAYERS' CLUB"
@@ -1008,6 +1014,8 @@ async function init() {
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
+        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+        renderVoiceTab();
     };
 
     els.inEasy.oninput = updateLanding;
@@ -1368,6 +1376,9 @@ async function init() {
             );
             if (nextName === null) return;
             renameCurrentClubByNatTeamName(nextName);
+            /* Refresh the Voice tab so the renamed team shows up (and the correct voice
+               file is probed/generated/played for the new display name). */
+            renderVoiceTab();
         });
     }
 

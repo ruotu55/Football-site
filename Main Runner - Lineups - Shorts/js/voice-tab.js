@@ -2,6 +2,7 @@
 
 import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
+import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
@@ -14,7 +15,7 @@ function setCurrentLanguage(lang) { const n = SUPPORTED_LANGUAGES.includes(lang)
 const QUIZ_TYPE_PROMPTS = {
   english: {
     "nat-by-club": "GUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB",
-    "club-by-nat": "GUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY",
+    "club-by-nat": "GUESS THE FOOTBALL TEAM NAME BY PLAYERS NATIONALITY",
   },
   spanish: {
     "nat-by-club": "ADIVINA EL EQUIPO NACIONAL POR EL CLUB DE LOS JUGADORES",
@@ -68,20 +69,29 @@ function uniqueTeamNames() {
   const seen = new Set();
   const out = [];
   const levels = Array.isArray(appState.levelsData) ? appState.levelsData : [];
+  const quizType = String(appState.els?.inQuizType?.value || "").trim();
   for (const lvl of levels) {
-    const candidates = [
-      lvl?.team?.name,
-      lvl?.currentSquadName,
-      lvl?.teamName,
-      lvl?.nationalTeamName,
-      lvl?.clubName,
-    ];
-    for (const c of candidates) {
-      const name = String(c || "").trim();
-      if (!name || seen.has(name)) continue;
-      seen.add(name);
-      out.push(name);
+    /* Prefer the resolved display name (applies nat-by-club rename overrides) so the
+       Teams row here matches the on-screen team name and the voice file keyed to it. */
+    let displayName = "";
+    try {
+      displayName = String(resolveHeaderTeamDisplayName(lvl, quizType) || "").trim();
+    } catch {
+      displayName = "";
     }
+    const fallback = String(
+      lvl?.currentSquad?.name ||
+      lvl?.team?.name ||
+      lvl?.currentSquadName ||
+      lvl?.teamName ||
+      lvl?.nationalTeamName ||
+      lvl?.clubName ||
+      ""
+    ).trim();
+    const name = displayName || fallback;
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    out.push(name);
   }
   return out;
 }
@@ -214,14 +224,19 @@ export async function renderVoiceTab() {
   });
   root.appendChild(buildSection(SECTION_TITLES.teams, teamRows));
 
+  /* Only show the ending row matching the Ending type select on the Quiz (Landing) tab.
+     If no valid ending is selected yet, show both so the user can still generate either. */
+  const selectedEnding = String(appState.els?.inEndingType?.value || "").trim();
   const endingRows = [
     { type: "think-you-know", status: endingThink },
     { type: "how-many",       status: endingHow },
-  ].map(({ type, status }) => buildRow({
-    text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
-    onPlay: () => onVolPressed({ rowKey: `ending:${type}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__ending-voice/generate", generateBody: { endingType: type } }),
-    onDelete: () => onDeletePressed({ rowKey: `ending:${type}:${lang}`, deleteEndpoint: "__ending-voice/delete", deleteBody: { endingType: type } }),
-  }));
+  ]
+    .filter(({ type }) => !selectedEnding || type === selectedEnding)
+    .map(({ type, status }) => buildRow({
+      text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
+      onPlay: () => onVolPressed({ rowKey: `ending:${type}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__ending-voice/generate", generateBody: { endingType: type } }),
+      onDelete: () => onDeletePressed({ rowKey: `ending:${type}:${lang}`, deleteEndpoint: "__ending-voice/delete", deleteBody: { endingType: type } }),
+    }));
   root.appendChild(buildSection(SECTION_TITLES.endings, endingRows));
 
   const bundledStatuses = await Promise.all(BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key)));

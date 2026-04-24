@@ -309,7 +309,7 @@ body.shorts-mode .quiz-progress .step-dots::after {
 body.shorts-mode .quiz-progress .step {
     width: 2.6rem;
     height: 2.6rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
@@ -977,10 +977,15 @@ body.shorts-mode .career-clear-player-btn:hover {
 }
 
 body.shorts-mode .career-inline-player-picker {
-    z-index: 600;
-    top: 32%;
-    width: min(25rem, 88%);
-    max-height: 20rem;
+    position: fixed !important;
+    left: 50% !important;
+    top: 40% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 600 !important;
+    width: min(25rem, 88vw) !important;
+    max-width: min(25rem, 88vw) !important;
+    min-width: min(25rem, 88vw) !important;
+    max-height: 20rem !important;
     pointer-events: auto;
 }
 
@@ -1413,7 +1418,8 @@ body.shorts-mode .career-reveal-name {
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(-1.75rem + 5%);
+    /* Raised 3% from the original `calc(-1.75rem + 5%)` (−5% then +2% back down). */
+    top: calc(-1.75rem + 2%);
     margin: 0 auto;
     width: 90%;
     text-align: center;

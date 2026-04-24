@@ -541,11 +541,14 @@ body.shorts-mode .team-header {
   transform: none;
   will-change: top;
   pointer-events: none;
-  transition: top 0.5s ease-out;
+  /* Softer landing — 1.28s (20% faster than 1.6s) with an ease-out-quart curve so
+     the slide-in is smooth but not sluggish. */
+  transition: top 1.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body.shorts-mode .team-header.team-header--show {
-  top: 0;
+  /* Slide-in rest position raised 3vh (5% up then 2% back down). */
+  top: -3vh;
   pointer-events: auto;
 }
 
@@ -693,4 +696,85 @@ body.shorts-mode .team-header::before {
     rgba(0, 0, 0, 0.15) 85%,
     rgba(0, 0, 0, 0) 100%
   );
+}
+
+/* Shared red-X control: same button look/position as the career main runners. */
+body:not(.shorts-mode) .career-clear-player-btn {
+  position: fixed !important;
+  left: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem) !important;
+  right: auto !important;
+  top: 5.5vh !important;
+  transform: none !important;
+  width: 2.75rem !important;
+  min-width: 2.75rem !important;
+  height: 2.1rem !important;
+  border-radius: 0.45rem !important;
+  border: 2px solid rgba(255, 190, 190, 0.95) !important;
+  background: rgba(120, 18, 18, 0.75) !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45) !important;
+  z-index: 200;
+  pointer-events: auto;
+}
+
+body:not(.shorts-mode) .career-clear-player-btn:hover {
+  background: rgba(185, 28, 28, 0.9) !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+body.shorts-mode .career-clear-player-btn {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  top: 5.5vh !important;
+  transform: translateX(-50%) !important;
+  width: 5.5rem !important;
+  min-width: 5.5rem !important;
+  height: 2.4rem !important;
+  padding: 0 !important;
+  border-radius: 0.45rem !important;
+  border: 2px solid rgba(255, 190, 190, 0.95) !important;
+  background: rgba(120, 18, 18, 0.75) !important;
+  color: #fff !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45) !important;
+  z-index: 200;
+  pointer-events: auto;
+}
+
+body.shorts-mode .career-clear-player-btn:hover {
+  background: rgba(185, 28, 28, 0.9) !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+/* Respect the HTML `hidden` attribute — app.js toggles it on the team-clear X based on
+   whether a team is selected, and we mustn't override it with `display: inline-flex`. */
+body.shorts-mode .career-clear-player-btn[hidden] {
+  display: none !important;
+}
+
+body.play-video-active .career-clear-player-btn {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Hide the pitch and the top red X until a team is picked (no-team ⇔ picker visible). */
+body.shorts-mode:has(#lineups-inline-team-picker:not([hidden])) #pitch-wrap {
+  visibility: hidden !important;
+}
+body.shorts-mode:has(#lineups-inline-team-picker:not([hidden])) #team-header-clear-team {
+  display: none !important;
 }

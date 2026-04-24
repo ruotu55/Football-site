@@ -21,12 +21,27 @@
 .control-panel.collapsed { display: none; }
 
 .right-panel {
-  left: auto;
-  right: 0;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-right: none;
-  box-shadow: -15px 0 40px rgba(0,0,0,0.6);
+  /* Dock directly beside the main Quiz Controls panel (left: 0, width: 22rem)
+     instead of the far right of the screen, so level controls are adjacent. */
+  left: 22rem;
+  right: auto;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 15px 0 40px rgba(0, 0, 0, 0.6);
   z-index: 99990;
+}
+
+/* Keep the header fixed at top and make the inner level list its own scroll area. */
+.right-panel .panel-header {
+  flex-shrink: 0;
+}
+.right-panel #levels-reorder-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  /* Right padding so the scrollbar sits past the level pills instead of on top of them. */
+  padding-right: 0.7rem;
 }
 
 .right-panel[hidden] {

@@ -321,7 +321,7 @@ body.shorts-mode .quiz-progress .step-dots::after {
 body.shorts-mode .quiz-progress .step {
     width: 2.6rem;
     height: 2.6rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
@@ -674,6 +674,16 @@ body.shorts-mode .career-club-emblem-scale > .career-badge-controls {
     margin-bottom: 0.14rem;
 }
 
+/* Override the `display: flex !important` above while Play Video is active so
+   the in-slot crest controls (including the CLUBS stats panel mini-crests) get
+   fully hidden along with the rest. Specificity must match the flex rule and
+   come later so it wins source-order. */
+body.shorts-mode.play-video-active .career-club-emblem-scale > .career-badge-controls,
+body.shorts-mode.play-video-active .career-club-emblem-scale > .career-year-nudge-controls {
+    display: none !important;
+    pointer-events: none !important;
+}
+
 body.shorts-mode .career-club-placeholder .career-club-logo-img {
     width: 100%;
     height: 100%;
@@ -811,10 +821,15 @@ body.shorts-mode .career-clear-player-btn:hover {
 }
 
 body.shorts-mode .career-inline-player-picker {
-    z-index: 600;
-    top: 56%;
-    width: min(25rem, 88%);
-    max-height: 20rem;
+    position: fixed !important;
+    left: 50% !important;
+    top: 40% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 600 !important;
+    width: min(25rem, 88vw) !important;
+    max-width: min(25rem, 88vw) !important;
+    min-width: min(25rem, 88vw) !important;
+    max-height: 20rem !important;
     pointer-events: auto;
 }
 
@@ -972,7 +987,7 @@ body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .caree
 body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show {
     animation: none;
     opacity: 1;
-    transform: translateX(-50%) translateY(-9%) scale(1.04);
+    transform: translateX(-50%) translateY(-4%) scale(1.04);
     filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
 }
 

@@ -59,7 +59,7 @@ QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
     "english": {
         "nat-by-club": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB!!",
-        "club-by-nat": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY!!",
+        "club-by-nat": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL TEAM NAME BY PLAYERS NATIONALITY!!",
     },
     "spanish": {
         "nat-by-club": "Hola a todos, empecemos. ...\n\n¡¡ADIVINA EL EQUIPO NACIONAL POR EL CLUB DE LOS JUGADORES!!",

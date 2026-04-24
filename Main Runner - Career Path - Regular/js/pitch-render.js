@@ -1530,6 +1530,8 @@ export function renderCareer() {
   document.body
     .querySelectorAll(".career-ready-photo-switch-modal.career-ready-photo-switch-modal--portal")
     .forEach((el) => el.remove());
+  document.getElementById("career-clear-player-btn")?.remove();
+  document.getElementById("player-voice-chrome-mount")?.querySelector(".career-get-photo-actions")?.remove();
 
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
@@ -1750,7 +1752,12 @@ export function renderCareer() {
       renderCareer();
       renderHeader();
     });
-    wrap.appendChild(clearBtn);
+    const voiceChromeMount = document.getElementById("player-voice-chrome-mount");
+    if (voiceChromeMount) {
+      voiceChromeMount.insertBefore(clearBtn, voiceChromeMount.firstChild);
+    } else {
+      wrap.appendChild(clearBtn);
+    }
   }
 
   const knownClubImageFolders = Array.from(
@@ -2545,7 +2552,12 @@ export function renderCareer() {
   }
 
   if (getPhotoUi) {
-    wrap.appendChild(getPhotoUi.host);
+    const voiceChromeMountForPhoto = document.getElementById("player-voice-chrome-mount");
+    if (voiceChromeMountForPhoto) {
+      voiceChromeMountForPhoto.appendChild(getPhotoUi.host);
+    } else {
+      wrap.appendChild(getPhotoUi.host);
+    }
     if (careerGetPhotoSuppressed()) getPhotoUi.hide();
   }
 

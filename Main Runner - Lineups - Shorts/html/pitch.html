@@ -13,7 +13,7 @@
             <div class="team-side-panel-logo-wrap">
               <div class="team-side-panel-logo-frame">
                 <button type="button" id="team-header-fetch-logo" class="team-header-zoom-btn team-header-fetch-logo-btn" hidden>Get logo</button>
-                <button type="button" id="team-header-clear-team" class="team-header-zoom-btn team-header-clear-team-btn team-side-panel-clear-on-logo" hidden aria-label="Clear selected team">X</button>
+                <button type="button" id="team-header-clear-team" class="team-header-zoom-btn team-header-clear-team-btn team-side-panel-clear-on-logo career-clear-player-btn" hidden aria-label="Clear selected team">X</button>
                 <div class="team-header-logo-shift">
                   <div class="team-header-logo-inner">
                     <img id="team-header-logo" class="team-header-logo" src="" alt="Team logo or crest" hidden />
@@ -38,11 +38,6 @@
     </div>
   </div>
   <button type="button" id="pitch-swap-logo" class="pitch-swap-logo-btn" hidden aria-label="Swap team crest">Swap logo</button>
-  <div id="lineups-inline-team-picker" class="lineups-inline-team-picker" hidden>
-    <div class="lineups-inline-team-picker-title">No Team Selected</div>
-    <input type="search" id="team-search" class="lineups-inline-team-search" placeholder="Search team..." autocomplete="off" />
-    <div id="team-results" class="team-results lineups-inline-team-results" aria-live="polite"></div>
-  </div>
   <div class="pitch-surface" id="pitch-container">
     <svg id="pitch-svg" class="pitch-svg" viewBox="0 0 160 100" preserveAspectRatio="none" aria-hidden="true">
       <rect x="0" y="0" width="160" height="100" fill="transparent" stroke="rgba(232,244,255,0.28)" stroke-width="0.45" />
@@ -66,4 +61,13 @@
     </svg>
     <div id="pitch-slots" class="pitch-slots"></div>
   </div>
+</div>
+<!-- Team picker lives OUTSIDE pitch-wrap so shorts-mode's scale/transform on .pitch-wrap
+     doesn't shrink the box (fixed-positioned elements are still anchored to a transformed
+     ancestor's containing block). Keeping it here makes the "No Team Selected" box match
+     the career runners' "No Player Selected" box in size and placement. -->
+<div id="lineups-inline-team-picker" class="lineups-inline-team-picker" hidden>
+  <div class="lineups-inline-team-picker-title">No Team Selected</div>
+  <input type="search" id="team-search" class="lineups-inline-team-search" placeholder="Search team..." autocomplete="off" />
+  <div id="team-results" class="team-results lineups-inline-team-results" aria-live="polite"></div>
 </div>

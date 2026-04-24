@@ -2,7 +2,7 @@
 setlocal
 
 set "SCRIPT_DIR=%~dp0"
-set "PY_SCRIPT=%SCRIPT_DIR%(1) remove_backgrounds.py"
+set "PY_SCRIPT=%SCRIPT_DIR%remove_backgrounds.py"
 
 set "PYTHON_EXE=py -3"
 
