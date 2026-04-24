@@ -9,7 +9,7 @@ import {
 } from "./state.js";
 import { migratePlayerImages, projectAssetUrl } from "./paths.js";
 import { getClubLogoOtherTeamsUrl } from "./photo-helpers.js";
-import { switchLevel } from "./levels.js";
+import { switchLevel, syncFloatingShirtVisibilityFromLevel } from "./levels.js";
 import {
     renderHeader,
     renderCareer,
@@ -23,6 +23,7 @@ import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
+import { getCurrentLanguage } from "./voice-tab.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
@@ -179,7 +180,10 @@ function setEndingTypeVoiceBusy(endingType, isBusy) {
 }
 
 async function fetchEndingTypeVoiceStatus(endingType) {
-    const params = new URLSearchParams({ endingType: String(endingType || "") });
+    const params = new URLSearchParams({
+        endingType: String(endingType || ""),
+        language: getCurrentLanguage(),
+    });
     const res = await fetch(`${endpointUrl(ENDING_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
     if (!res.ok || !body?.ok) throw new Error(body?.error || `Status failed (${res.status})`);
@@ -200,6 +204,7 @@ async function ensureEndingTypeVoiceThenPlay(endingType) {
                 body: JSON.stringify({
                     endingType,
                     voice: ENDING_VOICE_FIXED_VOICE,
+                    language: getCurrentLanguage(),
                 }),
             });
             const body = await res.json().catch(() => ({}));
@@ -227,6 +232,7 @@ async function resolveEndingVoiceSrcForPlayback(endingType) {
         body: JSON.stringify({
             endingType,
             voice: ENDING_VOICE_FIXED_VOICE,
+            language: getCurrentLanguage(),
         }),
     });
     const body = await res.json().catch(() => ({}));
@@ -245,7 +251,7 @@ async function deleteEndingTypeVoice(endingType) {
         const res = await fetch(endpointUrl(ENDING_VOICE_DELETE_ENDPOINT), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ endingType }),
+            body: JSON.stringify({ endingType, language: getCurrentLanguage() }),
         });
         const body = await res.json().catch(() => ({}));
         if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
@@ -259,72 +265,7 @@ async function deleteEndingTypeVoice(endingType) {
 }
 
 function renderEndingTypeVoiceStatusPanel() {
-    const endingTypeSelect = appState?.els?.inEndingType;
-    if (!endingTypeSelect) return;
-    let panel = document.getElementById("ending-type-voice-status");
-    if (!panel) {
-        panel = document.createElement("div");
-        panel.id = "ending-type-voice-status";
-        panel.style.marginTop = "0.4rem";
-        panel.style.display = "flex";
-        panel.style.flexDirection = "column";
-        panel.style.gap = "0.25rem";
-        panel.style.fontSize = "0.72rem";
-        panel.style.color = "rgba(255,255,255,0.9)";
-        const anchor = endingTypeSelect.nextElementSibling || endingTypeSelect;
-        anchor.insertAdjacentElement("afterend", panel);
-    }
-    panel.replaceChildren();
-
-    Array.from(endingTypeSelect.options || []).filter((opt) => opt.value && !opt.disabled).forEach((opt) => {
-        const row = document.createElement("div");
-        row.style.display = "flex";
-        row.style.justifyContent = "space-between";
-        row.style.gap = "0.5rem";
-        row.style.padding = "0.15rem 0";
-
-        const text = document.createElement("span");
-        text.textContent = getEndingTypeBaseLabel(opt);
-        text.style.opacity = "0.92";
-
-        const controls = document.createElement("div");
-        controls.style.display = "inline-flex";
-        controls.style.alignItems = "center";
-        controls.style.gap = "0.3rem";
-
-        const volBtn = document.createElement("button");
-        volBtn.type = "button";
-        volBtn.textContent = "Vol";
-        volBtn.dataset.endingTypeVoiceVol = opt.value;
-        volBtn.style.padding = "0.12rem 0.4rem";
-        volBtn.style.borderRadius = "999px";
-        volBtn.style.border = "1px solid rgba(255,255,255,0.35)";
-        volBtn.style.background = "rgba(255,255,255,0.08)";
-        volBtn.style.color = "#fff";
-        volBtn.style.fontSize = "0.68rem";
-        volBtn.style.fontWeight = "700";
-        volBtn.onclick = () => { void ensureEndingTypeVoiceThenPlay(opt.value); };
-
-        const xBtn = document.createElement("button");
-        xBtn.type = "button";
-        xBtn.textContent = "X";
-        xBtn.dataset.endingTypeVoiceDel = opt.value;
-        xBtn.style.padding = "0.12rem 0.45rem";
-        xBtn.style.borderRadius = "999px";
-        xBtn.style.border = "1px solid rgba(239,68,68,0.7)";
-        xBtn.style.background = "rgba(239,68,68,0.2)";
-        xBtn.style.color = "#fff";
-        xBtn.style.fontSize = "0.68rem";
-        xBtn.style.fontWeight = "800";
-        xBtn.disabled = !endingTypeVoiceStatusByType[opt.value];
-        xBtn.onclick = () => { void deleteEndingTypeVoice(opt.value); };
-
-        controls.appendChild(volBtn);
-        controls.appendChild(xBtn);
-        row.appendChild(text);
-        row.appendChild(controls);
-        panel.appendChild(row);
-    });
+    document.getElementById("ending-type-voice-status")?.remove();
 }
 
 async function refreshEndingTypeVoiceLabels() {
@@ -454,6 +395,7 @@ async function fetchQuizTypeVoiceStatus(quizType, specificTitle = "") {
     const params = new URLSearchParams({
         quizType: String(quizType || ""),
         specificTitle: String(specificTitle || ""),
+        language: getCurrentLanguage(),
     });
     const res = await fetch(`${endpointUrl(QUIZ_TITLE_VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
@@ -477,6 +419,7 @@ async function ensureQuizTypeVoiceThenPlay(quizType) {
                     quizType,
                     voice: QUIZ_TITLE_FIXED_VOICE,
                     specificTitle: specificTitleText,
+                    language: getCurrentLanguage(),
                 }),
             });
             const body = await res.json().catch(() => ({}));
@@ -507,6 +450,7 @@ async function resolveQuizTitleVoiceSrcForPlayback(quizType) {
             quizType,
             voice: QUIZ_TITLE_FIXED_VOICE,
             specificTitle: specificTitleText,
+            language: getCurrentLanguage(),
         }),
     });
     const body = await res.json().catch(() => ({}));
@@ -526,7 +470,11 @@ async function deleteQuizTypeVoice(quizType) {
         const res = await fetch(endpointUrl(QUIZ_TITLE_VOICE_DELETE_ENDPOINT), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ quizType, specificTitle: specificTitleText }),
+            body: JSON.stringify({
+                quizType,
+                specificTitle: specificTitleText,
+                language: getCurrentLanguage(),
+            }),
         });
         const body = await res.json().catch(() => ({}));
         if (!res.ok || !body?.ok) throw new Error(body?.error || `Delete failed (${res.status})`);
@@ -541,122 +489,14 @@ async function deleteQuizTypeVoice(quizType) {
 }
 
 function renderQuizTypeVoiceStatusPanel() {
-    const quizTypeSelect = appState?.els?.inQuizType;
-    if (!quizTypeSelect) return;
-    let panel = document.getElementById("quiz-type-voice-status");
-    if (!panel) {
-        panel = document.createElement("div");
-        panel.id = "quiz-type-voice-status";
-        panel.style.marginTop = "0.4rem";
-        panel.style.display = "flex";
-        panel.style.flexDirection = "column";
-        panel.style.gap = "0.25rem";
-        panel.style.fontSize = "0.72rem";
-        panel.style.color = "rgba(255,255,255,0.9)";
-        const anchor = quizTypeSelect.nextElementSibling || quizTypeSelect;
-        anchor.insertAdjacentElement("afterend", panel);
-    }
-    panel.replaceChildren();
-
-    Array.from(quizTypeSelect.options || []).forEach((opt) => {
-        const row = document.createElement("div");
-        row.style.display = "flex";
-        row.style.justifyContent = "space-between";
-        row.style.gap = "0.5rem";
-        row.style.padding = "0.15rem 0";
-
-        const text = document.createElement("span");
-        text.textContent = getQuizTypeBaseLabel(opt);
-        text.style.opacity = "0.92";
-
-        const controls = document.createElement("div");
-        controls.style.display = "inline-flex";
-        controls.style.alignItems = "center";
-        controls.style.gap = "0.3rem";
-
-        const volBtn = document.createElement("button");
-        volBtn.type = "button";
-        volBtn.textContent = "Vol";
-        volBtn.dataset.quizTypeVoiceVol = opt.value;
-        volBtn.style.padding = "0.12rem 0.4rem";
-        volBtn.style.borderRadius = "999px";
-        volBtn.style.border = "1px solid rgba(255,255,255,0.35)";
-        volBtn.style.background = "rgba(255,255,255,0.08)";
-        volBtn.style.color = "#fff";
-        volBtn.style.fontSize = "0.68rem";
-        volBtn.style.fontWeight = "700";
-        volBtn.onclick = () => { void ensureQuizTypeVoiceThenPlay(opt.value); };
-
-        const xBtn = document.createElement("button");
-        xBtn.type = "button";
-        xBtn.textContent = "X";
-        xBtn.dataset.quizTypeVoiceDel = opt.value;
-        xBtn.style.padding = "0.12rem 0.45rem";
-        xBtn.style.borderRadius = "999px";
-        xBtn.style.border = "1px solid rgba(239,68,68,0.7)";
-        xBtn.style.background = "rgba(239,68,68,0.2)";
-        xBtn.style.color = "#fff";
-        xBtn.style.fontSize = "0.68rem";
-        xBtn.style.fontWeight = "800";
-        xBtn.disabled = !quizTypeVoiceStatusByType[opt.value];
-        xBtn.onclick = () => { void deleteQuizTypeVoice(opt.value); };
-
-        controls.appendChild(volBtn);
-        controls.appendChild(xBtn);
-        row.appendChild(text);
-        row.appendChild(controls);
-        panel.appendChild(row);
-    });
+    document.getElementById("quiz-type-voice-status")?.remove();
 }
 
 function renderLandingTitleVoiceControls() {
-    const { els } = appState;
-    const quizType = String(els?.inQuizType?.value || "");
     const host = document.getElementById("landing-title-voice-controls");
-    if (!host || !quizType) return;
-    const videoModeEnabled = !!getState()?.videoMode;
-    const hideForVideoFlow = videoModeEnabled || !!appState.isVideoPlaying;
-    host.hidden = hideForVideoFlow;
+    if (!host) return;
+    host.hidden = true;
     host.replaceChildren();
-    if (hideForVideoFlow) return;
-
-    const controls = document.createElement("div");
-    controls.style.display = "inline-flex";
-    controls.style.alignItems = "center";
-    controls.style.gap = "0.585rem";
-
-    const volBtn = document.createElement("button");
-    volBtn.type = "button";
-    volBtn.textContent = "Vol";
-    volBtn.dataset.quizTypeVoiceVol = quizType;
-    volBtn.style.padding = "0.26rem 0.806rem";
-    volBtn.style.borderRadius = "999px";
-    volBtn.style.border = "1px solid rgba(255,255,255,0.38)";
-    volBtn.style.background = "rgba(255,255,255,0.08)";
-    volBtn.style.color = "#fff";
-    volBtn.style.fontSize = "1.014rem";
-    volBtn.style.fontWeight = "800";
-    volBtn.style.cursor = "pointer";
-    volBtn.onclick = () => { void ensureQuizTypeVoiceThenPlay(quizType); };
-
-    const xBtn = document.createElement("button");
-    xBtn.type = "button";
-    xBtn.textContent = "X";
-    xBtn.dataset.quizTypeVoiceDel = quizType;
-    xBtn.style.padding = "0.26rem 0.858rem";
-    xBtn.style.borderRadius = "999px";
-    xBtn.style.border = "1px solid rgba(239,68,68,0.75)";
-    xBtn.style.background = "rgba(239,68,68,0.2)";
-    xBtn.style.color = "#fff";
-    xBtn.style.fontSize = "1.014rem";
-    xBtn.style.fontWeight = "900";
-    xBtn.style.cursor = "pointer";
-    xBtn.disabled = !quizTypeVoiceStatusByType[quizType];
-    xBtn.onclick = () => { void deleteQuizTypeVoice(quizType); };
-
-    controls.appendChild(volBtn);
-    controls.appendChild(xBtn);
-    host.appendChild(controls);
 }
 
 async function refreshQuizTypeVoiceLabels() {
@@ -1482,12 +1322,16 @@ async function init() {
     }
 
     void loadAllGlobalPlayers();
+    appState.loadAllGlobalPlayers = loadAllGlobalPlayers;
 
     function applyCareerPlayerSelection(pData, teamLabel) {
         if (!pData) return;
         const state = getState();
 
         state.careerPlayer = pData;
+        state.careerReadyPhotoVariantIndex = 1;
+        delete state.shirtNumber;
+        syncFloatingShirtVisibilityFromLevel();
         state.careerHistory = cleanCareerHistory(pData.transfer_history || []);
 
         // Eagerly preload all career logos + player photo into RAM cache

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- Run (no browser, PowerShell): & "C:\Users\Rom\Desktop\‏‏תיקיה חדשה\Football Channel\Main Runner - Four parameters - Shorts\run_site.bat" --no-browser -->
+<!-- macOS/Linux: python3 "C:/Users/Rom/Desktop/‏‏תיקיה חדשה/Football Channel/Main Runner - Four parameters - Shorts/run_site.py" -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Football Quiz Studio - Four parameters - Shorts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Shirt numerals: own request so Play 700 wins over body UI font (subset = small file). -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap&text=0123456789%3F"
+    />
+    <link rel="preconnect" href="https://flagcdn.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      
+      <div id="floating-background" class="floating-background" aria-hidden="true"></div>
+
+      <div class="side-text left">THE FOOTBALL LAB</div>
+      <div class="side-text right" id="side-text-right">THE FOOTBALL LAB</div>
+
+      <button type="button" class="panel-fab" id="panel-fab">Show controls</button>
+      <button type="button" class="panel-fab video-mode-btn" id="video-mode-btn" aria-pressed="false">Video Mode</button>
+            <button type="button" class="panel-fab prod-btn" id="prod-btn" aria-pressed="false">PROD</button>
+            <button type="button" class="panel-fab play-video-btn" id="play-video-btn">Play Video</button>
+      
+      <div id="countdown-timer" class="countdown-timer" hidden>
+        <div class="countdown-bar-track">
+          <div class="countdown-bar-inner">
+            <div id="countdown-bar-fill" class="countdown-bar-fill"></div>
+          </div>
+          <div class="countdown-bar-gloss" aria-hidden="true"></div>
+          <div class="soccer" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Same slot as Lineups `#team-header-mount`: outside `.stage` so fixed Vol/X use the viewport column. -->
+      <div id="player-voice-chrome-mount" class="shorts-chrome-mount"></div>
+      
+      <aside class="control-panel" id="control-panel"></aside>
+      <aside class="control-panel right-panel" id="right-panel" hidden></aside>
+
+      <main class="stage">
+        <div id="stage-main" class="stage-main">
+            </div>
+        <div class="quiz-progress" id="quiz-progress-container"></div>
+      </main>
+
+      <div id="modal-container"></div>
+
+      <!-- Shots safe-zone overlay (toggled via "Shots size" control) -->
+      <div id="shots-size-overlay" class="shots-size-overlay" hidden>
+        <div class="shots-size-overlay__column">
+          <div class="shots-size-overlay__margin-left" aria-hidden="true"></div>
+          <div class="shots-size-overlay__margin-right" aria-hidden="true"></div>
+          <div class="shots-size-overlay__top"></div>
+          <div class="shots-size-overlay__bottom"></div>
+          <div class="shots-size-overlay__vline shots-size-overlay__vline--left" aria-hidden="true"></div>
+          <div class="shots-size-overlay__vline shots-size-overlay__vline--right" aria-hidden="true"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <script type="module">
+      async function loadComponent(url, elementId, isReplace = false) {
+        try {
+          const response = await fetch(url);
+          const html = await response.text();
+          const target = document.getElementById(elementId);
+          if (isReplace) {
+            target.innerHTML = html;
+          } else {
+            target.insertAdjacentHTML('beforeend', html);
+          }
+        } catch (err) {
+          console.error(`Failed to load ${url}:`, err);
+        }
+      }
+
+      async function init() {
+        await Promise.all([
+          loadComponent('html/controls.html', 'control-panel', true),
+          loadComponent('html/progress.html', 'quiz-progress-container', true),
+          loadComponent('html/modals.html', 'modal-container', true)
+        ]);
+
+        const stageComponents = [
+          'html/shorts-stage-stub.html',
+          'html/outro.html',
+          'html/header.html',
+          'html/career.html'
+        ];
+
+        for (const url of stageComponents) {
+          await loadComponent(url, 'stage-main');
+        }
+
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = 'js/app.js';
+        document.body.appendChild(script);
+      }
+
+      init();
+    </script>
+  </body>
+</html>

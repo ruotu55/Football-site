@@ -8,6 +8,10 @@ import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
+import { loadSquadJson } from "./teams.js";
+import { cleanCareerHistory } from "./pitch-render.js";
+
+const INCLUDE_INTRO_LEVEL = false;
 
 const KEY_SCRIPTS = "footballQuizScripts_career_shorts_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_career_shorts_fcbnew";
@@ -110,7 +114,160 @@ let folderStates = JSON.parse(localStorage.getItem(KEY_FOLDER_STATES) || "{}");
 let scriptToDeleteIndex = -1;
 let activeScriptName = null; 
 
-let uiCallbacks = {}; 
+let uiCallbacks = {};
+
+// ---------------------------------------------------------------------------
+// Player-import helpers
+// ---------------------------------------------------------------------------
+
+function foldTurkishLatinForImport(s) {
+    return s
+        .replace(/ğ/g, "g").replace(/Ğ/g, "g")
+        .replace(/ı/g, "i").replace(/İ/g, "i")
+        .replace(/ş/g, "s").replace(/Ş/g, "s")
+        .replace(/ö/g, "o").replace(/Ö/g, "o")
+        .replace(/ü/g, "u").replace(/Ü/g, "u")
+        .replace(/ç/g, "c").replace(/Ç/g, "c");
+}
+
+function normalizeForImport(str) {
+    if (!str) return "";
+    try {
+        return foldTurkishLatinForImport(
+            str.trim().toLowerCase()
+                .normalize("NFD")
+                .replace(/\p{M}/gu, "")
+                .replace(/ø/g, "o").replace(/å/g, "a").replace(/æ/g, "ae")
+                .replace(/ð/g, "d").replace(/þ/g, "th").replace(/ß/g, "ss")
+                .replace(/[''`´']/g, "")
+                .replace(/\./g, "")
+                .replace(/\s+/g, " ").trim()
+        );
+    } catch {
+        return foldTurkishLatinForImport(
+            str.trim().toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/ø/g, "o").replace(/å/g, "a").replace(/æ/g, "ae")
+                .replace(/ð/g, "d").replace(/þ/g, "th").replace(/ß/g, "ss")
+                .replace(/[''`´']/g, "")
+                .replace(/\./g, "")
+                .replace(/\s+/g, " ").trim()
+        );
+    }
+}
+
+function parseImportText(text) {
+    let s = String(text || "").trim();
+    if (!s) return { error: "Paste the import text first." };
+    if (s.startsWith("[")) s = s.slice(1);
+    if (s.endsWith("]")) s = s.slice(0, -1);
+    const names = s.split(",").map(n => n.trim()).filter(Boolean);
+    if (names.length === 0) {
+        return { error: "No players found. Use format: [Player1, Player2, Player3]" };
+    }
+    return { names };
+}
+
+function findAllBySurnameInitialsPattern(rawName, allPlayers) {
+    const trimmed = String(rawName || "").trim();
+    const m = trimmed.match(/^(\S+)\s+((?:[A-Za-z]\.)+)\s*$/);
+    if (!m) return [];
+    const familyWant = normalizeForImport(m[1]);
+    const initialsWant = Array.from(m[2].matchAll(/[A-Za-z]/g), (x) => x[0].toLowerCase());
+    if (initialsWant.length === 0) return [];
+    const out = [];
+    for (const p of allPlayers) {
+        if (!p?.name) continue;
+        const parts = String(p.name).trim().split(/\s+/).filter(Boolean);
+        if (parts.length < 2) continue;
+        const familyDb = normalizeForImport(parts[parts.length - 1]);
+        if (familyDb !== familyWant) continue;
+        const givenJoined = parts.slice(0, -1).join("-");
+        const segments = givenJoined.split(/[-\s]+/).filter(Boolean);
+        if (segments.length < initialsWant.length) continue;
+        const initialsDb = segments.map((seg) => seg[0].toLowerCase());
+        let ok = true;
+        for (let i = 0; i < initialsWant.length; i++) {
+            if (initialsDb[i] !== initialsWant[i]) { ok = false; break; }
+        }
+        if (ok) out.push(p);
+    }
+    return out;
+}
+
+/** All players matching `name` at the first successful matching tier. Empty if none. */
+function findAllPlayerCandidates(name, allPlayers) {
+    const norm = normalizeForImport(name);
+    if (!norm) return [];
+
+    let hits = allPlayers.filter(p => p?.name && normalizeForImport(p.name) === norm);
+    if (hits.length > 0) return hits;
+
+    hits = findAllBySurnameInitialsPattern(name, allPlayers);
+    if (hits.length > 0) return hits;
+
+    const initialMatch = String(name || "").trim().match(/^([a-zA-Z])\.\s+(.+)$/);
+    if (initialMatch) {
+        const initial = initialMatch[1].toLowerCase();
+        const lastName = normalizeForImport(initialMatch[2]);
+        hits = allPlayers.filter(p => {
+            if (!p?.name) return false;
+            const parts = normalizeForImport(p.name).split(" ");
+            const pLast = parts[parts.length - 1];
+            const pFirst = parts[0];
+            return pLast === lastName && pFirst.startsWith(initial);
+        });
+        if (hits.length > 0) return hits;
+    }
+
+    if (!norm.includes(" ")) {
+        hits = allPlayers.filter(p => {
+            if (!p?.name) return false;
+            const parts = normalizeForImport(p.name).split(" ").filter(Boolean);
+            return parts.some(t => t === norm);
+        });
+        if (hits.length > 0) return hits;
+    }
+
+    hits = allPlayers.filter(p => p?.name && normalizeForImport(p.name).includes(norm));
+    return hits;
+}
+
+function makeEmptyPlayerImportLevel(overrides = {}) {
+    return {
+        isLogo: false,
+        isIntro: false,
+        isBonus: false,
+        isOutro: false,
+        gameMode: "career",
+        squadType: "club",
+        selectedEntry: null,
+        currentSquad: null,
+        careerPlayer: null,
+        careerHistory: [],
+        formationId: "3421",
+        lastFormationId: null,
+        displayMode: "club",
+        searchText: "",
+        customXi: null,
+        customNames: {},
+        videoMode: true,
+        landingPageType: "club",
+        careerClubsCount: 5,
+        careerSilhouetteIndex: 0,
+        silhouetteYOffset: 0,
+        silhouetteScaleX: DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
+        silhouetteScaleY: DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+        careerSlotBadgeScales: [],
+        careerSlotBadgeScalesRegular: [],
+        careerSlotBadgeScalesShorts: [],
+        careerSlotYearNudges: [],
+        careerReadyPhotoVariantIndex: 1,
+        slotPhotoIndexEntries: [],
+        ...overrides,
+    };
+}
 
 export function initSavedScripts(callbacks) {
     uiCallbacks = callbacks || {};
@@ -256,6 +413,7 @@ export function initSavedScripts(callbacks) {
             careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
                 ? [...lvl.careerSlotYearNudges]
                 : [],
+            careerReadyPhotoVariantIndex: lvl.careerReadyPhotoVariantIndex ?? 1,
             slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
         }));
     }
@@ -360,6 +518,257 @@ export function initSavedScripts(callbacks) {
         els.deleteScriptModal.hidden = true;
         scriptToDeleteIndex = -1;
     };
+
+    // -----------------------------------------------------------------------
+    // Import modal
+    // -----------------------------------------------------------------------
+    function closeImportModal() {
+        if (els.importScriptModal) els.importScriptModal.hidden = true;
+        if (els.importScriptError) {
+            els.importScriptError.textContent = "";
+            els.importScriptError.style.display = "none";
+        }
+    }
+
+    function closeDisambigModal() {
+        if (els.importDisambigModal) els.importDisambigModal.hidden = true;
+        if (els.importDisambigList) els.importDisambigList.innerHTML = "";
+    }
+
+    if (els.btnImportScript) {
+        els.btnImportScript.onclick = () => {
+            if (els.importScriptText) els.importScriptText.value = "";
+            if (els.importScriptName) els.importScriptName.value = "";
+            if (els.importScriptError) {
+                els.importScriptError.textContent = "";
+                els.importScriptError.style.display = "none";
+            }
+            if (els.importScriptModal) {
+                els.importScriptModal.hidden = false;
+                els.importScriptText?.focus();
+            }
+        };
+    }
+
+    if (els.importScriptModalClose) els.importScriptModalClose.onclick = closeImportModal;
+    if (els.importScriptCancel) els.importScriptCancel.onclick = closeImportModal;
+    if (els.importDisambigModalClose) els.importDisambigModalClose.onclick = closeDisambigModal;
+
+    function pickDisambiguations(ambig) {
+        return new Promise((resolve) => {
+            if (!els.importDisambigModal || !els.importDisambigList) {
+                resolve({ cancelled: true });
+                return;
+            }
+            els.importDisambigList.innerHTML = "";
+            for (let i = 0; i < ambig.length; i++) {
+                const { rawName, candidates } = ambig[i];
+                const row = document.createElement("div");
+                row.style.cssText = "display:flex; flex-direction:column; gap:0.35rem;";
+                const label = document.createElement("div");
+                label.textContent = `"${rawName}"`;
+                label.style.cssText = "font-weight:bold; color:#fff; font-size:0.9rem;";
+                const select = document.createElement("select");
+                select.dataset.index = String(i);
+                select.style.cssText = "width:100%; padding:0.5rem; background:#000; color:#fff; border:1px solid #333; border-radius:4px;";
+                for (let ci = 0; ci < candidates.length; ci++) {
+                    const p = candidates[ci];
+                    const opt = document.createElement("option");
+                    opt.value = String(ci);
+                    const club = (p?._clubItem?.name) || p?.club || "?";
+                    opt.textContent = `${p.name} (${club})`;
+                    select.appendChild(opt);
+                }
+                row.appendChild(label);
+                row.appendChild(select);
+                els.importDisambigList.appendChild(row);
+            }
+
+            const done = (result) => {
+                if (els.importDisambigCancel) els.importDisambigCancel.onclick = null;
+                if (els.importDisambigConfirm) els.importDisambigConfirm.onclick = null;
+                if (els.importDisambigModalClose) els.importDisambigModalClose.onclick = closeDisambigModal;
+                closeDisambigModal();
+                resolve(result);
+            };
+
+            if (els.importDisambigCancel) {
+                els.importDisambigCancel.onclick = () => done({ cancelled: true });
+            }
+            if (els.importDisambigModalClose) {
+                els.importDisambigModalClose.onclick = () => done({ cancelled: true });
+            }
+            if (els.importDisambigConfirm) {
+                els.importDisambigConfirm.onclick = () => {
+                    const picks = [];
+                    const selects = els.importDisambigList.querySelectorAll("select");
+                    selects.forEach((sel) => {
+                        const idx = parseInt(sel.dataset.index, 10);
+                        const ci = parseInt(sel.value, 10);
+                        picks[idx] = ambig[idx].candidates[ci] || null;
+                    });
+                    done({ picks });
+                };
+            }
+
+            els.importDisambigModal.hidden = false;
+        });
+    }
+
+    if (els.importScriptConfirm) {
+        els.importScriptConfirm.onclick = async () => {
+            const showErr = (msg) => {
+                if (!els.importScriptError) return;
+                els.importScriptError.textContent = msg;
+                els.importScriptError.style.display = "block";
+            };
+            if (els.importScriptError) {
+                els.importScriptError.textContent = "";
+                els.importScriptError.style.display = "none";
+            }
+
+            const text = els.importScriptText?.value?.trim() || "";
+            const name = els.importScriptName?.value?.trim() || "";
+
+            if (!text) { showErr("Paste the import text first."); return; }
+            if (!name) { showErr("Enter a save name."); return; }
+
+            els.importScriptConfirm.disabled = true;
+            els.importScriptConfirm.textContent = "Importing…";
+
+            try {
+                const parsed = parseImportText(text);
+                if (parsed.error) { showErr(parsed.error); return; }
+                const { names } = parsed;
+
+                let allPlayers;
+                try {
+                    allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+                        ? await appState.loadAllGlobalPlayers()
+                        : (appState.allGlobalPlayers || []);
+                } catch {
+                    allPlayers = appState.allGlobalPlayers || [];
+                }
+                if (!allPlayers || allPlayers.length === 0) {
+                    showErr("Player database not loaded yet. Try again in a moment.");
+                    return;
+                }
+
+                const errors = [];
+                const resolved = new Array(names.length).fill(null);
+                const ambiguous = [];
+                for (let i = 0; i < names.length; i++) {
+                    const rawName = names[i];
+                    const cands = findAllPlayerCandidates(rawName, allPlayers);
+                    if (cands.length === 0) {
+                        errors.push(`\u274C ${rawName}: player not found.`);
+                    } else if (cands.length === 1) {
+                        resolved[i] = cands[0];
+                    } else {
+                        ambiguous.push({ listIndex: i, rawName, candidates: cands });
+                    }
+                }
+                if (errors.length > 0) {
+                    showErr(errors.join("\n"));
+                    return;
+                }
+
+                if (ambiguous.length > 0) {
+                    const result = await pickDisambiguations(ambiguous);
+                    if (result.cancelled) return;
+                    for (let ai = 0; ai < ambiguous.length; ai++) {
+                        const picked = result.picks[ai];
+                        if (!picked) {
+                            showErr(`\u274C ${ambiguous[ai].rawName}: no selection made.`);
+                            return;
+                        }
+                        resolved[ambiguous[ai].listIndex] = picked;
+                    }
+                }
+
+                const levelDatas = [];
+                for (let i = 0; i < resolved.length; i++) {
+                    const player = resolved[i];
+                    const rawName = names[i];
+                    const clubItem = player._clubItem;
+                    if (!clubItem) {
+                        errors.push(`\u274C ${rawName}: missing club reference.`);
+                        continue;
+                    }
+                    let squad;
+                    try {
+                        squad = await loadSquadJson(clubItem);
+                    } catch {
+                        errors.push(`\u274C ${rawName}: failed to load squad data.`);
+                        continue;
+                    }
+                    const history = cleanCareerHistory(player.transfer_history || []);
+                    const careerClubsCount = Math.max(2, history.length);
+                    levelDatas.push(makeEmptyPlayerImportLevel({
+                        gameMode: "career",
+                        squadType: "club",
+                        selectedEntry: clubItem,
+                        currentSquad: squad,
+                        careerPlayer: player,
+                        careerHistory: history,
+                        careerClubsCount,
+                        searchText: player.name,
+                        displayMode: "club",
+                        landingPageType: "club",
+                    }));
+                }
+
+                if (errors.length > 0) {
+                    showErr(errors.join("\n"));
+                    return;
+                }
+
+                const n = levelDatas.length;
+                const allLevels = [
+                    makeEmptyPlayerImportLevel({ isLogo: true }),
+                    ...(INCLUDE_INTRO_LEVEL ? [makeEmptyPlayerImportLevel({ isIntro: true })] : []),
+                    ...levelDatas,
+                    makeEmptyPlayerImportLevel({ isBonus: true }),
+                    makeEmptyPlayerImportLevel({ isOutro: true }),
+                ];
+
+                const newScript = {
+                    name,
+                    folder: null,
+                    landing: {
+                        gameMode: "career",
+                        quizType: els.inQuizType?.value || "nat-by-club",
+                        endingType: els.inEndingType?.value || "think-you-know",
+                        specificToggle: els.inSpecificTitleToggle?.checked || false,
+                        specificText: els.inSpecificTitleText?.value || "",
+                        specificIcon: els.inSpecificTitleIcon?.value || "",
+                        easy: els.inEasy?.value ?? "10",
+                        medium: els.inMedium?.value ?? "5",
+                        hard: els.inHard?.value ?? "3",
+                        impossible: els.inImpossible?.value ?? "1",
+                    },
+                    lineup: {
+                        videoMode: true,
+                        totalLevels: n,
+                        shortsMode: FIXED_SHORTS_MODE,
+                    },
+                    transitions: {},
+                    levels: allLevels,
+                };
+
+                savedScripts.push(newScript);
+                persistSaved();
+                activeScriptName = name;
+                closeImportModal();
+                renderSavedScripts();
+
+            } finally {
+                els.importScriptConfirm.disabled = false;
+                els.importScriptConfirm.textContent = "Import";
+            }
+        };
+    }
+    // -----------------------------------------------------------------------
 
     void SAVE_SERVER.startPull({
         render: renderSavedScripts,
@@ -686,6 +1095,7 @@ async function loadScript(script) {
         careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
             ? [...lvl.careerSlotYearNudges]
             : undefined,
+        careerReadyPhotoVariantIndex: lvl.careerReadyPhotoVariantIndex ?? 1,
         slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
         careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
         careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),

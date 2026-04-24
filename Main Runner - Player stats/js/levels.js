@@ -1,4 +1,4 @@
-import { appState, getState } from "./state.js";
+import { appState, getState, shirtNumberTextFromPlayerJson } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { getVideoQuestionPreviewState, renderHeader, renderCareer, preloadCareerAssets } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
@@ -21,6 +21,40 @@ const VIDEO_STAGE_ANIM_CLASSES = [
 function stripVideoStageLayerAnims(el) {
   if (!el) return;
   el.classList.remove("stage-exit-anim", "stage-enter-anim", ...VIDEO_STAGE_ANIM_CLASSES);
+}
+
+/** Floating shirt: after the landing sheet, before the outro (not logo, landing, or finish). */
+export function shouldShowFloatingPlayerShirt(levelIndex, totalLevels) {
+  return levelIndex > 1 && levelIndex < totalLevels;
+}
+
+/** DOM + number for `#landing-shirt` (CSS `body .landing-shirt { display }` can beat `[hidden]` alone). */
+export function syncFloatingShirtVisibilityFromLevel() {
+  const state = getState();
+  const shirtEl = document.getElementById("landing-shirt");
+  const shirtNum = document.getElementById("landing-shirt-number");
+  if (!shirtEl) return;
+
+  const show = shouldShowFloatingPlayerShirt(
+    appState.currentLevelIndex,
+    appState.totalLevelsCount,
+  );
+
+  stripVideoStageLayerAnims(shirtEl);
+  if (!show) {
+    shirtEl.hidden = true;
+    shirtEl.style.setProperty("display", "none", "important");
+    return;
+  }
+
+  shirtEl.style.removeProperty("display");
+  shirtEl.hidden = false;
+  if (shirtNum) {
+    shirtNum.textContent =
+      state.shirtNumber ??
+      shirtNumberTextFromPlayerJson(state.careerPlayer) ??
+      "?";
+  }
 }
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
@@ -271,16 +305,7 @@ export function switchLevel(
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
 
-    /* Floating shirt: visible on landing + question levels, hidden on logo/outro.
-       Each level stores its own number in state.shirtNumber. */
-    const shirtEl = document.getElementById("landing-shirt");
-    const shirtNum = document.getElementById("landing-shirt-number");
-    if (shirtEl) {
-      shirtEl.hidden = isLogo || isLanding || isOutro;
-      if (shirtNum && !isLogo && !isLanding && !isOutro) {
-        shirtNum.textContent = state.shirtNumber || "?";
-      }
-    }
+    syncFloatingShirtVisibilityFromLevel();
     
     if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
       playCommentBelow();
@@ -439,7 +464,12 @@ export function switchLevel(
          animations, so we force-fade with inline !important styles instead. */
       const cinematicExitEasing = "opacity 0.82s cubic-bezier(0.22, 1, 0.36, 1)";
       if (countdownEl) countdownEl.classList.add("stage-exit-video-anim-panel");
-      if (shirtFloatEl) shirtFloatEl.classList.add("stage-exit-video-anim-panel");
+      if (
+        shirtFloatEl &&
+        shouldShowFloatingPlayerShirt(prevIndex, appState.totalLevelsCount)
+      ) {
+        shirtFloatEl.classList.add("stage-exit-video-anim-panel");
+      }
       if (playerStatsEl) {
         if (cinematicActive) {
           playerStatsEl.style.setProperty("transition", cinematicExitEasing, "important");
@@ -546,7 +576,13 @@ export function switchLevel(
               bgIn.classList.add("stage-enter-video-anim-panel");
             }
             const shirtIn = document.getElementById("landing-shirt");
-            if (shirtIn) {
+            if (
+              shirtIn &&
+              shouldShowFloatingPlayerShirt(
+                appState.currentLevelIndex,
+                appState.totalLevelsCount,
+              )
+            ) {
               stripVideoStageLayerAnims(shirtIn);
               shirtIn.classList.add("stage-enter-video-anim-panel");
             }

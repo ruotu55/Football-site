@@ -20,7 +20,11 @@ import {
 import {
   projectAssetUrl,
   projectAssetUrlFresh,
-  careerReadyPhotoRelPath,
+  bumpProjectAssetCacheBust,
+  careerReadyPhotoClubName,
+  careerReadyPhotoRelCandidates,
+  careerReadyPhotoRelCandidatesForStem,
+  careerReadyPhotoStemForVariant,
   CAREER_NO_PHOTO_LABEL,
   CAREER_NO_PLAYER_LABEL,
 } from "./paths.js";
@@ -35,8 +39,273 @@ import {
   saveCareerClubFavorite,
   saveCareerPictureFavorite,
 } from "./career-size-favorites.js";
+import { syncPlayerVoiceControls } from "./player-voice-manager.js";
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
+
+const READY_PHOTO_FROM_URL_ENDPOINT = "/__ready-photo/from-url";
+
+async function pickLoadableReadyPhotoUrlForVariant(playerName, clubName, variantIndex) {
+  if (!playerName) return "";
+  const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
+  const tryStem = async (stem) => {
+    for (const rel of careerReadyPhotoRelCandidatesForStem(playerName, clubName ?? "", stem)) {
+      const url = projectAssetUrlFresh(rel);
+      const img = await preloadImage(url);
+      if (img.naturalWidth) return url;
+    }
+    return "";
+  };
+  let url = await tryStem(careerReadyPhotoStemForVariant(playerName, v));
+  if (url) return url;
+  if (v !== 1) url = await tryStem(careerReadyPhotoStemForVariant(playerName, 1));
+  return url || "";
+}
+
+async function readyPhotoVariantExists(playerName, clubName, variantIndex) {
+  if (!playerName) return false;
+  const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
+  const stem = careerReadyPhotoStemForVariant(playerName, v);
+  for (const rel of careerReadyPhotoRelCandidatesForStem(playerName, clubName ?? "", stem)) {
+    const url = projectAssetUrlFresh(rel);
+    if (getCachedImage(url)?.naturalWidth) return true;
+    try {
+      const r = await fetch(url, { method: "HEAD", mode: "same-origin", cache: "no-store" });
+      if (r.ok) return true;
+    } catch {
+      /* ignore */
+    }
+    try {
+      const img = await preloadImage(url);
+      if (img.naturalWidth) return true;
+    } catch {
+      /* ignore */
+    }
+  }
+  return false;
+}
+
+const CAREER_READY_PHOTO_VARIANT_PROBE_MAX = 24;
+
+async function listExistingReadyPhotoVariantIndices(playerName, clubName) {
+  const out = [];
+  for (let v = 1; v <= CAREER_READY_PHOTO_VARIANT_PROBE_MAX; v += 1) {
+    if (await readyPhotoVariantExists(playerName, clubName, v)) out.push(v);
+  }
+  return out;
+}
+
+function careerReadyPhotoFetchServerActive() {
+  return typeof location !== "undefined" && location.protocol === "http:" && location.hostname !== "";
+}
+
+const READY_PHOTO_FROM_URL_FETCH_MS = 120000;
+
+async function requestReadyPhotoFromUrl(playerName, clubName, imageUrl) {
+  const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+  const timer =
+    ctrl &&
+    setTimeout(() => {
+      try {
+        ctrl.abort();
+      } catch {
+        /* ignore */
+      }
+    }, READY_PHOTO_FROM_URL_FETCH_MS);
+  let response;
+  try {
+    response = await fetch(READY_PHOTO_FROM_URL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ playerName, clubName: clubName ?? "", imageUrl }),
+      signal: ctrl ? ctrl.signal : undefined,
+    });
+  } catch (e) {
+    if (e && e.name === "AbortError") {
+      throw new Error(
+        `The download took longer than ${READY_PHOTO_FROM_URL_FETCH_MS / 1000}s and was cancelled.`,
+      );
+    }
+    throw new Error(
+      e && e.message
+        ? String(e.message)
+        : "Could not reach the local server. Open Player Stats with run_site.py (same port as this page).",
+    );
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data.ok) {
+    const err = data && data.error ? String(data.error) : `Request failed (${response.status})`;
+    throw new Error(err);
+  }
+  return data;
+}
+
+function createCareerGetPhotoControls(playerName, clubName) {
+  const host = document.createElement("div");
+  host.className = "career-get-photo-actions";
+  host.hidden = true;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "career-get-photo-btn";
+  btn.textContent = "Get photo";
+  btn.title =
+    "Paste a portrait image URL; the local server saves it under Ready photos in a folder named after the player and current club.";
+  const hint = document.createElement("div");
+  hint.className = "career-get-photo-hint";
+  hint.hidden = true;
+
+  const modal = document.createElement("div");
+  modal.className = "career-ready-photo-url-modal";
+  modal.hidden = true;
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "false");
+
+  const panel = document.createElement("div");
+  panel.className = "career-ready-photo-url-modal__panel";
+
+  const title = document.createElement("div");
+  title.className = "career-ready-photo-url-modal__title";
+  title.textContent = "Paste image URL";
+
+  const input = document.createElement("input");
+  input.type = "url";
+  input.className = "career-ready-photo-url-modal__input";
+  input.placeholder = "https://…";
+  input.autocomplete = "off";
+  input.spellcheck = false;
+  input.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      btnDl.click();
+    }
+  });
+
+  const rowErr = document.createElement("div");
+  rowErr.className = "career-ready-photo-url-modal__err";
+  rowErr.hidden = true;
+
+  const rowBtns = document.createElement("div");
+  rowBtns.className = "career-ready-photo-url-modal__buttons";
+
+  const btnDl = document.createElement("button");
+  btnDl.type = "button";
+  btnDl.className =
+    "career-ready-photo-url-modal__btn career-ready-photo-url-modal__btn--primary";
+  btnDl.textContent = "Download";
+
+  const btnCancel = document.createElement("button");
+  btnCancel.type = "button";
+  btnCancel.className = "career-ready-photo-url-modal__btn";
+  btnCancel.textContent = "Cancel";
+
+  rowBtns.appendChild(btnDl);
+  rowBtns.appendChild(btnCancel);
+  panel.appendChild(title);
+  panel.appendChild(input);
+  panel.appendChild(rowErr);
+  panel.appendChild(rowBtns);
+  modal.appendChild(panel);
+  host.appendChild(btn);
+  host.appendChild(hint);
+  host.appendChild(modal);
+
+  const showHint = (text, isErr) => {
+    hint.hidden = !text;
+    hint.textContent = text || "";
+    hint.classList.toggle("career-get-photo-hint--error", !!isErr);
+  };
+
+  let keyHandler = null;
+
+  const closeModal = () => {
+    modal.classList.remove("career-ready-photo-url-modal--portal");
+    if (modal.parentElement === document.body) {
+      host.appendChild(modal);
+    }
+    modal.hidden = true;
+    rowErr.hidden = true;
+    rowErr.textContent = "";
+    btnDl.disabled = false;
+    if (keyHandler) {
+      document.removeEventListener("keydown", keyHandler);
+      keyHandler = null;
+    }
+  };
+
+  const openModal = () => {
+    modal.classList.add("career-ready-photo-url-modal--portal");
+    if (modal.parentElement !== document.body) {
+      document.body.appendChild(modal);
+    }
+    modal.hidden = false;
+    input.focus();
+    if (typeof input.select === "function") input.select();
+    keyHandler = (ev) => {
+      if (ev.key === "Escape") {
+        ev.preventDefault();
+        closeModal();
+      }
+    };
+    document.addEventListener("keydown", keyHandler);
+  };
+
+  btnCancel.addEventListener("click", closeModal);
+
+  btn.addEventListener("click", () => {
+    if (!careerReadyPhotoFetchServerActive()) {
+      showHint(
+        "Run Player Stats via run_site.py (http://127.0.0.1:…) so the local server can save files into Ready photos.",
+        true,
+      );
+      return;
+    }
+    showHint("", false);
+    openModal();
+  });
+
+  btnDl.addEventListener("click", async () => {
+    const imageUrl = String(input.value || "").trim();
+    if (!imageUrl) {
+      rowErr.textContent = "Paste an image URL.";
+      rowErr.hidden = false;
+      return;
+    }
+    btnDl.disabled = true;
+    rowErr.hidden = true;
+    try {
+      const data = await requestReadyPhotoFromUrl(playerName, clubName, imageUrl);
+      const st = getState();
+      if (st && data && data.variantIndex != null) {
+        const vi = Math.floor(Number(data.variantIndex));
+        if (Number.isFinite(vi) && vi >= 1) st.careerReadyPhotoVariantIndex = vi;
+      }
+      bumpProjectAssetCacheBust();
+      showHint("", false);
+      closeModal();
+      input.value = "";
+      renderCareer();
+    } catch (e) {
+      rowErr.textContent = e?.message || "Could not download photo.";
+      rowErr.hidden = false;
+    } finally {
+      btnDl.disabled = false;
+    }
+  });
+
+  return {
+    host,
+    show() {
+      host.hidden = false;
+    },
+    hide() {
+      host.hidden = true;
+      closeModal();
+      showHint("", false);
+    },
+  };
+}
 
 /** Map demonyms / variants to `data/country-to-flagcode.json` keys. */
 function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
@@ -76,6 +345,17 @@ export const CAREER_YEAR_NUDGE_STEP = 2;
 const appliedFavoritePictureKeyByState = new WeakMap();
 const CAREER_IMAGE_REFRESH_TOKEN = String(Date.now());
 const careerResolvedClubLogoSrcByKey = new Map();
+
+/** Scale `Nrem` tokens for shorts stats panel (narrower than desktop Main Runner - Player stats). */
+function scalePlayerStatsShortsClubRem(remToken, factor) {
+  const s = String(remToken || "").trim();
+  const m = /^([\d.]+)\s*rem$/i.exec(s);
+  if (!m) return remToken;
+  const next = Number(m[1]) * factor;
+  if (!Number.isFinite(next)) return remToken;
+  return `${next.toFixed(3)}rem`;
+}
+
 function freshenCareerImageUrl(url) {
   const src = String(url || "").trim();
   if (!src) return "";
@@ -397,10 +677,10 @@ function ensureCareerPictureModeProfiles(st) {
       st.silhouetteShortsNormalScaleY ?? shortsDefaults.silhouetteScaleY
     );
   }
-  if (!Number.isFinite(Number(st.silhouetteShortsNormalYOffset))) {
-    st.silhouetteShortsNormalYOffset = Number(shortsDefaults.silhouetteYOffset);
-  }
   const shortsVideoOffDefaults = getDefaultPlayerPictureValuesForCareerMode(true, false);
+  if (!Number.isFinite(Number(st.silhouetteShortsNormalYOffset))) {
+    st.silhouetteShortsNormalYOffset = Number(shortsVideoOffDefaults.silhouetteYOffset);
+  }
   if (!Number.isFinite(Number(st.silhouetteShortsNormalScaleX))) {
     st.silhouetteShortsNormalScaleX = Number(shortsVideoOffDefaults.silhouetteScaleX);
   }
@@ -866,11 +1146,25 @@ export function syncCareerSlotControlsVisibility() {
   document.body.classList.toggle("career-hide-slot-controls", hide);
 }
 
-/** Shorts: re-apply preview layer classes after Play Video (no renderCareer — avoids DOM wipe flash). */
+/** Shorts: re-apply preview layer classes after Play Video (no renderCareer — avoids DOM wipe flash).
+ *  Also syncs `career-shorts-video-layout` / `video-mode-enabled` like `renderCareer()` so level switches
+ *  that delay `updateDOMContent()` do not keep the previous level’s revealed portrait for one transition. */
 export function syncShortsCareerVideoPreviewLayers() {
   if (!document.body.classList.contains("shorts-mode")) return;
   const state = getState();
-  const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
+  const previewState = getVideoQuestionPreviewState(state);
+  const { previewPreTimer, previewPostTimer } = previewState;
+  document.body.classList.toggle(
+    "career-shorts-video-layout",
+    !!state.videoMode && !previewState.previewPostTimer,
+  );
+  const wrap = document.getElementById("career-wrap");
+  if (wrap) {
+    wrap.classList.toggle(
+      "video-mode-enabled",
+      !!state.videoMode && !appState.isVideoPlaying && !previewState.previewPostTimer,
+    );
+  }
   const silhouette = document.querySelector(".career-silhouette");
   if (silhouette) {
     silhouette.classList.toggle("revealed", previewPostTimer);
@@ -889,12 +1183,19 @@ export function renderHeader() {
   const state = getState();
   const { els } = appState;
   const { previewPreTimer, previewPostTimer } = getVideoQuestionPreviewState(state);
+  const isShorts = document.body.classList.contains("shorts-mode");
+  const shortsCareerVideoHeaderCollapse =
+    isShorts &&
+    !!state.videoMode &&
+    !previewPostTimer &&
+    els.careerWrap &&
+    !els.careerWrap.hidden;
 
   if (els.teamHeader) {
     els.teamHeader.dataset.squadType = state.squadType;
   }
 
-  if (previewPreTimer) {
+  if ((previewPreTimer || shortsCareerVideoHeaderCollapse) && els.teamHeader) {
     // Force the same pre-countdown geometry on every question level.
     els.teamHeader.classList.remove("video-revealed");
     els.teamHeader.classList.add("video-hidden");
@@ -910,6 +1211,7 @@ export function renderHeader() {
   if (els.headerName) {
     els.headerName.textContent = nm ? nm.toUpperCase() : CAREER_NO_PLAYER_LABEL;
   }
+  syncPlayerVoiceControls(nm || "");
   if (els.headerLogo) els.headerLogo.hidden = true;
 
   syncCareerSlotControlsVisibility();
@@ -975,66 +1277,6 @@ function formatPlayerCareerTotalStat(player, key) {
 function formatPlayerPositionLabel(player) {
   if (!player) return "";
   return mapSquadPositionToBucket(player.position);
-}
-
-function createPlayerStatHeadIcon(kind) {
-  const NS = "http://www.w3.org/2000/svg";
-  const svg = document.createElementNS(NS, "svg");
-  svg.setAttribute("class", "player-stat-card__icon");
-  svg.setAttribute("viewBox", "0 0 24 24");
-  svg.setAttribute("width", "27");
-  svg.setAttribute("height", "27");
-  svg.setAttribute("aria-hidden", "true");
-
-  const strokeEl = (tag, attrs) => {
-    const el = document.createElementNS(NS, tag);
-    el.setAttribute("fill", "none");
-    el.setAttribute("stroke", "currentColor");
-    el.setAttribute("stroke-width", "1.65");
-    el.setAttribute("stroke-linecap", "round");
-    el.setAttribute("stroke-linejoin", "round");
-    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
-    return el;
-  };
-
-  if (kind === "pitch") {
-    svg.append(
-      strokeEl("rect", { x: "3", y: "5", width: "18", height: "14", rx: "1.2" }),
-      strokeEl("line", { x1: "12", y1: "5", x2: "12", y2: "19" }),
-    );
-  } else if (kind === "ball") {
-    svg.append(
-      strokeEl("circle", { cx: "12", cy: "12", r: "7.5" }),
-      strokeEl("path", {
-        d: "M5.2 10c3.8 1.1 9.8 1.1 13.6 0M5.2 14c3.8-1.1 9.8-1.1 13.6 0M12 4.5v15",
-      }),
-    );
-  } else if (kind === "goal") {
-    svg.setAttribute("class", "player-stat-card__icon player-stat-card__icon--goal");
-    svg.append(
-      strokeEl("path", { d: "M5.2 7.8h13.6M5.2 7.8v9.4M18.8 7.8v9.4" }),
-      strokeEl("circle", { cx: "12", cy: "16.9", r: "2.7" }),
-      strokeEl("path", {
-        d: "M9.5 15.9c1.3.48 3.7.48 5 0M12 14.2v5.2",
-      }),
-    );
-  } else if (kind === "clubs") {
-    svg.append(
-      strokeEl("path", {
-        d: "M12 3.2l7.2 3.6v5.2c0 4.1-3.1 7.9-7.2 9.8-4.1-1.9-7.2-5.7-7.2-9.8V6.8L12 3.2z",
-      }),
-    );
-  } else if (kind === "position") {
-    svg.append(
-      strokeEl("circle", { cx: "12", cy: "8", r: "3.2" }),
-      strokeEl("path", {
-        d: "M5.5 20.5v-1.2a4.5 4.5 0 014.3-4.3h1.4a4.5 4.5 0 014.3 4.3v1.2",
-      }),
-    );
-  } else {
-    return null;
-  }
-  return svg;
 }
 
 /**
@@ -1190,6 +1432,15 @@ export function renderCareer() {
   }
 
   wrap.innerHTML = "";
+  document.body
+    .querySelectorAll(".career-ready-photo-url-modal.career-ready-photo-url-modal--portal")
+    .forEach((el) => el.remove());
+  /* Clear X may live outside #career-wrap in shorts (same chrome mount as voice). */
+  document.getElementById("career-clear-player-btn")?.remove();
+  /* Get photo bar must use the same mount so `position:fixed` + `top:5.5vh` matches the X (not #career-wrap perspective). */
+  if (isShorts) {
+    document.getElementById("player-voice-chrome-mount")?.querySelector(".career-get-photo-actions")?.remove();
+  }
 
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
@@ -1198,6 +1449,13 @@ export function renderCareer() {
   const readyRel = careerReadyPhotoRelPath(playerName);
   const readyUrl = readyRel ? projectAssetUrlFresh(readyRel) : "";
   const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
+  const readyPhotoClub = hasRealPlayer ? careerReadyPhotoClubName(state) : "";
+  const getPhotoUi = hasRealPlayer ? createCareerGetPhotoControls(playerName, readyPhotoClub) : null;
+  const careerGetPhotoSuppressed = () =>
+    !!(getState()?.videoMode || appState.isVideoPlaying);
+  const showGetPhotoUiIfAllowed = () => {
+    if (getPhotoUi && !careerGetPhotoSuppressed()) getPhotoUi.show();
+  };
 
   const svgNamespace = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(svgNamespace, "svg");
@@ -1289,7 +1547,12 @@ export function renderCareer() {
   const showMissing = (label = CAREER_NO_PHOTO_LABEL) => {
     missingLabel.textContent = label;
     image.setAttribute("visibility", "hidden");
-    missingLabel.setAttribute("visibility", "visible");
+    if (getPhotoUi) {
+      missingLabel.setAttribute("visibility", "hidden");
+      showGetPhotoUiIfAllowed();
+    } else {
+      missingLabel.setAttribute("visibility", "visible");
+    }
   };
 
   const showImage = () => {
@@ -1306,6 +1569,7 @@ export function renderCareer() {
     image.setAttribute("visibility", "hidden");
     missingLabel.setAttribute("visibility", "hidden");
     image.addEventListener("load", () => {
+      if (getPhotoUi) getPhotoUi.hide();
       showImage();
       syncSilhouetteFromLoadedBitmap();
     });
@@ -1317,6 +1581,7 @@ export function renderCareer() {
       requestAnimationFrame(() => {
         if (!image.isConnected) return;
         if (image.naturalWidth && image.naturalHeight) {
+          if (getPhotoUi) getPhotoUi.hide();
           showImage();
           syncSilhouetteFromLoadedBitmap();
         }
@@ -1385,7 +1650,23 @@ export function renderCareer() {
       renderCareer();
       renderHeader();
     });
-    wrap.appendChild(clearBtn);
+    const voiceChromeMount = document.getElementById("player-voice-chrome-mount");
+    if (isShorts && voiceChromeMount) {
+      /* Outside .stage so fixed positioning matches Lineups Shorts (#team-header-mount). */
+      voiceChromeMount.insertBefore(clearBtn, voiceChromeMount.firstChild);
+    } else {
+      wrap.appendChild(clearBtn);
+    }
+  }
+
+  if (getPhotoUi) {
+    const voiceChromeMountForPhoto = document.getElementById("player-voice-chrome-mount");
+    if (isShorts && voiceChromeMountForPhoto) {
+      voiceChromeMountForPhoto.appendChild(getPhotoUi.host);
+    } else {
+      wrap.appendChild(getPhotoUi.host);
+    }
+    if (careerGetPhotoSuppressed()) getPhotoUi.hide();
   }
 
   const knownClubImageFolders = Array.from(
@@ -1612,19 +1893,13 @@ export function renderCareer() {
       const careerGoalsStr = formatPlayerCareerTotalStat(statPlayer, "goals");
       const careerAssistsStr = formatPlayerCareerTotalStat(statPlayer, "assists");
 
-      const mkStatCard = (label, valueHtml, opts = {}) => {
+      const mkStatCard = (label, valueHtml) => {
         const card = document.createElement("div");
         card.className = "player-stat-card";
         const head = document.createElement("div");
         head.className = "player-stat-card__head";
-        if (opts.icon) {
-          const ic = createPlayerStatHeadIcon(opts.icon);
-          if (ic) head.appendChild(ic);
-        }
         const lab = document.createElement("span");
         lab.className = "player-stat-card__label";
-        if (opts.nudgeLabelRight) lab.classList.add("player-stat-card__label--nudge-right");
-        if (opts.nudgeLabelStrong) lab.classList.add("player-stat-card__label--nudge-strong");
         lab.textContent = label;
         head.appendChild(lab);
         const value = document.createElement("div");
@@ -1638,22 +1913,32 @@ export function renderCareer() {
         return card;
       };
 
-      /* Career Clubs card with compact logos */
+      /* Clubs card with compact logos */
       const clubsValueEl = document.createElement("div");
       clubsValueEl.className = "player-stat-card__value player-stat-card__value--clubs";
       const clubsTrack = document.createElement("div");
       clubsTrack.className = "player-stat-clubs-track";
+      /* Same row + offset rules as Main Runner - Player stats; rem sizes scaled for narrow shorts panel. */
+      const shortsClubRemScale = 0.47;
+      const scaleClubRem = (token) => scalePlayerStatsShortsClubRem(token, shortsClubRemScale);
       const clubSlotRows = [];
-      for (let i = 0; i < n; ) {
-        const remaining = n - i;
-        const take = remaining >= 4 ? 4 : remaining;
-        clubSlotRows.push(Array.from({ length: take }, (_, k) => i + k));
-        i += take;
+      if (n <= 4) {
+        clubSlotRows.push(Array.from({ length: n }, (_, k) => k));
+      } else {
+        const topRowMap = { 5: 3, 6: 3, 7: 4, 8: 4, 9: 5 };
+        const row1Count = topRowMap[n] || Math.ceil(n / 2);
+        clubSlotRows.push(Array.from({ length: row1Count }, (_, k) => k));
+        clubSlotRows.push(Array.from({ length: n - row1Count }, (_, k) => row1Count + k));
       }
-      for (const rowIndices of clubSlotRows) {
+      for (let ri = 0; ri < clubSlotRows.length; ri++) {
+        const rowIndices = clubSlotRows[ri];
         const rowEl = document.createElement("div");
         rowEl.className = "player-stat-clubs-row";
-        if (rowIndices.length === 4) rowEl.classList.add("player-stat-clubs-row--four");
+        if (ri === 1 && clubSlotRows.length === 2 && clubSlotRows[0].length !== rowIndices.length) {
+          rowEl.classList.add("player-stat-clubs-row--offset");
+          const topCount = clubSlotRows[0].length;
+          rowEl.style.setProperty("--player-stat-row-offset", `calc(100% / ${2 * (topCount + 1)})`);
+        }
         for (const idx of rowIndices) {
           const slot = document.createElement("div");
           slot.className = "player-stat-club-item career-club-slot";
@@ -1662,24 +1947,73 @@ export function renderCareer() {
             statsPanelCompact: true,
           });
           appendCareerSlotZoomControls(slot, idx, n, true);
+          const controls = slot.querySelector(".career-badge-controls");
+          if (controls) {
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.className = "career-badge-zoom-btn career-club-remove-btn";
+            removeBtn.textContent = "✕";
+            removeBtn.title = "Remove this club";
+            removeBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              const st = getState();
+              const hist = st.careerHistory || [];
+              if (idx < hist.length) {
+                hist.splice(idx, 1);
+                st.careerHistory = hist;
+                st.careerClubsCount = hist.length;
+                if (appState.els.inCareerClubs) appState.els.inCareerClubs.value = hist.length;
+                renderCareer();
+              }
+            });
+            controls.appendChild(removeBtn);
+          }
           rowEl.appendChild(slot);
         }
         clubsTrack.appendChild(rowEl);
       }
+      const clubSizeMap = {
+        1: "8rem",
+        2: "7rem",
+        3: "6rem",
+        4: "5.5rem",
+        5: "4.8rem",
+        6: "4.8rem",
+        7: "4.8rem",
+        8: "4.8rem",
+        9: "4.2rem",
+        10: "4.2rem",
+        11: "3rem",
+        12: "2.8rem",
+      };
+      const clubSizeRaw = clubSizeMap[n] || `${Math.max(1.2, 4.5 - n * 0.25)}rem`;
+      clubsTrack.style.setProperty("--player-stat-club-size", scaleClubRem(clubSizeRaw));
+      const clubGapMap = {
+        1: "0rem",
+        2: "3rem",
+        3: "2rem",
+        4: "1.5rem",
+        5: "0.8rem",
+        6: "0.6rem",
+        7: "0.4rem",
+        8: "0.3rem",
+        9: "0.25rem",
+        10: "0.2rem",
+        11: "0.15rem",
+        12: "0.1rem",
+      };
+      clubsTrack.style.setProperty("--player-stat-club-gap", scaleClubRem(clubGapMap[n] || "0.28rem"));
       clubsValueEl.appendChild(clubsTrack);
       const clubsCard = document.createElement("div");
       clubsCard.className = "player-stat-card player-stat-card--clubs";
-      const clubLogoRows = Math.max(1, clubSlotRows.length);
-      clubsCard.style.setProperty("--player-stat-club-rows", String(clubLogoRows));
       clubsCard.classList.add("player-stat-card--clubs-expanded");
       clubsTrack.classList.add("player-stat-clubs-track--expanded");
       const clubsHead = document.createElement("div");
       clubsHead.className = "player-stat-card__head";
-      const clubsIcon = createPlayerStatHeadIcon("clubs");
-      if (clubsIcon) clubsHead.appendChild(clubsIcon);
       const clubsLab = document.createElement("span");
       clubsLab.className = "player-stat-card__label";
-      clubsLab.textContent = "Career Clubs";
+      clubsLab.textContent = "Clubs";
       clubsHead.appendChild(clubsLab);
       clubsCard.append(clubsHead, clubsValueEl);
 
@@ -1689,14 +2023,14 @@ export function renderCareer() {
       const colLeft = document.createElement("div");
       colLeft.className = "player-stats-panel__column";
       colLeft.append(
-        mkStatCard("Career games", careerGamesStr, { icon: "pitch", nudgeLabelStrong: true }),
-        mkStatCard("Position", positionStr, { icon: "position" }),
+        mkStatCard("Games", careerGamesStr),
+        mkStatCard("Position", positionStr),
       );
       const colRight = document.createElement("div");
       colRight.className = "player-stats-panel__column";
       colRight.append(
-        mkStatCard("Career Goals", careerGoalsStr, { icon: "goal", nudgeLabelRight: true }),
-        mkStatCard("Career assists", careerAssistsStr, { icon: "ball", nudgeLabelStrong: true }),
+        mkStatCard("Goals", careerGoalsStr),
+        mkStatCard("Assists", careerAssistsStr),
       );
       rowMain.append(colLeft, clubsCard, colRight);
 
@@ -1768,6 +2102,7 @@ export function renderCareer() {
       revealImg.hidden = true;
       revealFallback.hidden = true;
       revealImg.addEventListener("load", () => {
+        if (getPhotoUi) getPhotoUi.hide();
         updateShortsTallRevealClass();
         revealImg.hidden = false;
         revealFallback.hidden = true;
@@ -1775,7 +2110,8 @@ export function renderCareer() {
       revealImg.addEventListener("error", () => {
         revealShell.classList.remove("is-tall-player");
         revealImg.hidden = true;
-        revealFallback.hidden = false;
+        revealFallback.hidden = getPhotoUi ? true : false;
+        showGetPhotoUiIfAllowed();
       });
       void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
         if (!revealImg.isConnected) return;
@@ -1784,7 +2120,8 @@ export function renderCareer() {
     } else {
       revealShell.classList.remove("is-tall-player");
       revealImg.hidden = true;
-      revealFallback.hidden = false;
+      revealFallback.hidden = getPhotoUi ? true : false;
+      if (hasRealPlayer) showGetPhotoUiIfAllowed();
     }
 
     /* ── Waving national flag behind the player (inside the photo shell, below the img) ── */
@@ -1940,12 +2277,14 @@ export function renderCareer() {
       revealOverlayImg.hidden = true;
       revealOverlayFallback.hidden = true;
       revealOverlayImg.addEventListener("load", () => {
+        if (getPhotoUi) getPhotoUi.hide();
         revealOverlayImg.hidden = false;
         revealOverlayFallback.hidden = true;
       });
       revealOverlayImg.addEventListener("error", () => {
         revealOverlayImg.hidden = true;
-        revealOverlayFallback.hidden = false;
+        revealOverlayFallback.hidden = getPhotoUi ? true : false;
+        showGetPhotoUiIfAllowed();
       });
       void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
         if (!revealOverlayImg.isConnected) return;
@@ -1953,7 +2292,8 @@ export function renderCareer() {
       });
     } else {
       revealOverlayImg.hidden = true;
-      revealOverlayFallback.hidden = false;
+      revealOverlayFallback.hidden = getPhotoUi ? true : false;
+      if (hasRealPlayer) showGetPhotoUiIfAllowed();
     }
 
     revealOverlay.appendChild(revealOverlayImg);

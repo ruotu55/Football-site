@@ -35,6 +35,9 @@ from xml.sax.saxutils import escape as xml_escape
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
+RUNNER_VARIANT = "Lineups Regular"
+SUPPORTED_LANGUAGES = ("english", "spanish")
+DEFAULT_LANGUAGE = "english"
 OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Images/Teams" / "(1) Other Teams"
 TEAM_VOICE_DIR_BY_QUIZ_TYPE = {
     "club-by-nat": PROJECT_ROOT / ".Storage" / "Voices" / "Team names",
@@ -42,24 +45,88 @@ TEAM_VOICE_DIR_BY_QUIZ_TYPE = {
 }
 TEAM_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_TEAM_VOICE = "en-US-AndrewNeural"
-QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNNER_VARIANT
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
-    "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
-    "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
+    "english": {
+        "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
+        "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
+    },
+    "spanish": {
+        "nat-by-club": "Adivina el equipo nacional por el club de los jugadores !!!.mp3",
+        "club-by-nat": "Adivina el equipo por la nacionalidad de los jugadores !!!.mp3",
+    },
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
-    "nat-by-club": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB!!",
-    "club-by-nat": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY!!",
+    "english": {
+        "nat-by-club": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB!!",
+        "club-by-nat": "Hey everyone, let's start. ...\n\nGUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY!!",
+    },
+    "spanish": {
+        "nat-by-club": "Hola a todos, empecemos. ...\n\n¡¡ADIVINA EL EQUIPO NACIONAL POR EL CLUB DE LOS JUGADORES!!",
+        "club-by-nat": "Hola a todos, empecemos. ...\n\n¡¡ADIVINA EL EQUIPO POR LA NACIONALIDAD DE LOS JUGADORES!!",
+    },
 }
 ENDING_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Ending Guess"
 ENDING_VOICE_FILE_BY_TYPE = {
-    "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
-    "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    "english": {
+        "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+        "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    },
+    "spanish": {
+        "think-you-know": "Crees saber la respuesta_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+        "how-many": "Cuantas acertaste_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+    },
 }
 ENDING_VOICE_PROMPT_BY_TYPE = {
-    "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
-    "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
+    "english": {
+        "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
+        "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
+    },
+    "spanish": {
+        "think-you-know": "¿Crees saber la respuesta? ¡Dínoslo en los comentarios! ¡No olvides dar like y suscribirte!",
+        "how-many": "¿Cuántas acertaste? ¡Dínoslo en los comentarios! ¡No olvides dar like y suscribirte!",
+    },
 }
+
+
+def _normalize_language(lang) -> str:
+    value = str(lang or "").strip().lower()
+    return value if value in SUPPORTED_LANGUAGES else DEFAULT_LANGUAGE
+
+
+BUNDLED_VOICE_CONFIG = {
+    "welcome": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Welcome",
+                "filename": "Welcome to the football lab, lets start!!!.mp3",
+                "prompts": {"english": "Welcome to the football lab, let's start!",
+                            "spanish": "¡Bienvenidos al laboratorio de fútbol, empecemos!"}},
+    "warm-up": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "Worm up round dont mess this one .mp3",
+                "prompts": {"english": "Warm up round — don't mess this one!",
+                            "spanish": "Ronda de calentamiento — ¡no la arruines!"}},
+    "serious": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "OK now it's getting serious.mp3",
+                "prompts": {"english": "OK now it's getting serious.",
+                            "spanish": "Bien, ahora se pone serio."}},
+    "nerds":   {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "Only true football nerd know this!!!.mp3",
+                "prompts": {"english": "Only true football nerds know this!",
+                            "spanish": "¡Solo los verdaderos fanáticos del fútbol saben esto!"}},
+    "genius":  {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "If you get this you are basically a genius!!!.mp3",
+                "prompts": {"english": "If you get this you are basically a genius!",
+                            "spanish": "¡Si aciertas esto eres básicamente un genio!"}},
+}
+
+
+def _normalize_bundled_voice_inputs(key, language) -> tuple[str, str, Path]:
+    k = str(key or "").strip()
+    if k not in BUNDLED_VOICE_CONFIG:
+        raise ValueError("Unsupported bundled voice key.")
+    lang = _normalize_language(language)
+    cfg = BUNDLED_VOICE_CONFIG[k]
+    out_path = cfg["dir"] / lang / cfg["filename"]
+    prompt = cfg["prompts"].get(lang) or cfg["prompts"]["english"]
+    return k, prompt, out_path
 EDGE_TTS_VOICES = (
     FIXED_TEAM_VOICE,
 )
@@ -100,14 +167,22 @@ HTTP_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
-FUTGG_CARD_LINK_RE = re.compile(r"/players/\d+-[^/]+/26-(\d+)/", re.IGNORECASE)
+# Card paths are /{edition}-{itemId}/ (e.g. FC 25 → /25-212204/, FC 26 → /26-…/).
+FUTGG_CARD_LINK_RE = re.compile(
+    r"/players/\d+-[^/]+/(?P<ed>2[5-9])-(?P<id>\d+)/",
+    re.IGNORECASE,
+)
 FUTGG_PLAYER_ITEM_RE = re.compile(
     r'(https://game-assets\.fut\.gg/cdn-cgi/image/[^"\']+'
-    r"/\d{4}/player-item/(26-\d+\.[a-f0-9]+\.webp))",
+    r"/\d{4}/player-item/((?:2[5-9])-\d+\.[a-f0-9]+\.webp))",
     re.IGNORECASE,
 )
 SITEMAP_PLAYER_URL_RE = re.compile(
     r"<loc>(https://www\.365scores\.com/football/player/[^<]+)</loc>",
+    re.IGNORECASE,
+)
+_FOOTBALL_LOGOS_HTML_PNG_URL_RE = re.compile(
+    r"https://(?:images|assets)\.football-logos\.cc/[^\s\"'<>]+?\.png(?:\?[^\s\"'<>]*)?",
     re.IGNORECASE,
 )
 _SPECIAL_CARD_KEYWORDS = (
@@ -330,33 +405,69 @@ def _try_fetch_futgg_photo(player_name: str, player_club: str, player_nationalit
         return None
     hub = _resolve_futgg_hub_url(player_id)
     hub_html = _fetch_text(hub + "/")
-    item_ids = [int(m.group(1)) for m in FUTGG_CARD_LINK_RE.finditer(hub_html)]
-    if not item_ids:
+    card_pairs = _futgg_card_edition_id_pairs_from_hub_html(hub_html)
+    if not card_pairs:
         return None
-    seen_ids: set[int] = set()
-    card_ids: list[int] = []
-    for iid in item_ids:
-        if iid in seen_ids:
-            continue
-        seen_ids.add(iid)
-        card_ids.append(iid)
-    regular_candidates = sorted(card_ids, reverse=True)
+    regular_candidates = sorted(card_pairs, key=lambda t: t[1], reverse=True)
     fallback_candidates = list(regular_candidates)
-    for iid in regular_candidates:
-        card_html = _fetch_text(f"{hub}/26-{iid}/")
+    for ed, iid in regular_candidates:
+        card_html = _fetch_text(f"{hub}/{ed}-{iid}/")
         if not _is_regular_futgg_card(card_html):
             continue
         urls = _futgg_player_item_urls_from_card_html(card_html)
         if not urls:
             continue
         return _fetch_bytes(urls[0]), "fut.gg"
-    for iid in fallback_candidates:
-        card_html = _fetch_text(f"{hub}/26-{iid}/")
+    for ed, iid in fallback_candidates:
+        card_html = _fetch_text(f"{hub}/{ed}-{iid}/")
         urls = _futgg_player_item_urls_from_card_html(card_html)
         if not urls:
             continue
         return _fetch_bytes(urls[0]), "fut.gg"
     return None
+
+
+def _futgg_card_edition_id_pairs_from_hub_html(hub_html: str) -> list[tuple[str, int]]:
+    seen: set[tuple[str, int]] = set()
+    out: list[tuple[str, int]] = []
+    for m in FUTGG_CARD_LINK_RE.finditer(hub_html):
+        ed = str(m.group("ed") or "").strip()
+        try:
+            iid = int(m.group("id"))
+        except (TypeError, ValueError):
+            continue
+        key = (ed, iid)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(key)
+    return out
+
+
+def _futgg_collect_card_image_urls_for_hub(hub: str) -> list[str]:
+    hub_root = str(hub or "").strip().rstrip("/")
+    if not hub_root:
+        return []
+    hub_html = _fetch_text(hub_root + "/")
+    card_pairs = _futgg_card_edition_id_pairs_from_hub_html(hub_html)
+    if not card_pairs:
+        return []
+    ordered_pairs = sorted(card_pairs, key=lambda t: t[1], reverse=True)
+    regular_urls: list[str] = []
+    fallback_urls: list[str] = []
+    seen_urls: set[str] = set()
+    for ed, iid in ordered_pairs:
+        card_html = _fetch_text(f"{hub_root}/{ed}-{iid}/")
+        urls = _futgg_player_item_urls_from_card_html(card_html)
+        if not urls:
+            continue
+        bucket = regular_urls if _is_regular_futgg_card(card_html) else fallback_urls
+        for url in urls:
+            if url in seen_urls:
+                continue
+            seen_urls.add(url)
+            bucket.append(url)
+    return regular_urls + fallback_urls
 
 
 def _futgg_candidate_image_urls(
@@ -368,33 +479,7 @@ def _futgg_candidate_image_urls(
     if player_id is None:
         return []
     hub = _resolve_futgg_hub_url(player_id)
-    hub_html = _fetch_text(hub + "/")
-    item_ids = [int(m.group(1)) for m in FUTGG_CARD_LINK_RE.finditer(hub_html)]
-    if not item_ids:
-        return []
-    seen_ids: set[int] = set()
-    card_ids: list[int] = []
-    for iid in item_ids:
-        if iid in seen_ids:
-            continue
-        seen_ids.add(iid)
-        card_ids.append(iid)
-    ordered_ids = sorted(card_ids, reverse=True)
-    regular_urls: list[str] = []
-    fallback_urls: list[str] = []
-    seen_urls: set[str] = set()
-    for iid in ordered_ids:
-        card_html = _fetch_text(f"{hub}/26-{iid}/")
-        urls = _futgg_player_item_urls_from_card_html(card_html)
-        if not urls:
-            continue
-        bucket = regular_urls if _is_regular_futgg_card(card_html) else fallback_urls
-        for url in urls:
-            if url in seen_urls:
-                continue
-            seen_urls.add(url)
-            bucket.append(url)
-    return regular_urls + fallback_urls
+    return _futgg_collect_card_image_urls_for_hub(hub)
 
 
 def _slugify_name(value: str) -> str:
@@ -817,6 +902,35 @@ def _fetch_first_new_photo(urls: list[str], source: str, known_hashes: set[str])
     return None
 
 
+def _fetch_first_photo_bytes_from_urls(urls: list[str], source: str) -> tuple[bytes, str] | None:
+    """Download first successful URL without deduplication (used after new-photo filter fails)."""
+    for url in urls:
+        try:
+            image_bytes = _fetch_bytes(url)
+        except Exception:
+            continue
+        if image_bytes:
+            return image_bytes, source
+    return None
+
+
+def _find_existing_photo_path_by_sha256(target_dir: Path, digest: str) -> Path | None:
+    if not digest or not target_dir.is_dir():
+        return None
+    try:
+        for p in target_dir.iterdir():
+            if not p.is_file():
+                continue
+            try:
+                if hashlib.sha256(p.read_bytes()).hexdigest() == digest:
+                    return p
+            except OSError:
+                continue
+    except OSError:
+        return None
+    return None
+
+
 def _next_auto_photo_path(target_dir: Path, source: str) -> Path:
     base = f"Auto - {source}"
     first = target_dir / f"{base}.png"
@@ -1135,6 +1249,143 @@ def _try_fetch_football_logo_png_3000(
     return None
 
 
+def _football_logos_png_url_dimension_hint(url: str) -> int:
+    u = (url or "").lower()
+    best = 0
+    for m in re.finditer(r"/(\d{3,4})(?=/[^/]+\.png)", u):
+        try:
+            best = max(best, int(m.group(1)))
+        except ValueError:
+            continue
+    m2 = re.search(r"(\d{3,4})x(\d{3,4})", u)
+    if m2:
+        try:
+            best = max(best, int(m2.group(1)))
+        except ValueError:
+            pass
+    return best
+
+
+def _try_fetch_football_logo_png_from_user_url(page_url: str) -> tuple[bytes, dict] | None:
+    raw = (page_url or "").strip()
+    if not raw:
+        return None
+    try:
+        parsed = urlparse(raw)
+    except ValueError:
+        return None
+    if parsed.scheme not in ("http", "https"):
+        return None
+    host = (parsed.netloc or "").lower()
+    cdn_hosts = ("images.football-logos.cc", "assets.football-logos.cc")
+    if host in cdn_hosts and re.search(r"\.png(\?|$)", raw, re.IGNORECASE):
+        try:
+            data = _fetch_bytes(raw)
+            if data:
+                return data, {
+                    "name": "",
+                    "categoryId": "",
+                    "id": "",
+                    "h": "",
+                    "fromUrl": raw,
+                }
+        except Exception:
+            return None
+        return None
+    if host not in ("football-logos.cc", "www.football-logos.cc"):
+        return None
+    try:
+        html = _fetch_text(raw)
+    except Exception:
+        return None
+    found = list(dict.fromkeys(_FOOTBALL_LOGOS_HTML_PNG_URL_RE.findall(html)))
+    found = [u for u in found if "${" not in u]
+    if not found:
+        return None
+    path_parts = [p for p in (parsed.path or "").split("/") if p]
+    team_slug = path_parts[-1].casefold() if path_parts else ""
+    if team_slug:
+        preferred = [u for u in found if f"/{team_slug}." in u.casefold()]
+        if preferred:
+            found = preferred
+    found.sort(key=lambda u: (_football_logos_png_url_dimension_hint(u), len(u)), reverse=True)
+    referer = raw if raw.startswith("http") else f"https://{host}{parsed.path or '/'}"
+    headers = {
+        "User-Agent": HTTP_USER_AGENT,
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": referer,
+    }
+    for url in found:
+        try:
+            req = urllib.request.Request(url, headers=headers, method="GET")
+            with urllib.request.urlopen(req, timeout=35.0, context=SSL_CTX) as r:
+                data = r.read()
+            if data:
+                return data, {
+                    "name": "",
+                    "categoryId": "",
+                    "id": "",
+                    "h": "",
+                    "fromUrl": raw,
+                }
+        except Exception:
+            continue
+    return None
+
+
+def _player_photo_urls_and_source_from_user_url(page_url: str) -> tuple[list[str], str] | None:
+    raw = (page_url or "").strip()
+    if not raw:
+        return None
+    try:
+        parsed = urlparse(raw)
+    except ValueError:
+        return None
+    if parsed.scheme not in ("http", "https"):
+        return None
+    host = (parsed.netloc or "").lower()
+    path = parsed.path or ""
+
+    if "game-assets.fut.gg" in host:
+        return [raw], "fut.gg"
+
+    if "imagecache.365scores.com" in host:
+        return [raw], "365scores"
+
+    if "365scores.com" in host and "/player/" in path.lower():
+        m = re.search(r"-(\d+)/?$", path.rstrip("/"))
+        if m:
+            img = _image_url_from_athlete_id(m.group(1))
+            return [img], "365scores"
+        return None
+
+    if "fut.gg" in host:
+        m_pid = re.search(r"/players/(\d+)-", path, re.IGNORECASE)
+        if not m_pid:
+            return None
+        try:
+            pid = int(m_pid.group(1))
+            hub = _resolve_futgg_hub_url(pid).rstrip("/")
+        except Exception:
+            return None
+        urls: list[str] = []
+        m_card = re.search(r"/(2[5-9])-(\d+)/", raw, re.IGNORECASE)
+        if m_card:
+            try:
+                ed, item_id = m_card.group(1), m_card.group(2)
+                card_html = _fetch_text(f"{hub}/{ed}-{item_id}/")
+                urls = _futgg_player_item_urls_from_card_html(card_html)
+            except Exception:
+                urls = []
+        if not urls:
+            urls = _futgg_collect_card_image_urls_for_hub(hub)
+        if not urls:
+            return None
+        return urls, "fut.gg"
+
+    return None
+
+
 def _resolve_team_logo_target(body: dict) -> tuple[Path, str]:
     squad_type = str(body.get("squadType") or "").strip().lower()
     selected_entry = body.get("selectedEntry") if isinstance(body.get("selectedEntry"), dict) else {}
@@ -1191,12 +1442,16 @@ def _team_voice_paths_for_name(team_name: str, target_dir: Path) -> list[Path]:
 def _normalize_quiz_title_voice_inputs(
     quiz_type: str | None,
     specific_title: str | None = None,
+    language: str | None = None,
 ) -> tuple[str, str, Path]:
     qt = str(quiz_type or "").strip()
-    if qt not in QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE:
+    lang = _normalize_language(language)
+    file_map = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[lang]
+    prompt_map = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE[lang]
+    if qt not in file_map:
         raise ValueError("Unsupported quiz type.")
-    filename = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[qt]
-    base_prompt = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE.get(qt) or filename.removesuffix(".mp3")
+    filename = file_map[qt]
+    base_prompt = prompt_map.get(qt) or filename.removesuffix(".mp3")
     clean_specific = re.sub(r"^\+\s*", "", str(specific_title or "").strip())
     if clean_specific:
         prompt = f"{base_prompt} {clean_specific}".strip()
@@ -1205,18 +1460,22 @@ def _normalize_quiz_title_voice_inputs(
     else:
         prompt = base_prompt
         out_name = filename
-    return qt, prompt, QUIZ_TITLE_VOICE_DIR / out_name
+    return qt, prompt, QUIZ_TITLE_VOICE_DIR / lang / out_name
 
 
 def _normalize_ending_voice_inputs(
     ending_type: str | None,
+    language: str | None = None,
 ) -> tuple[str, str, Path]:
     et = str(ending_type or "").strip()
-    if et not in ENDING_VOICE_FILE_BY_TYPE:
+    lang = _normalize_language(language)
+    file_map = ENDING_VOICE_FILE_BY_TYPE[lang]
+    prompt_map = ENDING_VOICE_PROMPT_BY_TYPE[lang]
+    if et not in file_map:
         raise ValueError("Unsupported ending type.")
-    filename = ENDING_VOICE_FILE_BY_TYPE[et]
-    prompt = ENDING_VOICE_PROMPT_BY_TYPE.get(et) or filename.removesuffix(".mp3")
-    return et, prompt, ENDING_VOICE_DIR / filename
+    filename = file_map[et]
+    prompt = prompt_map.get(et) or filename.removesuffix(".mp3")
+    return et, prompt, ENDING_VOICE_DIR / lang / filename
 
 
 def _project_relative_web_path(path: Path) -> str:
@@ -1254,7 +1513,17 @@ def _elevenlabs_available() -> bool:
     return bool(_elevenlabs_api_key())
 
 
-def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: Path) -> tuple[str, str]:
+def _elevenlabs_language_code(language: str | None) -> str:
+    lang = _normalize_language(language)
+    return {"english": "en", "spanish": "es"}.get(lang, "en")
+
+
+def _generate_elevenlabs_speech_mp3(
+    text: str,
+    requested_voice: str,
+    out_path: Path,
+    language: str | None = None,
+) -> tuple[str, str]:
     api_key = _elevenlabs_api_key()
     if not api_key:
         raise RuntimeError(
@@ -1274,6 +1543,8 @@ def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: P
             "similarity_boost": 0.8,
         },
     }
+    if language is not None:
+        payload["language_code"] = _elevenlabs_language_code(language)
     req = urllib.request.Request(
         endpoint,
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
@@ -1711,6 +1982,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         target_dir.mkdir(parents=True, exist_ok=True)
         out_path = target_dir / f"{team_name}.mp3"
         for old_path in _team_voice_paths_for_name(team_name, target_dir):
@@ -1722,7 +1994,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         provider = "elevenlabs"
         prompt_text = _tts_prompt_name(team_name)
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1781,6 +2053,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
                 query.get("quizType"),
                 query.get("specificTitle"),
+                query.get("language"),
             )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
@@ -1804,6 +2077,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, prompt_text, out_path = _normalize_quiz_title_voice_inputs(
                 body.get("quizType"),
                 body.get("specificTitle"),
+                body.get("language"),
             )
             voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
             if not voice:
@@ -1812,10 +2086,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         out_path.parent.mkdir(parents=True, exist_ok=True)
         provider = "elevenlabs"
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1843,6 +2118,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
                 body.get("quizType"),
                 body.get("specificTitle"),
+                body.get("language"),
             )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
@@ -1867,6 +2143,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         try:
             _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
                 query.get("endingType"),
+                query.get("language"),
             )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
@@ -1889,6 +2166,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             body = self._read_json_body()
             _ending_type, prompt_text, out_path = _normalize_ending_voice_inputs(
                 body.get("endingType"),
+                body.get("language"),
             )
             voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
             if not voice:
@@ -1897,10 +2175,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         out_path.parent.mkdir(parents=True, exist_ok=True)
         provider = "elevenlabs"
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1927,7 +2206,68 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             body = self._read_json_body()
             _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
                 body.get("endingType"),
+                body.get("language"),
             )
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        removed = 0
+        if out_path.exists():
+            out_path.unlink(missing_ok=True)
+            removed = 1
+        self._write_json(200, {"ok": True, "removed": removed})
+        return True
+
+    def _try_serve_bundled_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part: continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(query.get("key"), query.get("language"))
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        self._write_json(200, {"ok": True, "exists": out_path.is_file(),
+                               "src": _project_relative_web_path(out_path) if out_path.is_file() else ""})
+        return True
+
+    def _try_generate_bundled_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            _key, prompt_text, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
+            requested_voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        language = _normalize_language(body.get("language"))
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path, language)
+        except Exception as exc:  # noqa: BLE001
+            self._write_json(502, {"ok": False, "error": str(exc)})
+            return True
+        if not out_path.exists() or out_path.stat().st_size <= 0:
+            self._write_json(502, {"ok": False, "error": "ElevenLabs generation failed."})
+            return True
+        self._write_json(200, {"ok": True, "src": _project_relative_web_path(out_path),
+                               "voice": chosen_voice, "model": model, "provider": "elevenlabs"})
+        return True
+
+    def _try_delete_bundled_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
@@ -1982,7 +2322,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         try:
             body = self._read_json_body()
             squad_name = str(body.get("currentSquadName") or "").strip()
-            if not squad_name:
+            page_url = str(body.get("pageUrl") or "").strip()
+            if not squad_name and not page_url:
                 raise ValueError("Missing team name.")
             squad_type = str(body.get("squadType") or "").strip().lower()
             selected_entry = body.get("selectedEntry") if isinstance(body.get("selectedEntry"), dict) else {}
@@ -1998,19 +2339,28 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        fetched: tuple[bytes, dict] | None = None
         try:
-            fetched = _try_fetch_football_logo_png_3000(
-                squad_name,
-                country_hint=country_hint,
-                league_hint=league_hint,
-            )
+            if page_url:
+                fetched = _try_fetch_football_logo_png_from_user_url(page_url)
+            else:
+                if not squad_name:
+                    self._write_json(400, {"ok": False, "error": "Missing team name."})
+                    return True
+                fetched = _try_fetch_football_logo_png_3000(
+                    squad_name,
+                    country_hint=country_hint,
+                    league_hint=league_hint,
+                )
         except Exception:
             fetched = None
         if fetched is None:
-            self._write_json(
-                404,
-                {"ok": False, "error": "Could not fetch logo from football-logos.cc."},
+            err = (
+                "Could not download logo from the pasted URL."
+                if page_url
+                else "Could not fetch logo from football-logos.cc."
             )
+            self._write_json(404, {"ok": False, "error": err})
             return True
 
         image_bytes, entry = fetched
@@ -2036,6 +2386,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 "matchedName": str(entry.get("name") or ""),
                 "categoryId": str(entry.get("categoryId") or ""),
                 "teamId": str(entry.get("id") or ""),
+                "fromPageUrl": str(entry.get("fromUrl") or page_url or ""),
             },
         )
         return True
@@ -2050,6 +2401,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             player_club = str(body.get("playerClub") or "").strip()
             player_nationality = str(body.get("playerNationality") or "").strip()
             preferred_source_raw = str(body.get("preferredSource") or "").strip().lower()
+            page_url = str(body.get("pageUrl") or "").strip()
             if not player_name:
                 raise ValueError("Missing player name.")
             target_dir, index_section, index_key = _resolve_player_image_target(body)
@@ -2057,35 +2409,89 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
-        preferred_source = "365scores" if preferred_source_raw == "365scores" else "fut.gg"
-        source_order = [preferred_source, "365scores" if preferred_source == "fut.gg" else "fut.gg"]
         known_hashes = _known_photo_hashes_for_target_dir(target_dir)
-        fetched: tuple[bytes, str] | None = None
-        for source in source_order:
-            try:
-                if source == "fut.gg":
-                    candidates = _futgg_candidate_image_urls(player_name, player_club, player_nationality)
-                else:
-                    candidates = _365scores_candidate_image_urls(player_name, player_club)
-            except Exception:
-                candidates = []
-            fetched = _fetch_first_new_photo(candidates, source, known_hashes)
-            if fetched is not None:
-                break
-        if fetched is None:
-            self._write_json(
-                404,
-                {"ok": False, "error": "No new photo found on FUT.GG or 365scores."},
-            )
-            return True
+        preferred_source = "365scores" if preferred_source_raw == "365scores" else "fut.gg"
+        image_bytes: bytes | None = None
+        source_used = preferred_source
 
-        image_bytes, source = fetched
+        if page_url:
+            pack = _player_photo_urls_and_source_from_user_url(page_url)
+            if pack is None:
+                self._write_json(
+                    400,
+                    {
+                        "ok": False,
+                        "error": (
+                            "Unrecognized player URL. Paste a fut.gg player or card page, "
+                            "a 365scores player profile URL, or a direct fut.gg / 365scores image URL."
+                        ),
+                    },
+                )
+                return True
+            manual_urls, declared_source = pack
+            fetched = _fetch_first_new_photo(manual_urls, declared_source, known_hashes)
+            if fetched is not None:
+                image_bytes, source_used = fetched
+            else:
+                refetch = _fetch_first_photo_bytes_from_urls(manual_urls, declared_source)
+                if refetch is None:
+                    self._write_json(
+                        404,
+                        {"ok": False, "error": "Could not download an image from the pasted URL."},
+                    )
+                    return True
+                b, src = refetch
+                digest = hashlib.sha256(b).hexdigest()
+                existing = _find_existing_photo_path_by_sha256(target_dir, digest)
+                if existing is not None:
+                    rel_path = existing.relative_to(PROJECT_ROOT).as_posix()
+                    try:
+                        _update_player_images_index(index_section, index_key, rel_path)
+                    except OSError:
+                        self._write_json(500, {"ok": False, "error": "Failed to update player image index."})
+                        return True
+                    self._write_json(
+                        200,
+                        {
+                            "ok": True,
+                            "source": src,
+                            "preferredSource": preferred_source,
+                            "relativePath": rel_path,
+                            "indexSection": index_section,
+                            "indexKey": index_key,
+                            "reusedExistingFile": True,
+                        },
+                    )
+                    return True
+                image_bytes, source_used = b, src
+        else:
+            source_order = [preferred_source, "365scores" if preferred_source == "fut.gg" else "fut.gg"]
+            fetched: tuple[bytes, str] | None = None
+            for source in source_order:
+                try:
+                    if source == "fut.gg":
+                        candidates = _futgg_candidate_image_urls(player_name, player_club, player_nationality)
+                    else:
+                        candidates = _365scores_candidate_image_urls(player_name, player_club)
+                except Exception:
+                    candidates = []
+                fetched = _fetch_first_new_photo(candidates, source, known_hashes)
+                if fetched is not None:
+                    break
+            if fetched is None:
+                self._write_json(
+                    404,
+                    {"ok": False, "error": "No new photo found on FUT.GG or 365scores."},
+                )
+                return True
+            image_bytes, source_used = fetched
+
         if not image_bytes:
             self._write_json(404, {"ok": False, "error": "Downloaded image is empty."})
             return True
 
         target_dir.mkdir(parents=True, exist_ok=True)
-        out_path = _next_auto_photo_path(target_dir, source)
+        out_path = _next_auto_photo_path(target_dir, source_used)
         try:
             out_path.write_bytes(image_bytes)
         except OSError:
@@ -2103,7 +2509,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             200,
             {
                 "ok": True,
-                "source": source,
+                "source": source_used,
                 "preferredSource": preferred_source,
                 "relativePath": rel_path,
                 "indexSection": index_section,
@@ -2161,6 +2567,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if self._try_serve_ending_voice_status():
             return
+        if self._try_serve_bundled_voice_status():
+            return
         if self._try_serve_other_teams_logos_json():
             return
         if self._is_live_reload_endpoint():
@@ -2188,6 +2596,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_generate_ending_voice():
             return
         if self._try_delete_ending_voice():
+            return
+        if self._try_generate_bundled_voice():
+            return
+        if self._try_delete_bundled_voice():
             return
         if self._try_fetch_team_logo():
             return

@@ -97,6 +97,8 @@ export const appState = {
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
+  /** `renderHeader`: ignore stale logo/flag image callbacks after level switches. */
+  teamHeaderRenderGeneration: 0,
   teamSidebarAnimGeneration: 0,
   teamSidebarLastOpen: false,
   teamSidebarLastKey: "",

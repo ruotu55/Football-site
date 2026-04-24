@@ -18,6 +18,10 @@ import {
   syncCareerSlotControlsVisibility,
   syncShortsCareerVideoPreviewLayers,
 } from "./pitch-render.js";
+import {
+  hideShortsCountdownOnPlayVideoPress,
+  syncShortsVideoModeIdleTimerBar,
+} from "./shorts-idle-timer-bar.js";
 
 /** Match `audio.js` `isShortsModeActive` so countdown logic cannot diverge from html/body class toggles. */
 function isShortsVideoLayout() {
@@ -42,8 +46,8 @@ const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
 const SHORTS_STAGE_ENTER_MS = 820;
 /** Shorts level 1 only: extra wait before the countdown timer bar is shown and starts depleting (levels 2+ unchanged). */
 const SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS = 1000;
-/** Added to base question countdown (3s steps) so each tick stays an equal slice of the longer total. */
-const QUESTION_COUNTDOWN_EXTRA_MS = 0;
+/** Question bar + timeouts: `baseSteps` equal slices of this total (default 3 × 1s × 1.1). */
+const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 1.1;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
 const TICKING_LEAD_BEFORE_RED_MS = 1500;
 
@@ -245,23 +249,7 @@ export function stopVideoFlow() {
     els.careerWrap.classList.toggle("video-mode-enabled", !!state?.videoMode);
   }
   els.playVideoBtn.hidden = false;
-  els.countdownTimer.hidden = true;
-  els.countdownTimer.classList.remove(
-    "pulse",
-    "timer-green",
-    "timer-yellow",
-    "timer-shake",
-    "timer-phase-green",
-    "timer-phase-orange",
-    "timer-phase-yellow",
-    "timer-phase-red",
-    "countdown-timer-stage-enter"
-  );
-  const fillElStop = document.getElementById("countdown-bar-fill");
-  if (fillElStop) {
-    fillElStop.style.transition = "";
-    fillElStop.style.width = "";
-  }
+  syncShortsVideoModeIdleTimerBar();
   els.panelFab.hidden = false;
   renderProgressSteps(appState.totalLevelsCount, switchLevel);
   if (els.quizProgressContainer) {
@@ -297,6 +285,7 @@ export function startVideoFlow() {
     stopVideoFlow();
     return;
   }
+  hideShortsCountdownOnPlayVideoPress();
   appState.isVideoPlaying = true;
   // Auto-enable video mode on ALL levels
   appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
@@ -487,7 +476,7 @@ function runVideoStep() {
   } else {
     const baseSteps = 3;
     let count = baseSteps;
-    const totalDurationMs = baseSteps * 1000 + QUESTION_COUNTDOWN_EXTRA_MS;
+    const totalDurationMs = Math.round(baseSteps * 1000 * SHORTS_QUESTION_COUNTDOWN_DURATION_MULT);
     const totalTime = totalDurationMs / 1000;
     const tickMs = totalDurationMs / baseSteps;
     const fillEl = document.getElementById("countdown-bar-fill");
@@ -730,7 +719,8 @@ function revealCurrentLevel() {
           shouldPlayVoice = false;
         }
       }
-      playTheAnswerIs(shouldPlayVoice);
+      const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+      playTheAnswerIs(shouldPlayVoice, playerDisplayName);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 3000;

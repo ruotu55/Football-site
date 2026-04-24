@@ -1,0 +1,2275 @@
+/* css/components/career.css */
+
+.career-wrap {
+  width: 100%;
+  height: 66vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0;
+  transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.career-picture-controls {
+  position: fixed;
+  left: 15.2rem;
+  top: 0.15rem;
+  /* Above stats / pitch / reveals; below #control-panel (100000) and its open custom-select layers */
+  z-index: 99995;
+  width: 13.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.6rem;
+  border-radius: 0.55rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+  transform: scale(0.75);
+  transform-origin: top left;
+}
+
+.career-picture-controls-title {
+  margin: 0 0 0.1rem;
+  font-size: 0.88rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.career-picture-controls-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.career-picture-controls-actions {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.career-picture-controls-actions--favorite {
+  grid-template-columns: 1fr auto 1fr auto;
+}
+
+.career-picture-controls-actions button,
+.career-picture-controls-reset {
+  height: 1.6rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.career-picture-controls-actions button:hover,
+.career-picture-controls-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.career-picture-controls-favorite.is-active,
+#pic-favorite.is-active {
+  color: #ff4d6d;
+  border-color: rgba(255, 77, 109, 0.7);
+  background: rgba(255, 77, 109, 0.2);
+}
+
+.career-picture-controls-actions strong {
+  min-width: 2.4rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.career-picture-controls-reset {
+  margin-top: 0.15rem;
+  background: rgba(239, 68, 68, 0.2);
+  color: #ff6b6b;
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+/* Shorts: same floating Adjust Picture panel, top-centered (road layout keeps top-left). */
+.career-picture-controls.career-picture-controls--shorts-layout {
+  left: 50%;
+  right: auto;
+  top: max(0.35rem, env(safe-area-inset-top, 0px));
+  transform: translateX(-50%) scale(0.82);
+  transform-origin: top center;
+  z-index: 99995;
+}
+
+.career-wrap[hidden] {
+  display: none !important;
+}
+
+body:not(.shorts-mode) .career-wrap {
+  height: 72.6vh;
+  /* One cell of the 2×2 param grid (same math as .career-param-grid width + gap) */
+  --career-param-grid-w: min(96vw, 44rem);
+  --career-param-gap: clamp(1rem, 3vw, 1.7rem);
+  --career-param-cell-size: calc((var(--career-param-grid-w) - var(--career-param-gap)) / 2);
+  /* Stacked height of two grid rows + the row gap (matches .career-param-grid) */
+  --career-param-two-rows-h: calc(2 * var(--career-param-cell-size) + var(--career-param-gap));
+}
+
+/* 3-column layout: 2 cards left, portrait center, 2 cards right; centered in #career-wrap */
+.career-param-cluster {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 21;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  justify-items: center;
+  column-gap: var(--career-param-gap, clamp(1rem, 3vw, 1.7rem));
+  row-gap: var(--career-param-gap, clamp(1rem, 3vw, 1.7rem));
+  pointer-events: none;
+  overflow: visible;
+}
+.career-param-cluster .career-clear-player-btn {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  left: auto;
+  transform: none;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Param grid becomes a passthrough wrapper; its 4 cards are placed directly by the cluster
+   (left column rows 1-2, right column rows 1-2) with the portrait card spanning the middle. */
+.career-param-grid {
+  display: contents;
+  pointer-events: none;
+}
+
+.career-param-cluster > .career-param-grid > .career-param-card:nth-child(1) {
+  grid-column: 1;
+  grid-row: 2;
+  width: var(--career-param-cell-size, calc((min(96vw, 44rem) - clamp(1rem, 3vw, 1.7rem)) / 2));
+}
+.career-param-cluster > .career-param-grid > .career-param-card:nth-child(2) {
+  grid-column: 1;
+  grid-row: 3;
+  width: var(--career-param-cell-size, calc((min(96vw, 44rem) - clamp(1rem, 3vw, 1.7rem)) / 2));
+}
+.career-param-cluster > .career-param-grid > .career-param-card:nth-child(3) {
+  grid-column: 3;
+  grid-row: 2;
+  width: var(--career-param-cell-size, calc((min(96vw, 44rem) - clamp(1rem, 3vw, 1.7rem)) / 2));
+}
+.career-param-cluster > .career-param-grid > .career-param-card:nth-child(4) {
+  grid-column: 3;
+  grid-row: 3;
+  width: var(--career-param-cell-size, calc((min(96vw, 44rem) - clamp(1rem, 3vw, 1.7rem)) / 2));
+}
+.career-param-cluster > .career-portrait-card {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+}
+
+/* Video mode level entry: portrait shows immediately, the 4 param cards fade in one by one.
+   Order: top-left (card 1) → top-right (card 3) → bottom-left (card 2) → bottom-right (card 4).
+
+   The card has `backdrop-filter: blur(14px) saturate(1.25)`. Mid-fade the blurred-behind-content
+   shows through at a different color than the fully-opaque card — readers see a "2-phase" shift.
+   Fix: kill backdrop-filter until the fade completes, then snap it back on with a second
+   zero-duration animation delayed to fire right after. Result: pure opacity fade, one phase. */
+@keyframes career-param-card-enter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes career-param-card-restore-filter {
+  to {
+    backdrop-filter: blur(14px) saturate(1.25);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  }
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-param-cluster > .career-param-grid > .career-param-card {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  animation:
+    career-param-card-enter 0.5s ease-out both,
+    career-param-card-restore-filter 0.01s linear both;
+  will-change: opacity;
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-param-cluster > .career-param-grid > .career-param-card:nth-child(1) {
+  animation-delay: 1s, 1.5s;
+}
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-param-cluster > .career-param-grid > .career-param-card:nth-child(3) {
+  animation-delay: 2s, 2.5s;
+}
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-param-cluster > .career-param-grid > .career-param-card:nth-child(2) {
+  animation-delay: 3s, 3.5s;
+}
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-param-cluster > .career-param-grid > .career-param-card:nth-child(4) {
+  animation-delay: 4s, 4.5s;
+}
+
+/* Play Video idle float: continuously bob the 5 boxes up and down the entire time Play
+   Video is running (pre-timer AND post-timer reveal). All share `animation-delay: 0s` on the
+   float so they move as one. Uses the individual `translate` property so it composes with the
+   focus-pull `scale` from transitions.css (so the reveal scale + float coexist). */
+@keyframes career-box-float-translate {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -12px; }
+}
+
+body.play-video-active:not(.shorts-mode) .career-wrap .career-portrait-card {
+  animation: career-box-float-translate 3.2s ease-in-out infinite;
+}
+
+body.play-video-active:not(.shorts-mode) .career-wrap .career-param-cluster > .career-param-grid > .career-param-card {
+  animation:
+    career-param-card-enter 0.5s ease-out both,
+    career-param-card-restore-filter 0.01s linear both,
+    career-box-float-translate 3.2s ease-in-out infinite;
+}
+
+body.play-video-active:not(.shorts-mode) .career-wrap .career-param-cluster > .career-param-grid > .career-param-card:nth-child(1) {
+  animation-delay: 1s, 1.5s, 0s;
+}
+body.play-video-active:not(.shorts-mode) .career-wrap .career-param-cluster > .career-param-grid > .career-param-card:nth-child(3) {
+  animation-delay: 2s, 2.5s, 0s;
+}
+body.play-video-active:not(.shorts-mode) .career-wrap .career-param-cluster > .career-param-grid > .career-param-card:nth-child(2) {
+  animation-delay: 3s, 3.5s, 0s;
+}
+body.play-video-active:not(.shorts-mode) .career-wrap .career-param-cluster > .career-param-grid > .career-param-card:nth-child(4) {
+  animation-delay: 4s, 4.5s, 0s;
+}
+
+/* Fake-info shirt visual inside the Shirt Number card — matches the floating shirt
+   from Main Runner - Player stats (t-shirt PNG + hollow stroked number). */
+.fake-info-shirt {
+  position: relative;
+  width: 85%;
+  max-width: 85%;
+  margin: auto;
+  aspect-ratio: 1;
+  container-type: inline-size;
+  container-name: fake-info-shirt;
+  user-select: none;
+  pointer-events: none;
+}
+
+.fake-info-shirt__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 0;
+  outline: none;
+  opacity: 0.52;
+  filter: grayscale(1) contrast(0.88) brightness(1.06);
+}
+
+.fake-info-shirt__number {
+  position: absolute;
+  top: 41%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Play", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-synthesis: none;
+  font-size: clamp(2rem, 30cqi, 7.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  min-width: 1.5em;
+  pointer-events: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: clamp(2px, 0.55cqi, 4.5px) rgba(195, 200, 198, 0.9);
+  paint-order: stroke fill;
+  opacity: 0.94;
+}
+
+/* Fake-info mode: player Vol/X isn't relevant — the 4 fake-stats voices replace it. */
+body.fake-info-quiz .career-player-controls-row .player-voice-controls {
+  display: none !important;
+}
+
+/* Per-stat voice controls (Vol + X) anchored below each of the 4 param cards.
+   The card is `overflow: hidden` to keep its rounded backdrop-filter clean, so the
+   button pair is absolutely positioned OUTSIDE the card bounds via a lifted overflow. */
+body.fake-info-quiz .career-wrap .career-param-card {
+  position: relative;
+  overflow: visible;
+}
+
+.fake-stat-voice-controls {
+  position: absolute;
+  left: 50%;
+  bottom: -2.9rem;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: auto;
+  z-index: 6;
+  /* Hidden by default; only shown in fake-info quiz. */
+  display: none;
+}
+
+body.fake-info-quiz .fake-stat-voice-controls {
+  display: flex;
+}
+
+.fake-stat-voice-btn {
+  box-sizing: border-box;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.fake-stat-voice-btn:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fake-stat-voice-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* During Play Video runtime the floating controls are hidden for the clean video look. */
+body.play-video-active .fake-stat-voice-controls {
+  display: none !important;
+}
+
+/* Row above the portrait: clear-team + voice Vol/X — centered, no label. */
+.career-player-controls-row {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  min-height: 2.4rem;
+  padding: 0 0.3rem;
+  pointer-events: auto;
+}
+
+.career-player-controls-row .career-clear-player-btn,
+.career-player-controls-row .player-voice-btn {
+  position: static;
+  transform: none;
+  top: auto;
+  left: auto;
+  right: auto;
+  flex: 0 0 auto;
+}
+
+.player-voice-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: auto;
+}
+
+.player-voice-controls[hidden] {
+  display: none !important;
+}
+
+/* Match Career Path Regular's voice buttons exactly (team-header.css). */
+.player-voice-btn {
+  box-sizing: border-box;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.player-voice-btn:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.player-voice-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* During Play Video runtime the floating UI is hidden for the clean video look. */
+body.play-video-active .career-player-controls-row {
+  visibility: hidden;
+}
+.career-param-card {
+  container-type: inline-size;
+  container-name: career-param-cell;
+  aspect-ratio: 1;
+  border-radius: 2.3rem;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(120, 200, 255, 0.08) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+}
+
+.career-param-card__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0.45rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.career-param-card__inner--club {
+  padding: 0.2rem;
+}
+
+.career-param-card__inner--position {
+  padding: 0.5rem 0.35rem;
+  gap: 0.2rem;
+}
+
+.career-param-card__inner--flag-fill {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.career-param-card__inner--age {
+  padding: 0.25rem;
+}
+
+.career-param-card__club-visual {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.career-param-card__logo {
+  max-width: 100%;
+  max-height: 92%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+  transform: scale(1.615);
+  transform-origin: center center;
+}
+
+.career-param-card__position-main {
+  font-family: "Barlow Condensed", sans-serif;
+  /* Match the age number's size + tracking — both cards read at the same visual weight. */
+  font-size: clamp(4rem, 24vw, 8rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  padding: 0.15rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.career-param-card--country .career-param-card__flag-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.career-param-card__flag {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.career-param-card__age-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.career-param-card__age-value {
+  font-family: "Barlow Condensed", "Inter", sans-serif;
+  font-size: clamp(4rem, 24vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 10px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Frosted panel on ::before so scaled player img is not clipped by backdrop-filter. */
+.career-portrait-card {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: visible;
+  width: var(--career-param-cell-size, calc((min(96vw, 44rem) - clamp(1rem, 3vw, 1.7rem)) / 2));
+  height: var(--career-param-two-rows-h, min(96vw, 44rem));
+  border-radius: 2.3rem;
+  box-sizing: border-box;
+  container-type: size;
+  border: 2px solid rgba(6, 8, 12, 0.88);
+  background: transparent;
+  color: #0a0a0a;
+  perspective: 900px;
+  pointer-events: none;
+  /* Single geometry for hidden ↔ color; tweak here only */
+  --career-portrait-photo-base-y: 12%;
+}
+
+.career-portrait-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  /* Cool frosted glass — avoid bright white wash */
+  background: linear-gradient(
+    155deg,
+    rgba(32, 42, 58, 0.52) 0%,
+    rgba(24, 32, 46, 0.44) 48%,
+    rgba(18, 26, 38, 0.38) 100%
+  );
+  backdrop-filter: blur(14px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.34),
+    0 4px 12px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(140, 180, 220, 0.14);
+}
+
+.career-portrait-card__silhouette {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  padding: 0.55rem 0.75rem clamp(3.75rem, calc(14cqh + 1.15rem), 7.5rem);
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Match card rounding on all corners — top-only radius left a square clip at the bottom vs ::before */
+  border-radius: inherit;
+  transform-style: preserve-3d;
+}
+
+/* Optional layer above photo (kept inert — no white flash; reveal is photo keyframes only). */
+.career-portrait-card__silhouette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0) 65%
+  );
+  mix-blend-mode: multiply;
+  will-change: opacity;
+}
+
+.career-portrait-card--vm-off-revealed .career-portrait-card__silhouette::after {
+  animation: none;
+  opacity: 0;
+}
+
+/*
+ * Portrait: hidden stack on one img; reveal presets 1–10 in career-portrait-reveal-presets.css.
+ */
+.career-portrait-card__photo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  margin-inline: auto;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+  transform: rotateX(-10deg) translateY(calc(var(--sil-y, 0%) + var(--career-portrait-photo-base-y, 12%)))
+    scale(calc(var(--sil-scale-x, 0.82) * 2), calc(var(--sil-scale-y, 0.82) * 2));
+  filter:
+    brightness(0)
+    contrast(0)
+    brightness(0.18)
+    contrast(3.5)
+    saturate(0)
+    drop-shadow(-1px -1px 2px rgba(70, 95, 130, 0.22))
+    drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.85))
+    drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6))
+    drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 0 6px rgba(60, 90, 130, 0.12));
+  transition: filter 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: filter;
+}
+
+/* Keep the photo's dark filter stable during play-video pre-timer (no transition).
+   The reveal animation (below) takes over once `--vm-off-revealed` is applied. */
+body:not(.shorts-mode).play-video-active .career-portrait-card:not(.career-portrait-card--vm-off-revealed) .career-portrait-card__photo {
+  animation: none;
+}
+
+/* Video Mode off + post-countdown: full-color photo, frosted panel without backdrop blur */
+.career-portrait-card--vm-off-revealed::before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: linear-gradient(
+    155deg,
+    rgba(30, 40, 56, 0.48) 0%,
+    rgba(22, 30, 44, 0.4) 45%,
+    rgba(16, 22, 34, 0.34) 100%
+  );
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.26),
+    0 4px 12px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(120, 170, 210, 0.12);
+  /* Reveal motion lives on `.career-portrait-card__photo` only — no frame animation */
+  animation: none;
+}
+
+/* Portrait photo reveal presets 1–10: see career-portrait-reveal-presets.css */
+
+/* Glass strip: same stack as .career-param-card; compact bar (~13% card height min) */
+.career-portrait-card__mystery-badge {
+  --mystery-bar-h: max(clamp(2.85rem, 14cqi, 5rem), 13cqh);
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.45rem, 1.4cqi, 0.85rem);
+  transform: translateX(-50%);
+  z-index: 2;
+  width: calc(100% - clamp(1.35rem, 5.5cqi, 2.15rem));
+  max-width: none;
+  min-height: var(--mystery-bar-h);
+  height: var(--mystery-bar-h);
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 2.3rem;
+  background: linear-gradient(
+    145deg,
+    rgba(14, 20, 30, 0.58) 0%,
+    rgba(10, 16, 26, 0.5) 45%,
+    rgba(30, 60, 90, 0.32) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  color: #ffffff;
+  font-family: "Barlow Condensed", system-ui, sans-serif;
+  display: flex;
+  align-items: stretch;
+  padding: clamp(0.35rem, 1.6cqi, 0.55rem) clamp(0.45rem, 2.2cqi, 0.85rem);
+}
+
+.career-portrait-card__mystery-mark {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: clamp(3.4rem, 30cqi, 10.5rem);
+  line-height: 0;
+  text-shadow: 0 10px 32px rgba(0, 0, 0, 0.5);
+  transform: scale(1.06);
+  transform-origin: center center;
+}
+
+.career-portrait-card__mystery-mark--name {
+  transform: none;
+  font-size: clamp(1.25rem, 9.5cqi, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-wrap: balance;
+  padding-inline: 0.2em;
+  overflow: hidden;
+  hyphens: auto;
+}
+
+.career-portrait-card--vm-off-revealed .career-portrait-card__mystery-badge {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: linear-gradient(
+    145deg,
+    rgb(14, 20, 30) 0%,
+    rgb(10, 16, 26) 45%,
+    rgb(18, 36, 58) 100%
+  );
+}
+
+/* Reveal: keyframes own filter — kill base filter transition or browsers lerp silhouette → drop-shadow (bright flash). */
+.career-portrait-card--vm-off-revealed .career-portrait-card__photo {
+  transition: none !important;
+}
+
+/*
+ * Regular + player: hold stats panel + entire career stage (road, clubs, silhouette, flag)
+ * until silhouette + flag are ready, then one shared fade in JS (`career-team-unified-reveal-in`).
+ */
+body:not(.shorts-mode).career-player-visual-pending #player-stats-panel {
+  opacity: 0 !important;
+  animation: none !important;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode).career-player-visual-pending #career-wrap {
+  opacity: 0 !important;
+}
+
+body:not(.shorts-mode).career-player-visual-pending #career-wrap .career-svg,
+body:not(.shorts-mode).career-player-visual-pending #career-wrap .career-slots {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+@keyframes career-team-unified-fade-in {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+#career-wrap.career-team-unified-reveal-in,
+#player-stats-panel.career-team-unified-reveal-in {
+  animation: career-team-unified-fade-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+/* Stats panel uses backdrop-filter on cards — ANY opacity fade shifts their
+   perceived colour.  Kill the enter/reveal animation so the panel appears at
+   full opacity instantly; stage-main's blur transition covers the visual. */
+#player-stats-panel.career-team-unified-reveal-in,
+#player-stats-panel.stage-enter-video-anim-panel {
+  animation: none !important;
+}
+#player-stats-panel.stage-exit-video-anim-panel {
+  animation-duration: 0.06s !important;
+}
+
+
+.team-header.video-hidden ~ .career-wrap {
+  height: 72.6vh;
+}
+
+body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
+  height: 72.6vh;
+}
+
+.career-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  /* Road + player image share this layer; moved another 5% higher, shifted 5vw left */
+  transform: rotateX(15deg) translateX(-5vw) translateY(-20%);
+  /* Above .player-stats-national-flag (z-index 4) so silhouette + SVG backdrop composite on top of the 3D flag */
+  z-index: 12;
+  isolation: isolate;
+}
+
+.career-silhouette {
+  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82)); 
+  transform-origin: 50% 100%; 
+  opacity: 1;
+  pointer-events: none;
+  filter:
+    url("#career-silhouette-aura")
+    brightness(0)
+    contrast(1.35)
+    drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
+    drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
+    drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
+  will-change: filter, transform;
+}
+
+/* Video mode: 3D silhouette — very dark with subtle shirt/body contour texture, player identity hidden. */
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed) {
+  opacity: 1;
+  filter:
+    brightness(0)
+    contrast(0)
+    brightness(0.18)
+    contrast(3.5)
+    saturate(0)
+    /* Tight top-left highlight edge — simulates rim light */
+    drop-shadow(-1px -1px 2px rgba(180, 210, 255, 0.25))
+    /* Close sharp shadow — gives depth/lift off the background */
+    drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.85))
+    /* Medium body shadow — 3D volume */
+    drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6))
+    /* Large soft ambient shadow — grounds the figure */
+    drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
+    /* Subtle cool glow halo */
+    drop-shadow(0 0 6px rgba(160, 200, 240, 0.15));
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+}
+
+body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
+  opacity: 1;
+  filter:
+    brightness(0)
+    contrast(0)
+    brightness(0.18)
+    contrast(3.5)
+    saturate(0)
+    drop-shadow(-1px -1px 2px rgba(180, 210, 255, 0.25))
+    drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.85))
+    drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6))
+    drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 0 6px rgba(160, 200, 240, 0.15));
+  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+  animation: silhouette-sway 6s ease-in-out infinite alternate, silhouette-shake 4.8s ease-in-out infinite alternate;
+  transform-origin: 50% 100%;
+}
+
+/* Slow left-right sway — just two endpoints, alternate + ease-in-out
+   gives a natural pendulum feel with no hard reversals */
+@keyframes silhouette-sway {
+  0%   { translate: 0 0; }
+  50%  { translate: -6px 0; }
+  100% { translate: 6px 0; }
+}
+
+/* Rotation shake — same approach */
+@keyframes silhouette-shake {
+  0%   { rotate: 0deg; }
+  50%  { rotate: -2.5deg; }
+  100% { rotate: 2.5deg; }
+}
+
+.career-photo-missing-label {
+  paint-order: stroke fill;
+  stroke: #0a1118;
+  stroke-width: 0.12em;
+}
+
+.career-inline-player-picker {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: min(22rem, 90%);
+  max-height: 18.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(8, 15, 20, 0.8);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+}
+
+.career-inline-player-picker-title {
+  color: var(--accent);
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.career-inline-player-search {
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.career-inline-player-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  overflow-y: auto;
+  min-height: 6.2rem;
+  max-height: 12rem;
+}
+
+.career-inline-player-hint {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 0.55rem;
+  font-size: 0.82rem;
+}
+
+.career-inline-player-result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  width: 100%;
+  padding: 0.38rem 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.career-inline-player-result:hover {
+  background: rgba(255, 202, 40, 0.22);
+}
+
+.career-inline-player-result small {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
+}
+
+.career-clear-player-btn {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(8, 15, 20, 0.88);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.career-clear-player-btn:hover {
+  background: rgba(255, 202, 40, 0.88);
+  color: #000;
+}
+
+body.play-video-active .career-clear-player-btn {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Cinematic countdown-finish reveal: soften everything behind the full-screen player photo. */
+body.career-cinematic-reveal .career-wrap .career-slots,
+body.career-cinematic-reveal .career-wrap .career-path-outer,
+body.career-cinematic-reveal .career-wrap .career-path-inner,
+body.career-cinematic-reveal .career-wrap .career-path-dash,
+body.career-cinematic-reveal .career-wrap .career-svg,
+body.career-cinematic-reveal .career-wrap .career-param-cluster,
+body.career-cinematic-reveal .career-wrap .career-param-grid,
+body.career-cinematic-reveal .career-wrap .career-portrait-card,
+body.career-cinematic-reveal #player-stats-panel,
+body.career-cinematic-reveal .career-wrap .player-stats-national-flag,
+body.career-cinematic-reveal .quiz-progress,
+body.career-cinematic-reveal .team-header,
+body.career-cinematic-reveal .side-text,
+body.career-cinematic-reveal #floating-background,
+body.career-cinematic-reveal #landing-shirt {
+  filter: blur(8px) !important;
+  opacity: 0.22 !important;
+  /* Kill ALL animations so nothing can override the dimmed state.
+     The blur is cleared in the same JS frame before enter animations start,
+     so the snap from dimmed→default is never rendered. */
+  animation: none !important;
+  transition: none !important;
+}
+
+/* If cinematic dim is still on (e.g. held backdrop), keep four-params VM-off portrait + cluster sharp */
+body.career-cinematic-reveal .career-wrap .career-portrait-card--vm-off-revealed {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+body.career-cinematic-reveal .career-wrap .career-param-cluster:has(.career-portrait-card--vm-off-revealed) {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-image-group {
+  clip-path: none !important;
+}
+
+body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-silhouette.revealed {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+/* In video mode the full-screen overlay handles the reveal — hide the inline photo to avoid two player images */
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
+  display: none !important;
+}
+
+.career-silhouette.revealed {
+  animation: epic-reveal 1.55s cubic-bezier(0.2, 0.95, 0.25, 1) forwards;
+  opacity: 1; 
+}
+
+.career-silhouette.drop-away {
+  animation: silhouette-drop-away 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes silhouette-drop-away {
+  0% {
+    opacity: 1;
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0)
+      contrast(1.35)
+      drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
+      drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
+      drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+  }
+  100% {
+    opacity: 0;
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0)
+      blur(3px)
+      drop-shadow(0 0 22px rgba(184, 247, 232, 0.42));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 26%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+  }
+}
+
+@keyframes epic-reveal {
+  0% {
+    filter: brightness(0.2) saturate(0.6) blur(8px) drop-shadow(0 0 0 transparent);
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 38%)) scale(calc(var(--sil-scale-x, 1) * 0.88), calc(var(--sil-scale-y, 1) * 0.88));
+    opacity: 0;
+  }
+  62% {
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0.9)
+      saturate(1)
+      blur(0)
+      drop-shadow(0 9px 20px rgba(0, 0, 0, 0.75))
+      drop-shadow(0 0 38px rgba(184, 247, 232, 0.44))
+      drop-shadow(0 0 78px rgba(120, 214, 192, 0.22));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) - 2.4%)) scale(calc(var(--sil-scale-x, 1) * 1.02), calc(var(--sil-scale-y, 1) * 1.02));
+    opacity: 1;
+  }
+  100% {
+    filter:
+      url("#career-silhouette-aura")
+      brightness(1)
+      saturate(1.05)
+      blur(0)
+      drop-shadow(0 16px 32px rgba(0, 0, 0, 0.8))
+      drop-shadow(0 0 28px rgba(204, 255, 243, 0.48))
+      drop-shadow(0 0 72px rgba(120, 214, 192, 0.26));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+    opacity: 1;
+  }
+}
+
+body:not(.shorts-mode) .career-reveal-overlay {
+  --career-player-box-top: 5.5rem;
+  position: fixed;
+  left: 50%;
+  top: var(--career-player-box-top);
+  bottom: 0;
+  width: 100vw;
+  height: calc(100vh - var(--career-player-box-top));
+  opacity: 0;
+  transform: translateX(-50%) translateY(46%) scale(0.74);
+  transform-origin: center bottom;
+  filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+  /* Above #player-stats-panel (180), quiz progress, header; mounted on .app so not clipped by #career-wrap perspective. */
+  z-index: 520;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2.5%;
+  width: min(60vw, 640px);
+  height: 2.3rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  transform: translateX(-50%) translateY(-42px) scale(0.72);
+  filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: translateY(var(--career-reveal-y, -10%))
+    scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
+  transform-origin: center bottom;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay-fallback {
+  width: min(38rem, 92%);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.55rem;
+  text-align: center;
+  background: rgba(10, 17, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #f8fafc;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.4vw, 1.55rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.career-reveal-sync-drop:not(.shorts-mode) .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay {
+  top: var(--career-player-box-top);
+  bottom: 0;
+  height: calc(100vh - var(--career-player-box-top));
+  overflow: hidden;
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay-img {
+  clip-path: inset(0 0 0 0);
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise-safe 1.15s cubic-bezier(0.2, 1, 0.25, 1) forwards;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay.show::after {
+  animation: career-reveal-shadow-drop 0.42s cubic-bezier(0.12, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes career-reveal-overlay-rise {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  /* Opacity/blur only: keeps a quick “materialize” without a second scale leg on transform. */
+  20% {
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.16);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+@keyframes career-reveal-overlay-rise-safe {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  18% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  28% {
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+@keyframes career-reveal-shadow-drop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-28px) scale(1);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(6px);
+  }
+}
+
+body:not(.shorts-mode) .career-reveal-name {
+  position: fixed;
+  left: 50%;
+  bottom: 2.4vh;
+  transform: translateX(-50%);
+  width: min(90vw, 1000px);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 530;
+}
+
+body:not(.shorts-mode) .career-reveal-name-top {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.35rem, 3.8vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+}
+
+body:not(.shorts-mode) .career-reveal-name-bottom {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.9rem, 9vw, 8.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.03em;
+  color: #ef4444;
+  text-shadow: 0 8px 26px rgba(0, 0, 0, 0.9), 0 0 16px rgba(239, 68, 68, 0.36);
+  white-space: nowrap;
+}
+
+body:not(.shorts-mode) .career-reveal-name.show {
+  animation: career-reveal-name-fade-in 0.92s ease both;
+}
+
+@keyframes career-reveal-name-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Video question-to-question: animate incoming road/player layer (avoid pop-in). */
+body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-svg,
+body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
+  animation: career-question-surface-enter 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+@keyframes career-question-surface-enter {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.career-path-outer {
+  fill: none;
+  stroke: #e2e8f0; 
+  stroke-width: 26;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-path-inner {
+  fill: none;
+  stroke: #0a1118;
+  stroke-width: 18;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-path-dash {
+  fill: none;
+  stroke: #ffffff; 
+  stroke-width: 4;
+  stroke-dasharray: 20 20;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  animation: dash-flow 1.5s linear infinite;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+@keyframes dash-flow { to { stroke-dashoffset: -40; } }
+
+.career-slots {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  transform: rotateX(15deg) translateY(-20%);
+  z-index: 10;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-club-slot {
+  position: absolute;
+  /* Counter-rotate the slot by -15deg so it faces straight to the camera */
+  transform: translate(-50%, -50%) rotateX(-15deg);
+  pointer-events: auto;
+  z-index: 10;
+  overflow: visible;
+}
+
+/* Video Mode / Play Video: hide in-slot controls (see syncCareerSlotControlsVisibility in pitch-render.js) */
+body.career-hide-slot-controls .career-badge-controls,
+body.career-hide-slot-controls .career-year-nudge-controls,
+body.career-hide-slot-controls .career-edit-btn {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Always hide floating Adjust Picture panel during Play Video flow. */
+body.play-video-active .career-picture-controls {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* − / + and ↑ / ↓ on one top row above each badge */
+.career-club-emblem-scale > .career-badge-controls {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  flex-shrink: 0;
+  margin-bottom: 0.12rem;
+  pointer-events: auto;
+}
+
+/* Regular road view: pin -/+ directly above each club symbol. */
+body:not(.shorts-mode) .career-club-emblem-scale {
+  position: relative;
+}
+
+body:not(.shorts-mode) .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, calc(-100% - 0.2rem));
+  margin: 0;
+}
+
+.career-badge-zoom-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-badge-zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-badge-zoom-btn:active {
+  transform: scale(0.94);
+}
+
+/* Legacy (kept harmless): old container under year, no longer used */
+.career-club-year-stack > .career-year-nudge-controls {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.career-year-nudge-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-year-nudge-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-year-nudge-btn:active {
+  transform: scale(0.94);
+}
+
+.career-slot-favorite-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-slot-favorite-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-slot-favorite-btn:active {
+  transform: scale(0.94);
+}
+
+.career-slot-favorite-btn.is-active {
+  color: #ff4d6d;
+  border-color: rgba(255, 77, 109, 0.9);
+  background: rgba(255, 77, 109, 0.24);
+}
+
+/* Fine-tune stack vs road anchor (smaller offset = slightly higher on screen) */
+body:not(.shorts-mode) .career-club-slot {
+  transform: translate(-50%, calc(-50% + 4px)) rotateX(-15deg);
+}
+
+/* Road view: 12px total motion, centered on anchor (not biased upward like global float-up-down) */
+@keyframes float-up-down-career-road {
+  0%,
+  100% {
+    transform: translate3d(0, 6px, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.career-club-slot-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+/* Outer shell only holds CSS vars; scaled cluster = zoom + crest + year (↑↓) so spacing scales together. */
+.career-club-badge-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+}
+
+.career-club-emblem-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  line-height: 0;
+  transform: scale(var(--career-badge-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* z-index + pass-through: when the year stack moves up over the crest, clicks must hit ↑/↓ (not the PNG). */
+.career-club-emblem-slot {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Year + nudge buttons share one translate so ↓ moves the controls with the pill (transform on year alone did not shift layout siblings). */
+.career-club-year-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateY(var(--career-year-nudge, 0px));
+  transform-origin: center top;
+}
+
+/* Year stays unscaled (crest scales in .career-club-emblem-scale only).
+   --career-img-bottom-slack: layout px of transparent padding under the crest (set from canvas scan in pitch-render.js). */
+.career-club-year-stack > .career-club-year {
+  margin: 0;
+  margin-top: calc(-3px - var(--career-img-bottom-slack, 0px));
+  padding: 0.06rem 0.55rem 0.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  pointer-events: none;
+  transform: scale(var(--career-year-inverse-scale, 1));
+  transform-origin: center top;
+}
+
+.career-club-slot-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: float-up-down-career-road 4s ease-in-out infinite;
+}
+
+/* Shorts grid keeps the shared global float (up from rest only) */
+body.shorts-mode .career-club-slot-inner {
+  animation: float-up-down 4s ease-in-out infinite;
+}
+
+.career-club-placeholder {
+  width: 195px;
+  height: 195px;
+  background: #ffffff; 
+  border: 4px solid #000; /* Fixed: Thick Black border added */
+  border-radius: 50%;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  position: relative;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Regular (road): box hugs the crest (no fixed square) so the year sits flush under every PNG */
+body:not(.shorts-mode) .career-club-placeholder {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  line-height: 0;
+  width: auto;
+  height: auto;
+  min-width: 3.75rem;
+  min-height: 3.75rem;
+  max-width: 195px;
+  max-height: 195px;
+}
+
+body:not(.shorts-mode) .career-club-placeholder:empty {
+  min-width: 4.875rem;
+  min-height: 4.875rem;
+}
+
+body:not(.shorts-mode) .career-club-logo-img {
+  display: block;
+  max-width: 195px;
+  max-height: 195px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-fallback-text {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  max-width: min(34vw, 360px);
+  padding: 0.25rem;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  line-height: 1.15;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+body:not(.shorts-mode) .career-club-fallback-text--solo {
+  display: none;
+  color: #000;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-fallback-text:not([hidden]) {
+  display: flex;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-placeholder:empty::after {
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+/* Edit button styling - hidden until hover */
+.career-edit-btn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: var(--accent);
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  display: none; 
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  transition: transform 0.2s;
+}
+
+.career-edit-btn:hover {
+  transform: scale(1.15);
+}
+
+.career-club-emblem-slot:hover .career-edit-btn {
+  display: flex;
+}
+
+.career-club-placeholder:empty::after {
+  content: '?';
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.8rem;
+  color: rgba(0,0,0,0.5);
+  font-weight: 800;
+}
+
+.career-club-year {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  background: #0a1118;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Regular layout: stats cards float on stage — matrix gaps are transparent so page blue shows between boxes. */
+body:not(.shorts-mode) .player-stats-panel {
+  --player-stat-navy: #002d72;
+  --player-stat-navy-deep: #001f52;
+  --player-stat-navy-highlight: #003b8f;
+  --player-stat-beige: #d2c4ad;
+  --player-stat-beige-mid: #c5b398;
+  --player-stat-beige-deep: #b5a088;
+  --player-stat-ink: #000000;
+  /* Matte grain (tileable SVG fractal noise). */
+  --player-stat-matte-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  /* Headlines smaller than stat values; values stay readable. */
+  --player-stat-head-font: clamp(0.93rem, 2.03vw, 1.32rem);
+  --player-stat-value-font: clamp(1.5rem, 4.13vw, 2.33rem);
+  --player-stat-equal-cell: clamp(3.05rem, 8.2vh, 4.55rem); /* min floor + clubs tile tuning */
+  /* Uniform gap between the six cards (rows + columns), mockup-style. */
+  --player-stats-grid-gap: clamp(0.5rem, 1.35vw, 0.72rem);
+
+  position: fixed;
+  left: 50%;
+  top: 1.5rem;
+  transform: translateX(-50%) scale(0.9);
+  transform-origin: top center;
+  z-index: 180;
+  width: min(94%, 1000px);
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  pointer-events: auto;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+/* Gaps between cards: transparent → full-page blue (html) shows through. */
+body:not(.shorts-mode) .player-stats-panel__matrix {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--player-stats-grid-gap);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: transparent;
+  border-radius: 0.75rem;
+  overflow: visible;
+}
+
+/* Main row: [ Games+Position | Clubs | Goals+Assists ] — side columns stay short; Clubs height does not push bottom cards down. */
+body:not(.shorts-mode) .player-stats-panel__row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: stretch;
+  gap: var(--player-stats-grid-gap);
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+body:not(.shorts-mode) .player-stats-panel__column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--player-stats-grid-gap);
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: visible;
+}
+
+/* Main stats row: wider center strip for 4 clubs per row; side columns a bit narrower. */
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stats-panel__column:first-child {
+  flex: 0.88 1 0;
+  margin-right: 1.8rem;
+}
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stats-panel__column:last-child {
+  flex: 0.88 1 0;
+  margin-left: 1.8rem;
+}
+
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__row--main > .player-stat-card--clubs-expanded {
+  flex: 1.56 1 0;
+  min-width: 0;
+}
+
+body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Regular nationality flag: fixed, ~15vw left of center; ~10% viewport above vertical center (regular mode). */
+body:not(.shorts-mode) .player-stats-national-flag {
+  position: fixed;
+  left: 50%;
+  top: 21%;
+  transform: translate(calc(-50% - 33vw), -50%);
+  /* Below .career-svg (z-index 12) so silhouette + SVG backdrop sit on top; .career-reveal-overlay (260) stays above when shown */
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(90.72vw, 35.64rem);
+  max-width: calc(100vw - 2rem);
+  pointer-events: none;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Three.js flag: canvas only — no card frame (no shadow / radius / clip). */
+body:not(.shorts-mode) .player-stats-national-flag__canvas-host {
+  display: block;
+  max-height: min(60.48vh, 23.76rem);
+  margin: 0 auto;
+  background: transparent;
+  user-select: none;
+  line-height: 0;
+}
+
+body:not(.shorts-mode) .player-stats-national-flag__canvas-host canvas {
+  display: block;
+  vertical-align: top;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Fixed height for every card except expanded Clubs. */
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card:not(.player-stat-card--clubs-expanded),
+body:not(.shorts-mode) .player-stats-panel__column > .player-stat-card:not(.player-stat-card--clubs-expanded) {
+  height: calc(2 * var(--player-stat-equal-cell));
+}
+
+body:not(.shorts-mode) .player-stats-panel__row > .player-stat-card--clubs-expanded {
+  /* Fixed height: match the two side cards stacked (2 × 2-cell cards + gap). */
+  height: calc(4 * var(--player-stat-equal-cell) + var(--player-stats-grid-gap));
+  min-height: 0;
+  background: transparent;
+}
+
+body:not(.shorts-mode) .player-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+body:not(.shorts-mode) .player-stat-card__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
+  font-weight: 800;
+  font-size: var(--player-stat-head-font);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b8c8dc;
+  text-shadow: 0 0 6px rgba(100, 180, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 0.28rem 0.38rem;
+  line-height: 1.12;
+  flex: 1 1 0;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 30, 80, 0.72) 0%,
+      rgba(0, 18, 55, 0.58) 50%,
+      rgba(0, 12, 42, 0.68) 100%
+    );
+  border-bottom: 1px solid rgba(100, 180, 255, 0.15);
+}
+
+/* Fixed header band on every stats card (Clubs + sides) — same pixel height as one equal cell. */
+body:not(.shorts-mode) .player-stats-panel .player-stat-card__head {
+  flex: 0 0 var(--player-stat-equal-cell);
+  flex-shrink: 0;
+  min-height: var(--player-stat-equal-cell);
+  height: var(--player-stat-equal-cell);
+  max-height: var(--player-stat-equal-cell);
+}
+
+body:not(.shorts-mode) .player-stat-card__label {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+body:not(.shorts-mode) .player-stat-card__value {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #c8d4e4;
+  font-size: var(--player-stat-value-font);
+  font-weight: 900;
+  font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(100, 200, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 25, 50, 0.55) 0%,
+      rgba(5, 15, 35, 0.65) 100%
+    );
+  border-top: 1px solid rgba(100, 180, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs {
+  padding: 0.38rem 0.42rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--player-stat-ink);
+  font-size: inherit;
+  overflow: hidden;
+}
+
+body:not(.shorts-mode) .player-stat-card--clubs-expanded .player-stat-card__value--clubs {
+  flex: 1 1 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.32rem;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-track--expanded {
+  flex: 1 1 0;
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.2rem 0;
+}
+
+/* Clubs row: flex row with centered logos that scale based on count. */
+body:not(.shorts-mode) .player-stat-clubs-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: var(--player-stat-club-gap, 0.28rem);
+  width: 100%;
+  min-height: 0;
+  flex: 1 1 0;
+}
+
+/* Offset row: bottom row with fewer items, shifted so logos sit between the ones above. */
+body:not(.shorts-mode) .player-stat-clubs-row--offset {
+  padding-inline: var(--player-stat-row-offset, 0);
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) .player-stat-clubs-row .player-stat-club-item {
+  width: var(--player-stat-club-size, 3.5rem);
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Club item sizing is driven by --player-stat-club-size set in JS based on total count. */
+body:not(.shorts-mode) .player-stat-club-item {
+  flex: 0 0 auto;
+  position: relative;
+  width: var(--player-stat-club-size, 3.5rem);
+  height: var(--player-stat-club-size, 3.5rem);
+  pointer-events: auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body:not(.shorts-mode) .player-stat-club-item .career-club-slot-inner {
+  animation: none !important;
+}
+
+/* X remove button — red version of the +/- zoom buttons, inline in the controls row. */
+body:not(.shorts-mode) .career-club-remove-btn {
+  background: #dc2626 !important;
+  color: #fff !important;
+}
+body:not(.shorts-mode) .career-club-remove-btn:hover {
+  background: #b91c1c !important;
+}
+
+/* Crests centered in fixed-height clubs box. */
+body:not(.shorts-mode)
+  .player-stat-card__value--clubs
+  .player-stat-club-item
+  .career-club-slot-inner {
+  transform: none;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  bottom: -0.05rem;
+  top: auto;
+  transform: translateX(-50%) scale(0.62);
+  transform-origin: center bottom;
+  margin: 0;
+  z-index: 2;
+  gap: 0.12rem;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .player-stat-club-item {
+  padding-bottom: 0.4rem;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder {
+  /* Size driven by --player-stat-club-size set in JS based on club count. */
+  width: var(--player-stat-club-size, 3.5rem);
+  height: var(--player-stat-club-size, 3.5rem);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  line-height: 0;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-placeholder:empty {
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-club-logo-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+body:not(.shorts-mode) .player-stat-card__value--clubs .career-edit-btn {
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 0.68rem;
+  top: -4px;
+  right: -4px;
+}
+
+/* Road/career CSS uses position:absolute + 3D transforms on .career-club-slot; stats tiles must stay in-flow. */
+body:not(.shorts-mode) #player-stats-panel .player-stat-club-item.career-club-slot {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  z-index: 1;
+}
+
+/* Missing logo: show club name (pitch-render toggles [hidden] on .career-club-fallback-text after fallbacks exhaust). */
+body:not(.shorts-mode) #player-stats-panel .career-club-fallback-text:not([hidden]) {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--player-stat-ink);
+  font-size: clamp(0.48rem, 1.45vw, 0.7rem);
+  font-weight: 800;
+  line-height: 1.1;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0.08rem 0.12rem;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) #player-stats-panel .career-club-slot-visual,
+body:not(.shorts-mode) #player-stats-panel .career-club-badge-scale,
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-scale {
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-slot {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  justify-content: center;
+}
+
+/* Road rule pins −/+ above the crest; keep bottom-bar layout inside stats panel only. */
+body:not(.shorts-mode) #player-stats-panel .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  top: auto;
+  bottom: -0.05rem;
+  transform: translateX(-50%) scale(0.62);
+  transform-origin: center bottom;
+  margin: 0;
+}
+
+/* Main Runner - Four parameters - Regular: empty question stage */
+.placeholder-question-label {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.42);
+  font-weight: 800;
+  font-size: clamp(1rem, 3.5vw, 1.6rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.placeholder-question-stage {
+  display: none;
+}

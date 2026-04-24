@@ -174,15 +174,27 @@ def _split_club_vs_national_html(html: str) -> tuple[str, str]:
 
 
 def _find_shirt_items_table(html_fragment: str) -> Optional[str]:
-    for m in re.finditer(
-        r'(?is)<table[^>]*class="[^"]*\bitems\b[^"]*"[^>]*>.*?</table>',
-        html_fragment,
-    ):
+    """Locate the club shirt-history ``items`` table; TM uses EN/DE/FR/ES/IT headers."""
+    season_hdr = r"(?:Season|Saison|Spielzeit|Temporada|Stagione|Epoca|Época)"
+    jersey_hdr = (
+        r"(?:Jersey\s+number|Rückennummer|Back\s+number|Trikotnummer|"
+        r"Numéro|Numero|N\.\s*°|Shirt|Maillot|Camiseta|Maglia|Dorsal)"
+    )
+    tables = list(
+        re.finditer(
+            r'(?is)<table[^>]*class="[^"]*\bitems\b[^"]*"[^>]*>.*?</table>',
+            html_fragment,
+        )
+    )
+    for m in tables:
         block = m.group(0)
-        if re.search(r"Season", block, re.I) and re.search(
-            r"(?:Jersey\s+number|Rückennummer|Back\s+number|Trikotnummer)",
-            block,
-            re.I,
+        if re.search(season_hdr, block, re.I) and re.search(jersey_hdr, block, re.I):
+            return block
+    # Some locales still use ``items`` but abbreviate headers; require a season-like cell.
+    for m in tables:
+        block = m.group(0)
+        if re.search(r"\b\d{2}/\d{2}\b", block) and re.search(
+            r"(?:Jersey|Numéro|Numero|Shirt|Maillot|Trikot|Rücken)", block, re.I
         ):
             return block
     return None
@@ -190,6 +202,45 @@ def _find_shirt_items_table(html_fragment: str) -> Optional[str]:
 
 def _norm_name(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", (s or "").lower())
+
+
+def _club_label_word_overlap(a: str, b: str) -> bool:
+    """Match short JSON names (e.g. ``ASO Chlef``) to long TM club strings (official name)."""
+    def tokens(s: str) -> set[str]:
+        return {
+            w
+            for w in re.findall(r"[a-z0-9à-ÿ]+", (s or "").lower(), flags=re.I)
+            if len(w) >= 4
+        }
+
+    wa, wb = tokens(a), tokens(b)
+    if wa & wb:
+        return True
+    na, nb = _norm_name(a), _norm_name(b)
+    for w in wa:
+        if len(w) >= 5 and w in nb:
+            return True
+    for w in wb:
+        if len(w) >= 5 and w in na:
+            return True
+    return False
+
+
+def _row_club_text_for_match(cells: list[str]) -> str:
+    """Build club label from a shirt-history row.
+
+    Transfermarkt often splits **Club** across two ``td`` cells (crest image with
+    empty text, then the linked club name). ``cells`` then looks like
+    ``['25/26', '', 'Tottenham Hotspur', '7']``. The jersey number is almost always
+    the last cell, so we join non-empty middle cells for matching.
+    """
+    if len(cells) < 2:
+        return ""
+    if len(cells) >= 3:
+        parts = [c.strip() for c in cells[1:-1] if c.strip()]
+        if parts:
+            return " ".join(parts)
+    return (cells[1] or "").strip()
 
 
 def _club_labels_match(squad_file_name: str, row_club_cell: str) -> bool:
@@ -202,13 +253,16 @@ def _club_labels_match(squad_file_name: str, row_club_cell: str) -> bool:
         return True
     if na in nb or nb in na:
         return True
+
     def _core(x: str) -> str:
         for suf in ("fc", "cf", "sc", "afc", "ac", "bc"):
             if x.endswith(suf) and len(x) > len(suf) + 2:
                 return x[: -len(suf)]
         return x
 
-    return _core(na) == _core(nb) or _core(na) in _core(nb) or _core(nb) in _core(na)
+    if _core(na) == _core(nb) or _core(na) in _core(nb) or _core(nb) in _core(na):
+        return True
+    return _club_label_word_overlap(a, b)
 
 
 def _parse_int_jersey(cell: str) -> Optional[int]:
@@ -230,10 +284,44 @@ def _jersey_from_row_cells(cells: list[str]) -> Optional[int]:
     return None
 
 
+def _season_labels_for_matching(primary: str, data: dict[str, Any]) -> list[str]:
+    """TM shirt-history tables use ``25/26`` in the Season column; some squad JSON files
+    store only ``cyclicalName`` / a 4-digit year in ``source.season.label`` (e.g. ``2026``).
+    Build a small ordered list of labels to try against the table.
+    """
+    out: list[str] = []
+
+    def add(s: str) -> None:
+        t = (s or "").strip()
+        if t and t not in out:
+            out.append(t)
+
+    add(primary)
+    src = data.get("source") if isinstance(data.get("source"), dict) else {}
+    sea = src.get("season") if isinstance(src.get("season"), dict) else {}
+    sid_raw = sea.get("seasonId")
+    sid: Optional[int] = None
+    if isinstance(sid_raw, int):
+        sid = sid_raw
+    elif isinstance(sid_raw, str) and sid_raw.strip().isdigit():
+        sid = int(sid_raw.strip())
+    if sid is not None and 1990 <= sid <= 2100:
+        yy = sid % 100
+        nyy = (sid + 1) % 100
+        add(f"{yy:02d}/{nyy:02d}")
+        # TM sometimes prints full calendar years in the Season column (e.g. Algeria).
+        add(f"{sid}/{sid + 1}")
+        add(f"{sid}-{sid + 1}")
+    cycl = sea.get("cyclicalName")
+    if isinstance(cycl, str) and re.match(r"^\d{4}$", cycl.strip()):
+        add(cycl.strip())
+    return out
+
+
 def parse_shirt_number_for_season(
     html: str,
     *,
-    season_label: str,
+    season_labels: list[str],
     squad_name: str,
     national_team: bool,
 ) -> Optional[int]:
@@ -246,7 +334,10 @@ def parse_shirt_number_for_season(
     table = _find_shirt_items_table(fragment)
     if not table:
         return None
-    season_label = (season_label or "").strip()
+    aliases = [s.strip() for s in season_labels if (s or "").strip()]
+    if not aliases:
+        return None
+    alias_set = set(aliases)
     hits: list[int] = []
     for m in re.finditer(r"<tr[^>]*>(.*?)</tr>", table, re.I | re.DOTALL):
         inner = m.group(1)
@@ -255,10 +346,10 @@ def parse_shirt_number_for_season(
             continue
         if re.match(r"^season$", cells[0].strip(), re.I):
             continue
-        if (cells[0].strip()) != season_label:
+        if cells[0].strip() not in alias_set:
             continue
-        club_cell = cells[1] if len(cells) > 1 else ""
-        if not _club_labels_match(squad_name, club_cell):
+        club_blob = _row_club_text_for_match(cells)
+        if not _club_labels_match(squad_name, club_blob):
             continue
         j = _jersey_from_row_cells(cells)
         if j is not None:
@@ -271,7 +362,7 @@ def parse_shirt_number_for_season(
         cells = _td_texts_from_tr(m.group(1))
         if len(cells) < 2 or re.match(r"^season$", cells[0].strip(), re.I):
             continue
-        if cells[0].strip() != season_label:
+        if cells[0].strip() not in alias_set:
             continue
         j = _jersey_from_row_cells(cells)
         if j is not None:
@@ -336,6 +427,9 @@ async def fill_file(
         print("error: JSON missing top-level name", file=sys.stderr, flush=True)
         return 2
 
+    season_labels = _season_labels_for_matching(season_label, data)
+    season_try_hint = ", ".join(season_labels)
+
     sem = io_sem if io_sem is not None else asyncio.Semaphore(max(1, concurrency))
     try:
         async with sem:
@@ -370,7 +464,7 @@ async def fill_file(
             html = await _fetch_tm_html_prefer_session(tmkt, path_shirt)
         num = parse_shirt_number_for_season(
             html,
-            season_label=season_label,
+            season_labels=season_labels,
             squad_name=squad_name,
             national_team=national_team,
         )
@@ -389,7 +483,8 @@ async def fill_file(
         n = await shirt_for_pid(pid, rel)
         if n is None:
             return False, "no_shirt", (
-                f"no {season_label!r} shirt row for {pname!r} (pid={pid})"
+                f"no shirt row (seasons tried: {season_try_hint!r}) for {pname!r} "
+                f"(pid={pid})"
             )
         if pl.get("shirt_number") != n:
             pl["shirt_number"] = n
@@ -460,16 +555,32 @@ async def fill_directory(
     continue_on_error: bool,
     parallel_teams: int,
     max_in_flight: int,
+    from_index: Optional[int],
+    to_index: Optional[int],
 ) -> int:
-    paths = _collect_squad_json_files(root)
-    if not paths:
+    paths_all = _collect_squad_json_files(root)
+    if not paths_all:
         print(f"error: no squad JSON files under {root}", file=sys.stderr, flush=True)
         return 2
-    n_paths = len(paths)
+    n_all = len(paths_all)
+    lo = 1 if from_index is None else int(from_index)
+    hi = n_all if to_index is None else int(to_index)
+    if lo < 1 or hi > n_all or lo > hi:
+        print(
+            f"error: invalid --from-index/--to-index (have {n_all} files): "
+            f"need 1 <= from <= to <= {n_all}, got from={lo} to={hi}",
+            file=sys.stderr,
+            flush=True,
+        )
+        return 2
+    work_items: list[tuple[Path, int]] = [
+        (p, lo + i) for i, p in enumerate(paths_all[lo - 1 : hi])
+    ]
     pt = max(1, int(parallel_teams))
     cap = max(1, int(max_in_flight))
     print(
-        f"Found {n_paths} squad files under {root} "
+        f"Found {n_all} squad files under {root}; "
+        f"processing indices {lo}-{hi} ({len(work_items)} files) "
         f"(parallel_teams={pt}, max_in_flight={cap})",
         file=sys.stderr,
         flush=True,
@@ -478,18 +589,15 @@ async def fill_directory(
     io_sem = asyncio.Semaphore(cap)
     team_sem = asyncio.Semaphore(pt)
     log_lock = asyncio.Lock()
-    done_counter = 0
 
     async with TMKT() as tmkt:
 
-        async def run_one(path: Path) -> int:
-            nonlocal done_counter
+        async def run_one(item: tuple[Path, int]) -> int:
+            path, idx1 = item
             async with team_sem:
                 async with log_lock:
-                    done_counter += 1
-                    cur = done_counter
                     print(
-                        f"\n--- [{cur}/{n_paths}] start {path} ---",
+                        f"\n--- [{idx1}/{n_all}] start {path} ---",
                         file=sys.stderr,
                         flush=True,
                     )
@@ -524,10 +632,10 @@ async def fill_directory(
                     return 2
 
         results = await asyncio.gather(
-            *(run_one(p) for p in paths),
+            *(run_one(it) for it in work_items),
             return_exceptions=True,
         )
-        for path, r in zip(paths, results):
+        for (path, _idx1), r in zip(work_items, results):
             if isinstance(r, Exception):
                 print(
                     f"error: task failed {path}: {r}",
@@ -612,8 +720,33 @@ def main() -> int:
         action="store_true",
         help="With a directory: stop at the first file that fails instead of continuing.",
     )
+    ap.add_argument(
+        "--from-index",
+        type=int,
+        default=None,
+        metavar="N",
+        help="Directory only: 1-based start index in the sorted full file list (default: 1).",
+    )
+    ap.add_argument(
+        "--to-index",
+        type=int,
+        default=None,
+        metavar="N",
+        help=(
+            "Directory only: 1-based end index inclusive in the sorted full file list "
+            "(default: last file)."
+        ),
+    )
     args = ap.parse_args()
     p = args.json_path.resolve()
+    if args.from_index is not None or args.to_index is not None:
+        if not p.is_dir():
+            print(
+                "error: --from-index / --to-index are only valid when json_path is a folder",
+                file=sys.stderr,
+                flush=True,
+            )
+            return 2
     if p.is_dir():
         return asyncio.run(
             fill_directory(
@@ -625,6 +758,8 @@ def main() -> int:
                 continue_on_error=not bool(args.stop_on_error),
                 parallel_teams=int(args.parallel_teams),
                 max_in_flight=int(args.max_in_flight),
+                from_index=args.from_index,
+                to_index=args.to_index,
             )
         )
     if not p.is_file():

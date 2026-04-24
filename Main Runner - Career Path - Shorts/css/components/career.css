@@ -150,6 +150,11 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   will-change: filter, transform;
 }
 
+.career-silhouette.career-silhouette--photo {
+  pointer-events: auto;
+  -webkit-user-drag: none;
+}
+
 .career-photo-missing-label {
   paint-order: stroke fill;
   stroke: #0a1118;
@@ -598,7 +603,9 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
   position: absolute;
   /* Counter-rotate the slot by -15deg so it faces straight to the camera */
   transform: translate(-50%, -50%) rotateX(-15deg);
-  pointer-events: auto;
+  /* Pass clicks through the slot shell so double-clicks reach the player photo / Shorts reveal;
+     interactive pieces set their own pointer-events: auto. */
+  pointer-events: none;
   z-index: 10;
   overflow: visible;
 }
@@ -1181,4 +1188,355 @@ body.play-video-active .career-logo-fetch-btn {
   background: #0a1118;
   border-radius: 5px;
   border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* “Get photo” — same behaviour as Career Path Regular (URL modal + Ready photos). */
+.career-reveal-photo-img,
+.career-reveal-overlay-img {
+  -webkit-user-drag: none;
+}
+
+.career-get-photo-actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  --career-get-photo-line-top: calc(36vh - 40%);
+  top: var(--career-get-photo-line-top);
+  margin-inline: auto;
+  width: fit-content;
+  max-width: min(22rem, 92%);
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  pointer-events: auto;
+}
+
+.career-get-photo-buttons-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+body:not(.shorts-mode) .career-get-photo-actions {
+  --career-get-photo-line-top: calc(34vh - 40%);
+  top: var(--career-get-photo-line-top);
+}
+
+/* Match `body.shorts-mode .career-clear-player-btn` top (5.5vh) in css/modes/shorts.css */
+body.shorts-mode .career-get-photo-actions {
+  --career-get-photo-line-top: 5.5vh;
+  top: 5.5vh;
+}
+
+body.play-video-active .career-get-photo-actions {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.career-get-photo-btn {
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(8, 20, 28, 0.92);
+  color: #e8fff8;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.career-get-photo-btn:hover:not(:disabled) {
+  background: rgba(20, 60, 52, 0.95);
+  border-color: rgba(200, 255, 244, 0.55);
+}
+
+.career-get-photo-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.career-get-photo-btn--switch {
+  padding: 0.32rem 0.55rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.career-get-photo-hint {
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: rgba(248, 250, 252, 0.92);
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.career-get-photo-hint--error {
+  color: #fecaca;
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+/* Shorts: pick Ready photo variant (opened from Get photo row). */
+.career-ready-photo-switch-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: 1rem;
+  padding-top: max(1rem, env(safe-area-inset-top, 0px));
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  pointer-events: none;
+  background: rgba(0, 8, 14, 0.78);
+}
+
+.career-ready-photo-switch-modal--portal {
+  z-index: 101000;
+  pointer-events: auto;
+}
+
+.career-ready-photo-switch-modal[hidden] {
+  display: none !important;
+}
+
+.career-ready-photo-switch-modal__panel {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: min(22rem, calc(100vw - 2rem));
+  max-width: 100%;
+  margin-top: min(10vh, 5rem);
+  padding: 0.85rem 0.95rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #0f1724;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.career-ready-photo-switch-modal__title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent, #ffca28);
+  text-align: center;
+}
+
+.career-ready-photo-switch-modal__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+  gap: 0.45rem;
+  max-height: min(52vh, 22rem);
+  overflow: auto;
+  padding: 0.1rem;
+}
+
+.career-ready-photo-switch-modal__loading,
+.career-ready-photo-switch-modal__empty {
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(248, 250, 252, 0.88);
+  padding: 0.75rem 0.35rem;
+}
+
+.career-ready-photo-switch-option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.28rem;
+  padding: 0.35rem;
+  margin: 0;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  color: #e8fff8;
+  font: inherit;
+  text-align: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.career-ready-photo-switch-option:hover {
+  border-color: rgba(200, 255, 244, 0.45);
+  background: rgba(20, 60, 52, 0.45);
+}
+
+.career-ready-photo-switch-option--current {
+  border-color: rgba(255, 202, 40, 0.75);
+  box-shadow: 0 0 0 1px rgba(255, 202, 40, 0.35);
+}
+
+.career-ready-photo-switch-option__img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.career-ready-photo-switch-option__label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.career-ready-photo-switch-modal__footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.15rem;
+}
+
+.career-ready-photo-switch-modal__btn-close {
+  padding: 0.35rem 1rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.career-ready-photo-switch-modal__btn-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.career-ready-photo-url-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: 0;
+  pointer-events: none;
+}
+
+.career-ready-photo-url-modal.career-ready-photo-url-modal--portal {
+  z-index: 101000;
+}
+
+.career-ready-photo-url-modal[hidden] {
+  display: none !important;
+}
+
+.career-ready-photo-url-modal__panel {
+  position: absolute;
+  top: calc(36vh - 40% + 20%);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  box-sizing: border-box;
+  width: min(32rem, calc(100vw - 2rem));
+  max-width: 100%;
+  padding: 1.1rem 1.15rem 1rem;
+  border-radius: 0.5rem;
+  background: #0f1724;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  pointer-events: auto;
+}
+
+body:not(.shorts-mode) .career-ready-photo-url-modal__panel {
+  top: calc(34vh - 40% + 20%);
+}
+
+body.shorts-mode .career-ready-photo-url-modal__panel {
+  top: 5.5vh;
+}
+
+.career-ready-photo-url-modal__title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+.career-ready-photo-url-modal__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(2, 8, 14, 0.95);
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.career-ready-photo-url-modal__input:focus {
+  outline: 2px solid rgba(52, 211, 153, 0.55);
+  outline-offset: 1px;
+}
+
+.career-ready-photo-url-modal__err {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: #fecaca;
+}
+
+.career-ready-photo-url-modal__err[hidden] {
+  display: none !important;
+}
+
+.career-ready-photo-url-modal__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.15rem;
+}
+
+.career-ready-photo-url-modal__btn {
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(15, 30, 40, 0.95);
+  color: #e2e8f0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.career-ready-photo-url-modal__btn:hover:not(:disabled) {
+  border-color: rgba(200, 255, 244, 0.45);
+}
+
+.career-ready-photo-url-modal__btn--primary {
+  background: rgba(20, 90, 72, 0.95);
+  border-color: rgba(110, 231, 183, 0.45);
+  color: #ecfdf5;
+}
+
+.career-ready-photo-url-modal__btn--primary:hover:not(:disabled) {
+  background: rgba(28, 120, 96, 0.98);
+}
+
+.career-ready-photo-url-modal__btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
 }

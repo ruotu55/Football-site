@@ -1,0 +1,264 @@
+/* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
+/* Hint compositor for smoother timeline transitions during video playback. */
+.stage-main,
+.logo-img-anim,
+.landing-page {
+  will-change: transform, opacity, filter;
+}
+
+@keyframes stage-exit-epic {
+  0% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+  /* Old screen clears out towards the bottom */
+  100% { transform: translateY(100vh); opacity: 0; filter: blur(2px); }
+}
+
+@keyframes stage-enter-epic {
+  /* New team screen slides IN FROM THE TOP (-100vh) like a window shade */
+  0% { transform: translateY(-100vh); opacity: 0; filter: blur(2px); }
+  100% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+}
+
+.stage-exit-anim {
+  animation: stage-exit-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+.stage-enter-anim {
+  animation: stage-enter-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+/* Video reveal transition: move from big-player reveal to next question smoothly. */
+@keyframes stage-exit-video-reveal {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1.14) translateY(-1.2vh);
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+@keyframes stage-enter-video-reveal {
+  0% {
+    transform: scale(1.14) translateY(-1.2vh);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.stage-exit-video-anim {
+  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+.stage-enter-video-anim {
+  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+/* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
+@keyframes logo-bounce-out {
+  0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
+  20% { transform: scale(1.15) translateY(-20px); opacity: 1; filter: blur(0); }
+  100% { transform: scale(0.1) translateY(300px); opacity: 0; filter: blur(5px); }
+}
+.logo-img-anim.bounce-out {
+  animation: logo-bounce-out 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards !important;
+}
+
+@keyframes landing-bounce-in {
+  /* Drops in from the top */
+  0% { transform: translateY(-100vh); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.landing-page.bounce-in {
+  animation: landing-bounce-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+/* NEW: Cool Shift Animation for Regular Mode */
+@keyframes logo-shift-top-right {
+  0% { transform: scale(1) translate(0, 0); opacity: 1; filter: blur(0px); }
+  100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; filter: blur(0px); }
+}
+.logo-img-anim.shift-top-right {
+  animation: logo-shift-top-right 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+/* ── Grid Transition Overlay ──────────────────────────────────────── */
+.grid-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: repeat(var(--gt-columns, 14), 1fr);
+  gap: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.grid-transition-overlay > div {
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+/* ── Bars Transition Overlays ─────────────────────────────────────── */
+.bars-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.bars-transition-overlay > span {
+  position: relative;
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+}
+
+.bars-transition-overlay.bars-left {
+  flex-direction: column;
+}
+
+.bars-transition-overlay.bars-left > span {
+  height: 100%;
+  width: 0%;
+}
+
+.bars-transition-overlay.bars-top > span {
+  height: 0%;
+  width: 100%;
+}
+
+/* ── Curtain Close Transition ─────────────────────────────────────── */
+.curtain-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.curtain-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50.5%;
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  will-change: transform;
+}
+
+.curtain-top {
+  top: 0;
+}
+
+.curtain-bottom {
+  top: 50%;
+}
+
+/* ── Skew Wipe Transition ─────────────────────────────────────────── */
+.skew-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: -25%;
+  width: 150%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  transform: scaleX(0) skewX(-40deg);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ── Shorts Mode: constrain transitions to 9:16 viewport ─────────── */
+body.shorts-mode .grid-transition-overlay,
+body.shorts-mode .bars-transition-overlay,
+body.shorts-mode .curtain-transition-overlay {
+  inset: auto;
+  top: 0;
+  left: calc((100vw - min(56.25vh, 100vw)) / 2);
+  width: min(56.25vh, 100vw);
+  height: 100vh;
+}
+
+body.shorts-mode .skew-transition-overlay {
+  --shorts-w: min(56.25vh, 100vw);
+  left: calc((100vw - var(--shorts-w)) / 2 - var(--shorts-w) * 0.25);
+  width: calc(var(--shorts-w) * 1.5);
+  height: 100vh;
+}
+
+/* Play Video post-timer reveal (shorts): focus pull — portrait grows to 1.10, the 4 param
+   cards recede to 0.90 and blur. Uses `animation` (not `transition`) because renderCareer
+   rebuilds the cards when the body class toggles, and animations play on mount while
+   transitions do not. Mirrors the Regular project's visual effect.
+
+   NOTE: the param cards have `backdrop-filter: blur(14px)`. Running a scale + filter
+   animation on top of backdrop-filter makes the browser re-sample the blurred-behind
+   content every frame, which shows up as a visible shimmer/shake. So we override the
+   backdrop-filter to `none` and bake an equivalent-looking frosted gradient into the
+   card background during the reveal — the visual is near-identical, but it composites
+   as a single layer and no longer shakes. */
+.career-wrap .career-portrait-card,
+.career-wrap .career-param-card {
+  transform-origin: 50% 50%;
+  will-change: transform, filter;
+}
+
+@keyframes career-post-timer-portrait-focus {
+  from { transform: scale(1); }
+  to   { transform: scale(1.10); }
+}
+
+@keyframes career-post-timer-param-recede {
+  from { transform: scale(1);    filter: blur(0); }
+  to   { transform: scale(0.90); filter: blur(6px); }
+}
+
+/* Regular answer reveal (non-fake-info): portrait pulls forward, all 4 stat cards recede. */
+body.career-play-video-answer-reveal:not(.fake-info-reveal) .career-wrap .career-portrait-card {
+  animation: career-post-timer-portrait-focus 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.career-play-video-answer-reveal:not(.fake-info-reveal) .career-wrap .career-param-card {
+  animation: career-post-timer-param-recede 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  /* Kill backdrop-filter during the animation — otherwise scale+filter re-samples the
+     blurred background each frame and the cards visibly shake. */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Fake-info reveal: mirrors Regular (`body.fake-info-reveal:not(.shorts-mode)` in the
+   Regular project's transitions.css). Portrait + the 3 non-fake stat cards recede
+   (scale 0.90) and blur (10px). The FAKE stat card pulls forward (scale 1.10) and stays
+   sharp so the viewer's eye lands on the fake value. */
+@keyframes career-post-timer-fake-focus {
+  from { transform: scale(1);    filter: blur(0); }
+  to   { transform: scale(1.10); filter: none; }
+}
+
+@keyframes career-post-timer-fake-recede {
+  from { transform: scale(1);    filter: blur(0); }
+  to   { transform: scale(0.90); filter: blur(10px); }
+}
+
+body.fake-info-reveal .career-wrap .career-param-card--fake-stat {
+  animation: career-post-timer-fake-focus 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  z-index: 5;
+}
+
+body.fake-info-reveal .career-wrap .career-param-card:not(.career-param-card--fake-stat) {
+  animation: career-post-timer-fake-recede 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}

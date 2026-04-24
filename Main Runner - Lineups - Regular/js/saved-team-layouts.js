@@ -24,9 +24,23 @@ const LEGACY_LS_KEYS = [
 
 const LEGACY_STORAGE_BUCKETS = ["lineups_shorts_team_layouts", "lineups_regular_team_layouts"];
 
+/**
+ * Normalize a team path to a single canonical key so that:
+ *   "../Squad Formation/..."  (old saved-script format)
+ *   "../.Storage/Squad Formation/..."  (current teams-index format)
+ * both map to the same entry in layoutsByPath.
+ */
+function canonicalizePath(p) {
+    if (!p || typeof p !== "string") return p;
+    // "../Squad Formation/..." → "../.Storage/Squad Formation/..."
+    return p.replace(/^(\.\.\/)(Squad Formation\/)/, "$1.Storage/$2");
+}
+
 /** @type {Record<string, object>} */
 let layoutsByPath = {};
 let pushTimer = null;
+/** Resolves when the initial server pull is complete (or immediately if not using HTTP server). */
+let pullPromise = null;
 
 function isNonEmptyLayoutsMap(obj) {
     return !!(obj && typeof obj === "object" && !Array.isArray(obj) && Object.keys(obj).length > 0);
@@ -101,8 +115,11 @@ function startPull() {
         typeof location !== "undefined" &&
         location.protocol === "http:" &&
         location.hostname !== "";
-    if (!active) return;
-    (async () => {
+    if (!active) {
+        pullPromise = Promise.resolve();
+        return;
+    }
+    pullPromise = (async () => {
         try {
             let data = null;
             const r = await fetch(`/__runner-json-blob/${encodeURIComponent(STORAGE_BUCKET)}`);
@@ -456,9 +473,15 @@ function syncSetupControlsFromState(state) {
 
 /**
  * After squad JSON is loaded: restore saved layout for this team path, or reset to defaults.
+ * Always waits for the initial server pull to finish so timing never causes a miss.
  */
 export async function applySavedTeamLayoutAfterLoad(state, teamEntry) {
-    const path = teamEntry && teamEntry.path;
+    // Wait for the server pull to complete before checking saved layouts.
+    // This guarantees the save is found even if the user picks a team quickly.
+    if (pullPromise) {
+        try { await pullPromise; } catch (_) { /* ignore fetch errors */ }
+    }
+    const path = canonicalizePath(teamEntry && teamEntry.path);
     const snap = path && layoutsByPath[path];
     if (!snap) {
         state.customXi = null;
@@ -515,7 +538,7 @@ export function refreshSaveTeamButtonUi() {
     }
     const vm = !!state.videoMode;
     const hasTeam = !!(state.selectedEntry && state.selectedEntry.path && state.currentSquad);
-    const path = state.selectedEntry && state.selectedEntry.path;
+    const path = canonicalizePath(state.selectedEntry && state.selectedEntry.path);
     const saved = !!(path && layoutsByPath[path]);
     targets.forEach((el) => applySaveTeamButtonState(el, vm, hasTeam, saved));
 }
@@ -524,9 +547,11 @@ function wireSaveTeamToggleClick() {
     const handler = () => {
         const state = getState();
         if (!state || state.videoMode) return;
-        const path = state.selectedEntry && state.selectedEntry.path;
+        const path = canonicalizePath(state.selectedEntry && state.selectedEntry.path);
         if (!path) return;
         if (layoutsByPath[path]) {
+            const ok = window.confirm("Are you sure you want to remove the saved team?");
+            if (!ok) return;
             delete layoutsByPath[path];
         } else {
             layoutsByPath[path] = serializeTeamLayoutSnapshot(state);
@@ -537,6 +562,87 @@ function wireSaveTeamToggleClick() {
     saveTeamToggleTargets().forEach((el) => {
         el.onclick = handler;
     });
+}
+
+/** Await the initial server pull so saved-layout lookups reflect server state. */
+export async function ensureSavedLayoutsLoaded() {
+    if (pullPromise) {
+        try { await pullPromise; } catch (_) { /* ignore fetch errors */ }
+    }
+}
+
+/** Returns true if the given team entry has a saved layout. */
+export function hasSavedLayoutForEntry(entry) {
+    const path = canonicalizePath(entry?.path);
+    return !!(path && layoutsByPath[path]);
+}
+
+/**
+ * Rehydrate the saved layout for the given team entry into fields suitable for
+ * embedding directly in a saved-script level. Returns null if no saved layout.
+ */
+export async function buildImportLevelDataFromSavedLayout(entry, squad) {
+    await ensureSavedLayoutsLoaded();
+    const path = canonicalizePath(entry?.path);
+    const snap = path && layoutsByPath[path];
+    if (!snap) return null;
+    if (snap.squadType === "national") {
+        await ensureInternationalClubPoolLoaded();
+    }
+    const state = {
+        currentSquad: squad,
+        slotPhotoIndexBySlot: new Map(),
+    };
+    applyTeamLayoutSnapshot(state, snap);
+    const pool = buildRehydrationPlayerPool(state, squad);
+    rehydrateCustomXiFromPool(state, pool);
+    dedupeCustomXiByPlayerIdentity(state);
+    repairCustomXiMissingPlayers(state, snap, pool);
+    return {
+        squadType: state.squadType,
+        formationId: state.formationId,
+        lastFormationId: state.lastFormationId,
+        displayMode: state.displayMode,
+        customXi: state.customXi,
+        customNames: state.customNames,
+        headerLogoScale: state.headerLogoScale,
+        headerLogoNudgeX: state.headerLogoNudgeX,
+        headerLogoOverrideRelPath: state.headerLogoOverrideRelPath,
+        slotClubCrestOverrideRelPathBySlot: state.slotClubCrestOverrideRelPathBySlot,
+        slotFlagScales: state.slotFlagScales,
+        slotTeamLogoScales: state.slotTeamLogoScales,
+        slotPhotoIndexEntries: Array.from(state.slotPhotoIndexBySlot.entries()),
+    };
+}
+
+/** Returns true if the currently selected team entry has a saved layout. */
+export function hasSavedTeamForCurrentEntry() {
+    const state = getState();
+    const path = canonicalizePath(state?.selectedEntry?.path);
+    return !!(path && layoutsByPath[path]);
+}
+
+/** Deletes the saved layout for the currently selected team and persists. */
+export function deleteSavedTeamForCurrentEntry() {
+    const state = getState();
+    const path = canonicalizePath(state?.selectedEntry?.path);
+    if (path && layoutsByPath[path]) {
+        delete layoutsByPath[path];
+        persist();
+        refreshSaveTeamButtonUi();
+    }
+}
+
+/**
+ * If the current team has a saved layout, ask the user to confirm removing it.
+ * Returns true if it's safe to proceed (no save, or user confirmed).
+ * Deletes the save if the user confirms.
+ */
+export function confirmAndDeleteSaveIfPresent() {
+    if (!hasSavedTeamForCurrentEntry()) return true;
+    const ok = window.confirm("Are you sure you want to remove the saved team?");
+    if (ok) deleteSavedTeamForCurrentEntry();
+    return ok;
 }
 
 export function initSavedTeamLayouts() {

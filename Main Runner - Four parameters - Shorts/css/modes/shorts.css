@@ -1,0 +1,1785 @@
+/* css/modes/shorts.css */
+
+/* =========================================
+   SHORTS MODE (9:16 Vertical Video)
+   ========================================= */
+body.shorts-mode {
+    background: #000000;
+    /* Shared with .career-grid band math (siblings, not nested) */
+    --shorts-quiz-progress-bottom: calc(2.8rem + 4vh);
+}
+
+html.shorts-mode {
+    background: #000000 !important;
+}
+
+html.shorts-mode::before,
+html.shorts-mode::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: max(0px, calc((100vw - min(56.25vh, 100vw)) / 2));
+    background: #000000;
+    pointer-events: none;
+    z-index: 2;
+}
+
+html.shorts-mode::before {
+    left: 0;
+}
+
+html.shorts-mode::after {
+    right: 0;
+}
+
+body.shorts-mode .app {
+    position: relative;
+    z-index: 10 !important;
+}
+
+body.shorts-mode .stage {
+    background: transparent;
+    position: relative;
+    /* Avoid clipping career grid / progress bar at the bottom edge */
+    overflow: visible;
+    /* Match Lineups Shorts: flat stage so header Vol/X (position:fixed) use the viewport, not .stage perspective. */
+    perspective: none;
+}
+
+/* Static green 9:16 backdrop so it doesn't shrink during animations */
+body.shorts-mode .stage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56.25vh;
+    height: 100vh;
+    background: transparent;
+    box-shadow: none;
+    z-index: -1;
+    pointer-events: none;
+}
+
+body.shorts-mode .side-text {
+    display: none;
+}
+
+body.shorts-mode .stage-main {
+    width: 56.25vh;
+    height: 100vh;
+    flex: none;
+    margin: 0 auto;
+    background: transparent;
+    position: relative;
+    /* Was clipping career grid / bottom UI as a hard horizontal cut */
+    overflow: visible;
+    /* Avoid vertically re-centering when team-header height changes (Video Mode / Play Video). */
+    justify-content: flex-start;
+}
+
+body.shorts-mode .logo-page {
+    display: none !important;
+}
+
+body.shorts-mode .landing-page {
+    justify-content: center;
+    align-items: center;
+}
+
+body.shorts-mode .landing-hero-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 100%;
+    gap: clamp(1rem, 3.2vh, 2.25rem);
+    padding: 0 0.75rem;
+    padding-bottom: max(4.5rem, 11vh);
+    box-sizing: border-box;
+    /* Net ~5% viewport down from center (was 10vh, moved 5% up) */
+    transform: translateY(5vh);
+}
+
+body.shorts-mode .landing-hero-text {
+    text-align: center;
+    flex-shrink: 0;
+    max-width: 95%;
+}
+
+body.shorts-mode .landing-title {
+    font-size: clamp(1.85rem, 6.2vmin, 2.85rem);
+    line-height: 0.98;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    max-width: 100%;
+    text-transform: none;
+}
+
+body.shorts-mode .landing-subtitle {
+    font-size: clamp(1.35rem, 4.2vmin, 1.85rem);
+    margin-bottom: 0;
+    text-transform: none;
+}
+
+body.shorts-mode .shorts-landing-logo {
+    display: block;
+    width: 42%;
+    max-width: 220px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.55));
+    animation: float-up-down 3.2s ease-in-out infinite;
+}
+
+body.shorts-mode .difficulty-box {
+    display: none !important;
+}
+
+body.shorts-mode .landing-special-badge-container {
+    left: 50%;
+    top: 17%;
+    margin: 0;
+    transform: translate(-50%, -50%) scale(1);
+    animation: float-up-down-special-badge-shorts 3.2s ease-in-out infinite;
+}
+
+body.shorts-mode .team-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 500;
+    height: 20vh;
+    margin-top: clamp(-10vh, -8vmin, -6vh);
+    margin-bottom: 0.5rem;
+    gap: 0.4rem;
+    width: 100%;
+    transition: height 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s, margin 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
+}
+
+body.shorts-mode .team-header[hidden] {
+    display: none !important;
+}
+
+body.shorts-mode .team-header.video-hidden {
+    height: 20vh !important;
+    margin-top: clamp(-10vh, -8vmin, -6vh) !important;
+    margin-bottom: 0.5rem !important;
+    overflow: hidden;
+    /* Keep layout space; hide crest/title only so fixed Vol/X stay visible (see team-header.css). */
+    opacity: 1;
+    pointer-events: none;
+}
+
+body.shorts-mode .team-header.video-hidden .team-header-logo,
+body.shorts-mode .team-header.video-hidden .team-header-name {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body.shorts-mode .team-header.video-revealed {
+    height: 20vh !important;
+    margin-top: clamp(-10vh, -8vmin, -6vh) !important;
+    margin-bottom: 0.5rem !important;
+    overflow: visible;
+    opacity: 1;
+    animation: header-slide-in-shorts 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.shorts-mode .team-header-logo {
+    height: 6.96rem;
+    width: 9.12rem;
+    object-fit: contain;
+    margin: 0 auto;
+    margin-bottom: -1.2rem;
+}
+
+body.shorts-mode .team-header[data-squad-type="national"] .team-header-logo {
+    height: 4.87rem;
+    width: 6.38rem;
+    margin-bottom: 0rem;
+}
+
+body.shorts-mode .team-header-name {
+    font-size: clamp(1.8rem, 5.5vh, 3.8rem);
+    white-space: normal;
+    text-wrap: balance;
+    text-align: center;
+    line-height: 0.95;
+    margin: 0 auto;
+    width: 95%;
+}
+
+/* Reveal: stylized name lives in #career-reveal-name — hide duplicate full-line header title. */
+body.shorts-mode .team-header.video-revealed .team-header-name {
+    display: none !important;
+}
+
+/* Keep header vertical layout stable in shorts while video is playing. */
+body.shorts-mode.play-video-active .team-header-controls-row {
+    display: flex; /* Override generic play-video hide (display:none). */
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body.shorts-mode .pitch-wrap {
+    align-items: flex-start;
+    margin-top: 2.5vh;
+    padding-top: 0;
+    transform: scale(0.855) translateY(0);
+    transform-origin: top center;
+}
+
+body.shorts-mode .team-header.video-hidden+.pitch-wrap {
+    transform: scale(0.855) translateY(0);
+}
+
+body.shorts-mode .pitch-surface {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0 auto;
+    transform: rotateX(25deg) translateY(-15%);
+}
+
+body.shorts-mode .player-slot {
+    width: 14%;
+}
+
+body.shorts-mode .slot-name {
+    font-size: clamp(0.7rem, 1.4vh, 1.1rem);
+}
+
+body.shorts-mode .quiz-progress {
+    flex-direction: row;
+    top: auto;
+    bottom: var(--shorts-quiz-progress-bottom);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: auto;
+    justify-content: center;
+}
+
+body.shorts-mode .difficulty-label {
+    display: none;
+}
+
+body.shorts-mode .quiz-progress-track {
+    flex-direction: row;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    width: auto;
+    transform: scale(0.85);
+}
+
+body.shorts-mode .quiz-progress-scroll {
+    flex-direction: row;
+    overflow: visible;
+    padding: 0.2rem 0.6rem;
+    height: auto;
+    width: auto;
+    gap: 0.4rem;
+}
+
+body.shorts-mode .quiz-progress .step-dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.15rem;
+}
+
+body.shorts-mode .quiz-progress .step-dots::before,
+body.shorts-mode .quiz-progress .step-dots::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+body.shorts-mode .quiz-progress .step {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1.2rem;
+}
+
+body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* High enough to clear pitch crests; still below the very top of the frame */
+body.shorts-mode .countdown-timer {
+    top: calc(max(2.65rem, 18.5vh) * 0.7);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes countdown-timer-enter-shorts {
+    0% {
+        transform: translateX(-50%) scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        opacity: 0;
+        filter: blur(5px);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+body.shorts-mode .countdown-timer.countdown-timer-stage-enter {
+    animation: countdown-timer-enter-shorts 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+body.shorts-mode .countdown-bar-track {
+    width: min(78vw, 19rem);
+    height: 0.78rem;
+    padding: 0.22rem;
+}
+
+body.shorts-mode .countdown-bar-gloss {
+    left: 0.22rem;
+    right: 0.22rem;
+    top: 0.22rem;
+}
+
+body.shorts-mode.play-video-active.shorts-question-countdown .quiz-progress {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.4s ease;
+}
+
+body.shorts-mode .quiz-progress[hidden] {
+    display: none !important;
+}
+
+body.shorts-mode .stage-exit-anim {
+    animation: stage-exit-shorts 0.7s cubic-bezier(0.55, 0.05, 0.22, 0.99) forwards !important;
+}
+
+body.shorts-mode .stage-enter-anim {
+    animation: stage-enter-shorts 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+@keyframes stage-exit-shorts {
+    0% {
+        transform: scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+
+    20% {
+        transform: scale(1.05) translateZ(50px) rotateX(5deg) translateY(-2%);
+        opacity: 1;
+        filter: blur(0px);
+    }
+
+    100% {
+        transform: scale(0.3) translateZ(-1500px) rotateX(20deg) translateY(-100%);
+        opacity: 0;
+        filter: blur(5px);
+    }
+}
+
+@keyframes stage-enter-shorts {
+    0% {
+        transform: scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        opacity: 0;
+        filter: blur(5px);
+    }
+
+    100% {
+        transform: scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+/* No transform on #team-header — keeps shorts Vol / X (position:fixed) viewport-true after forwards. */
+@keyframes header-slide-in-shorts {
+    0% {
+        transform: none;
+        opacity: 0;
+        filter: blur(10px);
+    }
+
+    100% {
+        transform: none;
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+/* Outro only: move logo, headings, and like/subscribe up; quiz bar stays on .stage (sibling). */
+body.shorts-mode #outro-page:not([hidden]) {
+    --outro-float-base-y: -10vh;
+    /* Shift whole outro stack down 10% of viewport (shorts end card). */
+    padding-top: 10vh;
+    box-sizing: border-box;
+}
+
+body.shorts-mode .outro-top-row .outro-action {
+    display: none;
+}
+
+body.shorts-mode .outro-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 3rem;
+}
+
+body.shorts-mode .outro-action-bottom {
+    width: 130px;
+    object-fit: contain;
+    opacity: 0;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+body.shorts-mode #outro-page:not([hidden]) .action-like-bottom {
+    animation: pop-in-up 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 2.7s;
+}
+
+body.shorts-mode #outro-page:not([hidden]) .action-sub-bottom {
+    animation: pop-in-up 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 3.0s;
+}
+
+@keyframes pop-in-up {
+    0% {
+        transform: translateY(100px) scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* =========================================
+   CAREER MODE - SHORTS SPLIT LAYOUT
+   ========================================= */
+body.shorts-mode .career-wrap {
+    align-items: stretch;
+    padding: 0;
+    justify-content: center;
+    height: 100vh;
+    overflow: visible;
+    position: relative;
+}
+
+/* career.css uses .team-header.video-hidden ~ .career-wrap { height: 72.6vh } for the pitch runner; keep shorts at full column height. */
+body.shorts-mode .team-header.video-hidden ~ #career-wrap {
+    height: 100vh;
+}
+
+/* Shorts: no player photo circle (teams + level bar only). */
+body.shorts-mode .career-svg {
+    display: none !important;
+}
+
+body.shorts-mode .career-wrap.career-no-player .career-svg,
+body.shorts-mode .career-wrap.career-no-player .career-grid,
+body.shorts-mode .career-wrap.career-no-player .career-reveal-photo {
+    display: none !important;
+}
+
+body.shorts-mode .career-path-outer,
+body.shorts-mode .career-path-inner,
+body.shorts-mode .career-path-dash {
+    display: none;
+}
+
+/* Shorts club band: rows left-to-right (max 3 per row; short rows centered), stacked from the top. */
+body.shorts-mode .career-grid {
+    position: absolute;
+    --shorts-club-band-top-gap: clamp(0.85rem, 2.6vmin, 1.55rem);
+    /* End club band above the 1–20 bar: quiz bottom + full bar stack + gap (bar is taller than it looks with scale/padding) */
+    --shorts-quiz-bar-clearance: clamp(1.45rem, 4vmin, 2.1rem);
+    --shorts-club-band-bottom-gap: max(
+        calc(var(--shorts-quiz-progress-bottom) + 8.4rem + var(--shorts-quiz-bar-clearance)),
+        calc(env(safe-area-inset-bottom, 0px) + 13.25rem)
+    );
+    /* Below top safe area + centered countdown; no player circle in shorts; +10vh nudges band down */
+    --shorts-club-band-top: calc(
+        max(0.5rem, env(safe-area-inset-top, 0px)) + clamp(2.35rem, 7vmin, 3.15rem) + var(--shorts-club-band-top-gap) + 10vh
+    );
+    top: var(--shorts-club-band-top);
+    left: 50%;
+    transform: translateX(calc(-50% + var(--shorts-club-grid-shift-x, 0px)))
+        translateY(var(--shorts-club-grid-shift-y, 0px))
+        scale(var(--shorts-club-grid-scale, 1));
+    transform-origin: center top;
+    width: min(94%, 49vh);
+    bottom: auto;
+    /* Content height (not full viewport band): rows stay high; dashed debug outline shrinks with content. */
+    height: auto;
+    max-height: calc(100vh - var(--shorts-club-band-top) - var(--shorts-club-band-bottom-gap));
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: flex-start;
+    row-gap: var(--shorts-team-row-gap, var(--shorts-gap-scaled, clamp(0.6rem, 1.6vmin, 0.95rem)));
+    /* Below portrait (see .career-reveal-photo z-index): grid is hidden on reveal; z-index keeps pre-reveal stacking sane. */
+    z-index: 280;
+    overflow-y: auto;
+    overflow-x: visible;
+    scrollbar-width: none;
+    --shorts-team-size: clamp(3.45rem, 10vmin, 4.55rem);
+    --shorts-team-size-scale: calc(var(--shorts-team-size) / var(--shorts-layout-ref-team-size, 4.1rem));
+    --shorts-gap-scaled: calc(var(--shorts-gap-default, 0.82rem) * var(--shorts-team-size-scale));
+    --shorts-year-box-font-size: calc(var(--shorts-year-box-default-size, 0.86rem) * var(--shorts-team-size-scale));
+    --shorts-team-footprint: calc(var(--shorts-team-size) * 1.24);
+    --shorts-team-label-space: max(0.95rem, calc(var(--shorts-year-box-font-size) * 1.5 + 0.22rem));
+    --shorts-team-column-gap: var(--shorts-gap-scaled);
+    --shorts-team-row-multiplier: 1.2;
+    --shorts-team-row-height: calc(var(--shorts-team-size) + var(--shorts-team-label-space));
+    transition: opacity 0.45s ease, filter 0.45s ease, transform 0.45s ease;
+}
+
+/* Play Video: kill grid transition so club crest drop-shadows are not tweened away (~0.45s) when body/wrap classes change. */
+body.shorts-mode.play-video-active .career-grid {
+    transition: none !important;
+}
+
+/* Remove debug frame around shorts career grid. */
+body.shorts-mode .career-grid--shorts-split::before {
+    content: none;
+}
+
+body.shorts-mode .career-grid::-webkit-scrollbar {
+    display: none;
+}
+
+body.shorts-mode .career-grid--shorts-split {
+    padding: clamp(0.35rem, 1.2vmin, 0.7rem) 0.1rem clamp(0.25rem, 0.9vmin, 0.45rem);
+    overflow: visible;
+}
+
+body.shorts-mode .career-grid.reveal-active {
+    display: none !important;
+}
+
+body.shorts-mode .career-grid-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--shorts-team-inline-gap, var(--shorts-gap-scaled, clamp(0.28rem, 0.9vmin, 0.45rem)));
+    width: max-content;
+    max-width: 100%;
+    margin-inline: auto;
+    position: relative;
+}
+
+body.shorts-mode .career-grid-row[data-row-index="1"] {
+    transform: translateY(var(--shorts-second-row-shift-y, 0px));
+}
+
+body.shorts-mode .career-grid-item {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--shorts-team-footprint);
+    height: calc(var(--shorts-team-row-height) * var(--shorts-team-row-multiplier));
+    flex: 0 0 auto;
+    overflow: visible;
+}
+
+/* Per–club-count sizes / gaps / position: css/modes/shorts-career-club-count-map.css */
+
+/* Match float-up-down-career-road 0%/100% anchor (career.css) so crests do not jump when Play Video enables that animation. */
+body.shorts-mode .career-grid-item--split .career-club-slot-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: none !important;
+    transform: translate3d(0, 6px, 0);
+}
+
+/* Play Video only: re-enable logo bob (matches regular runner feel). */
+body.shorts-mode.play-video-active .career-grid-item--split .career-club-slot-inner {
+    animation: float-up-down-career-road 4s ease-in-out infinite !important;
+}
+
+body.shorts-mode .career-club-emblem-scale {
+    transform: scale(1.2) !important;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body.shorts-mode .career-club-emblem-slot {
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+body.shorts-mode .career-club-slot-visual {
+    width: 100%;
+    height: 100%;
+}
+
+body.shorts-mode .career-club-badge-scale {
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+}
+
+body.shorts-mode .career-club-year-stack {
+    display: flex;
+    align-items: center;
+    margin-top: calc(0.24rem * var(--shorts-team-size-scale, 1));
+}
+
+body.shorts-mode .career-club-year-stack > .career-club-year {
+    display: inline-flex;
+    margin: 0;
+    transform: scale(0.945);
+    transform-origin: center top;
+}
+
+body.shorts-mode .career-club-year {
+    font-size: var(--shorts-year-box-font-size, 0.86rem);
+    padding: 0.07em 0.44em 0.1em;
+    border-radius: 0.41em;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    background: rgba(10, 17, 24, 0.9);
+}
+
+body.shorts-mode .career-edit-btn {
+    display: none !important;
+}
+
+body.shorts-mode .career-remove-btn {
+    display: inline-flex !important;
+    width: 1.25rem;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    font-size: 0.68rem;
+    top: -1.85rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 1.5px;
+}
+
+/* Shorts: keep per-slot size/favorite controls visible on each logo. */
+body.shorts-mode .career-club-emblem-scale > .career-badge-controls {
+    display: flex !important;
+    margin-bottom: 0.14rem;
+}
+
+body.shorts-mode .career-club-placeholder .career-club-logo-img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    pointer-events: none;
+}
+
+body.shorts-mode .career-club-fallback-text {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 4px;
+    box-sizing: border-box;
+    word-break: break-word;
+    line-height: 1.1;
+}
+
+body.shorts-mode .career-club-fallback-text:not([hidden]) {
+    display: flex;
+    pointer-events: none;
+}
+
+body.shorts-mode .career-club-fallback-text--solo {
+    display: none;
+    pointer-events: none;
+}
+
+/* Crest-only logos in shorts mode (no circular frame). */
+body.shorts-mode .career-club-placeholder {
+    transform: scale(var(--career-badge-scale, 1));
+    transform-origin: center center;
+    width: var(--shorts-team-size);
+    height: var(--shorts-team-size);
+    max-width: 100%;
+    max-height: 100%;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    pointer-events: none;
+}
+
+/* Force crest wrappers transparent in shorts so no white tile/frame appears. */
+body.shorts-mode .career-club-slot-visual,
+body.shorts-mode .career-club-badge-scale,
+body.shorts-mode .career-club-emblem-scale,
+body.shorts-mode .career-club-emblem-slot,
+body.shorts-mode .career-club-placeholder {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+body.shorts-mode .career-club-placeholder .career-club-logo-img {
+    width: 100%;
+    height: 100%;
+}
+
+body.shorts-mode .career-club-placeholder:empty::after {
+    content: "";
+}
+
+body.shorts-mode .career-grid-arrow {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    position: relative;
+    min-width: calc(var(--shorts-team-column-gap) + 0.3rem);
+    height: calc(var(--shorts-team-size) * 0.74);
+    /* Center between crest images (row item includes extra year-label space below). */
+    transform: translateY(calc(var(--shorts-team-label-space, 1rem) * -0.5));
+    pointer-events: auto;
+    z-index: 40;
+}
+
+body.shorts-mode .career-order-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #cf1f3c;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: clamp(1.55rem, calc(var(--shorts-team-size) * 0.56), 3.5rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.08em;
+    transform: scaleX(1.35);
+    transform-origin: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* >>: child of .career-club-slot-inner so it uses the same vertical bob as logos; JS sets left/top from year pill rects (inner vs. slot viewport frame). */
+body.shorts-mode .career-club-slot-inner > .career-shorts-year-sep {
+    position: absolute;
+    left: calc(var(--shorts-team-footprint) + (var(--shorts-team-inline-gap, var(--shorts-gap-scaled)) / 2));
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    user-select: none;
+    z-index: 25;
+}
+
+body.shorts-mode .career-shorts-year-sep__chev {
+    display: inline-block;
+    font-family: "Barlow Condensed", system-ui, sans-serif;
+    font-size: clamp(0.62rem, calc(var(--shorts-year-box-font-size, 0.86rem) * 1.42), 1.85rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: rgba(215, 218, 225, 0.92);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Keep year-order arrows moving with the teams during Play Video. */
+body.shorts-mode.play-video-active .career-order-arrow {
+    animation: float-up-down-career-road 4s ease-in-out infinite;
+}
+
+body.shorts-mode .career-insert-btn--shorts {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.3rem;
+    height: 1.3rem;
+    min-width: 1.3rem;
+    font-size: 1rem;
+    border-width: 1.5px;
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.18s ease;
+    z-index: 41;
+}
+
+body.shorts-mode .career-grid-arrow:hover .career-insert-btn--shorts,
+body.shorts-mode .career-grid-arrow:focus-within .career-insert-btn--shorts {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Edge add buttons (before first / after last): keep + hover-only, no order chevron. */
+body.shorts-mode .career-grid-arrow--edge .career-order-arrow {
+    display: none;
+}
+
+body.shorts-mode .career-grid-arrow--edge {
+    position: absolute;
+    min-width: 1.8rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    top: 50%;
+    transform: translateY(calc(-50% - (var(--shorts-team-label-space, 1rem) * 0.5)));
+    pointer-events: auto;
+}
+
+body.shorts-mode .career-grid-arrow--edge-start {
+    left: calc(-1 * (var(--shorts-team-column-gap, 0.8rem) + 1.1rem));
+}
+
+body.shorts-mode .career-grid-arrow--edge-end {
+    right: calc(-1 * (var(--shorts-team-column-gap, 0.8rem) + 1.1rem));
+}
+
+/* Insert point between consecutive rows (e.g., last item row 1 -> first item row 2). */
+body.shorts-mode .career-grid-break-insert {
+    position: relative;
+    width: 100%;
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 40;
+}
+
+body.shorts-mode .career-grid-break-insert .career-insert-btn--shorts {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: translateY(-50%);
+    pointer-events: auto;
+}
+
+body.shorts-mode .career-insert-btn--side {
+    top: calc(var(--shorts-team-size) * 0.5);
+}
+
+/* Side-only add controls in shorts: hide legacy separator rows/arrows. */
+body.shorts-mode .career-grid-arrow,
+body.shorts-mode .career-grid-break-insert {
+    display: none !important;
+}
+
+/* Play Video in shorts: hide all per-slot controls (+/-/heart/insert/remove/year nudge). */
+body.shorts-mode.play-video-active .career-badge-controls,
+body.shorts-mode.play-video-active .career-year-nudge-controls,
+body.shorts-mode.play-video-active .career-remove-btn,
+body.shorts-mode.play-video-active .career-insert-btn {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* keep footprint identical during Play Video (career-hide-slot-controls sets display:none globally). */
+body.shorts-mode.play-video-active.career-hide-slot-controls .career-club-emblem-scale > .career-badge-controls {
+    display: flex !important;
+}
+
+body.shorts-mode.play-video-active.career-hide-slot-controls .career-year-nudge-controls {
+    display: flex !important;
+}
+
+body.shorts-mode.play-video-active.career-hide-slot-controls .career-remove-btn {
+    display: inline-flex !important;
+}
+
+body.shorts-mode.play-video-active.career-hide-slot-controls .career-insert-btn {
+    display: inline-flex !important;
+}
+
+body.shorts-mode .career-silhouette {
+    display: block !important;
+    opacity: 0.96;
+    transform:
+      translate(0%, calc(2% + var(--sil-y, 0%)))
+      scale(calc(var(--sil-scale-x, 1) * 0.98), calc(var(--sil-scale-y, 1) * 0.98));
+    transform-origin: 50% 100%;
+    filter:
+      brightness(0)
+      contrast(1.4)
+      drop-shadow(0 0 8px rgba(76, 35, 158, 0.55))
+      drop-shadow(0 18px 28px rgba(32, 9, 80, 0.48));
+}
+
+body.shorts-mode.play-video-active .career-silhouette {
+    transition: none !important;
+    will-change: auto;
+}
+
+/* Red clear-player X: top-left corner of the shorts safe area (matches Career Path / Player Stats shorts). */
+body.shorts-mode .career-clear-player-btn {
+    position: fixed !important;
+    left: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem) !important;
+    right: auto !important;
+    top: 5.5vh !important;
+    transform: none !important;
+    width: 2.75rem !important;
+    min-width: 2.75rem !important;
+    height: 2.1rem !important;
+    border-radius: 0.45rem !important;
+    border: 2px solid rgba(255, 190, 190, 0.95) !important;
+    background: rgba(120, 18, 18, 0.75) !important;
+    color: #fff !important;
+    font-size: 1rem !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45) !important;
+    z-index: 200;
+    pointer-events: auto;
+}
+
+body.shorts-mode .career-clear-player-btn:hover {
+    background: rgba(185, 28, 28, 0.9) !important;
+    border-color: #fff !important;
+    color: #fff !important;
+}
+
+body.shorts-mode .career-inline-player-picker {
+    z-index: 600;
+    top: 32%;
+    width: min(25rem, 88%);
+    max-height: 20rem;
+    pointer-events: auto;
+}
+
+body.shorts-mode .career-inline-player-search,
+body.shorts-mode .career-inline-player-results,
+body.shorts-mode .career-inline-player-result {
+    pointer-events: auto;
+}
+
+body.shorts-mode .career-badge-zoom-btn,
+body.shorts-mode .career-slot-favorite-btn,
+body.shorts-mode .career-year-nudge-btn {
+    min-width: 0.92rem;
+    width: 0.92rem;
+    height: 0.82rem;
+    border-radius: 0.2rem;
+    font-size: 0.6rem;
+    border-width: 1.2px;
+}
+
+body.shorts-mode.play-video-active.shorts-question-countdown .career-grid,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-silhouette {
+    opacity: inherit;
+}
+
+/* Career shorts player layer: same shell + motion as regular .career-reveal-overlay (career.css). */
+.career-reveal-photo {
+    --career-player-box-top: 3.5rem;
+    position: fixed;
+    top: var(--career-player-box-top);
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - var(--career-player-box-top));
+    max-height: none;
+    aspect-ratio: auto;
+    opacity: 0;
+    /* Above .career-grid (280): full-opacity portrait must sit in front of blurred crest band during reveal. */
+    z-index: 400;
+    border-radius: 0;
+    border: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.career-reveal-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: translateY(var(--career-reveal-y, -10%))
+      scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
+    transform-origin: center bottom;
+    display: block;
+    border-radius: 0;
+}
+
+body.shorts-mode .career-reveal-photo {
+    left: 50%;
+    transform: translateX(-50%) translateY(46%) scale(0.74);
+    transform-origin: center bottom;
+    filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+    width: 100vw;
+    max-width: 100vw;
+    overflow: visible;
+    isolation: isolate;
+}
+
+/* Video Mode preview + question countdown (% bar): stack portrait under blurred crest band (original dim / layer look). */
+body.shorts-mode .career-wrap.video-mode-enabled:not(.play-video-active) .career-reveal-photo,
+body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-reveal-photo {
+    z-index: 250;
+}
+
+/* Floor shadow: same as body:not(.shorts-mode) .career-reveal-overlay::after */
+body.shorts-mode .career-reveal-photo::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 2.5%;
+    width: min(60vw, 640px);
+    height: 2.3rem;
+    border-radius: 999px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0.22) 45%,
+        rgba(0, 0, 0, 0.02) 100%
+    );
+    transform: translateX(-50%) translateY(-42px) scale(0.72);
+    filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.shorts-mode .career-reveal-photo .career-reveal-photo-img {
+    object-fit: contain;
+    object-position: center bottom;
+}
+
+.career-reveal-photo-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.75rem;
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 800;
+    font-size: clamp(0.95rem, 3vw, 1.25rem);
+    color: #f8fafc;
+    line-height: 1.25;
+}
+
+/* Hidden: match overlay pre-show (no transition — keyframes drive .show). */
+body.shorts-mode .career-reveal-photo:not(.show) {
+    transform: translateX(-50%) translateY(46%) scale(0.74);
+    opacity: 0;
+    filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+}
+
+/* Video Mode off: career-reveal-overlay-rise */
+body.shorts-mode .career-reveal-photo.show {
+    animation: career-reveal-overlay-rise-shorts-smooth 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.shorts-mode.career-reveal-sync-drop .career-reveal-photo.show {
+    animation: career-reveal-overlay-rise-shorts-smooth 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Video Mode on: career-reveal-overlay-rise-safe (same as regular .career-wrap.video-mode-enabled .career-reveal-overlay.show) */
+body.shorts-mode .career-wrap.video-mode-enabled .career-reveal-photo.show {
+    animation: career-reveal-overlay-rise-safe-shorts-smooth 1.15s cubic-bezier(0.2, 1, 0.25, 1) forwards;
+}
+
+/* Global shorts Video Mode flag on body — #career-wrap loses .video-mode-enabled during Play Video; portrait rules must still apply. */
+body.shorts-mode.career-shorts-video-layout {
+    --shorts-video-reveal-portrait-nudge-y: 10%;
+}
+
+body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo.show {
+    animation: career-reveal-overlay-rise-safe-shorts-smooth 1.15s cubic-bezier(0.2, 1, 0.25, 1) forwards;
+}
+
+/* Play Video: freeze shell only during question preview + countdown — not post-timer reveal (body loses
+   career-shorts-video-layout / wrap loses video-mode-enabled; a broad selector was killing answer animations). */
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo.show,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.show,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .career-reveal-photo.show,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show {
+    animation: none;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+}
+
+body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo {
+    overflow: visible;
+}
+
+body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo::after {
+    bottom: 2.25%;
+    width: min(54vw, 576px);
+    height: 2.07rem;
+}
+
+/* Video Mode shorts portrait: bottom fade + crest band stack during preview / countdown (see post-countdown override below). */
+body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo-img {
+    clip-path: none;
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.4) 60%,
+        rgba(0, 0, 0, 0) 80%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.4) 60%,
+        rgba(0, 0, 0, 0) 80%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+body.shorts-mode .career-reveal-photo.show::after {
+    animation: career-reveal-shadow-drop-shorts-smooth 0.42s cubic-bezier(0.12, 0.9, 0.3, 1) forwards;
+}
+
+/* Play Video: pin floor shadow only during preview/countdown — post-timer reveal should run ::after keyframes. */
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo.show::after,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.show::after,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .career-reveal-photo.show::after,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show::after {
+    animation: none;
+    opacity: 0.75;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(6px);
+}
+
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-reveal-photo,
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-reveal-photo-img,
+body.shorts-mode.play-video-active.shorts-question-countdown .career-reveal-photo-img,
+body.shorts-mode.play-video-active.career-shorts-video-layout .career-wrap .career-reveal-photo-img,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo-img {
+    transition: none !important;
+}
+
+body.shorts-mode .career-wrap.video-mode-enabled .career-reveal-photo {
+    overflow: visible;
+}
+
+body.shorts-mode .career-wrap.video-mode-enabled .career-reveal-photo::after {
+    bottom: 2.25%;
+    width: min(54vw, 576px);
+    height: 2.07rem;
+}
+
+body.shorts-mode .career-wrap.video-mode-enabled .career-reveal-photo-img {
+    clip-path: none;
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.4) 60%,
+        rgba(0, 0, 0, 0) 80%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.4) 60%,
+        rgba(0, 0, 0, 0) 80%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+/* Video Mode on, not playing: dim the portrait only so shell opacity/filter stay driven by rise-safe keyframes. */
+body.shorts-mode .career-wrap.video-mode-enabled:not(.play-video-active) .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
+}
+
+/* BGM / stage-swap window before countdown: same dimmed portrait as preview (avoids full-color “plain” flash on Play). */
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown.career-shorts-video-layout .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
+}
+
+body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap.video-mode-enabled .career-reveal-photo.is-tall-player.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active.shorts-play-pre-countdown.career-shorts-video-layout .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+      );
+}
+
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 1;
+    /* Non-`none` filter keeps parent drop-shadow stable when leaving dimmed grayscale (Chromium). */
+    filter: brightness(1) contrast(1) saturate(1);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
+}
+
+body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+}
+
+/* Play Video: wrap often has no .video-mode-enabled — same portrait math as above, keyed off body.career-shorts-video-layout. */
+body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
+}
+
+body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 1;
+    filter: brightness(1) contrast(1) saturate(1);
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+      );
+}
+
+body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+}
+
+/* Shorts-only fit correction: keep the regular shell animation, but preserve the old smaller portrait sizing.
+   Fold in --career-reveal-* (set from JS) so Adjust Picture — Shorts (Video Off) actually moves/scales the portrait. */
+body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-photo.show .career-reveal-photo-img {
+    transform: translateY(calc(var(--career-reveal-y, -10%) + 9%))
+        scale(
+            calc(var(--career-reveal-scale-x, 1.08) * (13 / 18)),
+            calc(var(--career-reveal-scale-y, 1.08) * (13 / 18))
+        );
+}
+
+/* Tall portraits need extra downward bias in shorts so the head clears the top bounds and title. */
+body.shorts-mode .career-reveal-photo.is-tall-player .career-reveal-photo-img {
+    transform: translateY(calc(var(--career-reveal-y, -10%) + 8%))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+      );
+}
+
+body.shorts-mode .career-wrap.video-mode-enabled:not(.play-video-active) .career-reveal-photo.is-tall-player.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+      );
+}
+
+body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap.video-mode-enabled .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+}
+
+body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img,
+body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%)))
+      scale(
+        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
+        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+      );
+}
+
+body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(0.1) contrast(1.28);
+}
+
+/* After countdown / while answering: solid portrait on top of crests (no bottom mask). Wrap/body video flags are often cleared post-reveal — #career-reveal-photo covers that case. */
+body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown) .career-wrap.video-mode-enabled .career-reveal-photo.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown).career-shorts-video-layout .career-wrap .career-reveal-photo.show .career-reveal-photo-img,
+body.shorts-mode.play-video-active:not(.shorts-play-pre-countdown):not(.shorts-question-countdown) #career-reveal-photo.show .career-reveal-photo-img {
+    clip-path: inset(0 0 0 0);
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+/* Shorts: hide "No image / No photo" fallback label on reveal layer. */
+body.shorts-mode .career-reveal-photo-fallback {
+    display: none !important;
+}
+
+/* Shorts: match Player stats shorts — name at top of .career-wrap (9:16 column), vmin sizing, z-index under floating chrome. */
+body.shorts-mode .career-reveal-name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1.75rem + 5%);
+    margin: 0 auto;
+    width: 90%;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 540;
+}
+
+body.shorts-mode .career-reveal-name-top {
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 800;
+    font-size: 3.6vmin;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+}
+
+body.shorts-mode .career-reveal-name-bottom {
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 900;
+    font-size: 7.2vmin;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: #ef4444;
+    text-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 12px rgba(239, 68, 68, 0.36);
+}
+
+body.shorts-mode .career-reveal-name.show {
+    animation: career-reveal-name-fade-in 0.92s ease both;
+}
+
+@keyframes career-reveal-overlay-rise-shorts-smooth {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(46%) scale(0.74);
+        filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+    }
+    20% {
+        opacity: 1;
+        filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1.16);
+        filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+    }
+}
+
+@keyframes career-reveal-overlay-rise-safe-shorts-smooth {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(46%) scale(0.74);
+        filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+    }
+    18% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(46%) scale(0.74);
+        filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+    }
+    28% {
+        opacity: 1;
+        filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1.04);
+        filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+    }
+}
+
+@keyframes career-reveal-shadow-drop-shorts-smooth {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-28px) scale(1);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 0.75;
+        transform: translateX(-50%) translateY(0) scale(1);
+        filter: blur(6px);
+    }
+}
+
+@keyframes career-reveal-name-fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* =========================================
+   SHOTS SIZE – Safe-zone overlay (9:16 column)
+   Yellow tint = margins outside the dashed frame (top, bottom, left, right).
+   Center inside dashed lines stays clear. Red dashed = frame edges.
+   Top: 11vh strip. Bottom top edge: slightly above old grid line 19.
+   Vertical dashed: 1/21 and 20/21 column width.
+   ========================================= */
+.shots-size-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.shots-size-overlay__column {
+    position: absolute;
+    top: 0;
+    left: calc((100vw - min(56.25vh, 100vw)) / 2);
+    width: min(56.25vh, 100vw);
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.shots-size-overlay__margin-left,
+.shots-size-overlay__margin-right {
+    position: absolute;
+    z-index: 1;
+    top: 11vh;
+    bottom: calc(100% * 2 / 21 + 0.6vh);
+    width: calc(100% / 21);
+    background: rgba(255, 215, 48, 0.24);
+    box-sizing: border-box;
+}
+
+.shots-size-overlay__margin-left {
+    left: 0;
+}
+
+.shots-size-overlay__margin-right {
+    right: 0;
+}
+
+.shots-size-overlay__top,
+.shots-size-overlay__bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 215, 48, 0.24);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.shots-size-overlay__top {
+    top: 0;
+    height: 11vh;
+    border-bottom: 2px dashed rgba(255, 70, 70, 0.8);
+}
+
+.shots-size-overlay__bottom {
+    top: calc(19 * 100% / 21 - 0.6vh);
+    bottom: 0;
+    height: auto;
+    border-top: 2px dashed rgba(255, 70, 70, 0.8);
+}
+
+.shots-size-overlay__vline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 2px dashed rgba(255, 70, 70, 0.8);
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.shots-size-overlay__vline--left {
+    left: calc(100% / 21);
+}
+
+.shots-size-overlay__vline--right {
+    left: calc(20 * 100% / 21);
+}
+/* =========================================
+   SHORTS MODE · FOUR-PARAMS CARD LAYOUT
+   Constraints: must fit inside the "Shots size" safe zone
+   (top 11vh, bottom ~90.5% of column, ~4.76–95.24% horizontally).
+   Layout: portrait on top, 2×2 param cards below, Vol/X row tucked under.
+   ========================================= */
+
+/* Hide team-header name + logo: Four-params shows the answer via the portrait card, not a title. */
+body.shorts-mode .team-header-name,
+body.shorts-mode .team-header-logo {
+    display: none !important;
+}
+
+body.shorts-mode .career-wrap {
+    /* Safe-zone derived sizing so nothing crosses the yellow margins. */
+    --fp-cell-size: 15.96vh;         /* each 2×2 cell */
+    --fp-portrait-h: 28.44vh;        /* portrait card height on top */
+    --fp-gap: 1.2vh;                 /* gaps between rows/cols */
+    --fp-grid-w: calc(2 * var(--fp-cell-size) + var(--fp-gap));
+}
+
+/* Cluster: col 1 = portrait (spans 2 cols), then 2×2 grid of cards, then controls row. */
+body.shorts-mode .career-wrap .career-param-cluster {
+    position: absolute;
+    left: 50%;
+    top: 37%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: var(--fp-cell-size) var(--fp-cell-size);
+    grid-template-rows: var(--fp-portrait-h) auto auto;
+    column-gap: var(--fp-gap);
+    row-gap: var(--fp-gap);
+    width: var(--fp-grid-w);
+    max-width: 90%;
+    max-height: 78vh;
+}
+
+/* Portrait on top, spans both columns, centered */
+body.shorts-mode .career-wrap .career-param-cluster > .career-portrait-card {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    width: var(--fp-portrait-h);
+    height: var(--fp-portrait-h);
+    justify-self: center;
+}
+
+/* Force `.career-param-grid` to become a real 2×2 grid in row 2. */
+body.shorts-mode .career-wrap .career-param-cluster > .career-param-grid {
+    display: grid;
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    grid-template-columns: var(--fp-cell-size) var(--fp-cell-size);
+    grid-template-rows: var(--fp-cell-size) var(--fp-cell-size);
+    column-gap: var(--fp-gap);
+    row-gap: var(--fp-gap);
+    justify-content: center;
+    width: var(--fp-grid-w);
+}
+
+body.shorts-mode .career-wrap .career-param-cluster > .career-param-grid > .career-param-card {
+    grid-column: auto;
+    grid-row: auto;
+    width: var(--fp-cell-size);
+    height: var(--fp-cell-size);
+}
+
+/* Controls row (Vol / X) below the 2×2, centered. */
+body.shorts-mode .career-wrap .career-param-cluster > .career-player-controls-row {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+    justify-self: center;
+}
+
+/* Card itself: no extra padding (inner elements own their own padding).
+   This is what lets the flag go edge-to-edge like regular mode. */
+body.shorts-mode .career-wrap .career-param-card {
+    padding: 0;
+    border-radius: clamp(0.7rem, 1.4vh, 1.2rem);
+}
+
+/* Position / club / age inners: smaller padding than regular so the content fills
+   the cell proportionally (regular cell ≈ 22rem, shorts cell ≈ 16vh). */
+body.shorts-mode .career-wrap .career-param-card__inner {
+    padding: 0.25rem;
+}
+body.shorts-mode .career-wrap .career-param-card__inner--club {
+    padding: 0.1rem;
+}
+body.shorts-mode .career-wrap .career-param-card__inner--position {
+    padding: 0.25rem;
+    gap: 0.1rem;
+}
+body.shorts-mode .career-wrap .career-param-card__inner--flag-fill {
+    padding: 0;
+}
+body.shorts-mode .career-wrap .career-param-card__inner--age {
+    padding: 0.15rem;
+}
+
+/* Position label (e.g. CAM) — bumped up to read big like regular mode. */
+body.shorts-mode .career-wrap .career-param-card__position-main {
+    font-size: calc(var(--fp-cell-size) * 0.52);
+    line-height: 1;
+}
+
+/* Age value: big number on top line, "years old" smaller centered below. */
+body.shorts-mode .career-wrap .career-param-card__age-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    gap: calc(var(--fp-cell-size) * 0.04);
+}
+body.shorts-mode .career-wrap .career-param-card__age-number {
+    font-size: calc(var(--fp-cell-size) * 0.7);
+    line-height: 1;
+}
+body.shorts-mode .career-wrap .career-param-card__age-unit {
+    font-size: calc(var(--fp-cell-size) * 0.18);
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0.9;
+}
+
+/* Shirt tee visual: match the club logo's visual weight.
+   In regular mode the tee fills ~85% of the cell; keep that ratio so the number
+   (sized via 30cqi of the tee) looks balanced, not oversized. */
+body.shorts-mode .career-wrap .fake-info-shirt {
+    width: 85%;
+    max-width: 85%;
+}
+
+/* Shirt number: shrink well under the container-query default so it reads
+   at the same visual weight as the position label on the smaller shorts cell. */
+body.shorts-mode .career-wrap .fake-info-shirt__number {
+    font-size: calc(var(--fp-cell-size) * 0.22) !important;
+}
+
+/* Club logo — smaller than regular so it doesn't overpower the shorts cell. */
+body.shorts-mode .career-wrap .career-param-card__logo {
+    transform: scale(1.1) translateZ(0);
+    max-width: 82%;
+    max-height: 82%;
+    /* Promote to its own compositing layer so the post-timer parent blur + scale
+       doesn't rerender the logo's inner scale each frame (was causing a tiny shake). */
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* Flag fills the card edge-to-edge like regular mode. */
+body.shorts-mode .career-wrap .career-param-card__flag-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+body.shorts-mode .career-wrap .career-param-card__flag {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================================
+   FAKE-INFO QUIZ (shorts) — fixes
+   1) No per-card Vol/X controls (user preference for shorts).
+   2) 3D flipper: front (fake value) visible, back (real value) hidden until flip.
+   ========================================= */
+
+/* 1) Hide per-card Vol/X that would otherwise bleed into the progress bar / cards. */
+body.shorts-mode .fake-stat-voice-controls {
+    display: none !important;
+}
+
+/* 2) 3D flip — identical mechanic to the Regular project's transitions.css block.
+   The ENTIRE fake box flips (glass chrome + content). The card itself becomes a transparent
+   3D container; each face carries its own glass, border, shadow, and backdrop-filter so
+   rotating the flipper rotates what looks like the whole box. */
+body.shorts-mode .career-param-card--fake-stat {
+    perspective: 1400px;
+}
+
+/* Strip the card's own glass so only the faces render visuals — otherwise the glass would
+   stay still in 3D space while the content rotates in front of it. */
+body.shorts-mode.fake-info-quiz .career-wrap .career-param-card--fake-stat {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+body.shorts-mode .fake-info-flipper {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    pointer-events: none;
+}
+
+body.shorts-mode .fake-info-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    /* Glass / card chrome lives on the face so the whole "box" flips as one. */
+    border-radius: clamp(0.7rem, 1.4vh, 1.2rem);
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.14) 0%,
+        rgba(255, 255, 255, 0.05) 45%,
+        rgba(120, 200, 255, 0.08) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(14px) saturate(1.25);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
+}
+
+body.shorts-mode .fake-info-face > .career-param-card__inner {
+    flex: 1 1 auto;
+}
+
+body.shorts-mode .fake-info-face--back {
+    transform: rotateY(180deg);
+}
+
+@keyframes fake-info-flip-shorts {
+    0%   { transform: rotateY(0deg); }
+    100% { transform: rotateY(180deg); }
+}
+
+/* Flip the fake-stat card face after the reveal trigger (body class set by video.js). */
+body.shorts-mode.fake-info-reveal .career-param-card--fake-stat .fake-info-flipper {
+    animation: fake-info-flip-shorts 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+}

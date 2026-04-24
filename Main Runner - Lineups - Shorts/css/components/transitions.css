@@ -101,15 +101,15 @@
   animation: team-header-stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
-/* Shorts: panel slides from top; preserve translateX(-50%) centering during video fade. */
+/* Shorts: fade only — no transform on #team-header (Vol / clear use position:fixed vs viewport). */
 @keyframes team-header-stage-exit-video-reveal-shorts {
   0% {
-    transform: translateX(-50%) translateY(0);
+    transform: none;
     opacity: 1;
     filter: blur(0);
   }
   100% {
-    transform: translateX(-50%) translateY(0);
+    transform: none;
     opacity: 0;
     filter: blur(6px);
   }
@@ -117,12 +117,12 @@
 
 @keyframes team-header-stage-enter-video-reveal-shorts {
   0% {
-    transform: translateX(-50%) translateY(0);
+    transform: none;
     opacity: 0;
     filter: blur(6px);
   }
   100% {
-    transform: translateX(-50%) translateY(0);
+    transform: none;
     opacity: 1;
     filter: blur(0);
   }

@@ -3,11 +3,11 @@ export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.90;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 0.90;
-export const DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET = 3;
+export const DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET = 5;
 /** Shorts “Adjust Picture (Video Off)” baseline values. */
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = -7;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 0.90;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 0.90;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = -1;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 0.95;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 0.95;
 
 export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   return {
@@ -222,6 +222,8 @@ export function initLevels(count) {
       careerSlotBadgeScalesRegular: [],
       careerSlotBadgeScalesShorts: [],
       careerSlotYearNudges: [],
+      /** Ready photo file variant (1 = ``{Name}.png``, 2 = ``{Name} 2.png``, …). */
+      careerReadyPhotoVariantIndex: 1,
     };
   };
   

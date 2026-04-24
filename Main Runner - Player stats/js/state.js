@@ -16,6 +16,16 @@ export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   };
 }
 
+/** Squad JSON `shirt_number` for the floating shirt (manual `state.shirtNumber` overrides when set). */
+export function shirtNumberTextFromPlayerJson(p) {
+  if (!p || typeof p !== "object") return null;
+  const n = p.shirt_number;
+  if (n == null || n === "") return null;
+  if (typeof n === "number" && Number.isFinite(n)) return String(Math.trunc(n));
+  const s = String(n).trim();
+  return s.length ? s : null;
+}
+
 export const appState = {
   els: {
     squadType: null,
@@ -194,6 +204,7 @@ export function initLevels(count) {
       silhouetteShortsNormalScaleY: shortsPictureDefaults.silhouetteScaleY,
       careerPlayer: null,
       careerHistory: [],
+      careerReadyPhotoVariantIndex: 1,
       careerSlotBadgeScales: [],
       careerSlotBadgeScalesRegular: [],
       careerSlotBadgeScalesShorts: [],

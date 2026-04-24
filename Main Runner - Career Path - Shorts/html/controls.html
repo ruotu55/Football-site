@@ -6,6 +6,7 @@
 <div class="panel-tabs">
   <button type="button" class="tab-btn active" id="tab-btn-landing">Landing</button>
   <button type="button" class="tab-btn" id="tab-btn-setup">Setup</button>
+  <button type="button" class="tab-btn" id="tab-btn-voice">Voice</button>
   <button type="button" class="tab-btn" id="tab-btn-saved">Saved</button>
 </div>
 
@@ -166,10 +167,19 @@
   </div>
 </div>
 
+<div id="panel-voice" class="panel-section">
+  <div class="voice-tab-root">
+    <div class="voice-tab-empty">Open the tab to load voice status…</div>
+  </div>
+</div>
+
 <div id="panel-saved" class="panel-section">
-  <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
     <button type="button" class="panel-toggle" id="btn-save-script" style="flex: 2; padding: 0.8rem; background: var(--accent); color: #000; font-weight: bold;">Save Current Settings</button>
     <button type="button" class="panel-toggle" id="btn-create-folder" style="flex: 1; padding: 0.8rem; font-weight: bold; background: rgba(255,255,255,0.1); color: #fff;">+ Folder</button>
+  </div>
+  <div style="margin-bottom: 1rem;">
+    <button type="button" class="panel-toggle" id="btn-import-script" style="width: 100%; padding: 0.8rem; font-weight: bold; background: rgba(255,255,255,0.07); color: #ccc; border: 1px dashed rgba(255,255,255,0.2);">Import</button>
   </div>
   <div id="saved-scripts-list" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
 </div>

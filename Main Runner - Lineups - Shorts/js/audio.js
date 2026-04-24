@@ -1,13 +1,92 @@
 import { appState } from "./state.js";
 
+/* ── Language-aware voice resolution. The voice-tab persists the user's language
+     choice to localStorage; every gameplay clip (welcome, quiz titles, level
+     progress, endings) is resolved against that language and falls back to
+     English if the Spanish clip hasn't been generated yet. Player names, BGM,
+     dong and ticking are language-invariant. */
+const LANGUAGE_STORAGE_KEY = "voice-tab.language";
+const SUPPORTED_LANGUAGES = ["english", "spanish"];
+
+function getCurrentLanguage() {
+  try {
+    const stored = String(localStorage.getItem(LANGUAGE_STORAGE_KEY) || "").toLowerCase();
+    return SUPPORTED_LANGUAGES.includes(stored) ? stored : "english";
+  } catch { return "english"; }
+}
+
+const RUNNER_VARIANT = "Lineups Shorts";
+
+const WELCOME_FILENAME = "Welcome to the football lab, lets start!!!.mp3";
+
+const LEVEL_FILENAMES = {
+  warmUp: "Worm up round dont mess this one .mp3",
+  serious: "OK now it's getting serious.mp3",
+  nerds: "Only true football nerd know this!!!.mp3",
+  genius: "If you get this you are basically a genius!!!.mp3",
+};
+
+const QUIZ_TITLE_FILENAMES = {
+  english: {
+    "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
+    "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
+  },
+  spanish: {
+    "nat-by-club": "Adivina el equipo nacional por el club de los jugadores !!!.mp3",
+    "club-by-nat": "Adivina el equipo por la nacionalidad de los jugadores !!!.mp3",
+  },
+};
+
+const ENDING_FILENAMES = {
+  english: {
+    "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+  },
+  spanish: {
+    "think-you-know": "Crees saber la respuesta_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+    "how-many": "Cuantas acertaste_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+  },
+};
+
+function welcomePathFor(lang) {
+  return `../.Storage/Voices/Welcome/${lang}/${WELCOME_FILENAME}?v=2`;
+}
+
+function levelPathFor(levelKey, lang) {
+  const filename = LEVEL_FILENAMES[levelKey];
+  if (!filename) return "";
+  return `../.Storage/Voices/Levels/${lang}/${filename}`;
+}
+
+function quizTitlePathFor(quizType, lang) {
+  const map = QUIZ_TITLE_FILENAMES[lang] || QUIZ_TITLE_FILENAMES.english;
+  const filename = map[quizType];
+  if (!filename) return "";
+  return `../.Storage/Voices/Game name/${RUNNER_VARIANT}/${lang}/${filename}`;
+}
+
+function endingPathFor(endingType, lang) {
+  const map = ENDING_FILENAMES[lang] || ENDING_FILENAMES.english;
+  const filename = map[endingType];
+  if (!filename) return "";
+  return `../.Storage/Voices/Ending Guess/${lang}/${filename}`;
+}
+
+/** Build a fallback chain: preferred-language first, English as safety net.
+    Each resolver takes its domain args first and `lang` LAST — this helper
+    forwards args in that order so `levelPathFor(levelKey, lang)` etc. work. */
+function langAwareCandidates(resolver, ...args) {
+  const lang = getCurrentLanguage();
+  if (lang === "english") return [resolver(...args, "english")].filter(Boolean);
+  const primary = resolver(...args, lang);
+  const fallback = resolver(...args, "english");
+  const list = [];
+  if (primary) list.push(primary);
+  if (fallback && fallback !== primary) list.push(fallback);
+  return list;
+}
+
 const paths = {
-  welcome: "../.Storage/Voices/Welcome/Welcome to the football lab, lets start!!!.mp3?v=2",
-  guessNat: "../.Storage/Voices/Game name/Guess the football team name by players' nationality !!!.mp3",
-  guessClub: "../.Storage/Voices/Game name/Guess the football national team name by players' club !!!.mp3",
-  warmUp: "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",
-  serious: "../.Storage/Voices/Levels/OK now it's getting serious.mp3",
-  nerds: "../.Storage/Voices/Levels/Only true football nerd know this!!!.mp3",
-  genius: "../.Storage/Voices/Levels/If you get this you are basically a genius!!!.mp3",
   bgmPlaylist: [
     "../.Storage/Voices/Ringhton/Balada Gitana - House of the Gipsies.mp3",
     "../.Storage/Voices/Ringhton/Chica Linda - Quincas Moreira.mp3",
@@ -20,12 +99,6 @@ const paths = {
     "../.Storage/Voices/Ringhton/Up And At Em - Nathan Moore.mp3"
   ],
   dong: "../.Storage/Voices/the answer is/dong.wav",
-  commentBelow: "../.Storage/Voices/Ending Guess/Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  commentBelowLegacy: "../.Storage/Voices/Ending Guess/Think you know the answer? let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  commentBelowEncodedQ: "../.Storage/Voices/Ending Guess/Think you know the answer%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  howManyDidYouGet: "../.Storage/Voices/Ending Guess/How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  howManyDidYouGetLegacy: "../.Storage/Voices/Ending Guess/How many did you get? let us know in the comments!!! Dont forget to like and subscribe .mp3",
-  howManyDidYouGetEncodedQ: "../.Storage/Voices/Ending Guess/How many did you get%3F let us know in the comments!!! Dont forget to like and subscribe .mp3",
   ticking: "../.Storage/Voices/Ticking sound/ticking sound.mp3"
 };
 
@@ -55,7 +128,7 @@ let bgMusicTargetVolume = STARTING_VOL;
 function fadeBgm(targetVolume, durationMs) {
   if (!bgMusic) return;
   clearInterval(fadeInterval);
-  
+
   const steps = 20; // 20 frames for the smooth fade
   const stepTime = Math.max(10, durationMs / steps);
   const startVolume = bgMusic.volume;
@@ -69,11 +142,11 @@ function fadeBgm(targetVolume, durationMs) {
     }
     currentStep++;
     let newVol = startVolume + (volumeDiff * (currentStep / steps));
-    
+
     // Safety clamp volume to avoid browser errors
     if (newVol > 1) newVol = 1;
     if (newVol < 0) newVol = 0;
-    
+
     bgMusic.volume = newVol;
 
     if (currentStep >= steps) {
@@ -205,7 +278,7 @@ export function stopAllAudio() {
   clearInterval(fadeInterval);
   clearInterval(bgmCrossfadeInterval);
   isBgmCrossfading = false;
-  
+
   if (bgMusic) {
     clearBgmEventHandlers(bgMusic);
     bgMusic.pause();
@@ -223,31 +296,6 @@ export function stopAllAudio() {
     currentVoice.currentTime = 0;
   }
   stopTicking();
-}
-
-export function playVoice(src, delayMs = 1000) {
-  if (currentVoice) {
-    currentVoice.pause();
-  }
-  
-  clearTimeout(duckingTimeout);
-  clearTimeout(restoreTimeout);
-  
-  // 1. Immediately start smoothly fading down over the delay period
-  fadeBgm(DUCKED_VOL, delayMs);
-
-  // 2. Play the voice after the delay finishes
-  duckingTimeout = setTimeout(() => {
-    currentVoice = new Audio(src);
-    currentVoice.play().catch(err => console.warn("Voice play error:", err));
-    
-    // 3. When voice finishes, wait 1s, then smoothly fade back up
-    currentVoice.addEventListener('ended', () => {
-      restoreTimeout = setTimeout(() => {
-        fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
-      }, 1000); // wait 1s after voice ends
-    });
-  }, delayMs);
 }
 
 const TICKING_VOLUME = 1;
@@ -276,11 +324,100 @@ export function stopTicking() {
   }
 }
 
+/** Probe candidates and resolve to the first URL that `canplay`s. */
+function pickExistingSrc(candidates) {
+  const list = (candidates || []).filter((s) => !!s);
+  if (list.length === 0) return Promise.resolve("");
+  if (list.length === 1) return Promise.resolve(list[0]);
+  return new Promise((resolve) => {
+    let i = 0;
+    const tryNext = () => {
+      if (i >= list.length) { resolve(""); return; }
+      const src = list[i++];
+      if (i === list.length) { resolve(src); return; }
+      const probe = new Audio();
+      const cleanup = () => {
+        probe.removeEventListener("error", onErr);
+        probe.removeEventListener("canplay", onOk);
+      };
+      const onErr = () => { cleanup(); tryNext(); };
+      const onOk = () => {
+        cleanup();
+        probe.pause(); probe.removeAttribute("src"); probe.load();
+        resolve(src);
+      };
+      probe.addEventListener("error", onErr, { once: true });
+      probe.addEventListener("canplay", onOk, { once: true });
+      probe.src = src;
+      probe.load();
+    };
+    tryNext();
+  });
+}
+
+/**
+ * Probe a fallback chain and playVoice the first entry that canplay.
+ * Used when the gameplay needs language-specific clips but the Spanish file
+ * might not have been generated yet — fall back to English silently.
+ */
+function playVoiceFromCandidates(candidates, delayMs = 1000) {
+  const list = (candidates || []).filter((s) => !!s);
+  if (list.length === 0) return;
+  if (list.length === 1) { playVoice(list[0], delayMs); return; }
+  let i = 0;
+  const tryNext = () => {
+    if (i >= list.length) return;
+    const src = list[i++];
+    if (i === list.length) { playVoice(src, delayMs); return; }
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => { cleanup(); tryNext(); };
+    const onOk = () => {
+      cleanup();
+      probe.pause(); probe.removeAttribute("src"); probe.load();
+      playVoice(src, delayMs);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
+}
+
+export function playVoice(src, delayMs = 1000) {
+  if (currentVoice) {
+    currentVoice.pause();
+  }
+
+  clearTimeout(duckingTimeout);
+  clearTimeout(restoreTimeout);
+
+  // 1. Immediately start smoothly fading down over the delay period
+  fadeBgm(DUCKED_VOL, delayMs);
+
+  // 2. Play the voice after the delay finishes
+  duckingTimeout = setTimeout(() => {
+    currentVoice = new Audio(src);
+    currentVoice.play().catch(err => console.warn("Voice play error:", err));
+
+    // 3. When voice finishes, wait 1s, then smoothly fade back up
+    currentVoice.addEventListener('ended', () => {
+      restoreTimeout = setTimeout(() => {
+        fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
+      }, 1000); // wait 1s after voice ends
+    });
+  }, delayMs);
+}
+
 export function playWelcome() {
   if (!appState.isVideoPlaying) return;
   if (document.body.classList.contains("shorts-mode")) return;
   // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
-  playVoice(paths.welcome, 500);
+  playVoiceFromCandidates(langAwareCandidates(welcomePathFor), 500);
 }
 
 /** Shorts landing: welcome only over BGM (no duck); resolves when the clip ends. Pre-delay lives in video.js. */
@@ -289,31 +426,39 @@ export function playWelcomeShortsLanding() {
   if (!document.body.classList.contains("shorts-mode")) {
     return Promise.resolve();
   }
+  const candidates = langAwareCandidates(welcomePathFor);
   return new Promise((resolve) => {
     if (currentVoice) {
       currentVoice.pause();
       currentVoice.currentTime = 0;
     }
-    currentVoice = new Audio(paths.welcome);
-    currentVoice.addEventListener(
-      "ended",
-      () => {
-        resolve();
-      },
-      { once: true }
-    );
-    currentVoice.play().catch((err) => {
-      console.warn("Voice play error:", err);
-      resolve();
-    });
+    let idx = 0;
+    const playNext = () => {
+      if (idx >= candidates.length) { resolve(); return; }
+      const src = candidates[idx++];
+      const a = new Audio(src);
+      currentVoice = a;
+      a.addEventListener("ended", () => { resolve(); }, { once: true });
+      a.addEventListener("error", () => {
+        if (currentVoice === a) currentVoice = null;
+        playNext();
+      }, { once: true });
+      a.play().catch((err) => {
+        console.warn("Voice play error:", err);
+        if (currentVoice === a) currentVoice = null;
+        playNext();
+      });
+    };
+    playNext();
   });
 }
 
 function getRulesVoicePath(quizType) {
-  if (quizType === "club-by-nat") {
-    return paths.guessNat;
-  }
-  return paths.guessClub;
+  return getRulesVoiceCandidates(quizType)[0] || "";
+}
+
+function getRulesVoiceCandidates(quizType) {
+  return langAwareCandidates(quizTitlePathFor, quizType);
 }
 
 function isShortsModeActive() {
@@ -420,42 +565,66 @@ export function playBundledQuizTitleShorts(quizType, options = {}) {
   return playShortsQuizTitleMediaClip(absSrc, options);
 }
 
-/** Max wait for async `__resolveQuizTitleVoiceSrc` before using bundled guessNat/guessClub (offline / slow API). */
-const QUIZ_TITLE_VOICE_RESOLVE_TIMEOUT_MS = 1200;
-
 /** Quiz title / competition rules clip for shorts Play Video; optional `onPlaybackStart` when audio actually plays. */
 export function playRulesShortsLanding(quizType, options = {}) {
   if (!appState.isVideoPlaying) return Promise.resolve();
-  if (!isShortsModeActive()) {
+  if (!document.body.classList.contains("shorts-mode")) {
     return Promise.resolve();
   }
-  const playClip = (src) => playShortsQuizTitleMediaClip(String(src || "").trim(), options);
-  const playFallback = () => playClip(toAbsoluteBundledVoiceUrl(getRulesVoicePath(quizType)));
+  const onPlaybackStart =
+    typeof options.onPlaybackStart === "function" ? options.onPlaybackStart : null;
+  const notifyPlaybackStart = () => {
+    if (onPlaybackStart) onPlaybackStart();
+  };
+  const playClip = (src) =>
+    new Promise((resolve) => {
+      const clipSrc = String(src || "").trim();
+      if (!clipSrc) {
+        notifyPlaybackStart();
+        resolve();
+        return;
+      }
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        if (pendingShortsRulesVoiceFinish === finish) {
+          pendingShortsRulesVoiceFinish = null;
+        }
+        resolve();
+      };
+      pendingShortsRulesVoiceFinish = finish;
+      if (currentVoice) {
+        currentVoice.pause();
+        currentVoice.currentTime = 0;
+      }
+      currentVoice = new Audio(clipSrc);
+      currentVoice.addEventListener("playing", notifyPlaybackStart, { once: true });
+      currentVoice.addEventListener("ended", finish, { once: true });
+      currentVoice.play().catch((err) => {
+        console.warn("Voice play error:", err);
+        notifyPlaybackStart();
+        finish();
+      });
+    });
+  const playFallback = () => pickExistingSrc(getRulesVoiceCandidates(quizType)).then((src) => playClip(src));
   const resolver = window.__resolveQuizTitleVoiceSrc;
   if (typeof resolver !== "function") {
     return playFallback();
   }
-  const resolvedSrc = Promise.resolve(resolver(quizType)).then(
-    (s) => String(s || "").trim(),
-    () => ""
-  );
-  const timeoutSrc = new Promise((resolve) => {
-    setTimeout(() => resolve(""), QUIZ_TITLE_VOICE_RESOLVE_TIMEOUT_MS);
-  });
-  return Promise.race([resolvedSrc, timeoutSrc]).then((clipSrc) => {
-    if (clipSrc) return playClip(clipSrc);
-    return playFallback();
-  });
+  return Promise.resolve(resolver(quizType))
+    .then((src) => {
+      const clipSrc = String(src || "").trim();
+      if (clipSrc) return playClip(clipSrc);
+      return playFallback();
+    })
+    .catch(() => playFallback());
 }
 
 export function playRules(quizType, delayMs = 1000) {
   if (!appState.isVideoPlaying) return;
   const playFallback = () => {
-    if (quizType === "club-by-nat") {
-      playVoice(paths.guessNat, delayMs);
-    } else {
-      playVoice(paths.guessClub, delayMs);
-    }
+    playVoiceFromCandidates(getRulesVoiceCandidates(quizType), delayMs);
   };
   const resolver = window.__resolveQuizTitleVoiceSrc;
   if (typeof resolver !== "function") {
@@ -552,7 +721,7 @@ export function playTheAnswerIs(
 ) {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
-  
+
   if (includeVoice && appState.isVideoPlaying) {
     playTeamNameVoiceIfExistsInDir(
       teamDisplayName,
@@ -592,47 +761,19 @@ export function playEndingVoice(endingType) {
 }
 
 function playEndingVoiceFallback(endingType) {
-  const candidates = endingType === "how-many"
-    ? [paths.howManyDidYouGet, paths.howManyDidYouGetLegacy, paths.howManyDidYouGetEncodedQ]
-    : [paths.commentBelow, paths.commentBelowLegacy, paths.commentBelowEncodedQ];
-  let i = 0;
-  const tryNext = () => {
-    if (i >= candidates.length) return;
-    const src = candidates[i++];
-    const probe = new Audio();
-    const cleanup = () => {
-      probe.removeEventListener("error", onErr);
-      probe.removeEventListener("canplay", onOk);
-    };
-    const onErr = () => {
-      cleanup();
-      tryNext();
-    };
-    const onOk = () => {
-      cleanup();
-      probe.pause();
-      probe.removeAttribute("src");
-      probe.load();
-      playVoice(src, 100);
-    };
-    probe.addEventListener("error", onErr, { once: true });
-    probe.addEventListener("canplay", onOk, { once: true });
-    probe.src = src;
-    probe.load();
-  };
-  tryNext();
+  playVoiceFromCandidates(langAwareCandidates(endingPathFor, endingType), 100);
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
   if (!appState.isVideoPlaying) return;
   if (document.body.classList.contains("shorts-mode")) return;
   clearTimeout(progressTimeout);
-  
+
   const questionIndex = levelIndex;
   const totalQuestions = totalLevelsCount - 2; // Minus Logo, Outro
 
   if (questionIndex === 1) {
-    playVoice(paths.warmUp, 1000);
+    playVoiceFromCandidates(langAwareCandidates(levelPathFor, "warmUp"), 1000);
     return;
   }
 
@@ -641,10 +782,10 @@ export function playProgressVoice(levelIndex, totalLevelsCount) {
   const target90 = Math.max(2, Math.round(totalQuestions * 0.9));
 
   if (questionIndex === target30) {
-    playVoice(paths.serious, 1000);
+    playVoiceFromCandidates(langAwareCandidates(levelPathFor, "serious"), 1000);
   } else if (questionIndex === target60) {
-    playVoice(paths.nerds, 1000);
+    playVoiceFromCandidates(langAwareCandidates(levelPathFor, "nerds"), 1000);
   } else if (questionIndex === target90) {
-    playVoice(paths.genius, 1000);
+    playVoiceFromCandidates(langAwareCandidates(levelPathFor, "genius"), 1000);
   }
 }

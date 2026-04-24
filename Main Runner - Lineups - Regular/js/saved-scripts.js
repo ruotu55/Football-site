@@ -9,6 +9,12 @@ import { switchLevel } from "./levels.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
+import { loadSquadJson } from "./teams.js";
+import {
+    ensureSavedLayoutsLoaded,
+    hasSavedLayoutForEntry,
+    buildImportLevelDataFromSavedLayout,
+} from "./saved-team-layouts.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_lineups_regular_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_lineups_regular_fcbnew";
@@ -73,6 +79,132 @@ let scriptToDeleteIndex = -1;
 let activeScriptName = null; 
 
 let uiCallbacks = {}; 
+
+// ---------------------------------------------------------------------------
+// Import helpers
+// ---------------------------------------------------------------------------
+
+/** Turkish letters that do not fold cleanly with NFD + strip marks (e.g. ı vs i). */
+function foldTurkishLatinForImport(s) {
+    return s
+        .replace(/ğ/g, "g")
+        .replace(/Ğ/g, "g")
+        .replace(/ı/g, "i")
+        .replace(/İ/g, "i")
+        .replace(/ş/g, "s")
+        .replace(/Ş/g, "s")
+        .replace(/ö/g, "o")
+        .replace(/Ö/g, "o")
+        .replace(/ü/g, "u")
+        .replace(/Ü/g, "u")
+        .replace(/ç/g, "c")
+        .replace(/Ç/g, "c");
+}
+
+/** Normalize a name for fuzzy matching: lowercase, strip diacritics, apostrophes, extra spaces.
+ *  Also transliterates Nordic/special letters that don't decompose in NFD (ø, å, æ, ð, þ, ß). */
+function normalizeForImport(str) {
+    if (!str) return "";
+    try {
+        return foldTurkishLatinForImport(
+            str.trim()
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/\p{M}/gu, "")      // strip combining diacritics (é→e, ü→u, etc.)
+                .replace(/ø/g, "o")          // Nordic: ø→o (Højbjerg→hojbjerg, Ødegaard→odegaard)
+                .replace(/å/g, "a")          // Nordic: å→a (Håland→haland)
+                .replace(/æ/g, "ae")         // Nordic: æ→ae
+                .replace(/ð/g, "d")          // Icelandic: ð→d
+                .replace(/þ/g, "th")         // Icelandic: þ→th
+                .replace(/ß/g, "ss")         // German: ß→ss
+                .replace(/[''`´']/g, "")
+                .replace(/\./g, "")
+                .replace(/\s+/g, " ")
+                .trim(),
+        );
+    } catch {
+        return foldTurkishLatinForImport(
+            str.trim()
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/ø/g, "o")
+                .replace(/å/g, "a")
+                .replace(/æ/g, "ae")
+                .replace(/ð/g, "d")
+                .replace(/þ/g, "th")
+                .replace(/ß/g, "ss")
+                .replace(/[''`´']/g, "")
+                .replace(/\./g, "")
+                .replace(/\s+/g, " ")
+                .trim(),
+        );
+    }
+}
+
+/** Common alternate team names → normalized database name. */
+const IMPORT_TEAM_ALIASES = {
+    "usa":     "united states",
+    "turkey":  "turkiye",
+    "bosnia":  "bosnia and herzegovina",
+    "england": "england",   // already fine, but just in case
+};
+
+function resolveTeamAlias(normName) {
+    return IMPORT_TEAM_ALIASES[normName] ?? normName;
+}
+
+/**
+ * Parse "[Team1, Team2, Team3]" (or "Team1,Team2,Team3") into an ordered list
+ * of trimmed team names.
+ */
+function parseImportText(text) {
+    let s = String(text || "").trim();
+    if (!s) return { error: "Paste the import text first." };
+    if (s.startsWith("[")) s = s.slice(1);
+    if (s.endsWith("]")) s = s.slice(0, -1);
+    const names = s.split(",").map(n => n.trim()).filter(Boolean);
+    if (names.length === 0) {
+        return { error: "No teams found. Use format: [Team1, Team2, Team3]" };
+    }
+    return { names };
+}
+
+function makeEmptyImportLevel(overrides = {}) {
+    return {
+        isLogo: false,
+        isIntro: false,
+        isBonus: false,
+        isOutro: false,
+        gameMode: "lineup",
+        squadType: "club",
+        selectedEntry: null,
+        currentSquad: null,
+        slotPhotoIndexEntries: [],
+        formationId: "433",
+        lastFormationId: null,
+        displayMode: "club",
+        searchText: "",
+        customXi: null,
+        customNames: {},
+        videoMode: false,
+        landingPageType: "club",
+        careerClubsCount: 5,
+        careerSilhouetteIndex: 0,
+        silhouetteYOffset: 0,
+        silhouetteScaleX: 1,
+        silhouetteScaleY: 1,
+        headerLogoScale: 1,
+        headerLogoNudgeX: 0,
+        headerLogoOverrideRelPath: null,
+        slotClubCrestOverrideRelPathBySlot: {},
+        slotFlagScales: Array(11).fill(DEFAULT_SLOT_FLAG_SCALE),
+        slotTeamLogoScales: Array(11).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
+        ...overrides,
+    };
+}
+
+// ---------------------------------------------------------------------------
 
 export function initSavedScripts(callbacks) {
     uiCallbacks = callbacks || {};
@@ -252,6 +384,191 @@ export function initSavedScripts(callbacks) {
         els.deleteScriptModal.hidden = true;
         scriptToDeleteIndex = -1;
     };
+
+    // -----------------------------------------------------------------------
+    // Import modal
+    // -----------------------------------------------------------------------
+    function closeImportModal() {
+        if (els.importScriptModal) els.importScriptModal.hidden = true;
+        if (els.importScriptError) {
+            els.importScriptError.textContent = "";
+            els.importScriptError.style.display = "none";
+        }
+    }
+
+    if (els.btnImportScript) {
+        els.btnImportScript.onclick = () => {
+            if (els.importScriptText) els.importScriptText.value = "";
+            if (els.importScriptName) els.importScriptName.value = "";
+            if (els.importScriptError) {
+                els.importScriptError.textContent = "";
+                els.importScriptError.style.display = "none";
+            }
+            if (els.importScriptModal) {
+                els.importScriptModal.hidden = false;
+                els.importScriptText?.focus();
+            }
+        };
+    }
+
+    if (els.importScriptModalClose) els.importScriptModalClose.onclick = closeImportModal;
+    if (els.importScriptCancel) els.importScriptCancel.onclick = closeImportModal;
+
+    if (els.importScriptConfirm) {
+        els.importScriptConfirm.onclick = async () => {
+            const showErr = (msg) => {
+                if (!els.importScriptError) return;
+                els.importScriptError.textContent = msg;
+                els.importScriptError.style.display = "block";
+            };
+            if (els.importScriptError) {
+                els.importScriptError.textContent = "";
+                els.importScriptError.style.display = "none";
+            }
+
+            const text = els.importScriptText?.value?.trim() || "";
+            const name = els.importScriptName?.value?.trim() || "";
+
+            if (!text) { showErr("Paste the import text first."); return; }
+            if (!name) { showErr("Enter a save name."); return; }
+
+            els.importScriptConfirm.disabled = true;
+            els.importScriptConfirm.textContent = "Importing…";
+
+            try {
+                // 1. Parse "[Team1, Team2, ...]" into an ordered name list
+                const parsed = parseImportText(text);
+                if (parsed.error) { showErr(parsed.error); return; }
+                const { names } = parsed;
+
+                // 2. Make sure saved layouts are loaded before checking
+                await ensureSavedLayoutsLoaded();
+
+                const allClubs = appState.teamsIndex?.clubs || [];
+                const allNats = appState.teamsIndex?.nationalities || [];
+                const allEntries = [...allClubs, ...allNats];
+
+                // 3. Resolve each name to a team entry and verify it has a saved layout
+                const errors = [];
+                const resolved = [];
+
+                for (const rawName of names) {
+                    const normTeam = resolveTeamAlias(normalizeForImport(rawName));
+                    let entry = allEntries.find(t => normalizeForImport(t.name) === normTeam);
+                    if (!entry) {
+                        entry = allEntries.find(t => normalizeForImport(t.name).includes(normTeam) || normTeam.includes(normalizeForImport(t.name)));
+                    }
+                    if (!entry) {
+                        errors.push(`\u274C ${rawName}: team not found.`);
+                        continue;
+                    }
+                    if (!hasSavedLayoutForEntry(entry)) {
+                        errors.push(`\u274C ${rawName} dont have a save team.`);
+                        continue;
+                    }
+                    const isNational = allNats.some(t => t.path === entry.path);
+                    resolved.push({ rawName, entry, isNational });
+                }
+
+                if (errors.length > 0) {
+                    showErr(errors.join("\n"));
+                    return;
+                }
+
+                // 4. Load each squad and rehydrate the saved layout into a level
+                const levelDatas = [];
+                for (const { rawName, entry, isNational } of resolved) {
+                    let squad;
+                    try {
+                        squad = await loadSquadJson(entry);
+                    } catch {
+                        errors.push(`\u274C ${rawName}: failed to load squad data.`);
+                        continue;
+                    }
+                    const layout = await buildImportLevelDataFromSavedLayout(entry, squad);
+                    if (!layout) {
+                        errors.push(`\u274C ${rawName} dont have a save team.`);
+                        continue;
+                    }
+                    levelDatas.push(makeEmptyImportLevel({
+                        squadType: layout.squadType ?? (isNational ? "national" : "club"),
+                        selectedEntry: entry,
+                        currentSquad: squad,
+                        formationId: layout.formationId,
+                        lastFormationId: layout.lastFormationId,
+                        displayMode: layout.displayMode ?? (isNational ? "country" : "club"),
+                        searchText: squad.name || entry.name,
+                        customXi: layout.customXi,
+                        customNames: layout.customNames || {},
+                        landingPageType: isNational ? "nationality" : "club",
+                        headerLogoScale: layout.headerLogoScale ?? 1,
+                        headerLogoNudgeX: layout.headerLogoNudgeX ?? 0,
+                        headerLogoOverrideRelPath: layout.headerLogoOverrideRelPath ?? null,
+                        slotClubCrestOverrideRelPathBySlot: layout.slotClubCrestOverrideRelPathBySlot || {},
+                        slotFlagScales: Array.isArray(layout.slotFlagScales)
+                            ? [...layout.slotFlagScales]
+                            : Array(11).fill(DEFAULT_SLOT_FLAG_SCALE),
+                        slotTeamLogoScales: Array.isArray(layout.slotTeamLogoScales)
+                            ? [...layout.slotTeamLogoScales]
+                            : Array(11).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
+                        slotPhotoIndexEntries: Array.isArray(layout.slotPhotoIndexEntries)
+                            ? layout.slotPhotoIndexEntries
+                            : [],
+                    }));
+                }
+
+                if (errors.length > 0) {
+                    showErr(errors.join("\n"));
+                    return;
+                }
+
+                // 4. Build full levels array (logo, intro, teams..., bonus, outro)
+                const n = levelDatas.length;
+                const allLevels = [
+                    makeEmptyImportLevel({ isLogo: true }),
+                    makeEmptyImportLevel({ isIntro: true }),
+                    ...levelDatas,
+                    makeEmptyImportLevel({ isBonus: true }),
+                    makeEmptyImportLevel({ isOutro: true }),
+                ];
+
+                const newScript = {
+                    name,
+                    folder: null,
+                    landing: {
+                        gameMode: "lineup",
+                        quizType: els.inQuizType?.value || "nat-by-club",
+                        endingType: els.inEndingType?.value || "think-you-know",
+                        specificToggle: false,
+                        specificText: "",
+                        specificIcon: "",
+                        easy: 10,
+                        medium: 5,
+                        hard: 3,
+                        impossible: 1,
+                    },
+                    lineup: {
+                        videoMode: false,
+                        totalLevels: n,
+                        shortsMode: FIXED_SHORTS_MODE,
+                    },
+                    transitions: {},
+                    levels: allLevels,
+                };
+
+                savedScripts.push(newScript);
+                persistSaved();
+                activeScriptName = name;
+                closeImportModal();
+                renderSavedScripts();
+
+            } finally {
+                els.importScriptConfirm.disabled = false;
+                els.importScriptConfirm.textContent = "Import";
+            }
+        };
+    }
+    // -----------------------------------------------------------------------
 
     void SAVE_SERVER.startPull({
         render: renderSavedScripts,
@@ -504,6 +821,7 @@ async function loadScript(script) {
 
     if (script.lineup) {
         els.videoModeToggle.checked = !!script.lineup.videoMode;
+        els.videoModeToggle.dispatchEvent(new Event("change"));
         els.quizLevelsInput.value = script.lineup.totalLevels || 29;
         if (els.shortsModeToggle) {
             els.shortsModeToggle.checked = FIXED_SHORTS_MODE;

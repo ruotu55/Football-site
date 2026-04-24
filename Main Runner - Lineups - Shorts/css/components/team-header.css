@@ -263,7 +263,7 @@ body.play-video-active .team-header-clear-team-btn {
   cursor: not-allowed;
 }
 
-body.play-video-active .team-voice-controls {
+body.play-video-active:not(.shorts-mode) .team-voice-controls {
   display: none;
 }
 
@@ -513,12 +513,16 @@ body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-log
   margin-top: 0.04em;
 }
 
-/* Shorts: panel slides from top, constrained to the 9:16 stage column */
+/* Shorts: panel slides from top, constrained to the 9:16 stage column.
+   Do NOT use transform on .team-header here: it creates a fixed-position containing block, so
+   Vol / X (position: fixed) would slide off-screen with the panel when Video Mode collapses it. */
 body.shorts-mode .team-header {
-  /* Centered at top, same width as .stage-main */
-  inset: 0 auto auto auto;
-  left: 50%;
-  width: 56.25vh;
+  inset: unset;
+  top: calc(-100vh - 2rem);
+  left: calc(50vw - min(56.25vh, 100vw) / 2);
+  right: auto;
+  bottom: auto;
+  width: min(56.25vh, 100vw);
   max-width: 100vw;
   min-width: 0;
   height: auto;
@@ -533,14 +537,16 @@ body.shorts-mode .team-header {
   border-bottom: none;
   background-color: transparent;
   box-shadow: none;
-  overflow: hidden;
-  /* Slide from top; translateX(-50%) keeps it centered */
-  transform: translateX(-50%) translateY(-100%);
-  transition: transform 0.5s ease-out;
+  overflow: visible;
+  transform: none;
+  will-change: top;
+  pointer-events: none;
+  transition: top 0.5s ease-out;
 }
 
 body.shorts-mode .team-header.team-header--show {
-  transform: translateX(-50%) translateY(0);
+  top: 0;
+  pointer-events: auto;
 }
 
 /* Shorts: hide the country flag */
@@ -638,9 +644,10 @@ body.shorts-mode .team-side-panel-clear-on-logo {
   position: fixed !important;
   top: 5.5vh !important;
   bottom: auto !important;
-  left: calc(50% - 56.25vh / 2 + 1rem) !important;
+  left: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem) !important;
   right: auto !important;
-  z-index: 10;
+  z-index: 200;
+  pointer-events: auto;
   width: 2.75rem !important;
   min-width: 2.75rem !important;
   height: 2.1rem !important;
@@ -654,9 +661,16 @@ body.shorts-mode .team-side-panel-clear-on-logo {
 body.shorts-mode #team-voice-controls {
   position: fixed;
   top: 5.5vh;
-  right: calc(50% - 56.25vh / 2 + 1rem);
+  right: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem);
   bottom: auto;
   margin: 0;
+  z-index: 200;
+  pointer-events: auto;
+}
+
+/* Shorts + Play Video: hide Vol / delete-voice (editing keeps them via rules above). */
+body.shorts-mode.play-video-active .team-voice-controls {
+  display: none !important;
 }
 
 /* Shorts: hatch stripes fade out towards the bottom (barely visible near the pitch) */

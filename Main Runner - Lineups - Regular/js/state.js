@@ -108,6 +108,8 @@ export const appState = {
   landingSpecialBadgeRevealTimeoutId: null,
   videoInterval: null,
   videoTimeout: null,
+  /** `renderHeader`: ignore stale logo/flag image callbacks after level switches. */
+  teamHeaderRenderGeneration: 0,
   /** Team side panel: cancel stale slide-in rAF chains. */
   teamSidebarAnimGeneration: 0,
   teamSidebarLastOpen: false,

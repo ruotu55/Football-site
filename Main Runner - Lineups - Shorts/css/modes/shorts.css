@@ -40,6 +40,8 @@ body.shorts-mode .app {
 body.shorts-mode .stage {
     background: transparent;
     position: relative;
+    /* Align with other shorts runners: flat stage so fixed chrome matches the viewport. */
+    perspective: none;
 }
 
 /* Static green 9:16 backdrop so it doesn't shrink during animations */
@@ -185,7 +187,7 @@ body.shorts-mode .slot-name {
 body.shorts-mode .quiz-progress {
     flex-direction: row;
     top: auto;
-    bottom: calc(3.5rem + 5vh);
+    bottom: calc(2.8rem + 4vh);
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -243,7 +245,7 @@ body.shorts-mode .quiz-progress .step-dots::after {
 
 /* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: max(2.65rem, 18.5vh);
+    top: calc(max(2.65rem, 18.5vh) * 0.7);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -389,12 +391,11 @@ body.shorts-mode #outro-page:not([hidden]) .action-sub-bottom {
 }
 
 /* =========================================
-   SHOTS SIZE – Safe-zone overlay
-   Shows the area obscured by platform UI
-   (YouTube Shorts / TikTok / Reels)
-   on 1080×1920 (9:16):
-     Top    ~20%  (search bar, status bar)
-     Bottom ~20%  (channel name, buttons)
+   SHOTS SIZE – Safe-zone overlay (9:16 column)
+   Yellow tint = margins outside the dashed frame (top, bottom, left, right).
+   Center inside dashed lines stays clear. Red dashed = frame edges.
+   Top: 11vh strip. Bottom top edge: slightly above old grid line 19.
+   Vertical dashed: 1/21 and 20/21 column width.
    ========================================= */
 .shots-size-overlay {
     position: fixed;
@@ -403,25 +404,71 @@ body.shorts-mode #outro-page:not([hidden]) .action-sub-bottom {
     z-index: 9999;
 }
 
-.shots-size-overlay__top,
-.shots-size-overlay__bottom {
+.shots-size-overlay__column {
     position: absolute;
+    top: 0;
     left: calc((100vw - min(56.25vh, 100vw)) / 2);
     width: min(56.25vh, 100vw);
-    background: rgba(255, 0, 0, 0.18);
+    height: 100vh;
     box-sizing: border-box;
 }
 
-/* Top danger zone – slightly above the countdown timer (~18.5vh) */
+.shots-size-overlay__margin-left,
+.shots-size-overlay__margin-right {
+    position: absolute;
+    z-index: 1;
+    top: 11vh;
+    bottom: calc(100% * 2 / 21 + 0.6vh);
+    width: calc(100% / 21);
+    background: rgba(255, 215, 48, 0.24);
+    box-sizing: border-box;
+}
+
+.shots-size-overlay__margin-left {
+    left: 0;
+}
+
+.shots-size-overlay__margin-right {
+    right: 0;
+}
+
+.shots-size-overlay__top,
+.shots-size-overlay__bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 215, 48, 0.24);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
 .shots-size-overlay__top {
     top: 0;
-    height: 17vh;
+    height: 11vh;
     border-bottom: 2px dashed rgba(255, 70, 70, 0.8);
 }
 
-/* Bottom danger zone – slightly below the levels bar (~3.5rem + 7vh) */
 .shots-size-overlay__bottom {
+    top: calc(19 * 100% / 21 - 0.6vh);
     bottom: 0;
-    height: 14vh;
+    height: auto;
     border-top: 2px dashed rgba(255, 70, 70, 0.8);
+}
+
+.shots-size-overlay__vline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 2px dashed rgba(255, 70, 70, 0.8);
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.shots-size-overlay__vline--left {
+    left: calc(100% / 21);
+}
+
+.shots-size-overlay__vline--right {
+    left: calc(20 * 100% / 21);
 }

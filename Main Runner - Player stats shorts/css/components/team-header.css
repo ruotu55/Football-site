@@ -1,5 +1,10 @@
 /* css/components/team-header.css */
 
+.shorts-chrome-mount,
+#player-voice-chrome-mount {
+  display: contents;
+}
+
 .team-header {
   display: grid;
   /* Default 3-column grid for National teams */
@@ -177,4 +182,82 @@ body.play-video-active:not(.shorts-mode) .team-header.video-revealed .team-heade
   white-space: nowrap; 
   transform: translateY(-0.4rem);
   -webkit-font-smoothing: antialiased;
+}
+
+.player-voice-controls {
+  grid-column: 3;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: auto;
+  margin-top: 4rem;
+}
+
+.player-voice-controls[hidden] {
+  display: none !important;
+}
+
+.player-voice-btn {
+  box-sizing: border-box;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.player-voice-btn:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.player-voice-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+body.play-video-active:not(.shorts-mode) .player-voice-controls {
+  display: none;
+}
+
+/* Shorts: fixed Vol + delete row (matches Lineups Shorts #team-voice-controls placement). */
+body.shorts-mode .player-voice-controls {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+  grid-column: unset;
+  justify-self: unset;
+}
+
+/* Shorts: match Lineups Shorts — same inset, z-index, and safe-area column math. */
+body.shorts-mode #player-voice-controls {
+  position: fixed;
+  top: 5.5vh;
+  right: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem);
+  bottom: auto;
+  left: auto;
+  margin: 0;
+  z-index: 200;
+  pointer-events: auto;
+}
+
+body.shorts-mode.play-video-active .player-voice-controls {
+  display: none !important;
 }

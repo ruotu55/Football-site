@@ -8,6 +8,7 @@ import {
   setBgMusicForLevel,
 } from "./audio.js";
 import { runTransition, transitionSettings } from "./transitions.js";
+import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -150,6 +151,7 @@ export function switchLevel(index) {
       els.careerWrap.hidden = true;
     }
     els.teamHeader.hidden = true;
+    if (els.playerVoiceControls) els.playerVoiceControls.hidden = true;
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
@@ -245,6 +247,10 @@ export function switchLevel(index) {
       ) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
+    }
+
+    if (isShorts) {
+      syncShortsVideoModeIdleTimerBar();
     }
   };
 

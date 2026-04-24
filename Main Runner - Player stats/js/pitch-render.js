@@ -13,6 +13,8 @@ import {
   projectAssetUrl,
   projectAssetUrlFresh,
   careerReadyPhotoRelPath,
+  careerReadyPhotoRelCandidates,
+  bumpProjectAssetCacheBust,
   CAREER_NO_PHOTO_LABEL,
   CAREER_NO_PLAYER_LABEL,
 } from "./paths.js";
@@ -286,6 +288,56 @@ const PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS = 15;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
 /** Synchronous cache: src → resolved trimmed URL (stored after first successful resolve). */
 const careerPlayerResolvedUrlSync = new Map();
+
+const CAREER_READY_PHOTO_VARIANT_PROBE_MAX = 24;
+
+async function pickLoadableReadyPhotoUrlForVariant(playerName, variantIndex) {
+  if (!playerName) return "";
+  const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
+  const tryVariant = async (vi) => {
+    for (const rel of careerReadyPhotoRelCandidates(playerName, vi)) {
+      const url = projectAssetUrlFresh(rel);
+      const img = await preloadImage(url);
+      if (img.naturalWidth) return url;
+    }
+    return "";
+  };
+  let url = await tryVariant(v);
+  if (url) return url;
+  if (v !== 1) url = await tryVariant(1);
+  return url || "";
+}
+
+async function readyPhotoVariantExists(playerName, variantIndex) {
+  if (!playerName) return false;
+  const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
+  for (const rel of careerReadyPhotoRelCandidates(playerName, v)) {
+    const url = projectAssetUrlFresh(rel);
+    if (getCachedImage(url)?.naturalWidth) return true;
+    try {
+      const r = await fetch(url, { method: "HEAD", mode: "same-origin", cache: "no-store" });
+      if (r.ok) return true;
+    } catch {
+      /* ignore */
+    }
+    try {
+      const img = await preloadImage(url);
+      if (img.naturalWidth) return true;
+    } catch {
+      /* ignore */
+    }
+  }
+  return false;
+}
+
+async function listExistingReadyPhotoVariantIndices(playerName) {
+  const out = [];
+  for (let v = 1; v <= CAREER_READY_PHOTO_VARIANT_PROBE_MAX; v += 1) {
+    if (await readyPhotoVariantExists(playerName, v)) out.push(v);
+  }
+  return out;
+}
+
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
 const CAREER_PLAYER_TRIM_ALPHA_THRESHOLD = 12;
 const CAREER_PLAYER_TRIM_MARGIN_PX = 8;
@@ -964,6 +1016,11 @@ function mapSquadPositionToBucket(positionRaw) {
   return inferPositionBucketFromText(key);
 }
 
+function isCareerPlayerGoalkeeper(player) {
+  if (!player) return false;
+  return mapSquadPositionToBucket(player.position) === "Goalkeeper";
+}
+
 /** Sum a numeric field from club + national career totals (squad JSON). Missing sides count as 0; both missing → "". */
 function formatPlayerCareerTotalStat(player, key) {
   if (!player) return "";
@@ -1045,85 +1102,6 @@ export function renderHeader() {
 /** Shared `teams.js` calls this after squad load; this runner has no pitch UI. */
 export function renderPitch() {}
 
-/** Small white icons in player stat card headers (regular layout). */
-function createPlayerStatHeadIcon(kind) {
-  const NS = "http://www.w3.org/2000/svg";
-  const svg = document.createElementNS(NS, "svg");
-  svg.setAttribute("class", "player-stat-card__icon");
-  svg.setAttribute("viewBox", "0 0 24 24");
-  svg.setAttribute("width", "27");
-  svg.setAttribute("height", "27");
-  svg.setAttribute("aria-hidden", "true");
-
-  const strokeEl = (tag, attrs) => {
-    const el = document.createElementNS(NS, tag);
-    el.setAttribute("fill", "none");
-    el.setAttribute("stroke", "currentColor");
-    el.setAttribute("stroke-width", "1.65");
-    el.setAttribute("stroke-linecap", "round");
-    el.setAttribute("stroke-linejoin", "round");
-    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
-    return el;
-  };
-
-  if (kind === "pitch") {
-    svg.append(
-      strokeEl("rect", { x: "3", y: "5", width: "18", height: "14", rx: "1.2" }),
-      strokeEl("line", { x1: "12", y1: "5", x2: "12", y2: "19" }),
-    );
-  } else if (kind === "ball") {
-    svg.append(
-      strokeEl("circle", { cx: "12", cy: "12", r: "7.5" }),
-      strokeEl("path", {
-        d: "M5.2 10c3.8 1.1 9.8 1.1 13.6 0M5.2 14c3.8-1.1 9.8-1.1 13.6 0M12 4.5v15",
-      }),
-    );
-  } else if (kind === "goal") {
-    svg.setAttribute("class", "player-stat-card__icon player-stat-card__icon--goal");
-    /* Goal frame + ball in the net. */
-    svg.append(
-      strokeEl("path", { d: "M5.2 7.8h13.6M5.2 7.8v9.4M18.8 7.8v9.4" }),
-      strokeEl("circle", { cx: "12", cy: "16.9", r: "2.7" }),
-      strokeEl("path", {
-        d: "M9.5 15.9c1.3.48 3.7.48 5 0M12 14.2v5.2",
-      }),
-    );
-  } else if (kind === "trophy") {
-    svg.append(
-      strokeEl("path", {
-        d: "M9 5h6M8 7h8v2a4 4 0 01-8 0V7zm1 9h6M10 18h4M9 21h6",
-      }),
-    );
-  } else if (kind === "euro") {
-    const t = document.createElementNS(NS, "text");
-    t.setAttribute("x", "12");
-    t.setAttribute("y", "16.5");
-    t.setAttribute("text-anchor", "middle");
-    t.setAttribute("fill", "currentColor");
-    t.setAttribute("font-size", "13");
-    t.setAttribute("font-weight", "800");
-    t.setAttribute("font-family", "system-ui,Segoe UI,sans-serif");
-    t.textContent = "\u20ac";
-    svg.appendChild(t);
-  } else if (kind === "clubs") {
-    svg.append(
-      strokeEl("path", {
-        d: "M12 3.2l7.2 3.6v5.2c0 4.1-3.1 7.9-7.2 9.8-4.1-1.9-7.2-5.7-7.2-9.8V6.8L12 3.2z",
-      }),
-    );
-  } else if (kind === "position") {
-    svg.append(
-      strokeEl("circle", { cx: "12", cy: "8", r: "3.2" }),
-      strokeEl("path", {
-        d: "M5.5 20.5v-1.2a4.5 4.5 0 014.3-4.3h1.4a4.5 4.5 0 014.3 4.3v1.2",
-      }),
-    );
-  } else {
-    return null;
-  }
-  return svg;
-}
-
 /**
  * Preload all images needed for the current career state into the RAM cache.
  */
@@ -1132,7 +1110,8 @@ export function preloadCareerAssets(state) {
   const urls = [];
   const playerName = state.careerPlayer?.name?.trim();
   if (playerName) {
-    const readyRel = careerReadyPhotoRelPath(playerName);
+    const vi = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
+    const readyRel = careerReadyPhotoRelPath(playerName, vi);
     if (readyRel) urls.push(projectAssetUrlFresh(readyRel));
   }
   const history = Array.isArray(state.careerHistory) ? state.careerHistory : [];
@@ -1345,9 +1324,38 @@ export function renderCareer() {
 
   const showShortsCareerGrid = hasRealPlayer || shortsPreviewActive;
   wrap.classList.toggle("career-no-player", !hasRealPlayer && !shortsPreviewActive);
-  const readyRel = careerReadyPhotoRelPath(playerName);
-  const readyUrl = readyRel ? projectAssetUrlFresh(readyRel) : "";
+  const readyPhotoVariantIdx = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
+  const readyPhotoPick = hasRealPlayer
+    ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoVariantIdx)
+    : Promise.resolve("");
   const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
+
+  const bindCareerReadyPhotoVariantDblClick = (el) => {
+    if (!hasRealPlayer || !el) return;
+    if (typeof el.draggable === "boolean") el.draggable = false;
+    el.addEventListener("dragstart", (e) => {
+      e.preventDefault();
+    });
+    el.addEventListener(
+      "dblclick",
+      async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+        const st = getState();
+        if (!st || !playerName) return;
+        const indices = await listExistingReadyPhotoVariantIndices(playerName);
+        if (indices.length < 2) return;
+        let cur = Math.max(1, Math.floor(Number(st.careerReadyPhotoVariantIndex) || 1));
+        if (!indices.includes(cur)) cur = indices[0];
+        const pos = indices.indexOf(cur);
+        st.careerReadyPhotoVariantIndex = indices[(pos + 1) % indices.length];
+        bumpProjectAssetCacheBust();
+        renderCareer();
+      },
+      { passive: false, capture: true },
+    );
+  };
 
   const svgNamespace = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(svgNamespace, "svg");
@@ -1446,6 +1454,7 @@ export function renderCareer() {
 
   image.setAttribute("preserveAspectRatio", "xMidYMax meet");
   image.setAttribute("class", "career-silhouette career-silhouette--photo");
+  bindCareerReadyPhotoVariantDblClick(image);
 
   /* Keep a uniform baseline, but still apply Adjust Picture offsets/scales. */
   applyCareerSilhouetteAdjustments(image, state);
@@ -1483,52 +1492,58 @@ export function renderCareer() {
     applyCareerSilhouetteAdjustments(image, state);
   };
 
-  if (readyUrl) {
-    /* If the trimmed photo URL was already resolved in a prior render, use it
-       synchronously so the silhouette is visible immediately — no hidden→load flash. */
-    const syncUrl = careerPlayerResolvedUrlSync.get(readyUrl);
-    if (syncUrl) {
-      image.setAttribute("href", syncUrl);
-      showImage();
-      /* Rect fitting needs naturalWidth/Height which may not be ready on a fresh
-         <image> element even with a cached blob URL.  Try now, fall back to load event. */
-      image.addEventListener("load", () => {
-        syncSilhouetteFromLoadedBitmap();
-      });
-      requestAnimationFrame(() => {
-        if (!image.isConnected) return;
-        if (image.naturalWidth && image.naturalHeight) {
-          syncSilhouetteFromLoadedBitmap();
-        }
-      });
-    } else {
-      image.setAttribute("visibility", "hidden");
-      missingLabel.setAttribute("visibility", "hidden");
-      image.addEventListener("load", () => {
+  if (hasRealPlayer) {
+    image.setAttribute("visibility", "hidden");
+    missingLabel.setAttribute("visibility", "hidden");
+    void readyPhotoPick.then((chosenUrl) => {
+      if (!image.isConnected) return;
+      if (!chosenUrl) {
+        showMissing();
+        return;
+      }
+      const readyUrl = chosenUrl;
+      /* If the trimmed photo URL was already resolved in a prior render, use it
+         synchronously so the silhouette is visible immediately — no hidden→load flash. */
+      const syncUrl = careerPlayerResolvedUrlSync.get(readyUrl);
+      if (syncUrl) {
+        image.setAttribute("href", syncUrl);
         showImage();
-        syncSilhouetteFromLoadedBitmap();
-      });
-      image.addEventListener("error", () => showMissing());
-      void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
-        if (!image.isConnected) return;
-        image.setAttribute("href", resolvedUrl || readyUrl);
-        /* Cached bitmap: load may not fire. */
+        /* Rect fitting needs naturalWidth/Height which may not be ready on a fresh
+           <image> element even with a cached blob URL.  Try now, fall back to load event. */
+        image.addEventListener("load", () => {
+          syncSilhouetteFromLoadedBitmap();
+        });
         requestAnimationFrame(() => {
           if (!image.isConnected) return;
           if (image.naturalWidth && image.naturalHeight) {
-            showImage();
             syncSilhouetteFromLoadedBitmap();
           }
         });
-      });
-    }
+      } else {
+        image.setAttribute("visibility", "hidden");
+        missingLabel.setAttribute("visibility", "hidden");
+        image.addEventListener("load", () => {
+          showImage();
+          syncSilhouetteFromLoadedBitmap();
+        });
+        image.addEventListener("error", () => showMissing());
+        void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+          if (!image.isConnected) return;
+          image.setAttribute("href", resolvedUrl || readyUrl);
+          /* Cached bitmap: load may not fire. */
+          requestAnimationFrame(() => {
+            if (!image.isConnected) return;
+            if (image.naturalWidth && image.naturalHeight) {
+              showImage();
+              syncSilhouetteFromLoadedBitmap();
+            }
+          });
+        });
+      }
+    });
   } else {
-    if (hasRealPlayer) {
-      showMissing();
-    } else {
-      image.setAttribute("visibility", "hidden");
-      missingLabel.setAttribute("visibility", "hidden");
-    }
+    image.setAttribute("visibility", "hidden");
+    missingLabel.setAttribute("visibility", "hidden");
   }
 
   imageGroup.appendChild(image);
@@ -1581,6 +1596,7 @@ export function renderCareer() {
       if (!st) return;
       st.careerPlayer = null;
       st.careerHistory = [];
+      st.careerReadyPhotoVariantIndex = 1;
       if (appState.els?.careerSelectedInfo) {
         appState.els.careerSelectedInfo.innerHTML = "";
       }
@@ -1859,7 +1875,16 @@ export function renderCareer() {
       revealShell.classList.toggle("is-tall-player", ratio >= 1.52);
     };
 
-    if (readyUrl) {
+    bindCareerReadyPhotoVariantDblClick(revealImg);
+    void readyPhotoPick.then((chosenUrl) => {
+      if (!revealImg.isConnected) return;
+      if (!chosenUrl) {
+        revealShell.classList.remove("is-tall-player");
+        revealImg.hidden = true;
+        revealFallback.hidden = false;
+        return;
+      }
+      const readyUrl = chosenUrl;
       revealImg.hidden = true;
       revealFallback.hidden = true;
       revealImg.addEventListener("load", () => {
@@ -1876,11 +1901,7 @@ export function renderCareer() {
         if (!revealImg.isConnected) return;
         revealImg.src = resolvedUrl || readyUrl;
       });
-    } else {
-      revealShell.classList.remove("is-tall-player");
-      revealImg.hidden = true;
-      revealFallback.hidden = false;
-    }
+    });
 
     revealShell.appendChild(revealImg);
     revealShell.appendChild(revealFallback);
@@ -1906,19 +1927,13 @@ export function renderCareer() {
     statsPanel.id = "player-stats-panel";
     statsPanel.className = "player-stats-panel";
 
-    const mkStatCard = (label, valueHtml, opts = {}) => {
+    const mkStatCard = (label, valueHtml) => {
       const card = document.createElement("div");
       card.className = "player-stat-card";
       const head = document.createElement("div");
       head.className = "player-stat-card__head";
-      if (opts.icon) {
-        const ic = createPlayerStatHeadIcon(opts.icon);
-        if (ic) head.appendChild(ic);
-      }
       const lab = document.createElement("span");
       lab.className = "player-stat-card__label";
-      if (opts.nudgeLabelRight) lab.classList.add("player-stat-card__label--nudge-right");
-      if (opts.nudgeLabelStrong) lab.classList.add("player-stat-card__label--nudge-strong");
       lab.textContent = label;
       head.appendChild(lab);
       const value = document.createElement("div");
@@ -1935,8 +1950,17 @@ export function renderCareer() {
     const statPlayer = hasRealPlayer ? state.careerPlayer : null;
     const careerGamesStr = formatPlayerCareerTotalStat(statPlayer, "appearances");
     const positionStr = formatPlayerPositionLabel(statPlayer);
-    const careerGoalsStr = formatPlayerCareerTotalStat(statPlayer, "goals");
-    const careerAssistsStr = formatPlayerCareerTotalStat(statPlayer, "assists");
+    const gkStats = statPlayer && isCareerPlayerGoalkeeper(statPlayer);
+    const careerStatRightTopStr = formatPlayerCareerTotalStat(
+      statPlayer,
+      gkStats ? "goals_conceded" : "goals",
+    );
+    const careerStatRightBottomStr = formatPlayerCareerTotalStat(
+      statPlayer,
+      gkStats ? "clean_sheets" : "assists",
+    );
+    const rightTopLabel = gkStats ? "Goals conceded" : "Career Goals";
+    const rightBottomLabel = gkStats ? "Clean sheets" : "Career assists";
 
     const clubsValueEl = document.createElement("div");
     clubsValueEl.className = "player-stat-card__value player-stat-card__value--clubs";
@@ -2024,8 +2048,6 @@ export function renderCareer() {
     clubsTrack.classList.add("player-stat-clubs-track--expanded");
     const clubsHead = document.createElement("div");
     clubsHead.className = "player-stat-card__head";
-    const clubsIcon = createPlayerStatHeadIcon("clubs");
-    if (clubsIcon) clubsHead.appendChild(clubsIcon);
     const clubsLab = document.createElement("span");
     clubsLab.className = "player-stat-card__label";
     clubsLab.textContent = "Career Clubs";
@@ -2038,14 +2060,14 @@ export function renderCareer() {
     const colLeft = document.createElement("div");
     colLeft.className = "player-stats-panel__column";
     colLeft.append(
-      mkStatCard("Career games", careerGamesStr, { icon: "pitch", nudgeLabelStrong: true }),
-      mkStatCard("Position", positionStr, { icon: "position" }),
+      mkStatCard("Career games", careerGamesStr),
+      mkStatCard("Position", positionStr),
     );
     const colRight = document.createElement("div");
     colRight.className = "player-stats-panel__column";
     colRight.append(
-      mkStatCard("Career Goals", careerGoalsStr, { icon: "goal", nudgeLabelRight: true }),
-      mkStatCard("Career assists", careerAssistsStr, { icon: "ball", nudgeLabelStrong: true }),
+      mkStatCard(rightTopLabel, careerStatRightTopStr),
+      mkStatCard(rightBottomLabel, careerStatRightBottomStr),
     );
     rowMain.append(colLeft, clubsCard, colRight);
 
@@ -2069,7 +2091,15 @@ export function renderCareer() {
         ? "Size preview"
         : CAREER_NO_PLAYER_LABEL;
 
-    if (readyUrl) {
+    bindCareerReadyPhotoVariantDblClick(revealOverlayImg);
+    void readyPhotoPick.then((chosenUrl) => {
+      if (!revealOverlayImg.isConnected) return;
+      if (!chosenUrl) {
+        revealOverlayImg.hidden = true;
+        revealOverlayFallback.hidden = false;
+        return;
+      }
+      const readyUrl = chosenUrl;
       revealOverlayImg.hidden = true;
       revealOverlayFallback.hidden = true;
       revealOverlayImg.addEventListener("load", () => {
@@ -2084,10 +2114,7 @@ export function renderCareer() {
         if (!revealOverlayImg.isConnected) return;
         revealOverlayImg.src = resolvedUrl || readyUrl;
       });
-    } else {
-      revealOverlayImg.hidden = true;
-      revealOverlayFallback.hidden = false;
-    }
+    });
 
     revealOverlay.appendChild(revealOverlayImg);
     revealOverlay.appendChild(revealOverlayFallback);

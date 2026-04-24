@@ -16,7 +16,11 @@ import {
 } from "./state.js";
 import {
   projectAssetUrlFresh,
-  careerReadyPhotoRelPath,
+  bumpProjectAssetCacheBust,
+  careerReadyPhotoClubName,
+  careerReadyPhotoRelCandidates,
+  careerReadyPhotoRelCandidatesForStem,
+  careerReadyPhotoStemForVariant,
   CAREER_NO_PHOTO_LABEL,
   CAREER_NO_PLAYER_LABEL,
 } from "./paths.js";
@@ -36,6 +40,394 @@ import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
 
 const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
+const READY_PHOTO_FROM_URL_ENDPOINT = "/__ready-photo/from-url";
+
+function careerReadyPhotoFetchServerActive() {
+  return typeof location !== "undefined" && location.protocol === "http:" && location.hostname !== "";
+}
+
+async function pickLoadableReadyPhotoUrlForVariant(playerName, clubName, variantIndex) {
+  if (!playerName) return "";
+  const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
+  const tryStem = async (stem) => {
+    for (const rel of careerReadyPhotoRelCandidatesForStem(playerName, clubName ?? "", stem)) {
+      const url = projectAssetUrlFresh(rel);
+      const img = await preloadImage(url);
+      if (img.naturalWidth) return url;
+    }
+    return "";
+  };
+  let url = await tryStem(careerReadyPhotoStemForVariant(playerName, v));
+  if (url) return url;
+  if (v !== 1) url = await tryStem(careerReadyPhotoStemForVariant(playerName, 1));
+  return url || "";
+}
+
+async function readyPhotoVariantExists(playerName, clubName, variantIndex) {
+  if (!playerName) return false;
+  const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
+  const stem = careerReadyPhotoStemForVariant(playerName, v);
+  for (const rel of careerReadyPhotoRelCandidatesForStem(playerName, clubName ?? "", stem)) {
+    const url = projectAssetUrlFresh(rel);
+    if (getCachedImage(url)?.naturalWidth) return true;
+    try {
+      const r = await fetch(url, { method: "HEAD", mode: "same-origin", cache: "no-store" });
+      if (r.ok) return true;
+    } catch {
+      /* ignore */
+    }
+    try {
+      const img = await preloadImage(url);
+      if (img.naturalWidth) return true;
+    } catch {
+      /* ignore */
+    }
+  }
+  return false;
+}
+
+const CAREER_READY_PHOTO_VARIANT_PROBE_MAX = 24;
+
+async function listExistingReadyPhotoVariantIndices(playerName, clubName) {
+  const out = [];
+  for (let v = 1; v <= CAREER_READY_PHOTO_VARIANT_PROBE_MAX; v += 1) {
+    if (await readyPhotoVariantExists(playerName, clubName, v)) out.push(v);
+  }
+  return out;
+}
+
+const READY_PHOTO_FROM_URL_FETCH_MS = 120000;
+
+async function requestReadyPhotoFromUrl(playerName, clubName, imageUrl) {
+  const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+  const timer =
+    ctrl &&
+    setTimeout(() => {
+      try {
+        ctrl.abort();
+      } catch {
+        /* ignore */
+      }
+    }, READY_PHOTO_FROM_URL_FETCH_MS);
+  let response;
+  try {
+    response = await fetch(READY_PHOTO_FROM_URL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ playerName, clubName: clubName ?? "", imageUrl }),
+      signal: ctrl ? ctrl.signal : undefined,
+    });
+  } catch (e) {
+    if (e && e.name === "AbortError") {
+      throw new Error(
+        `The download took longer than ${READY_PHOTO_FROM_URL_FETCH_MS / 1000}s and was cancelled.`,
+      );
+    }
+    throw new Error(
+      e && e.message
+        ? String(e.message)
+        : "Could not reach the local server. Open Career Path with run_site.py (same port as this page).",
+    );
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data.ok) {
+    const err = data && data.error ? String(data.error) : `Request failed (${response.status})`;
+    throw new Error(err);
+  }
+  return data;
+}
+
+function createCareerGetPhotoControls(playerName, clubName) {
+  const host = document.createElement("div");
+  host.className = "career-get-photo-actions";
+  host.hidden = true;
+  const btnRow = document.createElement("div");
+  btnRow.className = "career-get-photo-buttons-row";
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "career-get-photo-btn";
+  btn.textContent = "Get photo";
+  btn.title =
+    "Paste a portrait image URL; the local server saves it under Ready photos in a folder named after the player and current club.";
+  const hint = document.createElement("div");
+  hint.className = "career-get-photo-hint";
+  hint.hidden = true;
+
+  const modal = document.createElement("div");
+  modal.className = "career-ready-photo-url-modal";
+  modal.hidden = true;
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "false");
+
+  const panel = document.createElement("div");
+  panel.className = "career-ready-photo-url-modal__panel";
+
+  const title = document.createElement("div");
+  title.className = "career-ready-photo-url-modal__title";
+  title.textContent = "Paste image URL";
+
+  const input = document.createElement("input");
+  input.type = "url";
+  input.className = "career-ready-photo-url-modal__input";
+  input.placeholder = "https://…";
+  input.autocomplete = "off";
+  input.spellcheck = false;
+  input.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      btnDl.click();
+    }
+  });
+
+  const rowErr = document.createElement("div");
+  rowErr.className = "career-ready-photo-url-modal__err";
+  rowErr.hidden = true;
+
+  const rowBtns = document.createElement("div");
+  rowBtns.className = "career-ready-photo-url-modal__buttons";
+
+  const btnDl = document.createElement("button");
+  btnDl.type = "button";
+  btnDl.className =
+    "career-ready-photo-url-modal__btn career-ready-photo-url-modal__btn--primary";
+  btnDl.textContent = "Download";
+
+  const btnCancel = document.createElement("button");
+  btnCancel.type = "button";
+  btnCancel.className = "career-ready-photo-url-modal__btn";
+  btnCancel.textContent = "Cancel";
+
+  rowBtns.appendChild(btnDl);
+  rowBtns.appendChild(btnCancel);
+  panel.appendChild(title);
+  panel.appendChild(input);
+  panel.appendChild(rowErr);
+  panel.appendChild(rowBtns);
+  modal.appendChild(panel);
+
+  const switchModal = document.createElement("div");
+  switchModal.className = "career-ready-photo-switch-modal";
+  switchModal.hidden = true;
+  switchModal.setAttribute("role", "dialog");
+  switchModal.setAttribute("aria-label", "Choose Ready photo");
+  const switchPanel = document.createElement("div");
+  switchPanel.className = "career-ready-photo-switch-modal__panel";
+  const switchTitle = document.createElement("div");
+  switchTitle.className = "career-ready-photo-switch-modal__title";
+  switchTitle.textContent = "Choose Ready photo";
+  const switchList = document.createElement("div");
+  switchList.className = "career-ready-photo-switch-modal__list";
+  const switchCloseRow = document.createElement("div");
+  switchCloseRow.className = "career-ready-photo-switch-modal__footer";
+  const switchBtnClose = document.createElement("button");
+  switchBtnClose.type = "button";
+  switchBtnClose.className = "career-ready-photo-switch-modal__btn-close";
+  switchBtnClose.textContent = "Close";
+  switchCloseRow.appendChild(switchBtnClose);
+  switchPanel.appendChild(switchTitle);
+  switchPanel.appendChild(switchList);
+  switchPanel.appendChild(switchCloseRow);
+  switchModal.appendChild(switchPanel);
+
+  let switchKeyHandler = null;
+
+  const closeSwitchModal = () => {
+    switchModal.classList.remove("career-ready-photo-switch-modal--portal");
+    if (switchModal.parentElement === document.body) {
+      host.appendChild(switchModal);
+    }
+    switchModal.hidden = true;
+    switchList.innerHTML = "";
+    if (switchKeyHandler) {
+      document.removeEventListener("keydown", switchKeyHandler);
+      switchKeyHandler = null;
+    }
+  };
+
+  const openSwitchModal = async () => {
+    closeModal();
+    switchList.innerHTML = "";
+    const loading = document.createElement("div");
+    loading.className = "career-ready-photo-switch-modal__loading";
+    loading.textContent = "Loading…";
+    switchList.appendChild(loading);
+    switchModal.classList.add("career-ready-photo-switch-modal--portal");
+    if (switchModal.parentElement !== document.body) {
+      document.body.appendChild(switchModal);
+    }
+    switchModal.hidden = false;
+    switchKeyHandler = (ev) => {
+      if (ev.key === "Escape") {
+        ev.preventDefault();
+        closeSwitchModal();
+      }
+    };
+    document.addEventListener("keydown", switchKeyHandler);
+
+    const indices = await listExistingReadyPhotoVariantIndices(playerName, clubName);
+    switchList.innerHTML = "";
+    if (!indices.length) {
+      const empty = document.createElement("div");
+      empty.className = "career-ready-photo-switch-modal__empty";
+      empty.textContent =
+        "No Ready photos found for this player (check folder name matches career club).";
+      switchList.appendChild(empty);
+      return;
+    }
+
+    const st = getState();
+    const cur = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
+
+    for (const v of indices) {
+      const url = await pickLoadableReadyPhotoUrlForVariant(playerName, clubName, v);
+      if (!url) continue;
+      const opt = document.createElement("button");
+      opt.type = "button";
+      opt.className = "career-ready-photo-switch-option";
+      if (v === cur) opt.classList.add("career-ready-photo-switch-option--current");
+      const stem = careerReadyPhotoStemForVariant(playerName, v);
+      const thumb = document.createElement("img");
+      thumb.className = "career-ready-photo-switch-option__img";
+      thumb.alt = stem || `Variant ${v}`;
+      thumb.decoding = "async";
+      thumb.src = url;
+      const cap = document.createElement("span");
+      cap.className = "career-ready-photo-switch-option__label";
+      cap.textContent = v === 1 ? "Primary" : `Variant ${v}`;
+      opt.appendChild(thumb);
+      opt.appendChild(cap);
+      opt.addEventListener("click", () => {
+        const st2 = getState();
+        if (st2) st2.careerReadyPhotoVariantIndex = v;
+        bumpProjectAssetCacheBust();
+        closeSwitchModal();
+        renderCareer();
+      });
+      switchList.appendChild(opt);
+    }
+  };
+
+  switchPanel.addEventListener("click", (e) => e.stopPropagation());
+  switchModal.addEventListener("click", () => {
+    closeSwitchModal();
+  });
+  switchBtnClose.addEventListener("click", closeSwitchModal);
+
+  btnRow.appendChild(btn);
+  const btnSwitch = document.createElement("button");
+  btnSwitch.type = "button";
+  btnSwitch.className = "career-get-photo-btn career-get-photo-btn--switch";
+  btnSwitch.textContent = "Switch";
+  btnSwitch.title = "Choose which saved Ready photo to display.";
+  btnSwitch.addEventListener("click", () => {
+    void openSwitchModal();
+  });
+  btnRow.appendChild(btnSwitch);
+  host.appendChild(btnRow);
+  host.appendChild(hint);
+  host.appendChild(modal);
+  host.appendChild(switchModal);
+
+  const showHint = (text, isErr) => {
+    hint.hidden = !text;
+    hint.textContent = text || "";
+    hint.classList.toggle("career-get-photo-hint--error", !!isErr);
+  };
+
+  let keyHandler = null;
+
+  const closeModal = () => {
+    modal.classList.remove("career-ready-photo-url-modal--portal");
+    if (modal.parentElement === document.body) {
+      host.appendChild(modal);
+    }
+    modal.hidden = true;
+    rowErr.hidden = true;
+    rowErr.textContent = "";
+    btnDl.disabled = false;
+    if (keyHandler) {
+      document.removeEventListener("keydown", keyHandler);
+      keyHandler = null;
+    }
+  };
+
+  const openModal = () => {
+    closeSwitchModal();
+    modal.classList.add("career-ready-photo-url-modal--portal");
+    if (modal.parentElement !== document.body) {
+      document.body.appendChild(modal);
+    }
+    modal.hidden = false;
+    input.focus();
+    if (typeof input.select === "function") input.select();
+    keyHandler = (ev) => {
+      if (ev.key === "Escape") {
+        ev.preventDefault();
+        closeModal();
+      }
+    };
+    document.addEventListener("keydown", keyHandler);
+  };
+
+  btnCancel.addEventListener("click", closeModal);
+
+  btn.addEventListener("click", () => {
+    if (!careerReadyPhotoFetchServerActive()) {
+      showHint(
+        "Run Career Path via run_site.py (http://127.0.0.1:…) so the local server can save files into Ready photos.",
+        true,
+      );
+      return;
+    }
+    showHint("", false);
+    openModal();
+  });
+
+  btnDl.addEventListener("click", async () => {
+    const imageUrl = String(input.value || "").trim();
+    if (!imageUrl) {
+      rowErr.textContent = "Paste an image URL.";
+      rowErr.hidden = false;
+      return;
+    }
+    btnDl.disabled = true;
+    rowErr.hidden = true;
+    try {
+      const data = await requestReadyPhotoFromUrl(playerName, clubName, imageUrl);
+      const st = getState();
+      if (st && data && data.variantIndex != null) {
+        const vi = Math.floor(Number(data.variantIndex));
+        if (Number.isFinite(vi) && vi >= 1) st.careerReadyPhotoVariantIndex = vi;
+      }
+      bumpProjectAssetCacheBust();
+      showHint("", false);
+      closeModal();
+      input.value = "";
+      renderCareer();
+    } catch (e) {
+      rowErr.textContent = e?.message || "Could not download photo.";
+      rowErr.hidden = false;
+    } finally {
+      btnDl.disabled = false;
+    }
+  });
+
+  return {
+    host,
+    show() {
+      host.hidden = false;
+    },
+    hide() {
+      host.hidden = true;
+      closeModal();
+      closeSwitchModal();
+      showHint("", false);
+    },
+  };
+}
 
 const CAREER_REVEAL_NAME_FIT_ABS_MIN_PX = 11;
 let careerRevealNameFitResizeHooked = false;
@@ -609,6 +1001,10 @@ function bindCareerLogoYearAlignment(root) {
       if (fetchBtn) fetchBtn.hidden = true;
       run();
       requestAnimationFrame(run);
+      requestAnimationFrame(() => {
+        const grid = document.querySelector(".career-grid--shorts-split");
+        if (grid) syncShortsCareerYearSepPositions(grid);
+      });
       const cacheKey = String(img.dataset.logoCacheKey || "").trim();
       const loadedSrc = String(img.currentSrc || img.src || "").trim();
       if (cacheKey && loadedSrc) {
@@ -999,8 +1395,12 @@ export function preloadCareerAssets(state) {
   // Player silhouette / ready photo
   const playerName = state.careerPlayer?.name?.trim();
   if (playerName) {
-    const readyRel = careerReadyPhotoRelPath(playerName);
-    if (readyRel) urls.push(projectAssetUrlFresh(readyRel));
+    const club = careerReadyPhotoClubName(state);
+    for (let v = 1; v <= 8; v += 1) {
+      for (const rel of careerReadyPhotoRelCandidates(playerName, club, v)) {
+        urls.push(projectAssetUrlFresh(rel));
+      }
+    }
   }
 
   // Career club logos
@@ -1026,6 +1426,72 @@ export function preloadCareerAssets(state) {
   }
 
   if (urls.length) preloadImages(urls);
+}
+
+function getShortsCareerYearBoxEl(slotEl) {
+  if (!slotEl) return null;
+  const stack = slotEl.querySelector(".career-club-year-stack");
+  if (!stack) return null;
+  return (
+    stack.querySelector(".career-club-year.career-club-year-input") ||
+    stack.querySelector(".career-club-year")
+  );
+}
+
+/** Shorts: center >> on the true midpoint between adjacent year pills (pure CSS column-gap math misses unequal box widths). */
+function syncShortsCareerYearSepPositions(gridRoot) {
+  if (!gridRoot || !document.body.classList.contains("shorts-mode")) return;
+  const rows = gridRoot.querySelectorAll(".career-grid-row");
+  for (const row of rows) {
+    const slots = [...row.children].filter((el) => el.classList?.contains("career-club-slot"));
+    for (let i = 0; i < slots.length - 1; i += 1) {
+      const slotA = slots[i];
+      const slotB = slots[i + 1];
+      const inner = slotA.querySelector(".career-club-slot-inner");
+      const sep = inner?.querySelector(":scope > .career-shorts-year-sep") ?? slotA.querySelector(".career-shorts-year-sep");
+      if (!sep || !inner) continue;
+      const yearA = getShortsCareerYearBoxEl(slotA);
+      const yearB = getShortsCareerYearBoxEl(slotB);
+      if (!yearA || !yearB) {
+        sep.style.removeProperty("left");
+        sep.style.removeProperty("top");
+        continue;
+      }
+      const rA = yearA.getBoundingClientRect();
+      const rB = yearB.getBoundingClientRect();
+      const midX = (rA.right + rB.left) / 2;
+      const midY = (rA.top + rA.height / 2 + rB.top + rB.height / 2) / 2;
+      /* Anchor to .career-club-slot-inner so >> rides the same transform animation as the logos. */
+      const innerRect = inner.getBoundingClientRect();
+      sep.style.left = `${midX - innerRect.left}px`;
+      sep.style.top = `${midY - innerRect.top}px`;
+    }
+  }
+}
+
+let shortsCareerSepResizeHooked = false;
+
+function scheduleSyncShortsCareerYearSepPositions(gridEl) {
+  if (!gridEl) return;
+  const run = () => {
+    if (!gridEl.isConnected) return;
+    syncShortsCareerYearSepPositions(gridEl);
+  };
+  requestAnimationFrame(() => {
+    run();
+    requestAnimationFrame(run);
+  });
+  if (!shortsCareerSepResizeHooked) {
+    shortsCareerSepResizeHooked = true;
+    let tid = 0;
+    window.addEventListener("resize", () => {
+      window.clearTimeout(tid);
+      tid = window.setTimeout(() => {
+        const g = document.querySelector(".career-grid--shorts-split");
+        if (g) syncShortsCareerYearSepPositions(g);
+      }, 80);
+    });
+  }
 }
 
 export function renderCareer() {
@@ -1158,6 +1624,18 @@ export function renderCareer() {
   }
 
   wrap.innerHTML = "";
+  document.body
+    .querySelectorAll(".career-ready-photo-url-modal.career-ready-photo-url-modal--portal")
+    .forEach((el) => el.remove());
+  document.body
+    .querySelectorAll(".career-ready-photo-switch-modal.career-ready-photo-switch-modal--portal")
+    .forEach((el) => el.remove());
+  /* Clear X may live outside #career-wrap in shorts (same chrome mount as voice). */
+  document.getElementById("career-clear-player-btn")?.remove();
+  /* Get photo bar must use the same mount so `position:fixed` + `top:5.5vh` matches the X (not #career-wrap perspective). */
+  if (isShorts) {
+    document.getElementById("player-voice-chrome-mount")?.querySelector(".career-get-photo-actions")?.remove();
+  }
   /* Remove stray reveal name from older builds (was appended outside .career-wrap). */
   const oldRevealName = document.getElementById("career-reveal-name");
   if (oldRevealName) oldRevealName.remove();
@@ -1169,8 +1647,17 @@ export function renderCareer() {
     n = 0;
   }
   wrap.classList.toggle("career-no-player", !hasRealPlayer && !shortsPreviewActive);
-  const readyRel = careerReadyPhotoRelPath(playerName);
-  const readyUrl = readyRel ? projectAssetUrlFresh(readyRel) : "";
+  const readyPhotoClub = hasRealPlayer ? careerReadyPhotoClubName(state) : "";
+  const readyPhotoVariantIdx = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
+  const readyPhotoPick = hasRealPlayer
+    ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoClub, readyPhotoVariantIdx)
+    : Promise.resolve("");
+  const getPhotoUi = hasRealPlayer ? createCareerGetPhotoControls(playerName, readyPhotoClub) : null;
+  const careerGetPhotoSuppressed = () =>
+    !!(getState()?.videoMode || appState.isVideoPlaying);
+  const showGetPhotoUiIfAllowed = () => {
+    if (getPhotoUi && !careerGetPhotoSuppressed()) getPhotoUi.show();
+  };
   const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
 
   const svgNamespace = "http://www.w3.org/2000/svg";
@@ -1262,7 +1749,12 @@ export function renderCareer() {
   const showMissing = (label = CAREER_NO_PHOTO_LABEL) => {
     missingLabel.textContent = label;
     image.setAttribute("visibility", "hidden");
-    missingLabel.setAttribute("visibility", "visible");
+    if (getPhotoUi) {
+      missingLabel.setAttribute("visibility", "hidden");
+      showGetPhotoUiIfAllowed();
+    } else {
+      missingLabel.setAttribute("visibility", "visible");
+    }
   };
 
   const showImage = () => {
@@ -1275,33 +1767,39 @@ export function renderCareer() {
     applyCareerSilhouetteAdjustments(image, state);
   };
 
-  if (readyUrl) {
+  if (hasRealPlayer) {
     image.setAttribute("visibility", "hidden");
     missingLabel.setAttribute("visibility", "hidden");
-    image.addEventListener("load", () => {
-      showImage();
-      syncSilhouetteFromLoadedBitmap();
-    });
-    image.addEventListener("error", () => showMissing());
-    void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+    void readyPhotoPick.then((chosenUrl) => {
       if (!image.isConnected) return;
-      image.setAttribute("href", resolvedUrl || readyUrl);
-      /* Cached bitmap: load may not fire. */
-      requestAnimationFrame(() => {
+      if (!chosenUrl) {
+        showMissing();
+        return;
+      }
+      if (getPhotoUi) getPhotoUi.hide();
+      image.setAttribute("visibility", "hidden");
+      missingLabel.setAttribute("visibility", "hidden");
+      image.addEventListener("load", () => {
+        showImage();
+        syncSilhouetteFromLoadedBitmap();
+      });
+      image.addEventListener("error", () => showMissing());
+      void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
         if (!image.isConnected) return;
-        if (image.naturalWidth && image.naturalHeight) {
-          showImage();
-          syncSilhouetteFromLoadedBitmap();
-        }
+        image.setAttribute("href", resolvedUrl || chosenUrl);
+        /* Cached bitmap: load may not fire. */
+        requestAnimationFrame(() => {
+          if (!image.isConnected) return;
+          if (image.naturalWidth && image.naturalHeight) {
+            showImage();
+            syncSilhouetteFromLoadedBitmap();
+          }
+        });
       });
     });
   } else {
-    if (hasRealPlayer) {
-      showMissing();
-    } else {
-      image.setAttribute("visibility", "hidden");
-      missingLabel.setAttribute("visibility", "hidden");
-    }
+    image.setAttribute("visibility", "hidden");
+    missingLabel.setAttribute("visibility", "hidden");
   }
 
   imageGroup.appendChild(image);
@@ -1350,13 +1848,20 @@ export function renderCareer() {
       if (!st) return;
       st.careerPlayer = null;
       st.careerHistory = [];
+      st.careerReadyPhotoVariantIndex = 1;
       if (appState.els?.careerSelectedInfo) {
         appState.els.careerSelectedInfo.innerHTML = "";
       }
       renderCareer();
       renderHeader();
     });
-    wrap.appendChild(clearBtn);
+    const voiceChromeMount = document.getElementById("player-voice-chrome-mount");
+    if (isShorts && voiceChromeMount) {
+      /* Outside .stage so fixed positioning matches Lineups Shorts (#team-header-mount). */
+      voiceChromeMount.insertBefore(clearBtn, voiceChromeMount.firstChild);
+    } else {
+      wrap.appendChild(clearBtn);
+    }
   }
 
   const knownClubImageFolders = Array.from(
@@ -1787,17 +2292,17 @@ export function renderCareer() {
     slot.appendChild(rightInsert);
     appendCareerSlotZoomControls(slot, index, totalCount, true);
     appendCareerSlotYearNudgeControls(slot, index, totalCount, true);
-    rowEl.appendChild(slot);
-
     if (showInsertAfter && index < totalCount - 1) {
-      const arrow = document.createElement("div");
-      arrow.className = "career-grid-arrow";
-      arrow.innerHTML = `
-        <span class="career-order-arrow" aria-hidden="true">»</span>
-        <button type="button" class="career-insert-btn career-insert-btn--shorts" data-insert-after="${index}" title="Add Team" aria-label="Add team between teams">+</button>
-      `;
-      rowEl.appendChild(arrow);
+      const inner = slot.querySelector(".career-club-slot-inner");
+      if (inner) {
+        const yearSep = document.createElement("div");
+        yearSep.className = "career-shorts-year-sep";
+        yearSep.setAttribute("aria-hidden", "true");
+        yearSep.innerHTML = `<span class="career-shorts-year-sep__chev">&gt;&gt;</span>`;
+        inner.appendChild(yearSep);
+      }
     }
+    rowEl.appendChild(slot);
   };
 
   if (isShorts) {
@@ -1866,6 +2371,7 @@ export function renderCareer() {
       }
 
       wrap.appendChild(gridContainer);
+      scheduleSyncShortsCareerYearSepPositions(gridContainer);
     }
 
     const revealShell = document.createElement("div");
@@ -1890,22 +2396,36 @@ export function renderCareer() {
       revealShell.classList.toggle("is-tall-player", ratio >= 1.52);
     };
 
-    if (readyUrl) {
+    if (hasRealPlayer) {
       revealImg.hidden = true;
       revealFallback.hidden = true;
-      revealImg.addEventListener("load", () => {
-        updateShortsTallRevealClass();
-        revealImg.hidden = false;
-        revealFallback.hidden = true;
-      });
-      revealImg.addEventListener("error", () => {
-        revealShell.classList.remove("is-tall-player");
-        revealImg.hidden = true;
-        revealFallback.hidden = false;
-      });
-      void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+      void readyPhotoPick.then((chosenUrl) => {
         if (!revealImg.isConnected) return;
-        revealImg.src = resolvedUrl || readyUrl;
+        if (!chosenUrl) {
+          revealShell.classList.remove("is-tall-player");
+          revealImg.hidden = true;
+          revealFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+          return;
+        }
+        if (getPhotoUi) getPhotoUi.hide();
+        revealImg.hidden = true;
+        revealFallback.hidden = true;
+        revealImg.addEventListener("load", () => {
+          updateShortsTallRevealClass();
+          revealImg.hidden = false;
+          revealFallback.hidden = true;
+        });
+        revealImg.addEventListener("error", () => {
+          revealShell.classList.remove("is-tall-player");
+          revealImg.hidden = true;
+          revealFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+        });
+        void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
+          if (!revealImg.isConnected) return;
+          revealImg.src = resolvedUrl || chosenUrl;
+        });
       });
     } else {
       revealShell.classList.remove("is-tall-player");
@@ -2087,20 +2607,33 @@ export function renderCareer() {
         ? "Size preview"
         : CAREER_NO_PLAYER_LABEL;
 
-    if (readyUrl) {
+    if (hasRealPlayer) {
       revealOverlayImg.hidden = true;
       revealOverlayFallback.hidden = true;
-      revealOverlayImg.addEventListener("load", () => {
-        revealOverlayImg.hidden = false;
-        revealOverlayFallback.hidden = true;
-      });
-      revealOverlayImg.addEventListener("error", () => {
-        revealOverlayImg.hidden = true;
-        revealOverlayFallback.hidden = false;
-      });
-      void resolveCareerPlayerPhotoUrl(readyUrl).then((resolvedUrl) => {
+      void readyPhotoPick.then((chosenUrl) => {
         if (!revealOverlayImg.isConnected) return;
-        revealOverlayImg.src = resolvedUrl || readyUrl;
+        if (!chosenUrl) {
+          revealOverlayImg.hidden = true;
+          revealOverlayFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+          return;
+        }
+        if (getPhotoUi) getPhotoUi.hide();
+        revealOverlayImg.hidden = true;
+        revealOverlayFallback.hidden = true;
+        revealOverlayImg.addEventListener("load", () => {
+          revealOverlayImg.hidden = false;
+          revealOverlayFallback.hidden = true;
+        });
+        revealOverlayImg.addEventListener("error", () => {
+          revealOverlayImg.hidden = true;
+          revealOverlayFallback.hidden = true;
+          showGetPhotoUiIfAllowed();
+        });
+        void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
+          if (!revealOverlayImg.isConnected) return;
+          revealOverlayImg.src = resolvedUrl || chosenUrl;
+        });
       });
     } else {
       revealOverlayImg.hidden = true;
@@ -2124,6 +2657,16 @@ export function renderCareer() {
     `;
     wrap.appendChild(revealName);
     }
+  }
+
+  if (getPhotoUi) {
+    const voiceChromeMountForPhoto = document.getElementById("player-voice-chrome-mount");
+    if (isShorts && voiceChromeMountForPhoto) {
+      voiceChromeMountForPhoto.appendChild(getPhotoUi.host);
+    } else {
+      wrap.appendChild(getPhotoUi.host);
+    }
+    if (careerGetPhotoSuppressed()) getPhotoUi.hide();
   }
 
   bindCareerLogoYearAlignment(wrap);

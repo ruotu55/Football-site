@@ -451,6 +451,7 @@ export function renderSwapList(players) {
     btn.append(nameSpan, posSpan);
 
     btn.onclick = () => {
+      if (window.__confirmAndDeleteSaveIfPresent && !window.__confirmAndDeleteSaveIfPresent()) return;
       const state = getState();
       appState.suppressPitchSlotFlipAnimation = true;
       const si = appState.swapActiveSlotIndex;
@@ -1635,6 +1636,11 @@ export function scheduleShortsTeamNameFit() {
 
 export function renderHeader() {
   syncTeamHeaderLogoVarsFromLevel();
+  appState.teamHeaderRenderGeneration =
+    (Number(appState.teamHeaderRenderGeneration) || 0) + 1;
+  const teamHeaderRenderGen = appState.teamHeaderRenderGeneration;
+  const isStaleHeaderRender = () =>
+    teamHeaderRenderGen !== appState.teamHeaderRenderGeneration;
   const state = getState();
   const { els } = appState;
   const quizType = appState.els.inQuizType?.value || "nat-by-club";
@@ -1664,7 +1670,12 @@ export function renderHeader() {
       els.headerName.style.removeProperty("font-size");
       els.headerName.style.removeProperty("white-space");
     }
-    if (els.headerLogo) els.headerLogo.hidden = true;
+    if (els.headerLogo) {
+      els.headerLogo.onload = null;
+      els.headerLogo.onerror = null;
+      els.headerLogo.removeAttribute("src");
+      els.headerLogo.hidden = true;
+    }
     if (els.headerFlag) {
       els.headerFlag.hidden = true;
       els.headerFlag.removeAttribute("src");
@@ -1704,11 +1715,13 @@ export function renderHeader() {
         els.headerFlag.removeAttribute("crossorigin");
       }
       els.headerFlag.onload = () => {
+        if (isStaleHeaderRender()) return;
         scheduleTeamHeaderNameCenterShift();
         scheduleTeamHeaderSidePanelNameFit();
         applyTeamHeaderStripesFromFlagImage(els.headerFlag, els.teamHeader);
       };
       els.headerFlag.onerror = () => {
+        if (isStaleHeaderRender()) return;
         els.headerFlag.hidden = true;
         els.headerFlag.removeAttribute("src");
         resetTeamHeaderStripeVars(els.teamHeader);
@@ -1721,9 +1734,11 @@ export function renderHeader() {
       els.headerFlag.src = flagUrl;
       els.headerFlag.hidden = false;
       if (els.headerFlag.complete) {
-        scheduleTeamHeaderNameCenterShift();
-        scheduleTeamHeaderSidePanelNameFit();
-        applyTeamHeaderStripesFromFlagImage(els.headerFlag, els.teamHeader);
+        if (!isStaleHeaderRender()) {
+          scheduleTeamHeaderNameCenterShift();
+          scheduleTeamHeaderSidePanelNameFit();
+          applyTeamHeaderStripesFromFlagImage(els.headerFlag, els.teamHeader);
+        }
       }
     } else {
       els.headerFlag.hidden = true;
@@ -1738,9 +1753,7 @@ export function renderHeader() {
     displayedHeaderTeamName,
     appState.els.inQuizType?.value || "nat-by-club"
   );
-  if (els.teamVoiceControls) {
-    els.teamVoiceControls.hidden = !state.currentSquad || appState.isVideoPlaying;
-  }
+  if (els.teamVoiceControls) els.teamVoiceControls.hidden = true;
   if (els.headerLogo) {
     const chain = getHeaderLogoUrlChain(
       state,
@@ -1751,13 +1764,17 @@ export function renderHeader() {
     ).map((u) => withProjectAssetCacheBust(u));
     if (chain.length) {
       const logoImg = els.headerLogo;
+      logoImg.onload = null;
+      logoImg.onerror = null;
       let chainIndex = 0;
       logoImg.onload = () => {
+        if (isStaleHeaderRender()) return;
         putCachedImage(chain[chainIndex], logoImg);
         scheduleTeamHeaderNameCenterShift();
         scheduleTeamHeaderSidePanelNameFit();
       };
       logoImg.onerror = () => {
+        if (isStaleHeaderRender()) return;
         chainIndex += 1;
         if (chainIndex < chain.length) {
           const cachedLogo = getCachedImage(chain[chainIndex]);
@@ -1767,8 +1784,8 @@ export function renderHeader() {
         }
         logoImg.hidden = true;
         logoImg.removeAttribute("src");
-        const fetchLogoBtn = document.getElementById("team-header-fetch-logo");
-        if (fetchLogoBtn) fetchLogoBtn.hidden = false;
+        const fetchLogoBtnErr = document.getElementById("team-header-fetch-logo");
+        if (fetchLogoBtnErr) fetchLogoBtnErr.hidden = false;
         if (logoBlock) {
           logoBlock.classList.add("team-header-logo-block--empty");
         }
@@ -1785,10 +1802,15 @@ export function renderHeader() {
       }
       logoImg.hidden = false;
       if (logoImg.complete && logoImg.naturalWidth) {
-        scheduleTeamHeaderNameCenterShift();
-        scheduleTeamHeaderSidePanelNameFit();
+        if (!isStaleHeaderRender()) {
+          scheduleTeamHeaderNameCenterShift();
+          scheduleTeamHeaderSidePanelNameFit();
+        }
       }
     } else {
+      els.headerLogo.onload = null;
+      els.headerLogo.onerror = null;
+      els.headerLogo.removeAttribute("src");
       els.headerLogo.hidden = true;
     }
   }

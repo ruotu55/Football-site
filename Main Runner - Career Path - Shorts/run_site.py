@@ -10,6 +10,7 @@ import argparse
 import difflib
 import errno
 import hashlib
+import ipaddress
 import importlib.util
 import io
 import json
@@ -34,27 +35,100 @@ from xml.sax.saxutils import escape as xml_escape
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
+# Per-runner voice isolation:
+#   • Quiz Intro  → per runner (each main runner has its own intro line) [per-language]
+#   • Quiz Sounds → per runner [per-language] — this runner has none today.
+#   • Players     → SHARED across runners AND across languages (single name pool)
+#   • Endings     → SHARED across runners, split per language
+RUNNER_VARIANT = "Career Path Shorts"
+SUPPORTED_LANGUAGES = ("english", "spanish")
+DEFAULT_LANGUAGE = "english"
 PLAYER_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Players Names"
 PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
-QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNNER_VARIANT
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
-    "player-by-career": "Guess the football player by career path !!!.mp3",
-    "player-by-career-stats": "Guess the football player by career path !!!.mp3",
+    "english": {
+        "player-by-career": "Guess the football player by career path !!!.mp3",
+        "player-by-career-stats": "Guess the football player by career path !!!.mp3",
+    },
+    "spanish": {
+        "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
+        "player-by-career-stats": "Adivina al jugador por trayectoria !!!.mp3",
+    },
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
-    "player-by-career": "GUESS THE FOOTBALL PLAYER BY CAREER PATH",
-    "player-by-career-stats": "GUESS THE FOOTBALL PLAYER BY CAREER PATH",
+    "english": {
+        "player-by-career": "GUESS THE PLAYER BY CAREER PATH",
+        "player-by-career-stats": "GUESS THE PLAYER BY CAREER PATH",
+    },
+    "spanish": {
+        "player-by-career": "ADIVINA AL JUGADOR POR TRAYECTORIA",
+        "player-by-career-stats": "ADIVINA AL JUGADOR POR TRAYECTORIA",
+    },
 }
 ENDING_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Ending Guess"
 ENDING_VOICE_FILE_BY_TYPE = {
-    "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
-    "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    "english": {
+        "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+        "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    },
+    "spanish": {
+        "think-you-know": "Crees saber la respuesta_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+        "how-many": "Cuantas acertaste_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+    },
 }
 ENDING_VOICE_PROMPT_BY_TYPE = {
-    "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
-    "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
+    "english": {
+        "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
+        "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
+    },
+    "spanish": {
+        "think-you-know": "¿Crees saber la respuesta? ¡Dínoslo en los comentarios! ¡No olvides dar like y suscribirte!",
+        "how-many": "¿Cuántas acertaste? ¡Dínoslo en los comentarios! ¡No olvides dar like y suscribirte!",
+    },
 }
+
+
+def _normalize_language(lang) -> str:
+    """Whitelist the language param. Defaults to DEFAULT_LANGUAGE for missing/unknown values."""
+    value = str(lang or "").strip().lower()
+    return value if value in SUPPORTED_LANGUAGES else DEFAULT_LANGUAGE
+
+
+BUNDLED_VOICE_CONFIG = {
+    "welcome": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Welcome",
+                "filename": "Welcome to the football lab, lets start!!!.mp3",
+                "prompts": {"english": "Welcome to the football lab, let's start!",
+                            "spanish": "¡Bienvenidos al laboratorio de fútbol, empecemos!"}},
+    "warm-up": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "Worm up round dont mess this one .mp3",
+                "prompts": {"english": "Warm up round — don't mess this one!",
+                            "spanish": "Ronda de calentamiento — ¡no la arruines!"}},
+    "serious": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "OK now it's getting serious.mp3",
+                "prompts": {"english": "OK now it's getting serious.",
+                            "spanish": "Bien, ahora se pone serio."}},
+    "nerds":   {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "Only true football nerd know this!!!.mp3",
+                "prompts": {"english": "Only true football nerds know this!",
+                            "spanish": "¡Solo los verdaderos fanáticos del fútbol saben esto!"}},
+    "genius":  {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "If you get this you are basically a genius!!!.mp3",
+                "prompts": {"english": "If you get this you are basically a genius!",
+                            "spanish": "¡Si aciertas esto eres básicamente un genio!"}},
+}
+
+
+def _normalize_bundled_voice_inputs(key, language) -> tuple[str, str, Path]:
+    k = str(key or "").strip()
+    if k not in BUNDLED_VOICE_CONFIG:
+        raise ValueError("Unsupported bundled voice key.")
+    lang = _normalize_language(language)
+    cfg = BUNDLED_VOICE_CONFIG[k]
+    out_path = cfg["dir"] / lang / cfg["filename"]
+    prompt = cfg["prompts"].get(lang) or cfg["prompts"]["english"]
+    return k, prompt, out_path
 EDGE_TTS_VOICES = (
     FIXED_PLAYER_VOICE,
 )
@@ -112,6 +186,217 @@ def _safe_path_component(raw: object) -> str:
     for ch in '<>:"|?*':
         t = t.replace(ch, "")
     return t.strip(". ")
+
+
+_MAX_READY_PHOTO_DOWNLOAD_BYTES = 15 * 1024 * 1024
+
+
+def _ready_photo_bytes_look_like_image(data: bytes) -> bool:
+    """True if bytes look like a raster image (not HTML / tiny error body)."""
+    if len(data) < 80:
+        return False
+    low = data[:600].lower()
+    if low.strip().startswith(b"<!doctype") or low.strip().startswith(b"<html"):
+        return False
+    if b"<html" in low or b"<body" in low:
+        return False
+    if data[:4] == b"RIFF" and len(data) >= 12 and data[8:12] == b"WEBP":
+        return True
+    if data[:3] == b"\xff\xd8\xff":
+        return True
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return True
+    if len(data) > 32 and b"ftypavif" in data[:40]:
+        return True
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return True
+    return False
+
+
+def _hostname_is_blocked_for_ready_photo_fetch(host: str) -> bool:
+    h = (host or "").strip().lower().rstrip(".")
+    if not h:
+        return True
+    blocked_names = {
+        "localhost",
+        "metadata.google.internal",
+        "0.0.0.0",
+        "127.0.0.1",
+        "::1",
+        "169.254.169.254",
+    }
+    if h in blocked_names or h.endswith(".localhost") or h.endswith(".local"):
+        return True
+    try:
+        ip = ipaddress.ip_address(h)
+    except ValueError:
+        return False
+    if ip.version == 6 and getattr(ip, "ipv4_mapped", None) is not None:
+        m = ip.ipv4_mapped
+        if m.is_private or m.is_loopback or m.is_link_local:
+            return True
+    return bool(
+        ip.is_private
+        or ip.is_loopback
+        or ip.is_link_local
+        or ip.is_reserved
+        or ip.is_multicast
+    )
+
+
+def _normalize_external_image_url(raw: object) -> str:
+    u = str(raw or "").strip()
+    if not u:
+        raise ValueError("Missing image URL.")
+    p = urlparse(u)
+    if p.scheme not in ("http", "https"):
+        raise ValueError("URL must start with http:// or https://")
+    host = (p.hostname or "").strip()
+    if not host:
+        raise ValueError("Invalid URL.")
+    if _hostname_is_blocked_for_ready_photo_fetch(host):
+        raise ValueError("That host is not allowed.")
+    return u
+
+
+def _fetch_external_image_request_headers(url: str) -> dict[str, str]:
+    """Build request headers; UEFA CDNs often reject or stall ``Referer: https://img.uefa.com/``."""
+    p = urlparse(url)
+    origin = f"{p.scheme}://{p.netloc}/"
+    host = (p.hostname or "").lower()
+    headers: dict[str, str] = {
+        "User-Agent": HTTP_USER_AGENT,
+        "Accept": "image/avif,image/webp,image/apng,image/png,image/jpeg,image/*,*/*;q=0.8",
+    }
+    if host.endswith("uefa.com"):
+        headers["Referer"] = "https://www.uefa.com/"
+        headers["Origin"] = "https://www.uefa.com"
+    else:
+        headers["Referer"] = origin
+    return headers
+
+
+def _fetch_external_image_bytes(url: str) -> bytes:
+    headers = _fetch_external_image_request_headers(url)
+    req = urllib.request.Request(url, headers=headers, method="GET")
+    parts: list[bytes] = []
+    total = 0
+    with urllib.request.urlopen(req, timeout=75.0, context=SSL_CTX) as r:
+        while True:
+            chunk = r.read(65536)
+            if not chunk:
+                break
+            total += len(chunk)
+            if total > _MAX_READY_PHOTO_DOWNLOAD_BYTES:
+                raise ValueError(
+                    f"Image exceeds {_MAX_READY_PHOTO_DOWNLOAD_BYTES // (1024 * 1024)} MB.",
+                )
+            parts.append(chunk)
+    return b"".join(parts)
+
+
+def _ready_photo_subdir(player_name: str, club_name: str | None) -> str:
+    """Folder under Ready photos: ``{player}_{club}`` (sanitized for Windows paths)."""
+    p = _safe_path_component(player_name)
+    if not p:
+        raise ValueError("Invalid player name for Ready photo folder.")
+    c = _safe_path_component(club_name) or "Unknown"
+    return f"{p}_{c}"
+
+
+def _next_ready_photo_save_stem(folder: Path, base_stem: str) -> str:
+    """First save uses ``base_stem``; further saves use ``base_stem + \" 2\"``, ``\" 3\"``, …"""
+    stem = base_stem.strip()
+    if not stem:
+        raise ValueError("Empty player name stem for Ready photo save.")
+    if not folder.is_dir():
+        return stem
+    max_n = 0
+    seen_base = False
+    prefix = f"{stem} "
+    for p in folder.iterdir():
+        if not p.is_file():
+            continue
+        name = p.name.lower()
+        if not (name.endswith(".png") or name.endswith(".webp")):
+            continue
+        s = p.stem
+        if s == stem:
+            seen_base = True
+            max_n = max(max_n, 1)
+        elif s.startswith(prefix):
+            tail = s[len(prefix) :].strip()
+            if tail.isdigit():
+                max_n = max(max_n, int(tail))
+    if not seen_base and max_n == 0:
+        return stem
+    return f"{stem} {max_n + 1}"
+
+
+def _ready_photo_stem_to_variant_index(base_stem: str, file_stem: str) -> int:
+    b = base_stem.strip()
+    if not b or file_stem == b:
+        return 1
+    prefix = f"{b} "
+    if file_stem.startswith(prefix):
+        tail = file_stem[len(prefix) :].strip()
+        if tail.isdigit():
+            return int(tail)
+    return 1
+
+
+def _save_ready_photo_bytes_to_repo(
+    player_name: str,
+    club_name: str | None,
+    raw_bytes: bytes,
+) -> tuple[str, str, str, int]:
+    """Write Ready photos file; returns (relative_path, format, file_stem, variant_index)."""
+    if not _ready_photo_bytes_look_like_image(raw_bytes):
+        raise ValueError(
+            "Download did not look like an image (HTML error page, empty body, or unknown format).",
+        )
+    base_dir = PROJECT_ROOT / "Images" / "Players No Background" / "Ready photos"
+    sub = _ready_photo_subdir(player_name, club_name)
+    folder = base_dir / sub
+    base_stem = player_name.strip()
+    file_stem = _next_ready_photo_save_stem(folder, base_stem)
+    png_path = folder / f"{file_stem}.png"
+    webp_path = folder / f"{file_stem}.webp"
+    png_bytes = _portrait_bytes_to_png_bytes(raw_bytes)
+    png_path.parent.mkdir(parents=True, exist_ok=True)
+    variant_index = _ready_photo_stem_to_variant_index(base_stem, file_stem)
+    if png_bytes:
+        png_path.write_bytes(png_bytes)
+        webp_path.unlink(missing_ok=True)
+        rel = f"Images/Players No Background/Ready photos/{sub}/{file_stem}.png"
+        return rel, "png", file_stem, variant_index
+    is_riff_webp = (
+        len(raw_bytes) >= 12 and raw_bytes[:4] == b"RIFF" and raw_bytes[8:12] == b"WEBP"
+    )
+    if is_riff_webp:
+        webp_path.write_bytes(raw_bytes)
+        png_path.unlink(missing_ok=True)
+        rel = f"Images/Players No Background/Ready photos/{sub}/{file_stem}.webp"
+        return rel, "webp", file_stem, variant_index
+    raise ValueError(
+        "Could not convert image to PNG. Install Pillow (pip install Pillow) or use JPEG/PNG/WebP.",
+    )
+
+
+def _portrait_bytes_to_png_bytes(raw: bytes) -> bytes | None:
+    """Decode arbitrary raster bytes (WebP/JPEG/PNG/…) to PNG via Pillow when available."""
+    try:
+        from io import BytesIO
+
+        from PIL import Image  # type: ignore
+
+        im = Image.open(BytesIO(raw))
+        im = im.convert("RGBA")
+        buf = BytesIO()
+        im.save(buf, format="PNG")
+        return buf.getvalue()
+    except Exception:
+        return None
 
 
 def _name_key(s: object) -> str:
@@ -501,19 +786,26 @@ def _normalize_player_voice_name(name: str | None) -> str:
     return player_name
 
 
-def _player_voice_paths_for_name(player_name: str) -> list[Path]:
+def _player_voice_paths_for_name(player_name: str, language: str | None = None) -> list[Path]:
+    """Players share one folder across all runners and languages (accent is set via
+    ElevenLabs language_code at generation time; regenerating replaces the clip)."""
+    del language
     return [PLAYER_VOICE_DIR / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
 
 
 def _normalize_quiz_title_voice_inputs(
     quiz_type: str | None,
     specific_title: str | None = None,
+    language: str | None = None,
 ) -> tuple[str, str, Path]:
     qt = str(quiz_type or "").strip()
-    if qt not in QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE:
+    lang = _normalize_language(language)
+    file_map = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[lang]
+    prompt_map = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE[lang]
+    if qt not in file_map:
         raise ValueError("Unsupported quiz type.")
-    filename = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[qt]
-    base_prompt = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE.get(qt) or filename.removesuffix(".mp3")
+    filename = file_map[qt]
+    base_prompt = prompt_map.get(qt) or filename.removesuffix(".mp3")
     clean_specific = re.sub(r"^\+\s*", "", str(specific_title or "").strip())
     if clean_specific:
         prompt = f"{base_prompt} {clean_specific}".strip()
@@ -522,18 +814,22 @@ def _normalize_quiz_title_voice_inputs(
     else:
         prompt = base_prompt
         out_name = filename
-    return qt, prompt, QUIZ_TITLE_VOICE_DIR / out_name
+    return qt, prompt, QUIZ_TITLE_VOICE_DIR / lang / out_name
 
 
 def _normalize_ending_voice_inputs(
     ending_type: str | None,
+    language: str | None = None,
 ) -> tuple[str, str, Path]:
     et = str(ending_type or "").strip()
-    if et not in ENDING_VOICE_FILE_BY_TYPE:
+    lang = _normalize_language(language)
+    file_map = ENDING_VOICE_FILE_BY_TYPE[lang]
+    prompt_map = ENDING_VOICE_PROMPT_BY_TYPE[lang]
+    if et not in file_map:
         raise ValueError("Unsupported ending type.")
-    filename = ENDING_VOICE_FILE_BY_TYPE[et]
-    prompt = ENDING_VOICE_PROMPT_BY_TYPE.get(et) or filename.removesuffix(".mp3")
-    return et, prompt, ENDING_VOICE_DIR / filename
+    filename = file_map[et]
+    prompt = prompt_map.get(et) or filename.removesuffix(".mp3")
+    return et, prompt, ENDING_VOICE_DIR / lang / filename
 
 
 def _project_relative_web_path(path: Path) -> str:
@@ -571,7 +867,18 @@ def _elevenlabs_available() -> bool:
     return bool(_elevenlabs_api_key())
 
 
-def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: Path) -> tuple[str, str]:
+def _elevenlabs_language_code(language: str | None) -> str:
+    """Map our internal language slug to an ElevenLabs ISO code used to force pronunciation."""
+    lang = _normalize_language(language)
+    return {"english": "en", "spanish": "es"}.get(lang, "en")
+
+
+def _generate_elevenlabs_speech_mp3(
+    text: str,
+    requested_voice: str,
+    out_path: Path,
+    language: str | None = None,
+) -> tuple[str, str]:
     api_key = _elevenlabs_api_key()
     if not api_key:
         raise RuntimeError(
@@ -591,6 +898,10 @@ def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: P
             "similarity_boost": 0.8,
         },
     }
+    # Force ElevenLabs to speak the requested language — bare names like
+    # "James Maddison" otherwise auto-detect as English.
+    if language is not None:
+        payload["language_code"] = _elevenlabs_language_code(language)
     req = urllib.request.Request(
         endpoint,
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
@@ -957,6 +1268,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         PLAYER_VOICE_DIR.mkdir(parents=True, exist_ok=True)
         out_path = PLAYER_VOICE_DIR / f"{player_name}.mp3"
         for old_path in _player_voice_paths_for_name(player_name):
@@ -968,7 +1280,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         provider = "elevenlabs"
         prompt_text = _tts_prompt_name(player_name)
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._send_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1027,6 +1339,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
                 query.get("quizType"),
                 query.get("specificTitle"),
+                query.get("language"),
             )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
@@ -1050,16 +1363,18 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, prompt_text, out_path = _normalize_quiz_title_voice_inputs(
                 body.get("quizType"),
                 body.get("specificTitle"),
+                body.get("language"),
             )
             requested_voice = str(body.get("voice") or FIXED_PLAYER_VOICE).strip()
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         out_path.parent.mkdir(parents=True, exist_ok=True)
         provider = "elevenlabs"
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._send_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1087,6 +1402,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
                 body.get("quizType"),
                 body.get("specificTitle"),
+                body.get("language"),
             )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
@@ -1111,6 +1427,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         try:
             _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
                 query.get("endingType"),
+                query.get("language"),
             )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
@@ -1133,6 +1450,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             body = self._read_json_body()
             _ending_type, prompt_text, out_path = _normalize_ending_voice_inputs(
                 body.get("endingType"),
+                body.get("language"),
             )
             voice = str(body.get("voice") or FIXED_PLAYER_VOICE).strip()
             if not voice:
@@ -1141,10 +1459,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         out_path.parent.mkdir(parents=True, exist_ok=True)
         provider = "elevenlabs"
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._send_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1171,7 +1490,68 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             body = self._read_json_body()
             _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
                 body.get("endingType"),
+                body.get("language"),
             )
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        removed = 0
+        if out_path.exists():
+            out_path.unlink(missing_ok=True)
+            removed = 1
+        self._send_json(200, {"ok": True, "removed": removed})
+        return True
+
+    def _try_serve_bundled_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part: continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(query.get("key"), query.get("language"))
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        self._send_json(200, {"ok": True, "exists": out_path.is_file(),
+                              "src": _project_relative_web_path(out_path) if out_path.is_file() else ""})
+        return True
+
+    def _try_generate_bundled_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            _key, prompt_text, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
+            requested_voice = str(body.get("voice") or FIXED_PLAYER_VOICE).strip()
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        language = _normalize_language(body.get("language"))
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path, language)
+        except Exception as exc:  # noqa: BLE001
+            self._send_json(502, {"ok": False, "error": str(exc)})
+            return True
+        if not out_path.exists() or out_path.stat().st_size <= 0:
+            self._send_json(502, {"ok": False, "error": "ElevenLabs generation failed."})
+            return True
+        self._send_json(200, {"ok": True, "src": _project_relative_web_path(out_path),
+                              "voice": chosen_voice, "model": model, "provider": "elevenlabs"})
+        return True
+
+    def _try_delete_bundled_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
@@ -1241,6 +1621,85 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         )
         return True
 
+    def _try_ready_photo_from_url(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ready-photo/from-url":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = _normalize_player_voice_name(body.get("playerName"))
+            club_name = str(body.get("clubName") or "").strip()
+            raw_url = body.get("imageUrl") or body.get("url")
+            image_url = _normalize_external_image_url(raw_url)
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            print(
+                f"[Ready photo] GET {image_url!r} for {player_name!r} club={club_name!r}",
+                flush=True,
+            )
+            raw_bytes = _fetch_external_image_bytes(image_url)
+        except urllib.error.HTTPError as exc:
+            self._send_json(
+                502,
+                {
+                    "ok": False,
+                    "error": f"Image URL returned HTTP {exc.code}.",
+                },
+            )
+            return True
+        except (urllib.error.URLError, OSError, ValueError) as exc:
+            self._send_json(
+                502,
+                {
+                    "ok": False,
+                    "error": f"Could not download image ({type(exc).__name__}: {exc}).",
+                },
+            )
+            return True
+        except Exception as exc:  # noqa: BLE001
+            self._send_json(
+                502,
+                {
+                    "ok": False,
+                    "error": f"Download failed ({type(exc).__name__}: {exc}).",
+                },
+            )
+            return True
+
+        try:
+            rel, fmt, file_stem, variant_index = _save_ready_photo_bytes_to_repo(
+                player_name, club_name, raw_bytes
+            )
+        except ValueError as exc:
+            self._send_json(502, {"ok": False, "error": str(exc)})
+            return True
+        except OSError as exc:
+            self._send_json(
+                500,
+                {"ok": False, "error": f"Could not save photo into Ready photos: {exc}"},
+            )
+            return True
+
+        self._send_json(
+            200,
+            {
+                "ok": True,
+                "relativePath": rel.replace("\\", "/"),
+                "format": fmt,
+                "fileStem": file_stem,
+                "variantIndex": variant_index,
+                "pillowNote": (
+                    "WebP was saved (PNG preferred). Install Pillow (pip install Pillow) for automatic PNG conversion."
+                    if fmt == "webp"
+                    else ""
+                ),
+            },
+        )
+        return True
+
     def _send_live_reload_stream(self) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -1285,6 +1744,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_serve_quiz_title_voice_status():
             return
         if self._try_serve_ending_voice_status():
+            return
+        if self._try_serve_bundled_voice_status():
             return
         if self._is_live_reload_endpoint():
             self._send_live_reload_stream()
@@ -1344,7 +1805,13 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if self._try_delete_ending_voice():
             return
+        if self._try_generate_bundled_voice():
+            return
+        if self._try_delete_bundled_voice():
+            return
         if self._try_fetch_team_logo():
+            return
+        if self._try_ready_photo_from_url():
             return
         if not self._is_size_favorites_endpoint():
             self._send_json(404, {"error": "Not found"})

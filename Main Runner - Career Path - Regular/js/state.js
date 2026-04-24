@@ -199,6 +199,8 @@ export function initLevels(count) {
       careerSlotBadgeScalesRegular: [],
       careerSlotBadgeScalesShorts: [],
       careerSlotYearNudges: [],
+      /** Ready photo file variant (1 = ``{Name}.png``, 2 = ``{Name} 2.png``, …). */
+      careerReadyPhotoVariantIndex: 1,
     };
   };
   

@@ -1,30 +1,23 @@
+import { renderVoiceTab } from "./voice-tab.js";
+
 export function wireMainTabs(els) {
-    els.tabBtnLanding.onclick = () => {
-        els.tabBtnLanding.classList.add("active");
-        els.tabBtnSetup.classList.remove("active");
-        els.tabBtnSaved.classList.remove("active");
-        els.panelLanding.classList.add("active");
-        els.panelSetup.classList.remove("active");
-        els.panelSaved.classList.remove("active");
+    const tabs = [
+        { btn: els.tabBtnLanding, panel: els.panelLanding },
+        { btn: els.tabBtnSetup,   panel: els.panelSetup   },
+        { btn: els.tabBtnVoice,   panel: els.panelVoice,  onShow: () => renderVoiceTab() },
+        { btn: els.tabBtnSaved,   panel: els.panelSaved   },
+    ];
+    const activate = (index) => {
+        tabs.forEach((t, i) => {
+            if (!t.btn || !t.panel) return;
+            const on = i === index;
+            t.btn.classList.toggle("active", on);
+            t.panel.classList.toggle("active", on);
+        });
+        const onShow = tabs[index]?.onShow;
+        if (typeof onShow === "function") onShow();
     };
-
-    els.tabBtnSetup.onclick = () => {
-        els.tabBtnSetup.classList.add("active");
-        els.tabBtnLanding.classList.remove("active");
-        els.tabBtnSaved.classList.remove("active");
-        els.panelSetup.classList.add("active");
-        els.panelLanding.classList.remove("active");
-        els.panelSaved.classList.remove("active");
-    };
-
-    els.tabBtnSaved.onclick = () => {
-        els.tabBtnSaved.classList.add("active");
-        els.tabBtnLanding.classList.remove("active");
-        els.tabBtnSetup.classList.remove("active");
-        els.panelSaved.classList.add("active");
-        els.panelLanding.classList.remove("active");
-        els.panelSetup.classList.remove("active");
-    };
+    tabs.forEach((t, i) => { if (t.btn) t.btn.onclick = () => activate(i); });
 }
 
 export function wireControlPanelToggle(els) {

@@ -13,6 +13,7 @@ import {
 } from "./audio.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 import { runTransition, transitionSettings } from "./transitions.js";
+import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
 
 /** Match Career Path - Shorts `levels.js` + `transitions.css` video stage (0.82s). */
 const STAGE_VIDEO_TRANSITION_MS = 820;
@@ -165,6 +166,10 @@ export function switchLevel(index) {
       ) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
+    }
+
+    if (isShorts) {
+      syncShortsVideoModeIdleTimerBar();
     }
   };
 

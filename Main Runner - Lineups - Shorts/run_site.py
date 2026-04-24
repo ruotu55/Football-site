@@ -35,7 +35,12 @@ from xml.sax.saxutils import escape as xml_escape
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
+RUNNER_VARIANT = "Lineups Shorts"
+SUPPORTED_LANGUAGES = ("english", "spanish")
+DEFAULT_LANGUAGE = "english"
 OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Images/Teams" / "(1) Other Teams"
+# Team name clips: shared across all runners + languages (team names are proper nouns;
+# the ElevenLabs language_code controls the accent at generation time).
 TEAM_VOICE_DIR_BY_QUIZ_TYPE = {
     "club-by-nat": PROJECT_ROOT / ".Storage" / "Voices" / "Team names",
     "nat-by-club": PROJECT_ROOT / ".Storage" / "Voices" / "Nationality teams names",
@@ -44,22 +49,86 @@ TEAM_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_TEAM_VOICE = "en-US-AndrewNeural"
 ENDING_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Ending Guess"
 ENDING_VOICE_FILE_BY_TYPE = {
-    "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
-    "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    "english": {
+        "think-you-know": "Think you know the answer_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+        "how-many": "How many did you get_ let us know in the comments!!! Dont forget to like and subscribe .mp3",
+    },
+    "spanish": {
+        "think-you-know": "Crees saber la respuesta_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+        "how-many": "Cuantas acertaste_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
+    },
 }
 ENDING_VOICE_PROMPT_BY_TYPE = {
-    "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
-    "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
+    "english": {
+        "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
+        "how-many": "How many did you get? Let us know in the comments! Don't forget to like and subscribe!",
+    },
+    "spanish": {
+        "think-you-know": "¿Crees saber la respuesta? ¡Dínoslo en los comentarios! ¡No olvides dar like y suscribirte!",
+        "how-many": "¿Cuántas acertaste? ¡Dínoslo en los comentarios! ¡No olvides dar like y suscribirte!",
+    },
 }
-QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name"
+QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNNER_VARIANT
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
-    "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
-    "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
+    "english": {
+        "nat-by-club": "Guess the football national team name by players' club !!!.mp3",
+        "club-by-nat": "Guess the football team name by players' nationality !!!.mp3",
+    },
+    "spanish": {
+        "nat-by-club": "Adivina el equipo nacional por el club de los jugadores !!!.mp3",
+        "club-by-nat": "Adivina el equipo por la nacionalidad de los jugadores !!!.mp3",
+    },
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {
-    "nat-by-club": "GUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB",
-    "club-by-nat": "GUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY",
+    "english": {
+        "nat-by-club": "GUESS THE FOOTBALL NATIONAL TEAM NAME BY PLAYERS' CLUB",
+        "club-by-nat": "GUESS THE FOOTBALL TEAM NAME BY PLAYERS' NATIONALITY",
+    },
+    "spanish": {
+        "nat-by-club": "ADIVINA EL EQUIPO NACIONAL POR EL CLUB DE LOS JUGADORES",
+        "club-by-nat": "ADIVINA EL EQUIPO POR LA NACIONALIDAD DE LOS JUGADORES",
+    },
 }
+
+
+def _normalize_language(lang) -> str:
+    value = str(lang or "").strip().lower()
+    return value if value in SUPPORTED_LANGUAGES else DEFAULT_LANGUAGE
+
+
+BUNDLED_VOICE_CONFIG = {
+    "welcome": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Welcome",
+                "filename": "Welcome to the football lab, lets start!!!.mp3",
+                "prompts": {"english": "Welcome to the football lab, let's start!",
+                            "spanish": "¡Bienvenidos al laboratorio de fútbol, empecemos!"}},
+    "warm-up": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "Worm up round dont mess this one .mp3",
+                "prompts": {"english": "Warm up round — don't mess this one!",
+                            "spanish": "Ronda de calentamiento — ¡no la arruines!"}},
+    "serious": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "OK now it's getting serious.mp3",
+                "prompts": {"english": "OK now it's getting serious.",
+                            "spanish": "Bien, ahora se pone serio."}},
+    "nerds":   {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "Only true football nerd know this!!!.mp3",
+                "prompts": {"english": "Only true football nerds know this!",
+                            "spanish": "¡Solo los verdaderos fanáticos del fútbol saben esto!"}},
+    "genius":  {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
+                "filename": "If you get this you are basically a genius!!!.mp3",
+                "prompts": {"english": "If you get this you are basically a genius!",
+                            "spanish": "¡Si aciertas esto eres básicamente un genio!"}},
+}
+
+
+def _normalize_bundled_voice_inputs(key, language) -> tuple[str, str, Path]:
+    k = str(key or "").strip()
+    if k not in BUNDLED_VOICE_CONFIG:
+        raise ValueError("Unsupported bundled voice key.")
+    lang = _normalize_language(language)
+    cfg = BUNDLED_VOICE_CONFIG[k]
+    out_path = cfg["dir"] / lang / cfg["filename"]
+    prompt = cfg["prompts"].get(lang) or cfg["prompts"]["english"]
+    return k, prompt, out_path
 EDGE_TTS_VOICES = (
     FIXED_TEAM_VOICE,
 )
@@ -1181,12 +1250,16 @@ def _team_voice_paths_for_name(team_name: str, target_dir: Path) -> list[Path]:
 def _normalize_quiz_title_voice_inputs(
     quiz_type: str | None,
     specific_title: str | None = None,
+    language: str | None = None,
 ) -> tuple[str, str, Path]:
     qt = str(quiz_type or "").strip()
-    if qt not in QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE:
+    lang = _normalize_language(language)
+    file_map = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[lang]
+    prompt_map = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE[lang]
+    if qt not in file_map:
         raise ValueError("Unsupported quiz type.")
-    filename = QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE[qt]
-    base_prompt = QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE.get(qt) or filename.removesuffix(".mp3")
+    filename = file_map[qt]
+    base_prompt = prompt_map.get(qt) or filename.removesuffix(".mp3")
     clean_specific = re.sub(r"^\+\s*", "", str(specific_title or "").strip())
     if clean_specific:
         prompt = f"{base_prompt} {clean_specific}".strip()
@@ -1195,18 +1268,22 @@ def _normalize_quiz_title_voice_inputs(
     else:
         prompt = base_prompt
         out_name = filename
-    return qt, prompt, QUIZ_TITLE_VOICE_DIR / out_name
+    return qt, prompt, QUIZ_TITLE_VOICE_DIR / lang / out_name
 
 
 def _normalize_ending_voice_inputs(
     ending_type: str | None,
+    language: str | None = None,
 ) -> tuple[str, str, Path]:
     et = str(ending_type or "").strip()
-    if et not in ENDING_VOICE_FILE_BY_TYPE:
+    lang = _normalize_language(language)
+    file_map = ENDING_VOICE_FILE_BY_TYPE[lang]
+    prompt_map = ENDING_VOICE_PROMPT_BY_TYPE[lang]
+    if et not in file_map:
         raise ValueError("Unsupported ending type.")
-    filename = ENDING_VOICE_FILE_BY_TYPE[et]
-    prompt = ENDING_VOICE_PROMPT_BY_TYPE.get(et) or filename.removesuffix(".mp3")
-    return et, prompt, ENDING_VOICE_DIR / filename
+    filename = file_map[et]
+    prompt = prompt_map.get(et) or filename.removesuffix(".mp3")
+    return et, prompt, ENDING_VOICE_DIR / lang / filename
 
 
 def _project_relative_web_path(path: Path) -> str:
@@ -1244,7 +1321,17 @@ def _elevenlabs_available() -> bool:
     return bool(_elevenlabs_api_key())
 
 
-def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: Path) -> tuple[str, str]:
+def _elevenlabs_language_code(language: str | None) -> str:
+    lang = _normalize_language(language)
+    return {"english": "en", "spanish": "es"}.get(lang, "en")
+
+
+def _generate_elevenlabs_speech_mp3(
+    text: str,
+    requested_voice: str,
+    out_path: Path,
+    language: str | None = None,
+) -> tuple[str, str]:
     api_key = _elevenlabs_api_key()
     if not api_key:
         raise RuntimeError(
@@ -1264,6 +1351,8 @@ def _generate_elevenlabs_speech_mp3(text: str, requested_voice: str, out_path: P
             "similarity_boost": 0.8,
         },
     }
+    if language is not None:
+        payload["language_code"] = _elevenlabs_language_code(language)
     req = urllib.request.Request(
         endpoint,
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
@@ -1651,6 +1740,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         target_dir.mkdir(parents=True, exist_ok=True)
         out_path = target_dir / f"{team_name}.mp3"
         for old_path in _team_voice_paths_for_name(team_name, target_dir):
@@ -1662,7 +1752,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         provider = "elevenlabs"
         prompt_text = _tts_prompt_name(team_name)
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1721,6 +1811,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
                 query.get("quizType"),
                 query.get("specificTitle"),
+                query.get("language"),
             )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
@@ -1744,6 +1835,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, prompt_text, out_path = _normalize_quiz_title_voice_inputs(
                 body.get("quizType"),
                 body.get("specificTitle"),
+                body.get("language"),
             )
             voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
             if not voice:
@@ -1752,10 +1844,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         out_path.parent.mkdir(parents=True, exist_ok=True)
         provider = "elevenlabs"
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1783,6 +1876,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             _quiz_type, _prompt, out_path = _normalize_quiz_title_voice_inputs(
                 body.get("quizType"),
                 body.get("specificTitle"),
+                body.get("language"),
             )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
@@ -1807,6 +1901,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         try:
             _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
                 query.get("endingType"),
+                query.get("language"),
             )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
@@ -1829,6 +1924,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             body = self._read_json_body()
             _ending_type, prompt_text, out_path = _normalize_ending_voice_inputs(
                 body.get("endingType"),
+                body.get("language"),
             )
             voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
             if not voice:
@@ -1837,10 +1933,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        language = _normalize_language(body.get("language"))
         out_path.parent.mkdir(parents=True, exist_ok=True)
         provider = "elevenlabs"
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -1867,7 +1964,68 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             body = self._read_json_body()
             _ending_type, _prompt, out_path = _normalize_ending_voice_inputs(
                 body.get("endingType"),
+                body.get("language"),
             )
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        removed = 0
+        if out_path.exists():
+            out_path.unlink(missing_ok=True)
+            removed = 1
+        self._write_json(200, {"ok": True, "removed": removed})
+        return True
+
+    def _try_serve_bundled_voice_status(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/status":
+            return False
+        query = {}
+        for part in parsed.query.split("&"):
+            if not part: continue
+            k, _, v = part.partition("=")
+            query[unquote(k)] = unquote(v.replace("+", " "))
+        try:
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(query.get("key"), query.get("language"))
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        self._write_json(200, {"ok": True, "exists": out_path.is_file(),
+                               "src": _project_relative_web_path(out_path) if out_path.is_file() else ""})
+        return True
+
+    def _try_generate_bundled_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/generate":
+            return False
+        try:
+            body = self._read_json_body()
+            _key, prompt_text, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
+            requested_voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        language = _normalize_language(body.get("language"))
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path, language)
+        except Exception as exc:  # noqa: BLE001
+            self._write_json(502, {"ok": False, "error": str(exc)})
+            return True
+        if not out_path.exists() or out_path.stat().st_size <= 0:
+            self._write_json(502, {"ok": False, "error": "ElevenLabs generation failed."})
+            return True
+        self._write_json(200, {"ok": True, "src": _project_relative_web_path(out_path),
+                               "voice": chosen_voice, "model": model, "provider": "elevenlabs"})
+        return True
+
+    def _try_delete_bundled_voice(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__bundled-voice/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
@@ -2101,6 +2259,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if self._try_serve_ending_voice_status():
             return
+        if self._try_serve_bundled_voice_status():
+            return
         if self._try_serve_other_teams_logos_json():
             return
         if self._is_live_reload_endpoint():
@@ -2128,6 +2288,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_generate_ending_voice():
             return
         if self._try_delete_ending_voice():
+            return
+        if self._try_generate_bundled_voice():
+            return
+        if self._try_delete_bundled_voice():
             return
         if self._try_fetch_team_logo():
             return

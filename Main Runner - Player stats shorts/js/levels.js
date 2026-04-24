@@ -1,8 +1,14 @@
-import { appState, getState, migrateShortsVideoOffLegacyNormalProfile } from "./state.js";
+import {
+  appState,
+  getState,
+  getDefaultPlayerPictureValuesForCareerMode,
+  migrateShortsVideoOffLegacyNormalProfile,
+} from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers, refreshCareerPictureControlsDisplay, preloadCareerAssets } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 import { runTransition, transitionSettings } from "./transitions.js";
+import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -54,9 +60,12 @@ export function switchLevel(index) {
       state.silhouetteShortsVideoYOffset = 13;
       state.silhouetteShortsVideoScaleX = 0.85;
       state.silhouetteShortsVideoScaleY = 1.0;
-      state.silhouetteShortsNormalYOffset = 0;
-      state.silhouetteShortsNormalScaleX = 1.0;
-      state.silhouetteShortsNormalScaleY = 1.0;
+      {
+        const shortsVideoOff = getDefaultPlayerPictureValuesForCareerMode(true, false);
+        state.silhouetteShortsNormalYOffset = shortsVideoOff.silhouetteYOffset;
+        state.silhouetteShortsNormalScaleX = shortsVideoOff.silhouetteScaleX;
+        state.silhouetteShortsNormalScaleY = shortsVideoOff.silhouetteScaleY;
+      }
       state.careerSlotBadgeScales = [];
       state.careerSlotBadgeScalesRegular = [];
       state.careerSlotBadgeScalesShorts = [];
@@ -144,6 +153,7 @@ export function switchLevel(index) {
       els.careerWrap.hidden = true;
     }
     els.teamHeader.hidden = true;
+    if (els.playerVoiceControls) els.playerVoiceControls.hidden = true;
 
     const logoImg = els.logoPage.querySelector(".logo-img-anim");
     if (logoImg) {
@@ -195,6 +205,18 @@ export function switchLevel(index) {
         els.careerWrap.hidden = false;
       }
 
+      /* Shorts Play Video: `runVideoStep()` adds `shorts-play-pre-countdown` on the next macrotask (~same
+       * delay as this callback). One frame without it matches the bright “answering” portrait CSS. Set the
+       * BGM phase class before `renderCareer()` so the new level paints dimmed/hidden immediately. */
+      if (
+        isShorts &&
+        appState.isVideoPlaying &&
+        appState.currentLevelIndex >= 1 &&
+        appState.currentLevelIndex < appState.totalLevelsCount
+      ) {
+        document.body.classList.add("shorts-play-pre-countdown");
+      }
+
       renderCareer();
       renderHeader();
       if (isQuestionToQuestionTransition && els.careerWrap) {
@@ -231,6 +253,10 @@ export function switchLevel(index) {
       ) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
+    }
+
+    if (isShorts) {
+      syncShortsVideoModeIdleTimerBar();
     }
   };
 

@@ -77,3 +77,26 @@
     </div>
   </div>
 </div>
+
+<div id="import-script-modal" class="swap-modal" hidden>
+  <div class="swap-modal-content" style="padding: 0; max-width: 660px; width: 90vw;">
+    <div class="swap-modal-header">
+      <h3>Import Script</h3>
+      <button type="button" class="swap-modal-close" id="import-script-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div style="padding: 1.5rem;">
+      <div style="font-size: 0.78rem; color: #aaa; margin-bottom: 0.6rem; line-height: 1.5;">
+        Format: <code style="color: #ffca28;">[Team1, Team2, Team3]</code><br>
+        Each team must have a saved layout. Teams are added in the order listed.
+      </div>
+      <textarea id="import-script-text" placeholder="Paste import text here..." style="width: 100%; height: 110px; padding: 0.6rem; margin: 0 0 0.8rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px; box-sizing: border-box; font-family: monospace; font-size: 0.8rem; resize: vertical;" autocomplete="off" spellcheck="false"></textarea>
+      <input type="text" id="import-script-name" placeholder="Save name..." style="width: 100%; padding: 0.6rem; margin: 0 0 0.8rem 0; background: #000; color: #fff; border: 1px solid #333; border-radius: 4px; box-sizing: border-box;" autocomplete="off" />
+      <div id="import-script-error" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 0.8rem; white-space: pre-line; display: none; max-height: 220px; overflow-y: auto; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 0.6rem 0.8rem; line-height: 1.6;"></div>
+      <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+        <button id="import-script-cancel" class="panel-toggle">Cancel</button>
+        <button id="import-script-confirm" class="panel-toggle" style="background: var(--accent); color: #000;">Import</button>
+      </div>
+    </div>
+  </div>
+</div>
+

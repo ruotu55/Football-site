@@ -52,7 +52,9 @@ _CLUB_CARDS_CELL_RE = re.compile(
     r"(?:\d+|-|\u2013|—)\s*/\s*(?:\d+|-|\u2013|—)\s*/\s*(?:\d+|-|\u2013|—)",
 )
 
-PROJECT = Path(__file__).resolve().parent.parent
+# Squad JSON lives under `.Storage/Squad Formation/`; scripts under `.Storage/Legacy/...`.
+_LEGACY_DIR = Path(__file__).resolve().parent.parent
+PROJECT = _LEGACY_DIR.parent
 TEAMS_IMAGES = PROJECT / "Teams Images"
 NATIONALITY_IMAGES = PROJECT / "Nationality images"
 OUT_TEAMS = PROJECT / "Squad Formation" / "Teams"

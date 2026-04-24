@@ -201,6 +201,12 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   will-change: filter, transform;
 }
 
+.career-silhouette.career-silhouette--photo {
+  pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 /* Video mode: 3D silhouette — very dark with subtle shirt/body contour texture, player identity hidden. */
 body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.revealed) {
   opacity: 1;
@@ -517,6 +523,17 @@ body:not(.shorts-mode) .career-reveal-overlay-img {
   transform: translateY(var(--career-reveal-y, -10%))
     scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
   transform-origin: center bottom;
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.career-reveal-photo-img {
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 body:not(.shorts-mode) .career-reveal-overlay-fallback {
@@ -720,7 +737,8 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
   position: absolute;
   /* Counter-rotate the slot by -15deg so it faces straight to the camera */
   transform: translate(-50%, -50%) rotateX(-15deg);
-  pointer-events: auto;
+  /* Pass clicks through the slot shell; controls keep pointer-events: auto. */
+  pointer-events: none;
   z-index: 10;
   overflow: visible;
 }
@@ -1322,41 +1340,13 @@ body:not(.shorts-mode) .player-stats-panel .player-stat-card__head {
   max-height: var(--player-stat-equal-cell);
 }
 
-body:not(.shorts-mode) .player-stat-card__icon {
-  position: absolute;
-  left: calc(0.38rem + 0.2em);
-  top: 50%;
-  transform: translateY(-50%);
-  flex-shrink: 0;
-  width: 1.5em;
-  height: 1.5em;
-  margin-left: 0;
-  color: #fff;
-  opacity: 0.95;
-  filter: drop-shadow(0 0 4px rgba(100, 180, 255, 0.4)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
-}
-
-/* Goal glyph sits low in the viewBox; nudge up to align with cap height. */
-body:not(.shorts-mode) .player-stat-card__icon--goal {
-  transform: translateY(calc(-50% - 0.14em));
-}
-
 body:not(.shorts-mode) .player-stat-card__label {
   width: 100%;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-}
-
-/* Career Goals: lighter text-only nudge; icons unchanged. */
-body:not(.shorts-mode) .player-stats-panel .player-stat-card__label--nudge-right {
-  box-sizing: border-box;
-  padding-inline-start: 0.55em;
-}
-
-/* Career games & Career assists: stronger text-only nudge (icons stay on the left). */
-body:not(.shorts-mode) .player-stats-panel .player-stat-card__label--nudge-strong {
-  box-sizing: border-box;
-  padding-inline-start: 1.15em;
 }
 
 body:not(.shorts-mode) .player-stat-card__value {
@@ -1365,6 +1355,7 @@ body:not(.shorts-mode) .player-stat-card__value {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   box-sizing: border-box;
   overflow: hidden;
   color: #c8d4e4;

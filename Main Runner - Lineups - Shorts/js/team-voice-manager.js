@@ -1,4 +1,5 @@
 import { appState, getState } from "./state.js";
+import { getCurrentLanguage } from "./voice-tab.js";
 import { buildTeamNameVoiceSrc, playTeamNameVoiceIfExists } from "./audio.js";
 import { projectAssetUrl } from "./paths.js";
 
@@ -42,9 +43,9 @@ function setBusy(nextBusy, playLabel = "Vol") {
 }
 
 function setControlsVisibility(visible) {
+  void visible;
   if (!appState.els.teamVoiceControls) return;
-  const hasSelectedTeam = !!getState()?.currentSquad;
-  appState.els.teamVoiceControls.hidden = !(visible && hasSelectedTeam);
+  appState.els.teamVoiceControls.hidden = true;
 }
 
 async function refreshVoiceStatus() {
@@ -57,6 +58,7 @@ async function refreshVoiceStatus() {
   const params = new URLSearchParams({
     name: teamName,
     quizType: normalizeQuizType(uiState.quizType),
+    language: getCurrentLanguage(),
   });
   try {
     const res = await fetch(`${endpointUrl(VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
@@ -83,6 +85,7 @@ async function generateVoice() {
     name: uiState.teamName,
     quizType: normalizeQuizType(uiState.quizType),
     voice: FIXED_VOICE,
+    language: getCurrentLanguage(),
   };
   const res = await fetch(endpointUrl(VOICE_GENERATE_ENDPOINT), {
     method: "POST",
@@ -130,6 +133,7 @@ async function deleteCurrentVoice() {
       body: JSON.stringify({
         name: teamName,
         quizType: normalizeQuizType(uiState.quizType),
+        language: getCurrentLanguage(),
       }),
     });
     const payload = await res.json().catch(() => ({}));

@@ -1,0 +1,518 @@
+/* Panel tabs, floating action buttons, countdown overlay */
+.panel-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.tab-btn {
+  flex: 1;
+  padding: 0.6rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.05);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.tab-btn:hover { 
+  background: rgba(255,255,255,0.15); 
+}
+.tab-btn.active {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.3);
+  border-color: var(--accent);
+}
+.panel-section { display: none; flex-direction: column; gap: 1rem; }
+.panel-section.active { display: flex; }
+
+/* ── Voice tab (#panel-voice) ─────────────────────────────────────
+   Each row = [Vol] [X] [full text]. Vol is low-opacity when the clip
+   file is missing on disk, full-opacity when it exists. */
+.voice-tab-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.voice-tab-language {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+.voice-tab-language__label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.voice-tab-language__group {
+  display: flex;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+.voice-tab-language__btn {
+  box-sizing: border-box;
+  min-width: 4.5rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.voice-tab-language__btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+.voice-tab-language__btn.is-active {
+  background: var(--accent, #ffca28);
+  color: #000;
+  border-color: var(--accent, #ffca28);
+  box-shadow: 0 2px 10px rgba(255, 202, 40, 0.35);
+}
+.voice-tab-loading,
+.voice-tab-empty {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  padding: 0.4rem 0;
+}
+.voice-tab-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.55rem 0.7rem 0.7rem;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+.voice-tab-section__title {
+  margin: 0 0 0.25rem;
+  color: var(--accent, #ffca28);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.voice-tab-section__title::-webkit-details-marker { display: none; }
+.voice-tab-section__title::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.45rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: transform 160ms ease;
+}
+.voice-tab-section[open] > .voice-tab-section__title::before { transform: rotate(90deg); }
+.voice-tab-section__empty {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+.voice-tab-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.voice-tab-row:last-child {
+  border-bottom: none;
+}
+.voice-tab-btn {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2rem;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+.voice-tab-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+.voice-tab-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+/* Low-opacity Vol when the underlying clip file is missing — user-requested visual cue. */
+.voice-tab-row.is-missing .voice-tab-btn--vol {
+  opacity: 0.4;
+}
+.voice-tab-row.is-present .voice-tab-btn--vol {
+  opacity: 1;
+}
+.voice-tab-btn--x {
+  background: rgba(120, 18, 18, 0.72);
+  border-color: rgba(255, 190, 190, 0.9);
+}
+.voice-tab-btn--x:hover:not(:disabled) {
+  background: rgba(185, 28, 28, 0.9);
+}
+.voice-tab-row__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: #fff;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.voice-tab-row__text-main {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.voice-tab-row__plays-at {
+  align-self: flex-start;
+  display: inline-block;
+  margin-top: 0.12rem;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(120, 200, 255, 0.12);
+  border: 1px solid rgba(120, 200, 255, 0.25);
+  border-radius: 0.35rem;
+  font-style: normal;
+}
+.voice-tab-row.is-missing .voice-tab-row__text {
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+/* ── All in-page Vol/X UIs are hidden now that the Voice tab is the single
+   source of truth for generating / playing / deleting clips.
+     • #player-voice-controls     — static top-right Vol/X for player name
+     • #quiz-type-voice-status    — Landing-tab Vol/X next to the quiz-type dropdown
+     • #ending-type-voice-status  — Landing-tab Vol/X next to the ending-type selector
+     • .fake-stat-voice-controls  — per-card Vol/X inside fake-info mode
+   The underlying JS still runs (so the Voice tab keeps working), only the
+   surface buttons are taken out of the viewport. */
+#player-voice-controls,
+#quiz-type-voice-status,
+#ending-type-voice-status,
+.fake-stat-voice-controls {
+  display: none !important;
+}
+
+.panel-fab {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 200;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: #000;
+  font-weight: 900;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 202, 40, 0.4);
+  text-transform: uppercase;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s, box-shadow 0.2s;
+}
+.panel-fab[hidden] { display: none; }
+.panel-fab:hover { 
+  background: #ffe066; 
+  transform: translateY(-3px) scale(1.02); 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(255, 202, 40, 0.5);
+}
+
+.prod-btn {
+  left: auto;
+  right: 11rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 1px 4px rgba(255,255,255,0.15);
+}
+.prod-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5), 0 2px 6px rgba(255,255,255,0.2);
+}
+.prod-btn[aria-pressed="true"] {
+  background: #dc2626;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(220, 38, 38, 0.55);
+}
+.prod-btn[aria-pressed="true"]:hover {
+  background: #ef4444;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.55), 0 3px 8px rgba(239, 68, 68, 0.5);
+}
+body.play-video-active .prod-btn {
+  display: none !important;
+}
+
+.play-video-btn {
+  left: auto;
+  right: 1.5rem;
+  background: #4da3ff;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(77, 163, 255, 0.4);
+}
+.play-video-btn:hover {
+  background: #66b3ff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(77, 163, 255, 0.5);
+}
+
+.shorts-mode-btn {
+  left: auto;
+  right: 21.5rem;
+  background: rgba(168, 85, 247, 0.35);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(168, 85, 247, 0.35);
+}
+.shorts-mode-btn:hover {
+  background: rgba(192, 132, 252, 0.5);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(192, 132, 252, 0.45);
+}
+.shorts-mode-btn[aria-pressed="true"] {
+  background: #a855f7;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(168, 85, 247, 0.55);
+}
+
+.video-mode-btn {
+  left: auto;
+  right: 15.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 255, 255, 0.18);
+}
+
+.video-mode-btn[aria-pressed="true"] {
+  background: #22c55e;
+  color: #001408;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(34, 197, 94, 0.45);
+}
+
+body.play-video-active .video-mode-btn,
+body.play-video-active .shorts-mode-btn {
+  display: none !important;
+}
+
+/* Pill countdown bar: striped fill, white rim, gloss; phases from JS */
+.countdown-timer {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Barlow Condensed", sans-serif;
+  will-change: transform;
+  --bar-stripe-a: #dc2626;
+  --bar-stripe-b: #f87171;
+}
+
+.countdown-timer[hidden] {
+  display: none !important;
+}
+
+.countdown-bar-track {
+  position: relative;
+  width: min(72vw, 17.5rem);
+  height: 0.72rem;
+  padding: 0.2rem;
+  box-sizing: content-box;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 3px 12px rgba(0, 0, 0, 0.22),
+    0 1px 4px rgba(255, 255, 255, 0.35) inset;
+}
+
+.countdown-bar-inner {
+  height: 100%;
+  border-radius: 999px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.05) 100%);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.countdown-bar-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  box-sizing: border-box;
+  background-image: repeating-linear-gradient(
+    125deg,
+    var(--bar-stripe-a) 0,
+    var(--bar-stripe-a) 5px,
+    var(--bar-stripe-b) 5px,
+    var(--bar-stripe-b) 10px
+  );
+  box-shadow:
+    inset 0 -2px 4px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: width 1s linear, filter 0.45s ease;
+}
+
+.countdown-bar-gloss {
+  position: absolute;
+  left: 0.2rem;
+  right: 0.2rem;
+  top: 0.2rem;
+  height: 42%;
+  border-radius: 999px 999px 40% 40%;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.18) 45%,
+    transparent 100%
+  );
+  mix-blend-mode: soft-light;
+}
+
+/* Rolling ball synced to question countdown (duration from JS --shorts-soccer-run-ms) */
+html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
+  display: none;
+}
+
+.countdown-bar-track .soccer {
+  position: absolute;
+  top: 50%;
+  left: calc(100% - var(--soccer-dim, 2.25rem));
+  z-index: 5;
+  --soccer-dim: clamp(1.45rem, 6.5vw, 2.25rem);
+  width: var(--soccer-dim);
+  height: var(--soccer-dim);
+  box-sizing: border-box;
+  background: url(https://upload.wikimedia.org/wikipedia/en/e/ec/Soccer_ball.svg) center /
+    var(--soccer-dim) var(--soccer-dim) no-repeat;
+  pointer-events: none;
+  transform: translateY(-50%) rotate(0deg);
+  will-change: left, transform;
+}
+
+.countdown-bar-track .soccer.countdown-soccer-rolling {
+  animation: shorts-countdown-soccer-roll linear forwards;
+  animation-delay: 0ms;
+  animation-duration: calc(var(--shorts-soccer-run-ms, 3000) * 1ms);
+}
+
+@keyframes shorts-countdown-soccer-roll {
+  0% {
+    left: calc(100% - var(--soccer-dim));
+    transform: translateY(-50%) rotate(360deg);
+  }
+  100% {
+    left: 0;
+    transform: translateY(-50%) rotate(-360deg);
+  }
+}
+
+.countdown-timer.timer-phase-green {
+  --bar-stripe-a: #15803d;
+  --bar-stripe-b: #4ade80;
+}
+
+.countdown-timer.timer-phase-orange {
+  --bar-stripe-a: #c2410c;
+  --bar-stripe-b: #fb923c;
+}
+
+.countdown-timer.timer-phase-yellow {
+  --bar-stripe-a: #a16207;
+  --bar-stripe-b: #facc15;
+}
+
+.countdown-timer.timer-phase-red {
+  --bar-stripe-a: #b91c1c;
+  --bar-stripe-b: #f87171;
+}
+
+.countdown-timer.timer-shake {
+  animation: countdown-bar-shake 0.55s ease-in-out infinite;
+}
+
+@keyframes countdown-bar-shake {
+  0%,
+  100% {
+    transform: translateX(-50%) translate(0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translateX(-50%) translate(-5px, 0) rotate(-0.6deg);
+  }
+  40% {
+    transform: translateX(-50%) translate(5px, 0) rotate(0.6deg);
+  }
+  60% {
+    transform: translateX(-50%) translate(-4px, 1px) rotate(-0.4deg);
+  }
+  80% {
+    transform: translateX(-50%) translate(4px, -1px) rotate(0.4deg);
+  }
+}
+
+/* Legacy pulse (unused by bar flow; kept for safety) */
+.countdown-timer.pulse {
+  animation: pulse-timer 1s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes pulse-timer {
+  0% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
+  50% { transform: translateX(-50%) scale(1.05); filter: drop-shadow(0 0 8px #ef4444); }
+  100% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
+}
+
+/* ── PROD Validation Modal ── */
+.prod-validation-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+.prod-validation-modal { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; width: 540px; max-width: 92vw; max-height: 80vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.7); overflow: hidden; }
+.prod-validation-modal__header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; background: rgba(220,38,38,0.15); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.prod-validation-modal__header h2 { margin: 0; font-size: 1.1rem; color: #ef4444; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+.prod-validation-modal__close { background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; padding: 0 0.3rem; opacity: 0.7; transition: opacity 0.15s; }
+.prod-validation-modal__close:hover { opacity: 1; }
+.prod-validation-modal__body { padding: 0.8rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.4rem; }
+.prod-validation-section { border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.2); }
+.prod-validation-section__toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 1rem; background: none; border: none; color: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 700; text-align: left; transition: background 0.15s; }
+.prod-validation-section__toggle:hover { background: rgba(255,255,255,0.05); }
+.prod-validation-section__toggle .section-status { font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 800; flex-shrink: 0; }
+.prod-validation-section__toggle .section-status.pass { background: rgba(34,197,94,0.2); color: #22c55e; }
+.prod-validation-section__toggle .section-status.fail { background: rgba(239,68,68,0.2); color: #ef4444; }
+.prod-validation-section__details { display: none; padding: 0 1rem 0.7rem 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.5; }
+.prod-validation-section__details.open { display: block; }
+.prod-validation-section__details ul { margin: 0; padding: 0 0 0 1.2rem; list-style: disc; }
+.prod-validation-section__details li { margin-bottom: 0.25rem; }
+.prod-validation-section__details li .fail-item { color: #ef4444; }
+.prod-validation-section__details li .pass-item { color: #22c55e; }
+.specific-title-yn-group { display: flex; gap: 0.4rem; align-items: center; }
+.specific-title-yn-btn { padding: 0.35rem 0.9rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 5px; background: rgba(255,255,255,0.08); color: #fff; font-weight: 700; font-size: 0.78rem; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+.specific-title-yn-btn:hover { background: rgba(255,255,255,0.15); }
+.specific-title-yn-btn[aria-pressed="true"].yn-yes { background: #22c55e; color: #001408; border-color: #22c55e; }
+.specific-title-yn-btn[aria-pressed="true"].yn-no { background: #ef4444; color: #fff; border-color: #ef4444; }

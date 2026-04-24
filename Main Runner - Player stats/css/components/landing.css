@@ -443,6 +443,11 @@ body:not(.shorts-mode) .landing-shirt {
 
 .landing-shirt[hidden] { display: none; }
 
+/* Beat `body:not(.shorts-mode) .landing-shirt { display: inline-block }` so the tee stays off landing/outro. */
+#landing-shirt[hidden] {
+  display: none !important;
+}
+
 body.shorts-mode .landing-shirt {
   display: none !important;
 }

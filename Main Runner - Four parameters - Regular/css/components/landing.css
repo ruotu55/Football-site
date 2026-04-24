@@ -1,0 +1,614 @@
+/* ── Ball-drop preloader (Play Video on landing) ──────────────────── */
+.ball-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+}
+.ball-preloader[hidden] { display: none; }
+
+.ball-preloader.revealing {
+  --reveal-r: 0px;
+  -webkit-mask-image: radial-gradient(circle at var(--reveal-cx, 50%) var(--reveal-cy, 50%), transparent calc(var(--reveal-r) - 1px), black var(--reveal-r));
+  mask-image: radial-gradient(circle at var(--reveal-cx, 50%) var(--reveal-cy, 50%), transparent calc(var(--reveal-r) - 1px), black var(--reveal-r));
+}
+
+.ball-layer {
+  position: absolute;
+  inset: 0;
+  --reveal-r: 0px;
+  -webkit-mask-image: radial-gradient(circle at var(--reveal-cx, 50%) var(--reveal-cy, 50%), transparent calc(var(--reveal-r) - 1px), black var(--reveal-r));
+  mask-image: radial-gradient(circle at var(--reveal-cx, 50%) var(--reveal-cy, 50%), transparent calc(var(--reveal-r) - 1px), black var(--reveal-r));
+}
+.ball-layer-1 {
+  background: var(--bg-stage, #3c6553);
+  z-index: 2;
+  overflow: hidden;
+}
+.ball-layer-2 {
+  background: #ffffff;
+  z-index: 1;
+}
+
+.ball-preloader-ball {
+  position: absolute;
+  top: -130px;
+  left: calc(50% - 200px);
+  z-index: 3;
+  width: 400px;
+  height: 400px;
+}
+.ball-preloader-ball-scale {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.29);
+  transform-origin: top center;
+}
+@media (max-width: 967px) {
+  .ball-preloader-ball-scale {
+    transform: scale(0.19);
+  }
+}
+
+/* ── Compiled SCSS soccer ball ───────────── */
+.ball-sphera__patch-bottom--right,
+.ball-sphera__patch-bottom--left,
+.ball-sphera__patch-middle--right,
+.ball-sphera__patch-middle--left,
+.ball-sphera__patch-top {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 140px solid transparent;
+  border-bottom: 140px solid transparent;
+}
+
+.ball-sphera__patch-bottom--right .line,
+.ball-sphera__patch-bottom--left .line,
+.ball-sphera__patch-middle--right .line,
+.ball-sphera__patch-middle--left .line {
+  position: absolute;
+  width: 60px;
+  height: 2px;
+}
+
+.ball-preloader-ball .ball {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 16px 20px 0 rgba(0,0,0,0.14), 0 4px 40px 0 rgba(0,0,0,0.12), 0 8px 16px -4px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.ball-sphera {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background: #FFFFFF;
+  border: 6px solid #212121;
+  border-radius: 50%;
+  box-shadow: inset -50px -50px 100px rgba(0,0,0,0.14);
+}
+
+.ball-sphera__patch-top {
+  top: 0;
+  left: 60px;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 40px solid #212121;
+}
+.ball-sphera__patch-top .line {
+  position: absolute;
+  width: 2px;
+  height: 122px;
+  top: 6px;
+  left: -1px;
+  background: #212121;
+}
+
+.ball-sphera__patch-middle--left {
+  top: 18px;
+  left: 0;
+  border-left: 40px solid #212121;
+  transform: rotate(14deg);
+}
+.ball-sphera__patch-middle--left .line {
+  top: -1px;
+  left: 6px;
+  background: #212121;
+}
+
+.ball-sphera__patch-middle--right {
+  top: 18px;
+  right: 0;
+  border-right: 40px solid #212121;
+  transform: rotate(-14deg);
+}
+.ball-sphera__patch-middle--right .line {
+  top: -1px;
+  right: 6px;
+  background: #212121;
+}
+
+.ball-sphera__patch-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  background: #212121;
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+}
+
+.ball-sphera__patch-bottom--left {
+  bottom: -98px;
+  left: 74px;
+  border-left: 40px solid #212121;
+  transform: rotate(-57deg);
+}
+.ball-sphera__patch-bottom--left .line {
+  top: -1px;
+  left: 6px;
+  background: #212121;
+}
+
+.ball-sphera__patch-bottom--right {
+  bottom: -98px;
+  right: 74px;
+  border-right: 40px solid #212121;
+  transform: rotate(57deg);
+}
+.ball-sphera__patch-bottom--right .line {
+  top: -1px;
+  right: 6px;
+  background: #212121;
+}
+
+/* LANDING PAGE */
+.landing-page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.landing-page[hidden] { display: none; }
+
+/* Keep quiz-title voice controls hidden during play-video flow. */
+body.play-video-active #landing-title-voice-controls {
+  display: none !important;
+}
+
+.landing-title {
+  position: relative;
+  z-index: 10;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 6.5rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  text-shadow: 0 10.4px 31.2px rgba(0,0,0,0.8), 0 2.6px 5.2px rgba(0,0,0,0.5);
+  margin: 0 0 0.65rem 0;
+  animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+}
+.landing-subtitle {
+  position: relative;
+  z-index: 10;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 5.2rem;
+  font-weight: 800;
+  color: #ff3b30;
+  text-transform: uppercase;
+  margin: 0 0 1.56rem 0;
+  text-shadow: 0 7.8px 23.4px rgba(0,0,0,0.8), 0 2.6px 5.2px rgba(0,0,0,0.5);
+  animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+}
+
+.difficulty-box {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10.4px);
+  -webkit-backdrop-filter: blur(10.4px);
+  border: 2.6px solid rgba(255, 255, 255, 0.8);
+  border-radius: 39px;
+  padding: 1.3rem 2.34rem;
+  gap: 2.86rem;
+  box-shadow: 0 19.5px 45.5px rgba(0,0,0,0.5), inset 0 0 13px rgba(255,255,255,0.1);
+  animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+}
+.diff-item { display: flex; align-items: center; gap: 1.04rem; position: relative; }
+.diff-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -1.43rem; 
+  top: 15%;
+  height: 70%;
+  width: 2.6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2.6px;
+}
+.diff-icon { font-size: 3.12rem; line-height: 1; filter: drop-shadow(0 2.6px 5.2px rgba(0,0,0,0.4)); }
+.diff-info { display: flex; flex-direction: column; align-items: flex-start; }
+.diff-val { color: #fff; font-family: "Barlow Condensed"; font-size: 2.6rem; font-weight: 800; line-height: 1; text-shadow: 0 2.6px 5.2px rgba(0,0,0,0.5); }
+.diff-label { color: rgba(255,255,255,0.9); font-size: 1.105rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.3px; margin-top: 0.26rem; text-shadow: 0 1.3px 2.6px rgba(0,0,0,0.5);}
+
+/* Logo page → landing: quiz copy sits above the fold until logo shift-top-right finishes, then slides in from top (no opacity fade) */
+.landing-page.landing-content-awaiting-shift,
+.landing-page.landing-content-slide-in {
+  overflow: hidden;
+}
+.landing-page.landing-content-awaiting-shift .landing-title,
+.landing-page.landing-content-awaiting-shift .landing-subtitle,
+.landing-page.landing-content-awaiting-shift .difficulty-box {
+  animation: none;
+  transform: translateY(-120vh);
+}
+.landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) {
+  visibility: hidden;
+  pointer-events: none;
+  animation: none;
+}
+.landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden])::after,
+.landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) .landing-special-badge {
+  animation: none !important;
+}
+
+@keyframes landing-info-slide-from-top {
+  from { transform: translateY(-120vh); }
+  to { transform: translateY(0); }
+}
+@keyframes landing-special-badge-slide-from-top {
+  from { transform: translateY(calc(-50% - 120vh)) rotate(-6deg); }
+  to { transform: translateY(-50%) rotate(-6deg); }
+}
+
+.landing-page.landing-content-slide-in .landing-title {
+  animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down 3.2s ease-in-out 0.65s infinite;
+}
+.landing-page.landing-content-slide-in .landing-subtitle {
+  animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down 3.2s ease-in-out 0.65s infinite;
+}
+.landing-page.landing-content-slide-in .difficulty-box {
+  animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down 3.2s ease-in-out 0.65s infinite;
+}
+.landing-page.landing-content-slide-in .landing-special-badge-container:not([hidden]) {
+  visibility: visible;
+  animation: landing-special-badge-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    float-up-down-special-badge 3.2s ease-in-out 0.65s infinite;
+  pointer-events: auto;
+}
+
+/* ADDITION: SHORTS-ONLY LOGO FLOATING TOGETHER WITH TEXT */
+body:not(.shorts-mode) .landing-page .shorts-landing-logo {
+  display: none;
+}
+.shorts-landing-logo {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 416px;
+  object-fit: contain;
+  margin-top: -1.3rem; /* Adjust position to float in the stack */
+  animation: float-up-down 3.2s ease-in-out infinite; /* FLOATS TOGETHER WITH TEXT */
+}
+
+/* RUBBER STAMP ANIMATION & STYLES */
+.landing-special-badge-container {
+  position: absolute;
+  left: 13rem;
+  top: 53%; 
+  transform: translateY(-50%) rotate(-6deg);
+  z-index: 100;
+  animation: float-up-down-special-badge 3.2s ease-in-out infinite;
+}
+.landing-special-badge-container[hidden] { display: none; }
+
+.landing-special-badge-container::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 104px; height: 143px;
+  margin-left: -52px; margin-top: -143px;
+  background: 
+    radial-gradient(ellipse at 50% 10%, rgba(255,255,255,0.4) 10%, transparent 20%),
+    radial-gradient(circle at 50% 25%, #c48b59 20%, transparent 28%),
+    linear-gradient(to right, transparent 40%, #a36531 40%, #c48b59 50%, #874e20 60%, transparent 60%),
+    linear-gradient(to bottom, transparent 75%, #c48b59 75%, #a36531 90%, #5e3211 90%, #5e3211 95%, #b71c1c 95%, #b71c1c 100%);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: bottom center;
+  animation: stamper-hit 1.2s linear forwards;
+  animation-delay: 1s; 
+}
+
+.landing-special-badge {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: #ff3b30;
+  padding: 0;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.78rem;
+  border: none;
+  box-shadow: none;
+  opacity: 0; 
+  transform: scale(1.1);
+  animation: badge-impression 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 1.36s; 
+  width: auto;
+  max-width: min(36.4rem, 92vw);
+  height: auto;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+@keyframes stamper-hit {
+  0% { 
+    opacity: 0; 
+    transform: translateY(-300px) scale(2.2) rotate(-10deg); 
+    filter: drop-shadow(0 50px 20px rgba(0,0,0,0.1)); 
+    animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.2);
+  }
+  30% { 
+    opacity: 1; 
+    transform: translateY(70px) scale(1) rotate(0deg); 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8)); 
+    animation-timing-function: linear; 
+  }
+  40% { 
+    opacity: 1; 
+    transform: translateY(70px) scale(1) rotate(0deg); 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8)); 
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-300px) scale(1.4) rotate(25deg); 
+    filter: drop-shadow(0 30px 20px rgba(0,0,0,0.1)); 
+  }
+}
+
+@keyframes badge-impression {
+  0% { opacity: 0; transform: scale(1.6); }
+  40% { opacity: 1; transform: scale(0.9); }
+  70% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.special-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10.4rem;
+}
+.special-icon-img {
+  display: block;
+  height: 10.4rem;
+  width: auto;
+  max-width: 33.8rem;
+  object-fit: contain;
+  filter: drop-shadow(0 5.2px 7.8px rgba(0,0,0,0.4));
+}
+.special-icon { 
+  font-size: 10.4rem; 
+  line-height: 1; 
+  filter: drop-shadow(0 5.2px 7.8px rgba(0,0,0,0.4));
+}
+.special-text {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 3.12rem; 
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 2.6px;
+  text-shadow: 0 5.2px 10.4px rgba(0,0,0,0.4);
+  white-space: normal;
+  width: 100%;
+}
+
+/* =========================================
+   FLOATING SHIRT (per-level editable number)
+   ========================================= */
+body:not(.shorts-mode) .landing-shirt {
+  position: fixed;
+  right: 16vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 170;
+  width: clamp(9.1rem, 16.9vw, 15.6rem);
+  display: inline-block;
+  container-type: inline-size;
+  container-name: landing-shirt;
+  animation: float-up-down 3.2s ease-in-out infinite;
+  cursor: default;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.landing-shirt[hidden] { display: none; }
+
+/* Beat `body:not(.shorts-mode) .landing-shirt { display: inline-block }` so the tee stays off landing/outro. */
+#landing-shirt[hidden] {
+  display: none !important;
+}
+
+body.shorts-mode .landing-shirt {
+  display: none !important;
+}
+
+.play-bold {
+  font-family: "Play", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-synthesis: none;
+}
+
+/* Same PNG silhouette as before — only color treatment: neutral / no hue,
+   softer edges (less white fringe), no drop-shadow halo. */
+.landing-shirt__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+  outline: none;
+  opacity: 0.52;
+  filter: grayscale(1) contrast(0.88) brightness(1.06);
+}
+
+/* Number: matte hollow / cut-out (no glows or drop-shadow). */
+#landing-shirt-number.landing-shirt__number {
+  position: absolute;
+  /* % of shirt box (image height): centers digit on chest; fixed px was too high with -50% Y. */
+  top: 41%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Play", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-synthesis: none;
+  /* Another ×0.8 vs previous step (net ~64% of original clamps). */
+  font-size: clamp(2.08rem, 11.52vw, 12rem);
+  font-size: clamp(2.08rem, 38.4cqi, 12rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  min-width: 1.5em;
+  pointer-events: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: clamp(2.25px, 0.17cqi, 4.75px) rgba(195, 200, 198, 0.82);
+  paint-order: stroke fill;
+  opacity: 0.94;
+  text-shadow: none;
+  filter: none;
+}
+
+#landing-shirt-number.landing-shirt__number[contenteditable="true"] {
+  pointer-events: auto;
+  outline: none;
+  cursor: text;
+  border-bottom: 2px solid rgba(200, 200, 200, 0.5);
+  /* Solid-ish fill while editing so caret and glyphs stay readable. */
+  color: rgba(205, 210, 208, 0.96);
+  -webkit-text-fill-color: rgba(205, 210, 208, 0.96);
+  -webkit-text-stroke: clamp(1.6px, 0.11cqi, 3.25px) rgba(160, 165, 163, 0.55);
+  opacity: 1;
+  text-shadow: none;
+  filter: none;
+}
+
+/* =========================================
+   OUTRO ANIMATIONS & LAYOUT (REGULAR MODE)
+   ========================================= */
+
+.outro-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1rem;
+}
+
+.outro-action {
+  width: 160px;
+  object-fit: contain;
+  opacity: 0;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+.outro-bottom-row {
+  display: none; /* Only visible in Shorts Mode */
+}
+
+/* Animations triggered when Outro page is visible */
+#outro-page .landing-title,
+#outro-page .landing-subtitle {
+  animation: none;
+}
+
+#outro-page:not([hidden]) {
+  --outro-float-base-y: 0px;
+  animation: outro-page-float-sync 3.2s ease-in-out infinite;
+}
+
+#outro-page:not([hidden]) .outro-bottom-row {
+  animation: outro-content-follow-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* Center logo: keep static like headings (row animation moved entire .outro-top-row from above). */
+#outro-page:not([hidden]) .outro-top-row .logo-img-anim {
+  animation: none;
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+#outro-page:not([hidden]) .action-like {
+  animation: pop-in-left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 2.7s; /* 1.2s base + 1.5s additional delay */
+}
+
+#outro-page:not([hidden]) .action-sub {
+  animation: pop-in-right 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 3.0s; /* 1.5s base + 1.5s additional delay */
+}
+
+@keyframes pop-in-left {
+  0% { transform: translateX(-100px) scale(0.5); opacity: 0; }
+  100% { transform: translateX(0) scale(1) rotate(-8deg); opacity: 1; }
+}
+
+@keyframes pop-in-right {
+  0% { transform: translateX(100px) scale(0.5); opacity: 0; }
+  100% { transform: translateX(0) scale(1) rotate(8deg); opacity: 1; }
+}
+
+@keyframes outro-content-follow-in {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes outro-page-float-sync {
+  0%, 100% {
+    transform: translateY(var(--outro-float-base-y, 0px));
+  }
+  50% {
+    transform: translateY(calc(var(--outro-float-base-y, 0px) - 12px));
+  }
+}
+
+/* YouTube thumbnail capture: hide landing-page logo image (main logo page is driven in levels.js). */
+body.youtube-thumbnails-mode .shorts-landing-logo {
+  display: none !important;
+}

@@ -1,4 +1,5 @@
 import { appState } from "./state.js";
+import { getCurrentLanguage } from "./voice-tab.js";
 import { buildPlayerNameVoiceSrc, playPlayerNameVoiceIfExists } from "./audio.js";
 import { projectAssetUrl } from "./paths.js";
 
@@ -36,8 +37,9 @@ function setBusy(nextBusy, playLabel = "Vol") {
 }
 
 function setControlsVisibility(visible) {
+  void visible;
   if (!appState.els.playerVoiceControls) return;
-  appState.els.playerVoiceControls.hidden = !visible;
+  appState.els.playerVoiceControls.hidden = true;
 }
 
 async function refreshVoiceStatus() {
@@ -47,7 +49,7 @@ async function refreshVoiceStatus() {
     setBusy(uiState.busy, uiState.busy ? "..." : "Vol");
     return;
   }
-  const params = new URLSearchParams({ name: playerName });
+  const params = new URLSearchParams({ name: playerName, language: getCurrentLanguage() });
   try {
     const res = await fetch(`${endpointUrl(VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
     if (!res.ok) {
@@ -72,6 +74,7 @@ async function generateVoice() {
   const body = {
     name: uiState.playerName,
     voice: FIXED_VOICE,
+    language: getCurrentLanguage(),
   };
   const res = await fetch(endpointUrl(VOICE_GENERATE_ENDPOINT), {
     method: "POST",
@@ -116,7 +119,7 @@ async function deleteCurrentVoice() {
     const res = await fetch(endpointUrl(VOICE_DELETE_ENDPOINT), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: playerName }),
+      body: JSON.stringify({ name: playerName, language: getCurrentLanguage() }),
     });
     const payload = await res.json().catch(() => ({}));
     if (!res.ok || !payload?.ok) {

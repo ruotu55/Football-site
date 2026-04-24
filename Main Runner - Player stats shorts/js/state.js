@@ -3,10 +3,10 @@ export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.85;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
-/** Shorts “Adjust Picture (Video Off)” baseline values. */
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = 0;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 1.0;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 1.0;
+/** Shorts “Adjust Picture (Video Off)” baseline values — match Main Runner - Career Path - Shorts. */
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = -7;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 0.9;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 0.9;
 /** Shorts "Video On" baseline Y-offset — player starts lower so it sits below the stats panel. */
 export const DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET = 13;
 
@@ -31,21 +31,29 @@ export function getDefaultPlayerPictureValuesForCareerMode(isShortsLayout, video
     silhouetteScaleY: DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y,
   };
   return {
-    silhouetteYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+    silhouetteYOffset: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET,
     silhouetteScaleX: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
     silhouetteScaleY: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y,
   };
 }
 
-/** One-time-style upgrade: old Video Off default was 0.85×1; new default is 1×1. */
+/** One-time migrate: align legacy Video Off profiles with Career Path - Shorts defaults (Y −7, 0.9×0.9). */
 export function migrateShortsVideoOffLegacyNormalProfile(st) {
   if (!st) return;
   const approxS = (value, expected) => Math.abs(Number(value ?? expected) - expected) < 0.001;
-  if (
-    approxS(st.silhouetteShortsNormalYOffset, DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET) &&
-    approxS(st.silhouetteShortsNormalScaleX, DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) &&
-    approxS(st.silhouetteShortsNormalScaleY, DEFAULT_PLAYER_SILHOUETTE_SCALE_Y)
-  ) {
+  const y = Number(st.silhouetteShortsNormalYOffset);
+  const sx = Number(st.silhouetteShortsNormalScaleX);
+  const sy = Number(st.silhouetteShortsNormalScaleY);
+  const wasFlatVideoOff =
+    approxS(y, DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET) &&
+    approxS(sx, 1.0) &&
+    approxS(sy, 1.0);
+  const wasShortsScalesStoredAsNormal =
+    approxS(y, DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET) &&
+    approxS(sx, DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X) &&
+    approxS(sy, DEFAULT_PLAYER_SILHOUETTE_SCALE_Y);
+  if (wasFlatVideoOff || wasShortsScalesStoredAsNormal) {
+    st.silhouetteShortsNormalYOffset = DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET;
     st.silhouetteShortsNormalScaleX = DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X;
     st.silhouetteShortsNormalScaleY = DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y;
   }
@@ -77,6 +85,9 @@ export const appState = {
     controlPanel: null,
     headerName: null,
     headerLogo: null,
+    playerVoiceControls: null,
+    playerVoicePlay: null,
+    playerVoiceDelete: null,
     quizLevelsInput: null,
     updateLevelsBtn: null,
     quizProgressScroll: null,
@@ -224,7 +235,7 @@ export function initLevels(count) {
       silhouetteShortsVideoYOffset: DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET,
       silhouetteShortsVideoScaleX: shortsPictureDefaults.silhouetteScaleX,
       silhouetteShortsVideoScaleY: shortsPictureDefaults.silhouetteScaleY,
-      silhouetteShortsNormalYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+      silhouetteShortsNormalYOffset: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET,
       silhouetteShortsNormalScaleX: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
       silhouetteShortsNormalScaleY: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y,
       careerPlayer: null,

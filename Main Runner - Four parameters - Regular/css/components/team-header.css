@@ -1,0 +1,202 @@
+/* css/components/team-header.css */
+
+.team-header {
+  display: grid;
+  /* Default 3-column grid for National teams */
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+  z-index: 150;
+  width: 95%;
+  margin: 0 auto;
+  pointer-events: none; 
+  flex-shrink: 0; 
+  height: 25vh; /* Taking up 1/4 of the page */
+  /* Synced delay to wait for the page transition */
+  transition: height 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s, margin 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
+}
+.team-header[hidden] { display: none; }
+
+/* FIX: Shift the header up slightly in regular mode without affecting the pitch layout */
+body:not(.shorts-mode) .team-header {
+  position: relative;
+  top: -0.5vh; /* CONTROL LINE: Increase negative value (e.g., -6vh) to move higher, or closer to 0 to lower it */
+}
+
+/* FIX: Regular View Club Mode - Uses 1fr sides to keep name centered while bringing logo in */
+body:not(.shorts-mode) .team-header[data-squad-type="club"] {
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  width: 100%;
+}
+
+/* Places logo at the end of the first column (immediately left of the centered name) */
+body:not(.shorts-mode) .team-header[data-squad-type="club"] .team-header-logo {
+  grid-column: 1;
+  justify-self: end;
+
+  /* CONTROL LINE: Decrease this number to move the logo further to the right */
+  margin-right: -4.5rem;
+
+  /* 50% Bigger Logo Size */
+  height: 9.9rem;
+  width: 18rem;
+}
+
+/* Make national flags 20% smaller in regular mode */
+body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-logo {
+  height: 5.28rem;
+  width: 9.6rem;
+}
+
+/* Centered name in the middle column */
+body:not(.shorts-mode) .team-header[data-squad-type="club"] .team-header-name {
+  grid-column: 2;
+  justify-self: center;
+}
+
+.team-header.video-hidden {
+  height: 0vh; /* Collapse completely */
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow: hidden; /* Hide contents while field is full size */
+}
+
+/* Keep regular-mode geometry fixed in Video Mode (no road/player location jump). */
+body:not(.shorts-mode) .team-header.video-hidden {
+  height: 25vh;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* FIXED: Setting the hidden state to -100vh so they are ready at the top, not the middle */
+.team-header.video-hidden .team-header-name {
+  opacity: 0;
+  transform: translateY(0);
+  transition: none;
+}
+.team-header.video-hidden .team-header-logo {
+  opacity: 0;
+  transform: translateY(0) scale(1);
+  transition: none;
+}
+
+/* Keep logo fixed when Video Mode is only toggled on (not playing yet). */
+body.play-video-active .team-header.video-hidden .team-header-name {
+  transform: translateY(-100vh);
+}
+body.play-video-active .team-header.video-hidden .team-header-logo {
+  transform: translateY(-100vh) scale(0);
+}
+
+.team-header.video-revealed {
+  height: 25vh; /* Slide down to 1/4 screen size */
+  overflow: visible; /* Let the fly-in animation overflow if needed */
+}
+
+.team-header.video-revealed .team-header-name {
+  opacity: 1;
+  transform: translateY(-0.4rem);
+  /* Clean drop with no bounce (cubic-bezier 0.25, 1, 0.5, 1) */
+  transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s, transform 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
+}
+
+/* Alternate reveal used after countdown in Career Path video flow. */
+.team-header.cinematic-reveal.video-hidden .team-header-name {
+  transform: translateY(100vh);
+}
+
+.team-header.cinematic-reveal.video-revealed .team-header-name {
+  animation: name-rise-glow 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  transition: none;
+}
+
+/* Name is rendered by dedicated cinematic overlay in career.css. */
+.team-header.cinematic-reveal .team-header-name {
+  opacity: 0 !important;
+}
+
+@keyframes name-rise-glow {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.22em;
+    transform: translateY(68vh) scale(0.88);
+    filter: blur(10px);
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  62% {
+    opacity: 1;
+    letter-spacing: 0.1em;
+    transform: translateY(-0.62rem) scale(1.035);
+    filter: blur(0);
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.36), 0 8px 20px rgba(0, 0, 0, 0.65);
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0.05em;
+    transform: translateY(-0.4rem) scale(1);
+    filter: blur(0);
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes logo-fly-in {
+  /* FIXED: Starts from -100vh (top) with no positive translateY to avoid the "pitch jump" */
+  0% { transform: scale(1.2) translateY(-100vh); opacity: 0; filter: blur(10px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0px); }
+}
+
+.team-header.video-revealed .team-header-logo {
+  /* Synced to start at 0.4s with the name and uses animation-fill-mode: both to lock the start position */
+  animation: logo-fly-in 1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s both;
+  transform-origin: center;
+}
+
+/* Freeze header elements unless Play Video is active. */
+body:not(.play-video-active) .team-header.video-revealed .team-header-name {
+  transition: none;
+}
+body:not(.play-video-active) .team-header.video-revealed .team-header-logo {
+  animation: none;
+  transform: translateY(0) scale(1);
+}
+
+/* In active video flow, avoid logo pop/fly-in between questions. */
+body.play-video-active:not(.shorts-mode) .team-header.video-revealed .team-header-logo {
+  animation: none;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.team-header-logo {
+  grid-column: 1;
+  justify-self: end;
+  /* 50% Bigger Logo Size (National Defaults) */
+  height: 6.6rem; 
+  width: 12rem; 
+  object-fit: contain; 
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6)) drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  transform: translateZ(0); 
+}
+.team-header-logo[hidden] { display: none; }
+
+.team-header-name {
+  grid-column: 2;
+  font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  /* 50% Bigger Text Size */
+  font-size: clamp(3.7rem, 9vh, 6.3rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+  color: #ffffff;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6);
+  letter-spacing: 0.05em;
+  white-space: nowrap; 
+  transform: translateY(-0.4rem);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Four-params + Video Mode off: hide huge title only — keep header box geometry (do not collapse height or layout shifts). */
+body.four-params-vm-off-reveal:not(.shorts-mode) .team-header .team-header-name {
+  display: none !important;
+}
