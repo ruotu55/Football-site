@@ -185,14 +185,19 @@ export async function renderVoiceTab() {
   });
   root.appendChild(buildSection(SECTION_TITLES.players, playerRows));
 
+  /* Only show the ending row matching the Ending type select on the Quiz (Landing) tab.
+     If no valid ending is selected yet, show both so the user can still generate either. */
+  const selectedEnding = String(appState.els?.inEndingType?.value || "").trim();
   const endingRows = [
     { type: "think-you-know", status: endingThink },
     { type: "how-many",       status: endingHow },
-  ].map(({ type, status }) => buildRow({
-    text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
-    onPlay: () => onVolPressed({ rowKey: `ending:${type}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__ending-voice/generate", generateBody: { endingType: type } }),
-    onDelete: () => onDeletePressed({ rowKey: `ending:${type}:${lang}`, deleteEndpoint: "__ending-voice/delete", deleteBody: { endingType: type } }),
-  }));
+  ]
+    .filter(({ type }) => !selectedEnding || type === selectedEnding)
+    .map(({ type, status }) => buildRow({
+      text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
+      onPlay: () => onVolPressed({ rowKey: `ending:${type}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__ending-voice/generate", generateBody: { endingType: type } }),
+      onDelete: () => onDeletePressed({ rowKey: `ending:${type}:${lang}`, deleteEndpoint: "__ending-voice/delete", deleteBody: { endingType: type } }),
+    }));
   root.appendChild(buildSection(SECTION_TITLES.endings, endingRows));
 
   const bundledStatuses = await Promise.all(BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key)));

@@ -30,7 +30,7 @@ import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initPlayerVoiceManager } from "./player-voice-manager.js";
-import { getCurrentLanguage } from "./voice-tab.js";
+import { getCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
@@ -802,6 +802,8 @@ async function init() {
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
+        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+        renderVoiceTab();
     };
 
     if (els.btnRevealPhoto) {

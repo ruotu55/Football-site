@@ -23,7 +23,7 @@ import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
-import { getCurrentLanguage } from "./voice-tab.js";
+import { getCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
@@ -821,6 +821,8 @@ async function init() {
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
+        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+        renderVoiceTab();
     };
 
     if (els.btnRevealPhoto) {
