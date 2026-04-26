@@ -1033,7 +1033,7 @@ async function loadScript(script) {
 
     if (script.lineup) {
         els.videoModeToggle.checked = !!script.lineup.videoMode;
-        els.quizLevelsInput.value = script.lineup.totalLevels || 4;
+        els.quizLevelsInput.value = script.lineup.totalLevels || 5;
         if (els.shortsModeToggle) {
             els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
             els.shortsModeToggle.disabled = true;

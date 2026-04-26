@@ -197,6 +197,11 @@ body.play-video-active #landing-title-voice-controls {
   margin: 0 0 0.65rem 0;
   animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
 }
+/* "GUESS THE PLAYER by club + position + country + age" is longer than the
+   fake-info title — shrink it 10% so it fits on screen. */
+.landing-title.landing-title--four-params-grid {
+  font-size: 5.85rem;
+}
 .landing-subtitle {
   position: relative;
   z-index: 10;
@@ -574,6 +579,7 @@ body.shorts-mode .landing-shirt {
 #outro-page:not([hidden]) .action-sub {
   animation: pop-in-right 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   animation-delay: 3.0s; /* 1.5s base + 1.5s additional delay */
+  margin-left: 1.5rem;
 }
 
 @keyframes pop-in-left {

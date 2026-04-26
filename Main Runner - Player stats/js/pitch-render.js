@@ -34,6 +34,7 @@ import {
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
 import { STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
+import { t, translatePositionBucket } from "./i18n.js";
 
 const READY_PHOTO_FROM_URL_ENDPOINT = "/__ready-photo/from-url";
 const READY_PHOTO_FROM_URL_FETCH_MS = 120000;
@@ -1376,7 +1377,7 @@ function formatPlayerCareerTotalStat(player, key) {
 
 function formatPlayerPositionLabel(player) {
   if (!player) return "";
-  return mapSquadPositionToBucket(player.position);
+  return translatePositionBucket(mapSquadPositionToBucket(player.position));
 }
 
 export function openCareerEditModal(slotIndex) {
@@ -2335,8 +2336,8 @@ export function renderCareer() {
       statPlayer,
       gkStats ? "clean_sheets" : "assists",
     );
-    const rightTopLabel = gkStats ? "Goals conceded" : "Career Goals";
-    const rightBottomLabel = gkStats ? "Clean sheets" : "Career assists";
+    const rightTopLabel = gkStats ? t("statGoalsConceded") : t("statCareerGoals");
+    const rightBottomLabel = gkStats ? t("statCleanSheets") : t("statCareerAssists");
 
     const clubsValueEl = document.createElement("div");
     clubsValueEl.className = "player-stat-card__value player-stat-card__value--clubs";
@@ -2426,7 +2427,7 @@ export function renderCareer() {
     clubsHead.className = "player-stat-card__head";
     const clubsLab = document.createElement("span");
     clubsLab.className = "player-stat-card__label";
-    clubsLab.textContent = "Career Clubs";
+    clubsLab.textContent = t("statCareerClubs");
     clubsHead.appendChild(clubsLab);
     clubsCard.append(clubsHead, clubsValueEl);
 
@@ -2436,8 +2437,8 @@ export function renderCareer() {
     const colLeft = document.createElement("div");
     colLeft.className = "player-stats-panel__column";
     colLeft.append(
-      mkStatCard("Career games", careerGamesStr),
-      mkStatCard("Position", positionStr),
+      mkStatCard(t("statCareerGames"), careerGamesStr),
+      mkStatCard(t("statPosition"), positionStr),
     );
     const colRight = document.createElement("div");
     colRight.className = "player-stats-panel__column";

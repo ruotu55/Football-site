@@ -33,6 +33,7 @@ const LANGUAGE_STORAGE_KEY = "voice-tab.language";
 const SUPPORTED_LANGUAGES = ["english", "spanish"];
 const LANGUAGE_LABELS = { english: "English", spanish: "Español" };
 
+
 export function getCurrentLanguage() {
   try {
     const stored = String(localStorage.getItem(LANGUAGE_STORAGE_KEY) || "").toLowerCase();
@@ -40,9 +41,10 @@ export function getCurrentLanguage() {
   } catch { return "english"; }
 }
 
-function setCurrentLanguage(lang) {
+export function setCurrentLanguage(lang) {
   const next = SUPPORTED_LANGUAGES.includes(lang) ? lang : "english";
   try { localStorage.setItem(LANGUAGE_STORAGE_KEY, next); } catch { /* ignore */ }
+  document.dispatchEvent(new CustomEvent('voice-language-change'));
 }
 
 /* ── Prompts per language. Kept in lock-step with run_site.py's *_PROMPT_BY_*

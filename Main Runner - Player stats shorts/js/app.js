@@ -22,7 +22,8 @@ import {
 import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
-import { getCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
+import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
+import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
@@ -243,10 +244,10 @@ function updateOutroText() {
     const outroTitle = document.getElementById("outro-title");
     const outroSubtitle = document.getElementById("outro-subtitle");
     if (outroTitle) {
-        outroTitle.innerHTML = ENDING_TYPE_TEXTS[endingType] || ENDING_TYPE_TEXTS["think-you-know"];
+        outroTitle.innerHTML = endingTitleHTML(endingType);
     }
     if (outroSubtitle) {
-        outroSubtitle.textContent = "LET US KNOW IN THE COMMENTS!";
+        outroSubtitle.textContent = t("outroSubtitle");
     }
 }
 
@@ -353,8 +354,8 @@ export function updateLanding() {
     const isShorts = document.body.classList.contains("shorts-mode");
 
     title.innerHTML = isShorts
-        ? shortsLandingTitleFromQuizSubtype(els)
-        : "GUESS THE PLAYER<br>BY CAREER STATS";
+        ? (getCurrentLanguage() === "spanish" ? t("landingTitle") : shortsLandingTitleFromQuizSubtype(els))
+        : t("landingTitle");
 
     const valEasy = document.getElementById("val-easy");
     if (valEasy) valEasy.textContent = els.inEasy.value;
@@ -500,6 +501,50 @@ async function init() {
     syncShortsCirclePreviewPanel();
     syncShortsModeFab();
 
+    const updateLogoForLanguage = () => {
+        const lang = getCurrentLanguage();
+        const src = lang === 'spanish'
+            ? '../Images/Logo/Football Quiz Logo Spanish.png'
+            : '../Images/Logo/Football Quiz Logo English.png';
+        document.querySelectorAll('.logo-img-anim, .shorts-landing-logo').forEach(img => { img.src = src; });
+        const subSrc = lang === 'spanish'
+            ? '../Images/Emojis/Subscribe Spanish.png'
+            : '../Images/Emojis/Subscribe.png';
+        document.querySelectorAll('.action-sub, .action-sub-bottom').forEach(img => { img.src = subSrc; });
+    };
+    updateLogoForLanguage();
+    document.addEventListener('voice-language-change', updateLogoForLanguage);
+
+    /* Language toggle in the Quiz tab. */
+    const langEnglishBtn = document.getElementById("lang-english");
+    const langSpanishBtn = document.getElementById("lang-spanish");
+    const syncLanguageButtons = () => {
+        const cur = getCurrentLanguage();
+        if (langEnglishBtn) langEnglishBtn.setAttribute("aria-pressed", cur === "english" ? "true" : "false");
+        if (langSpanishBtn) langSpanishBtn.setAttribute("aria-pressed", cur === "spanish" ? "true" : "false");
+    };
+    if (langEnglishBtn) {
+        langEnglishBtn.onclick = () => {
+            if (getCurrentLanguage() === "english") return;
+            setCurrentLanguage("english");
+            syncLanguageButtons();
+            updateLanding();
+            updateOutroText();
+        };
+    }
+    if (langSpanishBtn) {
+        langSpanishBtn.onclick = () => {
+            if (getCurrentLanguage() === "spanish") return;
+            setCurrentLanguage("spanish");
+            syncLanguageButtons();
+            updateLanding();
+            updateOutroText();
+        };
+    }
+    syncLanguageButtons();
+    applyTranslations();
+    document.addEventListener('voice-language-change', () => { syncLanguageButtons(); });
+
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && appState.isVideoPlaying) {
             stopVideoFlow();
@@ -562,8 +607,8 @@ async function init() {
 
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
-        if (isNaN(levels) || levels < 1) levels = 4;
-        initLevels(levels);
+        if (isNaN(levels) || levels < 1) levels = 5;
+        initLevels(levels - 1);
         updateLanding();
         switchLevel(appState.currentLevelIndex);
     };

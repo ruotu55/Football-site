@@ -350,6 +350,7 @@ import {
   slotPerspectiveScale,
 } from "./photo-helpers.js";
 import { syncTeamVoiceControls } from "./team-voice-manager.js";
+import { translateCountry } from "./i18n.js";
 import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
 
 export function shouldUseVideoQuestionLayout(state = getState()) {
@@ -1209,7 +1210,7 @@ export function renderPitch() {
   const useVideoQuestionLayout = shouldUseVideoQuestionLayout(state);
   const inlineTeamPicker = document.getElementById("lineups-inline-team-picker");
   if (inlineTeamPicker) {
-    inlineTeamPicker.hidden = !!state.currentSquad;
+    inlineTeamPicker.hidden = !!state.currentSquad || !!state.isOutro;
   }
 
   let xi;
@@ -1699,7 +1700,11 @@ export function renderHeader() {
     scheduleTeamHeaderSidePanelNameFit();
     return;
   }
-  const displayedHeaderTeamName = resolveHeaderTeamDisplayName(state, quizType);
+  const displayedHeaderTeamNameRaw = resolveHeaderTeamDisplayName(state, quizType);
+  /* National team mode: translate the country header to Spanish when active. */
+  const displayedHeaderTeamName = state?.squadType === "national"
+    ? translateCountry(displayedHeaderTeamNameRaw)
+    : displayedHeaderTeamNameRaw;
   if (els.headerName) {
     els.headerName.textContent = displayedHeaderTeamName;
     els.headerName.dataset.headerPlain = displayedHeaderTeamName;

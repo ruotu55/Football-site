@@ -38,7 +38,8 @@ import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initPlayerVoiceManager } from "./player-voice-manager.js";
-import { getCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
+import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
+import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
@@ -300,10 +301,10 @@ function updateOutroText() {
     const outroTitle = document.getElementById("outro-title");
     const outroSubtitle = document.getElementById("outro-subtitle");
     if (outroTitle) {
-        outroTitle.textContent = ENDING_TYPE_TEXTS[endingType] || ENDING_TYPE_TEXTS["think-you-know"];
+        outroTitle.textContent = endingTitleText(endingType);
     }
     if (outroSubtitle) {
-        outroSubtitle.textContent = "LET US KNOW IN THE COMMENTS!";
+        outroSubtitle.textContent = t("outroSubtitle");
     }
 }
 
@@ -604,11 +605,7 @@ function computeLandingDifficultyDistribution(totalQuestions) {
 }
 
 function landingDifficultyTotalQuestionsForLevels() {
-    const endingType = getSelectedEndingType();
-    const isHowMany = endingType === "how-many";
-    return isHowMany
-        ? Math.max(0, appState.totalLevelsCount - 2)
-        : Math.max(0, appState.totalLevelsCount - 3);
+    return Math.max(0, appState.totalLevelsCount - 2);
 }
 
 function setLandingDifficultySpan(id, value) {
@@ -623,10 +620,13 @@ export function updateLanding() {
 
     const quizType = String(els?.inQuizType?.value || "");
     if (quizType === "player-by-fake-info") {
-        title.innerHTML = "GUESS THE FAKE <br>INFORMATION <br>ABOUT THE PLAYER";
+        title.innerHTML = t("landingTitleFakeInfo");
     } else {
-        title.innerHTML = "GUESS THE PLAYER by <br>club + position + country + age";
+        title.innerHTML = t("landingTitleFourParams");
     }
+    /* The "by club + position + country + age" line is longer than the fake-info
+       line, so it gets its own modifier class for a slightly smaller font. */
+    title.classList.toggle("landing-title--four-params-grid", quizType !== "player-by-fake-info");
     renderLandingTitleVoiceControls();
 
     setLandingDifficultySpan("val-easy", els.inEasy.value);
@@ -807,6 +807,52 @@ async function init() {
     syncShortsCirclePreviewPanel();
     syncShortsModeFab();
 
+    const updateLogoForLanguage = () => {
+        const lang = getCurrentLanguage();
+        const src = lang === 'spanish'
+            ? '../Images/Logo/Football Quiz Logo Spanish.png'
+            : '../Images/Logo/Football Quiz Logo English.png';
+        document.querySelectorAll('.logo-img-anim, .shorts-landing-logo').forEach(img => { img.src = src; });
+        const subSrc = lang === 'spanish'
+            ? '../Images/Emojis/Subscribe Spanish.png'
+            : '../Images/Emojis/Subscribe.png';
+        document.querySelectorAll('.action-sub, .action-sub-bottom').forEach(img => { img.src = subSrc; });
+    };
+    updateLogoForLanguage();
+    document.addEventListener('voice-language-change', updateLogoForLanguage);
+
+    /* Language toggle in the Quiz tab. */
+    const langEnglishBtn = document.getElementById("lang-english");
+    const langSpanishBtn = document.getElementById("lang-spanish");
+    const syncLanguageButtons = () => {
+        const cur = getCurrentLanguage();
+        if (langEnglishBtn) langEnglishBtn.setAttribute("aria-pressed", cur === "english" ? "true" : "false");
+        if (langSpanishBtn) langSpanishBtn.setAttribute("aria-pressed", cur === "spanish" ? "true" : "false");
+    };
+    if (langEnglishBtn) {
+        langEnglishBtn.onclick = () => {
+            if (getCurrentLanguage() === "english") return;
+            setCurrentLanguage("english");
+            syncLanguageButtons();
+            updateLanding();
+            updateOutroText();
+            renderCareer();
+        };
+    }
+    if (langSpanishBtn) {
+        langSpanishBtn.onclick = () => {
+            if (getCurrentLanguage() === "spanish") return;
+            setCurrentLanguage("spanish");
+            syncLanguageButtons();
+            updateLanding();
+            updateOutroText();
+            renderCareer();
+        };
+    }
+    syncLanguageButtons();
+    applyTranslations();
+    document.addEventListener('voice-language-change', () => { syncLanguageButtons(); });
+
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && appState.isVideoPlaying) {
             stopVideoFlow();
@@ -918,8 +964,8 @@ async function init() {
     if (els.updateLevelsBtn) {
         els.updateLevelsBtn.onclick = () => {
             let levels = parseInt(els.quizLevelsInput.value, 10);
-            if (isNaN(levels) || levels < 1) levels = 29;
-            initLevels(levels);
+            if (isNaN(levels) || levels < 1) levels = 30;
+            initLevels(levels - 1);
             const totalQuestions = landingDifficultyTotalQuestionsForLevels();
             const { easy, medium, hard, impossible } =
                 computeLandingDifficultyDistribution(totalQuestions);

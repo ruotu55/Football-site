@@ -1,4 +1,4 @@
-/* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
+﻿/* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
 /* Hint compositor for smoother timeline transitions during video playback. */
 .stage-main,
 .logo-img-anim,
@@ -64,7 +64,7 @@
 /*
  * Floating panels on `.app` (countdown, stats, picture controls) have their own
  * `transform` for positioning (e.g. translateX(-50%)).  The stage keyframes pin
- * `transform: none` to protect preserve-3d — that would snap these panels to the
+ * `transform: none` to protect preserve-3d ג€” that would snap these panels to the
  * wrong position.  Use opacity-only on enter (see note on `stage-enter-video-reveal`); no transform override.
  */
 @keyframes video-panel-fade-out {
@@ -73,7 +73,7 @@
 }
 
 /* Play Video answer reveal: stats panel is dimmed via `body.career-cinematic-reveal` (opacity 0.22, blur 8px).
-   The default panel exit snaps keyframe 0% to opacity 1 — that reads as boxes “popping” stronger then fading. */
+   The default panel exit snaps keyframe 0% to opacity 1 ג€” that reads as boxes ג€poppingג€ stronger then fading. */
 @keyframes video-panel-fade-out-from-cinematic-reveal {
   0% {
     opacity: 0.22;
@@ -181,13 +181,13 @@
 /* NEW: Cool Shift Animation for Regular Mode */
 @keyframes logo-shift-top-right {
   0% { transform: scale(1) translate(0, 0); opacity: 1; filter: blur(0px); }
-  100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; filter: blur(0px); }
+  100% { transform: translate(45vw, -39.5vh) scale(0.3); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
   animation: logo-shift-top-right 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
-/* ── Grid Transition Overlay ──────────────────────────────────────── */
+/* ג”€ג”€ Grid Transition Overlay ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .grid-transition-overlay {
   position: fixed;
   inset: 0;
@@ -208,7 +208,7 @@
   will-change: transform, opacity;
 }
 
-/* ── Bars Transition Overlays ─────────────────────────────────────── */
+/* ג”€ג”€ Bars Transition Overlays ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .bars-transition-overlay {
   position: fixed;
   inset: 0;
@@ -237,7 +237,7 @@
   width: 100%;
 }
 
-/* ── Curtain Close Transition ─────────────────────────────────────── */
+/* ג”€ג”€ Curtain Close Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .curtain-transition-overlay {
   position: fixed;
   inset: 0;
@@ -263,7 +263,7 @@
   top: 50%;
 }
 
-/* ── Skew Wipe Transition ─────────────────────────────────────────── */
+/* ג”€ג”€ Skew Wipe Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .skew-transition-overlay {
   position: fixed;
   top: 0;

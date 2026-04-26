@@ -1812,7 +1812,7 @@ export function renderCareer() {
     });
     ro.observe(svg);
   }
-  if (!hasRealPlayer && !shortsPreviewActive) {
+  if (!hasRealPlayer && !shortsPreviewActive && !state.isOutro) {
     document.getElementById("career-inline-player-picker")?.remove();
     const picker = document.createElement("div");
     picker.id = "career-inline-player-picker";

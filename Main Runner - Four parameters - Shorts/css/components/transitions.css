@@ -1,4 +1,4 @@
-/* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
+﻿/* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
 /* Hint compositor for smoother timeline transitions during video playback. */
 .stage-main,
 .logo-img-anim,
@@ -83,12 +83,12 @@
 /* NEW: Cool Shift Animation for Regular Mode */
 @keyframes logo-shift-top-right {
   0% { transform: scale(1) translate(0, 0); opacity: 1; filter: blur(0px); }
-  100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; filter: blur(0px); }
+  100% { transform: translate(45vw, -39.5vh) scale(0.3); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
   animation: logo-shift-top-right 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
-/* ── Grid Transition Overlay ──────────────────────────────────────── */
+/* ג”€ג”€ Grid Transition Overlay ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .grid-transition-overlay {
   position: fixed;
   inset: 0;
@@ -109,7 +109,7 @@
   will-change: transform, opacity;
 }
 
-/* ── Bars Transition Overlays ─────────────────────────────────────── */
+/* ג”€ג”€ Bars Transition Overlays ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .bars-transition-overlay {
   position: fixed;
   inset: 0;
@@ -138,7 +138,7 @@
   width: 100%;
 }
 
-/* ── Curtain Close Transition ─────────────────────────────────────── */
+/* ג”€ג”€ Curtain Close Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .curtain-transition-overlay {
   position: fixed;
   inset: 0;
@@ -164,7 +164,7 @@
   top: 50%;
 }
 
-/* ── Skew Wipe Transition ─────────────────────────────────────────── */
+/* ג”€ג”€ Skew Wipe Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .skew-transition-overlay {
   position: fixed;
   top: 0;
@@ -180,7 +180,7 @@
   will-change: transform;
 }
 
-/* ── Shorts Mode: constrain transitions to 9:16 viewport ─────────── */
+/* ג”€ג”€ Shorts Mode: constrain transitions to 9:16 viewport ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 body.shorts-mode .grid-transition-overlay,
 body.shorts-mode .bars-transition-overlay,
 body.shorts-mode .curtain-transition-overlay {
@@ -198,7 +198,7 @@ body.shorts-mode .skew-transition-overlay {
   height: 100vh;
 }
 
-/* Play Video post-timer reveal (shorts): focus pull — portrait grows to 1.10, the 4 param
+/* Play Video post-timer reveal (shorts): focus pull ג€” portrait grows to 1.10, the 4 param
    cards recede to 0.90 and blur. Uses `animation` (not `transition`) because renderCareer
    rebuilds the cards when the body class toggles, and animations play on mount while
    transitions do not. Mirrors the Regular project's visual effect.
@@ -207,7 +207,7 @@ body.shorts-mode .skew-transition-overlay {
    animation on top of backdrop-filter makes the browser re-sample the blurred-behind
    content every frame, which shows up as a visible shimmer/shake. So we override the
    backdrop-filter to `none` and bake an equivalent-looking frosted gradient into the
-   card background during the reveal — the visual is near-identical, but it composites
+   card background during the reveal ג€” the visual is near-identical, but it composites
    as a single layer and no longer shakes. */
 .career-wrap .career-portrait-card,
 .career-wrap .career-param-card {
@@ -232,7 +232,7 @@ body.career-play-video-answer-reveal:not(.fake-info-reveal) .career-wrap .career
 
 body.career-play-video-answer-reveal:not(.fake-info-reveal) .career-wrap .career-param-card {
   animation: career-post-timer-param-recede 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  /* Kill backdrop-filter during the animation — otherwise scale+filter re-samples the
+  /* Kill backdrop-filter during the animation ג€” otherwise scale+filter re-samples the
      blurred background each frame and the cards visibly shake. */
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;

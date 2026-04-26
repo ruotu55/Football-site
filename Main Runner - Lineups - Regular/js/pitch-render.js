@@ -349,6 +349,7 @@ import {
   slotPerspectiveScale,
 } from "./photo-helpers.js";
 import { syncTeamVoiceControls } from "./team-voice-manager.js";
+import { translateCountry } from "./i18n.js";
 
 export function shouldUseVideoQuestionLayout(state = getState()) {
   if (!state || !state.currentSquad) return false;
@@ -1675,7 +1676,12 @@ export function renderHeader() {
     scheduleTeamHeaderSidePanelNameFit();
     return;
   }
-  const displayedHeaderTeamName = resolveHeaderTeamDisplayName(state, quizType);
+  const displayedHeaderTeamNameRaw = resolveHeaderTeamDisplayName(state, quizType);
+  /* For "national team" mode the header text is a country name — translate it
+     to Spanish when that's the active language. Club mode names pass through. */
+  const displayedHeaderTeamName = state?.squadType === "national"
+    ? translateCountry(displayedHeaderTeamNameRaw)
+    : displayedHeaderTeamNameRaw;
   if (els.headerName) {
     els.headerName.textContent = displayedHeaderTeamName;
     els.headerName.dataset.headerPlain = displayedHeaderTeamName;

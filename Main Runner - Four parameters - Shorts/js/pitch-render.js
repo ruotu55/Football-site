@@ -37,6 +37,7 @@ import {
 import { getClubLogoOtherTeamsRelPath } from "./photo-helpers.js";
 import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
 import { STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
+import { t, translatePositionAbbrev } from "./i18n.js";
 import { syncPlayerVoiceControls as syncPlayerVoiceControlsForActivePlayer } from "./player-voice-manager.js";
 import {
   isFakeInfoQuiz,
@@ -1367,17 +1368,21 @@ const SQUAD_POSITION_TO_ABBREV = {
 function resolveSquadPositionAbbrev(positionRaw) {
   const key = String(positionRaw ?? "").trim();
   if (!key) return "";
+  let abbrev = "";
   if (Object.prototype.hasOwnProperty.call(SQUAD_POSITION_TO_ABBREV, key)) {
-    return SQUAD_POSITION_TO_ABBREV[key];
+    abbrev = SQUAD_POSITION_TO_ABBREV[key];
+  } else {
+    const centreKey = key.replace(/^Center-/i, "Centre-");
+    if (
+      centreKey !== key &&
+      Object.prototype.hasOwnProperty.call(SQUAD_POSITION_TO_ABBREV, centreKey)
+    ) {
+      abbrev = SQUAD_POSITION_TO_ABBREV[centreKey];
+    }
   }
-  const centreKey = key.replace(/^Center-/i, "Centre-");
-  if (
-    centreKey !== key &&
-    Object.prototype.hasOwnProperty.call(SQUAD_POSITION_TO_ABBREV, centreKey)
-  ) {
-    return SQUAD_POSITION_TO_ABBREV[centreKey];
-  }
-  return "";
+  /* Translate to Spanish abbrev (POR, DFC, MP, ...) when language is Spanish.
+     For English the helper returns the input unchanged. */
+  return translatePositionAbbrev(abbrev);
 }
 
 function inferPositionBucketFromText(raw) {
@@ -1997,7 +2002,7 @@ export function renderCareer() {
     });
     ro.observe(svg);
   }
-  if (!FOUR_PARAMS_HIDE_INLINE_PLAYER_PICKER && !hasRealPlayer && !shortsPreviewActive) {
+  if (!FOUR_PARAMS_HIDE_INLINE_PLAYER_PICKER && !hasRealPlayer && !shortsPreviewActive && !state.isOutro) {
     document.getElementById("career-inline-player-picker")?.remove();
     const picker = document.createElement("div");
     picker.id = "career-inline-player-picker";
@@ -2384,7 +2389,7 @@ export function renderCareer() {
       const ageVal = document.createElement("span");
       ageVal.className = "career-param-card__age-value";
       const ageNum = Number(fourthCardText);
-      const ageUnit = ageNum === 1 ? "year old" : "years old";
+      const ageUnit = ageNum === 1 ? t("ageUnitSingular") : t("ageUnitPlural");
       const ageNumSpan = document.createElement("span");
       ageNumSpan.className = "career-param-card__age-number";
       ageNumSpan.textContent = fourthCardText;

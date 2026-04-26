@@ -3,14 +3,16 @@
 import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
+import { translateCountry } from "./i18n.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
 const SUPPORTED_LANGUAGES = ["english", "spanish"];
 const LANGUAGE_LABELS = { english: "English", spanish: "Español" };
 
+
 export function getCurrentLanguage() { try { const s = String(localStorage.getItem(LANGUAGE_STORAGE_KEY) || "").toLowerCase(); return SUPPORTED_LANGUAGES.includes(s) ? s : "english"; } catch { return "english"; } }
-function setCurrentLanguage(lang) { const n = SUPPORTED_LANGUAGES.includes(lang) ? lang : "english"; try { localStorage.setItem(LANGUAGE_STORAGE_KEY, n); } catch {} }
+export function setCurrentLanguage(lang) { const n = SUPPORTED_LANGUAGES.includes(lang) ? lang : "english"; try { localStorage.setItem(LANGUAGE_STORAGE_KEY, n); } catch {} document.dispatchEvent(new CustomEvent('voice-language-change')); }
 
 const QUIZ_TYPE_PROMPTS = {
   english: {
@@ -88,7 +90,13 @@ function uniqueTeamNames() {
       lvl?.clubName ||
       ""
     ).trim();
-    const name = displayName || fallback;
+    let name = displayName || fallback;
+    /* For national-team mode the team name IS a country (e.g. "Spain") — translate
+       it to Spanish ("España") so the voice file is keyed by the localized name and
+       matches the on-screen header. Club names pass through unchanged. */
+    if (name && lvl?.squadType === "national") {
+      name = translateCountry(name);
+    }
     if (!name || seen.has(name)) continue;
     seen.add(name);
     out.push(name);
@@ -191,9 +199,13 @@ export async function renderVoiceTab() {
     const levels = Array.isArray(appState.levelsData) ? appState.levelsData : [];
     levels.forEach((lvl, idx) => {
       const candidates = [lvl?.team?.name, lvl?.currentSquadName, lvl?.teamName, lvl?.nationalTeamName, lvl?.clubName];
+      const isNational = lvl?.squadType === "national";
       for (const c of candidates) {
-        const n = String(c || "").trim();
+        let n = String(c || "").trim();
         if (!n) continue;
+        /* National-team rows are keyed by the localized country name in the
+           Teams list, so map indices under the same key. */
+        if (isNational) n = translateCountry(n);
         if (!map.has(n)) map.set(n, []);
         if (!map.get(n).includes(idx)) map.get(n).push(idx);
       }

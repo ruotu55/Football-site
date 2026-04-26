@@ -1,5 +1,6 @@
 import { gaugeColors } from "./constants.js";
 import { appState } from "./state.js";
+import { t } from "./i18n.js";
 
 let quizProgressSwitchLevelRef = null;
 
@@ -130,7 +131,7 @@ export function renderProgressSteps(totalLevels, switchLevel) {
       step.innerHTML = "🏁";
       levelColor = "#4da3ff";
     } else if (isBonus) {
-      step.innerHTML = "<span class='bonus-text'>BONUS</span>";
+      step.innerHTML = `<span class='bonus-text'>${t("bonus")}</span>`;
       step.classList.add("bonus-step");
       levelColor = "#ff5252";
     } else {

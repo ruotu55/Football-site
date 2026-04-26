@@ -1307,9 +1307,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
-        language = _normalize_language(query.get("language"))
         existing_path = None
-        for file_path in _player_voice_paths_for_name(player_name, language):
+        for file_path in _player_voice_paths_for_name(player_name):
             if file_path.is_file():
                 existing_path = file_path
                 break
@@ -1338,7 +1337,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         language = _normalize_language(body.get("language"))
         PLAYER_VOICE_DIR.mkdir(parents=True, exist_ok=True)
         out_path = PLAYER_VOICE_DIR / f"{player_name}.mp3"
-        for old_path in _player_voice_paths_for_name(player_name, language):
+        for old_path in _player_voice_paths_for_name(player_name):
             if old_path == out_path:
                 continue
             if old_path.exists():
@@ -1384,9 +1383,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
-        language = _normalize_language(body.get("language"))
         removed = 0
-        for file_path in _player_voice_paths_for_name(player_name, language):
+        for file_path in _player_voice_paths_for_name(player_name):
             if file_path.exists():
                 file_path.unlink(missing_ok=True)
                 removed += 1

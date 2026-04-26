@@ -30,7 +30,8 @@ import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initPlayerVoiceManager } from "./player-voice-manager.js";
-import { getCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
+import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
+import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     clearCareerPictureFavorite,
@@ -444,10 +445,10 @@ function updateOutroText() {
     const outroTitle = document.getElementById("outro-title");
     const outroSubtitle = document.getElementById("outro-subtitle");
     if (outroTitle) {
-        outroTitle.textContent = ENDING_TYPE_TEXTS[endingType] || ENDING_TYPE_TEXTS["think-you-know"];
+        outroTitle.textContent = endingTitleText(endingType);
     }
     if (outroSubtitle) {
-        outroSubtitle.textContent = "LET US KNOW IN THE COMMENTS!";
+        outroSubtitle.textContent = t("outroSubtitle");
     }
 }
 
@@ -602,7 +603,7 @@ export function updateLanding() {
     const { els } = appState;
     const title = document.getElementById("landing-title");
 
-    title.innerHTML = "GUESS THE&nbsp;PLAYER<br>BY CAREER PATH";
+    title.innerHTML = t("landingTitle");
     renderLandingTitleVoiceControls();
     setLandingDifficultySpan("val-easy", els.inEasy.value);
     setLandingDifficultySpan("val-medium", els.inMedium.value);
@@ -765,7 +766,7 @@ async function init() {
     initLevels(initialLevelCount);
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     if (!didRestoreState) {
-        const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
+        const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
         const { easy, medium, hard, impossible } =
             computeLandingDifficultyDistribution(totalQuestions);
         els.inEasy.value = String(easy);
@@ -782,6 +783,53 @@ async function init() {
     switchLevel(initialLevelIndex);
     syncShortsCirclePreviewPanel();
     syncShortsModeFab();
+
+    const updateLogoForLanguage = () => {
+        const lang = getCurrentLanguage();
+        const src = lang === 'spanish'
+            ? '../Images/Logo/Football Quiz Logo Spanish.png'
+            : '../Images/Logo/Football Quiz Logo English.png';
+        document.querySelectorAll('.logo-img-anim, .shorts-landing-logo').forEach(img => { img.src = src; });
+        const subSrc = lang === 'spanish'
+            ? '../Images/Emojis/Subscribe Spanish.png'
+            : '../Images/Emojis/Subscribe.png';
+        document.querySelectorAll('.action-sub, .action-sub-bottom').forEach(img => { img.src = subSrc; });
+    };
+    updateLogoForLanguage();
+    document.addEventListener('voice-language-change', updateLogoForLanguage);
+
+    /* Language toggle in the Quiz tab. Updates the aria-pressed state on both
+       buttons, persists the choice (via setCurrentLanguage), then re-renders
+       the parts of the UI that read translations on demand. */
+    const langEnglishBtn = document.getElementById("lang-english");
+    const langSpanishBtn = document.getElementById("lang-spanish");
+    const syncLanguageButtons = () => {
+        const cur = getCurrentLanguage();
+        if (langEnglishBtn) langEnglishBtn.setAttribute("aria-pressed", cur === "english" ? "true" : "false");
+        if (langSpanishBtn) langSpanishBtn.setAttribute("aria-pressed", cur === "spanish" ? "true" : "false");
+    };
+    if (langEnglishBtn) {
+        langEnglishBtn.onclick = () => {
+            if (getCurrentLanguage() === "english") return;
+            setCurrentLanguage("english");
+            syncLanguageButtons();
+            updateLanding();
+            updateOutroText();
+        };
+    }
+    if (langSpanishBtn) {
+        langSpanishBtn.onclick = () => {
+            if (getCurrentLanguage() === "spanish") return;
+            setCurrentLanguage("spanish");
+            syncLanguageButtons();
+            updateLanding();
+            updateOutroText();
+        };
+    }
+    syncLanguageButtons();
+    /* Initial pass so HTML defaults match the current language on page load. */
+    applyTranslations();
+    document.addEventListener('voice-language-change', () => { syncLanguageButtons(); });
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && appState.isVideoPlaying) {
@@ -850,9 +898,9 @@ async function init() {
 
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
-        if (isNaN(levels) || levels < 1) levels = 29;
-        initLevels(levels);
-        const totalQuestions = Math.max(0, appState.totalLevelsCount - 3);
+        if (isNaN(levels) || levels < 1) levels = 30;
+        initLevels(levels - 1);
+        const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
         const { easy, medium, hard, impossible } = computeLandingDifficultyDistribution(totalQuestions);
         els.inEasy.value = String(easy);
         els.inMedium.value = String(medium);

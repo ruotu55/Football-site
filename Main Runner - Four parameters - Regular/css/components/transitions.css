@@ -1,4 +1,4 @@
-/* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
+﻿/* NEW EPIC PAGE TRANSITIONS (Used for Level 1 -> Level 2+ stages) */
 /* Hint compositor for smoother timeline transitions during video playback. */
 .stage-main,
 .logo-img-anim,
@@ -64,7 +64,7 @@
 /*
  * Floating panels on `.app` (countdown, stats, picture controls) have their own
  * `transform` for positioning (e.g. translateX(-50%)).  The stage keyframes pin
- * `transform: none` to protect preserve-3d — that would snap these panels to the
+ * `transform: none` to protect preserve-3d ג€” that would snap these panels to the
  * wrong position.  Use opacity-only on enter (see note on `stage-enter-video-reveal`); no transform override.
  */
 @keyframes video-panel-fade-out {
@@ -73,7 +73,7 @@
 }
 
 /* Play Video answer reveal: stats panel is dimmed via `body.career-cinematic-reveal` (opacity 0.22, blur 8px).
-   The default panel exit snaps keyframe 0% to opacity 1 — that reads as boxes “popping” stronger then fading. */
+   The default panel exit snaps keyframe 0% to opacity 1 ג€” that reads as boxes ג€poppingג€ stronger then fading. */
 @keyframes video-panel-fade-out-from-cinematic-reveal {
   0% {
     opacity: 0.22;
@@ -102,10 +102,10 @@
   animation: video-panel-fade-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
-/* Play Video post-timer reveal: focus pull — player portrait comes forward (scale 1.10),
+/* Play Video post-timer reveal: focus pull ג€” player portrait comes forward (scale 1.10),
    the 4 param cards recede (scale 0.90) + blur. Uses individual `scale` property (CSS Transforms
    Level 2) so it composes with the `translate` driven by the `career-box-float-translate`
-   keyframes — letting the boxes keep floating through the reveal. */
+   keyframes ג€” letting the boxes keep floating through the reveal. */
 .career-wrap .career-portrait-card,
 .career-wrap .career-param-card {
   transform-origin: 50% 50%;
@@ -146,14 +146,14 @@ body.fake-info-reveal:not(.shorts-mode) .career-wrap .career-param-card--fake-st
   z-index: 5;
 }
 
-/* 3D flip: the ENTIRE fake box flips — glass background and all — to reveal the real value.
+/* 3D flip: the ENTIRE fake box flips ג€” glass background and all ג€” to reveal the real value.
    The card itself becomes a transparent 3D container; each face carries its own glass, border,
    shadow, and backdrop blur so rotating the flipper rotates what looks like the whole box. */
 .career-param-card--fake-stat {
   perspective: 1400px;
 }
 
-/* Strip the card's own glass so only the faces render visuals — otherwise the glass would
+/* Strip the card's own glass so only the faces render visuals ג€” otherwise the glass would
    stay still in 3D space while the content rotates in front of it. */
 body.fake-info-quiz .career-wrap .career-param-card--fake-stat {
   background: transparent !important;
@@ -293,13 +293,13 @@ body.fake-info-reveal:not(.shorts-mode) .career-param-card--fake-stat .fake-info
 /* NEW: Cool Shift Animation for Regular Mode */
 @keyframes logo-shift-top-right {
   0% { transform: scale(1) translate(0, 0); opacity: 1; filter: blur(0px); }
-  100% { transform: translate(45vw, -39.5vh) scale(0.25); opacity: 0.85; filter: blur(0px); }
+  100% { transform: translate(45vw, -39.5vh) scale(0.3); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
   animation: logo-shift-top-right 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
-/* ── Grid Transition Overlay ──────────────────────────────────────── */
+/* ג”€ג”€ Grid Transition Overlay ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .grid-transition-overlay {
   position: fixed;
   inset: 0;
@@ -320,7 +320,7 @@ body.fake-info-reveal:not(.shorts-mode) .career-param-card--fake-stat .fake-info
   will-change: transform, opacity;
 }
 
-/* ── Bars Transition Overlays ─────────────────────────────────────── */
+/* ג”€ג”€ Bars Transition Overlays ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .bars-transition-overlay {
   position: fixed;
   inset: 0;
@@ -349,7 +349,7 @@ body.fake-info-reveal:not(.shorts-mode) .career-param-card--fake-stat .fake-info
   width: 100%;
 }
 
-/* ── Curtain Close Transition ─────────────────────────────────────── */
+/* ג”€ג”€ Curtain Close Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .curtain-transition-overlay {
   position: fixed;
   inset: 0;
@@ -375,7 +375,7 @@ body.fake-info-reveal:not(.shorts-mode) .career-param-card--fake-stat .fake-info
   top: 50%;
 }
 
-/* ── Skew Wipe Transition ─────────────────────────────────────────── */
+/* ג”€ג”€ Skew Wipe Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .skew-transition-overlay {
   position: fixed;
   top: 0;

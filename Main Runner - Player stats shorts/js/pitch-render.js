@@ -647,7 +647,7 @@ const CAREER_LOGO_ALPHA_THRESHOLD = 18;
 /** Hard cap (px); also capped as a fraction of logo box height so bad measures cannot pull the year into the crest. Scaled with default crest size (~195px tall). */
 const CAREER_LOGO_SLACK_CSS_MAX = 108;
 const CAREER_LOGO_SLACK_MAX_FRAC_OF_BOX = 0.38;
-const CAREER_SHADOW_UNIFORM_Y = -2;
+const CAREER_SHADOW_UNIFORM_Y = 2;
 const CAREER_SHADOW_UNIFORM_SCALE = 0.82;
 /* Legacy square <image> side length in SVG user units (viewBox 1000×400). */
 const CAREER_SILHOUETTE_MAX_REGULAR = 760;
@@ -658,7 +658,7 @@ const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500; /* legacy square was y=-80, h=580 *
 const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
 const CAREER_SILHOUETTE_CENTER_X_REGULAR = 505; /* 125 + 760/2 */
 const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500; /* 210 + 580/2 */
-const CAREER_REVEAL_BASE_Y = -10;
+const CAREER_REVEAL_BASE_Y = -6;
 const CAREER_REVEAL_BASE_SCALE = 1.08;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
@@ -1745,7 +1745,7 @@ export function renderCareer() {
     });
     ro.observe(svg);
   }
-  if (!hasRealPlayer && !shortsPreviewActive) {
+  if (!hasRealPlayer && !shortsPreviewActive && !state.isOutro) {
     document.getElementById("career-inline-player-picker")?.remove();
     const picker = document.createElement("div");
     picker.id = "career-inline-player-picker";

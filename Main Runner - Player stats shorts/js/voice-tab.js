@@ -7,8 +7,9 @@ const LANGUAGE_STORAGE_KEY = "voice-tab.language";
 const SUPPORTED_LANGUAGES = ["english", "spanish"];
 const LANGUAGE_LABELS = { english: "English", spanish: "Español" };
 
+
 export function getCurrentLanguage() { try { const s = String(localStorage.getItem(LANGUAGE_STORAGE_KEY) || "").toLowerCase(); return SUPPORTED_LANGUAGES.includes(s) ? s : "english"; } catch { return "english"; } }
-function setCurrentLanguage(lang) { const n = SUPPORTED_LANGUAGES.includes(lang) ? lang : "english"; try { localStorage.setItem(LANGUAGE_STORAGE_KEY, n); } catch {} }
+export function setCurrentLanguage(lang) { const n = SUPPORTED_LANGUAGES.includes(lang) ? lang : "english"; try { localStorage.setItem(LANGUAGE_STORAGE_KEY, n); } catch {} document.dispatchEvent(new CustomEvent('voice-language-change')); }
 
 const QUIZ_TYPE_PROMPTS = {
   english: {

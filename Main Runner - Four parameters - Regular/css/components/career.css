@@ -115,8 +115,10 @@
 
 body:not(.shorts-mode) .career-wrap {
   height: 72.6vh;
-  /* One cell of the 2×2 param grid (same math as .career-param-grid width + gap) */
-  --career-param-grid-w: min(96vw, 44rem);
+  /* One cell of the 2×2 param grid (same math as .career-param-grid width + gap).
+     Grid width reduced 15% (44rem → 37.4rem, 96vw → 81.6vw) to shrink all 5 boxes
+     (the player portrait card + the 4 parameter cards). */
+  --career-param-grid-w: min(81.6vw, 37.4rem);
   --career-param-gap: clamp(1rem, 3vw, 1.7rem);
   --career-param-cell-size: calc((var(--career-param-grid-w) - var(--career-param-gap)) / 2);
   /* Stacked height of two grid rows + the row gap (matches .career-param-grid) */
@@ -514,7 +516,7 @@ body.play-video-active .career-player-controls-row {
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
-  transform: scale(1.615);
+  transform: scale(1.292);
   transform-origin: center center;
 }
 
@@ -568,6 +570,26 @@ body.play-video-active .career-player-controls-row {
   line-height: 1;
   color: #fff;
   text-shadow: 0 10px 32px rgba(0, 0, 0, 0.5);
+  /* Stack the number on top and the unit ("years old" / "años") below it. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.career-param-card__age-number {
+  font-size: calc(var(--career-param-cell-size) * 0.7);
+  line-height: 1;
+}
+
+.career-param-card__age-unit {
+  font-size: calc(var(--career-param-cell-size) * 0.18);
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0.9;
+  /* Pull the unit up so it sits closer to the number's baseline. */
+  margin-top: calc(var(--career-param-cell-size) * -0.04);
 }
 
 /* Frosted panel on ::before so scaled player img is not clipped by backdrop-filter. */
@@ -719,9 +741,12 @@ body:not(.shorts-mode).play-video-active .career-portrait-card:not(.career-portr
   position: absolute;
   left: 50%;
   bottom: clamp(0.45rem, 1.4cqi, 0.85rem);
-  transform: translateX(-50%);
+  /* Nudges the badge down by 1% of the card height (1cqh). */
+  transform: translate(-50%, 1cqh);
   z-index: 2;
-  width: calc(100% - clamp(1.35rem, 5.5cqi, 2.15rem));
+  /* Full card width — extends the box further left + right than the original
+     (which had clamp(1.35rem, 5.5cqi, 2.15rem) of side padding). */
+  width: 100%;
   max-width: none;
   min-height: var(--mystery-bar-h);
   height: var(--mystery-bar-h);
