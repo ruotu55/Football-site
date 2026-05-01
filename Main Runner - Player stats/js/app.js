@@ -1,4 +1,4 @@
-import {
+﻿import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
@@ -27,7 +27,7 @@ import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
-import { initTransitionsUI } from "./transitions.js";
+import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import {
     isProdMode,
     toggleProdMode,
@@ -529,7 +529,6 @@ export function updateSetupUI() {
     const { els } = appState;
     if (els.setupPitchControls) els.setupPitchControls.style.display = "none";
     if (els.setupCareerControls) els.setupCareerControls.style.display = "flex";
-    if (els.setupCareerClubsField) els.setupCareerClubsField.style.display = "flex";
     if (els.setupCareerSilhouetteField) els.setupCareerSilhouetteField.style.display = "none";
     if (els.btnPictureControls) els.btnPictureControls.style.display = "block";
     if (els.btnRevealPhoto) els.btnRevealPhoto.style.display = "block";
@@ -745,7 +744,7 @@ async function init() {
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
         document.getElementById("in-background-opacity"),
-        document.getElementById("btn-save-background-opacity"),
+        { forcedDefaults: { colorId: "quiz-career-stats", effectId: "rising-question-marks", opacity: 10 } },
     );
     // Track explicit user selection for PROD validation
     const bgColorSel = document.getElementById("in-background-color");
@@ -770,6 +769,15 @@ async function init() {
     initFloatingEmojis();
     initLevelControls();
     initTransitionsUI();
+    // Default transition for this quiz type
+    {
+        transitionSettings.effect = "new-5";
+        const transitionSel = document.getElementById("in-transition-effect");
+        if (transitionSel) {
+            transitionSel.value = "new-5";
+            transitionSel.dispatchEvent(new Event("change"));
+        }
+    }
     initSavedScripts({
         populateSubTypes,
         updateSetupUI,
@@ -963,35 +971,6 @@ async function init() {
         els.shortsCirclePreviewCount.addEventListener("change", applyShortsCirclePreviewFromControls);
     }
 
-    /* Test club count control — checkbox activates, number adds/removes team slots. */
-    const clubsPreviewToggle = document.getElementById("career-clubs-preview-toggle");
-    if (clubsPreviewToggle && els.inCareerClubs) {
-        const applyClubCount = () => {
-            if (!clubsPreviewToggle.checked) return;
-            const val = Math.min(12, Math.max(1, parseInt(els.inCareerClubs.value, 10) || 5));
-            els.inCareerClubs.value = val;
-            const state = getState();
-            const history = state.careerHistory || [];
-            if (val > history.length) {
-                /* Add empty slots to reach the target count. */
-                while (history.length < val) history.push({});
-            } else if (val < history.length) {
-                /* Remove from the end to reach the target count. */
-                history.length = val;
-            }
-            state.careerHistory = history;
-            state.careerClubsCount = val;
-            renderCareer();
-        };
-        clubsPreviewToggle.addEventListener("change", () => {
-            if (clubsPreviewToggle.checked) {
-                applyClubCount();
-            }
-        });
-        els.inCareerClubs.addEventListener("input", applyClubCount);
-        els.inCareerClubs.addEventListener("change", applyClubCount);
-    }
-
     els.shortsModeToggle.onchange = (e) => {
         const state = getState();
         const wasShorts = document.body.classList.contains("shorts-mode");
@@ -1146,6 +1125,11 @@ async function init() {
             }
         }
         renderLandingTitleVoiceControls();
+        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+        if (els.videoModeToggle && !els.videoModeToggle.checked) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        }
         startVideoFlow();
         setTimeout(() => {
             renderLandingTitleVoiceControls();
@@ -1350,8 +1334,9 @@ async function init() {
 
             const uniqueMap = new Map();
             allPlayers.forEach(p => {
-                if (!uniqueMap.has(p.name)) {
-                    uniqueMap.set(p.name, p);
+                const key = `${p.name}__${p?._clubItem?.name || ""}`;
+                if (!uniqueMap.has(key)) {
+                    uniqueMap.set(key, p);
                 }
             });
             const uniquePlayers = Array.from(uniqueMap.values());
@@ -1385,9 +1370,6 @@ async function init() {
         const historyLen = state.careerHistory.length;
         const finalCount = Math.max(2, historyLen);
         state.careerClubsCount = finalCount;
-        if (els.inCareerClubs) {
-            els.inCareerClubs.value = finalCount;
-        }
 
         const sourceClub = (pData._clubItem && pData._clubItem.name) ? pData._clubItem.name : "";
         const context = teamLabel || sourceClub || "";

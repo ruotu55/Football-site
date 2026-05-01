@@ -55,7 +55,6 @@ export function captureDevLiveReloadSnapshot(appState, els) {
         version: 1,
         totalLevelsCount: appState.totalLevelsCount,
         currentLevelIndex: appState.currentLevelIndex,
-        careerShortsCirclePreview: appState.careerShortsCirclePreview,
         levelsData: appState.levelsData.map(serializeLevel).filter(Boolean),
         controls: {
             quizLevelsInput: els.quizLevelsInput?.value ?? null,
@@ -69,8 +68,6 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inSpecificTitleText: els.inSpecificTitleText?.value ?? null,
             inSpecificTitleIcon: els.inSpecificTitleIcon?.value ?? null,
             shortsModeToggle: FIXED_SHORTS_MODE,
-            shortsCirclePreviewToggle: !!els.shortsCirclePreviewToggle?.checked,
-            shortsCirclePreviewCount: els.shortsCirclePreviewCount?.value ?? null,
             inCareerClubs: els.inCareerClubs?.value ?? null,
         },
     };
@@ -98,10 +95,6 @@ export function applyDevLiveReloadControls(els, snapshot) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
         els.shortsModeToggle.disabled = true;
     }
-    if (els.shortsCirclePreviewToggle) els.shortsCirclePreviewToggle.checked = !!c.shortsCirclePreviewToggle;
-    if (els.shortsCirclePreviewCount && c.shortsCirclePreviewCount != null) {
-        els.shortsCirclePreviewCount.value = c.shortsCirclePreviewCount;
-    }
     if (els.inCareerClubs && c.inCareerClubs != null) els.inCareerClubs.value = c.inCareerClubs;
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     if (els.shortsModeBtn && els.shortsModeToggle) {
@@ -126,11 +119,5 @@ export function restoreDevLiveReloadState(appState, snapshot) {
         Math.max(0, Math.floor(coerceNumber(snapshot.currentLevelIndex, 1))),
         Math.max(0, appState.levelsData.length - 1),
     );
-    if (snapshot.careerShortsCirclePreview && typeof snapshot.careerShortsCirclePreview === "object") {
-        appState.careerShortsCirclePreview = {
-            enabled: !!snapshot.careerShortsCirclePreview.enabled,
-            count: Math.max(1, Math.min(24, Math.floor(coerceNumber(snapshot.careerShortsCirclePreview.count, 5)))),
-        };
-    }
     return true;
 }

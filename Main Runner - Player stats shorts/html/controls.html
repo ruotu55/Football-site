@@ -1,4 +1,4 @@
-<div class="panel-header">
+﻿<div class="panel-header">
   <h1>Quiz controls</h1>
   <button type="button" class="panel-toggle" id="panel-toggle" aria-expanded="true">Hide</button>
 </div>
@@ -128,7 +128,6 @@
       <span class="label">Opacity</span>
       <input type="number" id="in-background-opacity" value="3.5" min="0" max="10" step="0.1" />
     </label>
-    <button type="button" id="btn-save-background-opacity" class="panel-toggle">Save Opacity For Color</button>
 
     <div id="setup-career-silhouette-field" style="display: none; flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem;">
       <span class="label" style="margin: 0; font-size: 0.8rem;">Background Silhouette</span>
@@ -153,7 +152,20 @@
           <option value="bars-left">Bars from Left</option>
           <option value="bars-top">Bars from Top</option>
           <option value="curtain-close">Curtain Close</option>
-          <option value="skew-wipe">Skew Wipe</option>
+          <option value="new-5">Pixel Pop</option>
+          <option value="new-15">Slab Squash</option>
+          <option value="new-18">Wave Bars</option>
+          <option value="new-19">Radial Tiles</option>
+          <option value="new-20">Zigzag Slats</option>
+          <option value="n2-2">Spiral Tiles</option>
+          <option value="n2-3">Diamond Burst</option>
+          <option value="n2-6">Slot Drop</option>
+          <option value="n2-7">Door Slide</option>
+          <option value="n2-8">Vertical Blinds</option>
+          <option value="n2-11">Triangle Wedges</option>
+          <option value="n2-13">Quadrant Slam</option>
+          <option value="n2-15">Checker Flash</option>
+          <option value="n2-17">Snake Path</option>
         </select>
       </label>
       <label class="field" style="flex-direction: row; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
@@ -166,19 +178,8 @@
   <div id="setup-pitch-controls" style="display: none;"></div>
 
   <div id="setup-career-controls" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0;">
-    <div id="career-selected-info" style="color: #ffca28; font-weight: bold; text-align: center; font-size: 0.9rem;"></div>
   </div>
 
-  <div id="setup-shorts-circle-preview-field" class="field" style="display: none; flex-direction: column; gap: 0.55rem; background: rgba(0,0,0,0.25); padding: 0.75rem; border-radius: 6px; border: 1px solid rgba(255,202,40,0.25); margin-top: 0.65rem;">
-    <label style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; cursor: pointer;">
-      <span class="label" style="margin: 0; font-size: 0.78rem; color: #e2e8f0;">Test circles size (shorts)</span>
-      <input type="checkbox" id="shorts-circle-preview-toggle" style="width: 1.15rem; height: 1.15rem; margin: 0; cursor: pointer; accent-color: var(--accent);" />
-    </label>
-    <label class="field" style="margin: 0; gap: 0.35rem;">
-      <span class="label" style="margin: 0; font-size: 0.72rem; color: #94a3b8;">Number of circles (1–24)</span>
-      <input type="number" id="shorts-circle-preview-count" value="5" min="1" max="24" step="1" style="width: 100%; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #444; background: #1a1a1a; color: #fff;" />
-    </label>
-  </div>
 </div>
 
 <div id="panel-voice" class="panel-section">

@@ -1,6 +1,5 @@
 const STORAGE_COLOR_KEY = "football-channel.shared-background-color";
 const STORAGE_EFFECT_KEY = "football-channel.shared-background-effect";
-const LEGACY_PRESET_KEY = "football-channel.shared-background-preset";
 const STORAGE_OPACITY_PROFILES_KEY = "football-channel.shared-background-opacity-profiles";
 const STORAGE_OPACITY_PROFILES_BUCKET = "shared_background_opacity_profiles_v1";
 const STYLE_TAG_ID = "shared-background-theme-style";
@@ -22,7 +21,6 @@ const EMOJI_IMAGES = [
 
 const WHITE_0 = "rgba(255, 255, 255, 0)";
 let opacityProfiles = {};
-let opacityProfilesPushTimer = null;
 
 function isNonEmptyObject(value) {
   return !!(value && typeof value === "object" && !Array.isArray(value));
@@ -164,21 +162,41 @@ function populateSoccerBallsEffectContainer(container) {
     container.dataset.flowAxis = flowAxis;
   }
   if (container.childElementCount > 0) return;
-  const count = 58;
-  for (let i = 0; i < count; i += 1) {
-    const span = document.createElement("span");
-    span.className = "shared-bg-soccer-ball";
-    span.textContent = "\u26BD";
-    span.setAttribute("aria-hidden", "true");
-    span.style.left = `${Math.random() * 100}%`;
-    span.style.fontSize = `${16 + Math.random() * 40}px`;
-    const duration = 16 + Math.random() * 24;
-    span.style.animationDuration = `${duration}s`;
-    const driftVw = (Math.random() - 0.5) * 42;
-    span.style.setProperty("--sb-drift", `${driftVw}vw`);
-    span.style.setProperty("--sb-rot", `${(Math.random() - 0.5) * 18}deg`);
-    span.style.animationDelay = `-${Math.random() * duration}s`;
-    container.appendChild(span);
+  /* Lane-based placement so balls don't touch each other:
+     - balls bucketed into vertical lanes across the viewport width
+     - each lane gets a few balls staggered in time = staggered vertically on screen
+     - drift is small enough that balls stay mostly within their lane width
+  */
+  const lanesCount = 12;
+  const ballsPerLane = 3;
+  const laneWidthPercent = 100 / lanesCount;
+  const maxJitterPercent = laneWidthPercent * 0.3;
+  const maxDriftVw = 2.5;
+  for (let lane = 0; lane < lanesCount; lane += 1) {
+    for (let slot = 0; slot < ballsPerLane; slot += 1) {
+      const span = document.createElement("span");
+      span.className = "shared-bg-soccer-ball";
+      span.textContent = "\u26BD";
+      span.setAttribute("aria-hidden", "true");
+
+      const laneCenter = (lane + 0.5) * laneWidthPercent;
+      const jitter = (Math.random() - 0.5) * 2 * maxJitterPercent;
+      span.style.left = `${laneCenter + jitter}%`;
+
+      span.style.fontSize = `${18 + Math.random() * 22}px`;
+
+      const duration = 22 + Math.random() * 10;
+      span.style.animationDuration = `${duration}s`;
+
+      const driftVw = (Math.random() - 0.5) * 2 * maxDriftVw;
+      span.style.setProperty("--sb-drift", `${driftVw}vw`);
+      span.style.setProperty("--sb-rot", `${(Math.random() - 0.5) * 18}deg`);
+
+      const slotPhase = ((slot + Math.random() * 0.6 - 0.3) / ballsPerLane) * duration;
+      span.style.animationDelay = `-${Math.max(0, slotPhase)}s`;
+
+      container.appendChild(span);
+    }
   }
 }
 
@@ -195,23 +213,21 @@ function syncSoccerBallsEffect(effectId) {
 }
 
 const COLORS = [
-  { id: "forest-green", label: "Green - Forest", hex: "#166534" },
-  { id: "aqua-green", label: "Green - Aqua", hex: "#0f9f7a" },
-  { id: "pitch-green", label: "Green - Pitch", hex: "#1b8a46" },
-  { id: "blue-sky", label: "Blue - Sky", hex: "#1f6fe5" },
-  { id: "blue-royal", label: "Blue - Royal", hex: "#0a3db8" },
-  { id: "cyan-teal", label: "Teal - Cyan", hex: "#0e8b8f" },
-  { id: "bright-teal", label: "Teal - Bright", hex: "#14b8a6" },
-  { id: "violet", label: "Purple - Violet", hex: "#6d28d9" },
-  { id: "plum", label: "Purple - Plum", hex: "#7e22ce" },
-  { id: "ruby-red", label: "Red - Ruby", hex: "#b91c1c" },
-  { id: "crimson-red", label: "Red - Crimson", hex: "#dc2626" },
-  { id: "magenta", label: "Pink - Magenta", hex: "#d946ef" },
-  { id: "deep-pink", label: "Pink - Deep", hex: "#ec4899" },
-  { id: "sunset-orange", label: "Orange - Sunset", hex: "#f97316" },
-  { id: "amber-orange", label: "Orange - Amber", hex: "#f59e0b" },
-  { id: "gold-yellow", label: "Yellow - Gold", hex: "#eab308" },
-  { id: "lemon-yellow", label: "Yellow - Lemon", hex: "#facc15" },
+  { id: "quiz-career-path", label: "#0069EC - Career Path", hex: "#0069EC" },
+  { id: "quiz-career-stats", label: "#AB47BC - Career Stats", hex: "#AB47BC" },
+  { id: "quiz-four-params", label: "#5C6BC0 - Club + Position + Country + Age", hex: "#5C6BC0" },
+  { id: "quiz-fake-info", label: "#E57373 - Fake Information", hex: "#E57373" },
+  { id: "quiz-nat-by-club", label: "#1B5E20 - National Team by Club", hex: "#1B5E20" },
+  { id: "quiz-club-by-nat", label: "#2E7D32 - Club by Nationality", hex: "#2E7D32" },
+  { id: "extra-orange", label: "Extra 1", hex: "#FFB74D" },
+  { id: "extra-slate", label: "Extra 2", hex: "#78909C" },
+  { id: "extra-ocean-green", label: "Extra 3", hex: "#4DB6AC" },
+  { id: "extra-deep-lavender", label: "Extra 4", hex: "#9575CD" },
+  { id: "extra-sky-indigo", label: "Extra 5", hex: "#7986CB" },
+  { id: "extra-warm-slate", label: "Extra 6", hex: "#90A4AE" },
+  { id: "extra-burnt-orange", label: "Extra 7", hex: "#FF8A65" },
+  { id: "extra-soft-green", label: "Extra 8", hex: "#81C784" },
+  { id: "extra-cornflower-blue", label: "Extra 9", hex: "#64B5F6" },
 ];
 
 function ensureStyleTag() {
@@ -323,30 +339,6 @@ function readOpacityProfilesFromLocalStorage() {
   }
 }
 
-function syncOpacityProfilesToServer() {
-  if (!isServerSyncActive()) return;
-  clearTimeout(opacityProfilesPushTimer);
-  opacityProfilesPushTimer = setTimeout(() => {
-    fetch(`/__runner-json-blob/${encodeURIComponent(STORAGE_OPACITY_PROFILES_BUCKET)}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(opacityProfiles),
-    }).catch(() => {});
-  }, 300);
-}
-
-function persistOpacityProfiles() {
-  try {
-    localStorage.setItem(
-      STORAGE_OPACITY_PROFILES_KEY,
-      JSON.stringify(opacityProfiles),
-    );
-  } catch (_) {
-    // Ignore storage failures (private mode / browser restrictions).
-  }
-  syncOpacityProfilesToServer();
-}
-
 function startOpacityProfilesPull(onLoaded) {
   if (!isServerSyncActive()) return;
   (async () => {
@@ -372,12 +364,7 @@ function startOpacityProfilesPull(onLoaded) {
             // Ignore local cache failures.
           }
           if (typeof onLoaded === "function") onLoaded();
-          return;
         }
-      }
-
-      if (isNonEmptyObject(opacityProfiles)) {
-        syncOpacityProfilesToServer();
       }
     } catch (_) {
       // file:// or offline
@@ -392,23 +379,17 @@ function readSavedOpacityForColor(colorId) {
 }
 
 function normalizeColorId(colorId) {
-  const aliasMap = {
-    "royal-blue": "blue-royal",
-    "ocean-blue": "blue-sky",
-    "sky-blue": "blue-sky",
-    "cobalt-blue": "blue-royal",
-    "navy-blue": "blue-royal",
-  };
+  const aliasMap = {};
   const candidate = aliasMap[colorId] || colorId;
   if (COLORS.some((color) => color.id === candidate)) {
     return candidate;
   }
-  return COLORS[0]?.id || "forest-green";
+  return COLORS[0]?.id || "quiz-career-path";
 }
 
 function normalizeEffectId(effectId) {
-  if (effectId === "sun-rays") return "sun-rays-top-right";
-  return EFFECTS.some((effect) => effect.id === effectId) ? effectId : "sun-rays-top-right";
+  if (effectId === "sun-rays") return "sun-rays-center";
+  return EFFECTS.some((effect) => effect.id === effectId) ? effectId : "sun-rays-center";
 }
 
 const EFFECTS = [
@@ -741,7 +722,7 @@ ${vignetteCss("sun-rays-top-left")}
   position: absolute;
   right: -250px;
   object-fit: contain;
-  opacity: clamp(0.06, calc(var(--shared-line-opacity, 3.5) * 0.25), 0.8);
+  opacity: clamp(0.05, calc(var(--shared-line-opacity, 3.5) * 0.1), 1);
   filter: grayscale(100%);
   animation: shared-bg-emoji-float linear infinite;
 }
@@ -749,6 +730,12 @@ ${vignetteCss("sun-rays-top-left")}
 :root[${ROOT_EFFECT_ATTR}="floating-emojis"] .app {
   position: relative;
   z-index: 1;
+}
+
+/* Lift the emoji layer above the ball-preloader (z-index 9998) while it's active,
+   so the effect is visible during the intro bounce. */
+:root[${ROOT_EFFECT_ATTR}="floating-emojis"] body:has(.ball-preloader:not([hidden]):not(.revealing)) .shared-bg-emojis {
+  z-index: 9999;
 }
 `;
     case "rising-question-marks":
@@ -814,6 +801,11 @@ ${vignetteCss("sun-rays-top-left")}
   position: relative;
   z-index: 1;
 }
+
+/* Lift the question-marks layer above the ball-preloader (z-index 9998) while it's active. */
+:root[${ROOT_EFFECT_ATTR}="rising-question-marks"] body:has(.ball-preloader:not([hidden]):not(.revealing)) .shared-bg-question-marks {
+  z-index: 9999;
+}
 `;
     case "rising-soccer-balls":
       return `
@@ -875,6 +867,11 @@ ${vignetteCss("sun-rays-top-left")}
   position: relative;
   z-index: 1;
 }
+
+/* Lift the soccer-balls layer above the ball-preloader (z-index 9998) while it's active. */
+:root[${ROOT_EFFECT_ATTR}="rising-soccer-balls"] body:has(.ball-preloader:not([hidden]):not(.revealing)) .shared-bg-soccer-balls {
+  z-index: 9999;
+}
 `;
     case "youtube-thumbnails":
       return `
@@ -883,7 +880,20 @@ ${vignetteCss("sun-rays-top-left")}
   overflow: hidden;
 }
 
-/* Same as legacy thumbnail-maker #pitch-wrap::before / ::after (360 rays around a clear center). */
+/* Same as legacy thumbnail-maker #pitch-wrap::before / ::after (360 rays around a clear center).
+   Only the conic-gradient start angle is animated (via the --thumb-rays-angle custom property),
+   so just the rays sweep around the center while the element/mask stay perfectly still. */
+@property --thumb-rays-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes shared-bg-thumb-rays-spin {
+  0% { --thumb-rays-angle: 0deg; }
+  100% { --thumb-rays-angle: 360deg; }
+}
+
 :root[${ROOT_EFFECT_ATTR}="youtube-thumbnails"] body::before {
   content: "";
   position: fixed;
@@ -892,28 +902,57 @@ ${vignetteCss("sun-rays-top-left")}
   z-index: 0;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  opacity: 0.24;
+  opacity: clamp(0.05, calc(var(--shared-line-opacity, 3.5) * 0.1), 1);
   background:
     repeating-conic-gradient(
-      from 0deg at 50% 50%,
+      from var(--thumb-rays-angle, 0deg) at 50% 50%,
       rgba(255, 255, 255, 0.62) 0deg 1deg,
       rgba(255, 255, 255, 0.16) 1deg 3.4deg,
       rgba(255, 255, 255, 0) 3.4deg 8.4deg
     );
   -webkit-mask-image: radial-gradient(
-    ellipse at 50% 50%,
+    ellipse 40% 50% at 50% 50%,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0) 38%,
-    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 0) 88%,
     rgba(0, 0, 0, 1) 100%
   );
   mask-image: radial-gradient(
-    ellipse at 50% 50%,
+    ellipse 40% 50% at 50% 50%,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0) 38%,
-    rgba(0, 0, 0, 1) 56%,
+    rgba(0, 0, 0, 0) 88%,
     rgba(0, 0, 0, 1) 100%
   );
+  animation: shared-bg-thumb-rays-spin 240s linear infinite;
+}
+
+/* Shorts (portrait) override: confine the rays element to the visible 9:16 stage
+   (centered, width = min(56.25vh, 100vw)) so it doesn't paint over the black
+   letterbox bars on wide viewports. Mask radii rescaled to the stage box, with
+   thresholds shifted outward by 20pp so rays sit at the very edges of the stage.
+   z-index lifted above the .app stack (z 10 in shorts) so the side rays render
+   over the pitch edges — transitions are appended to body in transitions.js so
+   they still cover this layer. */
+:root[${ROOT_EFFECT_ATTR}="youtube-thumbnails"] body.shorts-mode::before {
+  inset: auto;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(56.25vh, 100vw);
+  height: 100vh;
+  -webkit-mask-image: radial-gradient(
+    ellipse 44% 32% at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 108%,
+    rgba(0, 0, 0, 1) 120%
+  );
+  mask-image: radial-gradient(
+    ellipse 44% 32% at 50% 50%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 108%,
+    rgba(0, 0, 0, 1) 120%
+  );
+  z-index: 11;
 }
 
 :root[${ROOT_EFFECT_ATTR}="youtube-thumbnails"] body::after {
@@ -924,7 +963,7 @@ ${vignetteCss("sun-rays-top-left")}
   z-index: 0;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  opacity: 0.16;
+  opacity: clamp(0.03, calc(var(--shared-line-opacity, 3.5) * 0.07), 0.7);
   background:
     radial-gradient(
       ellipse at 50% 50%,
@@ -1099,10 +1138,10 @@ function getEffectKeyframesCss() {
     opacity: 0;
   }
   7% {
-    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+    opacity: clamp(0.05, calc(var(--shared-line-opacity, 3.5) * 0.1), 1);
   }
   93% {
-    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+    opacity: clamp(0.05, calc(var(--shared-line-opacity, 3.5) * 0.1), 1);
   }
   100% {
     transform: translateX(-50%) translate(var(--q-drift, 0vw), -128vh) rotate(var(--q-rot, 0deg));
@@ -1116,10 +1155,10 @@ function getEffectKeyframesCss() {
     opacity: 0;
   }
   7% {
-    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+    opacity: clamp(0.05, calc(var(--shared-line-opacity, 3.5) * 0.1), 1);
   }
   93% {
-    opacity: clamp(0.08, calc(var(--shared-line-opacity, 3.5) * 0.26), 0.55);
+    opacity: clamp(0.05, calc(var(--shared-line-opacity, 3.5) * 0.1), 1);
   }
   100% {
     transform: translateX(-50%) translate(var(--sb-drift, 0vw), -128vh) rotate(var(--sb-rot, 0deg));
@@ -1239,14 +1278,9 @@ ${getBallPreloaderEffectCss(normalizedEffectId, selectedColor.hex, normalizedOpa
 }
 
 function readSavedTheme() {
-  let colorId = "blue-royal";
+  let colorId = "quiz-career-path";
   let effectId = "sun-rays";
   try {
-    const legacyPreset = localStorage.getItem(LEGACY_PRESET_KEY);
-    if (legacyPreset === "blue-sun") {
-      colorId = "blue-royal";
-      effectId = "sun-rays";
-    }
     colorId = normalizeColorId(localStorage.getItem(STORAGE_COLOR_KEY) || colorId);
     effectId = normalizeEffectId(localStorage.getItem(STORAGE_EFFECT_KEY) || effectId);
   } catch (_) {
@@ -1262,19 +1296,36 @@ function populateSelect(selectEl, values) {
     .join("");
 }
 
+/**
+ * Initializes the shared background theme controls.
+ * @param {Object} [options.forcedDefaults] Per-runner override applied on every reload
+ *   instead of reading saved values from localStorage. Shape: { colorId, effectId, opacity }.
+ *   When provided, the runner ignores any saved theme and shows these values on each load.
+ */
 export function initSharedBackgroundTheme(
   colorSelectEl,
   effectSelectEl,
   opacityInputEl,
-  saveButtonEl,
+  options = {},
 ) {
+  const { forcedDefaults = null } = options;
   populateSelect(colorSelectEl, COLORS);
   populateSelect(effectSelectEl, EFFECTS);
   opacityProfiles = readOpacityProfilesFromLocalStorage();
-  const savedTheme = readSavedTheme();
+  const initialTheme = forcedDefaults
+    ? {
+        colorId: normalizeColorId(forcedDefaults.colorId),
+        effectId: normalizeEffectId(forcedDefaults.effectId),
+      }
+    : readSavedTheme();
+  const initialOpacity =
+    forcedDefaults && forcedDefaults.opacity != null
+      ? normalizeOpacityPercent(forcedDefaults.opacity)
+      : readSavedOpacityForColor(initialTheme.colorId);
+
   const applyCurrentSelection = () => {
-    const colorId = colorSelectEl ? colorSelectEl.value : savedTheme.colorId;
-    const effectId = effectSelectEl ? effectSelectEl.value : savedTheme.effectId;
+    const colorId = colorSelectEl ? colorSelectEl.value : initialTheme.colorId;
+    const effectId = effectSelectEl ? effectSelectEl.value : initialTheme.effectId;
     const opacity = opacityInputEl
       ? normalizeOpacityPercent(opacityInputEl.value)
       : readSavedOpacityForColor(colorId);
@@ -1285,13 +1336,13 @@ export function initSharedBackgroundTheme(
   };
 
   if (colorSelectEl) {
-    colorSelectEl.value = savedTheme.colorId;
+    colorSelectEl.value = initialTheme.colorId;
   }
   if (effectSelectEl) {
-    effectSelectEl.value = savedTheme.effectId;
+    effectSelectEl.value = initialTheme.effectId;
   }
   if (opacityInputEl) {
-    opacityInputEl.value = String(readSavedOpacityForColor(savedTheme.colorId));
+    opacityInputEl.value = String(initialOpacity);
     opacityInputEl.addEventListener("input", applyCurrentSelection);
     opacityInputEl.addEventListener("change", applyCurrentSelection);
   }
@@ -1309,21 +1360,17 @@ export function initSharedBackgroundTheme(
   if (effectSelectEl) {
     effectSelectEl.addEventListener("change", applyCurrentSelection);
   }
-  if (saveButtonEl) {
-    saveButtonEl.addEventListener("click", () => {
-      const colorId = colorSelectEl ? colorSelectEl.value : savedTheme.colorId;
-      opacityProfiles[normalizeColorId(colorId)] = opacityInputEl
-        ? normalizeOpacityPercent(opacityInputEl.value)
-        : DEFAULT_LINE_OPACITY_PERCENT;
-      persistOpacityProfiles();
+  if (forcedDefaults) {
+    /* Keep `opacityProfiles` warm for color-change handlers, but don't override
+       the forced default opacity input on the initial load. */
+    startOpacityProfilesPull();
+  } else {
+    startOpacityProfilesPull(() => {
+      if (colorSelectEl && opacityInputEl) {
+        opacityInputEl.value = String(readSavedOpacityForColor(colorSelectEl.value));
+      }
       applyCurrentSelection();
     });
   }
-  startOpacityProfilesPull(() => {
-    if (colorSelectEl && opacityInputEl) {
-      opacityInputEl.value = String(readSavedOpacityForColor(colorSelectEl.value));
-    }
-    applyCurrentSelection();
-  });
 }
 

@@ -311,7 +311,9 @@ export function switchLevel(index) {
     // Preload images for the next level BEFORE transition starts
     preloadSquadImages(state);
 
-    const useCustomTransition = transitionSettings.effect !== "none";
+    // Landing → first quiz always uses Cloud Drift, even if user picked "none".
+    const isLandingToFirstQuiz = prevIndex === 1 && index === 2;
+    const useCustomTransition = isLandingToFirstQuiz || transitionSettings.effect !== "none";
 
     if (useCustomTransition) {
       // Custom transition overlay: covers screen -> swap content -> reveals
@@ -335,6 +337,8 @@ export function switchLevel(index) {
       const sidebarPreserved = prevIsQuiz && nextIsQuiz;
       appState._preserveTeamSidebar = sidebarPreserved;
 
+      const forceEffectId = isLandingToFirstQuiz ? "new-1" : null;
+
       appState._transitionDone = runTransition(() => {
         updateDOMContent();
         appState._preserveTeamSidebar = false;
@@ -356,7 +360,7 @@ export function switchLevel(index) {
           void progressContainer.offsetWidth;
           progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
         }
-      }).then(() => {
+      }, forceEffectId).then(() => {
         // Overlay is gone — slide sidebar in fresh for the new level
         if (sidebarPreserved && els.teamHeader && !els.teamHeader.hidden) {
           renderHeader();

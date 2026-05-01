@@ -1,4 +1,4 @@
-// js/saved-scripts.js (Lineups runner — namespaced storage + one-time legacy import)
+﻿// js/saved-scripts.js (Lineups runner — namespaced storage + one-time legacy import)
 import {
     appState,
     DEFAULT_SLOT_FLAG_SCALE,
@@ -158,6 +158,115 @@ function resolveTeamAlias(normName) {
  * Parse "[Team1, Team2, Team3]" (or "Team1,Team2,Team3") into an ordered list
  * of trimmed team names.
  */
+/**
+ * Build an in-memory modal that lets the user search a list of items
+ * (players or teams) and pick one. Resolves with the picked item or null on
+ * cancel. `displayFn(item)` returns the row label.
+ */
+function showManualSearchModal({ title, items, displayFn }) {
+    return new Promise((resolve) => {
+        const overlay = document.createElement("div");
+        overlay.style.cssText = "position:fixed; inset:0; background:rgba(0,0,0,0.72); z-index:10001; display:flex; align-items:center; justify-content:center;";
+        const modal = document.createElement("div");
+        modal.style.cssText = "background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:1.1rem 1.25rem; width:min(560px, 92vw); max-height:82vh; display:flex; flex-direction:column; gap:0.75rem;";
+        const header = document.createElement("h3");
+        header.textContent = title || "Search manually";
+        header.style.cssText = "margin:0; color:#fff; font-size:1rem;";
+        const input = document.createElement("input");
+        input.type = "search";
+        input.placeholder = "Type to filter…";
+        input.style.cssText = "padding:0.5rem; background:#000; color:#fff; border:1px solid #333; border-radius:4px; font-size:0.9rem;";
+        const list = document.createElement("div");
+        list.style.cssText = "overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:0.25rem; min-height:240px;";
+        const footer = document.createElement("div");
+        footer.style.cssText = "display:flex; gap:0.5rem; justify-content:flex-end;";
+        const cancelBtn = document.createElement("button");
+        cancelBtn.type = "button";
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.style.cssText = "padding:0.45rem 0.9rem; background:#333; color:#fff; border:1px solid #555; border-radius:4px; cursor:pointer;";
+        footer.appendChild(cancelBtn);
+        modal.append(header, input, list, footer);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        function close(result) { try { document.body.removeChild(overlay); } catch {} resolve(result); }
+        cancelBtn.onclick = () => close(null);
+        overlay.addEventListener("click", (e) => { if (e.target === overlay) close(null); });
+        function render() {
+            const q = input.value.trim().toLowerCase();
+            list.innerHTML = "";
+            const filtered = items
+                .map((item) => ({ item, label: displayFn(item) }))
+                .filter(({ label }) => !q || label.toLowerCase().includes(q))
+                .slice(0, 300);
+            for (const { item, label } of filtered) {
+                const row = document.createElement("button");
+                row.type = "button";
+                row.textContent = label;
+                row.style.cssText = "text-align:left; padding:0.45rem 0.6rem; background:#222; color:#fff; border:1px solid #333; border-radius:4px; cursor:pointer; font-size:0.85rem;";
+                row.onmouseover = () => { row.style.background = "#333"; };
+                row.onmouseout = () => { row.style.background = "#222"; };
+                row.onclick = () => close(item);
+                list.appendChild(row);
+            }
+            if (filtered.length === 0) {
+                const empty = document.createElement("div");
+                empty.textContent = "No matches.";
+                empty.style.cssText = "color:#888; padding:0.5rem;";
+                list.appendChild(empty);
+            }
+        }
+        input.addEventListener("input", render);
+        render();
+        setTimeout(() => input.focus(), 0);
+    });
+}
+
+/**
+ * Render import errors as rows inside `container`. Errors whose `rawName`
+ * appears in `searchableNames` get a "Search manually" button that opens the
+ * search modal pre-filled with `items` and, on selection, replaces every
+ * occurrence of the bad name in `textInput` with the picked item's name and
+ * re-clicks `confirmBtn` to retry the import.
+ */
+function renderImportErrors({ container, errors, searchableNames, items, displayFn, modalTitle, textInput, confirmBtn }) {
+    if (!container) return;
+    container.innerHTML = "";
+    container.style.display = "block";
+    for (const errMsg of errors) {
+        const row = document.createElement("div");
+        row.style.cssText = "display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;";
+        const text = document.createElement("span");
+        text.textContent = errMsg;
+        text.style.cssText = "color:#f77; flex:1; font-size:0.85rem; white-space:pre-wrap;";
+        row.appendChild(text);
+        let matchedName = null;
+        if (searchableNames) {
+            for (const n of searchableNames) {
+                if (errMsg.includes(n)) { matchedName = n; break; }
+            }
+        }
+        if (matchedName) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.textContent = "Search manually";
+            btn.style.cssText = "padding:0.25rem 0.6rem; font-size:0.75rem; background:var(--accent, #ffaa00); color:#000; border:none; border-radius:4px; cursor:pointer; white-space:nowrap;";
+            btn.onclick = async () => {
+                const picked = await showManualSearchModal({
+                    title: (modalTitle || "Search manually") + (matchedName ? ` — replace "${matchedName}"` : ""),
+                    items,
+                    displayFn,
+                });
+                if (picked && picked.name && textInput) {
+                    textInput.value = textInput.value.split(matchedName).join(picked.name);
+                    if (confirmBtn) confirmBtn.click();
+                }
+            };
+            row.appendChild(btn);
+        }
+        container.appendChild(row);
+    }
+}
+
 function parseImportText(text) {
     let s = String(text || "").trim();
     if (!s) return { error: "Paste the import text first." };
@@ -450,6 +559,7 @@ export function initSavedScripts(callbacks) {
 
                 // 3. Resolve each name to a team entry and verify it has a saved layout
                 const errors = [];
+                const searchableNames = new Set();
                 const resolved = [];
 
                 for (const rawName of names) {
@@ -460,10 +570,12 @@ export function initSavedScripts(callbacks) {
                     }
                     if (!entry) {
                         errors.push(`\u274C ${rawName}: team not found.`);
+                        searchableNames.add(rawName);
                         continue;
                     }
                     if (!hasSavedLayoutForEntry(entry)) {
                         errors.push(`\u274C ${rawName} dont have a save team.`);
+                        searchableNames.add(rawName);
                         continue;
                     }
                     const isNational = allNats.some(t => t.path === entry.path);
@@ -471,7 +583,16 @@ export function initSavedScripts(callbacks) {
                 }
 
                 if (errors.length > 0) {
-                    showErr(errors.join("\n"));
+                    renderImportErrors({
+                        container: els.importScriptError,
+                        errors,
+                        searchableNames,
+                        items: allEntries,
+                        displayFn: (t) => t && t.country ? `${t.name} - ${t.country}` : (t && t.name) || "?",
+                        modalTitle: "Search a team",
+                        textInput: els.importScriptText,
+                        confirmBtn: els.importScriptConfirm,
+                    });
                     return;
                 }
 
@@ -488,6 +609,7 @@ export function initSavedScripts(callbacks) {
                     const layout = await buildImportLevelDataFromSavedLayout(entry, squad);
                     if (!layout) {
                         errors.push(`\u274C ${rawName} dont have a save team.`);
+                        searchableNames.add(rawName);
                         continue;
                     }
                     levelDatas.push(makeEmptyImportLevel({
@@ -518,17 +640,27 @@ export function initSavedScripts(callbacks) {
                 }
 
                 if (errors.length > 0) {
-                    showErr(errors.join("\n"));
+                    renderImportErrors({
+                        container: els.importScriptError,
+                        errors,
+                        searchableNames,
+                        items: allEntries,
+                        displayFn: (t) => t && t.country ? `${t.name} - ${t.country}` : (t && t.name) || "?",
+                        modalTitle: "Search a team",
+                        textInput: els.importScriptText,
+                        confirmBtn: els.importScriptConfirm,
+                    });
                     return;
                 }
 
                 // 4. Build full levels array (logo, intro, teams..., bonus, outro)
                 const n = levelDatas.length;
+                // Fold last imported entry into the bonus slot so we don't append an empty bonus.
+                if (levelDatas.length > 0) levelDatas[levelDatas.length - 1].isBonus = true;
                 const allLevels = [
                     makeEmptyImportLevel({ isLogo: true }),
                     makeEmptyImportLevel({ isIntro: true }),
                     ...levelDatas,
-                    makeEmptyImportLevel({ isBonus: true }),
                     makeEmptyImportLevel({ isOutro: true }),
                 ];
 

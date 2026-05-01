@@ -91,8 +91,6 @@ export function bindDomElements() {
     els.btnLevelsControl = document.getElementById("btn-levels-control");
     els.rightPanel = document.getElementById("right-panel");
     els.careerWrap = document.getElementById("career-wrap");
-    els.inCareerClubs = document.getElementById("in-career-clubs");
-    els.setupCareerClubsField = document.getElementById("setup-career-clubs-field");
     els.setupCareerSilhouetteField = document.getElementById("setup-career-silhouette-field");
     els.btnPictureControls = document.getElementById("btn-picture-controls");
     els.btnSilhouettePrev = document.getElementById("btn-silhouette-prev");

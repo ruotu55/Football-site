@@ -117,9 +117,6 @@ export const appState = {
     sideTextRight: null,
     shortsModeToggle: null,
     shortsModeBtn: null,
-    setupShortsCirclePreviewField: null,
-    shortsCirclePreviewToggle: null,
-    shortsCirclePreviewCount: null,
     inGameMode: null,
     careerWrap: null,
     inCareerClubs: null,
@@ -153,8 +150,6 @@ export const appState = {
   swapAvailablePlayers: [],
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
-  /** Shorts-only: show career club circles without a player (tune css/modes/shorts-career-club-count-map.css). */
-  careerShortsCirclePreview: { enabled: false, count: 5 },
   videoInterval: null,
   videoTimeout: null,
   /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */

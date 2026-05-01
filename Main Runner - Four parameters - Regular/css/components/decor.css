@@ -36,30 +36,11 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-/* Floating Background Emojis */
+/* Legacy Floating Background Emojis — hidden permanently. The shared background-theme module
+   renders floating-emojis via its own `.shared-bg-emojis` container; rendering this layer too
+   would draw the emojis twice. */
 .floating-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none; /* Let clicks pass through to the app */
-  z-index: 0; /* Placed behind all text and pitch elements */
-  overflow: hidden;
-  
-  /* Pure continuous fade from edge to center to edge, starting at 50% visibility */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.3) 0%,   
-    rgba(0, 0, 0, 0.03) 50%,   
-    rgba(0, 0, 0, 0.3) 100%     
-  );
-  mask-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.03) 50%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
+  display: none !important;
 }
 
 .floating-emoji {

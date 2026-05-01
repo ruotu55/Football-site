@@ -1,4 +1,4 @@
-import {
+﻿import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
@@ -59,6 +59,49 @@ const PERFORMANCE_MODE_SESSION_KEY = "lineups:performance-mode";
 const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
 const PERFORMANCE_MODE_QUERY_VALUES = new Set(["1", "true", "on", "yes"]);
 const PERFORMANCE_MODE_QUERY_OFF_VALUES = new Set(["0", "false", "off", "no"]);
+
+const QUIZ_TYPE_DEFAULT_THEME = {
+    "player-by-career-stats": { colorId: "quiz-four-params", effectId: "floating-emojis", opacity: 2, transitionId: "n2-6" },
+    "player-by-fake-info": { colorId: "quiz-fake-info", effectId: "rising-soccer-balls", opacity: 4, transitionId: "n2-3" },
+};
+
+function applyDefaultThemeForCurrentQuizType() {
+    const quizType = String(appState?.els?.inQuizType?.value || "").trim();
+    const theme = QUIZ_TYPE_DEFAULT_THEME[quizType];
+    if (!theme) return;
+
+    const colorSel = document.getElementById("in-background-color");
+    const effectSel = document.getElementById("in-background-effect");
+    const opacityInput = document.getElementById("in-background-opacity");
+    const transitionSel = document.getElementById("in-transition-effect");
+
+    /* Set color/effect first and dispatch their change events. The color-change
+       listener inside the shared background module auto-resets opacity to the
+       saved profile for that color, so we set our desired opacity AFTER that
+       chain runs to avoid being clobbered. */
+    if (colorSel && theme.colorId) colorSel.value = theme.colorId;
+    if (effectSel && theme.effectId) effectSel.value = theme.effectId;
+
+    if (colorSel) colorSel.dispatchEvent(new Event("change"));
+    if (effectSel) effectSel.dispatchEvent(new Event("change"));
+
+    if (opacityInput && theme.opacity != null) {
+        opacityInput.value = String(theme.opacity);
+        opacityInput.dispatchEvent(new Event("input"));
+    }
+
+    if (transitionSel && theme.transitionId) {
+        transitionSel.value = theme.transitionId;
+        transitionSel.dispatchEvent(new Event("change"));
+    }
+
+    /* The native <select>s are wrapped by a custom-select widget that mirrors the
+       selected option's text into a separate `.custom-select-trigger` element.
+       Setting `select.value` programmatically updates the underlying value but
+       does NOT refresh the custom trigger — the user keeps seeing the old label.
+       Re-running applyCustomSelects re-renders all custom triggers from current values. */
+    applyCustomSelects();
+}
 
 function shouldBypassSessionJsonCache() {
     return !!window.__RUNNER_LIVE_RELOAD__;
@@ -752,7 +795,7 @@ async function init() {
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
         document.getElementById("in-background-opacity"),
-        document.getElementById("btn-save-background-opacity"),
+        { forcedDefaults: { colorId: "quiz-four-params", effectId: "floating-emojis", opacity: 2 } },
     );
     // Track explicit user selection for PROD validation
     const bgColorSel = document.getElementById("in-background-color");
@@ -804,6 +847,10 @@ async function init() {
         )
         : 1;
     switchLevel(initialLevelIndex);
+    /* Apply the per-quiz-type theme after the quiz type has been populated/restored,
+       so loading the runner already on fake-info shows the fake-info defaults
+       instead of the runner's generic init forced defaults. */
+    applyDefaultThemeForCurrentQuizType();
     syncShortsCirclePreviewPanel();
     syncShortsModeFab();
 
@@ -872,6 +919,7 @@ async function init() {
 
     els.inQuizType.onchange = () => {
         applyFakeInfoBodyClass();
+        applyDefaultThemeForCurrentQuizType();
         updateSetupUI();
         updateLanding();
         renderSavedScripts();
@@ -1143,6 +1191,11 @@ async function init() {
             }
         }
         renderLandingTitleVoiceControls();
+        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+        if (els.videoModeToggle && !els.videoModeToggle.checked) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        }
         startVideoFlow();
         setTimeout(() => {
             renderLandingTitleVoiceControls();
@@ -1347,8 +1400,9 @@ async function init() {
 
             const uniqueMap = new Map();
             allPlayers.forEach(p => {
-                if (!uniqueMap.has(p.name)) {
-                    uniqueMap.set(p.name, p);
+                const key = `${p.name}__${p?._clubItem?.name || ""}`;
+                if (!uniqueMap.has(key)) {
+                    uniqueMap.set(key, p);
                 }
             });
             const uniquePlayers = Array.from(uniqueMap.values());

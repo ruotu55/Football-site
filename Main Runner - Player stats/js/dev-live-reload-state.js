@@ -70,7 +70,6 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             shortsModeToggle: FIXED_SHORTS_MODE,
             shortsCirclePreviewToggle: !!els.shortsCirclePreviewToggle?.checked,
             shortsCirclePreviewCount: els.shortsCirclePreviewCount?.value ?? null,
-            inCareerClubs: els.inCareerClubs?.value ?? null,
         },
     };
     sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(payload));
@@ -96,7 +95,6 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.shortsCirclePreviewCount && c.shortsCirclePreviewCount != null) {
         els.shortsCirclePreviewCount.value = c.shortsCirclePreviewCount;
     }
-    if (els.inCareerClubs && c.inCareerClubs != null) els.inCareerClubs.value = c.inCareerClubs;
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     if (els.shortsModeBtn && els.shortsModeToggle) {
         els.shortsModeBtn.setAttribute("aria-pressed", FIXED_SHORTS_MODE ? "true" : "false");

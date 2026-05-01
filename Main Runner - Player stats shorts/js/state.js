@@ -141,9 +141,6 @@ export const appState = {
     sideTextRight: null,
     shortsModeToggle: null,
     shortsModeBtn: null,
-    setupShortsCirclePreviewField: null,
-    shortsCirclePreviewToggle: null,
-    shortsCirclePreviewCount: null,
     inGameMode: null,
     careerWrap: null,
     inCareerClubs: null,
@@ -177,8 +174,6 @@ export const appState = {
   swapAvailablePlayers: [],
   isVideoPlaying: false,
   videoRevealPostTimerActive: false,
-  /** Shorts-only: show career club circles without a player (tune css/modes/shorts-career-club-count-map.css). */
-  careerShortsCirclePreview: { enabled: false, count: 5 },
   videoInterval: null,
   videoTimeout: null,
   /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */

@@ -2397,7 +2397,6 @@ export function renderCareer() {
               hist.splice(idx, 1);
               st.careerHistory = hist;
               st.careerClubsCount = hist.length;
-              if (appState.els.inCareerClubs) appState.els.inCareerClubs.value = hist.length;
               renderCareer();
             }
           });

@@ -26,39 +26,39 @@
   animation: stage-enter-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
-/* Video reveal transition: align Shorts with Regular question-to-question handoff. */
+/* Video reveal transition: move from big-player reveal to next question smoothly. */
 @keyframes stage-exit-video-reveal {
   0% {
-    transform: scale(1) translateY(0);
+    transform: none;
     opacity: 1;
     filter: blur(0);
   }
   100% {
-    transform: scale(1.14) translateY(-1.2vh);
+    transform: none;
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(6px);
   }
 }
 
 @keyframes stage-enter-video-reveal {
   0% {
-    transform: scale(1.14) translateY(-1.2vh);
+    transform: none;
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(6px);
   }
   100% {
-    transform: scale(1) translateY(0);
+    transform: none;
     opacity: 1;
     filter: blur(0);
   }
 }
 
 .stage-exit-video-anim {
-  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  animation: stage-exit-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 .stage-enter-video-anim {
-  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  animation: stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 /* #team-header lives outside .stage-main (fixed side panel); match pitch fade without resetting translateX. */
@@ -101,41 +101,6 @@
   animation: team-header-stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
-/* Shorts: fade only ג€” no transform on #team-header (Vol / clear use position:fixed vs viewport). */
-@keyframes team-header-stage-exit-video-reveal-shorts {
-  0% {
-    transform: none;
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    transform: none;
-    opacity: 0;
-    filter: blur(6px);
-  }
-}
-
-@keyframes team-header-stage-enter-video-reveal-shorts {
-  0% {
-    transform: none;
-    opacity: 0;
-    filter: blur(6px);
-  }
-  100% {
-    transform: none;
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-body.shorts-mode .team-header.team-header-stage-exit-video-anim {
-  animation: team-header-stage-exit-video-reveal-shorts 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
-}
-
-body.shorts-mode .team-header.team-header-stage-enter-video-anim {
-  animation: team-header-stage-enter-video-reveal-shorts 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
-}
-
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
 @keyframes logo-bounce-out {
   0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
@@ -161,11 +126,9 @@ body.shorts-mode .team-header.team-header-stage-enter-video-anim {
   100% { transform: translate(45vw, -39.5vh) scale(0.3); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
-  animation: none !important;
-  transform: translate(45vw, -39.5vh) scale(0.3);
-  opacity: 0.85;
-  filter: blur(0);
+  animation: logo-shift-top-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
+
 /* ג”€ג”€ Grid Transition Overlay ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .grid-transition-overlay {
   position: fixed;
@@ -243,35 +206,184 @@ body.shorts-mode .team-header.team-header-stage-enter-video-anim {
 }
 
 /* ג”€ג”€ Skew Wipe Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
-.skew-transition-overlay {
-  position: fixed;
-  top: 0;
-  left: -25%;
-  width: 150%;
+/* ── New Transition Effects ─────────────────────────────────── */
+:root {
+  --new-fx-color: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+}
+
+/* shared base */
+.new1-overlay, .new5-overlay,
+.new15-overlay, .new18-overlay, .new19-overlay, .new20-overlay {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0;
+  overflow: hidden;
+}
+
+/* new 1 — Cloud Drift */
+.new1-overlay { perspective: 1000px; }
+.new1-overlay .new1-back {
+  position: absolute; inset: 0;
+  background: var(--new-fx-color);
+}
+.new1-overlay .new1-cloud {
+  position: absolute; left: 50%; top: 50%;
+  width: 38vw; height: 38vw;
+  margin-left: -19vw; margin-top: -19vw;
+  background: radial-gradient(circle at 50% 50%, var(--new-fx-color) 0%, var(--new-fx-color) 35%, transparent 70%);
+  filter: blur(14px);
+  will-change: transform, opacity;
+}
+
+/* new 5 — Pixel Pop */
+.new5-overlay { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); }
+.new5-overlay .new5-back {
+  position: absolute; inset: 0;
+  background: var(--new-fx-color);
+  grid-column: 1 / -1; grid-row: 1 / -1;
+}
+.new5-overlay .new5-px {
+  background: var(--new-fx-color);
+  will-change: transform, opacity;
+}
+
+/* new 15 — Slab Squash */
+.new15-overlay { display: flex; }
+.new15-overlay .new15-slab {
+  flex: 1 1 0;
   height: 100%;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0;
-  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
-  transform: scaleX(0) skewX(-40deg);
-  transform-origin: left;
+  background: var(--new-fx-color);
   will-change: transform;
 }
 
-/* ג”€ג”€ Shorts Mode: constrain transitions to 9:16 viewport ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
+/* new 18 — Wave Bars */
+.new18-overlay { display: flex; flex-direction: column; }
+.new18-overlay .new18-bar {
+  width: 100%;
+  flex: 1 1 0;
+  background: var(--new-fx-color);
+  will-change: transform;
+}
+
+/* new 19 — Radial Tiles */
+.new19-overlay { display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(9, 1fr); }
+.new19-overlay .new19-cell {
+  background: var(--new-fx-color);
+  will-change: transform;
+}
+
+/* new 20 — Zigzag Slats */
+.new20-overlay { display: flex; }
+.new20-overlay .new20-slat {
+  flex: 1 1 0;
+  height: 100%;
+  background: var(--new-fx-color);
+  will-change: transform;
+}
+
+/* ── Second batch of new transitions ──────────────────────────── */
+.n2-2-overlay, .n2-3-overlay, .n2-6-overlay, .n2-7-overlay, .n2-8-overlay,
+.n2-11-overlay, .n2-13-overlay, .n2-15-overlay, .n2-17-overlay {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0;
+  overflow: hidden;
+}
+
+/* Spiral Tiles */
+.n2-2-overlay { display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(7, 1fr); }
+.n2-2-overlay .n2-2-cell { background: var(--new-fx-color); will-change: transform; }
+
+/* Diamond Burst */
+.n2-3-overlay { display: grid; grid-template-columns: repeat(11, 1fr); grid-template-rows: repeat(6, 1fr); }
+.n2-3-overlay .n2-3-dia { background: var(--new-fx-color); will-change: transform; }
+.n2-3-overlay .n2-3-back {
+  position: absolute; inset: 0;
+  background: var(--new-fx-color);
+  grid-column: 1 / -1; grid-row: 1 / -1;
+  will-change: opacity;
+}
+
+/* Slot Drop */
+.n2-6-overlay { display: flex; }
+.n2-6-overlay .n2-6-strip { flex: 1 1 0; height: 100%; background: var(--new-fx-color); will-change: transform; }
+
+/* Door Slide */
+.n2-7-overlay .n2-7-left {
+  position: absolute; top: 0; left: 0;
+  width: 50.5%; height: 100%;
+  background: var(--new-fx-color);
+  will-change: transform;
+}
+.n2-7-overlay .n2-7-right {
+  position: absolute; top: 0; left: 50%;
+  width: 50.5%; height: 100%;
+  background: var(--new-fx-color);
+  will-change: transform;
+}
+
+/* Vertical Blinds */
+.n2-8-overlay { display: flex; }
+.n2-8-overlay .n2-8-blind { flex: 1 1 0; height: 100%; background: var(--new-fx-color); will-change: transform; }
+
+/* Triangle Wedges */
+.n2-11-overlay .n2-11-tri {
+  position: absolute; inset: 0;
+  background: var(--new-fx-color);
+  will-change: transform;
+}
+.n2-11-overlay .n2-11-tri-t { clip-path: polygon(0 0, 100% 0, 50% 51%); }
+.n2-11-overlay .n2-11-tri-r { clip-path: polygon(100% 0, 100% 100%, 49% 50%); }
+.n2-11-overlay .n2-11-tri-b { clip-path: polygon(0 100%, 100% 100%, 50% 49%); }
+.n2-11-overlay .n2-11-tri-l { clip-path: polygon(0 0, 0 100%, 51% 50%); }
+
+/* Quadrant Slam */
+.n2-13-overlay .n2-13-q {
+  position: absolute;
+  width: 50.5%; height: 50.5%;
+  background: var(--new-fx-color);
+  will-change: transform;
+}
+.n2-13-overlay .n2-13-q-tl { top: 0; left: 0; }
+.n2-13-overlay .n2-13-q-tr { top: 0; right: 0; }
+.n2-13-overlay .n2-13-q-bl { bottom: 0; left: 0; }
+.n2-13-overlay .n2-13-q-br { bottom: 0; right: 0; }
+
+/* Checker Flash */
+.n2-15-overlay { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); }
+.n2-15-overlay .n2-15-cell { background: var(--new-fx-color); will-change: transform; }
+
+/* Snake Path */
+.n2-17-overlay { display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(7, 1fr); }
+.n2-17-overlay .n2-17-cell { background: var(--new-fx-color); will-change: transform; }
+
+/* ── Shorts mode: constrain every transition overlay to the 9:16 viewport ── */
 body.shorts-mode .grid-transition-overlay,
 body.shorts-mode .bars-transition-overlay,
-body.shorts-mode .curtain-transition-overlay {
+body.shorts-mode .curtain-transition-overlay,
+body.shorts-mode .new1-overlay,
+body.shorts-mode .new5-overlay,
+body.shorts-mode .new15-overlay,
+body.shorts-mode .new18-overlay,
+body.shorts-mode .new19-overlay,
+body.shorts-mode .new20-overlay,
+body.shorts-mode .n2-2-overlay,
+body.shorts-mode .n2-3-overlay,
+body.shorts-mode .n2-6-overlay,
+body.shorts-mode .n2-7-overlay,
+body.shorts-mode .n2-8-overlay,
+body.shorts-mode .n2-11-overlay,
+body.shorts-mode .n2-13-overlay,
+body.shorts-mode .n2-15-overlay,
+body.shorts-mode .n2-17-overlay {
   inset: auto;
   top: 0;
-  left: calc((100vw - min(56.25vh, 100vw)) / 2);
+  left: 50%;
+  margin-left: calc(min(56.25vh, 100vw) / -2);
   width: min(56.25vh, 100vw);
   height: 100vh;
 }
 
-body.shorts-mode .skew-transition-overlay {
-  --shorts-w: min(56.25vh, 100vw);
-  left: calc((100vw - var(--shorts-w)) / 2 - var(--shorts-w) * 0.25);
-  width: calc(var(--shorts-w) * 1.5);
-  height: 100vh;
+/* Diamond Burst: rotate the grid for the 9:16 viewport so cells stay roughly square
+   and the rotated diamonds tile without visible triangular gaps. */
+body.shorts-mode .n2-3-overlay {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(11, 1fr);
 }
+

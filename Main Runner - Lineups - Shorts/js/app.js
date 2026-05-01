@@ -1,4 +1,4 @@
-import { FORMATIONS } from "./formations.js";
+﻿import { FORMATIONS } from "./formations.js";
 import { appState, clearSlotPhotoIndices, getState, initLevels } from "./state.js";
 import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
@@ -54,10 +54,51 @@ const PERFORMANCE_MODE_SESSION_KEY = "lineups:performance-mode";
 const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
 const PERFORMANCE_MODE_QUERY_VALUES = new Set(["1", "true", "on", "yes"]);
 const PERFORMANCE_MODE_QUERY_OFF_VALUES = new Set(["0", "false", "off", "no"]);
+const QUIZ_TYPE_DEFAULT_THEME = {
+    "nat-by-club": { colorId: "quiz-nat-by-club", effectId: "youtube-thumbnails", opacity: 0.5, transitionId: "n2-11" },
+    "club-by-nat": { colorId: "quiz-club-by-nat", effectId: "youtube-thumbnails", opacity: 0.5, transitionId: "n2-13" },
+};
 
 const HEADER_LOGO_NUDGE_STEP = 6;
 const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
 const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
+
+function applyDefaultThemeForCurrentQuizType() {
+    const quizType = String(appState?.els?.inQuizType?.value || "").trim();
+    const theme = QUIZ_TYPE_DEFAULT_THEME[quizType];
+    if (!theme) return;
+    const colorSel = document.getElementById("in-background-color");
+    const effectSel = document.getElementById("in-background-effect");
+    const opacityInput = document.getElementById("in-background-opacity");
+    const transitionSel = document.getElementById("in-transition-effect");
+
+    /* Set color/effect first and dispatch their change events. The color-change
+       listener inside the shared background module auto-resets opacity to the
+       saved profile for that color, so we set our desired opacity AFTER that
+       chain runs to avoid being clobbered. */
+    if (colorSel && theme.colorId) colorSel.value = theme.colorId;
+    if (effectSel && theme.effectId) effectSel.value = theme.effectId;
+
+    if (colorSel) colorSel.dispatchEvent(new Event("change"));
+    if (effectSel) effectSel.dispatchEvent(new Event("change"));
+
+    if (opacityInput && theme.opacity != null) {
+        opacityInput.value = String(theme.opacity);
+        opacityInput.dispatchEvent(new Event("input"));
+    }
+
+    if (transitionSel && theme.transitionId) {
+        transitionSel.value = theme.transitionId;
+        transitionSel.dispatchEvent(new Event("change"));
+    }
+
+    /* The native <select>s are wrapped by a custom-select widget that mirrors the
+       selected option's text into a separate `.custom-select-trigger` element.
+       Setting `select.value` programmatically updates the underlying value but
+       does NOT refresh the custom trigger — re-running applyCustomSelects re-renders
+       all custom triggers from current values. */
+    applyCustomSelects();
+}
 
 function shouldBypassSessionJsonCache() {
     return !!window.__RUNNER_LIVE_RELOAD__;
@@ -841,7 +882,7 @@ async function init() {
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
         document.getElementById("in-background-opacity"),
-        document.getElementById("btn-save-background-opacity"),
+        { forcedDefaults: { colorId: "quiz-nat-by-club", effectId: "youtube-thumbnails", opacity: 0.5 } },
     );
     const bgColorSel = document.getElementById("in-background-color");
     const bgEffectSel = document.getElementById("in-background-effect");
@@ -896,6 +937,10 @@ async function init() {
         )
         : 1;
     switchLevel(initialLevelIndex);
+    /* Apply the per-quiz-type theme after the quiz type has been populated/restored,
+       so the runner loads with the correct defaults for whichever quiz type is active
+       (instead of just the runner's generic init forced defaults). */
+    applyDefaultThemeForCurrentQuizType();
     syncShortsModeFab();
     initSavedTeamLayouts();
 
@@ -958,6 +1003,7 @@ async function init() {
 
     // Listeners
     els.inQuizType.onchange = () => {
+        applyDefaultThemeForCurrentQuizType();
         updateSetupUI();
         updateLanding();
         renderSavedScripts();
@@ -1115,6 +1161,11 @@ async function init() {
         if (isProdMode()) {
             const result = runProdValidation();
             if (!result.allPassed) { showValidationModal(result); return; }
+        }
+        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+        if (els.videoModeToggle && !els.videoModeToggle.checked) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
         }
         startVideoFlow();
     };

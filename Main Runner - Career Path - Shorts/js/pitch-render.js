@@ -1592,15 +1592,6 @@ export function renderCareer() {
     }
   }
 
-  const previewCfg = appState.careerShortsCirclePreview || { enabled: false, count: 5 };
-  const shortsPreviewActive =
-    isShorts &&
-    previewCfg.enabled === true &&
-    Number(previewCfg.count) >= 1;
-  const previewClubCount = shortsPreviewActive
-    ? Math.min(24, Math.max(1, Math.round(Number(previewCfg.count))))
-    : 0;
-
   const isWithoutClub = (name) => {
     const n = String(name || "").toLowerCase().replace(/\s+/g, " ").trim();
     return n.includes("without club");
@@ -1611,7 +1602,6 @@ export function renderCareer() {
     state.careerHistory = history;
   }
   let n = history.length > 0 ? history.length : (state.careerClubsCount || 5);
-  if (shortsPreviewActive) n = previewClubCount;
 
   const slotScales = ensureCareerSlotBadgeScalesForMode(state, n, isShorts);
   ensureCareerSlotYearNudges(state, n);
@@ -1640,11 +1630,10 @@ export function renderCareer() {
 
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
-  const showShortsCareerGrid = hasRealPlayer || shortsPreviewActive;
-  if (!hasRealPlayer && !shortsPreviewActive) {
+  if (!hasRealPlayer) {
     n = 0;
   }
-  wrap.classList.toggle("career-no-player", !hasRealPlayer && !shortsPreviewActive);
+  wrap.classList.toggle("career-no-player", !hasRealPlayer);
   const readyPhotoClub = hasRealPlayer ? careerReadyPhotoClubName(state) : "";
   const readyPhotoVariantIdx = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
   const readyPhotoPick = hasRealPlayer
@@ -1812,7 +1801,7 @@ export function renderCareer() {
     });
     ro.observe(svg);
   }
-  if (!hasRealPlayer && !shortsPreviewActive && !state.isOutro) {
+  if (!hasRealPlayer && !state.isOutro) {
     document.getElementById("career-inline-player-picker")?.remove();
     const picker = document.createElement("div");
     picker.id = "career-inline-player-picker";
@@ -2309,7 +2298,7 @@ export function renderCareer() {
   };
 
   if (isShorts) {
-    if (showShortsCareerGrid) {
+    if (hasRealPlayer) {
       const gridContainer = document.createElement("div");
       gridContainer.className = "career-grid career-grid--shorts-split";
       /* data-team-count drives css/modes/shorts-career-club-count-map.css */
@@ -2387,9 +2376,7 @@ export function renderCareer() {
     revealFallback.className = "career-reveal-photo-fallback";
   revealFallback.textContent = hasRealPlayer
     ? CAREER_NO_PHOTO_LABEL
-    : shortsPreviewActive
-      ? "Size preview"
-      : CAREER_NO_PLAYER_LABEL;
+    : CAREER_NO_PLAYER_LABEL;
 
     const updateShortsTallRevealClass = () => {
       const w = Number(revealImg.naturalWidth || 0);
@@ -2606,9 +2593,7 @@ export function renderCareer() {
     revealOverlayFallback.className = "career-reveal-overlay-fallback";
     revealOverlayFallback.textContent = hasRealPlayer
       ? CAREER_NO_PHOTO_LABEL
-      : shortsPreviewActive
-        ? "Size preview"
-        : CAREER_NO_PLAYER_LABEL;
+      : CAREER_NO_PLAYER_LABEL;
 
     if (hasRealPlayer) {
       revealOverlayImg.hidden = true;

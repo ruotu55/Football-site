@@ -1,4 +1,4 @@
-import { appState, getState } from "./state.js";
+﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
 import { buildTeamNameVoiceSrc } from "./audio.js";
 import { pickStartingXI } from "./pick-xi.js";
@@ -131,7 +131,7 @@ function validateEndingType() {
 }
 
 export function runProdValidation() {
-    const sections = [validateTeamsSelected(), validateTeamAssets(), validateBackgroundColor(), validateTransition(), validateSpecificTitle(), validateEndingType()];
+    const sections = [validateTeamsSelected(), validateTeamAssets(), validateSpecificTitle(), validateEndingType()];
     return { allPassed: sections.every((s) => s.passed), sections };
 }
 

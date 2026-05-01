@@ -13,12 +13,12 @@ export function setCurrentLanguage(lang) { const n = SUPPORTED_LANGUAGES.include
 
 const QUIZ_TYPE_PROMPTS = {
   english: {
-    "player-by-career-stats":   "Hey everyone, let's start. ... GUESS THE PLAYER BY CAREER STATS!!",
-    "player-by-career":         "Hey everyone, let's start. ... GUESS THE FOOTBALL PLAYER BY CAREER PATH!!",
+    "player-by-career-stats":   "GUESS THE PLAYER BY CAREER STATS",
+    "player-by-career":         "GUESS THE FOOTBALL PLAYER BY CAREER PATH",
   },
   spanish: {
-    "player-by-career-stats":   "Hola a todos, empecemos. ... ¡¡ADIVINA AL JUGADOR POR ESTADÍSTICAS DE CARRERA!!",
-    "player-by-career":         "Hola a todos, empecemos. ... ¡¡ADIVINA AL JUGADOR POR TRAYECTORIA!!",
+    "player-by-career-stats":   "ADIVINA AL JUGADOR POR ESTADÍSTICAS DE CARRERA",
+    "player-by-career":         "ADIVINA AL JUGADOR POR TRAYECTORIA",
   },
 };
 const ENDING_PROMPTS = {

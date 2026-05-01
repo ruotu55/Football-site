@@ -1,4 +1,4 @@
-import { appState, getState } from "./state.js";
+﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
 
 let prodModeActive = false;
@@ -116,7 +116,7 @@ function validateEndingType() {
 }
 
 export function runProdValidation() {
-    const sections = [validatePlayersSelected(), validatePlayerAssets(), validateBackgroundColor(), validateTransition(), validateSpecificTitle(), validateEndingType()];
+    const sections = [validatePlayersSelected(), validatePlayerAssets(), validateSpecificTitle(), validateEndingType()];
     return { allPassed: sections.every((s) => s.passed), sections };
 }
 

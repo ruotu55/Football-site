@@ -1,4 +1,4 @@
-import {
+﻿import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
@@ -24,7 +24,7 @@ import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
-import { initTransitionsUI } from "./transitions.js";
+import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { isProdMode, toggleProdMode, runProdValidation, showValidationModal, markBackgroundColorConfirmed, markBackgroundEffectConfirmed } from "./prod-validation.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
@@ -734,7 +734,7 @@ async function init() {
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
         document.getElementById("in-background-opacity"),
-        document.getElementById("btn-save-background-opacity"),
+        { forcedDefaults: { colorId: "quiz-career-path", effectId: "sun-rays-center", opacity: 4 } },
     );
     document.getElementById("in-background-color")?.addEventListener("change", () => markBackgroundColorConfirmed());
     document.getElementById("in-background-effect")?.addEventListener("change", () => markBackgroundEffectConfirmed());
@@ -755,6 +755,15 @@ async function init() {
     // Call initialized modules
     initLevelControls();
     initTransitionsUI();
+    // Default transition for this quiz type
+    {
+        transitionSettings.effect = "grid-overlay";
+        const transitionSel = document.getElementById("in-transition-effect");
+        if (transitionSel) {
+            transitionSel.value = "grid-overlay";
+            transitionSel.dispatchEvent(new Event("change"));
+        }
+    }
     initSavedScripts({
         populateSubTypes,
         updateSetupUI,
@@ -1071,6 +1080,11 @@ async function init() {
             }
         }
         renderLandingTitleVoiceControls();
+        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+        if (els.videoModeToggle && !els.videoModeToggle.checked) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        }
         startVideoFlow();
         setTimeout(() => {
             renderLandingTitleVoiceControls();
@@ -1275,8 +1289,9 @@ async function init() {
 
             const uniqueMap = new Map();
             allPlayers.forEach(p => {
-                if (!uniqueMap.has(p.name)) {
-                    uniqueMap.set(p.name, p);
+                const key = `${p.name}__${p?._clubItem?.name || ""}`;
+                if (!uniqueMap.has(key)) {
+                    uniqueMap.set(key, p);
                 }
             });
             const uniquePlayers = Array.from(uniqueMap.values());

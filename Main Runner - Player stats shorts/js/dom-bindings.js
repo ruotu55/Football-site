@@ -85,9 +85,6 @@ export function bindDomElements() {
     els.quizProgressContainer = document.getElementById("quiz-progress-container");
     els.sideTextRight = document.getElementById("side-text-right");
     els.shortsModeToggle = document.getElementById("shorts-mode-toggle");
-    els.setupShortsCirclePreviewField = document.getElementById("setup-shorts-circle-preview-field");
-    els.shortsCirclePreviewToggle = document.getElementById("shorts-circle-preview-toggle");
-    els.shortsCirclePreviewCount = document.getElementById("shorts-circle-preview-count");
     els.searchMode = document.getElementById("search-mode");
     els.btnLevelsControl = document.getElementById("btn-levels-control");
     els.rightPanel = document.getElementById("right-panel");

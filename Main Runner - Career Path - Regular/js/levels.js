@@ -330,7 +330,9 @@ export function switchLevel(index) {
     // so they're in the RAM cache when renderCareer() runs mid-transition
     preloadCareerAssets(state);
 
-    const useCustomTransition = transitionSettings.effect !== "none";
+    // Landing → first quiz always uses Cloud Drift, even if user picked "none".
+    const isLandingToFirstQuiz = prevIndex === 1 && index === 2;
+    const useCustomTransition = isLandingToFirstQuiz || transitionSettings.effect !== "none";
 
     if (useCustomTransition) {
       stageMain.classList.remove("stage-exit-anim", "stage-exit-video-anim", "stage-enter-anim", "stage-enter-video-anim");
@@ -338,6 +340,7 @@ export function switchLevel(index) {
         progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
         progressContainer.classList.add(isShorts ? "progress-out-shorts" : "progress-out-reg");
       }
+      const forceEffectId = isLandingToFirstQuiz ? "new-1" : null;
       appState._transitionDone = runTransition(() => {
         updateDOMContent();
         if (progressContainer) {
@@ -345,7 +348,7 @@ export function switchLevel(index) {
           void progressContainer.offsetWidth;
           progressContainer.classList.add(isShorts ? "progress-in-shorts" : "progress-in-reg");
         }
-      });
+      }, forceEffectId);
     } else {
       const exitClass = "stage-exit-video-anim";
       const enterClass = "stage-enter-video-anim";

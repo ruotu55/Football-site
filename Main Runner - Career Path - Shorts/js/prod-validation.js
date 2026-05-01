@@ -1,4 +1,4 @@
-import { appState, getState } from "./state.js";
+﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
 
 // ── PROD mode state ──
@@ -239,8 +239,6 @@ export function runProdValidation() {
         validateCareerPlayerSelected(),
         validateCareerHistory(),
         validatePlayerImages(),
-        validateBackgroundColor(),
-        validateTransition(),
         validateSpecificTitle(),
         validateEndingType(),
     ];

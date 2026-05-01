@@ -1,4 +1,4 @@
-import {
+﻿import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
@@ -25,7 +25,7 @@ import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
-import { initTransitionsUI } from "./transitions.js";
+import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import {
     isProdMode,
     toggleProdMode,
@@ -650,35 +650,6 @@ export function updateLanding() {
     }
 }
 
-export function syncShortsCirclePreviewPanel() {
-    const { els } = appState;
-    const shortsOn = document.body.classList.contains("shorts-mode");
-    if (els.setupShortsCirclePreviewField) {
-        els.setupShortsCirclePreviewField.style.display = shortsOn ? "flex" : "none";
-    }
-    if (els.shortsCirclePreviewToggle) {
-        els.shortsCirclePreviewToggle.disabled = !shortsOn;
-    }
-    if (els.shortsCirclePreviewCount) {
-        const prevOn = shortsOn && els.shortsCirclePreviewToggle && els.shortsCirclePreviewToggle.checked;
-        els.shortsCirclePreviewCount.disabled = !prevOn;
-    }
-}
-
-export function applyShortsCirclePreviewFromControls() {
-    const { els } = appState;
-    if (!els.shortsCirclePreviewToggle || !els.shortsCirclePreviewCount) return;
-    const shortsOn = document.body.classList.contains("shorts-mode");
-    let count = parseInt(els.shortsCirclePreviewCount.value, 10);
-    if (!Number.isFinite(count) || count < 1) count = 1;
-    if (count > 24) count = 24;
-    els.shortsCirclePreviewCount.value = String(count);
-    const enabled = shortsOn && els.shortsCirclePreviewToggle.checked;
-    appState.careerShortsCirclePreview = { enabled, count };
-    renderCareer();
-    renderHeader();
-}
-
 // ==========================================
 // CORE SYSTEM INIT
 // ==========================================
@@ -705,7 +676,7 @@ async function init() {
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
         document.getElementById("in-background-opacity"),
-        document.getElementById("btn-save-background-opacity"),
+        { forcedDefaults: { colorId: "quiz-career-path", effectId: "sun-rays-center", opacity: 4 } },
     );
     {
         const bgColorSel = document.getElementById("in-background-color");
@@ -730,11 +701,19 @@ async function init() {
     // Call initialized modules
     initLevelControls();
     initTransitionsUI();
+    // Default transition for this quiz type
+    {
+        transitionSettings.effect = "grid-overlay";
+        const transitionSel = document.getElementById("in-transition-effect");
+        if (transitionSel) {
+            transitionSel.value = "grid-overlay";
+            transitionSel.dispatchEvent(new Event("change"));
+        }
+    }
     initSavedScripts({
         populateSubTypes,
         updateSetupUI,
         updateLanding,
-        syncShortsCirclePreviewPanel,
     });
 
     const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 4);
@@ -749,7 +728,6 @@ async function init() {
           ? 0
           : 1;
     switchLevel(initialLevelIndex);
-    syncShortsCirclePreviewPanel();
     syncShortsModeFab();
 
     const updateLogoForLanguage = () => {
@@ -876,17 +854,6 @@ async function init() {
         switchLevel(appState.currentLevelIndex);
     };
 
-    if (els.shortsCirclePreviewToggle) {
-        els.shortsCirclePreviewToggle.onchange = () => {
-            applyShortsCirclePreviewFromControls();
-            syncShortsCirclePreviewPanel();
-        };
-    }
-    if (els.shortsCirclePreviewCount) {
-        els.shortsCirclePreviewCount.addEventListener("input", applyShortsCirclePreviewFromControls);
-        els.shortsCirclePreviewCount.addEventListener("change", applyShortsCirclePreviewFromControls);
-    }
-
     els.shortsModeToggle.onchange = (e) => {
         const state = getState();
         const wasShorts = document.body.classList.contains("shorts-mode");
@@ -896,8 +863,6 @@ async function init() {
         document.documentElement.classList.toggle("shorts-mode", e.target.checked);
         applyCareerPictureModeToActiveState(state, e.target.checked);
         updateLanding();
-        syncShortsCirclePreviewPanel();
-        applyShortsCirclePreviewFromControls();
         switchLevel(appState.currentLevelIndex);
         syncShortsModeFab();
     };
@@ -1025,6 +990,11 @@ async function init() {
                 showValidationModal(result);
                 return;
             }
+        }
+        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+        if (els.videoModeToggle && !els.videoModeToggle.checked) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
         }
         startVideoFlow();
     };
@@ -1208,8 +1178,9 @@ async function init() {
 
             const uniqueMap = new Map();
             allPlayers.forEach(p => {
-                if (!uniqueMap.has(p.name)) {
-                    uniqueMap.set(p.name, p);
+                const key = `${p.name}__${p?._clubItem?.name || ""}`;
+                if (!uniqueMap.has(key)) {
+                    uniqueMap.set(key, p);
                 }
             });
             const uniquePlayers = Array.from(uniqueMap.values());

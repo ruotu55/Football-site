@@ -1,16 +1,16 @@
 /* css/components/pitch.css */
 
 .pitch-wrap {
-  width: 100%; 
+  width: 100%;
   /* Base state (Restored to 66vh so Shorts mode does not break) */
-  height: 66vh; 
+  height: 66vh;
   perspective: 1200px;
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   flex-shrink: 0;
   position: relative;
-  margin: 0; 
+  margin: 0;
   /* Duration overridden in play video reveal to match flip-card timing (see syncPitchWrapTransitionToVideoReveal). */
   transition: height var(--pitch-wrap-height-duration, 0.78s) cubic-bezier(0.25, 1, 0.5, 1),
     transform var(--pitch-wrap-height-duration, 0.78s) cubic-bezier(0.25, 1, 0.5, 1);

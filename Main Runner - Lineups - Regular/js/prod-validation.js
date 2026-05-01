@@ -1,4 +1,4 @@
-import { appState, getState } from "./state.js";
+﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
 import { buildTeamNameVoiceSrc } from "./audio.js";
 import { pickStartingXI } from "./pick-xi.js";
@@ -272,8 +272,6 @@ export function runProdValidation() {
     const sections = [
         validateTeamsSelected(),
         validateTeamAssets(),
-        validateBackgroundColor(),
-        validateTransition(),
         validateSpecificTitle(),
         validateEndingType(),
     ];
