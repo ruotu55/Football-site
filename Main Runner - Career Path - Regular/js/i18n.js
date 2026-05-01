@@ -1,4 +1,4 @@
-/* i18n.js — translation map and applier for Career Path Regular.
+﻿/* i18n.js — translation map and applier for Career Path Regular.
    Listens for the `voice-language-change` event dispatched by voice-tab.js
    (via setCurrentLanguage) and updates all visible quiz UI text in place. */
 
@@ -15,7 +15,7 @@ const TRANSLATIONS = {
     progressDiffEasy: "EASY",
     progressDiffHard: "HARD",
     bonus: "BONUS",
-    sideText: "THE FOOTBALL LAB",
+    sideText: "ULTIMATE FOOTBALL QUIZ",
     outroThinkYouKnow: "THINK YOU KNOW THE ANSWER?",
     outroHowMany: "HOW MANY DID YOU GET?",
     outroSubtitle: "LET US KNOW IN THE COMMENTS!",
@@ -30,7 +30,7 @@ const TRANSLATIONS = {
     progressDiffEasy: "FÁCIL",
     progressDiffHard: "DIFÍCIL",
     bonus: "BONUS",
-    sideText: "EL LABORATORIO DE FÚTBOL",
+    sideText: "El Gran Test de Fútbol",
     outroThinkYouKnow: "¿CREES SABER LA RESPUESTA?",
     outroHowMany: "¿CUÁNTAS ACERTASTE?",
     outroSubtitle: "¡DÍNOSLO EN LOS COMENTARIOS!",
@@ -84,7 +84,7 @@ export function applyTranslations() {
     progressLabels[1].textContent = t("progressDiffHard");
   }
 
-  /* Side text (vertical "THE FOOTBALL LAB" labels on left and right). */
+  /* Side text (vertical "ULTIMATE FOOTBALL QUIZ" labels on left and right). */
   const sideLeft = document.getElementById("side-text-left");
   const sideRight = document.getElementById("side-text-right");
   if (sideLeft) sideLeft.textContent = t("sideText");

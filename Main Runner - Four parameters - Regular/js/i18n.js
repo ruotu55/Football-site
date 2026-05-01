@@ -1,4 +1,4 @@
-/* i18n.js — translation map and applier for Four Parameters Regular. */
+﻿/* i18n.js — translation map and applier for Four Parameters Regular. */
 
 import { getCurrentLanguage } from "./voice-tab.js";
 
@@ -14,7 +14,7 @@ const TRANSLATIONS = {
     progressDiffEasy: "EASY",
     progressDiffHard: "HARD",
     bonus: "BONUS",
-    sideText: "THE FOOTBALL LAB",
+    sideText: "ULTIMATE FOOTBALL QUIZ",
     outroThinkYouKnow: "THINK YOU KNOW THE ANSWER?",
     outroHowMany: "HOW MANY DID YOU GET?",
     outroSubtitle: "LET US KNOW IN THE COMMENTS!",
@@ -33,7 +33,7 @@ const TRANSLATIONS = {
     progressDiffEasy: "FÁCIL",
     progressDiffHard: "DIFÍCIL",
     bonus: "BONUS",
-    sideText: "EL LABORATORIO DE FÚTBOL",
+    sideText: "El Gran Test de Fútbol",
     outroThinkYouKnow: "¿CREES SABER LA RESPUESTA?",
     outroHowMany: "¿CUÁNTAS ACERTASTE?",
     outroSubtitle: "¡DÍNOSLO EN LOS COMENTARIOS!",
