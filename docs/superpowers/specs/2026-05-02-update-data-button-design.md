@@ -101,8 +101,8 @@ Only one job runs at a time. A second `start` call while `status == "running"` r
 
 For every incoming `path`:
 
-1. Resolve to an absolute path under `project_root / ".Storage" / "Squad Formation" / "Teams"`.
-2. Reject anything outside that subtree (Path traversal).
+1. Strip a leading `../` (the runner-relative form the frontend's `teams-index.json` uses) and resolve to an absolute path.
+2. Reject anything not under `project_root / ".Storage" / "Squad Formation" / "Teams"` **or** `project_root / ".Storage" / "Squad Formation" / "Nationalities"` — both are valid because Lineups runners pick from both subtrees.
 3. Reject if not a `.json` file or doesn't exist.
 
 Failed validation aborts the whole `start` request with HTTP 400 (no partial worker started).
@@ -121,7 +121,7 @@ The thread runs `asyncio.run(_refresh_all(...))`:
    - Update `_JOB["current"]` to the team's `name` field from the JSON (e.g. `"Arsenal FC"`, `"France"`) **before** the network call. If `name` is missing, fall back to the file stem.
    - Dispatch:
      - **`kind == "club"`**: call `fetch_squad_payload(tmkt, cid, …, national_team_squad=False, …)` → `_serialize_squad(kind="club", …)`.
-     - **`kind == "national"`**: call `fetch_squad_payload(tmkt, nat_id, …, national_team_squad=True, …)` → `_serialize_squad(kind="national", …)`.
+     - **`kind == "nationality"`**: call `fetch_squad_payload(tmkt, nat_id, …, national_team_squad=True, …)` → `_serialize_squad(kind="nationality", …)`. (The legacy national-team scripts use the literal string `"nationality"`; the country JSONs on disk also have `kind: "nationality"`.)
      - Other / unknown `kind`: count as failure with `error="unsupported kind: <kind>"`.
    - Write the resulting payload to the same file path with `json.dumps(..., indent=2, ensure_ascii=False) + "\n"`.
    - Increment `_JOB["done"]` and either `ok_count` or append to `failed[]`.
