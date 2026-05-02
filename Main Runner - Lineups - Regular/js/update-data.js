@@ -4,6 +4,9 @@ const POLL_INTERVAL_MS = 500;
 
 let pollTimer = null;
 let activeJobId = null;
+let consecutivePollFailures = 0;
+const POLL_FAILURE_THRESHOLD = 5;
+let resumed409 = false;
 
 function $(id) {
   return document.getElementById(id);
@@ -29,6 +32,7 @@ function setProgressMode(on) {
 
 function resetModalState() {
   clearError();
+  resumed409 = false;
   setProgressMode(false);
   const summary = $("update-data-summary");
   if (summary) {
@@ -86,11 +90,12 @@ function renderProgress(snap) {
   const pct = total > 0 ? Math.min(100, Math.round((done / total) * 100)) : 0;
   if (bar) bar.style.width = pct + "%";
   if (counter) {
+    const prefix = resumed409 ? "Resumed: " : "";
     if (snap.status === "running") {
       const cur = snap.current ? ` — refreshing ${snap.current}…` : "";
-      counter.textContent = `${done} / ${total}${cur}`;
+      counter.textContent = `${prefix}${done} / ${total}${cur}`;
     } else if (snap.status === "done") {
-      counter.textContent = `${done} / ${total} — done`;
+      counter.textContent = `${prefix}${done} / ${total} — done`;
     } else if (snap.status === "error") {
       counter.textContent = `Error: ${snap.error || "unknown error"}`;
     } else {
@@ -143,8 +148,14 @@ async function pollOnce() {
     const res = await fetch(`/__update-data/progress?id=${encodeURIComponent(activeJobId)}`);
     snap = await res.json();
   } catch (err) {
+    consecutivePollFailures += 1;
+    if (consecutivePollFailures >= POLL_FAILURE_THRESHOLD) {
+      const counter = $("update-data-counter");
+      if (counter) counter.textContent = "Connection lost — retrying…";
+    }
     return; // transient; next tick will retry
   }
+  consecutivePollFailures = 0;
   renderProgress(snap);
   if (snap.status === "done" || snap.status === "error" || snap.status === "unknown") {
     stopPolling();
@@ -159,6 +170,7 @@ async function pollOnce() {
 function startPolling(jobId) {
   stopPolling();
   activeJobId = jobId;
+  consecutivePollFailures = 0;
   pollOnce();
   pollTimer = setInterval(pollOnce, POLL_INTERVAL_MS);
 }
@@ -192,6 +204,7 @@ async function applyUpdate() {
     return;
   }
   if (res.status === 409 && body && body.jobId) {
+    resumed409 = true;
     setProgressMode(true);
     startPolling(body.jobId);
     return;

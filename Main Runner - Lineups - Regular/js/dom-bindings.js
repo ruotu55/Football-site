@@ -98,7 +98,5 @@ export function bindDomElements() {
     els.shortsModeToggle = document.getElementById("shorts-mode-toggle");
     els.searchMode = document.getElementById("search-mode");
     els.btnLevelsControl = document.getElementById("btn-levels-control");
-    els.btnUpdateData = document.getElementById("btn-update-data");
-    els.updateDataModal = document.getElementById("update-data-modal");
     els.rightPanel = document.getElementById("right-panel");
 }
