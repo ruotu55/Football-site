@@ -1030,6 +1030,19 @@ def _load_runner_saved_scripts():  # noqa: D401
 
 _runner_saved_mod = _load_runner_saved_scripts()
 
+
+def _load_runner_update_data():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_update_data.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_update_data", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_update_data.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_update_mod = _load_runner_update_data()
+
 _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
 DEFAULT_PORT = 8887
@@ -1739,6 +1752,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
             return
+        if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if self._try_serve_player_voice_status():
             return
         if self._try_serve_quiz_title_voice_status():
@@ -1792,6 +1807,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _runner_update_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if self._try_generate_player_voice():
             return
