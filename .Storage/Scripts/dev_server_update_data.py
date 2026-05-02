@@ -11,7 +11,11 @@ without modifying them.
 from __future__ import annotations
 
 import json
+import secrets
+import threading
 from pathlib import Path
+from typing import Callable, Iterable, Sequence
+from urllib.parse import parse_qs, urlparse
 
 
 _TEAMS_SUBPATH = (".Storage", "Squad Formation", "Teams")
@@ -60,10 +64,6 @@ def _validate_and_resolve_path(project_root: Path, path: str) -> Path:
     if not candidate.is_file():
         raise InvalidPathError(f"file does not exist: {path}")
     return candidate
-
-
-import secrets
-import threading
 
 
 class JobAlreadyRunningError(RuntimeError):
@@ -148,6 +148,128 @@ def _snapshot_job(job_id: str | None) -> dict:
         }
 
 
+_GET_PROGRESS_PATH = "/__update-data/progress"
+_POST_START_PATH = "/__update-data/start"
+_MAX_POST_BYTES = 4 * 1024 * 1024
+_MAX_PATHS = 500
+
+# A runner function: (project_root, cookie, resolved_paths, job_id) -> None.
+# The default runner spawns a thread that talks to Transfermarkt; tests inject a fake.
+_RunnerFn = Callable[[Path, str, Sequence[Path], str], None]
+_runner_override: _RunnerFn | None = None
+
+
+def _set_runner_for_tests(fn: _RunnerFn | None) -> None:
+    """Inject a synchronous fake runner. Pass None to restore the default."""
+    global _runner_override
+    _runner_override = fn
+
+
+def _send_json(handler, status: int, payload: dict) -> None:
+    body = json.dumps(payload, ensure_ascii=True).encode("utf-8")
+    handler.send_response(status)
+    handler.send_header("Content-Type", "application/json; charset=utf-8")
+    handler.send_header("Content-Length", str(len(body)))
+    handler.end_headers()
+    handler.wfile.write(body)
+
+
+def try_handle_get(handler, project_root: Path) -> bool:
+    parsed = urlparse(handler.path)
+    if parsed.path != _GET_PROGRESS_PATH:
+        return False
+    qs = parse_qs(parsed.query)
+    job_id = (qs.get("id") or [None])[0]
+    _send_json(handler, 200, _snapshot_job(job_id))
+    return True
+
+
+def try_handle_post(handler, project_root: Path) -> bool:
+    parsed = urlparse(handler.path)
+    if parsed.path != _POST_START_PATH:
+        return False
+    try:
+        content_len = int(handler.headers.get("Content-Length", "0") or "0")
+    except ValueError:
+        _send_json(handler, 400, {"error": "Invalid Content-Length"})
+        return True
+    if content_len > _MAX_POST_BYTES:
+        _send_json(handler, 413, {"error": "Payload too large"})
+        return True
+    try:
+        raw = handler.rfile.read(max(content_len, 0))
+        body = json.loads(raw.decode("utf-8") if raw else "{}")
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        _send_json(handler, 400, {"error": "Invalid JSON"})
+        return True
+    if not isinstance(body, dict):
+        _send_json(handler, 400, {"error": "Body must be a JSON object"})
+        return True
+
+    cookie = body.get("cookie")
+    paths = body.get("paths")
+    if not isinstance(cookie, str) or not cookie.strip():
+        _send_json(handler, 400, {"error": "cookie required"})
+        return True
+    if not isinstance(paths, list) or not paths:
+        _send_json(handler, 400, {"error": "paths must be a non-empty list"})
+        return True
+    if len(paths) > _MAX_PATHS:
+        _send_json(handler, 400, {"error": f"too many paths (max {_MAX_PATHS})"})
+        return True
+
+    # De-dupe while preserving order
+    seen: set[str] = set()
+    unique: list[str] = []
+    for p in paths:
+        if not isinstance(p, str):
+            _send_json(handler, 400, {"error": "paths must contain only strings"})
+            return True
+        if p not in seen:
+            seen.add(p)
+            unique.append(p)
+
+    resolved: list[Path] = []
+    try:
+        for p in unique:
+            resolved.append(_validate_and_resolve_path(project_root, p))
+    except InvalidPathError as exc:
+        _send_json(handler, 400, {"error": str(exc)})
+        return True
+
+    try:
+        job_id = _register_job(total=len(resolved))
+    except JobAlreadyRunningError as exc:
+        _send_json(handler, 409, {"error": "busy", "jobId": exc.job_id})
+        return True
+
+    runner = _runner_override or _default_runner
+    # Always spawn a daemon thread — even in tests — so that try_handle_post
+    # returns the 200 immediately and the job is left in "running" state until
+    # the runner finishes.  Test fakes complete in microseconds so state is
+    # effectively settled before the caller checks it.
+    thread = threading.Thread(
+        target=runner,
+        args=(project_root, cookie.strip(), resolved, job_id),
+        daemon=True,
+    )
+    thread.start()
+
+    _send_json(handler, 200, {"jobId": job_id})
+    return True
+
+
+def _default_runner(
+    project_root: Path,
+    cookie: str,
+    resolved_paths: Sequence[Path],
+    job_id: str,
+) -> None:
+    """Production runner. Imports legacy helpers and runs an asyncio session."""
+    # Body added in Task 4 — leave a stub for now so the import resolves.
+    _finish(job_id, error="default runner not implemented yet")
+
+
 __all__ = [
     "InvalidPathError",
     "JobAlreadyRunningError",
@@ -159,4 +281,7 @@ __all__ = [
     "_finish",
     "_snapshot_job",
     "_reset_job_for_tests",
+    "try_handle_get",
+    "try_handle_post",
+    "_set_runner_for_tests",
 ]

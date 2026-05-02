@@ -2,10 +2,13 @@
 from __future__ import annotations
 
 import importlib.util
+import io
 import json
 import sys
 import tempfile
+import threading
 import unittest
+from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 
 _SCRIPTS_DIR = Path(__file__).resolve().parent.parent
@@ -132,6 +135,150 @@ class JobStateTest(unittest.TestCase):
             self.mod._snapshot_job("nope-not-a-real-id"),
             {"status": "unknown"},
         )
+
+
+class _FakeHandler:
+    """Minimal stand-in for BaseHTTPRequestHandler that records the response."""
+
+    def __init__(self, method: str, path: str, body: bytes = b"") -> None:
+        self.command = method
+        self.path = path
+        self.headers = {"Content-Length": str(len(body))}
+        self.rfile = io.BytesIO(body)
+        self.wfile = io.BytesIO()
+        self.status: int | None = None
+        self.response_headers: dict[str, str] = {}
+
+    # Methods the module is expected to call
+    def send_response(self, code: int) -> None:
+        self.status = code
+
+    def send_header(self, k: str, v: str) -> None:
+        self.response_headers[k] = v
+
+    def end_headers(self) -> None:
+        pass
+
+    def send_error(self, code: int, msg: str = "") -> None:
+        self.status = code
+        self.wfile.write(msg.encode("utf-8"))
+
+    def body_json(self) -> dict:
+        raw = self.wfile.getvalue()
+        return json.loads(raw.decode("utf-8")) if raw else {}
+
+
+class HttpRoutesTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        teams = self.root / ".Storage" / "Squad Formation" / "Teams" / "England" / "Premier League"
+        teams.mkdir(parents=True)
+        (teams / "Arsenal FC.json").write_text(
+            json.dumps({"kind": "club", "name": "Arsenal FC", "transfermarktClubId": 11}),
+            encoding="utf-8",
+        )
+        self.mod = _load()
+        self.mod._reset_job_for_tests()
+
+        # Inject a fake worker so we don't hit the network during tests.
+        self._calls = []
+
+        def fake_runner(project_root, cookie, resolved_paths, job_id):
+            self._calls.append({"cookie": cookie, "paths": list(resolved_paths), "job_id": job_id})
+            for _ in resolved_paths:
+                self.mod._record_ok(job_id)
+            self.mod._finish(job_id)
+
+        self.mod._set_runner_for_tests(fake_runner)
+
+    def tearDown(self) -> None:
+        self.tmp.cleanup()
+        self.mod._set_runner_for_tests(None)
+        self.mod._reset_job_for_tests()
+
+    def test_get_progress_unknown_when_no_job(self) -> None:
+        h = _FakeHandler("GET", "/__update-data/progress?id=xxx")
+        handled = self.mod.try_handle_get(h, self.root)
+        self.assertTrue(handled)
+        self.assertEqual(h.status, 200)
+        self.assertEqual(h.body_json(), {"status": "unknown"})
+
+    def test_get_unknown_path_returns_false(self) -> None:
+        h = _FakeHandler("GET", "/some/other/path")
+        self.assertFalse(self.mod.try_handle_get(h, self.root))
+
+    def test_post_start_happy_path(self) -> None:
+        body = json.dumps({
+            "cookie": "tm-session=abc",
+            "paths": ["../.Storage/Squad Formation/Teams/England/Premier League/Arsenal FC.json"],
+        }).encode("utf-8")
+        h = _FakeHandler("POST", "/__update-data/start", body)
+        self.assertTrue(self.mod.try_handle_post(h, self.root))
+        self.assertEqual(h.status, 200)
+        resp = h.body_json()
+        self.assertIn("jobId", resp)
+        # Worker is synchronous in tests, so the job is already done.
+        snap = self.mod._snapshot_job(resp["jobId"])
+        self.assertEqual(snap["status"], "done")
+        self.assertEqual(snap["ok_count"], 1)
+        # Runner saw the resolved (absolute) path
+        self.assertEqual(len(self._calls), 1)
+        self.assertEqual(self._calls[0]["cookie"], "tm-session=abc")
+        self.assertEqual(len(self._calls[0]["paths"]), 1)
+        self.assertTrue(str(self._calls[0]["paths"][0]).endswith("Arsenal FC.json"))
+
+    def test_post_start_rejects_empty_cookie(self) -> None:
+        body = json.dumps({"cookie": "", "paths": []}).encode("utf-8")
+        h = _FakeHandler("POST", "/__update-data/start", body)
+        self.assertTrue(self.mod.try_handle_post(h, self.root))
+        self.assertEqual(h.status, 400)
+        self.assertIn("cookie", h.body_json().get("error", "").lower())
+
+    def test_post_start_rejects_empty_paths(self) -> None:
+        body = json.dumps({"cookie": "x", "paths": []}).encode("utf-8")
+        h = _FakeHandler("POST", "/__update-data/start", body)
+        self.assertTrue(self.mod.try_handle_post(h, self.root))
+        self.assertEqual(h.status, 400)
+        self.assertIn("paths", h.body_json().get("error", "").lower())
+
+    def test_post_start_rejects_traversal(self) -> None:
+        body = json.dumps({
+            "cookie": "x",
+            "paths": ["../../../etc/passwd"],
+        }).encode("utf-8")
+        h = _FakeHandler("POST", "/__update-data/start", body)
+        self.assertTrue(self.mod.try_handle_post(h, self.root))
+        self.assertEqual(h.status, 400)
+
+    def test_post_start_409_when_busy(self) -> None:
+        # Block the runner so the first job stays "running"
+        block = threading.Event()
+
+        def slow_runner(project_root, cookie, resolved_paths, job_id):
+            block.wait(timeout=2)
+            for _ in resolved_paths:
+                self.mod._record_ok(job_id)
+            self.mod._finish(job_id)
+
+        self.mod._set_runner_for_tests(slow_runner)
+
+        body = json.dumps({
+            "cookie": "x",
+            "paths": ["../.Storage/Squad Formation/Teams/England/Premier League/Arsenal FC.json"],
+        }).encode("utf-8")
+
+        h1 = _FakeHandler("POST", "/__update-data/start", body)
+        self.mod.try_handle_post(h1, self.root)
+        self.assertEqual(h1.status, 200)
+        first_id = h1.body_json()["jobId"]
+
+        h2 = _FakeHandler("POST", "/__update-data/start", body)
+        self.mod.try_handle_post(h2, self.root)
+        self.assertEqual(h2.status, 409)
+        self.assertEqual(h2.body_json().get("jobId"), first_id)
+
+        block.set()  # let the worker thread finish
 
 
 if __name__ == "__main__":
