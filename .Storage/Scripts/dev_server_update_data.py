@@ -308,8 +308,6 @@ def _default_runner(
         _finish(job_id, error=f"failed importing TMKT: {exc}")
         return
 
-    os.environ["TRANSFERMARKT_COOKIE"] = cookie
-
     nat_map_path = project_root / ".Storage" / "Squad Formation" / "_transfermarkt_nationality_id_map.json"
     nationality_map: dict = {}
     if nat_map_path.is_file():
@@ -318,15 +316,23 @@ def _default_runner(
         except json.JSONDecodeError:
             nationality_map = {}
 
-    asyncio.run(
-        _refresh_all_async(
-            legacy=legacy,
-            tmkt_cls=TMKT,
-            nationality_map=nationality_map,
-            resolved_paths=resolved_paths,
-            job_id=job_id,
+    prev_cookie = os.environ.get("TRANSFERMARKT_COOKIE")
+    os.environ["TRANSFERMARKT_COOKIE"] = cookie
+    try:
+        asyncio.run(
+            _refresh_all_async(
+                legacy=legacy,
+                tmkt_cls=TMKT,
+                nationality_map=nationality_map,
+                resolved_paths=resolved_paths,
+                job_id=job_id,
+            )
         )
-    )
+    finally:
+        if prev_cookie is None:
+            os.environ.pop("TRANSFERMARKT_COOKIE", None)
+        else:
+            os.environ["TRANSFERMARKT_COOKIE"] = prev_cookie
 
 
 async def _refresh_all_async(
@@ -338,15 +344,15 @@ async def _refresh_all_async(
 ) -> None:
     import asyncio
 
-    club_cache: dict = {}
-    nt_cache: dict = {}
-    player_cache: dict = {}
-    stats_cache: dict = {}
-    transfer_cache: dict = {}
-    club_career_cache: dict = {}
-    national_career_cache: dict = {}
-
     try:
+        club_cache: dict = {}
+        nt_cache: dict = {}
+        player_cache: dict = {}
+        stats_cache: dict = {}
+        transfer_cache: dict = {}
+        club_career_cache: dict = {}
+        national_career_cache: dict = {}
+
         async with tmkt_cls() as tmkt:
             season_meta = await legacy._season_hint(tmkt)
             season_id = season_meta.get("seasonId") if isinstance(season_meta, dict) else None
