@@ -62,4 +62,101 @@ def _validate_and_resolve_path(project_root: Path, path: str) -> Path:
     return candidate
 
 
-__all__ = ["InvalidPathError", "_validate_and_resolve_path"]
+import secrets
+import threading
+
+
+class JobAlreadyRunningError(RuntimeError):
+    def __init__(self, job_id: str) -> None:
+        super().__init__(f"a job is already running: {job_id}")
+        self.job_id = job_id
+
+
+_JOB_LOCK = threading.Lock()
+_JOB: dict | None = None
+
+
+def _reset_job_for_tests() -> None:
+    """Clear the singleton — only meant for unit tests."""
+    global _JOB
+    with _JOB_LOCK:
+        _JOB = None
+
+
+def _register_job(total: int) -> str:
+    global _JOB
+    with _JOB_LOCK:
+        if _JOB is not None and _JOB.get("status") == "running":
+            raise JobAlreadyRunningError(_JOB["id"])
+        jid = secrets.token_hex(8)
+        _JOB = {
+            "id": jid,
+            "status": "running",
+            "total": int(total),
+            "done": 0,
+            "current": "",
+            "ok_count": 0,
+            "failed": [],
+            "error": "",
+        }
+        return jid
+
+
+def _set_current(job_id: str, label: str) -> None:
+    with _JOB_LOCK:
+        if _JOB is not None and _JOB["id"] == job_id:
+            _JOB["current"] = str(label)
+
+
+def _record_ok(job_id: str) -> None:
+    with _JOB_LOCK:
+        if _JOB is not None and _JOB["id"] == job_id:
+            _JOB["done"] += 1
+            _JOB["ok_count"] += 1
+
+
+def _record_failure(job_id: str, path: str, error: str) -> None:
+    with _JOB_LOCK:
+        if _JOB is not None and _JOB["id"] == job_id:
+            _JOB["done"] += 1
+            _JOB["failed"].append({"path": str(path), "error": str(error)})
+
+
+def _finish(job_id: str, error: str = "") -> None:
+    with _JOB_LOCK:
+        if _JOB is not None and _JOB["id"] == job_id:
+            _JOB["status"] = "error" if error else "done"
+            if error:
+                _JOB["error"] = str(error)
+
+
+def _snapshot_job(job_id: str | None) -> dict:
+    with _JOB_LOCK:
+        if _JOB is None:
+            return {"status": "unknown"}
+        if job_id is None or _JOB["id"] != job_id:
+            return {"status": "unknown"}
+        # Shallow copy + deep-copy failed list so callers can't mutate
+        return {
+            "status": _JOB["status"],
+            "total": _JOB["total"],
+            "done": _JOB["done"],
+            "current": _JOB["current"],
+            "ok_count": _JOB["ok_count"],
+            "failed": list(_JOB["failed"]),
+            "error": _JOB["error"],
+        }
+
+
+__all__ = [
+    "InvalidPathError",
+    "JobAlreadyRunningError",
+    "_validate_and_resolve_path",
+    "_register_job",
+    "_set_current",
+    "_record_ok",
+    "_record_failure",
+    "_finish",
+    "_snapshot_job",
+    "_reset_job_for_tests",
+]

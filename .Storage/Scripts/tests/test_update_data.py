@@ -74,5 +74,65 @@ class ValidatePathsTest(unittest.TestCase):
             )
 
 
+class JobStateTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.mod = _load()
+        # Reset the singleton between tests
+        self.mod._reset_job_for_tests()
+
+    def test_initial_state_is_idle(self) -> None:
+        self.assertEqual(self.mod._snapshot_job(None), {"status": "unknown"})
+
+    def test_register_job_returns_id_and_running(self) -> None:
+        jid = self.mod._register_job(total=3)
+        self.assertIsInstance(jid, str)
+        self.assertGreater(len(jid), 0)
+        snap = self.mod._snapshot_job(jid)
+        self.assertEqual(snap["status"], "running")
+        self.assertEqual(snap["total"], 3)
+        self.assertEqual(snap["done"], 0)
+        self.assertEqual(snap["ok_count"], 0)
+        self.assertEqual(snap["failed"], [])
+        self.assertEqual(snap["current"], "")
+
+    def test_concurrent_register_returns_existing_id(self) -> None:
+        first = self.mod._register_job(total=2)
+        with self.assertRaises(self.mod.JobAlreadyRunningError) as ctx:
+            self.mod._register_job(total=5)
+        self.assertEqual(ctx.exception.job_id, first)
+
+    def test_record_progress_updates_counters(self) -> None:
+        jid = self.mod._register_job(total=2)
+        self.mod._set_current(jid, "Arsenal FC")
+        self.mod._record_ok(jid)
+        self.mod._set_current(jid, "France")
+        self.mod._record_failure(jid, "France.json", "boom")
+        snap = self.mod._snapshot_job(jid)
+        self.assertEqual(snap["done"], 2)
+        self.assertEqual(snap["ok_count"], 1)
+        self.assertEqual(snap["failed"], [{"path": "France.json", "error": "boom"}])
+
+    def test_finish_marks_done(self) -> None:
+        jid = self.mod._register_job(total=1)
+        self.mod._record_ok(jid)
+        self.mod._finish(jid)
+        snap = self.mod._snapshot_job(jid)
+        self.assertEqual(snap["status"], "done")
+
+    def test_after_done_register_returns_new_id(self) -> None:
+        first = self.mod._register_job(total=1)
+        self.mod._record_ok(first)
+        self.mod._finish(first)
+        second = self.mod._register_job(total=1)
+        self.assertNotEqual(first, second)
+
+    def test_unknown_id_is_unknown(self) -> None:
+        self.mod._register_job(total=1)
+        self.assertEqual(
+            self.mod._snapshot_job("nope-not-a-real-id"),
+            {"status": "unknown"},
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
