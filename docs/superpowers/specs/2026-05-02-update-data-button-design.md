@@ -118,7 +118,7 @@ The thread runs `asyncio.run(_refresh_all(...))`:
 5. Iterate the unique paths with a `Semaphore(4)` (matches `refresh_all_club_squads_from_transfermarkt.py` default).
 6. For each path:
    - Read the JSON file. Extract `kind`, `transfermarktClubId` (clubs) or national-team id (nationals — the legacy national refresher resolves it from the country name when missing), `imagePath`, `name`.
-   - Update `_JOB["current"]` to the human-readable label **before** the network call.
+   - Update `_JOB["current"]` to the team's `name` field from the JSON (e.g. `"Arsenal FC"`, `"France"`) **before** the network call. If `name` is missing, fall back to the file stem.
    - Dispatch:
      - **`kind == "club"`**: call `fetch_squad_payload(tmkt, cid, …, national_team_squad=False, …)` → `_serialize_squad(kind="club", …)`.
      - **`kind == "national"`**: call `fetch_squad_payload(tmkt, nat_id, …, national_team_squad=True, …)` → `_serialize_squad(kind="national", …)`.
@@ -178,8 +178,8 @@ It also imports `TMKT` from the sibling `tmkt` module (the legacy refreshers do 
    - Update `#update-data-bar` width to `${(done/total)*100}%`.
    - On `status === "done"`:
      - Stop polling.
-     - Show summary: `"Done. ${ok_count} ok, ${failed.length} failed."` and a `<ul>` of failed paths/errors.
-     - Re-enable Apply (so the user can paste a fresh cookie and run again if they want).
+     - Summary text: if `failed.length === 0` → `"Done. All ${ok_count} teams refreshed successfully."` else `"Done. ${ok_count} ok, ${failed.length} failed."` followed by a `<ul>` of `failed[].path` and `failed[].error`.
+     - Re-enable Apply (so the user can paste a fresh cookie and run again). The cookie textarea is **not** auto-cleared — it stays so a second Apply only requires re-clicking the button.
    - On `status === "error"`: stop polling, show inline error.
 4. **Cancel / close**: stops polling, leaves the backend job running (it'll finish on its own); reopening the modal during a live run resumes polling via 409 handling.
 
