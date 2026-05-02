@@ -14,7 +14,7 @@ import json
 import secrets
 import threading
 from pathlib import Path
-from typing import Callable, Iterable, Sequence
+from typing import Callable, Sequence
 from urllib.parse import parse_qs, urlparse
 
 

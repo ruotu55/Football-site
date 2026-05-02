@@ -183,12 +183,14 @@ class HttpRoutesTest(unittest.TestCase):
 
         # Inject a fake worker so we don't hit the network during tests.
         self._calls = []
+        self._done = threading.Event()
 
         def fake_runner(project_root, cookie, resolved_paths, job_id):
             self._calls.append({"cookie": cookie, "paths": list(resolved_paths), "job_id": job_id})
             for _ in resolved_paths:
                 self.mod._record_ok(job_id)
             self.mod._finish(job_id)
+            self._done.set()
 
         self.mod._set_runner_for_tests(fake_runner)
 
@@ -218,7 +220,8 @@ class HttpRoutesTest(unittest.TestCase):
         self.assertEqual(h.status, 200)
         resp = h.body_json()
         self.assertIn("jobId", resp)
-        # Worker is synchronous in tests, so the job is already done.
+        # Wait for the daemon thread to finish, then assert post-run state.
+        self.assertTrue(self._done.wait(timeout=2))
         snap = self.mod._snapshot_job(resp["jobId"])
         self.assertEqual(snap["status"], "done")
         self.assertEqual(snap["ok_count"], 1)
