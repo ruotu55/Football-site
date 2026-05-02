@@ -265,9 +265,211 @@ def _default_runner(
     resolved_paths: Sequence[Path],
     job_id: str,
 ) -> None:
-    """Production runner. Imports legacy helpers and runs an asyncio session."""
-    # Body added in Task 4 — leave a stub for now so the import resolves.
-    _finish(job_id, error="default runner not implemented yet")
+    """Production runner: one TMKT() session, dispatches club vs nationality per file."""
+    import asyncio
+    import importlib.util
+    import os
+    import sys
+
+    legacy_dir = project_root / ".Storage" / "Legacy" / "Legacy - Scripts"
+    if not legacy_dir.is_dir():
+        _finish(job_id, error=f"legacy scripts folder missing: {legacy_dir}")
+        return
+
+    # Make `tmkt` importable (the legacy refreshers do the same).
+    if str(legacy_dir) not in sys.path:
+        sys.path.insert(0, str(legacy_dir))
+
+    try:
+        import certifi  # noqa: F401  (legacy module sets SSL_CERT_FILE on import)
+    except ImportError:
+        pass
+
+    spec = importlib.util.spec_from_file_location(
+        "_fc_generate_squads",
+        legacy_dir / "generate_squads_from_transfermarkt.py",
+    )
+    if spec is None or spec.loader is None:
+        _finish(job_id, error="cannot load generate_squads_from_transfermarkt.py")
+        return
+    legacy = importlib.util.module_from_spec(spec)
+    # Register in sys.modules before exec_module so @dataclass decorators inside
+    # the legacy module can resolve their own __module__ via sys.modules.get().
+    sys.modules[spec.name] = legacy
+    try:
+        spec.loader.exec_module(legacy)
+    except Exception as exc:
+        _finish(job_id, error=f"failed loading legacy module: {exc}")
+        return
+
+    try:
+        from tmkt import TMKT  # type: ignore
+    except Exception as exc:
+        _finish(job_id, error=f"failed importing TMKT: {exc}")
+        return
+
+    os.environ["TRANSFERMARKT_COOKIE"] = cookie
+
+    nat_map_path = project_root / ".Storage" / "Squad Formation" / "_transfermarkt_nationality_id_map.json"
+    nationality_map: dict = {}
+    if nat_map_path.is_file():
+        try:
+            nationality_map = json.loads(nat_map_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            nationality_map = {}
+
+    asyncio.run(
+        _refresh_all_async(
+            legacy=legacy,
+            tmkt_cls=TMKT,
+            nationality_map=nationality_map,
+            resolved_paths=resolved_paths,
+            job_id=job_id,
+        )
+    )
+
+
+async def _refresh_all_async(
+    legacy,
+    tmkt_cls,
+    nationality_map: dict,
+    resolved_paths: Sequence[Path],
+    job_id: str,
+) -> None:
+    import asyncio
+
+    club_cache: dict = {}
+    nt_cache: dict = {}
+    player_cache: dict = {}
+    stats_cache: dict = {}
+    transfer_cache: dict = {}
+    club_career_cache: dict = {}
+    national_career_cache: dict = {}
+
+    try:
+        async with tmkt_cls() as tmkt:
+            season_meta = await legacy._season_hint(tmkt)
+            season_id = season_meta.get("seasonId") if isinstance(season_meta, dict) else None
+            if isinstance(season_id, str) and season_id.isdigit():
+                season_id = int(season_id)
+            elif not isinstance(season_id, int):
+                season_id = None
+
+            sem = asyncio.Semaphore(4)
+
+            async def one(jp: Path) -> None:
+                try:
+                    raw = json.loads(jp.read_text(encoding="utf-8"))
+                except json.JSONDecodeError as exc:
+                    _record_failure(job_id, str(jp), f"bad JSON: {exc}")
+                    return
+                kind = raw.get("kind")
+                cid_raw = raw.get("transfermarktClubId")
+                rel_img = (raw.get("imagePath") or "").strip().replace("\\", "/")
+                label = str(raw.get("name") or jp.stem)
+                _set_current(job_id, label)
+
+                try:
+                    cid = int(cid_raw)
+                except (TypeError, ValueError):
+                    _record_failure(job_id, str(jp), "missing transfermarktClubId")
+                    return
+
+                async with sem:
+                    try:
+                        if kind == "club":
+                            cdata = await legacy._get_club_safe(tmkt, cid)
+                            official = (cdata or {}).get("name") or label
+                            official = official.strip() or f"club-{cid}"
+                            season_meta_club, sid_club = await legacy.season_context_for_club(
+                                tmkt,
+                                cid,
+                                club_data=cdata,
+                                fallback_meta=season_meta,
+                            )
+                            smc = season_meta_club if isinstance(season_meta_club, dict) else {}
+                            comp_stats = (
+                                str(smc.get("competitionId")).strip().upper()
+                                if smc.get("competitionId")
+                                else None
+                            )
+                            lbl = (
+                                str(smc.get("label")).strip()
+                                if smc.get("label")
+                                else None
+                            )
+                            squads = await legacy.fetch_squad_payload(
+                                tmkt,
+                                cid,
+                                official_squad_name=official,
+                                nationality_map=nationality_map,
+                                club_name_cache=club_cache,
+                                nt_name_cache=nt_cache,
+                                player_cache=player_cache,
+                                stats_cache=stats_cache,
+                                transfer_cache=transfer_cache,
+                                club_career_cache=club_career_cache,
+                                national_career_cache=national_career_cache,
+                                season_id=sid_club,
+                                national_team_squad=False,
+                                season_competition_id=comp_stats,
+                                season_label_hint=lbl,
+                            )
+                            payload = legacy._serialize_squad(
+                                kind="club",
+                                label=official,
+                                rel_image=rel_img,
+                                tm_id=cid,
+                                season_meta=season_meta_club,
+                                squads=squads,
+                            )
+                        elif kind == "nationality":
+                            cdata = await legacy._get_club_safe(tmkt, cid)
+                            base = (cdata or {}).get("name") or label
+                            try:
+                                official = legacy._strip_youth_nt_display(base.strip())
+                            except AttributeError:
+                                official = base.strip()
+                            official = official.strip() or f"nt-{cid}"
+                            squads = await legacy.fetch_squad_payload(
+                                tmkt,
+                                cid,
+                                official_squad_name="",
+                                nationality_map=nationality_map,
+                                club_name_cache=club_cache,
+                                nt_name_cache=nt_cache,
+                                player_cache=player_cache,
+                                stats_cache=stats_cache,
+                                transfer_cache=transfer_cache,
+                                club_career_cache=club_career_cache,
+                                national_career_cache=national_career_cache,
+                                season_id=season_id,
+                                national_team_squad=True,
+                            )
+                            payload = legacy._serialize_squad(
+                                kind="nationality",
+                                label=official,
+                                rel_image=rel_img,
+                                tm_id=cid,
+                                season_meta=season_meta,
+                                squads=squads,
+                            )
+                        else:
+                            _record_failure(job_id, str(jp), f"unsupported kind: {kind!r}")
+                            return
+
+                        jp.write_text(
+                            json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+                            encoding="utf-8",
+                        )
+                        _record_ok(job_id)
+                    except Exception as exc:  # noqa: BLE001
+                        _record_failure(job_id, str(jp), f"{type(exc).__name__}: {exc}")
+
+            await asyncio.gather(*(one(p) for p in resolved_paths))
+        _finish(job_id)
+    except Exception as exc:  # noqa: BLE001
+        _finish(job_id, error=f"{type(exc).__name__}: {exc}")
 
 
 __all__ = [
