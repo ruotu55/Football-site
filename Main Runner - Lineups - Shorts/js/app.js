@@ -28,6 +28,7 @@ import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
+import { initUpdateData } from "./update-data.js";
 import { isProdMode, toggleProdMode, runProdValidation, showValidationModal, markBackgroundColorConfirmed, markBackgroundEffectConfirmed } from "./prod-validation.js";
 import {
     initSavedTeamLayouts,
@@ -901,6 +902,7 @@ async function init() {
     initLevelControls();
     initTransitionsUI();
     initSavedScripts({ populateSubTypes, updateSetupUI, updateLanding });
+    initUpdateData();
 
     FORMATIONS.forEach((f) => {
         const opt = document.createElement("option");

@@ -1495,6 +1495,19 @@ def _load_runner_json_blob():  # noqa: D401
 
 _runner_blob_mod = _load_runner_json_blob()
 
+
+def _load_runner_update_data():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_update_data.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_update_data", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_update_data.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_update_mod = _load_runner_update_data()
+
 _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
 DEFAULT_PORT = 8889
@@ -2251,6 +2264,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
             return
+        if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if self._try_serve_team_voice_voices():
             return
         if self._try_serve_team_voice_status():
@@ -2276,6 +2291,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_blob_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _runner_update_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if self._try_generate_team_voice():
             return
