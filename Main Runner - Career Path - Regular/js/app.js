@@ -25,6 +25,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
+import { initUpdateData } from "./update-data.js";
 import { isProdMode, toggleProdMode, runProdValidation, showValidationModal, markBackgroundColorConfirmed, markBackgroundEffectConfirmed } from "./prod-validation.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
@@ -770,6 +771,7 @@ async function init() {
         updateLanding,
         syncShortsCirclePreviewPanel,
     });
+    initUpdateData();
 
     const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 29);
     initLevels(initialLevelCount);
