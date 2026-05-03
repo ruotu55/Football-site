@@ -21,6 +21,13 @@ from urllib.parse import parse_qs, urlparse
 _TEAMS_SUBPATH = (".Storage", "Squad Formation", "Teams")
 _NAT_SUBPATH = (".Storage", "Squad Formation", "Nationalities")
 
+import sys as _ud_sys
+
+
+def _gk_log(msg: str) -> None:
+    """stderr log line tagged for the GK scrape diagnostic stream."""
+    print(f"[update-data][gk] {msg}", file=_ud_sys.stderr, flush=True)
+
 
 class InvalidPathError(ValueError):
     """Raised when a client-supplied team JSON path fails validation."""
@@ -258,26 +265,34 @@ async def _refresh_gk_totals_for_player(
     pid: int,
     relative_url: str | None,
 ) -> tuple[int | None, int | None]:
-    """Fetch a goalkeeper's leistungsdatendetails page and extract (goals_conceded, clean_sheets).
-
-    Returns (None, None) if URL/slug not derivable, the HTML is WAF-blocked,
-    or the table headers don't match. Uses the legacy fill module's existing
-    HTTP session + cookie handling.
-    """
+    """Fetch a goalkeeper's leistungsdatendetails page and extract (goals_conceded, clean_sheets)."""
     if not relative_url:
+        _gk_log(f"  pid={pid}: no relativeUrl, skip")
         return (None, None)
-    # Extract slug + pid from a /<slug>/profil/spieler/<pid> URL.
     m = _re_gk.search(r"/([^/]+)/profil/spieler/(\d+)", relative_url)
     if not m:
+        _gk_log(f"  pid={pid}: relativeUrl={relative_url!r} did NOT match /<slug>/profil/spieler/<pid>")
         return (None, None)
     slug = m.group(1)
     pid_s = m.group(2)
     path_on_site = f"/{slug}/leistungsdatendetails/spieler/{pid_s}"
     try:
         html = await fill_module._fetch_tm_html_prefer_session(tmkt, path_on_site)
-    except Exception:  # noqa: BLE001
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  pid={pid}: fetch raised {type(exc).__name__}: {exc}")
         return (None, None)
-    return _gk_extract_totals_from_html(html or "")
+    html_len = len(html or "")
+    blocked = _tm_html_blocked_local(html or "")
+    _gk_log(f"  pid={pid}: fetched path={path_on_site} html_len={html_len} blocked={blocked}")
+    if blocked or html_len == 0:
+        return (None, None)
+    gc, cs = _gk_extract_totals_from_html(html)
+    _gk_log(f"  pid={pid}: parsed (goals_conceded, clean_sheets) = ({gc}, {cs})")
+    if gc is None and cs is None:
+        # Dump first 800 chars of the response head for diagnosis
+        head = (html[:800] or "").replace("\n", " ").replace("\r", " ")
+        _gk_log(f"  pid={pid}: parser returned (None, None). HTML head: {head}")
+    return (gc, cs)
 
 
 async def _patch_gk_career_totals(
@@ -288,66 +303,120 @@ async def _patch_gk_career_totals(
     player_cache: dict,
     legacy,
 ) -> None:
-    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets from
-    their TM leistungsdatendetails page, and patch the JSON on disk.
-
-    Only updates fields where the new value is a positive int; leaves null /
-    zero / parse-failure cases alone (they'll fall through to the monotonic
-    guard on the next refresh). Reads the file fresh, mutates, writes back.
-    """
+    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets."""
     try:
         data = json.loads(jp.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
+        _gk_log(f"{jp.name}: bad JSON on read, skip")
         return
     gks = data.get("goalkeepers")
     if not isinstance(gks, list) or not gks:
+        _gk_log(f"{jp.name}: no goalkeepers, skip")
         return
+
+    _gk_log(
+        f"{jp.name}: starting GK refresh "
+        f"({len(gks)} goalkeepers, {len(player_cache)} player_cache entries)"
+    )
 
     changed = False
     for gk in gks:
         if not isinstance(gk, dict):
             continue
-        # Resolve the player's relativeUrl (we need slug + pid).
-        # First try player_cache (already populated by the squad refresh).
-        rel: str | None = None
-        # The legacy uses tmkt.get_player(pid) responses keyed by pid_s.
-        # We need to find this player's pid via the squad API again, OR look
-        # them up in player_cache by (name, club). The simplest: use the
-        # roster API for this team's transfermarktClubId.
-        # Fallback: skip if we can't resolve the URL.
-        # We'll reach into player_cache: keys are pid_s strings, values are
-        # the player API response. If a cache entry's name matches our GK's
-        # name, use its relativeUrl.
         gk_name = (gk.get("name") or "").strip()
         if not gk_name:
+            _gk_log(f"  GK entry has no name, skip")
             continue
+        old_gc = (gk.get("club_career_totals") or {}).get("goals_conceded")
+        _gk_log(f"  matching '{gk_name}' (current goals_conceded={old_gc})...")
+
+        matched_pid = None
+        matched_rel = None
         for pid_s, pr in player_cache.items():
             if not isinstance(pr, dict) or not pr.get("success"):
                 continue
             d = pr.get("data") or {}
             full = (d.get("name") or "").strip()
             if full == gk_name:
-                rel = d.get("relativeUrl")
-                pid_int_local = int(pid_s) if pid_s.isdigit() else None
-                if pid_int_local is None:
-                    continue
-                gc, cs = await _refresh_gk_totals_for_player(
-                    fill_module, tmkt, pid=pid_int_local, relative_url=rel,
-                )
-                cct = gk.setdefault("club_career_totals", {})
-                if gc is not None and gc > 0 and cct.get("goals_conceded") != gc:
-                    cct["goals_conceded"] = gc
-                    changed = True
-                if cs is not None and cs > 0 and cct.get("clean_sheets") != cs:
-                    cct["clean_sheets"] = cs
-                    changed = True
+                matched_pid = pid_s
+                matched_rel = d.get("relativeUrl")
                 break
+
+        if matched_pid is None:
+            # Try a fuzzy fallback on a few common variants before giving up.
+            simple = gk_name.lower()
+            for pid_s, pr in player_cache.items():
+                if not isinstance(pr, dict) or not pr.get("success"):
+                    continue
+                d = pr.get("data") or {}
+                full = (d.get("name") or "").strip().lower()
+                if full and (full == simple or full in simple or simple in full):
+                    matched_pid = pid_s
+                    matched_rel = d.get("relativeUrl")
+                    _gk_log(f"    fuzzy matched '{gk_name}' -> player_cache name={d.get('name')!r}")
+                    break
+
+        if matched_pid is None:
+            # Final fallback: scan player_cache for any entry whose data.lastName
+            # is a suffix of gk_name (handles abbreviations like 'G. Donnarumma').
+            for pid_s, pr in player_cache.items():
+                if not isinstance(pr, dict) or not pr.get("success"):
+                    continue
+                d = pr.get("data") or {}
+                last = (d.get("lastName") or "").strip().lower()
+                if last and last in gk_name.lower():
+                    matched_pid = pid_s
+                    matched_rel = d.get("relativeUrl")
+                    _gk_log(f"    last-name matched '{gk_name}' -> player_cache lastName={d.get('lastName')!r}")
+                    break
+
+        if matched_pid is None:
+            # Show what names ARE in the cache so we can see what we missed
+            names = []
+            for pr in player_cache.values():
+                if isinstance(pr, dict) and pr.get("success"):
+                    n = (pr.get("data") or {}).get("name")
+                    if n:
+                        names.append(n)
+            sample = ", ".join(names[:8])
+            _gk_log(f"    NO MATCH in player_cache for '{gk_name}'. cache has {len(names)} named entries. first 8: {sample}")
+            continue
+
+        try:
+            pid_int_local = int(matched_pid)
+        except (TypeError, ValueError):
+            _gk_log(f"    pid_s={matched_pid!r} not int, skip")
+            continue
+
+        _gk_log(f"    matched: pid_s={matched_pid} relativeUrl={matched_rel!r}")
+        gc, cs = await _refresh_gk_totals_for_player(
+            fill_module, tmkt, pid=pid_int_local, relative_url=matched_rel,
+        )
+        cct = gk.setdefault("club_career_totals", {})
+        before_gc = cct.get("goals_conceded")
+        before_cs = cct.get("clean_sheets")
+        applied = []
+        if gc is not None and gc > 0 and cct.get("goals_conceded") != gc:
+            cct["goals_conceded"] = gc
+            applied.append(f"goals_conceded {before_gc}->{gc}")
+            changed = True
+        if cs is not None and cs > 0 and cct.get("clean_sheets") != cs:
+            cct["clean_sheets"] = cs
+            applied.append(f"clean_sheets {before_cs}->{cs}")
+            changed = True
+        if applied:
+            _gk_log(f"    applied: {', '.join(applied)}")
+        else:
+            _gk_log(f"    no patch applied (gc={gc}, cs={cs}, before_gc={before_gc}, before_cs={before_cs})")
 
     if changed:
         jp.write_text(
             json.dumps(data, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
+        _gk_log(f"{jp.name}: wrote file with patched GK totals")
+    else:
+        _gk_log(f"{jp.name}: no changes to write")
 
 
 class JobAlreadyRunningError(RuntimeError):
