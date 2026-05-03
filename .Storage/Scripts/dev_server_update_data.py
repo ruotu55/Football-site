@@ -302,6 +302,21 @@ def _default_runner(
         _finish(job_id, error=f"failed loading legacy module: {exc}")
         return
 
+    fill_spec = importlib.util.spec_from_file_location(
+        "_fc_fill_shirts",
+        legacy_dir / "fill_shirt_numbers_from_transfermarkt.py",
+    )
+    if fill_spec is None or fill_spec.loader is None:
+        _finish(job_id, error="cannot load fill_shirt_numbers_from_transfermarkt.py")
+        return
+    fill_module = importlib.util.module_from_spec(fill_spec)
+    sys.modules[fill_spec.name] = fill_module
+    try:
+        fill_spec.loader.exec_module(fill_module)
+    except Exception as exc:
+        _finish(job_id, error=f"failed loading fill module: {exc}")
+        return
+
     try:
         from tmkt import TMKT  # type: ignore
     except Exception as exc:
@@ -322,6 +337,7 @@ def _default_runner(
         asyncio.run(
             _refresh_all_async(
                 legacy=legacy,
+                fill_module=fill_module,
                 tmkt_cls=TMKT,
                 nationality_map=nationality_map,
                 resolved_paths=resolved_paths,
@@ -337,6 +353,7 @@ def _default_runner(
 
 async def _refresh_all_async(
     legacy,
+    fill_module,
     tmkt_cls,
     nationality_map: dict,
     resolved_paths: Sequence[Path],
@@ -468,6 +485,37 @@ async def _refresh_all_async(
                             json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
                             encoding="utf-8",
                         )
+                        # Fetch fresh shirt numbers from TM's rueckennummern page
+                        # (the squads endpoint doesn't include them). Failure here
+                        # leaves shirt_numbers blank but the squad data is still
+                        # refreshed, so we count this as ok and log to stderr.
+                        season_label = ""
+                        try:
+                            season_label = (
+                                (payload.get("source") or {})
+                                .get("season", {})
+                                .get("label")
+                                or ""
+                            )
+                        except Exception:  # noqa: BLE001
+                            season_label = ""
+                        try:
+                            await fill_module.fill_file(
+                                jp,
+                                tmkt,
+                                season_label=season_label,
+                                dry_run=False,
+                                concurrency=2,
+                                quiet=True,
+                            )
+                        except Exception as shirt_exc:  # noqa: BLE001
+                            import sys as _sys
+                            print(
+                                f"[update-data] shirt-fill failed for {jp.name}: "
+                                f"{type(shirt_exc).__name__}: {shirt_exc}",
+                                file=_sys.stderr,
+                                flush=True,
+                            )
                         _record_ok(job_id)
                     except Exception as exc:  # noqa: BLE001
                         _record_failure(job_id, str(jp), f"{type(exc).__name__}: {exc}")
