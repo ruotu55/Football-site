@@ -66,10 +66,19 @@ function collectPaths() {
   const seen = new Set();
   const out = [];
   for (const lvl of levels) {
-    const p = lvl && lvl.selectedEntry && lvl.selectedEntry.path;
-    if (typeof p === "string" && p.length > 0 && !seen.has(p)) {
-      seen.add(p);
-      out.push(p);
+    // Levels can hold a team directly (selectedEntry) or a player whose home
+    // team is attached as _clubItem (career-path / player-stats / four-params).
+    const candidates = [
+      lvl?.selectedEntry?.path,
+      lvl?.careerPlayer?._clubItem?.path,
+      lvl?.careerPlayer?._clubItem?.id,
+    ];
+    for (const p of candidates) {
+      if (typeof p === "string" && p.length > 0 && !seen.has(p)) {
+        seen.add(p);
+        out.push(p);
+        break; // one path per level is enough
+      }
     }
   }
   return out;
