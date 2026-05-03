@@ -391,14 +391,34 @@ async def _refresh_all_async(
                 rel_img = (raw.get("imagePath") or "").strip().replace("\\", "/")
                 label = str(raw.get("name") or jp.stem)
 
+                cid: int | None
                 try:
-                    cid = int(cid_raw)
+                    cid = int(cid_raw) if cid_raw is not None else None
                 except (TypeError, ValueError):
-                    _record_failure(job_id, str(jp), "missing transfermarktClubId")
-                    return
+                    cid = None
 
                 async with sem:
                     _set_current(job_id, label)
+                    if cid is None:
+                        # Re-resolve the TM id by team name. Some JSONs have
+                        # transfermarktClubId=null because they were built from
+                        # a fallback when TM search originally failed.
+                        try:
+                            cid = await legacy.resolve_team_id(
+                                tmkt,
+                                [label],
+                                want_national=(kind == "nationality"),
+                            )
+                        except Exception as exc:  # noqa: BLE001
+                            cid = None
+                    if cid is None:
+                        _record_failure(
+                            job_id,
+                            str(jp),
+                            "no Transfermarkt match found by name "
+                            f"(team {label!r} has no transfermarktClubId in JSON)",
+                        )
+                        return
                     try:
                         if kind == "club":
                             cdata = await legacy._get_club_safe(tmkt, cid)
