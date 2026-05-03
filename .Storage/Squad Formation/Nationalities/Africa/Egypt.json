@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,9 +21,61 @@
       "age": 26,
       "nationality": "Egypt",
       "club": "Al Ahly FC",
-      "appearances": 13,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 68,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 36
+      },
+      "national_team_career_totals": {
+        "appearances": 8,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 1,
+        "clean_sheets": 7
+      },
+      "shirt_number": 23
+    },
+    {
+      "name": "Mohamed Alaa",
+      "position": "Goalkeeper",
+      "age": 26,
+      "nationality": "Egypt",
+      "club": "El Gouna FC",
+      "appearances": 28,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Gouna",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 53,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 25
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 26
     },
     {
       "name": "Mohamed El Shenawy",
@@ -32,59 +85,195 @@
       "club": "Al Ahly FC",
       "appearances": 19,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Talaea El Gaish",
+          "year": "2009"
+        },
+        {
+          "club": "Harras Hodoud",
+          "year": "2012"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2013"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2013"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2016"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 498,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": 0,
+        "clean_sheets": 231
+      },
+      "national_team_career_totals": {
+        "appearances": 75,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 47,
+        "clean_sheets": 40
+      },
+      "shirt_number": 1
     },
     {
-      "name": "Mohamed Sobhi",
+      "name": "El Mahdi Soliman",
       "position": "Goalkeeper",
-      "age": 26,
+      "age": 38,
       "nationality": "Egypt",
       "club": "Zamalek SC",
-      "appearances": 19,
+      "appearances": 18,
       "goals": 0,
-      "assists": 0
-    },
-    {
-      "name": "Ahmed El Shenawy",
-      "position": "Goalkeeper",
-      "age": 34,
-      "nationality": "Egypt",
-      "club": "Pyramids FC",
-      "appearances": 34,
-      "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2008"
+        },
+        {
+          "club": "El Mokawloon",
+          "year": "2011"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2011"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2011"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2012"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2012"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2013"
+        },
+        {
+          "club": "Smouha",
+          "year": "2014"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2018"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2022"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 327,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 124
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 16
     }
   ],
   "defenders": [
     {
-      "name": "Ahmed Hegazi",
+      "name": "Mohamed Abdelmonem",
       "position": "Centre-Back",
-      "age": 34,
+      "age": 27,
       "nationality": "Egypt",
-      "club": "Al-Ittihad Club",
-      "appearances": 18,
-      "goals": 1,
-      "assists": 0
+      "club": "OGC Nice",
+      "appearances": 0,
+      "goals": 0,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2020"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Future FC",
+          "year": "2021"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2022"
+        },
+        {
+          "club": "Nice",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 173,
+        "goals": 10,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 34,
+        "goals": 3,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 6
     },
     {
       "name": "Hossam Abdelmaguid",
       "position": "Centre-Back",
-      "age": 24,
+      "age": 25,
       "nationality": "Egypt",
       "club": "Zamalek SC",
-      "appearances": 29,
-      "goals": 4,
-      "assists": 0
-    },
-    {
-      "name": "Mohamed Ismail",
-      "position": "Centre-Back",
-      "age": 26,
-      "nationality": "Egypt",
-      "club": "Zamalek SC",
-      "appearances": 24,
-      "goals": 1,
-      "assists": 0
+      "appearances": 36,
+      "goals": 6,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 166,
+        "goals": 15,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 12,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 4
     },
     {
       "name": "Ramy Rabia",
@@ -92,9 +281,38 @@
       "age": 32,
       "nationality": "Egypt",
       "club": "Al-Ain FC",
-      "appearances": 16,
-      "goals": 0,
-      "assists": 0
+      "appearances": 20,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2011"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2015"
+        },
+        {
+          "club": "Al-Ain",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 385,
+        "goals": 19,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 43,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 5
     },
     {
       "name": "Khaled Sobhi",
@@ -102,9 +320,54 @@
       "age": 30,
       "nationality": "Egypt",
       "club": "El Masry SC",
-      "appearances": 23,
+      "appearances": 29,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Aswan SC",
+          "year": "2015"
+        },
+        {
+          "club": "Qanah",
+          "year": "2016"
+        },
+        {
+          "club": "El Gouna",
+          "year": "2017"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2020"
+        },
+        {
+          "club": "Ittihad Alex",
+          "year": "2022"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2023"
+        },
+        {
+          "club": "El Masry",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 183,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 21
     },
     {
       "name": "Yasser Ibrahim",
@@ -112,29 +375,89 @@
       "age": 33,
       "nationality": "Egypt",
       "club": "Al Ahly FC",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Mohamed Hamdi",
-      "position": "Left-Back",
-      "age": 31,
-      "nationality": "Egypt",
-      "club": "Pyramids FC",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 2
+      "appearances": 29,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Zamalek",
+          "year": "2013"
+        },
+        {
+          "club": "Smouha",
+          "year": "2015"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2016"
+        },
+        {
+          "club": "Smouha",
+          "year": "2016"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2019"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 381,
+        "goals": 15,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 16,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 2
     },
     {
       "name": "Ahmed Fatouh",
       "position": "Left-Back",
-      "age": 27,
+      "age": 28,
       "nationality": "Egypt",
       "club": "Zamalek SC",
-      "appearances": 18,
+      "appearances": 25,
       "goals": 1,
-      "assists": 3
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2016"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2017"
+        },
+        {
+          "club": "Smouha",
+          "year": "2019"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2020"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 243,
+        "goals": 7,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 13
     },
     {
       "name": "Mohamed Hany",
@@ -142,19 +465,73 @@
       "age": 30,
       "nationality": "Egypt",
       "club": "Al Ahly FC",
-      "appearances": 29,
+      "appearances": 33,
       "goals": 0,
-      "assists": 5
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2015"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 393,
+        "goals": 8,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 3
     },
     {
-      "name": "Ahmed Eid",
+      "name": "Tarek Alaa",
       "position": "Right-Back",
-      "age": 25,
+      "age": 24,
       "nationality": "Egypt",
-      "club": "Al Ahly FC",
-      "appearances": 13,
+      "club": "Zed FC",
+      "appearances": 14,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Smouha",
+          "year": "2022"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2024"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2026"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 62,
+        "goals": 0,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 24
     }
   ],
   "midfielders": [
@@ -164,9 +541,34 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Al Ahly FC",
-      "appearances": 26,
+      "appearances": 31,
       "goals": 1,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ittihad Alex",
+          "year": "2019"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 247,
+        "goals": 4,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 33,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 19
     },
     {
       "name": "Mohanad Lasheen",
@@ -174,9 +576,42 @@
       "age": 29,
       "nationality": "Egypt",
       "club": "Pyramids FC",
-      "appearances": 33,
+      "appearances": 39,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Alassiouty SC",
+          "year": "2016"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2019"
+        },
+        {
+          "club": "Modern Future",
+          "year": "2022"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 288,
+        "goals": 9,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 17
     },
     {
       "name": "Hamdy Fathy",
@@ -184,9 +619,89 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Al-Wakrah SC",
-      "appearances": 16,
+      "appearances": 19,
       "goals": 2,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Enppi SC",
+          "year": "2015"
+        },
+        {
+          "club": "Petrojet",
+          "year": "2016"
+        },
+        {
+          "club": "Enppi SC",
+          "year": "2017"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2023"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2025"
+        },
+        {
+          "club": "Al-Wakrah SC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 337,
+        "goals": 31,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 62,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 14
+    },
+    {
+      "name": "Ahmed Kouka",
+      "position": "Defensive Midfield",
+      "age": 24,
+      "nationality": "Egypt",
+      "club": "Al Ahly FC",
+      "appearances": 32,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 119,
+        "goals": 3,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 11,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 15
     },
     {
       "name": "Emam Ashour",
@@ -194,19 +709,46 @@
       "age": 28,
       "nationality": "Egypt",
       "club": "Al Ahly FC",
-      "appearances": 12,
+      "appearances": 17,
       "goals": 2,
-      "assists": 4
-    },
-    {
-      "name": "Mohamed Shehata",
-      "position": "Central Midfield",
-      "age": 25,
-      "nationality": "Egypt",
-      "club": "Zamalek SC",
-      "appearances": 21,
-      "goals": 1,
-      "assists": 0
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Harras Hodoud",
+          "year": "2018"
+        },
+        {
+          "club": "El Mahalla",
+          "year": "2019"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2023"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 245,
+        "goals": 53,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 27,
+        "goals": 0,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 8
     },
     {
       "name": "Mahmoud Saber",
@@ -214,9 +756,62 @@
       "age": 24,
       "nationality": "Egypt",
       "club": "Zed FC",
-      "appearances": 20,
+      "appearances": 27,
       "goals": 4,
-      "assists": 6
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Pyramids FC",
+          "year": "2020"
+        },
+        {
+          "club": "Nogoom FC",
+          "year": "2021"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2021"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2023"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2024"
+        },
+        {
+          "club": "Smouha",
+          "year": "2024"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2025"
+        },
+        {
+          "club": "Zed FC",
+          "year": "2025"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 121,
+        "goals": 15,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 27
     }
   ],
   "attackers": [
@@ -226,29 +821,235 @@
       "age": 31,
       "nationality": "Egypt",
       "club": "Al Ahly FC",
-      "appearances": 26,
-      "goals": 14,
-      "assists": 1
+      "appearances": 31,
+      "goals": 16,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Al Ahly",
+          "year": "2012"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2015"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2016"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2016"
+        },
+        {
+          "club": "Mouscron",
+          "year": "2016"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2017"
+        },
+        {
+          "club": "Kasimpasa",
+          "year": "2017"
+        },
+        {
+          "club": "RSC Anderlecht",
+          "year": "2018"
+        },
+        {
+          "club": "Kasimpasa",
+          "year": "2018"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2019"
+        },
+        {
+          "club": "Basaksehir",
+          "year": "2022"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2022"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Rayyan",
+          "year": "2024"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2025"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 430,
+        "goals": 103,
+        "assists": 67,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 94,
+        "goals": 23,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 7
     },
     {
       "name": "Ibrahim Adel",
       "position": "Left Winger",
-      "age": 24,
+      "age": 25,
       "nationality": "Egypt",
       "club": "FC Nordsjaelland",
-      "appearances": 14,
-      "goals": 0,
-      "assists": 0
+      "appearances": 21,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pyramids FC",
+          "year": "2019"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2025"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2026"
+        },
+        {
+          "club": "Al-Jazira",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 191,
+        "goals": 50,
+        "assists": 24,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 3,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 20
     },
     {
-      "name": "Mohamed Salah",
-      "position": "Right Winger",
-      "age": 33,
+      "name": "Islam Issa",
+      "position": "Left Winger",
+      "age": 30,
       "nationality": "Egypt",
-      "club": "Liverpool FC",
-      "appearances": 34,
-      "goals": 10,
-      "assists": 9
+      "club": "Cleopatra FC",
+      "appearances": 28,
+      "goals": 2,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "El Nasr",
+          "year": "2017"
+        },
+        {
+          "club": "El Masry",
+          "year": "2018"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2019"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2024"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2025"
+        },
+        {
+          "club": "Cleopatra FC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 307,
+        "goals": 52,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 18
+    },
+    {
+      "name": "Haissem Hassan",
+      "position": "Right Winger",
+      "age": 24,
+      "nationality": "Egypt",
+      "club": "Real Oviedo",
+      "appearances": 33,
+      "goals": 0,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "LB Châteauroux",
+          "year": "2019"
+        },
+        {
+          "club": "CD Mirandés",
+          "year": "2021"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2023"
+        },
+        {
+          "club": "Sporting Gijón",
+          "year": "2023"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2024"
+        },
+        {
+          "club": "Real Oviedo",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 15,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 12
     },
     {
       "name": "Zizo",
@@ -256,19 +1057,50 @@
       "age": 30,
       "nationality": "Egypt",
       "club": "Al Ahly FC",
-      "appearances": 22,
+      "appearances": 27,
       "goals": 4,
-      "assists": 7
-    },
-    {
-      "name": "Mostafa Fathi",
-      "position": "Right Winger",
-      "age": 31,
-      "nationality": "Egypt",
-      "club": "Pyramids FC",
-      "appearances": 17,
-      "goals": 4,
-      "assists": 1
+      "assists": 8,
+      "transfer_history": [
+        {
+          "club": "Lierse SK",
+          "year": "2014"
+        },
+        {
+          "club": "Nacional",
+          "year": "2017"
+        },
+        {
+          "club": "Lierse SK",
+          "year": "2017"
+        },
+        {
+          "club": "Moreirense",
+          "year": "2017"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        },
+        {
+          "club": "Al Ahly",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 411,
+        "goals": 97,
+        "assists": 91,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 5,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 25
     },
     {
       "name": "Omar Marmoush",
@@ -276,9 +1108,58 @@
       "age": 27,
       "nationality": "Egypt",
       "club": "Manchester City",
-      "appearances": 29,
+      "appearances": 31,
       "goals": 6,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Wadi Degla",
+          "year": "2016"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2020"
+        },
+        {
+          "club": "St. Pauli",
+          "year": "2021"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2021"
+        },
+        {
+          "club": "Stuttgart",
+          "year": "2021"
+        },
+        {
+          "club": "Wolfsburg",
+          "year": "2022"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2023"
+        },
+        {
+          "club": "Man City",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 273,
+        "goals": 85,
+        "assists": 38,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 48,
+        "goals": 11,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 22
     },
     {
       "name": "Mostafa Mohamed",
@@ -286,29 +1167,121 @@
       "age": 28,
       "nationality": "Egypt",
       "club": "FC Nantes",
-      "appearances": 19,
-      "goals": 3,
-      "assists": 0
-    },
-    {
-      "name": "Salah Mohsen",
-      "position": "Centre-Forward",
-      "age": 27,
-      "nationality": "Egypt",
-      "club": "El Masry SC",
-      "appearances": 25,
-      "goals": 10,
-      "assists": 2
-    },
-    {
-      "name": "Osama Faisal",
-      "position": "Centre-Forward",
-      "age": 25,
-      "nationality": "Egypt",
-      "club": "Bank El Ahly",
-      "appearances": 20,
+      "appearances": 23,
       "goals": 4,
-      "assists": 1
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "El Dakhlia",
+          "year": "2016"
+        },
+        {
+          "club": "Tanta SC",
+          "year": "2017"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2018"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2019"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2021"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2022"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2022"
+        },
+        {
+          "club": "FC Nantes",
+          "year": "2022"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2023"
+        },
+        {
+          "club": "FC Nantes",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 315,
+        "goals": 87,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 61,
+        "goals": 14,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 11
+    },
+    {
+      "name": "Nasser Mansy",
+      "position": "Centre-Forward",
+      "age": 28,
+      "nationality": "Egypt",
+      "club": "Zamalek SC",
+      "appearances": 32,
+      "goals": 8,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Pyramids FC",
+          "year": "2018"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2019"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2020"
+        },
+        {
+          "club": "Talaea El Gaish",
+          "year": "2020"
+        },
+        {
+          "club": "Pyramids FC",
+          "year": "2021"
+        },
+        {
+          "club": "Bank El Ahly",
+          "year": "2022"
+        },
+        {
+          "club": "Zamalek",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 257,
+        "goals": 72,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 9
     }
   ]
 }

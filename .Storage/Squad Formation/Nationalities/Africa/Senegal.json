@@ -9,9 +9,10 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
     {
@@ -20,9 +21,38 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "OGC Nice",
-      "appearances": 28,
+      "appearances": 34,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Troyes",
+          "year": "2016"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2019"
+        },
+        {
+          "club": "Nice",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 220,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 68
+      },
+      "national_team_career_totals": {
+        "appearances": 2,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 0
+      },
+      "shirt_number": 1
     },
     {
       "name": "Edouard Mendy",
@@ -30,9 +60,50 @@
       "age": 34,
       "nationality": "Senegal",
       "club": "Al-Ahli SFC",
-      "appearances": 30,
+      "appearances": 37,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "AS Cherbourg",
+          "year": "2011"
+        },
+        {
+          "club": "Without Club",
+          "year": "2014"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2016"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2019"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Ahli",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 373,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": 0,
+        "clean_sheets": 158
+      },
+      "national_team_career_totals": {
+        "appearances": 56,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 28,
+        "clean_sheets": 33
+      },
+      "shirt_number": 16
     },
     {
       "name": "Mory Diaw",
@@ -40,9 +111,66 @@
       "age": 32,
       "nationality": "Senegal",
       "club": "Le Havre AC",
-      "appearances": 22,
+      "appearances": 27,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "PSG",
+          "year": "2014"
+        },
+        {
+          "club": "Mafra",
+          "year": "2015"
+        },
+        {
+          "club": "Loko Plovdiv",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2017"
+        },
+        {
+          "club": "United Zürich",
+          "year": "2019"
+        },
+        {
+          "club": "Lausanne-Sport",
+          "year": "2019"
+        },
+        {
+          "club": "Clermont Foot",
+          "year": "2022"
+        },
+        {
+          "club": "Rodez AF",
+          "year": "2025"
+        },
+        {
+          "club": "Clermont Foot",
+          "year": "2025"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 1,
+        "assists": 1,
+        "goals_conceded": 0,
+        "clean_sheets": 53
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 2,
+        "clean_sheets": 3
+      },
+      "shirt_number": 23
     }
   ],
   "defenders": [
@@ -54,7 +182,52 @@
       "club": "Chelsea FC",
       "appearances": 23,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Lyon",
+          "year": "2023"
+        },
+        {
+          "club": "RWDM",
+          "year": "2024"
+        },
+        {
+          "club": "Lyon",
+          "year": "2024"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2024"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2025"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2025"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 109,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 2
     },
     {
       "name": "Moussa Niakhaté",
@@ -62,29 +235,46 @@
       "age": 30,
       "nationality": "Senegal",
       "club": "Olympique Lyon",
-      "appearances": 35,
+      "appearances": 40,
       "goals": 1,
-      "assists": 2
-    },
-    {
-      "name": "Nobel Mendy",
-      "position": "Centre-Back",
-      "age": 21,
-      "nationality": "Senegal",
-      "club": "Rayo Vallecano",
-      "appearances": 20,
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Kalidou Koulibaly",
-      "position": "Centre-Back",
-      "age": 34,
-      "nationality": "Senegal",
-      "club": "Al-Hilal SFC",
-      "appearances": 24,
-      "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Valenciennes FC",
+          "year": "2015"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2017"
+        },
+        {
+          "club": "Mainz",
+          "year": "2018"
+        },
+        {
+          "club": "Nott'm Forest",
+          "year": "2022"
+        },
+        {
+          "club": "Lyon",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 404,
+        "goals": 12,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 19
     },
     {
       "name": "Antoine Mendy",
@@ -92,9 +282,144 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "OGC Nice",
-      "appearances": 28,
-      "goals": 1,
-      "assists": 1
+      "appearances": 35,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "SC Air Bel Jgd.",
+          "year": "2015"
+        },
+        {
+          "club": "Nice",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 110,
+        "goals": 6,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 24
+    },
+    {
+      "name": "Nobel Mendy",
+      "position": "Centre-Back",
+      "age": 21,
+      "nationality": "Senegal",
+      "club": "Rayo Vallecano",
+      "appearances": 23,
+      "goals": 2,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Paris FC",
+          "year": "2023"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2023"
+        },
+        {
+          "club": "Paris FC",
+          "year": "2024"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2024"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2025"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2025"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2026"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 115,
+        "goals": 5,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 28
+    },
+    {
+      "name": "Kalidou Koulibaly",
+      "position": "Centre-Back",
+      "age": 34,
+      "nationality": "Senegal",
+      "club": "Al-Hilal SFC",
+      "appearances": 26,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "SR Saint-Dié",
+          "year": "2006"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2010"
+        },
+        {
+          "club": "Genk",
+          "year": "2012"
+        },
+        {
+          "club": "Napoli",
+          "year": "2014"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2022"
+        },
+        {
+          "club": "Al-Hilal",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 607,
+        "goals": 27,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 102,
+        "goals": 2,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 3
     },
     {
       "name": "Abdoulaye Seck",
@@ -102,9 +427,62 @@
       "age": 33,
       "nationality": "Senegal",
       "club": "Maccabi Haifa",
-      "appearances": 23,
+      "appearances": 28,
       "goals": 3,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Touré Kunda",
+          "year": "2010"
+        },
+        {
+          "club": "Casa Sports",
+          "year": "2012"
+        },
+        {
+          "club": "Diambars FC",
+          "year": "2013"
+        },
+        {
+          "club": "Hønefoss",
+          "year": "2014"
+        },
+        {
+          "club": "Diambars FC",
+          "year": "2014"
+        },
+        {
+          "club": "Hønefoss",
+          "year": "2015"
+        },
+        {
+          "club": "Sandefjord",
+          "year": "2016"
+        },
+        {
+          "club": "Royal Antwerp",
+          "year": "2018"
+        },
+        {
+          "club": "Maccabi Haifa",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 337,
+        "goals": 30,
+        "assists": 14,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 4,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 4
     },
     {
       "name": "El Hadji Malick Diouf",
@@ -112,9 +490,38 @@
       "age": 21,
       "nationality": "Senegal",
       "club": "West Ham United",
-      "appearances": 25,
+      "appearances": 31,
       "goals": 0,
-      "assists": 5
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Tromsø IL",
+          "year": "2023"
+        },
+        {
+          "club": "Slavia Praha",
+          "year": "2024"
+        },
+        {
+          "club": "West Ham",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 114,
+        "goals": 16,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 25
     },
     {
       "name": "Ismail Jakobs",
@@ -122,31 +529,95 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "Galatasaray",
-      "appearances": 31,
+      "appearances": 37,
       "goals": 0,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "1.FC Köln",
+          "year": "2019"
+        },
+        {
+          "club": "Monaco",
+          "year": "2021"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2024"
+        },
+        {
+          "club": "Monaco",
+          "year": "2025"
+        },
+        {
+          "club": "Galatasaray",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 284,
+        "goals": 11,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 28,
+        "goals": 0,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 14
     }
   ],
   "midfielders": [
-    {
-      "name": "Mamadou Lamine Camara",
-      "position": "Defensive Midfield",
-      "age": 23,
-      "nationality": "Senegal",
-      "club": "Al-Ahli SC",
-      "appearances": 15,
-      "goals": 0,
-      "assists": 2
-    },
     {
       "name": "Idrissa Gueye",
       "position": "Defensive Midfield",
       "age": 36,
       "nationality": "Senegal",
       "club": "Everton FC",
-      "appearances": 21,
+      "appearances": 25,
       "goals": 2,
-      "assists": 1
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Lille",
+          "year": "2010"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2015"
+        },
+        {
+          "club": "Everton",
+          "year": "2016"
+        },
+        {
+          "club": "PSG",
+          "year": "2019"
+        },
+        {
+          "club": "Everton",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 569,
+        "goals": 24,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 130,
+        "goals": 7,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 5
     },
     {
       "name": "Pape Gueye",
@@ -154,29 +625,50 @@
       "age": 27,
       "nationality": "Senegal",
       "club": "Villarreal CF",
-      "appearances": 31,
+      "appearances": 36,
       "goals": 4,
-      "assists": 2
-    },
-    {
-      "name": "Habib Diarra",
-      "position": "Central Midfield",
-      "age": 22,
-      "nationality": "Senegal",
-      "club": "Sunderland AFC",
-      "appearances": 15,
-      "goals": 3,
-      "assists": 1
-    },
-    {
-      "name": "Pape Matar Sarr",
-      "position": "Central Midfield",
-      "age": 23,
-      "nationality": "Senegal",
-      "club": "Tottenham Hotspur",
-      "appearances": 32,
-      "goals": 2,
-      "assists": 3
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Le Havre Youth",
+          "year": "2012"
+        },
+        {
+          "club": "Le Havre AC",
+          "year": "2018"
+        },
+        {
+          "club": "Marseille",
+          "year": "2020"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2023"
+        },
+        {
+          "club": "Marseille",
+          "year": "2023"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 286,
+        "goals": 18,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 5,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 26
     },
     {
       "name": "Lamine Camara",
@@ -184,9 +676,116 @@
       "age": 22,
       "nationality": "Senegal",
       "club": "AS Monaco",
-      "appearances": 24,
-      "goals": 0,
-      "assists": 4
+      "appearances": 29,
+      "goals": 1,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Génération Foot",
+          "year": "2019"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2023"
+        },
+        {
+          "club": "Monaco",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 107,
+        "goals": 5,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 5,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 8
+    },
+    {
+      "name": "Pape Matar Sarr",
+      "position": "Central Midfield",
+      "age": 23,
+      "nationality": "Senegal",
+      "club": "Tottenham Hotspur",
+      "appearances": 34,
+      "goals": 2,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "FC Metz",
+          "year": "2020"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2021"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2021"
+        },
+        {
+          "club": "Tottenham",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 206,
+        "goals": 16,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 17
+    },
+    {
+      "name": "Habib Diarra",
+      "position": "Central Midfield",
+      "age": 22,
+      "nationality": "Senegal",
+      "club": "Sunderland AFC",
+      "appearances": 20,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "R. Strasbourg",
+          "year": "2022"
+        },
+        {
+          "club": "Sunderland",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 17,
+        "assists": 12,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 21
     },
     {
       "name": "Pathé Ciss",
@@ -194,9 +793,54 @@
       "age": 32,
       "nationality": "Senegal",
       "club": "Rayo Vallecano",
-      "appearances": 29,
+      "appearances": 36,
       "goals": 2,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "União Madeira",
+          "year": "2017"
+        },
+        {
+          "club": "Famalicão",
+          "year": "2018"
+        },
+        {
+          "club": "União Madeira",
+          "year": "2019"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2019"
+        },
+        {
+          "club": "União Madeira",
+          "year": "2020"
+        },
+        {
+          "club": "CF Fuenlabrada",
+          "year": "2020"
+        },
+        {
+          "club": "Rayo Vallecano",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 287,
+        "goals": 23,
+        "assists": 11,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 29,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 6
     },
     {
       "name": "Krépin Diatta",
@@ -204,9 +848,38 @@
       "age": 27,
       "nationality": "Senegal",
       "club": "AS Monaco",
-      "appearances": 18,
+      "appearances": 22,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Sarpsborg 08",
+          "year": "2017"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2018"
+        },
+        {
+          "club": "Monaco",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 268,
+        "goals": 36,
+        "assists": 27,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 59,
+        "goals": 2,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 15
     }
   ],
   "attackers": [
@@ -216,9 +889,46 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "Como 1907",
-      "appearances": 10,
-      "goals": 0,
-      "assists": 0
+      "appearances": 17,
+      "goals": 2,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Fl. Negra S19",
+          "year": "2019"
+        },
+        {
+          "club": "Balón de Cádiz",
+          "year": "2020"
+        },
+        {
+          "club": "Betis Deportivo",
+          "year": "2022"
+        },
+        {
+          "club": "Real Betis",
+          "year": "2023"
+        },
+        {
+          "club": "Como",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 104,
+        "goals": 22,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 4,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 7
     },
     {
       "name": "Mamadou Diakhon",
@@ -226,29 +936,34 @@
       "age": 20,
       "nationality": "Senegal",
       "club": "Club Brugge KV",
-      "appearances": 33,
+      "appearances": 36,
       "goals": 3,
-      "assists": 11
-    },
-    {
-      "name": "Sadio Mané",
-      "position": "Left Winger",
-      "age": 33,
-      "nationality": "Senegal",
-      "club": "Al-Nassr FC",
-      "appearances": 26,
-      "goals": 10,
-      "assists": 7
-    },
-    {
-      "name": "Cheikh Sabaly",
-      "position": "Left Winger",
-      "age": 27,
-      "nationality": "Senegal",
-      "club": "Vancouver Whitecaps FC",
-      "appearances": 17,
-      "goals": 1,
-      "assists": 2
+      "assists": 11,
+      "transfer_history": [
+        {
+          "club": "Stade Reims",
+          "year": "2023"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 122,
+        "goals": 12,
+        "assists": 17,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 29
     },
     {
       "name": "Iliman Ndiaye",
@@ -256,9 +971,49 @@
       "age": 26,
       "nationality": "Senegal",
       "club": "Everton FC",
-      "appearances": 26,
-      "goals": 5,
-      "assists": 3
+      "appearances": 30,
+      "goals": 6,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Sacré Cœur",
+          "year": "2014"
+        },
+        {
+          "club": "AFC Hillgate",
+          "year": "2019"
+        },
+        {
+          "club": "Hyde United",
+          "year": "2020"
+        },
+        {
+          "club": "Sheff Utd",
+          "year": "2021"
+        },
+        {
+          "club": "Marseille",
+          "year": "2023"
+        },
+        {
+          "club": "Everton",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 201,
+        "goals": 43,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 4,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      }
     },
     {
       "name": "Ismaïla Sarr",
@@ -266,9 +1021,46 @@
       "age": 28,
       "nationality": "Senegal",
       "club": "Crystal Palace",
-      "appearances": 32,
-      "goals": 15,
-      "assists": 2
+      "appearances": 38,
+      "goals": 18,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FC Metz",
+          "year": "2016"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2017"
+        },
+        {
+          "club": "Watford",
+          "year": "2019"
+        },
+        {
+          "club": "Marseille",
+          "year": "2023"
+        },
+        {
+          "club": "Crystal Palace",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 92,
+        "assists": 59,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 82,
+        "goals": 19,
+        "assists": 10,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 18
     },
     {
       "name": "Ibrahim Mbaye",
@@ -276,9 +1068,34 @@
       "age": 18,
       "nationality": "Senegal",
       "club": "Paris Saint-Germain",
-      "appearances": 25,
-      "goals": 1,
-      "assists": 2
+      "appearances": 29,
+      "goals": 2,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "PSG Youth",
+          "year": "2018"
+        },
+        {
+          "club": "PSG",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 77,
+        "goals": 18,
+        "assists": 23,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 3,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 27
     },
     {
       "name": "Nicolas Jackson",
@@ -286,9 +1103,46 @@
       "age": 24,
       "nationality": "Senegal",
       "club": "Bayern Munich",
-      "appearances": 26,
-      "goals": 7,
-      "assists": 3
+      "appearances": 31,
+      "goals": 10,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "CD Mirandés",
+          "year": "2020"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2022"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2023"
+        },
+        {
+          "club": "Bayern Munich",
+          "year": "2025"
+        },
+        {
+          "club": "Chelsea",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 204,
+        "goals": 61,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 8,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 11
     },
     {
       "name": "Boulaye Dia",
@@ -296,9 +1150,109 @@
       "age": 29,
       "nationality": "Senegal",
       "club": "SS Lazio",
-      "appearances": 20,
+      "appearances": 25,
       "goals": 2,
-      "assists": 0
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Pl.Vallée",
+          "year": "2013"
+        },
+        {
+          "club": "Jura Sud",
+          "year": "2017"
+        },
+        {
+          "club": "Stade Reims",
+          "year": "2018"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2021"
+        },
+        {
+          "club": "Salernitana",
+          "year": "2022"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2023"
+        },
+        {
+          "club": "Salernitana",
+          "year": "2023"
+        },
+        {
+          "club": "Lazio",
+          "year": "2024"
+        },
+        {
+          "club": "Salernitana",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 275,
+        "goals": 88,
+        "assists": 21,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 38,
+        "goals": 6,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 9
+    },
+    {
+      "name": "Bamba Dieng",
+      "position": "Centre-Forward",
+      "age": 26,
+      "nationality": "Senegal",
+      "club": "FC Lorient",
+      "appearances": 24,
+      "goals": 15,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Diambars FC",
+          "year": "2021"
+        },
+        {
+          "club": "Marseille",
+          "year": "2021"
+        },
+        {
+          "club": "FC Lorient",
+          "year": "2023"
+        },
+        {
+          "club": "Angers SCO",
+          "year": "2024"
+        },
+        {
+          "club": "FC Lorient",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 137,
+        "goals": 39,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 21,
+        "goals": 2,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 22
     },
     {
       "name": "Cherif Ndiaye",
@@ -306,9 +1260,70 @@
       "age": 30,
       "nationality": "Senegal",
       "club": "Samsunspor",
-      "appearances": 30,
-      "goals": 10,
-      "assists": 5
+      "appearances": 36,
+      "goals": 13,
+      "assists": 5,
+      "transfer_history": [
+        {
+          "club": "Waasland-Beveren",
+          "year": "2017"
+        },
+        {
+          "club": "Without Club",
+          "year": "2018"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2019"
+        },
+        {
+          "club": "Göztepe",
+          "year": "2020"
+        },
+        {
+          "club": "HNK Gorica",
+          "year": "2021"
+        },
+        {
+          "club": "Göztepe",
+          "year": "2021"
+        },
+        {
+          "club": "SH Port",
+          "year": "2022"
+        },
+        {
+          "club": "Adana Demirspor",
+          "year": "2023"
+        },
+        {
+          "club": "SH Port",
+          "year": "2023"
+        },
+        {
+          "club": "Red Star",
+          "year": "2023"
+        },
+        {
+          "club": "Samsunspor",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 303,
+        "goals": 116,
+        "assists": 32,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 17,
+        "goals": 4,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 12
     },
     {
       "name": "Habib Diallo",
@@ -316,19 +1331,62 @@
       "age": 30,
       "nationality": "Senegal",
       "club": "FC Metz",
-      "appearances": 19,
+      "appearances": 24,
       "goals": 4,
-      "assists": 2
-    },
-    {
-      "name": "Bamba Dieng",
-      "position": "Centre-Forward",
-      "age": 25,
-      "nationality": "Senegal",
-      "club": "FC Lorient",
-      "appearances": 18,
-      "goals": 13,
-      "assists": 1
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "FC Metz",
+          "year": "2015"
+        },
+        {
+          "club": "Stade Brestois",
+          "year": "2017"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2017"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2018"
+        },
+        {
+          "club": "R. Strasbourg",
+          "year": "2020"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2023"
+        },
+        {
+          "club": "Damac FC",
+          "year": "2024"
+        },
+        {
+          "club": "Al-Shabab",
+          "year": "2025"
+        },
+        {
+          "club": "FC Metz",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 380,
+        "goals": 127,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 40,
+        "goals": 9,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 20
     }
   ]
 }

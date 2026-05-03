@@ -9,30 +9,66 @@
     "season": {
       "seasonId": 2025,
       "label": "25/26",
-      "cyclicalName": "2026"
+      "cyclicalName": "2026",
+      "competitionId": "GB1"
     },
-    "note": "Squad from tmapi; appearances/goals/assists from ceapi performance, summed across all competitions for the TM seasonId (current season)."
+    "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
   },
   "goalkeepers": [
-    {
-      "name": "Sander Tangvik",
-      "position": "Goalkeeper",
-      "age": 23,
-      "nationality": "Norway",
-      "club": "Hamburger SV",
-      "appearances": 7,
-      "goals": 0,
-      "assists": 0
-    },
     {
       "name": "Egil Selvik",
       "position": "Goalkeeper",
       "age": 28,
       "nationality": "Norway",
       "club": "Watford FC",
-      "appearances": 33,
+      "appearances": 41,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Sandnes Ulf",
+          "year": "2016"
+        },
+        {
+          "club": "Nest-Sotra FK",
+          "year": "2018"
+        },
+        {
+          "club": "Sandnes Ulf",
+          "year": "2018"
+        },
+        {
+          "club": "Odd",
+          "year": "2019"
+        },
+        {
+          "club": "Haugesund",
+          "year": "2021"
+        },
+        {
+          "club": "Udinese",
+          "year": "2025"
+        },
+        {
+          "club": "Watford",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 244,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 55
+      },
+      "national_team_career_totals": {
+        "appearances": 6,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 4,
+        "clean_sheets": 4
+      },
+      "shirt_number": 13
     },
     {
       "name": "Ørjan Nyland",
@@ -42,29 +78,156 @@
       "club": "Sevilla FC",
       "appearances": 6,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Hødd",
+          "year": "2009"
+        },
+        {
+          "club": "Molde FK",
+          "year": "2013"
+        },
+        {
+          "club": "FC Ingolstadt",
+          "year": "2015"
+        },
+        {
+          "club": "Aston Villa",
+          "year": "2018"
+        },
+        {
+          "club": "Without Club",
+          "year": "2020"
+        },
+        {
+          "club": "Norwich",
+          "year": "2021"
+        },
+        {
+          "club": "Bournemouth",
+          "year": "2021"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Reading",
+          "year": "2022"
+        },
+        {
+          "club": "Leipzig",
+          "year": "2022"
+        },
+        {
+          "club": "Sevilla FC",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 329,
+        "goals": 0,
+        "assists": 1,
+        "goals_conceded": 0,
+        "clean_sheets": 89
+      },
+      "national_team_career_totals": {
+        "appearances": 69,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": 73,
+        "clean_sheets": 26
+      },
+      "shirt_number": 1
     },
     {
-      "name": "Mathias Dyngeland",
+      "name": "Viljar Myhra",
       "position": "Goalkeeper",
-      "age": 30,
+      "age": 29,
       "nationality": "Norway",
-      "club": "SK Brann",
-      "appearances": 18,
+      "club": "Odense Boldklub",
+      "appearances": 22,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Odd",
+          "year": "2014"
+        },
+        {
+          "club": "Strømsgodset",
+          "year": "2019"
+        },
+        {
+          "club": "Odense BK",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": 0,
+        "clean_sheets": 56
+      },
+      "national_team_career_totals": {
+        "appearances": 0,
+        "goals": 0,
+        "assists": null,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 12
     }
   ],
   "defenders": [
     {
       "name": "Kristoffer Ajer",
       "position": "Centre-Back",
-      "age": 27,
+      "age": 28,
       "nationality": "Norway",
       "club": "Brentford FC",
-      "appearances": 28,
+      "appearances": 29,
       "goals": 0,
-      "assists": 2
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "IK Start",
+          "year": "2014"
+        },
+        {
+          "club": "Celtic",
+          "year": "2016"
+        },
+        {
+          "club": "Kilmarnock FC",
+          "year": "2017"
+        },
+        {
+          "club": "Celtic",
+          "year": "2017"
+        },
+        {
+          "club": "Brentford",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 386,
+        "goals": 25,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 50,
+        "goals": 2,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 3
     },
     {
       "name": "Torbjørn Heggem",
@@ -72,9 +235,46 @@
       "age": 27,
       "nationality": "Norway",
       "club": "Bologna FC 1909",
-      "appearances": 31,
+      "appearances": 36,
       "goals": 0,
-      "assists": 0
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Ranheim",
+          "year": "2019"
+        },
+        {
+          "club": "Sandnes Ulf",
+          "year": "2021"
+        },
+        {
+          "club": "Brommapojkarna",
+          "year": "2023"
+        },
+        {
+          "club": "West Brom",
+          "year": "2024"
+        },
+        {
+          "club": "Bologna",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 267,
+        "goals": 10,
+        "assists": 8,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 13,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 17
     },
     {
       "name": "Leo Østigård",
@@ -82,39 +282,219 @@
       "age": 26,
       "nationality": "Norway",
       "club": "Genoa CFC",
-      "appearances": 24,
+      "appearances": 30,
       "goals": 5,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Molde FK",
+          "year": "2018"
+        },
+        {
+          "club": "Viking FK",
+          "year": "2018"
+        },
+        {
+          "club": "Brighton",
+          "year": "2018"
+        },
+        {
+          "club": "St. Pauli",
+          "year": "2019"
+        },
+        {
+          "club": "Brighton",
+          "year": "2020"
+        },
+        {
+          "club": "Coventry",
+          "year": "2020"
+        },
+        {
+          "club": "Brighton",
+          "year": "2021"
+        },
+        {
+          "club": "Stoke City",
+          "year": "2021"
+        },
+        {
+          "club": "Brighton",
+          "year": "2022"
+        },
+        {
+          "club": "Genoa",
+          "year": "2022"
+        },
+        {
+          "club": "Napoli",
+          "year": "2022"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2024"
+        },
+        {
+          "club": "Hoffenheim",
+          "year": "2025"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2025"
+        },
+        {
+          "club": "Genoa",
+          "year": "2025"
+        },
+        {
+          "club": "Genoa",
+          "year": "2026"
+        },
+        {
+          "club": "Stade Rennais",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 240,
+        "goals": 19,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 36,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 4
     },
     {
-      "name": "Eivind Helland",
+      "name": "Odin Bjørtuft",
       "position": "Centre-Back",
-      "age": 20,
+      "age": 27,
       "nationality": "Norway",
-      "club": "Bologna FC 1909",
-      "appearances": 14,
-      "goals": 0,
-      "assists": 1
+      "club": "FK Bodø/Glimt",
+      "appearances": 24,
+      "goals": 1,
+      "assists": 0,
+      "transfer_history": [
+        {
+          "club": "Odd",
+          "year": "2017"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 309,
+        "goals": 15,
+        "assists": 15,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 23
     },
     {
-      "name": "Andreas Hanche-Olsen",
+      "name": "Henrik Falchener",
       "position": "Centre-Back",
-      "age": 29,
+      "age": 22,
       "nationality": "Norway",
-      "club": "1.FSV Mainz 05",
-      "appearances": 21,
-      "goals": 0,
-      "assists": 0
+      "club": "Viking FK",
+      "appearances": 13,
+      "goals": 1,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Sandefjord",
+          "year": "2020"
+        },
+        {
+          "club": "Without Club",
+          "year": "2022"
+        },
+        {
+          "club": "Ørn Horten",
+          "year": "2022"
+        },
+        {
+          "club": "Egersund",
+          "year": "2024"
+        },
+        {
+          "club": "Viking FK",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 127,
+        "goals": 11,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 1,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 24
     },
     {
       "name": "David Møller Wolfe",
       "position": "Left-Back",
-      "age": 23,
+      "age": 24,
       "nationality": "Norway",
       "club": "Wolverhampton Wanderers",
-      "appearances": 22,
+      "appearances": 23,
       "goals": 2,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Åsane",
+          "year": "2020"
+        },
+        {
+          "club": "SK Brann",
+          "year": "2021"
+        },
+        {
+          "club": "AZ Alkmaar",
+          "year": "2023"
+        },
+        {
+          "club": "Wolves",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 220,
+        "goals": 9,
+        "assists": 25,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 20,
+        "goals": 1,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 5
     },
     {
       "name": "Fredrik Bjørkan",
@@ -122,9 +502,46 @@
       "age": 27,
       "nationality": "Norway",
       "club": "FK Bodø/Glimt",
-      "appearances": 14,
-      "goals": 0,
-      "assists": 3
+      "appearances": 21,
+      "goals": 1,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Bodø/Glimt",
+          "year": "2015"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2022"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2022"
+        },
+        {
+          "club": "Hertha BSC",
+          "year": "2023"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 290,
+        "goals": 18,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 19,
+        "goals": 1,
+        "assists": 2,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 15
     },
     {
       "name": "Julian Ryerson",
@@ -132,19 +549,42 @@
       "age": 28,
       "nationality": "Norway",
       "club": "Borussia Dortmund",
-      "appearances": 34,
+      "appearances": 39,
       "goals": 0,
-      "assists": 15
-    },
-    {
-      "name": "Sebastian Sebulonsen",
-      "position": "Right-Back",
-      "age": 26,
-      "nationality": "Norway",
-      "club": "1.FC Köln",
-      "appearances": 26,
-      "goals": 0,
-      "assists": 0
+      "assists": 16,
+      "transfer_history": [
+        {
+          "club": "Viking FK Youth",
+          "year": "2013"
+        },
+        {
+          "club": "Viking FK",
+          "year": "2015"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2018"
+        },
+        {
+          "club": "Dortmund",
+          "year": "2023"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 317,
+        "goals": 17,
+        "assists": 28,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 1,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 14
     },
     {
       "name": "Marcus Pedersen",
@@ -152,9 +592,62 @@
       "age": 25,
       "nationality": "Norway",
       "club": "Torino FC",
-      "appearances": 25,
+      "appearances": 29,
       "goals": 0,
-      "assists": 2
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Tromsø IL Youth",
+          "year": "2016"
+        },
+        {
+          "club": "Tromsø IL",
+          "year": "2019"
+        },
+        {
+          "club": "Molde FK",
+          "year": "2020"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2021"
+        },
+        {
+          "club": "Sassuolo",
+          "year": "2023"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2024"
+        },
+        {
+          "club": "Torino",
+          "year": "2024"
+        },
+        {
+          "club": "Feyenoord",
+          "year": "2025"
+        },
+        {
+          "club": "Torino",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 250,
+        "goals": 7,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 31,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 16
     }
   ],
   "midfielders": [
@@ -164,9 +657,50 @@
       "age": 28,
       "nationality": "Norway",
       "club": "Fulham FC",
-      "appearances": 34,
+      "appearances": 37,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Asker",
+          "year": "2014"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2015"
+        },
+        {
+          "club": "Genk",
+          "year": "2017"
+        },
+        {
+          "club": "Sheff Utd",
+          "year": "2020"
+        },
+        {
+          "club": "Burnley",
+          "year": "2023"
+        },
+        {
+          "club": "Fulham",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 379,
+        "goals": 24,
+        "assists": 20,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 64,
+        "goals": 1,
+        "assists": 5,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 8
     },
     {
       "name": "Patrick Berg",
@@ -174,19 +708,38 @@
       "age": 28,
       "nationality": "Norway",
       "club": "FK Bodø/Glimt",
-      "appearances": 16,
+      "appearances": 24,
       "goals": 0,
-      "assists": 3
-    },
-    {
-      "name": "Sverre Nypan",
-      "position": "Central Midfield",
-      "age": 19,
-      "nationality": "Norway",
-      "club": "Manchester City",
-      "appearances": 27,
-      "goals": 3,
-      "assists": 1
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Bodø/Glimt",
+          "year": "2014"
+        },
+        {
+          "club": "Lens",
+          "year": "2022"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 363,
+        "goals": 44,
+        "assists": 53,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 41,
+        "goals": 0,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 6
     },
     {
       "name": "Kristian Thorstvedt",
@@ -194,9 +747,38 @@
       "age": 27,
       "nationality": "Norway",
       "club": "US Sassuolo",
-      "appearances": 25,
+      "appearances": 29,
       "goals": 3,
-      "assists": 3
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "Viking FK",
+          "year": "2018"
+        },
+        {
+          "club": "Genk",
+          "year": "2020"
+        },
+        {
+          "club": "Sassuolo",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 265,
+        "goals": 57,
+        "assists": 22,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 35,
+        "goals": 4,
+        "assists": 7,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 18
     },
     {
       "name": "Felix Horn Myhre",
@@ -204,41 +786,150 @@
       "age": 27,
       "nationality": "Norway",
       "club": "SK Brann",
-      "appearances": 14,
-      "goals": 2,
-      "assists": 1
+      "appearances": 23,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Ullern",
+          "year": "2014"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2017"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2019"
+        },
+        {
+          "club": "Vålerenga",
+          "year": "2019"
+        },
+        {
+          "club": "SK Brann",
+          "year": "2021"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 296,
+        "goals": 42,
+        "assists": 40,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 7,
+        "goals": 2,
+        "assists": 1,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 19
     },
     {
-      "name": "Aron Dønnum",
-      "position": "Right Midfield",
-      "age": 27,
+      "name": "Morten Thorsby",
+      "position": "Central Midfield",
+      "age": 29,
       "nationality": "Norway",
-      "club": "FC Toulouse",
-      "appearances": 24,
-      "goals": 5,
-      "assists": 5
-    },
-    {
-      "name": "Thelo Aasgaard",
-      "position": "Attacking Midfield",
-      "age": 23,
-      "nationality": "Norway",
-      "club": "Rangers FC",
-      "appearances": 40,
-      "goals": 5,
-      "assists": 3
+      "club": "US Cremonese",
+      "appearances": 22,
+      "goals": 3,
+      "assists": 2,
+      "transfer_history": [
+        {
+          "club": "Lyn",
+          "year": "2010"
+        },
+        {
+          "club": "Stabæk",
+          "year": "2013"
+        },
+        {
+          "club": "Heerenveen",
+          "year": "2014"
+        },
+        {
+          "club": "Sampdoria",
+          "year": "2019"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2022"
+        },
+        {
+          "club": "Genoa",
+          "year": "2023"
+        },
+        {
+          "club": "Union Berlin",
+          "year": "2024"
+        },
+        {
+          "club": "Genoa",
+          "year": "2024"
+        },
+        {
+          "club": "Cremonese",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 392,
+        "goals": 32,
+        "assists": 19,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 30,
+        "goals": 0,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 2
     }
   ],
   "attackers": [
     {
       "name": "Antonio Nusa",
       "position": "Left Winger",
-      "age": 20,
+      "age": 21,
       "nationality": "Norway",
       "club": "RB Leipzig",
-      "appearances": 27,
-      "goals": 3,
-      "assists": 3
+      "appearances": 33,
+      "goals": 5,
+      "assists": 4,
+      "transfer_history": [
+        {
+          "club": "Stabæk",
+          "year": "2021"
+        },
+        {
+          "club": "Club Brugge",
+          "year": "2021"
+        },
+        {
+          "club": "Leipzig",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 177,
+        "goals": 22,
+        "assists": 18,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 22,
+        "goals": 7,
+        "assists": 9,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 20
     },
     {
       "name": "Andreas Schjelderup",
@@ -246,19 +937,117 @@
       "age": 21,
       "nationality": "Norway",
       "club": "SL Benfica",
-      "appearances": 35,
-      "goals": 7,
-      "assists": 4
+      "appearances": 41,
+      "goals": 10,
+      "assists": 6,
+      "transfer_history": [
+        {
+          "club": "Nordsjaelland",
+          "year": "2021"
+        },
+        {
+          "club": "Benfica",
+          "year": "2023"
+        },
+        {
+          "club": "Nordsjaelland",
+          "year": "2023"
+        },
+        {
+          "club": "Benfica",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 194,
+        "goals": 51,
+        "assists": 31,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 10,
+        "goals": 1,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 21
     },
     {
-      "name": "Kristian Arnstad",
+      "name": "Jens Petter Hauge",
       "position": "Left Winger",
-      "age": 22,
+      "age": 26,
       "nationality": "Norway",
-      "club": "Aarhus GF",
-      "appearances": 28,
-      "goals": 10,
-      "assists": 4
+      "club": "FK Bodø/Glimt",
+      "appearances": 24,
+      "goals": 7,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Bodø/Glimt",
+          "year": "2016"
+        },
+        {
+          "club": "Aalesunds FK",
+          "year": "2018"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2018"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2020"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2021"
+        },
+        {
+          "club": "AC Milan",
+          "year": "2022"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2022"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2022"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2023"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2024"
+        },
+        {
+          "club": "Frankfurt",
+          "year": "2024"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2025"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 340,
+        "goals": 70,
+        "assists": 66,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 14,
+        "goals": 1,
+        "assists": 0,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 10
     },
     {
       "name": "Oscar Bobb",
@@ -266,9 +1055,34 @@
       "age": 22,
       "nationality": "Norway",
       "club": "Fulham FC",
-      "appearances": 23,
+      "appearances": 28,
       "goals": 0,
-      "assists": 1
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "Man City",
+          "year": "2023"
+        },
+        {
+          "club": "Fulham",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 175,
+        "goals": 34,
+        "assists": 37,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 18,
+        "goals": 2,
+        "assists": 3,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 22
     },
     {
       "name": "Erling Haaland",
@@ -276,9 +1090,46 @@
       "age": 25,
       "nationality": "Norway",
       "club": "Manchester City",
-      "appearances": 42,
-      "goals": 30,
-      "assists": 7
+      "appearances": 48,
+      "goals": 35,
+      "assists": 7,
+      "transfer_history": [
+        {
+          "club": "Bryne",
+          "year": "2015"
+        },
+        {
+          "club": "Molde FK",
+          "year": "2017"
+        },
+        {
+          "club": "Salzburg",
+          "year": "2019"
+        },
+        {
+          "club": "Dortmund",
+          "year": "2020"
+        },
+        {
+          "club": "Man City",
+          "year": "2022"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 381,
+        "goals": 296,
+        "assists": 65,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 49,
+        "goals": 55,
+        "assists": 6,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 9
     },
     {
       "name": "Jørgen Strand Larsen",
@@ -286,9 +1137,62 @@
       "age": 26,
       "nationality": "Norway",
       "club": "Crystal Palace",
-      "appearances": 36,
-      "goals": 9,
-      "assists": 3
+      "appearances": 41,
+      "goals": 10,
+      "assists": 3,
+      "transfer_history": [
+        {
+          "club": "S08 Youth",
+          "year": "2015"
+        },
+        {
+          "club": "Sarpsborg 08",
+          "year": "2016"
+        },
+        {
+          "club": "Sarpsborg 08",
+          "year": "2018"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2020"
+        },
+        {
+          "club": "Celta de Vigo",
+          "year": "2022"
+        },
+        {
+          "club": "Wolves",
+          "year": "2024"
+        },
+        {
+          "club": "Celta de Vigo",
+          "year": "2025"
+        },
+        {
+          "club": "Wolves",
+          "year": "2025"
+        },
+        {
+          "club": "Crystal Palace",
+          "year": "2026"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 320,
+        "goals": 91,
+        "assists": 36,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 26,
+        "goals": 4,
+        "assists": 4,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 11
     },
     {
       "name": "Alexander Sørloth",
@@ -296,9 +1200,98 @@
       "age": 30,
       "nationality": "Norway",
       "club": "Atlético de Madrid",
-      "appearances": 42,
-      "goals": 16,
-      "assists": 1
+      "appearances": 49,
+      "goals": 19,
+      "assists": 1,
+      "transfer_history": [
+        {
+          "club": "RBK Youth",
+          "year": "2010"
+        },
+        {
+          "club": "Rosenborg BK",
+          "year": "2013"
+        },
+        {
+          "club": "Bodø/Glimt",
+          "year": "2015"
+        },
+        {
+          "club": "Rosenborg BK",
+          "year": "2015"
+        },
+        {
+          "club": "FC Groningen",
+          "year": "2016"
+        },
+        {
+          "club": "Midtjylland",
+          "year": "2017"
+        },
+        {
+          "club": "Crystal Palace",
+          "year": "2018"
+        },
+        {
+          "club": "KAA Gent",
+          "year": "2019"
+        },
+        {
+          "club": "Crystal Palace",
+          "year": "2019"
+        },
+        {
+          "club": "Trabzonspor",
+          "year": "2019"
+        },
+        {
+          "club": "Crystal Palace",
+          "year": "2020"
+        },
+        {
+          "club": "Leipzig",
+          "year": "2020"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2021"
+        },
+        {
+          "club": "Leipzig",
+          "year": "2022"
+        },
+        {
+          "club": "Real Sociedad",
+          "year": "2022"
+        },
+        {
+          "club": "Leipzig",
+          "year": "2023"
+        },
+        {
+          "club": "Villarreal",
+          "year": "2023"
+        },
+        {
+          "club": "Atlético",
+          "year": "2024"
+        }
+      ],
+      "club_career_totals": {
+        "appearances": 472,
+        "goals": 174,
+        "assists": 51,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "national_team_career_totals": {
+        "appearances": 70,
+        "goals": 26,
+        "assists": 13,
+        "goals_conceded": null,
+        "clean_sheets": null
+      },
+      "shirt_number": 7
     }
   ]
 }
