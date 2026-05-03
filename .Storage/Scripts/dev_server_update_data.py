@@ -161,6 +161,244 @@ def _gk_parse_int(cell: str) -> int | None:
     return None
 
 
+def _gk_profile_to_details_path(relative_url: str | None, pid: int) -> str:
+    """Build a leistungsdatendetails path from profile URL (or pid fallback).
+
+    Handles absolute/relative TM profile URLs and preserves the slug when present.
+    """
+    pid_s = str(int(pid))
+    if isinstance(relative_url, str) and relative_url.strip():
+        raw = relative_url.strip()
+        parsed = urlparse(raw)
+        path = (parsed.path or raw).split("?", 1)[0]
+        path = path.strip()
+        if "/profil/spieler/" in path:
+            base = path.replace("/profil/spieler/", "/leistungsdatendetails/spieler/", 1)
+            if not base.startswith("/"):
+                base = "/" + base
+            return base
+        m = _re_gk.search(r"/spieler/(\d+)", path)
+        if m:
+            return f"/-/leistungsdatendetails/spieler/{m.group(1)}"
+    return f"/-/leistungsdatendetails/spieler/{pid_s}"
+
+
+def _gk_extract_totals_from_per_club_api(payload: object) -> tuple[int | None, int | None]:
+    """Extract GK career totals from TMKT get_player_stats_per_club() payload.
+
+    Expected shape (current tmkt package): a dict with `performances` list where
+    each row can include `concededGoals` and `cleanSheets`.
+    """
+    if not isinstance(payload, dict):
+        return (None, None)
+    rows = payload.get("performances")
+    if not isinstance(rows, list) or not rows:
+        return (None, None)
+    gc_total = 0
+    cs_total = 0
+    has_gc = False
+    has_cs = False
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        gc_v = row.get("concededGoals")
+        cs_v = row.get("cleanSheets")
+        if isinstance(gc_v, (int, float)) and gc_v >= 0:
+            gc_total += int(gc_v)
+            has_gc = True
+        if isinstance(cs_v, (int, float)) and cs_v >= 0:
+            cs_total += int(cs_v)
+            has_cs = True
+    return (gc_total if has_gc else None, cs_total if has_cs else None)
+
+
+def _player_current_season_totals_from_rows(
+    rows: object, *, is_goalkeeper: bool
+) -> dict[str, int | None]:
+    """Aggregate one player's current-season rows across all competitions."""
+    out: dict[str, int | None] = {
+        "appearances": 0,
+        "goals": 0,
+        "assists": 0,
+    }
+    if is_goalkeeper:
+        out["goals_conceded"] = None
+        out["clean_sheets"] = None
+    if not isinstance(rows, list):
+        return out
+
+    apps = goals = assists = 0
+    gc_total = cs_total = 0
+    has_gc = has_cs = False
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        apps += int(row.get("gamesPlayed") or row.get("appearances") or 0)
+        goals += int(row.get("goalsScored") or row.get("goals") or 0)
+        assists += int(row.get("assists") or 0)
+        if is_goalkeeper:
+            gc_raw = row.get("concededGoals")
+            if gc_raw is None:
+                gc_raw = row.get("goalsConceded")
+            cs_raw = row.get("cleanSheets")
+            if gc_raw is not None:
+                gc_total += int(gc_raw or 0)
+                has_gc = True
+            if cs_raw is not None:
+                cs_total += int(cs_raw or 0)
+                has_cs = True
+    out["appearances"] = apps
+    out["goals"] = goals
+    out["assists"] = assists
+    if is_goalkeeper:
+        out["goals_conceded"] = gc_total if has_gc else None
+        out["clean_sheets"] = cs_total if has_cs else None
+    return out
+
+
+def _reorder_player_fields_for_output(player: dict, *, is_goalkeeper: bool) -> dict:
+    """Return player dict with stable field order for JSON output."""
+    if not isinstance(player, dict):
+        return player
+    ordered: dict = {}
+    key_order = [
+        "name",
+        "position",
+        "age",
+        "nationality",
+        "club",
+        "appearances",
+        "goals",
+        "assists",
+    ]
+    if is_goalkeeper:
+        key_order.extend(["goals_conceded", "clean_sheets"])
+    key_order.extend(
+        [
+            "transfer_history",
+            "club_career_totals",
+            "national_team_career_totals",
+            "shirt_number",
+        ]
+    )
+    for k in key_order:
+        if k in player:
+            ordered[k] = player[k]
+    # Preserve any unexpected fields at the end.
+    for k, v in player.items():
+        if k not in ordered:
+            ordered[k] = v
+    return ordered
+
+
+async def _patch_current_season_totals_in_payload(
+    payload: dict,
+    tmkt,
+    fill_module,
+    *,
+    cid: int,
+    season_id: int | None,
+) -> None:
+    """Patch top-level player season stats to include all competitions.
+
+    Uses TMKT get_player_stats(..., season=season_id) rows and sums them across
+    all competitions (league + cups + continental) for each player.
+    """
+    if not isinstance(payload, dict):
+        return
+    try:
+        squad = await tmkt.get_club_squad(cid)
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  current-season patch: get_club_squad({cid}) failed: {type(exc).__name__}: {exc}")
+        return
+    if not isinstance(squad, dict) or not squad.get("success"):
+        _gk_log(f"  current-season patch: get_club_squad({cid}) no success")
+        return
+    pids = (squad.get("data") or {}).get("playerIds") or []
+    if not pids:
+        _gk_log(f"  current-season patch: get_club_squad({cid}) returned no playerIds")
+        return
+
+    import asyncio as _ud_asyncio_local
+
+    sem = _ud_asyncio_local.Semaphore(4)
+    try:
+        name_meta = await fill_module._build_name_to_meta(tmkt, pids, sem=sem)
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  current-season patch: _build_name_to_meta failed: {type(exc).__name__}: {exc}")
+        return
+
+    stats_by_pid: dict[int, dict[str, int | None]] = {}
+
+    async def one(pid_raw) -> None:
+        pid_int = int(pid_raw)
+        rows = None
+        try:
+            if season_id is not None:
+                rows = await tmkt.get_player_stats(pid_int, season=season_id)
+            else:
+                rows = await tmkt.get_player_stats(pid_int)
+        except Exception:  # noqa: BLE001
+            try:
+                rows = await tmkt.get_player_stats(pid_int)
+            except Exception:  # noqa: BLE001
+                rows = None
+        # Keep full aggregate + GK-specific aggregate; we select by bucket later.
+        all_totals = _player_current_season_totals_from_rows(rows, is_goalkeeper=False)
+        gk_totals = _player_current_season_totals_from_rows(rows, is_goalkeeper=True)
+        merged = dict(all_totals)
+        merged["goals_conceded"] = gk_totals.get("goals_conceded")
+        merged["clean_sheets"] = gk_totals.get("clean_sheets")
+        stats_by_pid[pid_int] = merged
+
+    await _ud_asyncio_local.gather(*(one(pid_raw) for pid_raw in pids))
+
+    buckets = ("goalkeepers", "defenders", "midfielders", "attackers")
+    patched = 0
+    for bucket in buckets:
+        players = payload.get(bucket)
+        if not isinstance(players, list):
+            continue
+        is_gk_bucket = bucket == "goalkeepers"
+        for idx, pl in enumerate(players):
+            if not isinstance(pl, dict):
+                continue
+            pname = (pl.get("name") or "").strip()
+            if not pname:
+                continue
+            meta = name_meta.get(pname)
+            if not meta:
+                low = pname.lower()
+                for k, v in name_meta.items():
+                    kl = k.lower()
+                    if kl == low or low in kl or kl in low:
+                        meta = v
+                        break
+            if not meta:
+                continue
+            pid_int = int(meta[0])
+            st = stats_by_pid.get(pid_int)
+            if not isinstance(st, dict):
+                continue
+            pl["appearances"] = int(st.get("appearances") or 0)
+            pl["goals"] = int(st.get("goals") or 0)
+            pl["assists"] = int(st.get("assists") or 0)
+            if is_gk_bucket:
+                pl["goals_conceded"] = (
+                    int(st["goals_conceded"])
+                    if isinstance(st.get("goals_conceded"), (int, float))
+                    else None
+                )
+                pl["clean_sheets"] = (
+                    int(st["clean_sheets"])
+                    if isinstance(st.get("clean_sheets"), (int, float))
+                    else None
+                )
+            players[idx] = _reorder_player_fields_for_output(pl, is_goalkeeper=is_gk_bucket)
+            patched += 1
+    _gk_log(f"  current-season patch: updated season totals for {patched} players")
+
+
 def _gk_extract_totals_from_html(html: str) -> tuple[int | None, int | None]:
     """Extract (goals_conceded, clean_sheets) from a leistungsdatendetails HTML.
 
@@ -324,16 +562,24 @@ async def _refresh_gk_totals_for_player(
     relative_url: str | None,
 ) -> tuple[int | None, int | None]:
     """Fetch a goalkeeper's leistungsdatendetails page and extract (goals_conceded, clean_sheets)."""
+    # Transfermarkt's detailed-stats HTML moved to web components in many cases
+    # (no static <table> in source). Prefer the per-club stats API and keep HTML
+    # parsing as a fallback for older pages.
+    try:
+        per_club = await tmkt.get_player_stats_per_club(int(pid))
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  pid={pid}: get_player_stats_per_club raised {type(exc).__name__}: {exc}")
+        per_club = None
+    api_gc, api_cs = _gk_extract_totals_from_per_club_api(per_club)
+    _gk_log(f"  pid={pid}: per-club API parsed (goals_conceded, clean_sheets) = ({api_gc}, {api_cs})")
+    if api_gc is not None and api_gc > 0:
+        return (api_gc, api_cs if api_cs is not None else None)
+
+    path_on_site = _gk_profile_to_details_path(relative_url, pid)
     if not relative_url:
-        _gk_log(f"  pid={pid}: no relativeUrl, skip")
-        return (None, None)
-    m = _re_gk.search(r"/([^/]+)/profil/spieler/(\d+)", relative_url)
-    if not m:
-        _gk_log(f"  pid={pid}: relativeUrl={relative_url!r} did NOT match /<slug>/profil/spieler/<pid>")
-        return (None, None)
-    slug = m.group(1)
-    pid_s = m.group(2)
-    path_on_site = f"/{slug}/leistungsdatendetails/spieler/{pid_s}"
+        _gk_log(f"  pid={pid}: no relativeUrl, using pid-fallback path={path_on_site}")
+    else:
+        _gk_log(f"  pid={pid}: relativeUrl={relative_url!r} -> path={path_on_site}")
     try:
         html = await fill_module._fetch_tm_html_prefer_session(tmkt, path_on_site)
     except Exception as exc:  # noqa: BLE001
@@ -901,6 +1147,24 @@ async def _refresh_all_async(
                         # them. Defends against legacy scraper quirks (zeroed
                         # goals_conceded for GKs, off-by-one clean_sheets, etc).
                         _apply_career_totals_monotonic_guard(payload, raw)
+                        # Top-level season stats should include all competitions
+                        # (league + cups + continental), not domestic league only.
+                        try:
+                            await _patch_current_season_totals_in_payload(
+                                payload,
+                                tmkt,
+                                fill_module,
+                                cid=cid,
+                                season_id=sid_club,
+                            )
+                        except Exception as season_patch_exc:  # noqa: BLE001
+                            import sys as _sys
+                            print(
+                                f"[update-data] current-season patch failed for {jp.name}: "
+                                f"{type(season_patch_exc).__name__}: {season_patch_exc}",
+                                file=_sys.stderr,
+                                flush=True,
+                            )
 
                         jp.write_text(
                             json.dumps(payload, indent=2, ensure_ascii=False) + "\n",

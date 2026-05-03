@@ -492,5 +492,136 @@ class GkTotalsExtractorTest(unittest.TestCase):
         self.assertEqual(cs, 200)
 
 
+class GkDetailsPathBuilderTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.mod = _load()
+
+    def test_builds_from_standard_relative_profile_url(self) -> None:
+        rel = "/ederson/profil/spieler/238223"
+        path = self.mod._gk_profile_to_details_path(rel, 238223)
+        self.assertEqual(path, "/ederson/leistungsdatendetails/spieler/238223")
+
+    def test_builds_from_absolute_profile_url(self) -> None:
+        rel = "https://www.transfermarkt.com/ederson/profil/spieler/238223?foo=bar"
+        path = self.mod._gk_profile_to_details_path(rel, 238223)
+        self.assertEqual(path, "/ederson/leistungsdatendetails/spieler/238223")
+
+    def test_falls_back_to_pid_when_shape_is_unexpected(self) -> None:
+        rel = "/player/ederson/238223"
+        path = self.mod._gk_profile_to_details_path(rel, 238223)
+        self.assertEqual(path, "/-/leistungsdatendetails/spieler/238223")
+
+    def test_falls_back_to_pid_when_relative_url_missing(self) -> None:
+        path = self.mod._gk_profile_to_details_path(None, 238223)
+        self.assertEqual(path, "/-/leistungsdatendetails/spieler/238223")
+
+
+class GkPerClubApiTotalsTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.mod = _load()
+
+    def test_sums_conceded_and_clean_sheets(self) -> None:
+        payload = {
+            "goalkeeper": True,
+            "performances": [
+                {"concededGoals": 265, "cleanSheets": 88},
+                {"concededGoals": 191, "cleanSheets": 75},
+                {"concededGoals": 3, "cleanSheets": 0},
+            ],
+        }
+        gc, cs = self.mod._gk_extract_totals_from_per_club_api(payload)
+        self.assertEqual(gc, 459)
+        self.assertEqual(cs, 163)
+
+    def test_handles_missing_rows(self) -> None:
+        gc, cs = self.mod._gk_extract_totals_from_per_club_api({"performances": []})
+        self.assertIsNone(gc)
+        self.assertIsNone(cs)
+
+    def test_ignores_non_numeric_values(self) -> None:
+        payload = {
+            "performances": [
+                {"concededGoals": "n/a", "cleanSheets": None},
+                {"concededGoals": 12, "cleanSheets": 4},
+            ],
+        }
+        gc, cs = self.mod._gk_extract_totals_from_per_club_api(payload)
+        self.assertEqual(gc, 12)
+        self.assertEqual(cs, 4)
+
+
+class CurrentSeasonTotalsFromRowsTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.mod = _load()
+
+    def test_outfield_sums_all_competitions(self) -> None:
+        rows = [
+            {"gamesPlayed": 30, "goalsScored": 12, "assists": 5},
+            {"gamesPlayed": 6, "goalsScored": 3, "assists": 1},
+            {"gamesPlayed": 3, "goalsScored": 2, "assists": 0},
+        ]
+        out = self.mod._player_current_season_totals_from_rows(rows, is_goalkeeper=False)
+        self.assertEqual(out["appearances"], 39)
+        self.assertEqual(out["goals"], 17)
+        self.assertEqual(out["assists"], 6)
+
+    def test_goalkeeper_includes_conceded_and_clean_sheets(self) -> None:
+        rows = [
+            {"gamesPlayed": 30, "goalsScored": 0, "assists": 0, "concededGoals": 25, "cleanSheets": 13},
+            {"gamesPlayed": 9, "goalsScored": 0, "assists": 0, "concededGoals": 12, "cleanSheets": 3},
+        ]
+        out = self.mod._player_current_season_totals_from_rows(rows, is_goalkeeper=True)
+        self.assertEqual(out["appearances"], 39)
+        self.assertEqual(out["goals"], 0)
+        self.assertEqual(out["assists"], 0)
+        self.assertEqual(out["goals_conceded"], 37)
+        self.assertEqual(out["clean_sheets"], 16)
+
+    def test_goalkeeper_handles_alternative_key_name(self) -> None:
+        rows = [{"gamesPlayed": 1, "goalsConceded": 2, "cleanSheets": 0}]
+        out = self.mod._player_current_season_totals_from_rows(rows, is_goalkeeper=True)
+        self.assertEqual(out["goals_conceded"], 2)
+        self.assertEqual(out["clean_sheets"], 0)
+
+
+class PlayerFieldOrderTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.mod = _load()
+
+    def test_goalkeeper_fields_order_puts_gk_stats_after_assists(self) -> None:
+        pl = {
+            "name": "GK",
+            "position": "Goalkeeper",
+            "age": 27,
+            "nationality": "Italy",
+            "club": "Manchester City",
+            "appearances": 39,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [],
+            "club_career_totals": {},
+            "national_team_career_totals": {},
+            "goals_conceded": 37,
+            "clean_sheets": 16,
+            "shirt_number": 25,
+        }
+        ordered = self.mod._reorder_player_fields_for_output(pl, is_goalkeeper=True)
+        self.assertEqual(
+            list(ordered.keys())[:10],
+            [
+                "name",
+                "position",
+                "age",
+                "nationality",
+                "club",
+                "appearances",
+                "goals",
+                "assists",
+                "goals_conceded",
+                "clean_sheets",
+            ],
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
